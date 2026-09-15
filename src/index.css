@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #f8fafc; /* Slate-50 */
+    color: #0f172a; /* Slate-900 */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+}
+
+/* Custom scrollbars for clean academic workspace */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* KaTeX formula fine-tuning for chemistry inline readability */
+.katex {
+  font-size: 1.05em !important;
+  text-rendering: auto;
+}
+
+/* Prevent MathML duplication/ghost text */
+.katex-mathml {
+  display: none !important;
+}
+
+.katex-display {
+  margin: 0.8em 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}
+
+/* Flame streak pulsating subtle glow */
+@keyframes flame-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+  }
+  50% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
+  }
+}
+
+.animate-flame {
+  animation: flame-pulse 2.2s infinite ease-in-out;
+}
+
+/* Glassmorphism surface subtle border */
+.lab-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lab-card:hover {
+  border-color: rgba(203, 213, 225, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Mobile KaTeX formula fine-tuning for smaller screens */
+@media (max-width: 640px) {
+  .katex {
+    font-size: 0.95em !important;
+  }
+  .katex-display {
+    font-size: 0.9em !important;
+    margin: 0.5em 0 !important;
+    padding: 0.2rem 0;
+  }
+}
+
+/* Bottom Sheet & Modal Animations */
+@keyframes sheetSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheetFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-sheet-slide-up {
+  animation: sheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-sheet-fade-in {
+  animation: sheetFadeIn 0.2s ease-out forwards;
+}
+

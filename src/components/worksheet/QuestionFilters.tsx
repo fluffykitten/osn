@@ -1,0 +1,285 @@
+import React, { useState } from 'react';
+import { Search, Filter, Bookmark, Tag, RotateCcw, Plus, X } from 'lucide-react';
+import { PILLARS_DATA } from '../../data/syllabusData';
+import { tagAndBookmarkService } from '../../services/tagAndBookmarkService';
+import type { QuestionFilter, QuestionDifficulty, QuestionStyle } from '../../types/database';
+
+interface QuestionFiltersProps {
+  filter: QuestionFilter;
+  onChange: (filter: QuestionFilter) => void;
+  totalFound: number;
+}
+
+export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
+  filter,
+  onChange,
+  totalFound,
+}) => {
+  const [newTagInput, setNewTagInput] = useState('');
+  const [showTagInput, setShowTagInput] = useState(false);
+  const [availableTags, setAvailableTags] = useState<string[]>(tagAndBookmarkService.getAllGlobalTags());
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange({ ...filter, search: e.target.value });
+  };
+
+  const handleDifficultySelect = (difficulty: QuestionDifficulty | 'ALL') => {
+    onChange({ ...filter, difficulty });
+  };
+
+  const handlePillarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    onChange({ ...filter, pillarNumber: val === 'ALL' ? 'ALL' : Number(val) });
+  };
+
+  const handleStyleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value as QuestionStyle | 'ALL';
+    onChange({ ...filter, questionStyle: val });
+  };
+
+  const handleBookmarkToggle = () => {
+    onChange({ ...filter, bookmarkedOnly: !filter.bookmarkedOnly });
+  };
+
+  const handleTagToggle = (tag: string) => {
+    const currentTags = filter.selectedTags || [];
+    const newTags = currentTags.includes(tag)
+      ? currentTags.filter((t) => t !== tag)
+      : [...currentTags, tag];
+    onChange({ ...filter, selectedTags: newTags });
+  };
+
+  const handleAddGlobalTag = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTagInput.trim()) return;
+    const formatted = newTagInput.trim().startsWith('#')
+      ? newTagInput.trim()
+      : `#${newTagInput.trim().toLowerCase().replace(/\s+/g, '-')}`;
+
+    if (!availableTags.includes(formatted)) {
+      setAvailableTags((prev) => [...prev, formatted]);
+    }
+    handleTagToggle(formatted);
+    setNewTagInput('');
+    setShowTagInput(false);
+  };
+
+  const handleReset = () => {
+    onChange({
+      search: '',
+      difficulty: 'ALL',
+      pillarNumber: 'ALL',
+      questionStyle: 'ALL',
+      bookmarkedOnly: false,
+      selectedTags: [],
+      sortBy: 'newest',
+    });
+  };
+
+  const activeFilterCount =
+    (filter.search ? 1 : 0) +
+    (filter.difficulty && filter.difficulty !== 'ALL' ? 1 : 0) +
+    (filter.pillarNumber && filter.pillarNumber !== 'ALL' ? 1 : 0) +
+    (filter.questionStyle && filter.questionStyle !== 'ALL' ? 1 : 0) +
+    (filter.bookmarkedOnly ? 1 : 0) +
+    (filter.selectedTags && filter.selectedTags.length > 0 ? filter.selectedTags.length : 0);
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-5 space-y-5">
+      {/* Header & Reset */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-emerald-600" />
+          <h3 className="text-sm font-bold text-slate-900 font-display">Filter & Kurasi Soal</h3>
+          {activeFilterCount > 0 && (
+            <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">
+              {activeFilterCount}
+            </span>
+          )}
+        </div>
+
+        {activeFilterCount > 0 && (
+          <button
+            onClick={handleReset}
+            className="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1 transition-colors"
+            title="Reset semua filter"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>Reset</span>
+          </button>
+        )}
+      </div>
+
+      {/* Search Input */}
+      <div className="relative">
+        <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+        <input
+          type="text"
+          placeholder="Cari konsep, rumus, atau judul..."
+          value={filter.search || ''}
+          onChange={handleSearchChange}
+          className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 text-slate-900 placeholder:text-slate-400 transition-all"
+        />
+        {filter.search && (
+          <button
+            onClick={() => onChange({ ...filter, search: '' })}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        )}
+      </div>
+
+      {/* Tingkat Kesulitan Olympiad Badges */}
+      <div>
+        <label className="text-xs font-semibold text-slate-700 block mb-2">Tingkat Kompetisi:</label>
+        <div className="grid grid-cols-5 gap-1.5">
+          {(['ALL', 'OSK', 'OSP', 'OSN', 'IChO'] as const).map((lvl) => {
+            const isSelected = (filter.difficulty || 'ALL') === lvl;
+            return (
+              <button
+                key={lvl}
+                onClick={() => handleDifficultySelect(lvl)}
+                className={`py-1.5 px-2 text-xs font-bold rounded-lg transition-all text-center ${
+                  isSelected
+                    ? lvl === 'OSK'
+                      ? 'bg-blue-600 text-white shadow-xs'
+                      : lvl === 'OSP'
+                      ? 'bg-amber-600 text-white shadow-xs'
+                      : lvl === 'OSN'
+                      ? 'bg-emerald-600 text-white shadow-xs'
+                      : lvl === 'IChO'
+                      ? 'bg-purple-600 text-white shadow-xs'
+                      : 'bg-slate-900 text-white shadow-xs'
+                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+                }`}
+              >
+                {lvl === 'ALL' ? 'Semua' : lvl}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Topik Silabus OSN (10 Pilar) */}
+      <div>
+        <label className="text-xs font-semibold text-slate-700 block mb-1.5">Pilar Silabus OSN:</label>
+        <select
+          value={filter.pillarNumber || 'ALL'}
+          onChange={handlePillarChange}
+          className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-slate-800"
+        >
+          <option value="ALL">Semua 10 Topik Silabus</option>
+          {PILLARS_DATA.map((p) => (
+            <option key={p.pillar_number} value={p.pillar_number}>
+              Topik #{p.pillar_number}: {p.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Gaya Soal (Question Style) */}
+      <div>
+        <label className="text-xs font-semibold text-slate-700 block mb-1.5">Tipe / Format Soal:</label>
+        <select
+          value={filter.questionStyle || 'ALL'}
+          onChange={handleStyleChange}
+          className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-slate-800"
+        >
+          <option value="ALL">Semua Format Soal</option>
+          <option value="structured">Soal Esai Terstruktur (a, b, c)</option>
+          <option value="calculation">Kalkulasi Numerik & Stoikiometri</option>
+          <option value="mcq">Pilihan Ganda Berbobot</option>
+          <option value="data_analysis">Analisis Data Eksperimen / Tabel</option>
+        </select>
+      </div>
+
+      {/* Bookmark Toggle */}
+      <div className="pt-1">
+        <button
+          onClick={handleBookmarkToggle}
+          className={`w-full py-2 px-3 rounded-xl border flex items-center justify-between text-xs font-semibold transition-all ${
+            filter.bookmarkedOnly
+              ? 'bg-amber-50 border-amber-300 text-amber-900 shadow-2xs'
+              : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <Bookmark
+              className={`w-4 h-4 ${
+                filter.bookmarkedOnly ? 'fill-amber-500 text-amber-500' : 'text-slate-400'
+              }`}
+            />
+            <span>Hanya Soal Ditandai (Favorit)</span>
+          </div>
+          {filter.bookmarkedOnly && (
+            <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+          )}
+        </button>
+      </div>
+
+      {/* Custom Tag Chips */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+            <Tag className="w-3.5 h-3.5 text-slate-400" />
+            <span>Tag Guru & Kurasi:</span>
+          </label>
+          <button
+            type="button"
+            onClick={() => setShowTagInput(!showTagInput)}
+            className="text-[11px] text-emerald-600 hover:text-emerald-700 font-semibold flex items-center gap-0.5"
+          >
+            <Plus className="w-3 h-3" />
+            <span>Tag Baru</span>
+          </button>
+        </div>
+
+        {showTagInput && (
+          <form onSubmit={handleAddGlobalTag} className="flex gap-1.5 mb-2.5">
+            <input
+              type="text"
+              placeholder="#tag-baru..."
+              value={newTagInput}
+              onChange={(e) => setNewTagInput(e.target.value)}
+              className="flex-1 px-2.5 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-emerald-500"
+              autoFocus
+            />
+            <button
+              type="submit"
+              className="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-medium hover:bg-emerald-700"
+            >
+              Tambah
+            </button>
+          </form>
+        )}
+
+        <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pr-1">
+          {availableTags.slice(0, 12).map((tag) => {
+            const isSelected = filter.selectedTags?.includes(tag);
+            return (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => handleTagToggle(tag)}
+                className={`px-2 py-1 rounded-md text-[11px] font-mono transition-all ${
+                  isSelected
+                    ? 'bg-emerald-600 text-white font-bold shadow-2xs'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200/60'
+                }`}
+              >
+                {tag}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Total Found Indicator */}
+      <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+        <span>Hasil Penyaringan:</span>
+        <span className="font-bold text-slate-900 font-mono">{totalFound} Butir Soal</span>
+      </div>
+    </div>
+  );
+};
