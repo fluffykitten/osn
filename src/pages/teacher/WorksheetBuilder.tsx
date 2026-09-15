@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { questionBankService } from '../../services/questionBankService';
 import { examExportService } from '../../services/examExportService';
+import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { isSupabaseConfigured } from '../../lib/supabaseClient';
 import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { QuestionBankBrowser } from '../../components/worksheet/QuestionBankBrowser';
@@ -23,7 +24,10 @@ import {
   X,
   FileCheck,
   AlertCircle,
-  HelpCircle
+  HelpCircle,
+  Radio,
+  KeyRound,
+  Copy,
 } from 'lucide-react';
 import type { Question, QuestionFilter, QuestionDifficulty } from '../../types/database';
 
@@ -36,12 +40,17 @@ export const WorksheetBuilder: React.FC = () => {
   const [passScore, setPassScore] = useState(75);
   const [targetLevel, setTargetLevel] = useState('SELEKSI TINGKAT KABUPATEN/KOTA (OSK)');
 
-  // Questions & Selection
+  // Selected Questions & Selection
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
   const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([100, 101, 102]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
+
+  // Live Token State
+  const [createdLiveToken, setCreatedLiveToken] = useState<string | null>(null);
+  const [isCreatingLive, setIsCreatingLive] = useState(false);
+  const [copiedToken, setCopiedToken] = useState(false);
 
   // Cloud state
   const isCloudAvailable = isSupabaseConfigured();
@@ -151,6 +160,29 @@ export const WorksheetBuilder: React.FC = () => {
     } catch (e) {
       console.error('Gagal menyimpan worksheet:', e);
       setIsSaved(false);
+    }
+  };
+
+  const handleCreateLiveSession = async () => {
+    if (selectedQuestionIds.length === 0) {
+      alert('Pilih minimal satu butir soal untuk membuat sesi live.');
+      return;
+    }
+
+    setIsCreatingLive(true);
+    try {
+      const res = await worksheetRealtimeService.createLiveWorksheet({
+        title,
+        description: `Sesi Kelas Live ${targetLevel} (${selectedQuestions.length} butir soal)`,
+        time_limit_minutes: timeLimit,
+        pass_score: passScore,
+        questionIds: selectedQuestionIds,
+      });
+      setCreatedLiveToken(res.token);
+    } catch (err: any) {
+      alert(`Gagal membuat sesi live: ${err?.message || 'Error'}`);
+    } finally {
+      setIsCreatingLive(false);
     }
   };
 
@@ -390,6 +422,17 @@ export const WorksheetBuilder: React.FC = () => {
                   <span>Simpan & Publikasikan ke Siswa</span>
                 </>
               )}
+            </button>
+
+            {/* Live Token Creation Button */}
+            <button
+              type="button"
+              onClick={handleCreateLiveSession}
+              disabled={isCreatingLive || selectedQuestions.length === 0}
+              className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 border border-slate-700"
+            >
+              <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span>{isCreatingLive ? 'Men-generate Token...' : 'Terbitkan Sesi Live (Generate Token)'}</span>
             </button>
           </div>
 
@@ -660,6 +703,84 @@ export const WorksheetBuilder: React.FC = () => {
                 srcDoc={previewHtml}
                 className="w-full h-full bg-white rounded-xl shadow-md border border-slate-300"
               />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Live Session Token Created Modal */}
+      {createdLiveToken && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn"
+          onClick={() => setCreatedLiveToken(null)}
+        >
+          <div
+            className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden text-center p-6 space-y-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto shadow-inner">
+              <KeyRound className="w-7 h-7" />
+            </div>
+
+            <div>
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold font-mono uppercase">
+                Sesi Kelas Aktif
+              </span>
+              <h3 className="text-lg font-black text-slate-900 font-display mt-2">
+                Worksheet Siap Diakses Siswa!
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                Bagikan kode token unik di bawah ini kepada siswa agar mereka dapat masuk dan mulai mengerjakan.
+              </p>
+            </div>
+
+            {/* Token Highlight Box */}
+            <div className="bg-slate-900 text-white p-4 rounded-2xl flex items-center justify-between shadow-md">
+              <div className="text-left">
+                <span className="text-[10px] text-slate-400 font-mono uppercase tracking-wider block">
+                  KODE TOKEN AKSES:
+                </span>
+                <span className="text-2xl font-black font-mono tracking-widest text-emerald-400">
+                  {createdLiveToken}
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(createdLiveToken);
+                  setCopiedToken(true);
+                  setTimeout(() => setCopiedToken(false), 2000);
+                }}
+                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors"
+              >
+                {copiedToken ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span>Tersalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Salin</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="space-y-2 pt-2">
+              <button
+                onClick={() => navigate(`/teacher/live/${createdLiveToken}`)}
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2"
+              >
+                <Radio className="w-4 h-4 animate-pulse" />
+                <span>Buka Live Classroom Studio Sekarang</span>
+              </button>
+
+              <button
+                onClick={() => setCreatedLiveToken(null)}
+                className="w-full py-2 text-slate-500 hover:text-slate-800 text-xs font-semibold"
+              >
+                Tutup Jendela Ini
+              </button>
             </div>
           </div>
         </div>

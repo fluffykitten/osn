@@ -12,6 +12,7 @@ import { Profile } from './pages/student/Profile';
 import { TeacherDashboard } from './pages/teacher/TeacherDashboard';
 import { AiQuestionStudio } from './pages/teacher/AiQuestionStudio';
 import { WorksheetBuilder } from './pages/teacher/WorksheetBuilder';
+import { LiveClassroomDashboard } from './pages/teacher/LiveClassroomDashboard';
 
 import { useLocation } from 'react-router-dom';
 
@@ -45,6 +46,7 @@ function AppContent() {
           <Route path="/teacher" element={<TeacherDashboard />} />
           <Route path="/teacher/ai-studio" element={<AiQuestionStudio />} />
           <Route path="/teacher/worksheets/new" element={<WorksheetBuilder />} />
+          <Route path="/teacher/live/:token" element={<LiveClassroomDashboard />} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

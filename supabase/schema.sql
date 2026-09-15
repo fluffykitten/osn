@@ -73,10 +73,14 @@ CREATE TABLE IF NOT EXISTS public.worksheets (
     time_limit_minutes INT DEFAULT 60,
     pass_score INT DEFAULT 75,
     is_published BOOLEAN DEFAULT false,
+    access_token TEXT UNIQUE,
+    is_live_monitored BOOLEAN DEFAULT true,
     selected_question_ids BIGINT[] DEFAULT ARRAY[]::BIGINT[],
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_worksheets_access_token ON public.worksheets (access_token);
 
 -- 5. Tabel Item Soal dalam Worksheet (Relasi Many-to-Many terurut)
 CREATE TABLE IF NOT EXISTS public.worksheet_items (
@@ -106,12 +110,57 @@ CREATE TABLE IF NOT EXISTS public.question_user_tags (
     UNIQUE(user_id, question_id, tag_name)
 );
 
--- 7. Row Level Security (RLS) & Kebijakan Akses Terbuka (Public Read/Write untuk Mode Anonim/Guru)
+-- 7. Tabel Sesi Pengerjaan Siswa Secara Real-Time (Live Collaboration)
+CREATE TABLE IF NOT EXISTS public.worksheet_live_sessions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    worksheet_id BIGINT REFERENCES public.worksheets(id) ON DELETE CASCADE,
+    access_token TEXT NOT NULL,
+    student_id TEXT NOT NULL,
+    student_name TEXT NOT NULL,
+    current_question_index INT DEFAULT 0,
+    status TEXT DEFAULT 'active', -- 'active' | 'idle' | 'submitted'
+    live_draft JSONB DEFAULT '{}'::jsonb, -- Record<questionId, { steps, finalAnswer }>
+    total_score NUMERIC DEFAULT 0,
+    max_score NUMERIC DEFAULT 100,
+    last_active_at TIMESTAMPTZ DEFAULT NOW(),
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE(access_token, student_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_live_sessions_token ON public.worksheet_live_sessions (access_token);
+CREATE INDEX IF NOT EXISTS idx_live_sessions_student ON public.worksheet_live_sessions (student_id);
+
+-- 8. Tabel Catatan / Komentar Guru Real-Time (Live Feedback)
+CREATE TABLE IF NOT EXISTS public.worksheet_live_comments (
+    id BIGSERIAL PRIMARY KEY,
+    access_token TEXT NOT NULL,
+    student_id TEXT NOT NULL,
+    teacher_id TEXT NOT NULL,
+    teacher_name TEXT DEFAULT 'Guru Pembina',
+    question_id BIGINT NOT NULL,
+    comment_text TEXT NOT NULL,
+    is_read BOOLEAN DEFAULT false,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_live_comments_token_student ON public.worksheet_live_comments (access_token, student_id);
+
+-- 9. Row Level Security (RLS) & Kebijakan Akses Terbuka (Public Read/Write untuk Mode Anonim/Guru)
 ALTER TABLE public.questions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.worksheets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.worksheet_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.question_bookmarks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.question_user_tags ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.worksheet_live_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.worksheet_live_comments ENABLE ROW LEVEL SECURITY;
+
+DO $$ BEGIN
+    CREATE POLICY "Allow public full access to worksheet_live_sessions" ON public.worksheet_live_sessions FOR ALL USING (true) WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
+
+DO $$ BEGIN
+    CREATE POLICY "Allow public full access to worksheet_live_comments" ON public.worksheet_live_comments FOR ALL USING (true) WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN null; END $$;
 
 -- Kebijakan akses penuh untuk anon & authenticated key
 DO $$ BEGIN

@@ -9,8 +9,9 @@ import { ScaffoldGuideModal } from '../../components/worksheet/ScaffoldGuideModa
 import { addXpLocally } from '../../lib/gamification';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
 import { saveWorksheetSubmission } from '../../services/submissionService';
+import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { findConceptByTag } from '../../data/materialsData';
-import type { GradingResponse } from '../../types/database';
+import type { GradingResponse, TeacherLiveComment } from '../../types/database';
 import {
   ArrowLeft,
   Clock,
@@ -34,6 +35,8 @@ import {
   BookOpen,
   Award,
   ExternalLink,
+  Radio,
+  X,
 } from 'lucide-react';
 
 export const Worksheet: React.FC = () => {
@@ -85,6 +88,45 @@ export const Worksheet: React.FC = () => {
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [isSubmissionSaved, setIsSubmissionSaved] = useState(false);
 
+  // Real-time Two-way Classroom State (Token, Laser Pointer, Teacher Comments)
+  const liveToken = useMemo(() => {
+    if (type === 'live' && id) return id.trim().toUpperCase();
+    const queryToken = new URLSearchParams(window.location.search).get('token');
+    return queryToken ? queryToken.trim().toUpperCase() : null;
+  }, [type, id]);
+
+  const [laserPointer, setLaserPointer] = useState<{ x: number; y: number; active: boolean }>({
+    x: 0,
+    y: 0,
+    active: false,
+  });
+  const [liveComment, setLiveComment] = useState<TeacherLiveComment | null>(null);
+  const typingDebounceRef = useRef<any>(null);
+
+  // Subscribe to Realtime Classroom if liveToken is active
+  useEffect(() => {
+    if (!liveToken) return;
+
+    const unsubscribe = worksheetRealtimeService.subscribeToClassroom(liveToken, {
+      onTeacherLaser: (event) => {
+        if (event.question_id === currentQuestion?.id) {
+          setLaserPointer({
+            x: event.x_percent,
+            y: event.y_percent,
+            active: event.is_laser_active,
+          });
+        }
+      },
+      onTeacherComment: (comment) => {
+        if (!comment.question_id || comment.question_id === currentQuestion?.id) {
+          setLiveComment(comment);
+        }
+      },
+    });
+
+    return () => unsubscribe();
+  }, [liveToken, currentQuestion?.id]);
+
   // Working Time Stopwatch (Menghitung durasi pengerjaan siswa)
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   useEffect(() => {
@@ -116,6 +158,25 @@ export const Worksheet: React.FC = () => {
         finalAnswer: prev[currentQIndex]?.finalAnswer || '',
       },
     }));
+
+    // Broadcast live keystrokes to teacher
+    if (liveToken) {
+      if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
+      typingDebounceRef.current = setTimeout(() => {
+        const studentId = localStorage.getItem('osn_student_id') || 'student-local';
+        const studentName = localStorage.getItem('osn_student_name') || 'Siswa OSN';
+        worksheetRealtimeService.sendStudentKeystroke({
+          access_token: liveToken,
+          student_id: studentId,
+          student_name: studentName,
+          question_id: currentQuestion?.id || currentQIndex,
+          question_index: currentQIndex,
+          steps: val,
+          finalAnswer: answers[currentQIndex]?.finalAnswer || '',
+          timestamp: Date.now(),
+        });
+      }, 150);
+    }
   };
 
   const handleFinalAnswerChange = (val: string) => {
@@ -126,6 +187,24 @@ export const Worksheet: React.FC = () => {
         finalAnswer: val,
       },
     }));
+
+    if (liveToken) {
+      if (typingDebounceRef.current) clearTimeout(typingDebounceRef.current);
+      typingDebounceRef.current = setTimeout(() => {
+        const studentId = localStorage.getItem('osn_student_id') || 'student-local';
+        const studentName = localStorage.getItem('osn_student_name') || 'Siswa OSN';
+        worksheetRealtimeService.sendStudentKeystroke({
+          access_token: liveToken,
+          student_id: studentId,
+          student_name: studentName,
+          question_id: currentQuestion?.id || currentQIndex,
+          question_index: currentQIndex,
+          steps: answers[currentQIndex]?.steps || '',
+          finalAnswer: val,
+          timestamp: Date.now(),
+        });
+      }, 150);
+    }
   };
 
   const handleInsertFromPeriodic = (textToInsert: string) => {
@@ -223,8 +302,18 @@ export const Worksheet: React.FC = () => {
 
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded uppercase font-mono">
-              {type === 'static_module' ? 'Static Module Drill' : 'Teacher Assignment'}
+              {liveToken
+                ? 'Live Classroom Sesi Guru'
+                : type === 'static_module'
+                ? 'Static Module Drill'
+                : 'Teacher Assignment'}
             </span>
+            {liveToken && (
+              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 text-[10px] font-bold font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-600 animate-ping"></span>
+                <span>Token: {liveToken}</span>
+              </span>
+            )}
             <h1 className="text-sm font-bold text-slate-900 font-display hidden sm:inline">
               Topik #{currentQuestion.pillar_number}: {currentQuestion.subtopic}
             </h1>
@@ -474,15 +563,61 @@ export const Worksheet: React.FC = () => {
 
           {/* Editor & Preview Area */}
           <div className="flex-1 p-4 sm:p-5 space-y-4">
+            {/* Live Teacher Sticky Comment / Hint */}
+            {liveComment && (
+              <div className="p-3.5 bg-sky-50 border border-sky-200 rounded-2xl text-xs text-sky-900 shadow-2xs flex items-start justify-between gap-3 animate-fadeIn">
+                <div className="flex items-start gap-2.5">
+                  <Sparkles className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold text-sky-950 block">
+                      Catatan Bimbingan ({liveComment.teacher_name || 'Guru Pembina'}):
+                    </span>
+                    <p className="text-sky-900 mt-0.5 leading-relaxed font-medium">
+                      {liveComment.comment_text}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setLiveComment(null)}
+                  className="text-sky-400 hover:text-sky-700 p-0.5 rounded"
+                  title="Tutup Catatan"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
             {/* Work Area Grid based on Workspace Mode */}
             <div
               className={`grid gap-4 ${
                 workspaceMode === 'split' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'
               }`}
             >
-              {/* Editor Textarea */}
+              {/* Editor Textarea with Laser Pointer Overlay */}
               {(workspaceMode === 'split' || workspaceMode === 'editor') && (
-                <div className="flex flex-col space-y-1.5">
+                <div className="relative flex flex-col space-y-1.5">
+                  {/* Virtual Laser Pointer Beacon */}
+                  {laserPointer.active && (
+                    <div
+                      className="pointer-events-none absolute z-30 transition-all duration-75 ease-out"
+                      style={{
+                        left: `${laserPointer.x}%`,
+                        top: `${laserPointer.y}%`,
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                    >
+                      <div className="relative flex items-center">
+                        <span className="relative flex h-4 w-4">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-rose-600 shadow-[0_0_12px_#e11d48]"></span>
+                        </span>
+                        <span className="ml-1.5 px-2 py-0.5 rounded-full bg-rose-950/90 text-white text-[9px] font-bold font-mono whitespace-nowrap shadow-md border border-rose-500/40">
+                          🔴 Guru menunjuk
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between text-xs font-semibold text-slate-600">
                     <label>Langkah & Penalaran Perhitungan:</label>
                     <span className="text-[11px] text-slate-400 font-mono">

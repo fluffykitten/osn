@@ -136,9 +136,60 @@ export interface Worksheet {
   time_limit_minutes?: number;
   pass_score: number;
   is_published: boolean;
+  access_token?: string;
+  is_live_monitored?: boolean;
   created_at?: string;
   item_count?: number;
   items?: WorksheetItem[];
+}
+
+export interface WorksheetLiveSession {
+  id?: string;
+  worksheet_id: number;
+  access_token: string;
+  student_id: string;
+  student_name: string;
+  current_question_index: number;
+  status: 'active' | 'idle' | 'submitted';
+  live_draft: Record<number, { steps: string; finalAnswer: string }>;
+  total_score?: number;
+  max_score?: number;
+  last_active_at?: string;
+  created_at?: string;
+}
+
+export interface LiveKeystrokePayload {
+  access_token: string;
+  student_id: string;
+  student_name: string;
+  question_id: number;
+  question_index: number;
+  steps: string;
+  finalAnswer: string;
+  timestamp: number;
+}
+
+export interface LaserPointerEvent {
+  access_token: string;
+  student_id: string;
+  teacher_id: string;
+  question_id: number;
+  x_percent: number; // 0.0 - 100.0%
+  y_percent: number; // 0.0 - 100.0%
+  is_laser_active: boolean;
+  timestamp: number;
+}
+
+export interface TeacherLiveComment {
+  id: number | string;
+  access_token: string;
+  student_id: string;
+  teacher_id: string;
+  teacher_name?: string;
+  question_id: number;
+  comment_text: string;
+  is_read?: boolean;
+  created_at: string;
 }
 
 export interface WorksheetItem {

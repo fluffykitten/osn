@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Flame, Award, Table, Compass, BookOpen, Layers, Users, Sparkles } from 'lucide-react';
+import { Flame, Award, Table, Compass, BookOpen, Layers, Users, Sparkles, KeyRound } from 'lucide-react';
 import { getLocalGamificationState, calculateLevelProgress, type UserGamificationState } from '../../lib/gamification';
 import { PeriodicTableDrawer } from './PeriodicTableDrawer';
+import { TokenJoinModal } from '../worksheet/TokenJoinModal';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [isPeriodicOpen, setIsPeriodicOpen] = useState(false);
   const [showRoleMenu, setShowRoleMenu] = useState(false);
+  const [isTokenJoinModalOpen, setIsTokenJoinModalOpen] = useState(false);
 
   useEffect(() => {
     const handleStorage = () => setGamification(getLocalGamificationState());
@@ -115,8 +117,18 @@ export const Navbar: React.FC = () => {
             </nav>
           </div>
 
-          {/* Right Action Bar: Periodic Table & Role Switcher */}
-          <div className="flex items-center gap-3">
+          {/* Right Action Bar: Periodic Table, Token Join, & Role Switcher */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Quick Token Join Button for Students */}
+            <button
+              onClick={() => setIsTokenJoinModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-lg transition-all shadow-2xs active:scale-95"
+              title="Masukkan Token Worksheet dari Guru"
+            >
+              <KeyRound className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="hidden sm:inline">Masuk Token</span>
+            </button>
+
             {/* Quick Periodic Table Button */}
             <button
               onClick={() => setIsPeriodicOpen(true)}
@@ -171,6 +183,12 @@ export const Navbar: React.FC = () => {
       <PeriodicTableDrawer
         isOpen={isPeriodicOpen}
         onClose={() => setIsPeriodicOpen(false)}
+      />
+
+      {/* Global Token Join Modal */}
+      <TokenJoinModal
+        isOpen={isTokenJoinModalOpen}
+        onClose={() => setIsTokenJoinModalOpen(false)}
       />
     </>
   );
