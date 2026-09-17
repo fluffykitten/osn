@@ -131,7 +131,7 @@ export const LandingPage: React.FC = () => {
           <div className="pt-2">
             <p className="text-[11px] text-slate-500 max-w-lg mx-auto bg-slate-100/70 py-1.5 px-3 rounded-lg border border-slate-200">
               ℹ️ <strong>Catatan Hak Akses:</strong> Pendaftaran publik dibuka khusus untuk <strong>Siswa</strong>. Akun Guru/Pembina ditentukan & diterbitkan langsung oleh Administrator (
-              <span className="font-mono text-sky-700 font-bold">ezzarscarlet@gmail.com</span>). Tamu (guest) wajib masuk sebelum mengakses lembar kerja & database materi.
+              <span className="font-mono text-sky-700 font-bold">fluffykitten.dev@gmail.com</span>). Tamu (guest) wajib masuk sebelum mengakses lembar kerja & database materi.
             </p>
           </div>
         </div>
@@ -336,7 +336,7 @@ export const LandingPage: React.FC = () => {
               </p>
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
                 <div className="text-[11px] text-slate-500">Kontak Resmi Administrator:</div>
-                <div className="font-mono text-sky-800 font-bold">ezzarscarlet@gmail.com</div>
+                <div className="font-mono text-sky-800 font-bold">fluffykitten.dev@gmail.com</div>
               </div>
               <div className="pt-1 flex flex-wrap items-center gap-3">
                 <Link

@@ -30,7 +30,7 @@ async function handleNotify(request, env) {
       });
     }
 
-    const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'ezzarscarlet@gmail.com';
+    const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'fluffykitten.dev@gmail.com';
     const studentEmail = student.email;
     const studentName = student.fullName || 'Calon Medalis';
     const schoolName = student.schoolName || 'Tidak Disebutkan';

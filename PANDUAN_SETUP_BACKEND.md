@@ -23,7 +23,7 @@ Tutorial ini **khusus membahas sistem pengiriman email**:
        ┌────────────────┴────────────────┐
        ▼                                 ▼
 [Email Masuk ke Admin]          [Email Masuk ke Siswa]
-ezzarscarlet@gmail.com           Email siswa terdaftar
+fluffykitten.dev@gmail.com      Email siswa terdaftar
 Berisi: Nama, Sekolah, Kelas,    Berisi: Sambutan & link
 Target OSN, WhatsApp             ke lembar kerja
 ```
@@ -43,7 +43,7 @@ Target OSN, WhatsApp             ke lembar kerja
 
 ## 2. Langkah Setup: Email Notifikasi Pendaftaran (Cloudflare Worker + Resend)
 
-Bagian ini agar setiap ada siswa yang mendaftar, **email notifikasi otomatis masuk ke `ezzarscarlet@gmail.com`**.
+Bagian ini agar setiap ada siswa yang mendaftar, **email notifikasi otomatis masuk ke `fluffykitten.dev@gmail.com`**.
 
 ### Langkah 2.1: Ambil API Key dari Resend
 1. Buka [https://resend.com](https://resend.com) lalu daftar/login.
@@ -74,7 +74,7 @@ Bagian ini agar setiap ada siswa yang mendaftar, **email notifikasi otomatis mas
    - Klik **Deploy**.
 3. **Tambah Variables**:
    - Klik **Add** pada bagian **Variables**.
-   - Name: `ADMIN_EMAIL` | Value: `ezzarscarlet@gmail.com`
+   - Name: `ADMIN_EMAIL` | Value: `fluffykitten.dev@gmail.com`
    - Name: `SENDER_NAME` | Value: `OSN Kimia Mastery`
    - Name: `SENDER_EMAIL` | Value: `onboarding@resend.dev`
    - Klik **Deploy**.
@@ -95,10 +95,10 @@ VITE_CLOUDFLARE_MAILER_URL=https://osn-kimia-mailer.subdomain-anda.workers.dev
 
 Secara bawaan (*default*), Supabase mengirim email verifikasi dan lupa password menggunakan server uji coba mereka (`noreply@mail.app.supabase.io`). 
 
-Agar email yang sampai ke siswa **100% menggunakan email resmi admin Anda (`ezzarscarlet@gmail.com`)** tanpa perlu membeli domain pribadi, Anda dapat mengaktifkan **Custom SMTP Gmail**:
+Agar email yang sampai ke siswa **100% menggunakan email resmi admin Anda (`fluffykitten.dev@gmail.com`)** tanpa perlu membeli domain pribadi, Anda dapat mengaktifkan **Custom SMTP Gmail**:
 
 ### Cara Mendapatkan Sandi Aplikasi Google (App Password):
-1. Buka [Google Account Security](https://myaccount.google.com/security) untuk akun `ezzarscarlet@gmail.com`.
+1. Buka [Google Account Security](https://myaccount.google.com/security) untuk akun `fluffykitten.dev@gmail.com`.
 2. Pastikan fitur **Verifikasi 2 Langkah (2-Step Verification)** dalam status **Aktif**.
 3. Di kotak pencarian atas atau menu keamanan, cari **Sandi Aplikasi** (atau buka [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)).
 4. Masukkan nama aplikasi (misal: `OSN Kimia Supabase`), lalu klik **Buat (Create)**.
@@ -109,12 +109,12 @@ Agar email yang sampai ke siswa **100% menggunakan email resmi admin Anda (`ezza
 2. Klik ikon **Project Settings** (gerigi di pojok kiri bawah) -> Pilih **Authentication**.
 3. Gulir ke bawah ke bagian **SMTP Settings**, lalu aktifkan switch **Enable Custom SMTP**.
 4. Isi data berikut:
-   - **Sender email**: `ezzarscarlet@gmail.com`
+   - **Sender email**: `fluffykitten.dev@gmail.com`
    - **Sender name**: `OSN Kimia Mastery`
    - **Host**: `smtp.gmail.com`
    - **Port**: `465` *(atau `587`)*
    - **Minimum TLS Version**: Biarkan default atau pilih `1.2`
-   - **Username**: `ezzarscarlet@gmail.com`
+   - **Username**: `fluffykitten.dev@gmail.com`
    - **Password**: *(Masukkan 16 karakter Sandi Aplikasi Google yang tadi disalin)*
 5. Klik tombol **Save**.
 
@@ -132,7 +132,7 @@ Agar email yang sampai ke siswa **100% menggunakan email resmi admin Anda (`ezza
 1. Buka web di browser: `http://localhost:5173/login?mode=register`
 2. Isi pendaftaran siswa baru (Nama, Email, Password, Asal Sekolah, Tingkat Kelas, Target Olimpiade).
 3. Klik **Selesaikan Pendaftaran Akun Siswa**.
-4. **Cek Email Admin**: Buka kotak masuk email `ezzarscarlet@gmail.com`. Anda akan melihat email bertema OSN Kimia Mastery berisi rincian siswa yang baru mendaftar!
+4. **Cek Email Admin**: Buka kotak masuk email `fluffykitten.dev@gmail.com`. Anda akan melihat email bertema OSN Kimia Mastery berisi rincian siswa yang baru mendaftar!
 
 ### Uji 2: Reset Password
 1. Buka web di menu: `http://localhost:5173/login?mode=forgot`

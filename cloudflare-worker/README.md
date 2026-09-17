@@ -1,13 +1,13 @@
 # Panduan Deploy Cloudflare Worker: Notifikasi Pendaftaran Siswa
 ## Tanpa Membutuhkan Custom Domain (100% Gratis via `*.workers.dev`)
 
-Worker ini berfungsi mengirimkan notifikasi email pendaftaran siswa baru ke **Admin (`ezzarscarlet@gmail.com`)** dan mengirimkan email sambutan ke **Siswa** tanpa mewajibkan Anda memiliki nama domain sendiri.
+Worker ini berfungsi mengirimkan notifikasi email pendaftaran siswa baru ke **Admin (`fluffykitten.dev@gmail.com`)** dan mengirimkan email sambutan ke **Siswa** tanpa mewajibkan Anda memiliki nama domain sendiri.
 
 ---
 
 ### Langkah 1: Dapatkan API Key Gratis dari Brevo (300 email/hari)
 1. Buka [https://www.brevo.com](https://www.brevo.com) dan buat akun gratis (Free Plan: 300 email/hari).
-2. Verifikasi alamat email pengirim Anda (misalnya `ezzarscarlet@gmail.com`) di menu **Senders & IP -> Senders**.
+2. Verifikasi alamat email pengirim Anda (misalnya `fluffykitten.dev@gmail.com`) di menu **Senders & IP -> Senders**.
 3. Buka menu **SMTP & API -> API Keys -> Generate a new API key**, lalu salin kunci API tersebut (misal: `xkeysib-...`).
 
 ---
@@ -25,8 +25,8 @@ Worker ini berfungsi mengirimkan notifikasi email pendaftaran siswa baru ke **Ad
      - Name: `BREVO_API_KEY`
      - Value: Tempel API key Brevo dari Langkah 1.
    - Di bagian **Variables**, tambahkan:
-     - `ADMIN_EMAIL`: `ezzarscarlet@gmail.com`
-     - `SENDER_EMAIL`: Email terverifikasi Anda di Brevo (misal: `ezzarscarlet@gmail.com`)
+     - `ADMIN_EMAIL`: `fluffykitten.dev@gmail.com`
+     - `SENDER_EMAIL`: Email terverifikasi Anda di Brevo (misal: `fluffykitten.dev@gmail.com`)
      - `SENDER_NAME`: `OSN Kimia Mastery`
 7. Salin URL Worker Anda yang berakhiran `.workers.dev`, misalnya:
    `https://osn-kimia-mailer.subdomain-anda.workers.dev`

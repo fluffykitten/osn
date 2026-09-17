@@ -103,7 +103,11 @@ export const LoginPage: React.FC = () => {
           setTimeout(() => {
             if (redirectPath) {
               navigate(redirectPath);
-            } else if (email.toLowerCase().includes('guru') || email.toLowerCase() === 'ezzarscarlet@gmail.com') {
+            } else if (
+              email.toLowerCase().includes('guru') ||
+              email.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
+              email.toLowerCase() === 'ezzarscarlet@gmail.com'
+            ) {
               navigate('/teacher');
             } else {
               navigate('/worksheet');
@@ -252,7 +256,7 @@ export const LoginPage: React.FC = () => {
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
                   <span>👑 Admin</span>
                 </div>
-                <span className="text-[10px] text-slate-300 font-mono truncate mt-0.5">ezzarscarlet@gmail.com</span>
+                <span className="text-[10px] text-slate-300 font-mono truncate mt-0.5">fluffykitten.dev@gmail.com</span>
                 <span className="text-[9px] text-amber-200/80 mt-1">Otoritas Guru & Sistem</span>
               </button>
 
@@ -362,7 +366,7 @@ export const LoginPage: React.FC = () => {
               <div className="p-3 bg-sky-50 border border-sky-200 rounded-xl text-[11px] text-sky-800 leading-relaxed flex items-start gap-2">
                 <GraduationCap className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
                 <span>
-                  <strong>Khusus Siswa:</strong> Akun Guru Pembimbing dikelola dan ditentukan secara terpusat oleh Administrator (<code className="font-mono font-bold text-sky-900">ezzarscarlet@gmail.com</code>).
+                  <strong>Khusus Siswa:</strong> Akun Guru Pembimbing dikelola dan ditentukan secara terpusat oleh Administrator (<code className="font-mono font-bold text-sky-900">fluffykitten.dev@gmail.com</code>).
                 </span>
               </div>
 

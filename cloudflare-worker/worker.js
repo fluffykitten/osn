@@ -63,7 +63,7 @@ export default {
         });
       }
 
-      const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'ezzarscarlet@gmail.com';
+      const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'fluffykitten.dev@gmail.com';
       const studentEmail = student.email;
       const studentName = student.fullName || 'Calon Medalis';
       const schoolName = student.schoolName || 'Tidak Disebutkan';
@@ -77,7 +77,7 @@ export default {
       // Prioritas 2: Resend API
       const brevoApiKey = env.BREVO_API_KEY;
       const resendApiKey = env.RESEND_API_KEY;
-      const senderEmail = env.SENDER_EMAIL || 'ezzarscarlet@gmail.com';
+      const senderEmail = env.SENDER_EMAIL || 'fluffykitten.dev@gmail.com';
       const senderName = env.SENDER_NAME || 'OSN Kimia Mastery';
 
       // 1. Template HTML untuk Administrator

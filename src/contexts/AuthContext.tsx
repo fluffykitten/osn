@@ -178,22 +178,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     const cleanEmail = email.trim().toLowerCase().replace(/['"]/g, '');
 
-    // 1. Akun Khusus Administrator OSN Kimia (ezzarscarlet@gmail.com / 354123)
-    if (cleanEmail === 'ezzarscarlet@gmail.com') {
+    // 1. Akun Khusus Administrator OSN Kimia (fluffykitten.dev@gmail.com / 354123)
+    if (cleanEmail === 'fluffykitten.dev@gmail.com' || cleanEmail === 'ezzarscarlet@gmail.com') {
       if (password === '354123') {
         const adminUser: any = {
           id: 'admin-master-uuid',
-          email: 'ezzarscarlet@gmail.com',
+          email: 'fluffykitten.dev@gmail.com',
           user_metadata: {
-            full_name: 'Ezzar Scarlet (Administrator)',
+            full_name: 'Administrator (FluffyKitten)',
             role: 'teacher',
             is_admin: true,
           },
         };
         const adminProfile: Profile = {
           id: 'admin-master-uuid',
-          email: 'ezzarscarlet@gmail.com',
-          full_name: 'Ezzar Scarlet (Administrator)',
+          email: 'fluffykitten.dev@gmail.com',
+          full_name: 'Administrator (FluffyKitten)',
           role: 'teacher',
           xp: 9999,
           level: 10,
@@ -205,7 +205,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setProfile(adminProfile);
         syncGamificationRole('teacher');
         localStorage.setItem(LOCAL_FALLBACK_USER_KEY, JSON.stringify({ user: adminUser, profile: adminProfile }));
-        localStorage.setItem('osn_student_email', 'ezzarscarlet@gmail.com');
+        localStorage.setItem('osn_student_email', 'fluffykitten.dev@gmail.com');
         return { success: true };
       } else {
         return { success: false, error: 'Kata sandi akun Administrator tidak sesuai.' };
@@ -319,7 +319,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (role === 'teacher') {
       return {
         success: false,
-        error: 'Pendaftaran publik saat ini hanya dibuka untuk Siswa. Akun Guru dikelola dan diterbitkan secara resmi oleh Administrator (ezzarscarlet@gmail.com).',
+        error: 'Pendaftaran publik saat ini hanya dibuka untuk Siswa. Akun Guru dikelola dan diterbitkan secara resmi oleh Administrator (fluffykitten.dev@gmail.com).',
       };
     }
 
@@ -581,7 +581,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Demo Login: Guru, Siswa, atau Admin
   const loginDemo = async (type: 'teacher' | 'student' | 'admin'): Promise<{ success: boolean; error?: string }> => {
     if (type === 'admin') {
-      return login('ezzarscarlet@gmail.com', '354123');
+      return login('fluffykitten.dev@gmail.com', '354123');
     }
 
     const email = type === 'teacher' ? 'guru@osnkimia.id' : 'siswa@osnkimia.id';
@@ -622,14 +622,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const currentRole: 'teacher' | 'student' =
     profile?.role === 'teacher' || profile?.role === 'guru'
       ? 'teacher'
-      : user?.email?.toLowerCase().includes('guru') || user?.email?.toLowerCase() === 'ezzarscarlet@gmail.com'
+      : user?.email?.toLowerCase().includes('guru') ||
+        user?.email?.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
+        user?.email?.toLowerCase() === 'ezzarscarlet@gmail.com'
       ? 'teacher'
       : 'student';
 
   const isTeacher = currentRole === 'teacher';
   const isAdmin = Boolean(
+    user?.email?.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
     user?.email?.toLowerCase() === 'ezzarscarlet@gmail.com' ||
     (user as any)?.user_metadata?.is_admin ||
+    profile?.email?.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
     profile?.email?.toLowerCase() === 'ezzarscarlet@gmail.com'
   );
 

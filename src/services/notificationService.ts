@@ -37,7 +37,7 @@ export const sendStudentRegistrationNotification = async (
         ...data,
         registeredAt: data.registeredAt || new Date().toISOString(),
       },
-      adminEmail: 'ezzarscarlet@gmail.com',
+      adminEmail: 'fluffykitten.dev@gmail.com',
     };
 
     const response = await fetch(`${CLOUDFLARE_MAILER_URL.replace(/\/$/, '')}/notify`, {
