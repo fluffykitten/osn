@@ -127,9 +127,9 @@ Atur Ulang Kata Sandi Akun Anda — OSN Kimia Mastery
 
     <!-- Main Content Body -->
     <div style="padding: 28px 24px;">
-      <h2 style="margin: 0 0 12px 0; font-size: 18px; color: #0f172a; font-weight: 700;">Permintaan Reset Kata Sandi 🔑</h2>
+      <h2 style="margin: 0 0 12px 0; font-size: 18px; color: #0f172a; font-weight: 700;">Halo{{ if .Data.full_name }}, {{ .Data.full_name }}{{ end }}! 🔑</h2>
       <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">
-        Kami menerima permintaan untuk mengatur ulang kata sandi akun dengan email <strong>{{ .Email }}</strong>.
+        Kami menerima permintaan untuk mengatur ulang kata sandi akun OSN Kimia Mastery Anda (<strong>{{ .Email }}</strong>).
       </p>
       
       <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 1.6; color: #475569;">
