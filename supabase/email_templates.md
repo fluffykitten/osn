@@ -35,7 +35,7 @@ Konfirmasi Pendaftaran Akun Siswa — OSN Kimia Mastery
 
     <!-- Main Content Body -->
     <div style="padding: 28px 24px;">
-      <h2 style="margin: 0 0 12px 0; font-size: 18px; color: #0f172a; font-weight: 700;">Halo, {{ .Data.full_name }}! 👋</h2>
+      <h2 style="margin: 0 0 12px 0; font-size: 18px; color: #0f172a; font-weight: 700;">Halo{{ if .Data.full_name }}, {{ .Data.full_name }}{{ end }}! 👋</h2>
       <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.6; color: #475569;">
         Selamat datang di <strong>OSN Kimia Mastery</strong>! Pendaftaran akun siswa Anda telah kami terima. Berikut adalah rincian informasi personal yang Anda input saat pendaftaran:
       </p>
@@ -44,7 +44,7 @@ Konfirmasi Pendaftaran Akun Siswa — OSN Kimia Mastery
       <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
         <tr style="background-color: #f8fafc;">
           <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b; width: 35%;">Nama Lengkap</td>
-          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a;">{{ .Data.full_name }}</td>
+          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a;">{{ if .Data.full_name }}{{ .Data.full_name }}{{ else }}Siswa OSN{{ end }}</td>
         </tr>
         <tr>
           <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b;">Email Terdaftar</td>
@@ -52,19 +52,19 @@ Konfirmasi Pendaftaran Akun Siswa — OSN Kimia Mastery
         </tr>
         <tr style="background-color: #f8fafc;">
           <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b;">Asal Sekolah</td>
-          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">{{ .Data.school_name }}</td>
+          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">{{ if .Data.school_name }}{{ .Data.school_name }}{{ else }}Belum Diisi{{ end }}</td>
         </tr>
         <tr>
           <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b;">Jenjang / Kelas</td>
-          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">Kelas {{ .Data.grade_level }}</td>
+          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #0f172a;">Kelas {{ if .Data.grade_level }}{{ .Data.grade_level }}{{ else }}10{{ end }}</td>
         </tr>
         <tr style="background-color: #f8fafc;">
           <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b;">Target Olimpiade</td>
-          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: 700;">Olimpiade Sains {{ .Data.target_olympiad }} Kimia</td>
+          <td style="padding: 10px 14px; border-bottom: 1px solid #e2e8f0; color: #16a34a; font-weight: 700;">Olimpiade Sains {{ if .Data.target_olympiad }}{{ .Data.target_olympiad }}{{ else }}OSK{{ end }} Kimia</td>
         </tr>
         <tr>
           <td style="padding: 10px 14px; font-weight: 600; color: #64748b;">Nomor WhatsApp</td>
-          <td style="padding: 10px 14px; color: #0f172a;">{{ .Data.phone_whatsapp }}</td>
+          <td style="padding: 10px 14px; color: #0f172a;">{{ if .Data.phone_whatsapp }}{{ .Data.phone_whatsapp }}{{ else }}-{{ end }}</td>
         </tr>
       </table>
 
