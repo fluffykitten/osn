@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, BookOpen, AlertTriangle, FileText, TrendingUp, Sparkles } from 'lucide-react';
+import { Users, BookOpen, AlertTriangle, FileText, TrendingUp, Sparkles, Layers, School } from 'lucide-react';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
+import { questionBankService } from '../../services/questionBankService';
+import { classroomService } from '../../services/classroomService';
+import { useAuth } from '../../contexts/AuthContext';
 
 export const TeacherDashboard: React.FC = () => {
+  const { user } = useAuth();
+  const teacherId = user?.id || 'teacher-demo-uuid';
+
+  const [totalQuestions, setTotalQuestions] = useState<number>(10);
+  const [worksheets, setWorksheets] = useState<any[]>([]);
+  const [classrooms, setClassrooms] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const qRes = await questionBankService.getQuestions();
+        setTotalQuestions(qRes.questions?.length || 10);
+        const ws = await questionBankService.getAllWorksheets(teacherId);
+        setWorksheets(ws);
+        const cls = await classroomService.getTeacherClassrooms(teacherId);
+        setClassrooms(cls);
+      } catch (e) {
+        console.warn('Gagal memuat statistik bank soal & kelas:', e);
+      }
+    };
+    loadStats();
+  }, [teacherId]);
+
+  const totalStudents = classrooms.reduce((sum, c) => sum + (c.member_count || 0), 0);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
@@ -19,22 +47,36 @@ export const TeacherDashboard: React.FC = () => {
             Studio Pembina Olimpiade Kimia
           </h1>
           <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl">
-            Pantau penguasaan 10 topik silabus binaan, deteksi miskonsepsi konsep siswa secara dini, dan terbitkan lembar kerja kustom.
+            Pantau penguasaan silabus siswa, kelola kelas binaan via invite email, dan rancang lembar kerja mandiri.
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            to="/teacher/classes"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-semibold rounded-xl transition-all shadow-2xs"
+          >
+            <School className="w-3.5 h-3.5 text-indigo-600" />
+            <span>Manajemen Kelas</span>
+          </Link>
+          <Link
+            to="/practice"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold rounded-xl transition-all shadow-2xs"
+          >
+            <Layers className="w-3.5 h-3.5 text-sky-600" />
+            <span>Buka Bank Soal</span>
+          </Link>
           <Link
             to="/teacher/ai-studio"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-all active:scale-95"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow-xs transition-all active:scale-95"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>AI Question Studio (Ekstraksi PDF)</span>
+            <span>AI Studio (PDF)</span>
           </Link>
           <Link
             to="/teacher/worksheets/new"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold rounded-xl transition-all"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-all shadow-xs"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Rakit Worksheet Baru</span>
@@ -44,14 +86,14 @@ export const TeacherDashboard: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+        <Link to="/teacher/classes" className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2 hover:border-indigo-300 transition-all block">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span>Total Siswa Binaan</span>
-            <Users className="w-4 h-4 text-indigo-600" />
+            <span>Kelas Binaan Saya</span>
+            <School className="w-4 h-4 text-indigo-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900">24 Siswa</div>
-          <div className="text-[11px] text-emerald-600 font-medium">Tim Reguler & Pelatnas</div>
-        </div>
+          <div className="text-2xl font-bold font-mono text-slate-900">{classrooms.length} Kelas</div>
+          <div className="text-[11px] text-indigo-600 font-medium">{totalStudents} Siswa Terdaftar</div>
+        </Link>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-500">
@@ -64,11 +106,11 @@ export const TeacherDashboard: React.FC = () => {
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
           <div className="flex items-center justify-between text-xs text-slate-500">
-            <span>Worksheet Ditugaskan</span>
+            <span>Worksheet Mandiri Saya</span>
             <FileText className="w-4 h-4 text-blue-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900">6 Paket</div>
-          <div className="text-[11px] text-indigo-600 font-medium">2 tugas aktif</div>
+          <div className="text-2xl font-bold font-mono text-slate-900">{worksheets.length} Paket</div>
+          <div className="text-[11px] text-indigo-600 font-medium">Database Worksheet Pribadi</div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
@@ -76,8 +118,8 @@ export const TeacherDashboard: React.FC = () => {
             <span>Bank Soal Terverifikasi</span>
             <BookOpen className="w-4 h-4 text-amber-600" />
           </div>
-          <div className="text-2xl font-bold font-mono text-slate-900">142 Soal</div>
-          <div className="text-[11px] text-slate-500">Lintas 10 Topik Silabus</div>
+          <div className="text-2xl font-bold font-mono text-slate-900">{totalQuestions} Soal</div>
+          <div className="text-[11px] text-slate-500">Lintas 10 Topik Silabus OSN</div>
         </div>
       </div>
 
@@ -136,6 +178,83 @@ export const TeacherDashboard: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Riwayat Penugasan Worksheet */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+              <FileText className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-slate-900 font-display">
+                Riwayat Naskah Ujian & Worksheet Terbit
+              </h3>
+              <p className="text-xs text-slate-500">
+                Daftar paket soal dan penugasan yang telah dirakit dan siap digunakan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {worksheets.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-sm text-slate-500 mb-4">Belum ada worksheet yang dibuat.</p>
+            <Link
+              to="/teacher/worksheets/new"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl transition-all shadow-xs"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Buat Worksheet Pertama</span>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {worksheets.map((ws, idx) => (
+              <div key={ws.id || idx} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-white hover:border-emerald-300 hover:shadow-sm transition-all space-y-3">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">{ws.title}</h4>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className="text-[10px] text-slate-500 font-mono">ID: {ws.id}</span>
+                      {ws.access_token && (
+                        <span className="px-1.5 py-0.5 bg-rose-100 text-rose-800 text-[9px] font-bold rounded font-mono border border-rose-200">
+                          Token: {ws.access_token}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">
+                    Published
+                  </span>
+                </div>
+                <p className="text-xs text-slate-600 line-clamp-2">{ws.description}</p>
+                <div className="flex items-center gap-4 text-[11px] text-slate-500 font-semibold pt-2 border-t border-slate-100">
+                  <span>{ws.item_count || 0} Soal</span>
+                  <span>{ws.time_limit_minutes || 0} Menit</span>
+                  <span>KKM: {ws.pass_score || 0}%</span>
+                </div>
+                
+                {/* Action Buttons: View & Edit */}
+                <div className="flex gap-2 pt-2 border-t border-slate-100 mt-2">
+                  <Link
+                    to={`/worksheet/teacher_assignment/${ws.id}`}
+                    className="flex-1 text-center py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors"
+                  >
+                    Melihat Naskah
+                  </Link>
+                  <Link
+                    to={`/teacher/worksheets/edit/${ws.id}`}
+                    className="flex-1 text-center py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold rounded-lg transition-colors border border-emerald-200"
+                  >
+                    Edit & Sesuaikan
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -300,7 +300,7 @@ export function preprocessFriendlyFormula(rawText: string): {
   t = t.replace(/(\\[a-zA-Z]+(?:\{((?:[^{}]|\{[^{}]*\})*)\})+)/g, (m) => m.replace(/\$/g, ''));
 
   // 1. Protect existing display math $$...$$ and inline math $...$
-  t = t.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => stash(math.trim(), true));
+  t = t.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => `\n\n${stash(math.trim(), true)}\n\n`);
   // Allow inline math to span soft line breaks within a paragraph
   t = t.replace(/\$((?:[^\$\n\r]|[\n\r](?![\n\r]))+?)\$/g, (_, math) => stash(math.trim(), false));
 
@@ -408,9 +408,11 @@ export function parseAndRenderMixedText(rawText: string): string {
   // Split into paragraphs by double newlines
   const paragraphs = processed.split(/\n\s*\n/);
   processed = paragraphs
-    .map((para) => {
+    .map((para, paraIdx) => {
       const trimmed = para.trim();
       if (!trimmed) return '';
+
+      const renderBlock = () => {
 
       // 0. Protected SVG / preformatted code block
       if (/^___PROTECTED_SVG_\d+___$/.test(trimmed)) {
@@ -427,7 +429,7 @@ export function parseAndRenderMixedText(rawText: string): string {
         const id = parseInt(trimmed.replace(/\D/g, ''), 10);
         const item = protectedMath[id];
         if (item && item.isDisplay) {
-          return `<div class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`;
+          return `<div data-laser-math="${id}" data-laser-display="true" class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`;
         }
       }
 
@@ -614,6 +616,11 @@ export function parseAndRenderMixedText(rawText: string): string {
       });
 
       return `<p class="my-2 leading-relaxed text-slate-800">${linesProcessed.join('<br />')}</p>`;
+      };
+
+      const html = renderBlock();
+      if (!html) return '';
+      return `<div data-laser-block="${paraIdx}" class="laser-anchor-block">${html}</div>`;
     })
     .filter(Boolean)
     .join('');
@@ -621,8 +628,8 @@ export function parseAndRenderMixedText(rawText: string): string {
   // Restore all math blocks rendered with KaTeX
   protectedMath.forEach((item, idx) => {
     const rendered = item.isDisplay
-      ? `<div class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`
-      : renderKaTeX(item.content, false);
+      ? `<div data-laser-math="${idx}" data-laser-display="true" class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`
+      : `<span data-laser-math="${idx}" class="inline-math-anchor inline-block">${renderKaTeX(item.content, false)}</span>`;
     processed = processed.replaceAll(`___FORMULA_MATH_${idx}___`, rendered);
   });
 
@@ -705,21 +712,21 @@ export const QUICK_FORMULA_TEMPLATES: FormulaTemplate[] = [
     id: 'gas_ideal_n',
     name: 'Mol Gas Ideal (n = PV / RT)',
     category: 'stoikiometri',
-    snippet: '$n = \\frac{P \\times V}{R \\times T} = \\frac{1.0 \\times 2.45}{0.08206 \\times 298.15} = 0.10\\text{ mol}$',
-    description: 'Menghitung mol gas dari tekanan (atm), volume (L), dan suhu (K)',
+    snippet: '$n = \\frac{P \\times V}{R \\times T}$',
+    description: 'Menghitung mol gas dari tekanan (P), volume (V), dan suhu (T)',
   },
   {
     id: 'fraksi_mol',
     name: 'Fraksi Mol (X_A = n_A / n_tot)',
     category: 'stoikiometri',
-    snippet: '$X_A = \\frac{n_A}{n_{\\text{tot}}} = \\frac{0.50}{1.00} = 0.50$',
+    snippet: '$X_A = \\frac{n_A}{n_{\\text{tot}}}$',
     description: 'Perbandingan mol komponen terhadap total mol campuran',
   },
   {
     id: 'massa_molar_n',
     name: 'Mol dari Massa (n = gram / Mr)',
     category: 'stoikiometri',
-    snippet: '$n = \\frac{\\text{massa}}{M_r} = \\frac{394.7\\text{ g}}{197.34\\text{ g/mol}} = 2.00\\text{ mol}$',
+    snippet: '$n = \\frac{\\text{massa}}{M_r}$',
     description: 'Menghitung mol zat dari massa dan massa molar',
   },
 
@@ -728,8 +735,8 @@ export const QUICK_FORMULA_TEMPLATES: FormulaTemplate[] = [
     id: 'gibbs_termo',
     name: 'Energi Bebas Gibbs (ΔG° = ΔH° - TΔS°)',
     category: 'termo',
-    snippet: '$\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ = 57.20 - (298.15 \\times 0.1758) = +4.79\\text{ kJ/mol}$',
-    description: 'Kespontanan reaksi pada suhu standar (ingat ubah J ke kJ!)',
+    snippet: '$\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ$',
+    description: 'Kespontanan reaksi pada suhu standar (ingat konversi satuan J ke kJ)',
   },
   {
     id: 'gibbs_kp',
@@ -765,7 +772,7 @@ export const QUICK_FORMULA_TEMPLATES: FormulaTemplate[] = [
     id: 'ksp_solubility',
     name: 'Hasil Kali Kelarutan (Ksp)',
     category: 'larutan',
-    snippet: '$K_{sp} = [\\ce{Ag+}][\\ce{Cl-}] = (s)(s) = s^2$',
+    snippet: '$K_{sp} = [\\ce{A+}]^a [\\ce{B-}]^b = s^2$',
     description: 'Kelarutan garam sukar larut',
   },
 
@@ -781,7 +788,7 @@ export const QUICK_FORMULA_TEMPLATES: FormulaTemplate[] = [
     id: 'gibbs_cell',
     name: 'Potensial Sel & Gibbs (ΔG° = -nFE°)',
     category: 'elektro',
-    snippet: '$\\Delta G^\\circ = -nFE^\\circ_{\\text{sel}} = -(2)(96485)(1.10)\\text{ J}$',
+    snippet: '$\\Delta G^\\circ = -nFE^\\circ_{\\text{sel}}$',
     description: 'Hubungan energi listrik sel galvani dan termodinamika',
   },
 

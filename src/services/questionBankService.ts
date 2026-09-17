@@ -138,7 +138,7 @@ class QuestionBankService {
         }
 
         const { data, error } = await query;
-        if (!error && data && data.length > 0) {
+        if (!error && data) {
           questions = data as Question[];
           isCloudConnected = true;
         }
@@ -147,10 +147,11 @@ class QuestionBankService {
       }
     }
 
-    // Fallback jika database awan kosong atau belum termigrasi
-    if (questions.length === 0) {
-      questions = Array.from(this.localQuestions.values());
-    }
+    // Merge local dan cloud: cloud menimpa local jika ada duplikasi ID
+    const mergedMap = new Map<number, Question>();
+    this.localQuestions.forEach(q => mergedMap.set(q.id, q));
+    questions.forEach(q => mergedMap.set(q.id, q));
+    questions = Array.from(mergedMap.values());
 
     // Gabungkan dengan state Bookmark & Custom Tag dari tagAndBookmarkService
     questions = questions.map(q => {
@@ -409,23 +410,44 @@ class QuestionBankService {
       time_limit_minutes: number;
       pass_score: number;
       questionIds: number[];
+      accessToken?: string;
+      isLiveMonitored?: boolean;
+      teacherId?: string;
+      createdBy?: string;
     }
   ): Promise<Worksheet> {
     const newWorksheet: Worksheet = {
       id: Date.now(),
+      teacher_id: worksheetData.teacherId,
       type: 'teacher_assignment',
       title: worksheetData.title,
       description: worksheetData.description || 'Paket latihan resmi Olimpiade Sains Kimia',
+      created_by: worksheetData.createdBy || 'Guru Pembina',
       time_limit_minutes: worksheetData.time_limit_minutes,
       pass_score: worksheetData.pass_score,
       is_published: true,
       created_at: new Date().toISOString(),
-      item_count: worksheetData.questionIds.length
+      item_count: worksheetData.questionIds.length,
+      access_token: worksheetData.accessToken,
+      is_live_monitored: worksheetData.isLiveMonitored
     };
+    (newWorksheet as any).selected_question_ids = worksheetData.questionIds;
 
     // 1. Simpan di local
     this.localWorksheets.unshift(newWorksheet);
     this.persistLocalStore();
+
+    // Simpan ke registry live token lokal jika ada token
+    if (worksheetData.accessToken) {
+      try {
+        const existing = localStorage.getItem('osn_live_worksheets_registry');
+        const registry = existing ? JSON.parse(existing) : {};
+        registry[worksheetData.accessToken.toUpperCase()] = newWorksheet;
+        localStorage.setItem('osn_live_worksheets_registry', JSON.stringify(registry));
+      } catch (e) {
+        // Fallback hening
+      }
+    }
 
     // 2. Simpan di Supabase jika ada
     const supabase = getSupabaseClient();
@@ -439,13 +461,33 @@ class QuestionBankService {
             time_limit_minutes: newWorksheet.time_limit_minutes,
             pass_score: newWorksheet.pass_score,
             is_published: true,
-            selected_question_ids: worksheetData.questionIds
+            selected_question_ids: worksheetData.questionIds,
+            access_token: worksheetData.accessToken ? worksheetData.accessToken.toUpperCase() : null,
+            is_live_monitored: worksheetData.isLiveMonitored,
+            teacher_id: worksheetData.teacherId || null,
+            created_by: newWorksheet.created_by
           }])
           .select()
           .single();
 
-        if (!error && data) {
-          return data as Worksheet;
+        if (error) {
+          console.warn('[questionBankService] Notice saat menyimpan worksheet ke cloud:', error.message);
+        } else if (data) {
+          const savedCloud = data as Worksheet;
+          const idx = this.localWorksheets.findIndex(ws => ws.id === newWorksheet.id);
+          if (idx !== -1) {
+            this.localWorksheets[idx] = savedCloud;
+            this.persistLocalStore();
+          }
+          if (savedCloud.access_token) {
+            try {
+              const existing = localStorage.getItem('osn_live_worksheets_registry');
+              const registry = existing ? JSON.parse(existing) : {};
+              registry[savedCloud.access_token.toUpperCase()] = savedCloud;
+              localStorage.setItem('osn_live_worksheets_registry', JSON.stringify(registry));
+            } catch (e) {}
+          }
+          return savedCloud;
         }
       } catch (err) {
         console.warn('Gagal menyimpan worksheet ke cloud:', err);
@@ -455,8 +497,172 @@ class QuestionBankService {
     return newWorksheet;
   }
 
-  public getSavedWorksheets(): Worksheet[] {
+  public getSavedWorksheets(teacherId?: string): Worksheet[] {
+    if (!teacherId) return this.localWorksheets;
+    return this.localWorksheets.filter(
+      w => w.teacher_id === teacherId || w.created_by === teacherId || !w.teacher_id
+    );
+  }
+
+  /**
+   * Mengambil semua Worksheet (sinkronisasi dari Supabase & cache lokal)
+   * Jika teacherId diberikan, hanya mengembalikan worksheet milik guru tersebut
+   */
+  public async getAllWorksheets(teacherId?: string): Promise<Worksheet[]> {
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        let query = supabase
+          .from('worksheets')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (teacherId) {
+          query = query.eq('teacher_id', teacherId);
+        }
+
+        const { data, error } = await query;
+
+        if (!error && data && Array.isArray(data)) {
+          const cloudWorksheets = data as Worksheet[];
+          const map = new Map<number, Worksheet>();
+          this.localWorksheets.forEach(w => map.set(w.id, w));
+          cloudWorksheets.forEach(w => map.set(w.id, w));
+          this.localWorksheets = Array.from(map.values()).sort(
+            (a, b) => new Date(b.created_at || '').getTime() - new Date(a.created_at || '').getTime()
+          );
+          this.persistLocalStore();
+
+          if (teacherId) {
+            return cloudWorksheets;
+          }
+        }
+      } catch (err) {
+        console.warn('Gagal sinkronisasi daftar worksheet dari cloud:', err);
+      }
+    }
+
+    if (teacherId) {
+      return this.localWorksheets.filter(
+        w => w.teacher_id === teacherId || w.created_by === teacherId || !w.teacher_id
+      );
+    }
     return this.localWorksheets;
+  }
+
+  /**
+   * Mengambil Worksheet berdasarkan ID
+   */
+  public async getWorksheetById(id: number | string): Promise<Worksheet | null> {
+    const numId = typeof id === 'string' ? parseInt(id, 10) : id;
+    
+    // Cari di Supabase terlebih dahulu jika terhubung
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('worksheets')
+          .select('*')
+          .eq('id', numId)
+          .single();
+          
+        if (!error && data) {
+          return data as Worksheet;
+        }
+      } catch (err) {
+        // Fallback ke local
+      }
+    }
+
+    // Fallback local
+    const localWs = this.localWorksheets.find(ws => ws.id === numId);
+    if (localWs) {
+      return localWs;
+    }
+    
+    return null;
+  }
+
+  /**
+   * Memperbarui Worksheet yang sudah ada
+   */
+  public async updateWorksheet(
+    id: number,
+    worksheetData: {
+      title: string;
+      description?: string;
+      time_limit_minutes: number;
+      pass_score: number;
+      questionIds: number[];
+      accessToken?: string;
+      isLiveMonitored?: boolean;
+      teacherId?: string;
+    }
+  ): Promise<Worksheet> {
+    const existing = await this.getWorksheetById(id);
+    if (!existing) throw new Error(`Worksheet dengan ID ${id} tidak ditemukan.`);
+
+    const updated: Worksheet = {
+      ...existing,
+      teacher_id: worksheetData.teacherId !== undefined ? worksheetData.teacherId : existing.teacher_id,
+      title: worksheetData.title,
+      description: worksheetData.description || existing.description,
+      time_limit_minutes: worksheetData.time_limit_minutes,
+      pass_score: worksheetData.pass_score,
+      item_count: worksheetData.questionIds.length,
+      access_token: worksheetData.accessToken !== undefined ? worksheetData.accessToken : existing.access_token,
+      is_live_monitored: worksheetData.isLiveMonitored !== undefined ? worksheetData.isLiveMonitored : existing.is_live_monitored
+    };
+    (updated as any).selected_question_ids = worksheetData.questionIds;
+
+    // 1. Simpan di local
+    const idx = this.localWorksheets.findIndex(ws => ws.id === id);
+    if (idx !== -1) {
+      this.localWorksheets[idx] = updated;
+    } else {
+      this.localWorksheets.unshift(updated);
+    }
+    this.persistLocalStore();
+
+    // Perbarui registry lokal token jika ada
+    if (updated.access_token) {
+      try {
+        const existingReg = localStorage.getItem('osn_live_worksheets_registry');
+        const reg = existingReg ? JSON.parse(existingReg) : {};
+        reg[updated.access_token.toUpperCase()] = updated;
+        localStorage.setItem('osn_live_worksheets_registry', JSON.stringify(reg));
+      } catch (e) {
+        // Fallback hening
+      }
+    }
+
+    // 2. Simpan di Supabase jika ada
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('worksheets')
+          .update({
+            title: updated.title,
+            description: updated.description,
+            time_limit_minutes: updated.time_limit_minutes,
+            pass_score: updated.pass_score,
+            selected_question_ids: worksheetData.questionIds,
+            access_token: updated.access_token ? updated.access_token.toUpperCase() : null,
+            is_live_monitored: updated.is_live_monitored,
+            item_count: updated.item_count
+          })
+          .eq('id', id);
+
+        if (error) {
+          console.warn('[questionBankService] Notice saat update worksheet ke cloud:', error.message);
+        }
+      } catch (err) {
+        console.warn('Gagal mengupdate worksheet ke cloud:', err);
+      }
+    }
+
+    return updated;
   }
 }
 

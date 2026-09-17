@@ -152,7 +152,7 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
           <Move className="w-3.5 h-3.5 text-sky-200" />
           <div className="flex items-center gap-1.5 font-bold text-xs sm:text-sm">
             <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            <span>Kerangka 4 Langkah OSN</span>
+            <span>Kerangka Langkah Pengerjaan</span>
           </div>
         </div>
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { questionBankService } from '../../services/questionBankService';
 import { examExportService } from '../../services/examExportService';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
+import { classroomService } from '../../services/classroomService';
+import { useAuth } from '../../contexts/AuthContext';
 import { isSupabaseConfigured } from '../../lib/supabaseClient';
 import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { QuestionBankBrowser } from '../../components/worksheet/QuestionBankBrowser';
@@ -28,17 +30,29 @@ import {
   Radio,
   KeyRound,
   Copy,
+  School,
 } from 'lucide-react';
 import type { Question, QuestionFilter, QuestionDifficulty } from '../../types/database';
 
 export const WorksheetBuilder: React.FC = () => {
   const navigate = useNavigate();
+  const { id: editId } = useParams<{ id?: string }>();
+  const { user } = useAuth();
+  const teacherId = user?.id || 'teacher-demo-uuid';
 
   // Form parameters
   const [title, setTitle] = useState('Paket Simulasi Intensif OSN Kimia 2025');
   const [timeLimit, setTimeLimit] = useState(90);
   const [passScore, setPassScore] = useState(75);
   const [targetLevel, setTargetLevel] = useState('SELEKSI TINGKAT KABUPATEN/KOTA (OSK)');
+
+  // Classroom selection
+  const [teacherClassrooms, setTeacherClassrooms] = useState<any[]>([]);
+  const [assignedClassId, setAssignedClassId] = useState<number | null>(null);
+
+  useEffect(() => {
+    classroomService.getTeacherClassrooms(teacherId).then(setTeacherClassrooms);
+  }, [teacherId]);
 
   // Selected Questions & Selection
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
@@ -47,10 +61,20 @@ export const WorksheetBuilder: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaved, setIsSaved] = useState(false);
 
-  // Live Token State
+  // Live Token State (Bisa ditentukan sendiri oleh Guru)
+  const [customToken, setCustomToken] = useState('OSN-7842');
   const [createdLiveToken, setCreatedLiveToken] = useState<string | null>(null);
   const [isCreatingLive, setIsCreatingLive] = useState(false);
   const [copiedToken, setCopiedToken] = useState(false);
+
+  const handleGenerateRandomToken = () => {
+    const chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setCustomToken(`OSN-${code}`);
+  };
 
   // Cloud state
   const isCloudAvailable = isSupabaseConfigured();
@@ -94,6 +118,35 @@ export const WorksheetBuilder: React.FC = () => {
   useEffect(() => {
     loadQuestions();
   }, [filter]);
+
+  // Load existing worksheet for edit mode
+  useEffect(() => {
+    if (editId) {
+      const loadEditData = async () => {
+        setIsLoading(true);
+        try {
+          const ws = await questionBankService.getWorksheetById(editId);
+          if (ws) {
+            setTitle(ws.title);
+            setTimeLimit(ws.time_limit_minutes || 90);
+            setPassScore(ws.pass_score || 75);
+            const qIds: number[] = (ws as any).selected_question_ids || [];
+            if (qIds.length > 0) {
+              setSelectedQuestionIds(qIds);
+            }
+            if (ws.access_token) {
+              setCustomToken(ws.access_token);
+            }
+          }
+        } catch (e) {
+          console.error('Gagal memuat data edit worksheet:', e);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      loadEditData();
+    }
+  }, [editId]);
 
   // Selected questions objects in ordered sequence
   const selectedQuestions = useMemo(() => {
@@ -146,16 +199,43 @@ export const WorksheetBuilder: React.FC = () => {
     setIsSaved(true);
 
     try {
-      await questionBankService.saveWorksheet({
-        title,
-        description: `Paket latihan ${targetLevel} berisi ${selectedQuestions.length} butir soal pilihan.`,
-        time_limit_minutes: timeLimit,
-        pass_score: passScore,
-        questionIds: selectedQuestionIds,
-      });
+      let savedWsId: number;
+
+      if (editId) {
+        // Update
+        const wsIdNum = parseInt(editId, 10);
+        const updated = await questionBankService.updateWorksheet(wsIdNum, {
+          title,
+          description: `Paket latihan ${targetLevel} berisi ${selectedQuestions.length} butir soal pilihan.`,
+          time_limit_minutes: timeLimit,
+          pass_score: passScore,
+          questionIds: selectedQuestionIds,
+          accessToken: customToken.trim() ? customToken.trim().toUpperCase() : undefined,
+          teacherId,
+        });
+        savedWsId = updated.id;
+      } else {
+        // Create
+        const newWs = await questionBankService.saveWorksheet({
+          title,
+          description: `Paket latihan ${targetLevel} berisi ${selectedQuestions.length} butir soal pilihan.`,
+          time_limit_minutes: timeLimit,
+          pass_score: passScore,
+          questionIds: selectedQuestionIds,
+          accessToken: customToken.trim() ? customToken.trim().toUpperCase() : undefined,
+          teacherId,
+          createdBy: user?.email || 'Guru Pembina',
+        });
+        savedWsId = newWs.id;
+      }
+
+      // Jika guru memilih kelas binaan, otomatis assign ke kelas tersebut
+      if (assignedClassId) {
+        await classroomService.assignWorksheetToClass(assignedClassId, savedWsId, undefined, true);
+      }
 
       setTimeout(() => {
-        navigate('/worksheet/static_module/1');
+        navigate(`/worksheet/teacher_assignment/${savedWsId}`);
       }, 1200);
     } catch (e) {
       console.error('Gagal menyimpan worksheet:', e);
@@ -169,6 +249,12 @@ export const WorksheetBuilder: React.FC = () => {
       return;
     }
 
+    const cleanToken = customToken.trim().toUpperCase();
+    if (cleanToken.length < 3) {
+      alert('Kode token minimal harus terdiri dari 3 karakter.');
+      return;
+    }
+
     setIsCreatingLive(true);
     try {
       const res = await worksheetRealtimeService.createLiveWorksheet({
@@ -177,6 +263,7 @@ export const WorksheetBuilder: React.FC = () => {
         time_limit_minutes: timeLimit,
         pass_score: passScore,
         questionIds: selectedQuestionIds,
+        customToken: cleanToken,
       });
       setCreatedLiveToken(res.token);
     } catch (err: any) {
@@ -405,6 +492,33 @@ export const WorksheetBuilder: React.FC = () => {
               </div>
             </div>
 
+            {/* Opsi Distribusi: Tugaskan Langsung ke Kelas Binaan */}
+            {teacherClassrooms.length > 0 && (
+              <div className="p-3 bg-indigo-50/70 border border-indigo-200/80 rounded-xl space-y-1.5">
+                <label className="text-[11px] font-bold text-indigo-900 flex items-center gap-1.5">
+                  <School className="w-3.5 h-3.5 text-indigo-600" />
+                  <span>Tugaskan ke Kelas Binaan:</span>
+                </label>
+                <select
+                  value={assignedClassId || ''}
+                  onChange={(e) => setAssignedClassId(e.target.value ? parseInt(e.target.value, 10) : null)}
+                  className="w-full px-2.5 py-1.5 bg-white border border-indigo-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                >
+                  <option value="">Simpan ke Database Mandiri Saja (Tanpa Kelas)</option>
+                  {teacherClassrooms.map((cls) => (
+                    <option key={cls.id} value={cls.id}>
+                      {cls.name} ({cls.member_count || 0} Siswa)
+                    </option>
+                  ))}
+                </select>
+                <span className="text-[10px] text-indigo-700 block">
+                  {assignedClassId
+                    ? 'Worksheet akan otomatis muncul di akun siswa terdaftar di kelas ini.'
+                    : 'Worksheet tetap bisa dibagikan via kode token instan.'}
+                </span>
+              </div>
+            )}
+
             {/* Save Button */}
             <button
               onClick={handleSaveWorksheet}
@@ -424,16 +538,51 @@ export const WorksheetBuilder: React.FC = () => {
               )}
             </button>
 
-            {/* Live Token Creation Button */}
-            <button
-              type="button"
-              onClick={handleCreateLiveSession}
-              disabled={isCreatingLive || selectedQuestions.length === 0}
-              className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 border border-slate-700"
-            >
-              <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span>{isCreatingLive ? 'Men-generate Token...' : 'Terbitkan Sesi Live (Generate Token)'}</span>
-            </button>
+            {/* Live Token Configuration & Creation (Bisa Diatur Guru) */}
+            <div className="pt-3 border-t border-slate-200/80 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Kode Token Sesi Live:</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={handleGenerateRandomToken}
+                  className="text-[10px] font-semibold text-sky-600 hover:text-sky-800 flex items-center gap-1 cursor-pointer"
+                  title="Buat token acak otomatis"
+                >
+                  <RefreshCw className="w-3 h-3" />
+                  <span>Acak Kode</span>
+                </button>
+              </div>
+
+              <div className="relative">
+                <input
+                  type="text"
+                  value={customToken}
+                  onChange={(e) => setCustomToken(e.target.value.toUpperCase())}
+                  placeholder="Contoh: OSN-2025, KIMIA-A"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-bold tracking-wider text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 uppercase"
+                />
+              </div>
+              <span className="text-[10px] text-slate-400 block -mt-1">
+                Guru dapat menentukan kode token sendiri agar mudah diingat siswa.
+              </span>
+
+              <button
+                type="button"
+                onClick={handleCreateLiveSession}
+                disabled={isCreatingLive || selectedQuestions.length === 0 || !customToken.trim()}
+                className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-2 border border-slate-700 cursor-pointer"
+              >
+                <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                <span>
+                  {isCreatingLive
+                    ? 'Membuat Sesi Live...'
+                    : `Terbitkan Sesi Live (${customToken.trim() || 'Token'})`}
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* PDF Export Hub (Prioritas Pengguna) */}

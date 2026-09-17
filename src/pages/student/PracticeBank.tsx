@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BENCHMARK_QUESTIONS, PILLARS_DATA } from '../../data/syllabusData';
 import { findConceptByTag } from '../../data/materialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, Filter, BookOpen, Zap, Tag, ArrowRight, X, ExternalLink } from 'lucide-react';
-import type { QuestionDifficulty } from '../../types/database';
+import { questionBankService } from '../../services/questionBankService';
+import type { QuestionDifficulty, Question } from '../../types/database';
 
 export const PracticeBank: React.FC = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPillar, setSelectedPillar] = useState<number | 'all'>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<QuestionDifficulty | 'all'>('all');
+  const [allQuestions, setAllQuestions] = useState<Question[]>(BENCHMARK_QUESTIONS);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      setIsLoading(true);
+      try {
+        const res = await questionBankService.getQuestions();
+        if (res.questions && res.questions.length > 0) {
+          setAllQuestions(res.questions);
+        }
+      } catch (e) {
+        console.warn('Gagal memuat soal dari bank soal service:', e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchQuestions();
+  }, []);
 
   const POPULAR_TAGS = [
     'aturan-slater',
@@ -25,7 +45,7 @@ export const PracticeBank: React.FC = () => {
     'stereokimia',
   ];
 
-  const filteredQuestions = BENCHMARK_QUESTIONS.filter((q) => {
+  const filteredQuestions = allQuestions.filter((q) => {
     if (selectedPillar !== 'all' && q.pillar_number !== selectedPillar) return false;
     if (selectedDifficulty !== 'all' && q.difficulty !== selectedDifficulty) return false;
     if (searchQuery) {

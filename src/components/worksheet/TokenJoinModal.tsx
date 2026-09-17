@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
+import { studentWorksheetService } from '../../services/studentWorksheetService';
 import { DEFAULT_STUDENT_NAME } from '../../lib/supabaseClient';
 import { KeyRound, User, ArrowRight, X, AlertCircle, CheckCircle2, Sparkles } from 'lucide-react';
 
@@ -59,6 +60,9 @@ export const TokenJoinModal: React.FC<TokenJoinModalProps> = ({
         setIsSubmitting(false);
         return;
       }
+
+      // Daftarkan ke koleksi worksheet siswa agar muncul di daftar worksheet siswa
+      studentWorksheetService.enrollWorksheet(res.worksheet, clean);
 
       // Berhasil bergabung, arahkan ke lembar kerja live
       onClose();

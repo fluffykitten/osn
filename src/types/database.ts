@@ -1,4 +1,4 @@
-export type UserRole = 'siswa' | 'guru';
+export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher';
 export type QuestionDifficulty = 'OSK' | 'OSP' | 'OSN' | 'IChO';
 export type GenerationVariant = 'manual' | 'pdf_extracted' | 'twin_parallel' | 'scaffolding' | 'challenging_extension';
 export type WorksheetType = 'static_module' | 'teacher_assignment';
@@ -7,6 +7,7 @@ export type AiStatus = 'perfect' | 'partial_correct' | 'incorrect';
 
 export interface Profile {
   id: string;
+  email: string;
   full_name: string;
   role: UserRole;
   xp: number;
@@ -14,7 +15,13 @@ export interface Profile {
   current_streak: number;
   last_activity_date: string;
   avatar_url?: string;
+  school_name?: string;
+  grade_level?: string;
+  target_olympiad?: 'OSK' | 'OSP' | 'OSN' | 'IChO' | string;
+  phone_whatsapp?: string;
+  membership_tier?: 'free' | 'pro' | 'school';
   created_at: string;
+  updated_at?: string;
 }
 
 export interface Classroom {
@@ -24,7 +31,44 @@ export interface Classroom {
   code: string;
   description?: string;
   created_at: string;
+  updated_at?: string;
   member_count?: number;
+  assignment_count?: number;
+  teacher_name?: string;
+  teacher_email?: string;
+  user_membership_status?: ClassroomMemberStatus;
+}
+
+export type ClassroomMemberStatus = 'invited' | 'active' | 'pending_approval';
+
+export interface JoinClassroomResult {
+  success: boolean;
+  message: string;
+  status?: ClassroomMemberStatus;
+  classroom?: Classroom;
+  alreadyJoined?: boolean;
+}
+
+export interface ClassroomMember {
+  id: number;
+  classroom_id: number;
+  student_email: string;
+  student_id?: string | null;
+  student_name?: string | null;
+  status: ClassroomMemberStatus;
+  invited_at: string;
+  joined_at?: string | null;
+}
+
+export interface ClassroomAssignment {
+  id: number;
+  classroom_id: number;
+  worksheet_id: number;
+  assigned_at: string;
+  due_date?: string | null;
+  is_live_monitored?: boolean;
+  classroom?: Classroom;
+  worksheet?: Worksheet;
 }
 
 export interface ModuleItem {
@@ -127,6 +171,7 @@ export interface QuestionSolution {
 
 export interface Worksheet {
   id: number;
+  teacher_id?: string;
   type: WorksheetType;
   module_id?: number | null;
   classroom_id?: number | null;
@@ -146,14 +191,21 @@ export interface Worksheet {
 export interface WorksheetLiveSession {
   id?: string;
   worksheet_id: number;
+  worksheet_title?: string;
+  worksheet_type?: string; // 'teacher_assignment' | 'live' | 'static_module'
+  classroom_id?: number;
   access_token: string;
   student_id: string;
   student_name: string;
+  student_email?: string;
   current_question_index: number;
-  status: 'active' | 'idle' | 'submitted';
-  live_draft: Record<number, { steps: string; finalAnswer: string }>;
+  current_question_title?: string;
+  status: 'active' | 'idle' | 'submitted' | 'disconnected';
+  live_draft: Record<string | number, any>;
   total_score?: number;
   max_score?: number;
+  total_questions?: number;
+  answered_count?: number;
   last_active_at?: string;
   created_at?: string;
 }
@@ -162,8 +214,13 @@ export interface LiveKeystrokePayload {
   access_token: string;
   student_id: string;
   student_name: string;
+  student_email?: string;
+  worksheet_id?: number;
+  worksheet_title?: string;
+  classroom_id?: number;
   question_id: number;
   question_index: number;
+  current_question_title?: string;
   steps: string;
   finalAnswer: string;
   timestamp: number;
@@ -174,9 +231,49 @@ export interface LaserPointerEvent {
   student_id: string;
   teacher_id: string;
   question_id: number;
-  x_percent: number; // 0.0 - 100.0%
-  y_percent: number; // 0.0 - 100.0%
+  target_zone?: 'question_area' | 'student_render' | 'student_editor';
+  anchor_type?: 'math' | 'katex' | 'block' | 'table_cell' | 'container';
+  anchor_index?: number;
+  rel_x_pct?: number; // 0.0 - 100.0% di dalam elemen anchor
+  rel_y_pct?: number; // 0.0 - 100.0% di dalam elemen anchor
+  scroll_top_pct?: number; // 0.0 - 100.0% posisi scroll container
+  x_percent: number; // Global fallback 0.0 - 100.0%
+  y_percent: number; // Global fallback 0.0 - 100.0%
+  canvas_logical_x?: number; // Koordinat X dalam kanvas terstandarisasi (misal 0 - 640px)
+  canvas_logical_y?: number; // Koordinat Y dalam kanvas terstandarisasi
+  canvas_scale?: number; // Skala pengirim (0.75, 1.0, 1.25)
   is_laser_active: boolean;
+  timestamp: number;
+}
+
+export type HighlightColor = 'yellow' | 'pink' | 'green' | 'blue';
+
+export interface HighlightRect {
+  left_pct: number;
+  top_pct: number;
+  width_pct: number;
+  height_pct: number;
+}
+
+export interface LiveHighlightItem {
+  id: string;
+  question_id: number;
+  target_zone: 'question_area' | 'student_render';
+  selected_text?: string;
+  rects: HighlightRect[];
+  color: HighlightColor;
+  created_at: number;
+}
+
+export interface LiveHighlightEvent {
+  access_token: string;
+  student_id: string;
+  teacher_id: string;
+  question_id: number;
+  action: 'add' | 'clear' | 'remove';
+  highlight?: LiveHighlightItem;
+  highlight_id?: string;
+  target_zone?: 'question_area' | 'student_render';
   timestamp: number;
 }
 

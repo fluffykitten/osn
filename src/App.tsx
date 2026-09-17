@@ -1,59 +1,291 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 
-// Pages
+// Auth Page
+import { LoginPage } from './pages/auth/LoginPage';
+
+// Public Landing Page (Informasi platform, fitur, kapabilitas, aksi masuk/daftar siswa)
+import { LandingPage } from './pages/public/LandingPage';
+
+// Student Pages
 import { Roadmap } from './pages/student/Roadmap';
 import { MaterialsDatabase } from './pages/student/MaterialsDatabase';
 import { PracticeBank } from './pages/student/PracticeBank';
+import { StudentWorksheetList } from './pages/student/StudentWorksheetList';
+import { StudentClassroomView } from './pages/student/StudentClassroomView';
 import { Worksheet } from './pages/student/Worksheet';
 import { Profile } from './pages/student/Profile';
+
+// Teacher Studio Pages
 import { TeacherDashboard } from './pages/teacher/TeacherDashboard';
 import { AiQuestionStudio } from './pages/teacher/AiQuestionStudio';
 import { WorksheetBuilder } from './pages/teacher/WorksheetBuilder';
 import { LiveClassroomDashboard } from './pages/teacher/LiveClassroomDashboard';
+import { ClassroomManager } from './pages/teacher/ClassroomManager';
+import { ClassroomDetail } from './pages/teacher/ClassroomDetail';
 
-import { useLocation } from 'react-router-dom';
+/**
+ * Route guard untuk memproteksi seluruh halaman internal aplikasi agar tidak bisa diakses Tamu (Guest) sebelum login
+ */
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-8 h-8 border-3 border-sky-200 border-t-sky-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+}
+
+/**
+ * Route guard untuk membatasi fitur Bank Soal dan Studio Guru khusus bagi Guru dan Administrator
+ */
+function TeacherOnly({ children }: { children: React.ReactNode }) {
+  const { user, isTeacher, isAdmin, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-8 h-8 border-3 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (!isTeacher && !isAdmin) {
+    return <Navigate to="/worksheet" replace />;
+  }
+
+  return <>{children}</>;
+}
+
+/**
+ * Route guard untuk membatasi fitur profil dan kelas binaan siswa khusus bagi Siswa
+ * (Jika Guru/Admin membukanya, dialihkan ke Studio Guru /teacher)
+ */
+function StudentOnly({ children }: { children: React.ReactNode }) {
+  const { user, isTeacher, isAdmin, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="w-8 h-8 border-3 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (isTeacher || isAdmin) {
+    return <Navigate to="/teacher" replace />;
+  }
+
+  return <>{children}</>;
+}
 
 function AppContent() {
   const location = useLocation();
-  const isWorksheet = location.pathname.startsWith('/worksheet');
+  // Hanya mode pengerjaan lembar kerja (/worksheet/:type/:id) yang menggunakan tata letak full-screen fixed
+  const isWorksheetPlayer =
+    location.pathname.startsWith('/worksheet/') &&
+    location.pathname.replace('/worksheet/', '').trim().length > 0;
 
   return (
-    <div className={`flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${isWorksheet ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
+    <div
+      className={`flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${
+        isWorksheetPlayer ? 'h-screen overflow-hidden' : 'min-h-screen'
+      }`}
+    >
       <Navbar />
 
-      <main className={`flex-1 flex flex-col ${isWorksheet ? 'h-[calc(100vh-64px)] overflow-hidden' : ''}`}>
+      <main
+        className={`flex-1 flex flex-col ${
+          isWorksheetPlayer ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40' : ''
+        }`}
+      >
         <Routes>
-          {/* Landing Page: Roadmap 10 Topik Silabus Penguasaan Kimia */}
-          <Route path="/" element={<Roadmap />} />
-          <Route path="/roadmap" element={<Navigate to="/" replace />} />
+          {/* Landing Page: Informasi web, kapabilitas, fitur, tombol Masuk, Daftar Siswa, Lupa Password, Tentang Creator */}
+          <Route path="/" element={<LandingPage />} />
 
-          {/* Database Materi OSN Kimia & Materi Dasar SMA */}
-          <Route path="/materi" element={<MaterialsDatabase />} />
-          <Route path="/materi/sma/:id" element={<MaterialsDatabase />} />
-          <Route path="/materi/:id" element={<MaterialsDatabase />} />
+          {/* Autentikasi Pengguna */}
+          <Route path="/login" element={<LoginPage />} />
 
-          {/* Student Experience */}
-          <Route path="/practice" element={<PracticeBank />} />
-          <Route path="/worksheet/:type/:id" element={<Worksheet />} />
-          <Route path="/worksheet" element={<Navigate to="/worksheet/static_module/1" replace />} />
-          <Route path="/leaderboard" element={<Navigate to="/" replace />} />
-          <Route path="/profile" element={<Profile />} />
+          {/* Peta Roadmap 10 Topik Silabus Penguasaan Kimia (Wajib Login) */}
+          <Route
+            path="/roadmap"
+            element={
+              <RequireAuth>
+                <Roadmap />
+              </RequireAuth>
+            }
+          />
 
-          {/* Teacher Studio */}
-          <Route path="/teacher" element={<TeacherDashboard />} />
-          <Route path="/teacher/ai-studio" element={<AiQuestionStudio />} />
-          <Route path="/teacher/worksheets/new" element={<WorksheetBuilder />} />
-          <Route path="/teacher/live/:token" element={<LiveClassroomDashboard />} />
+          {/* Database Materi OSN Kimia & Materi Dasar SMA (Wajib Login) */}
+          <Route
+            path="/materi"
+            element={
+              <RequireAuth>
+                <MaterialsDatabase />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/materi/sma/:id"
+            element={
+              <RequireAuth>
+                <MaterialsDatabase />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/materi/:id"
+            element={
+              <RequireAuth>
+                <MaterialsDatabase />
+              </RequireAuth>
+            }
+          />
+
+          {/* Student Experience (Wajib Login) */}
+          {/* Halaman Worksheet Siswa: Daftar & Koleksi Worksheet yang Dimiliki Siswa */}
+          <Route
+            path="/worksheet"
+            element={
+              <RequireAuth>
+                <StudentWorksheetList />
+              </RequireAuth>
+            }
+          />
+          {/* Halaman Detail Kelas Khusus Siswa */}
+          <Route
+            path="/student/classes/:id"
+            element={
+              <StudentOnly>
+                <StudentClassroomView />
+              </StudentOnly>
+            }
+          />
+          <Route
+            path="/student/classroom/:id"
+            element={
+              <StudentOnly>
+                <StudentClassroomView />
+              </StudentOnly>
+            }
+          />
+          {/* Lembar Kerja Pengerjaan Interaktif Siswa */}
+          <Route
+            path="/worksheet/:type/:id"
+            element={
+              <RequireAuth>
+                <Worksheet />
+              </RequireAuth>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <StudentOnly>
+                <Profile />
+              </StudentOnly>
+            }
+          />
+          <Route path="/leaderboard" element={<Navigate to="/roadmap" replace />} />
+
+          {/* Fitur Bank Soal (Khusus Guru & Admin) */}
+          <Route
+            path="/practice"
+            element={
+              <TeacherOnly>
+                <PracticeBank />
+              </TeacherOnly>
+            }
+          />
+
+          {/* Teacher Studio & Classroom Management (Khusus Guru & Admin) */}
+          <Route
+            path="/teacher"
+            element={
+              <TeacherOnly>
+                <TeacherDashboard />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/classes"
+            element={
+              <TeacherOnly>
+                <ClassroomManager />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/classes/:id"
+            element={
+              <TeacherOnly>
+                <ClassroomDetail />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/ai-studio"
+            element={
+              <TeacherOnly>
+                <AiQuestionStudio />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/worksheets/new"
+            element={
+              <TeacherOnly>
+                <WorksheetBuilder />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/worksheets/edit/:id"
+            element={
+              <TeacherOnly>
+                <WorksheetBuilder />
+              </TeacherOnly>
+            }
+          />
+          <Route
+            path="/teacher/live/:token"
+            element={
+              <TeacherOnly>
+                <LiveClassroomDashboard />
+              </TeacherOnly>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 
-      {!isWorksheet && <Footer />}
+      {!isWorksheetPlayer && <Footer />}
     </div>
   );
 }
@@ -61,7 +293,9 @@ function AppContent() {
 export function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </BrowserRouter>
   );
 }

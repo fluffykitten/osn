@@ -9,13 +9,15 @@ import {
 } from '../../lib/katex-helpers';
 import { getSharedModalPosition, setSharedModalPosition } from '../../services/modalPositionService';
 import { KaTeXRenderer } from '../common/KaTeXRenderer';
-import { Table, Sparkles, Wand2, FileText, ChevronDown, X, Scale, Move, ArrowLeft, Check } from 'lucide-react';
+import { Table, Sparkles, Wand2, FileText, X, Scale, Move, ArrowLeft, Check } from 'lucide-react';
 
 interface ChemToolbarProps {
   textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   onValueChange?: (newValue: string) => void;
   onOpenPeriodicTable?: () => void;
   onOpenMolarMass?: () => void;
+  onOpenScaffoldGuide?: () => void;
+  isScaffoldGuideOpen?: boolean;
   className?: string;
 }
 
@@ -63,9 +65,9 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Mol Gas Ideal (PV = nRT)',
         helperText: 'Masukkan nilai tekanan (P), volume (V), dan suhu (T) untuk menghitung mol gas.',
         fields: [
-          { key: 'P', label: 'Tekanan P (atm)', placeholder: 'misal: 2.45', defaultValue: '2.45' },
-          { key: 'V', label: 'Volume V (L)', placeholder: 'misal: 10.0', defaultValue: '10.0' },
-          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15', defaultValue: '298.15' },
+          { key: 'P', label: 'Tekanan P (atm)', placeholder: 'misal: 2.45' },
+          { key: 'V', label: 'Volume V (L)', placeholder: 'misal: 10.0' },
+          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15' },
           { key: 'res', label: 'Hasil mol n (opsional)', placeholder: 'misal: 1.00' },
         ],
         buildFormula: (v) => {
@@ -82,9 +84,9 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Fraksi Mol (X)',
         helperText: 'Masukkan komponen dan perbandingan mol terhadap total campuran.',
         fields: [
-          { key: 'substance', label: 'Nama Komponen / Senyawa', placeholder: 'misal: \\ce{CH4}', defaultValue: '\\ce{CH4}' },
-          { key: 'nA', label: 'Mol komponen (nA)', placeholder: 'misal: 0.50', defaultValue: '0.50' },
-          { key: 'nTot', label: 'Mol total campuran (ntot)', placeholder: 'misal: 1.00', defaultValue: '1.00' },
+          { key: 'substance', label: 'Nama Komponen / Senyawa', placeholder: 'misal: \\ce{CH4}' },
+          { key: 'nA', label: 'Mol komponen (nA)', placeholder: 'misal: 0.50' },
+          { key: 'nTot', label: 'Mol total campuran (ntot)', placeholder: 'misal: 1.00' },
           { key: 'res', label: 'Hasil fraksi mol X (opsional)', placeholder: 'misal: 0.50' },
         ],
         buildFormula: (v) => {
@@ -102,8 +104,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         helperText: 'Masukkan massa zat dan nilai massa molar Mr.',
         fields: [
           { key: 'substance', label: 'Senyawa (opsional)', placeholder: 'misal: \\ce{BaCO3}' },
-          { key: 'm', label: 'Massa (gram)', placeholder: 'misal: 394.7', defaultValue: '394.7' },
-          { key: 'mr', label: 'Massa Molar Mr (g/mol)', placeholder: 'misal: 197.34', defaultValue: '197.34' },
+          { key: 'm', label: 'Massa (gram)', placeholder: 'misal: 394.7' },
+          { key: 'mr', label: 'Massa Molar Mr (g/mol)', placeholder: 'misal: 197.34' },
           { key: 'res', label: 'Hasil mol n (opsional)', placeholder: 'misal: 2.00' },
         ],
         buildFormula: (v) => {
@@ -120,9 +122,9 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Energi Bebas Gibbs (ΔG°)',
         helperText: 'Masukkan nilai entalpi ΔH°, suhu T, dan entropi ΔS°.',
         fields: [
-          { key: 'dH', label: 'Entalpi ΔH° (kJ/mol)', placeholder: 'misal: 57.20', defaultValue: '57.20' },
-          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15', defaultValue: '298.15' },
-          { key: 'dS', label: 'Entropi ΔS° (kJ/(mol·K))', placeholder: 'misal: 0.1758', defaultValue: '0.1758' },
+          { key: 'dH', label: 'Entalpi ΔH° (kJ/mol)', placeholder: 'misal: 57.20' },
+          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15' },
+          { key: 'dS', label: 'Entropi ΔS° (kJ/(mol·K))', placeholder: 'misal: 0.1758' },
           { key: 'res', label: 'Hasil ΔG° (kJ/mol)', placeholder: 'misal: +4.79' },
         ],
         buildFormula: (v) => {
@@ -139,8 +141,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Hubungan Gibbs & Kp',
         helperText: 'Masukkan nilai ΔG° untuk mencari tetapan kesetimbangan Kp.',
         fields: [
-          { key: 'dG', label: 'Nilai ΔG° (J/mol)', placeholder: 'misal: 4785', defaultValue: '4785' },
-          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15', defaultValue: '298.15' },
+          { key: 'dG', label: 'Nilai ΔG° (J/mol)', placeholder: 'misal: 4785' },
+          { key: 'T', label: 'Suhu T (K)', placeholder: 'misal: 298.15' },
           { key: 'res', label: 'Hasil nilai Kp', placeholder: 'misal: 0.141' },
         ],
         buildFormula: (v) => {
@@ -156,8 +158,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Hukum Hess (ΔH°rxn)',
         helperText: 'Masukkan total entalpi pembentukan produk dan reaktan.',
         fields: [
-          { key: 'prod', label: 'Σ n·ΔH°f (Produk)', placeholder: 'misal: 2(33.18)', defaultValue: '2(33.18)' },
-          { key: 'reak', label: 'Σ m·ΔH°f (Reaktan)', placeholder: 'misal: 9.16', defaultValue: '9.16' },
+          { key: 'prod', label: 'Σ n·ΔH°f (Produk)', placeholder: 'misal: 2(33.18)' },
+          { key: 'reak', label: 'Σ m·ΔH°f (Reaktan)', placeholder: 'misal: 9.16' },
           { key: 'res', label: 'Hasil ΔH°rxn (kJ/mol)', placeholder: 'misal: +57.20' },
         ],
         buildFormula: (v) => {
@@ -173,8 +175,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Tetapan Kesetimbangan (Kc)',
         helperText: 'Masukkan konsentrasi produk dan reaktan.',
         fields: [
-          { key: 'num', label: 'Spesies Produk', placeholder: 'misal: [\\ce{NO2}]^2', defaultValue: '[\\ce{NO2}]^2' },
-          { key: 'den', label: 'Spesies Reaktan', placeholder: 'misal: [\\ce{N2O4}]', defaultValue: '[\\ce{N2O4}]' },
+          { key: 'num', label: 'Spesies Produk', placeholder: 'misal: [\\ce{NO2}]^2' },
+          { key: 'den', label: 'Spesies Reaktan', placeholder: 'misal: [\\ce{N2O4}]' },
           { key: 'subst', label: 'Substitusi Angka Konsentrasi', placeholder: 'misal: \\frac{(0.20)^2}{0.10}' },
           { key: 'res', label: 'Nilai Kc', placeholder: 'misal: 0.40' },
         ],
@@ -192,9 +194,9 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Larutan Penyangga (Henderson-Hasselbalch)',
         helperText: 'Masukkan pKa serta konsentrasi atau mol basa konjugasi dan asam.',
         fields: [
-          { key: 'pKa', label: 'Nilai pKa', placeholder: 'misal: 4.74', defaultValue: '4.74' },
-          { key: 'base', label: 'Basa Konjugasi [A-]', placeholder: 'misal: 0.10', defaultValue: '0.10' },
-          { key: 'acid', label: 'Asam [HA]', placeholder: 'misal: 0.10', defaultValue: '0.10' },
+          { key: 'pKa', label: 'Nilai pKa', placeholder: 'misal: 4.74' },
+          { key: 'base', label: 'Basa Konjugasi [A-]', placeholder: 'misal: 0.10' },
+          { key: 'acid', label: 'Asam [HA]', placeholder: 'misal: 0.10' },
           { key: 'res', label: 'Hasil pH', placeholder: 'misal: 4.74' },
         ],
         buildFormula: (v) => {
@@ -211,8 +213,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Hasil Kali Kelarutan (Ksp)',
         helperText: 'Masukkan perkalian konsentrasi ion dan pemfaktoran kelarutan s.',
         fields: [
-          { key: 'ions', label: 'Perkalian Ion', placeholder: 'misal: [\\ce{Ag+}][\\ce{Cl-}]', defaultValue: '[\\ce{Ag+}][\\ce{Cl-}]' },
-          { key: 'factor', label: 'Faktor kelarutan s', placeholder: 'misal: (s)(s) = s^2', defaultValue: '(s)(s) = s^2' },
+          { key: 'ions', label: 'Perkalian Ion', placeholder: 'misal: [\\ce{Ag+}][\\ce{Cl-}]' },
+          { key: 'factor', label: 'Faktor kelarutan s', placeholder: 'misal: (s)(s) = s^2' },
           { key: 'res', label: 'Nilai Ksp', placeholder: 'misal: 1.0 \\times 10^{-10}' },
         ],
         buildFormula: (v) => {
@@ -228,9 +230,9 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Persamaan Nernst Sel Elektrokimia',
         helperText: 'Masukkan potensial standar E°sel, elektron n, dan kuosien Q.',
         fields: [
-          { key: 'e0', label: 'Potensial E°sel (V)', placeholder: 'misal: 0.00', defaultValue: '0.00' },
-          { key: 'n', label: 'Jumlah elektron (n)', placeholder: 'misal: 1', defaultValue: '1' },
-          { key: 'q', label: 'Kuosien reaksi (Q)', placeholder: 'misal: \\frac{[\\ce{Ag+}]_{\\text{jenuh}}}{0.010}', defaultValue: '\\frac{[\\ce{Ag+}]_{\\text{jenuh}}}{0.010}' },
+          { key: 'e0', label: 'Potensial E°sel (V)', placeholder: 'misal: 0.00' },
+          { key: 'n', label: 'Jumlah elektron (n)', placeholder: 'misal: 1' },
+          { key: 'q', label: 'Kuosien reaksi (Q)', placeholder: 'misal: \\frac{[\\ce{Ag+}]_{\\text{jenuh}}}{0.010}' },
           { key: 'res', label: 'Hasil Esel (V)', placeholder: 'misal: -0.177' },
         ],
         buildFormula: (v) => {
@@ -247,8 +249,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Potensial Sel & Gibbs (ΔG°)',
         helperText: 'Masukkan elektron n dan potensial sel E°sel.',
         fields: [
-          { key: 'n', label: 'Jumlah elektron (n)', placeholder: 'misal: 2', defaultValue: '2' },
-          { key: 'e0', label: 'Potensial E°sel (V)', placeholder: 'misal: 1.10', defaultValue: '1.10' },
+          { key: 'n', label: 'Jumlah elektron (n)', placeholder: 'misal: 2' },
+          { key: 'e0', label: 'Potensial E°sel (V)', placeholder: 'misal: 1.10' },
           { key: 'res', label: 'Hasil ΔG° (J atau kJ)', placeholder: 'misal: -212.3 kJ' },
         ],
         buildFormula: (v) => {
@@ -264,8 +266,8 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Reaksi Kesetimbangan',
         helperText: 'Masukkan rumus reaktan dan produk kesetimbangan kimia.',
         fields: [
-          { key: 'reak', label: 'Reaktan fasa gas/larutan', placeholder: 'misal: N2O4(g)', defaultValue: 'N2O4(g)' },
-          { key: 'prod', label: 'Produk fasa gas/larutan', placeholder: 'misal: 2NO2(g)', defaultValue: '2NO2(g)' },
+          { key: 'reak', label: 'Reaktan fasa gas/larutan', placeholder: 'misal: N2O4(g)' },
+          { key: 'prod', label: 'Produk fasa gas/larutan', placeholder: 'misal: 2NO2(g)' },
         ],
         buildFormula: (v) => {
           const reak = v.reak || 'A';
@@ -279,7 +281,7 @@ function getTemplateFillConfig(tpl: FormulaTemplate): {
         title: 'Bantu Isi: Reaksi Redoks Lengkap',
         helperText: 'Masukkan persamaan reaksi redoks yang telah disetarakan.',
         fields: [
-          { key: 'eq', label: 'Persamaan Reaksi Redoks', placeholder: 'misal: 2MnO4- + 5C2O4^2- + 16H+ -> 2Mn^2+ + 10CO2 + 8H2O', defaultValue: '2MnO4- + 5C2O4^2- + 16H+ -> 2Mn^2+ + 10CO2 + 8H2O' },
+          { key: 'eq', label: 'Persamaan Reaksi Redoks', placeholder: 'misal: 2MnO4- + 5C2O4^2- + 16H+ -> 2Mn^2+ + 10CO2 + 8H2O' },
         ],
         buildFormula: (v) => {
           const eq = v.eq || 'A + B -> C + D';
@@ -304,6 +306,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
   onValueChange,
   onOpenPeriodicTable,
   onOpenMolarMass,
+  onOpenScaffoldGuide,
+  isScaffoldGuideOpen = false,
   className = '',
 }) => {
   const [activeCategory, setActiveCategory] = useState<ToolbarCategory>('all');
@@ -699,33 +703,32 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-100">
         {/* Quick Helper Tools */}
         <div className="flex items-center gap-1.5">
-          {/* Template Button */}
+          {/* Rumus Cepat Kimia Button */}
           <button
             type="button"
             onClick={() => setShowTemplatesModal(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 rounded-md transition-all shadow-2xs active:scale-95"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 rounded-md transition-all shadow-2xs active:scale-95 cursor-pointer"
             title="Pilih rumus kimia & matematika siap pakai dengan input variabel ramah siswa"
           >
             <FileText className="w-3.5 h-3.5 text-sky-600" />
-            <span>📋 Template Cepat OSN</span>
-            <ChevronDown className="w-3 h-3 text-sky-400" />
+            <span>Rumus Cepat Kimia</span>
           </button>
 
-          {/* Magic Auto-Format Button */}
-          <button
-            type="button"
-            onClick={handleAutoFormat}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 rounded-md transition-all shadow-2xs active:scale-95"
-            title="Rapikan shorthand kimia otomatis (misal: -> jadi panah, delta H jadi ΔH°, x10^5 jadi notasi ilmiah)"
-          >
-            <Wand2 className="w-3.5 h-3.5 text-amber-600" />
-            <span>🪄 Rapikan Format Kimia</span>
-          </button>
-
-          {formatAppliedToast && (
-            <span className="text-[11px] font-semibold text-emerald-700 animate-in fade-in flex items-center gap-1">
-              ✓ Format dirapikan!
-            </span>
+          {/* Kerangka Langkah Pengerjaan Button (Sejajar dengan Rumus Cepat Kimia) */}
+          {onOpenScaffoldGuide && (
+            <button
+              type="button"
+              onClick={onOpenScaffoldGuide}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-md transition-all shadow-2xs active:scale-95 cursor-pointer ${
+                isScaffoldGuideOpen
+                  ? 'bg-sky-600 text-white shadow-sm ring-2 ring-sky-300'
+                  : 'bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200/80'
+              }`}
+              title="Buka pop-up panduan floating kerangka langkah pengerjaan OSN"
+            >
+              <Sparkles className={`w-3.5 h-3.5 ${isScaffoldGuideOpen ? 'text-amber-300' : 'text-sky-600'}`} />
+              <span>Kerangka Langkah Pengerjaan</span>
+            </button>
           )}
         </div>
       </div>
@@ -848,11 +851,11 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-sky-50/50">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-sm shadow-2xs">
-                  📋
+                  <FileText className="w-4 h-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-slate-900 font-display">
-                    Koleksi Template Cepat OSN Kimia
+                    Koleksi Rumus Cepat Kimia
                   </h3>
                   <p className="text-[11px] text-slate-500">
                     Pilih rumus di bawah ini untuk membuka pop-up pengisian variabel dan angka secara interaktif.
@@ -976,7 +979,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                       className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-lg transition-all shadow-2xs active:scale-95"
                     >
                       <Sparkles className="w-3 h-3" />
-                      <span>✨ Bantu Isi Variabel Rumus</span>
+                      <span>Bantu Isi Variabel Rumus</span>
                     </button>
                   </div>
                 </div>
