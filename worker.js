@@ -94,7 +94,7 @@ async function handleNotify(request, env) {
       </div>
     `;
 
-    // 2. Template Email Sambutan untuk Siswa
+    // 2. Template Email Sambutan untuk Siswa dengan Rincian Informasi Pendaftaran
     const studentHtmlContent = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
         <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9;">
@@ -104,18 +104,53 @@ async function handleNotify(request, env) {
         </div>
         
         <div style="margin-top: 20px; font-size: 14px; line-height: 1.6; color: #334155;">
-          <p>Akun siswa Anda telah terdaftar dengan target kompetisi: <strong>${targetOlympiad} Kimia</strong>.</p>
+          <p>Terima kasih telah mendaftar di platform <strong>OSN Kimia Mastery</strong>. Berikut adalah rincian informasi personal yang Anda daftarkan:</p>
           
-          <h3 style="color: #0f172a; font-size: 15px; margin-top: 18px;">Fitur Belajar Anda:</h3>
-          <ol style="padding-left: 20px; margin: 8px 0;">
+          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; margin-bottom: 20px; font-size: 13px;">
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold; width: 35%;">Nama Lengkap</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0f172a;">${studentName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Email Akun</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0284c7;"><a href="mailto:${studentEmail}">${studentEmail}</a></td>
+            </tr>
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Asal Sekolah</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0;">${schoolName}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Jenjang / Kelas</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0;">Kelas ${gradeLevel}</td>
+            </tr>
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Target Prestasi</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">Olimpiade Sains ${targetOlympiad} Kimia</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Nomor WhatsApp</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0;">${phoneWhatsapp}</td>
+            </tr>
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Waktu Pendaftaran</td>
+              <td style="padding: 10px; border: 1px solid #e2e8f0;">${registeredAt} WIB</td>
+            </tr>
+          </table>
+
+          <h3 style="color: #0f172a; font-size: 15px; margin-top: 18px;">Fitur Belajar Unggulan:</h3>
+          <ol style="padding-left: 20px; margin: 8px 0; color: #475569; font-size: 13px;">
             <li><strong>Peta Silabus Lengkap:</strong> Akses materi dari dasar SMA hingga tingkat lanjut OSN Kimia.</li>
-            <li><strong>Worksheet Interaktif:</strong> Kerjakan soal penalaran ilmiah dengan bimbingan terstruktur.</li>
-            <li><strong>Evaluasi Presisi AI:</strong> Dapatkan analisis miskonsepsi secara real-time.</li>
+            <li><strong>Worksheet Interaktif:</strong> Kerjakan soal penalaran ilmiah dengan bimbingan terstruktur 4 langkah.</li>
+            <li><strong>Evaluasi Presisi AI:</strong> Dapatkan analisis miskonsepsi instan untuk memperbaiki pemahaman konsep.</li>
           </ol>
+
+          <div style="margin-top: 24px; text-align: center;">
+            <a href="https://osn.icmadani.workers.dev/worksheet" style="display: inline-block; background-color: #0284c7; color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: bold; font-size: 14px;">Buka Lembar Kerja & Mulai Belajar →</a>
+          </div>
         </div>
         
         <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; color: #94a3b8; font-size: 11px;">
-          © ${new Date().getFullYear()} OSN Kimia Mastery • Notifikasi pendaftaran platform
+          © ${new Date().getFullYear()} OSN Kimia Mastery • Notifikasi resmi akun siswa
         </div>
       </div>
     `;

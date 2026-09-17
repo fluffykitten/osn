@@ -132,16 +132,29 @@ export const LoginPage: React.FC = () => {
           setErrorMessage(res.error || 'Gagal mendaftarkan akun siswa.');
         } else if (res.requireConfirmation) {
           setEmailConfirmationRequired(true);
-          setSuccessMessage(`Akun berhasil dibuat! Tautan konfirmasi telah dikirim ke ${email}. Silakan periksa kotak masuk atau spam email Anda untuk mengaktifkan akun.`);
-        } else {
-          setSuccessMessage('Akun Siswa berhasil didaftarkan! Selamat datang di OSN Kimia Mastery. Mengarahkan...');
+          setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}. Mengalihkan Anda kembali ke Beranda...`);
           setTimeout(() => {
-            if (redirectPath) {
-              navigate(redirectPath);
-            } else {
-              navigate('/worksheet');
-            }
-          }, 800);
+            navigate('/', {
+              state: {
+                registered: true,
+                requireConfirmation: true,
+                studentName: fullName,
+                registeredEmail: email,
+              },
+            });
+          }, 1500);
+        } else {
+          setSuccessMessage('Akun Siswa berhasil didaftarkan! Selamat datang di OSN Kimia Mastery. Mengalihkan Anda kembali ke Beranda...');
+          setTimeout(() => {
+            navigate('/', {
+              state: {
+                registered: true,
+                requireConfirmation: false,
+                studentName: fullName,
+                registeredEmail: email,
+              },
+            });
+          }, 1200);
         }
       } else if (mode === 'forgot') {
         const res = await resetPassword(email);

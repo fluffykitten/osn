@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { ChemistrySmaSyllabusSvg } from '../../components/syllabus/ChemistrySmaSyllabusSvg';
 import { ChemistryOsnSyllabusSvg } from '../../components/syllabus/ChemistryOsnSyllabusSvg';
@@ -18,13 +18,52 @@ import {
   CloudCheck,
   Users,
   Compass,
+  CheckCircle2,
+  X,
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
   const { user, profile, isTeacher } = useAuth();
+  const location = useLocation();
+
+  const registeredState = location.state as {
+    registered?: boolean;
+    requireConfirmation?: boolean;
+    studentName?: string;
+    registeredEmail?: string;
+  } | undefined;
+
+  const [showRegBanner, setShowRegBanner] = useState(Boolean(registeredState?.registered));
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-sky-100 selection:text-sky-900 pb-20">
+      {/* Registration Success Notification Banner */}
+      {showRegBanner && registeredState?.registered && (
+        <div className="bg-emerald-600 text-white py-3 px-4 shadow-md text-xs sm:text-sm animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <CheckCircle2 className="w-5 h-5 text-emerald-200 shrink-0" />
+              <div>
+                <span className="font-bold">🎉 Pendaftaran Siswa Berhasil!</span>{' '}
+                <span>
+                  Selamat datang di OSN Kimia Mastery, <strong>{registeredState.studentName || 'Siswa'}</strong>!
+                  {registeredState.requireConfirmation
+                    ? ` Tautan aktivasi akun telah dikirim ke ${registeredState.registeredEmail}. Silakan periksa inbox atau spam email Anda.`
+                    : ' Akun Anda telah siap. Silakan masuk untuk mulai berlatih di Lembar Kerja Olimpiade.'}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowRegBanner(false)}
+              className="p-1 hover:bg-white/20 rounded-lg transition-all text-white/80 hover:text-white"
+              title="Tutup pemberitahuan"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Logged-In User Quick Notification Banner (if already authenticated) */}
       {user && (
         <div className="bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-700 text-white py-2.5 px-4 text-xs">
