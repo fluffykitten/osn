@@ -91,18 +91,38 @@ VITE_CLOUDFLARE_MAILER_URL=https://osn-kimia-mailer.subdomain-anda.workers.dev
 
 ---
 
-## 3. Langkah Setup: Email Reset Password (Supabase Auth)
+## 3. Langkah Setup: Email Pengirim Resmi Admin (Supabase Custom SMTP)
 
-Supabase sudah memiliki sistem pengiriman email bawaan. Anda hanya perlu memastikan URL tujuan tautan reset diarahkan ke aplikasi Anda.
+Secara bawaan (*default*), Supabase mengirim email verifikasi dan lupa password menggunakan server uji coba mereka (`noreply@mail.app.supabase.io`). 
 
-1. Buka [https://supabase.com/dashboard](https://supabase.com/dashboard) -> Masuk ke proyek Anda.
-2. Di sidebar kiri, buka menu **Authentication** -> **URL Configuration**.
-3. Pastikan konfigurasi URL sebagai berikut:
-   - **Site URL**: `http://localhost:5173` *(atau domain hosting jika sudah online)*
-   - **Redirect URLs**: Klik **Add URL**, lalu tambahkan:
-     - `http://localhost:5173/login?mode=reset`
-     - *(Jika ada domain hosting produksi, tambahkan juga: `https://domain-anda.com/login?mode=reset`)*
-4. Klik **Save**.
+Agar email yang sampai ke siswa **100% menggunakan email resmi admin Anda (`ezzarscarlet@gmail.com`)** tanpa perlu membeli domain pribadi, Anda dapat mengaktifkan **Custom SMTP Gmail**:
+
+### Cara Mendapatkan Sandi Aplikasi Google (App Password):
+1. Buka [Google Account Security](https://myaccount.google.com/security) untuk akun `ezzarscarlet@gmail.com`.
+2. Pastikan fitur **Verifikasi 2 Langkah (2-Step Verification)** dalam status **Aktif**.
+3. Di kotak pencarian atas atau menu keamanan, cari **Sandi Aplikasi** (atau buka [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)).
+4. Masukkan nama aplikasi (misal: `OSN Kimia Supabase`), lalu klik **Buat (Create)**.
+5. Google akan menampilkan **16 karakter sandi khusus** (contoh: `xxxx yyyy zzzz aaaa`). Salin 16 karakter ini.
+
+### Cara Memasang di Dashboard Supabase:
+1. Buka [Dashboard Supabase](https://supabase.com/dashboard) -> Pilih proyek Anda.
+2. Klik ikon **Project Settings** (gerigi di pojok kiri bawah) -> Pilih **Authentication**.
+3. Gulir ke bawah ke bagian **SMTP Settings**, lalu aktifkan switch **Enable Custom SMTP**.
+4. Isi data berikut:
+   - **Sender email**: `ezzarscarlet@gmail.com`
+   - **Sender name**: `OSN Kimia Mastery`
+   - **Host**: `smtp.gmail.com`
+   - **Port**: `465` *(atau `587`)*
+   - **Minimum TLS Version**: Biarkan default atau pilih `1.2`
+   - **Username**: `ezzarscarlet@gmail.com`
+   - **Password**: *(Masukkan 16 karakter Sandi Aplikasi Google yang tadi disalin)*
+5. Klik tombol **Save**.
+
+> **Opsi Alternatif (Langsung Login Tanpa Konfirmasi Email)**:
+> Jika Anda tidak ingin siswa terbebani keharusan membuka email konfirmasi sebelum login:
+> - Di Dashboard Supabase -> **Authentication** -> **Providers** -> **Email**.
+> - Nonaktifkan (**Toggle OFF**) opsi **"Confirm email"**.
+> - Siswa akan langsung berstatus terverifikasi dan langsung bisa masuk aplikasi setelah registrasi!
 
 ---
 
