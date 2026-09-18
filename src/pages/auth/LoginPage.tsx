@@ -19,34 +19,87 @@ import {
   Target,
   Phone,
 } from 'lucide-react';
+import { classroomService } from '../../services/classroomService';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const redirectPath = searchParams.get('redirect') || (location.state as any)?.from?.pathname;
+  const isDirectRecoveryUrl =
+    searchParams.get('mode') === 'reset' ||
+    searchParams.get('type') === 'recovery' ||
+    window.location.hash.includes('type=recovery') ||
+    sessionStorage.getItem('osn_is_password_recovery') === 'true';
+
   const initialMode =
-    searchParams.get('mode') === 'register'
+    isDirectRecoveryUrl
+      ? 'reset'
+      : searchParams.get('mode') === 'register'
       ? 'register'
       : searchParams.get('mode') === 'forgot'
       ? 'forgot'
-      : searchParams.get('mode') === 'reset'
-      ? 'reset'
       : 'login';
 
-  const { login, register, resetPassword, updatePassword, loginDemo } = useAuth();
+  const { user, isTeacher, isAdmin, login, register, resetPassword, updatePassword, loginDemo, logout } = useAuth();
 
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'reset'>(initialMode);
 
   // Registration step (1 = Akun & Kredensial, 2 = Profil Akademik & Target)
   const [regStep, setRegStep] = useState<1 | 2>(1);
 
+  const isRecoveryMode =
+    mode === 'reset' ||
+    searchParams.get('mode') === 'reset' ||
+    searchParams.get('type') === 'recovery' ||
+    window.location.hash.includes('type=recovery') ||
+    sessionStorage.getItem('osn_is_password_recovery') === 'true';
+
+  // Auto-redirect jika user sudah dalam keadaan login (DIKECUALIKAN saat mode reset kata sandi)
+  useEffect(() => {
+    // PENTING: Jangan redirect jika user sedang mengatur ulang kata sandi!
+    // Supabase secara otomatis menerbitkan sesi pemulihan saat link email diklik.
+    if (isRecoveryMode) {
+      if (mode !== 'reset') {
+        setMode('reset');
+      }
+      return;
+    }
+
+    if (user) {
+      if (redirectPath) {
+        navigate(redirectPath, { replace: true });
+        return;
+      }
+      if (isTeacher || isAdmin) {
+        navigate('/teacher', { replace: true });
+      } else {
+        classroomService.getStudentClassrooms(user.email || '', user.id).then((classes) => {
+          const hasActive = classes.some((c) => c.user_membership_status === 'active');
+          navigate(hasActive ? '/student/dashboard' : '/join-class', { replace: true });
+        }).catch(() => {
+          navigate('/join-class', { replace: true });
+        });
+      }
+    }
+  }, [user, isTeacher, isAdmin, isRecoveryMode, mode, redirectPath, navigate]);
+
   useEffect(() => {
     const m = searchParams.get('mode');
-    if (m === 'register') setMode('register');
-    else if (m === 'forgot') setMode('forgot');
-    else if (m === 'reset') setMode('reset');
-    else if (m === 'login') setMode('login');
+    const hasRecoverySignal =
+      searchParams.get('type') === 'recovery' ||
+      window.location.hash.includes('type=recovery') ||
+      sessionStorage.getItem('osn_is_password_recovery') === 'true';
+
+    if (m === 'reset' || hasRecoverySignal) {
+      setMode('reset');
+    } else if (m === 'register') {
+      setMode('register');
+    } else if (m === 'forgot') {
+      setMode('forgot');
+    } else if (m === 'login') {
+      setMode('login');
+    }
   }, [searchParams]);
 
   // Form states
@@ -100,19 +153,31 @@ export const LoginPage: React.FC = () => {
           setErrorMessage(res.error || 'Email atau kata sandi tidak cocok.');
         } else {
           setSuccessMessage('Berhasil masuk! Mengarahkan...');
-          setTimeout(() => {
+          const cleanEmail = email.trim().toLowerCase();
+          const isTeacherUser =
+            cleanEmail.includes('guru') ||
+            cleanEmail === 'fluffykitten.dev@gmail.com' ||
+            cleanEmail === 'ezzarscarlet@gmail.com';
+
+          setTimeout(async () => {
             if (redirectPath) {
               navigate(redirectPath);
-            } else if (
-              email.toLowerCase().includes('guru') ||
-              email.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
-              email.toLowerCase() === 'ezzarscarlet@gmail.com'
-            ) {
+            } else if (isTeacherUser) {
               navigate('/teacher');
             } else {
-              navigate('/worksheet');
+              try {
+                const classrooms = await classroomService.getStudentClassrooms(cleanEmail);
+                const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
+                if (hasActive) {
+                  navigate('/student/dashboard');
+                } else {
+                  navigate('/join-class');
+                }
+              } catch {
+                navigate('/join-class');
+              }
             }
-          }, 500);
+          }, 400);
         }
       } else if (mode === 'register') {
         if (!schoolName.trim()) {
@@ -132,9 +197,9 @@ export const LoginPage: React.FC = () => {
           setErrorMessage(res.error || 'Gagal mendaftarkan akun siswa.');
         } else if (res.requireConfirmation) {
           setEmailConfirmationRequired(true);
-          setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}. Mengalihkan Anda kembali ke Beranda...`);
+          setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}. Mengalihkan Anda ke Aktivasi Kelas...`);
           setTimeout(() => {
-            navigate('/', {
+            navigate('/join-class', {
               state: {
                 registered: true,
                 requireConfirmation: true,
@@ -144,9 +209,9 @@ export const LoginPage: React.FC = () => {
             });
           }, 1500);
         } else {
-          setSuccessMessage('Akun Siswa berhasil didaftarkan! Selamat datang di OSN Kimia Mastery. Mengalihkan Anda kembali ke Beranda...');
+          setSuccessMessage('Akun Siswa berhasil didaftarkan! Mengalihkan ke Halaman Aktivasi Kelas...');
           setTimeout(() => {
-            navigate('/', {
+            navigate('/join-class', {
               state: {
                 registered: true,
                 requireConfirmation: false,
@@ -154,7 +219,7 @@ export const LoginPage: React.FC = () => {
                 registeredEmail: email,
               },
             });
-          }, 1200);
+          }, 1000);
         }
       } else if (mode === 'forgot') {
         const res = await resetPassword(email);
@@ -164,6 +229,11 @@ export const LoginPage: React.FC = () => {
           setSuccessMessage(res.message || 'Petunjuk pemulihan kata sandi telah dikirim ke email Anda.');
         }
       } else if (mode === 'reset') {
+        if (!newPassword || newPassword.length < 6) {
+          setErrorMessage('Kata sandi baru minimal 6 karakter.');
+          setIsLoading(false);
+          return;
+        }
         if (newPassword !== confirmPassword) {
           setErrorMessage('Konfirmasi kata sandi tidak cocok.');
           setIsLoading(false);
@@ -173,10 +243,21 @@ export const LoginPage: React.FC = () => {
         if (!res.success) {
           setErrorMessage(res.error || 'Gagal memperbarui kata sandi.');
         } else {
-          setSuccessMessage('Kata sandi berhasil diperbarui! Silakan masuk dengan kata sandi baru Anda.');
+          sessionStorage.removeItem('osn_is_password_recovery');
+          const currentEmail = user?.email || email;
+          setSuccessMessage('Kata sandi berhasil diperbarui! Mengalihkan ke beranda untuk masuk...');
+          // Logout dari sesi recovery sementara Supabase agar pengguna dapat masuk secara segar
+          await logout();
+          setNewPassword('');
+          setConfirmPassword('');
           setTimeout(() => {
-            setMode('login');
-          }, 1500);
+            navigate('/', {
+              state: {
+                passwordResetSuccess: true,
+                email: currentEmail,
+              },
+            });
+          }, 1200);
         }
       }
     } catch (err: any) {
@@ -196,15 +277,25 @@ export const LoginPage: React.FC = () => {
       if (res.success) {
         const roleName = type === 'admin' ? 'Administrator' : type === 'teacher' ? 'Guru' : 'Siswa';
         setSuccessMessage(`Berhasil login sebagai akun ${roleName}!`);
-        setTimeout(() => {
+        setTimeout(async () => {
           if (redirectPath) {
             navigate(redirectPath);
           } else if (type === 'teacher' || type === 'admin') {
             navigate('/teacher');
           } else {
-            navigate('/worksheet');
+            try {
+              const classrooms = await classroomService.getStudentClassrooms('siswa@gmail.com');
+              const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
+              if (hasActive) {
+                navigate('/student/dashboard');
+              } else {
+                navigate('/join-class');
+              }
+            } catch {
+              navigate('/join-class');
+            }
           }
-        }, 500);
+        }, 400);
       } else {
         setErrorMessage(res.error || 'Gagal login akun demo.');
       }

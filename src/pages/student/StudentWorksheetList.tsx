@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Compass,
-  KeyRound,
   Clock,
   CheckCircle2,
   AlertCircle,
@@ -16,13 +15,11 @@ import {
   Radio,
   Copy,
   Check,
-  Plus,
   BookOpen,
   Atom,
   Flame,
   ChevronRight,
   RefreshCw,
-  School,
 } from 'lucide-react';
 import {
   studentWorksheetService,
@@ -30,9 +27,7 @@ import {
 } from '../../services/studentWorksheetService';
 import { classroomService } from '../../services/classroomService';
 import { useAuth } from '../../contexts/AuthContext';
-import { TokenJoinModal } from '../../components/worksheet/TokenJoinModal';
-import { JoinClassroomModal } from '../../components/classroom/JoinClassroomModal';
-import type { Classroom } from '../../types/database';
+import { FranticCatStudySvg } from '../../components/worksheet/FranticCatStudySvg';
 
 export const StudentWorksheetList: React.FC = () => {
   const navigate = useNavigate();
@@ -44,37 +39,34 @@ export const StudentWorksheetList: React.FC = () => {
     'siswa@gmail.com';
 
   const [worksheets, setWorksheets] = useState<StudentWorksheetItem[]>([]);
-  const [studentClasses, setStudentClasses] = useState<Classroom[]>([]);
-  const [activeTab, setActiveTab] = useState<'all' | 'teacher' | 'syllabus'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'teacher' | 'syllabus'>('teacher');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
-  const [isJoinClassModalOpen, setIsJoinClassModalOpen] = useState(false);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
-  // Muat daftar worksheet siswa dan tugas dari kelas undangan
+  // Muat daftar worksheet siswa dan tugas dari kelas binaan
   const loadWorksheets = async () => {
-    const list = studentWorksheetService.getStudentWorksheets();
+    const list = studentWorksheetService.getStudentWorksheets(user?.id);
 
     if (studentEmail) {
       try {
-        const classes = await classroomService.getStudentClassrooms(studentEmail, user?.id);
-        setStudentClasses(classes);
-
         const assignments = await classroomService.getStudentAssignments(studentEmail, user?.id);
-        const assignmentItems: StudentWorksheetItem[] = assignments.map((asg) => ({
-          id: asg.worksheet_id,
-          type: 'teacher_assignment',
-          title: asg.worksheet?.title || `Tugas: ${asg.classroom?.name || 'Kelas OSN'}`,
-          description: asg.worksheet?.description || `Ditugaskan oleh Guru di kelas ${asg.classroom?.name}`,
-          category: asg.classroom?.name || 'Tugas Kelas',
-          token: asg.worksheet?.access_token,
-          item_count: asg.worksheet?.item_count || 10,
-          time_limit_minutes: asg.worksheet?.time_limit_minutes || 60,
-          pass_score: asg.worksheet?.pass_score || 70,
-          status: 'not_started',
-          enrolled_at: asg.assigned_at,
-          last_accessed_at: asg.assigned_at,
-        }));
+        const assignmentItems: StudentWorksheetItem[] = assignments.map((asg) => {
+          const rawItem: StudentWorksheetItem = {
+            id: asg.worksheet_id,
+            type: 'teacher_assignment',
+            title: asg.worksheet?.title || `Tugas: ${asg.classroom?.name || 'Kelas OSN'}`,
+            description: asg.worksheet?.description || `Ditugaskan oleh Guru di kelas ${asg.classroom?.name}`,
+            category: asg.classroom?.name || 'Tugas Kelas',
+            token: asg.worksheet?.access_token,
+            item_count: asg.worksheet?.item_count || 10,
+            time_limit_minutes: asg.worksheet?.time_limit_minutes || 60,
+            pass_score: asg.worksheet?.pass_score || 70,
+            status: 'not_started',
+            enrolled_at: asg.assigned_at,
+            last_accessed_at: asg.assigned_at,
+          };
+          return studentWorksheetService.enrichWorksheetStatus(rawItem, user?.id);
+        });
 
         // Gabungkan tanpa duplikat
         const merged = [...assignmentItems];
@@ -155,153 +147,22 @@ export const StudentWorksheetList: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Hero Header Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-sky-900/40">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 border border-emerald-400/30 rounded-full text-emerald-300 text-xs font-semibold">
-              <Compass className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Ruang Kerja Pengerjaan Siswa OSN Kimia</span>
-            </div>
-
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight font-display leading-tight">
-              Koleksi Lembar Kerja{' '}
-              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent">
-                Worksheet Saya
-              </span>
-            </h1>
-
-            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
-              Pilih dan kerjakan paket soal latihan mandiri 10 Topik Silabus Puspresnas / IChO atau bergabung ke sesi penugasan live yang dibuat oleh Guru Pembina Anda melalui kode token.
-            </p>
-          </div>
-
-          {/* Quick Action Buttons: Masuk Kode Kelas & Masuk Token Guru */}
-          <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
-            <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
-              <button
-                onClick={() => setIsJoinClassModalOpen(true)}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-white font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-98 transition-all cursor-pointer"
-              >
-                <School className="w-4 h-4 text-white" />
-                <span>+ Masuk Kode Kelas</span>
-              </button>
-
-              <button
-                onClick={() => setIsTokenModalOpen(true)}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs sm:text-sm rounded-2xl shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-98 transition-all cursor-pointer"
-              >
-                <KeyRound className="w-4 h-4 text-slate-950" />
-                <span>+ Masukkan Token Guru</span>
-              </button>
-            </div>
-            <span className="text-[11px] text-slate-400 font-medium">
-              Punya kode kelas atau token dari guru? Masukkan di atas.
+      {/* Header Section (Light Theme with Frantic Studying Cats) */}
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+        <div className="space-y-1.5 text-center md:text-left flex-1 min-w-0">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight font-display text-slate-900 leading-tight">
+            Worksheet{' '}
+            <span className="bg-gradient-to-r from-sky-600 via-indigo-600 to-emerald-600 bg-clip-text text-transparent">
+              Saya
             </span>
-          </div>
+          </h1>
         </div>
 
-        {/* Decorative ambient background */}
-        <div className="absolute -right-16 -bottom-16 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Animated Frantic Cats Illustration */}
+        <div className="shrink-0 w-full max-w-[260px] sm:max-w-[300px] md:max-w-[320px]">
+          <FranticCatStudySvg className="w-full h-auto" />
+        </div>
       </div>
-
-      {/* Classroom Section: Kelas Binaan Siswa */}
-      {studentClasses.length > 0 ? (
-        <div className="bg-gradient-to-r from-indigo-50/90 via-sky-50/70 to-indigo-50/90 border border-indigo-200/80 rounded-3xl p-5 sm:p-6 shadow-xs space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
-                <School className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-indigo-950 font-display">
-                  Kelas Binaan Saya ({studentClasses.length})
-                </div>
-                <div className="text-xs text-indigo-700">
-                  Akses materi dan penugasan khusus dari Guru Pembina OSN Anda.
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={() => setIsJoinClassModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>+ Gabung Kelas Lain</span>
-            </button>
-          </div>
-
-          {/* Grid Kartu Kelas Siswa */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {studentClasses.map((cls) => {
-              const isPending = cls.user_membership_status === 'pending_approval';
-              return (
-                <div
-                  key={cls.id}
-                  onClick={() => navigate(`/student/classes/${cls.id}`)}
-                  className="bg-white rounded-2xl border border-indigo-100 p-4 shadow-2xs hover:border-indigo-300 hover:shadow-xs transition-all cursor-pointer flex flex-col justify-between gap-3 group"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-slate-100 text-slate-800 rounded border border-slate-200">
-                        {cls.code}
-                      </span>
-                      {isPending ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded-md">
-                          <Clock className="w-3 h-3 text-amber-500" />
-                          <span>Pending Approval</span>
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-md">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                          <span>Aktif</span>
-                        </span>
-                      )}
-                    </div>
-
-                    <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
-                      {cls.name}
-                    </h4>
-                    <p className="text-[11px] text-slate-500 line-clamp-1">
-                      {cls.description || 'Kelas pembinaan olimpiade sains kimia.'}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-indigo-600">
-                    <span>Buka Halaman Kelas</span>
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : (
-        <div className="p-5 rounded-3xl bg-gradient-to-r from-indigo-50 via-sky-50 to-indigo-50 border border-indigo-200/80 flex flex-wrap items-center justify-between gap-4 shadow-2xs">
-          <div className="flex items-center gap-3.5 max-w-xl">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0">
-              <School className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-indigo-950 font-display">
-                Punya Kode Kelas dari Guru Pembina OSN Anda?
-              </div>
-              <div className="text-[11px] text-indigo-700 leading-relaxed">
-                Masukkan kode kelas yang diberikan oleh Guru untuk bergabung ke kelas binaan dan mendapatkan penugasan intensif olimpiade.
-              </div>
-            </div>
-          </div>
-
-          <button
-            onClick={() => setIsJoinClassModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer"
-          >
-            <School className="w-3.5 h-3.5" />
-            <span>Masukkan Kode Kelas</span>
-          </button>
-        </div>
-      )}
 
       {/* Quick Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -422,30 +283,20 @@ export const StudentWorksheetList: React.FC = () => {
       {filteredWorksheets.length === 0 ? (
         <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-4 shadow-xs">
           <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
-            {activeTab === 'teacher' ? <KeyRound className="w-7 h-7" /> : <Search className="w-7 h-7" />}
+            {activeTab === 'teacher' ? <BookOpen className="w-7 h-7" /> : <Search className="w-7 h-7" />}
           </div>
           <div className="max-w-md mx-auto space-y-1.5">
             <h3 className="text-base font-bold text-slate-900 font-display">
               {activeTab === 'teacher'
-                ? 'Belum Ada Tugas Guru yang Terdaftar'
+                ? 'Belum Ada Tugas Guru yang Ditugaskan'
                 : 'Tidak Ada Worksheet yang Sesuai'}
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed">
               {activeTab === 'teacher'
-                ? 'Minta kode token unik (contoh: OSN-XXXX) kepada Guru Pembina Anda, lalu klik tombol di bawah untuk memasukkan token.'
+                ? 'Tugas terstruktur dari Guru Pembina di kelas Anda otomatis muncul di sini saat ditugaskan.'
                 : 'Coba periksa kata kunci pencarian Anda atau gunakan tab kategori lainnya.'}
             </p>
           </div>
-
-          {activeTab === 'teacher' && (
-            <button
-              onClick={() => setIsTokenModalOpen(true)}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs transition-all"
-            >
-              <KeyRound className="w-4 h-4" />
-              <span>Masukkan Kode Token Sekarang</span>
-            </button>
-          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -501,7 +352,7 @@ export const StudentWorksheetList: React.FC = () => {
                   {isLive && item.token && (
                     <div className="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs">
                       <div className="flex items-center gap-2">
-                        <KeyRound className="w-3.5 h-3.5 text-emerald-600" />
+                        <Radio className="w-3.5 h-3.5 text-emerald-600" />
                         <span className="text-[11px] text-slate-500">Token:</span>
                         <span className="font-mono font-bold text-slate-900 tracking-wider">
                           {item.token}
@@ -536,10 +387,6 @@ export const StudentWorksheetList: React.FC = () => {
                     <span className="flex items-center gap-1">
                       <Layers className="w-3.5 h-3.5 text-slate-400" />
                       <span>{item.item_count} Soal Analitis</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{item.time_limit_minutes} Menit</span>
                     </span>
                     {item.score !== undefined && (
                       <span className="flex items-center gap-1 font-bold text-emerald-700 font-mono">
@@ -576,27 +423,6 @@ export const StudentWorksheetList: React.FC = () => {
           })}
         </div>
       )}
-
-      {/* Global Token Modal */}
-      <TokenJoinModal
-        isOpen={isTokenModalOpen}
-        onClose={() => {
-          setIsTokenModalOpen(false);
-          loadWorksheets();
-        }}
-      />
-
-      {/* Modal Gabung Kelas Siswa */}
-      <JoinClassroomModal
-        isOpen={isJoinClassModalOpen}
-        onClose={() => {
-          setIsJoinClassModalOpen(false);
-          loadWorksheets();
-        }}
-        onSuccess={() => {
-          loadWorksheets();
-        }}
-      />
     </div>
   );
 };

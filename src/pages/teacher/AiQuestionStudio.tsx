@@ -15,6 +15,8 @@ import {
   Edit3,
 } from 'lucide-react';
 import { questionBankService } from '../../services/questionBankService';
+import { CloudflareImageUploader } from '../../components/common/CloudflareImageUploader';
+import { DiagramGalleryModal } from '../../components/teacher/DiagramGalleryModal';
 import type { QuestionDifficulty, GenerationVariant } from '../../types/database';
 
 export const AiQuestionStudio: React.FC = () => {
@@ -26,6 +28,7 @@ export const AiQuestionStudio: React.FC = () => {
   const [variantType, setVariantType] = useState<GenerationVariant>('twin_parallel');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedDraft, setGeneratedDraft] = useState<any | null>(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   // PDF Extraction State
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -175,6 +178,7 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
         solution_rubric: generatedDraft.solution_rubric,
         expected_final_answer: generatedDraft.expected_final_answer,
         solution_framework_template: generatedDraft.solution_framework_template,
+        diagram_url: generatedDraft.diagram_url,
         generation_type: 'twin_parallel',
         tags: generatedDraft.tags || ['ai-generated', 'twin-variant'],
         is_verified: true,
@@ -380,6 +384,31 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
                   </div>
                 </div>
 
+                {/* Cloudflare R2 Diagram Soal */}
+                <div className="space-y-2 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-slate-800 flex items-center gap-1.5">
+                      <span>🖼️ Diagram / Gambar Soal (Cloudflare R2):</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setIsGalleryOpen(true)}
+                      className="text-xs text-sky-600 hover:text-sky-800 font-bold hover:underline cursor-pointer"
+                    >
+                      Buka Galeri Diagram R2
+                    </button>
+                  </div>
+
+                  <CloudflareImageUploader
+                    value={generatedDraft.diagram_url || ''}
+                    onChange={(url) => setGeneratedDraft({ ...generatedDraft, diagram_url: url })}
+                    onRemove={() => setGeneratedDraft({ ...generatedDraft, diagram_url: undefined })}
+                    category="diagrams"
+                    label="Pilih atau Tempel (Ctrl+V) Diagram Soal"
+                    helpText="Diagram akan otomatis tersimpan di bucket osn-storage dan ditampilkan pada naskah siswa."
+                  />
+                </div>
+
                 {/* Scaffolding Metadata Preview & Edit */}
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center justify-between">
@@ -573,6 +602,17 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
           )}
         </div>
       )}
+
+      {/* Cloudflare R2 Diagram Gallery Modal */}
+      <DiagramGalleryModal
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+        onSelectDiagram={(url) => {
+          if (generatedDraft) {
+            setGeneratedDraft({ ...generatedDraft, diagram_url: url });
+          }
+        }}
+      />
     </div>
   );
 };

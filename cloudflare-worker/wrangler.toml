@@ -11,3 +11,9 @@ SENDER_NAME = "OSN Kimia Mastery"
 # Secrets yang harus ditambahkan via:
 # npx wrangler secret put BREVO_API_KEY
 # atau via Cloudflare Dashboard -> Workers & Pages -> osn-kimia-mailer -> Settings -> Variables and Secrets -> Add Secret
+
+# Cloudflare R2 Storage Binding untuk Gambar & Diagram
+[[r2_buckets]]
+binding = "STORAGE_BUCKET"
+bucket_name = "osn-storage"
+

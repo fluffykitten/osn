@@ -212,131 +212,16 @@ function getLocalSubmissions(): SavedSubmissionRecord[] {
   try {
     const raw = localStorage.getItem(SUBMISSIONS_STORAGE_KEY);
     if (!raw) {
-      // Inisialisasi awal jika pengguna belum pernah mengerjakan soal
-      // Menyiapkan 2 catatan baseline realistis agar dashboard langsung interaktif
-      const seed: SavedSubmissionRecord[] = [
-        {
-          id: 'sub-baseline-101',
-          userId: DEFAULT_STUDENT_ID,
-          questionId: 101,
-          questionTitle: 'Stoikiometri Pembakaran Campuran Gas Metana dan Propana',
-          pillarNumber: 3,
-          subtopic: 'Stoikiometri & Wujud Zat',
-          studentWorkSteps: 'PV=nRT -> n=1 mol; BaCO3 -> n=2 mol CO2; x+y=1, x+3y=2 -> x=0.5, y=0.5',
-          studentFinalAnswer: 'X_CH4 = 0.50',
-          totalScore: 9.5,
-          maxScore: 10,
-          scorePercentage: 95,
-          status: 'perfect',
-          criteriaBreakdown: [
-            {
-              stepNumber: 1,
-              criterionTitle: 'Penerapan Persamaan Gas Ideal PV = nRT',
-              pointsEarned: 2.5,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Konversi Kelvin dan n = 1.00 mol akurat.',
-            },
-            {
-              stepNumber: 2,
-              criterionTitle: 'Perhitungan Mol CO2 dari Endapan BaCO3',
-              pointsEarned: 2.5,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Massa molar BaCO3 digunakan tepat.',
-            },
-            {
-              stepNumber: 3,
-              criterionTitle: 'Penyusunan Sistem SPLDV Neraca Atom C',
-              pointsEarned: 2.5,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Eliminasi SPLDV x + 3y = 2.00 terbukti rapi.',
-            },
-            {
-              stepNumber: 4,
-              criterionTitle: 'Penentuan Fraksi Mol Akhir Metana',
-              pointsEarned: 2.0,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Hasil X = 0.50 tepat.',
-            },
-          ],
-          overallFeedback: 'Penalaran stoikiometri dan neraca massa gas sangat solid.',
-          strengths: ['Presisi hukum gas ideal', 'Pemodelan aljabar SPLDV sistematis'],
-          missingOrIncorrectPoints: [],
-          xpAwarded: 48,
-          confidenceScore: 0.98,
-          elapsedSeconds: 185,
-          gradedAt: new Date(Date.now() - 3600000 * 24).toISOString(),
-          modelUsed: 'gemini-3.6-flash',
-          syncedToCloud: true,
-        },
-        {
-          id: 'sub-baseline-102',
-          userId: DEFAULT_STUDENT_ID,
-          questionId: 102,
-          questionTitle: 'Disosiasi Termal Gas Dinitrogen Tetroksida',
-          pillarNumber: 4,
-          subtopic: 'Termodinamika Kimia',
-          studentWorkSteps: 'dH = 57.2 kJ/mol; dS = 175.8 J/mol K; dG = dH - TdS; Kp = 0.141',
-          studentFinalAnswer: 'Kp = 0.141',
-          totalScore: 7.0,
-          maxScore: 10,
-          scorePercentage: 70,
-          status: 'partial_correct',
-          criteriaBreakdown: [
-            {
-              stepNumber: 1,
-              criterionTitle: 'Entalpi Reaksi Standar (ΔH°)',
-              pointsEarned: 2.5,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Perhitungan entalpi pembentukan produk-reaktan tepat.',
-            },
-            {
-              stepNumber: 2,
-              criterionTitle: 'Entropi Reaksi Standar (ΔS°)',
-              pointsEarned: 2.5,
-              maxPoints: 2.5,
-              achieved: true,
-              examinerExplanation: 'Koefisien produk NO2 dikalikan 2.',
-            },
-            {
-              stepNumber: 3,
-              criterionTitle: 'Energi Bebas Gibbs Standar (ΔG°)',
-              pointsEarned: 1.0,
-              maxPoints: 2.5,
-              achieved: false,
-              examinerExplanation: 'Konversi satuan Joule ke kJ sempat rancu sebelum pengurangan.',
-            },
-            {
-              stepNumber: 4,
-              criterionTitle: 'Tetapan Kesetimbangan Kp',
-              pointsEarned: 1.0,
-              maxPoints: 2.5,
-              achieved: false,
-              examinerExplanation: 'Perhitungan eksponensial exp(-dG/RT) ada pembulatan awal.',
-            },
-          ],
-          overallFeedback: 'Pemahaman konsep termodinamika bagus, perhatikan konsistensi satuan Joule vs kJ.',
-          strengths: ['Hukum Hess entalpi dan entropi reaksi terurai dengan baik'],
-          missingOrIncorrectPoints: ['Teliti penyelarasan satuan J dan kJ pada rumus Gibbs'],
-          misconceptionDiagnosis: 'Selalu pastikan satuan ΔH° dan ΔS° diselaraskan sebelum dihitung pada ΔG° = ΔH° - TΔS°.',
-          suggestedReviewTopic: 'Termodinamika Kimia & Kesetimbangan Fasa',
-          xpAwarded: 35,
-          confidenceScore: 0.94,
-          elapsedSeconds: 240,
-          gradedAt: new Date(Date.now() - 3600000 * 12).toISOString(),
-          modelUsed: 'gemini-3.6-flash',
-          syncedToCloud: true,
-        },
-      ];
-      localStorage.setItem(SUBMISSIONS_STORAGE_KEY, JSON.stringify(seed));
-      return seed;
+      return [];
     }
 
-    return JSON.parse(raw) as SavedSubmissionRecord[];
+    const parsed = JSON.parse(raw) as SavedSubmissionRecord[];
+    // Bersihkan catatan dummy sub-baseline lama jika ada
+    const filtered = parsed.filter((item) => item && !item.id?.startsWith('sub-baseline-'));
+    if (filtered.length !== parsed.length) {
+      localStorage.setItem(SUBMISSIONS_STORAGE_KEY, JSON.stringify(filtered));
+    }
+    return filtered;
   } catch (err) {
     console.error('Gagal membaca submission dari local storage:', err);
     return [];

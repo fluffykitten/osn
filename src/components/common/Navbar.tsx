@@ -5,7 +5,6 @@ import {
   BookOpen,
   Layers,
   Users,
-  KeyRound,
   School,
   LogIn,
   LogOut,
@@ -14,17 +13,18 @@ import {
   Code2,
   GraduationCap,
   Sparkles,
+  LayoutDashboard,
+  BarChart3,
+  Settings,
 } from 'lucide-react';
 import { getLocalGamificationState, type UserGamificationState } from '../../lib/gamification';
 import { useAuth } from '../../contexts/AuthContext';
-import { TokenJoinModal } from '../worksheet/TokenJoinModal';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const { user, profile, isTeacher, isAdmin, logout } = useAuth();
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const [isTokenJoinModalOpen, setIsTokenJoinModalOpen] = useState(false);
 
   useEffect(() => {
     const handleStorage = () => setGamification(getLocalGamificationState());
@@ -66,18 +66,35 @@ export const Navbar: React.FC = () => {
             {/* Main Navigation Links: HANYA TAMPIL JIKA SUDAH LOGIN */}
             {user && (
               <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-slate-600">
-                {/* Peta Silabus */}
-                <Link
-                  to="/roadmap"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                    isActive('/roadmap')
-                      ? 'bg-sky-50 text-sky-800 font-semibold'
-                      : 'hover:bg-slate-50 hover:text-slate-900'
-                  }`}
-                >
-                  <Compass className="w-3.5 h-3.5" />
-                  <span>Silabus</span>
-                </Link>
+                {/* Siswa: Dashboard */}
+                {!isTeacher && (
+                  <Link
+                    to="/student/dashboard"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                      isActive('/student/dashboard')
+                        ? 'bg-sky-50 text-sky-800 font-semibold'
+                        : 'hover:bg-slate-50 hover:text-slate-900'
+                    }`}
+                  >
+                    <LayoutDashboard className="w-3.5 h-3.5" />
+                    <span>Dashboard</span>
+                  </Link>
+                )}
+
+                {/* Peta Silabus (Hanya Guru & Admin) */}
+                {isTeacher && (
+                  <Link
+                    to="/roadmap"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                      isActive('/roadmap')
+                        ? 'bg-sky-50 text-sky-800 font-semibold'
+                        : 'hover:bg-slate-50 hover:text-slate-900'
+                    }`}
+                  >
+                    <Compass className="w-3.5 h-3.5" />
+                    <span>Silabus</span>
+                  </Link>
+                )}
 
                 {/* Materi */}
                 <Link
@@ -105,17 +122,18 @@ export const Navbar: React.FC = () => {
                   <span>Worksheet</span>
                 </Link>
 
-                {/* Profil & Radar Siswa */}
+                {/* Progress Report Siswa */}
                 {!isTeacher && (
                   <Link
-                    to="/profile"
+                    to="/student/progress"
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                      isActive('/profile')
+                      isActive('/student/progress') || isActive('/profile')
                         ? 'bg-sky-50 text-sky-800 font-semibold'
                         : 'hover:bg-slate-50 hover:text-slate-900'
                     }`}
                   >
-                    <span>Profil & Radar</span>
+                    <BarChart3 className="w-3.5 h-3.5" />
+                    <span>Progress</span>
                   </Link>
                 )}
 
@@ -165,18 +183,6 @@ export const Navbar: React.FC = () => {
 
           {/* Right Action Bar */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Quick Token Join Button for Authenticated Students only */}
-            {user && !isTeacher && (
-              <button
-                onClick={() => setIsTokenJoinModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-lg transition-all shadow-2xs active:scale-95 cursor-pointer"
-                title="Masukkan Token Worksheet dari Guru"
-              >
-                <KeyRound className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="hidden sm:inline">Masuk Token</span>
-              </button>
-            )}
-
             {/* Tombol Tentang Creator (Selalu terlihat baik tamu maupun login) */}
             <a
               href="https://github.com/fluffykitten"
@@ -235,14 +241,16 @@ export const Navbar: React.FC = () => {
                       </div>
                     </div>
 
-                    <Link
-                      to="/roadmap"
-                      onClick={() => setShowUserDropdown(false)}
-                      className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
-                    >
-                      <Compass className="w-3.5 h-3.5 text-sky-600" />
-                      <span>Peta Silabus 10 Topik</span>
-                    </Link>
+                    {isTeacher && (
+                      <Link
+                        to="/roadmap"
+                        onClick={() => setShowUserDropdown(false)}
+                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
+                      >
+                        <Compass className="w-3.5 h-3.5 text-sky-600" />
+                        <span>Peta Silabus 10 Topik</span>
+                      </Link>
+                    )}
 
                     {isTeacher ? (
                       <>
@@ -266,6 +274,14 @@ export const Navbar: React.FC = () => {
                     ) : (
                       <>
                         <Link
+                          to="/student/dashboard"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
+                        >
+                          <LayoutDashboard className="w-3.5 h-3.5 text-sky-600" />
+                          <span>Dashboard Siswa</span>
+                        </Link>
+                        <Link
                           to="/worksheet"
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
@@ -274,12 +290,20 @@ export const Navbar: React.FC = () => {
                           <span>Worksheet Saya</span>
                         </Link>
                         <Link
-                          to="/profile"
+                          to="/student/progress"
                           onClick={() => setShowUserDropdown(false)}
-                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-sky-50 hover:text-sky-700 transition-colors"
                         >
-                          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                          <span>Profil & Radar Kompetensi</span>
+                          <BarChart3 className="w-3.5 h-3.5 text-sky-600" />
+                          <span>Progress & Radar Siswa</span>
+                        </Link>
+                        <Link
+                          to="/student/settings"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <Settings className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Pengaturan Akun</span>
                         </Link>
                       </>
                     )}
@@ -322,12 +346,6 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       </header>
-
-      {/* Global Token Join Modal */}
-      <TokenJoinModal
-        isOpen={isTokenJoinModalOpen}
-        onClose={() => setIsTokenJoinModalOpen(false)}
-      />
     </>
   );
 };

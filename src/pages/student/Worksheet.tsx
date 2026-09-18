@@ -6,10 +6,12 @@ import { ChemToolbar } from '../../components/worksheet/ChemToolbar';
 import { PeriodicTableDrawer } from '../../components/common/PeriodicTableDrawer';
 import { MolarMassCalculatorModal } from '../../components/common/MolarMassCalculatorModal';
 import { ScaffoldGuideModal } from '../../components/worksheet/ScaffoldGuideModal';
+import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import { addXpLocally } from '../../lib/gamification';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
-import { saveWorksheetSubmission } from '../../services/submissionService';
+import { saveWorksheetSubmission, getSubmissionHistory } from '../../services/submissionService';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
+import { studentWorksheetService } from '../../services/studentWorksheetService';
 import { findConceptByTag } from '../../data/materialsData';
 import { questionBankService } from '../../services/questionBankService';
 import { useAuth } from '../../contexts/AuthContext';
@@ -52,6 +54,7 @@ import {
   Save,
   Cloud,
   CloudCheck,
+  Image as ImageIcon,
 } from 'lucide-react';
 
 export const Worksheet: React.FC = () => {
@@ -115,6 +118,18 @@ export const Worksheet: React.FC = () => {
     loadCustomQuestions();
   }, [type, id, studentId, studentName]);
 
+  // Tandai status worksheet sebagai dimulai (in_progress) begitu siswa membuka halaman
+  useEffect(() => {
+    if (type) {
+      studentWorksheetService.markWorksheetStarted({
+        type,
+        id: id || '1',
+        token: loadedWorksheet?.access_token || (type === 'live' ? id : undefined),
+        studentId,
+      });
+    }
+  }, [type, id, loadedWorksheet?.access_token, studentId]);
+
   const questionsList =
     customQuestions && customQuestions.length > 0 ? customQuestions : BENCHMARK_QUESTIONS;
 
@@ -130,13 +145,20 @@ export const Worksheet: React.FC = () => {
 
   const [currentQIndex, setCurrentQIndex] = useState(initialIdx);
 
+  // Reference to track whether user has navigated or draft has been restored (mencegah reset ke soal 1)
+  const hasRestoredQIndexRef = useRef(false);
+  const lastRouteIdRef = useRef<string | undefined>(id);
+
+  // Hanya perbarui indeks jika parameter rute :id benar-benar berubah dari navigasi luar (bukan re-render)
   useEffect(() => {
-    if (initialIdx !== currentQIndex) {
-      setCurrentQIndex(initialIdx);
-      setEvaluationResult(null);
-      setEvaluationError(null);
+    if (lastRouteIdRef.current !== id) {
+      lastRouteIdRef.current = id;
+      if (initialIdx !== currentQIndex) {
+        setCurrentQIndex(initialIdx);
+        setEvaluationError(null);
+      }
     }
-  }, [initialIdx]);
+  }, [id, initialIdx]);
 
   const currentQuestion = questionsList[currentQIndex] || questionsList[0];
 
@@ -151,15 +173,70 @@ export const Worksheet: React.FC = () => {
   const [isPeriodicOpen, setIsPeriodicOpen] = useState(false);
   const [isMolarMassOpen, setIsMolarMassOpen] = useState(false);
   const [isScaffoldGuideOpen, setIsScaffoldGuideOpen] = useState(false);
+  const [isDiagramModalOpen, setIsDiagramModalOpen] = useState(false);
 
-  // AI Evaluation Engine States
+  // AI Evaluation Engine States (Multi-Question Evaluation Map)
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [evaluationStage, setEvaluationStage] = useState<
     'idle' | 'analyzing' | 'validating_math' | 'synthesizing_feedback'
   >('idle');
-  const [evaluationResult, setEvaluationResult] = useState<GradingResponse | null>(null);
+  const [evaluations, setEvaluations] = useState<Record<number, GradingResponse>>({});
+  const evaluationsRef = useRef(evaluations);
+  evaluationsRef.current = evaluations;
+
+  const evaluationResult = evaluations[currentQIndex] || null;
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [isSubmissionSaved, setIsSubmissionSaved] = useState(false);
+
+  // Sinkronkan riwayat submission yang sudah pernah dinilai sebelumnya ke state evaluations
+  useEffect(() => {
+    try {
+      const subs = getSubmissionHistory(studentId);
+      if (subs && subs.length > 0 && questionsList.length > 0) {
+        setEvaluations((prev) => {
+          const updated = { ...prev };
+          let changed = false;
+          questionsList.forEach((q, idx) => {
+            if (!updated[idx]) {
+              const matched = subs.find((s) => s.questionId === q.id);
+              if (matched && matched.totalScore !== undefined) {
+                const stat = matched.status === 'perfect' || matched.status === 'partial_correct' || matched.status === 'incorrect'
+                  ? matched.status
+                  : (matched.totalScore >= 8 ? 'perfect' : matched.totalScore >= 5 ? 'partial_correct' : 'incorrect');
+                updated[idx] = {
+                  status: stat,
+                  totalScore: matched.totalScore,
+                  maxScore: matched.maxScore || 10,
+                  criteriaBreakdown: matched.criteriaBreakdown || [],
+                  overallFeedback: matched.overallFeedback || '',
+                  strengths: matched.strengths || [],
+                  missingOrIncorrectPoints: matched.missingOrIncorrectPoints || [],
+                  misconceptionDiagnosis: matched.misconceptionDiagnosis,
+                  suggestedReviewTopic: matched.suggestedReviewTopic,
+                  xpAwarded: matched.xpAwarded || 0,
+                  confidenceScore: matched.confidenceScore || 0.9,
+                  gradedAt: matched.gradedAt || new Date().toISOString(),
+                };
+                changed = true;
+              }
+            }
+          });
+          return changed ? updated : prev;
+        });
+      }
+    } catch (e) {
+      console.warn('Gagal membaca riwayat submission untuk evaluasi:', e);
+    }
+  }, [studentId, questionsList]);
+
+  // Statistik progres penilaian seluruh butir soal dalam worksheet ini
+  const gradedQuestionsCount = useMemo(() => {
+    return questionsList.filter((_, idx) => Boolean(evaluations[idx])).length;
+  }, [questionsList, evaluations]);
+
+  const isAllWorksheetCompleted = useMemo(() => {
+    return questionsList.length > 0 && gradedQuestionsCount === questionsList.length;
+  }, [questionsList.length, gradedQuestionsCount]);
 
   // Real-time Two-way Classroom State (Token, Laser Pointer, Teacher Comments)
   const liveToken = useMemo(() => {
@@ -594,6 +671,7 @@ export const Worksheet: React.FC = () => {
         worksheetType: type,
         worksheetTitle: currentWorksheetTitle,
         answers: currentAnswers,
+        evaluations: evaluationsRef.current,
         currentQIndex: idx,
         elapsedSeconds: elapsedSecondsRef.current,
         savedAt: Date.now(),
@@ -619,6 +697,14 @@ export const Worksheet: React.FC = () => {
           }
         }
       } catch {}
+
+      // Perbarui status pengerjaan secara global
+      studentWorksheetService.markWorksheetStarted({
+        type,
+        id: id || '1',
+        token: liveToken,
+        studentId,
+      });
 
       const timeStr = new Date().toLocaleTimeString('id-ID', {
         hour: '2-digit',
@@ -688,12 +774,17 @@ export const Worksheet: React.FC = () => {
             setAnswers(parsed.answers);
             hasData = true;
           }
+          if (parsed.evaluations && typeof parsed.evaluations === 'object') {
+            setEvaluations((prev) => ({ ...prev, ...parsed.evaluations }));
+            evaluationsRef.current = { ...evaluationsRef.current, ...parsed.evaluations };
+          }
           if (typeof parsed.elapsedSeconds === 'number' && parsed.elapsedSeconds > 0) {
             setElapsedSeconds(parsed.elapsedSeconds);
             elapsedSecondsRef.current = parsed.elapsedSeconds;
           }
-          if (typeof parsed.currentQIndex === 'number' && parsed.currentQIndex >= 0) {
+          if (!hasRestoredQIndexRef.current && typeof parsed.currentQIndex === 'number' && parsed.currentQIndex >= 0) {
             setCurrentQIndex(parsed.currentQIndex);
+            hasRestoredQIndexRef.current = true;
           }
           if (parsed.savedAt) {
             localSavedAtRef.current = parsed.savedAt;
@@ -736,12 +827,17 @@ export const Worksheet: React.FC = () => {
                   setAnswers(cloudDraft.answers);
                   hasCloudData = true;
                 }
+                if (cloudDraft.evaluations && typeof cloudDraft.evaluations === 'object') {
+                  setEvaluations((prev) => ({ ...prev, ...cloudDraft.evaluations }));
+                  evaluationsRef.current = { ...evaluationsRef.current, ...cloudDraft.evaluations };
+                }
                 if (typeof cloudDraft.elapsedSeconds === 'number' && cloudDraft.elapsedSeconds > 0) {
                   setElapsedSeconds(cloudDraft.elapsedSeconds);
                   elapsedSecondsRef.current = cloudDraft.elapsedSeconds;
                 }
-                if (typeof cloudDraft.currentQIndex === 'number' && cloudDraft.currentQIndex >= 0) {
+                if (!hasRestoredQIndexRef.current && typeof cloudDraft.currentQIndex === 'number' && cloudDraft.currentQIndex >= 0) {
                   setCurrentQIndex(cloudDraft.currentQIndex);
+                  hasRestoredQIndexRef.current = true;
                 }
                 if (cloudDraft.savedAt) {
                   setLastSavedTime(
@@ -888,7 +984,6 @@ export const Worksheet: React.FC = () => {
     if (!currentStepValue.trim()) return;
 
     setIsEvaluating(true);
-    setEvaluationResult(null);
     setEvaluationError(null);
     setEvaluationStage('analyzing');
 
@@ -915,8 +1010,17 @@ export const Worksheet: React.FC = () => {
       clearTimeout(t2);
       setEvaluationStage('idle');
       setIsEvaluating(false);
-      setEvaluationResult(result);
+
+      const updatedEvaluations = {
+        ...evaluationsRef.current,
+        [currentQIndex]: result,
+      };
+      setEvaluations(updatedEvaluations);
+      evaluationsRef.current = updatedEvaluations;
       addXpLocally(result.xpAwarded);
+
+      // Simpan evaluasi dan jawaban terbaru ke draft lokal & realtime
+      saveProgress(answersRef.current, currentQIndex);
 
       // Milestone 3: Auto-Save evaluasi pengerjaan ke Portofolio Siswa (Supabase + Local Cache)
       try {
@@ -931,6 +1035,38 @@ export const Worksheet: React.FC = () => {
           elapsedSeconds,
         });
         setIsSubmissionSaved(true);
+
+        // Periksa apakah seluruh butir soal dalam worksheet sudah selesai dinilai
+        const totalCount = questionsList.length;
+        const allCompleted =
+          totalCount > 0 &&
+          questionsList.every((_, idx) => {
+            return Boolean(updatedEvaluations[idx]);
+          });
+
+        if (allCompleted) {
+          const sumScore = questionsList.reduce((acc, _, idx) => {
+            const ev = updatedEvaluations[idx];
+            return acc + (ev?.totalScore || 0);
+          }, 0);
+          const avgScore = Math.round(sumScore / totalCount);
+
+          studentWorksheetService.markWorksheetCompleted({
+            type,
+            id: id || '1',
+            token: liveToken,
+            studentId,
+            score: avgScore,
+            maxScore: 10,
+          });
+        } else {
+          studentWorksheetService.markWorksheetStarted({
+            type,
+            id: id || '1',
+            token: liveToken,
+            studentId,
+          });
+        }
       } catch (saveErr) {
         console.warn('Gagal menyimpan hasil pengerjaan secara otomatis:', saveErr);
       }
@@ -988,34 +1124,40 @@ export const Worksheet: React.FC = () => {
           </div>
 
           {/* Question Stepper Tabs */}
-          <div className="flex items-center gap-1 overflow-x-auto text-xs py-0.5 min-w-0 max-w-xs sm:max-w-sm md:max-w-md">
+          <div className="flex items-center gap-1.5 overflow-x-auto text-xs py-0.5 min-w-0 max-w-xs sm:max-w-sm md:max-w-md">
             {questionsList.map((q, idx) => {
-              const isAnswered = Boolean(answers[idx]?.steps);
+              const isAnswered = Boolean(answers[idx]?.steps?.trim());
+              const isGraded = Boolean(evaluations[idx]);
+              const qEval = evaluations[idx];
               const isCurrent = idx === currentQIndex;
 
               return (
                 <button
-                  key={q.id}
+                  key={q.id || idx}
                   onClick={() => {
+                    hasRestoredQIndexRef.current = true;
                     setCurrentQIndex(idx);
-                    setEvaluationResult(null);
                     setEvaluationError(null);
-                    if (type === 'static_module') {
-                      navigate(`/worksheet/${type}/${q.pillar_number || q.id}`, { replace: true });
-                    }
                   }}
                   className={`px-2.5 py-1 rounded-lg font-semibold text-xs transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                     isCurrent
-                      ? 'bg-sky-500 text-white shadow-2xs font-bold'
+                      ? 'bg-sky-500 text-white shadow-2xs font-bold ring-2 ring-sky-300'
+                      : isGraded
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100'
                       : isAnswered
                       ? 'bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100'
                       : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
                   }`}
-                  title={`Topik #${q.pillar_number}: ${q.subtopic}`}
+                  title={`Soal #${idx + 1}: ${q.title || q.subtopic || ''}${isGraded ? ` (Dinilai: ${qEval.totalScore}/${qEval.maxScore || 10})` : ''}`}
                 >
-                  <span className="text-[10px] opacity-75 font-mono">T{q.pillar_number}</span>
-                  <span>#{idx + 1}</span>
-                  {isAnswered && <Check className="w-3 h-3 text-sky-600" />}
+                  <span className="text-[10px] opacity-75 font-mono">#{idx + 1}</span>
+                  {isGraded ? (
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/90 px-1 rounded">
+                      {qEval.totalScore}p
+                    </span>
+                  ) : isAnswered ? (
+                    <Check className="w-3 h-3 text-sky-600" />
+                  ) : null}
                 </button>
               );
             })}
@@ -1033,6 +1175,27 @@ export const Worksheet: React.FC = () => {
             >
               <Clock className="w-3.5 h-3.5 text-sky-600 animate-pulse" />
               <span>{formatStopwatch(elapsedSeconds)}</span>
+            </div>
+
+            {/* Status Penilaian Worksheet */}
+            <div
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border shadow-2xs ${
+                isAllWorksheetCompleted
+                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  : gradedQuestionsCount > 0
+                  ? 'bg-sky-50 text-sky-800 border-sky-200'
+                  : 'bg-slate-50 text-slate-600 border-slate-200'
+              }`}
+              title="Status Penilaian Seluruh Butir Soal"
+            >
+              <span className={`w-2 h-2 rounded-full ${isAllWorksheetCompleted ? 'bg-emerald-500' : gradedQuestionsCount > 0 ? 'bg-sky-500' : 'bg-slate-400'}`}></span>
+              <span>
+                {isAllWorksheetCompleted
+                  ? 'Selesai Dinilai'
+                  : gradedQuestionsCount > 0
+                  ? `${gradedQuestionsCount}/${questionsList.length} Dinilai`
+                  : 'Belum Dinilai'}
+              </span>
             </div>
           </div>
 
@@ -1119,6 +1282,26 @@ export const Worksheet: React.FC = () => {
         </div>
       )}
 
+      {/* Completed Worksheet Notification Banner */}
+      {isAllWorksheetCompleted && (
+        <div className="bg-emerald-50 border-b border-emerald-200 px-4 py-2.5 flex items-center justify-between text-xs text-emerald-950 animate-in fade-in shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold">✓</div>
+            <div>
+              <span className="font-bold text-emerald-900">Worksheet Selesai:</span>{' '}
+              Seluruh {questionsList.length} butir soal telah berhasil dinilai guru / evaluasi AI. Status lembar kerja ini telah tersimpan sebagai <strong>Selesai</strong>.
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/worksheet')}
+            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors text-[11px] shrink-0 cursor-pointer"
+          >
+            Lihat Rekap Worksheet
+          </button>
+        </div>
+      )}
+
       {/* Synchronized Side-by-Side Dual-Panel Container */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-w-0">
         {/* PANEL KIRI: Naskah Soal & Informasi (Lebar 38% di Desktop - Independent Scroll) */}
@@ -1166,6 +1349,41 @@ export const Worksheet: React.FC = () => {
               className="p-4 sm:p-5 flex-1 min-h-[480px]"
             >
               <KaTeXRenderer content={currentQuestion.question_text} />
+
+              {/* Diagram Kimia / Kurva Tersemat dari Cloudflare R2 */}
+              {currentQuestion.diagram_url && (
+                <div className="mt-4 pt-3 border-t border-slate-200/80 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
+                    <span className="flex items-center gap-1.5 text-indigo-900">
+                      <ImageIcon className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>Diagram & Visualisasi Soal:</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setIsDiagramModalOpen(true)}
+                      className="inline-flex items-center gap-1 text-[11px] text-sky-600 hover:text-sky-800 font-bold hover:underline cursor-pointer"
+                    >
+                      <Maximize2 className="w-3 h-3" />
+                      <span>Perbesar Diagram</span>
+                    </button>
+                  </div>
+                  <div
+                    onClick={() => setIsDiagramModalOpen(true)}
+                    className="relative group rounded-xl border border-slate-200 bg-white p-2.5 flex items-center justify-center overflow-hidden cursor-zoom-in hover:border-sky-400 transition-all shadow-xs"
+                    title="Klik untuk memperbesar diagram kimia"
+                  >
+                    <img
+                      src={currentQuestion.diagram_url}
+                      alt={currentQuestion.title || 'Diagram Soal'}
+                      className="max-h-64 sm:max-h-72 object-contain rounded transition-transform group-hover:scale-[1.02]"
+                    />
+                    <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-bold rounded-xl">
+                      <Maximize2 className="w-4 h-4" />
+                      <span>Klik untuk Memperbesar Detail</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </ScaledDocumentCanvas>
           </div>
 
@@ -1426,13 +1644,13 @@ export const Worksheet: React.FC = () => {
                 <button
                   onClick={() => {
                     if (currentQIndex > 0) {
+                      hasRestoredQIndexRef.current = true;
                       setCurrentQIndex(currentQIndex - 1);
-                      setEvaluationResult(null);
                       setEvaluationError(null);
                     }
                   }}
                   disabled={currentQIndex === 0}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40"
+                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   <span>Soal Sebelumnya</span>
@@ -1440,13 +1658,13 @@ export const Worksheet: React.FC = () => {
                 <button
                   onClick={() => {
                     if (currentQIndex < questionsList.length - 1) {
+                      hasRestoredQIndexRef.current = true;
                       setCurrentQIndex(currentQIndex + 1);
-                      setEvaluationResult(null);
                       setEvaluationError(null);
                     }
                   }}
                   disabled={currentQIndex === questionsList.length - 1}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40"
+                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
                 >
                   <span>Soal Berikutnya</span>
                   <ChevronRight className="w-4 h-4" />
@@ -1723,10 +1941,16 @@ export const Worksheet: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        setEvaluationResult(null);
+                        setEvaluations((prev) => {
+                          const next = { ...prev };
+                          delete next[currentQIndex];
+                          return next;
+                        });
+                        evaluationsRef.current = { ...evaluationsRef.current };
+                        delete evaluationsRef.current[currentQIndex];
                         if (textareaRef.current) textareaRef.current.focus();
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
                       <span>Perbaiki & Coba Lagi</span>
@@ -1735,7 +1959,7 @@ export const Worksheet: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => navigate('/profile')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-800 font-semibold rounded-lg border border-sky-200 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-800 font-semibold rounded-lg border border-sky-200 transition-colors cursor-pointer"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                       <span>Analisis Radar di Profil</span>
@@ -1745,10 +1969,10 @@ export const Worksheet: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => {
+                          hasRestoredQIndexRef.current = true;
                           setCurrentQIndex(currentQIndex + 1);
-                          setEvaluationResult(null);
                         }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition-colors shadow-2xs"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition-colors shadow-2xs cursor-pointer"
                       >
                         <span>Lanjut ke Soal Berikutnya</span>
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -1783,6 +2007,17 @@ export const Worksheet: React.FC = () => {
         question={currentQuestion}
         onInsertToWorksheet={(template) => handleStepsChange(template)}
       />
+
+      {/* Cloudflare R2 Diagram Viewer Modal (Zoom & Rotation) */}
+      {currentQuestion.diagram_url && (
+        <DiagramViewerModal
+          isOpen={isDiagramModalOpen}
+          onClose={() => setIsDiagramModalOpen(false)}
+          imageUrl={currentQuestion.diagram_url}
+          title={currentQuestion.title || `Diagram Soal #${currentQIndex + 1}`}
+          caption={`Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}
+        />
+      )}
 
     </div>
   );

@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -18,6 +18,11 @@ import { StudentWorksheetList } from './pages/student/StudentWorksheetList';
 import { StudentClassroomView } from './pages/student/StudentClassroomView';
 import { Worksheet } from './pages/student/Worksheet';
 import { Profile } from './pages/student/Profile';
+import { StudentDashboard } from './pages/student/StudentDashboard';
+import { StudentProgressReport } from './pages/student/StudentProgressReport';
+import { StudentSettings } from './pages/student/StudentSettings';
+import { StudentLockedGate } from './pages/student/StudentLockedGate';
+import { RequireClassroom } from './components/common/RequireClassroom';
 
 // Teacher Studio Pages
 import { TeacherDashboard } from './pages/teacher/TeacherDashboard';
@@ -104,6 +109,27 @@ function StudentOnly({ children }: { children: React.ReactNode }) {
 
 function AppContent() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Tangkap jika tautan pemulihan sandi Supabase diarahkan ke Site URL (misal root /)
+  useEffect(() => {
+    const isRecovery =
+      window.location.hash.includes('type=recovery') ||
+      window.location.search.includes('type=recovery') ||
+      sessionStorage.getItem('osn_is_password_recovery') === 'true';
+
+    if (isRecovery && location.pathname !== '/login') {
+      navigate(
+        {
+          pathname: '/login',
+          search: '?mode=reset',
+          hash: window.location.hash,
+        },
+        { replace: true }
+      );
+    }
+  }, [location, navigate]);
+
   // Hanya mode pengerjaan lembar kerja (/worksheet/:type/:id) yang menggunakan tata letak full-screen fixed
   const isWorksheetPlayer =
     location.pathname.startsWith('/worksheet/') &&
@@ -129,22 +155,26 @@ function AppContent() {
           {/* Autentikasi Pengguna */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Peta Roadmap 10 Topik Silabus Penguasaan Kimia (Wajib Login) */}
+          {/* Peta Roadmap 10 Topik Silabus Penguasaan Kimia (Wajib Login & Kelas Aktif) */}
           <Route
             path="/roadmap"
             element={
               <RequireAuth>
-                <Roadmap />
+                <RequireClassroom>
+                  <Roadmap />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
 
-          {/* Database Materi OSN Kimia & Materi Dasar SMA (Wajib Login) */}
+          {/* Database Materi OSN Kimia & Materi Dasar SMA (Wajib Login & Kelas Aktif) */}
           <Route
             path="/materi"
             element={
               <RequireAuth>
-                <MaterialsDatabase />
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
@@ -152,7 +182,9 @@ function AppContent() {
             path="/materi/sma/:id"
             element={
               <RequireAuth>
-                <MaterialsDatabase />
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
@@ -160,18 +192,66 @@ function AppContent() {
             path="/materi/:id"
             element={
               <RequireAuth>
-                <MaterialsDatabase />
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
 
-          {/* Student Experience (Wajib Login) */}
+          {/* Student Experience */}
+          {/* Dashboard Utama Siswa (Wajib Siswa & Kelas Aktif) */}
+          <Route
+            path="/student/dashboard"
+            element={
+              <StudentOnly>
+                <RequireClassroom>
+                  <StudentDashboard />
+                </RequireClassroom>
+              </StudentOnly>
+            }
+          />
+
+          {/* Progress Report & Radar Diagnostik Siswa */}
+          <Route
+            path="/student/progress"
+            element={
+              <StudentOnly>
+                <RequireClassroom>
+                  <StudentProgressReport />
+                </RequireClassroom>
+              </StudentOnly>
+            }
+          />
+
+          {/* Pengaturan Akun Siswa (Bisa diakses kapan saja untuk edit profil / cek kelas) */}
+          <Route
+            path="/student/settings"
+            element={
+              <StudentOnly>
+                <StudentSettings />
+              </StudentOnly>
+            }
+          />
+
+          {/* Halaman Standalone Aktivasi Kode Kelas */}
+          <Route
+            path="/join-class"
+            element={
+              <RequireAuth>
+                <StudentLockedGate />
+              </RequireAuth>
+            }
+          />
+
           {/* Halaman Worksheet Siswa: Daftar & Koleksi Worksheet yang Dimiliki Siswa */}
           <Route
             path="/worksheet"
             element={
               <RequireAuth>
-                <StudentWorksheetList />
+                <RequireClassroom>
+                  <StudentWorksheetList />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
@@ -197,19 +277,15 @@ function AppContent() {
             path="/worksheet/:type/:id"
             element={
               <RequireAuth>
-                <Worksheet />
+                <RequireClassroom>
+                  <Worksheet />
+                </RequireClassroom>
               </RequireAuth>
             }
           />
 
-          <Route
-            path="/profile"
-            element={
-              <StudentOnly>
-                <Profile />
-              </StudentOnly>
-            }
-          />
+          {/* Redirect Rute Profil Lama ke Student Progress Report */}
+          <Route path="/profile" element={<Navigate to="/student/progress" replace />} />
           <Route path="/leaderboard" element={<Navigate to="/roadmap" replace />} />
 
           {/* Fitur Bank Soal (Khusus Guru & Admin) */}

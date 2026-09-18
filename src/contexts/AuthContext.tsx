@@ -41,11 +41,48 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const LOCAL_FALLBACK_USER_KEY = 'osn_local_auth_user';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    try {
+      const localUser = localStorage.getItem(LOCAL_FALLBACK_USER_KEY);
+      if (localUser) {
+        const parsed = JSON.parse(localUser);
+        return parsed.user || null;
+      }
+    } catch {}
+    return null;
+  });
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(() => {
+    try {
+      const localUser = localStorage.getItem(LOCAL_FALLBACK_USER_KEY);
+      if (localUser) {
+        const parsed = JSON.parse(localUser);
+        return parsed.profile || null;
+      }
+    } catch {}
+    return null;
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const isCloudConnected = isSupabaseConfigured();
+
+  const restoreLocalSession = useCallback((): boolean => {
+    try {
+      const localUser = localStorage.getItem(LOCAL_FALLBACK_USER_KEY);
+      if (localUser) {
+        const parsed = JSON.parse(localUser);
+        if (parsed.user) {
+          setUser(parsed.user);
+          setProfile(parsed.profile || null);
+          const role = parsed.profile?.role === 'teacher' || parsed.profile?.role === 'guru' ? 'teacher' : 'student';
+          syncGamificationRole(role);
+          return true;
+        }
+      }
+    } catch (err) {
+      console.warn('Gagal memulihkan sesi lokal:', err);
+    }
+    return false;
+  }, []);
 
   const syncGamificationRole = (role: 'teacher' | 'student') => {
     const legacy = getLocalGamificationState();
@@ -107,14 +144,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     if (!supabase) {
       // Fallback local auth jika Supabase belum dikonfigurasi
-      try {
-        const localUser = localStorage.getItem(LOCAL_FALLBACK_USER_KEY);
-        if (localUser) {
-          const parsed = JSON.parse(localUser);
-          setUser(parsed.user);
-          setProfile(parsed.profile);
-        }
-      } catch {}
+      restoreLocalSession();
       setLoading(false);
       return;
     }
@@ -124,6 +154,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!mounted) return;
       setSession(session);
       if (session?.user) {
+        localStorage.removeItem(LOCAL_FALLBACK_USER_KEY);
         setUser(session.user);
         fetchProfile(session.user.id, session.user.email).then((prof) => {
           if (!mounted) return;
@@ -135,15 +166,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setLoading(false);
         });
       } else {
+        // Jika tidak ada sesi Supabase Cloud aktif, pertahankan/pulihkan sesi lokal (demo/admin/bypass)
+        const hasLocal = restoreLocalSession();
+        if (!hasLocal) {
+          setUser(null);
+          setProfile(null);
+        }
         setLoading(false);
       }
+    }).catch(() => {
+      if (!mounted) return;
+      const hasLocal = restoreLocalSession();
+      if (!hasLocal) {
+        setUser(null);
+        setProfile(null);
+      }
+      setLoading(false);
     });
 
     // Dengarkan perubahan auth state
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
       if (!mounted) return;
+      if (event === 'PASSWORD_RECOVERY') {
+        sessionStorage.setItem('osn_is_password_recovery', 'true');
+      }
       setSession(newSession);
       if (newSession?.user) {
+        localStorage.removeItem(LOCAL_FALLBACK_USER_KEY);
         setUser(newSession.user);
         const prof = await fetchProfile(newSession.user.id, newSession.user.email);
         if (mounted && prof) {
@@ -151,18 +200,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
           syncGamificationRole(role);
         }
+        setLoading(false);
       } else {
-        setUser(null);
-        setProfile(null);
+        // Jika event secara eksplisit adalah SIGNED_OUT dari Supabase
+        if (event === 'SIGNED_OUT') {
+          localStorage.removeItem(LOCAL_FALLBACK_USER_KEY);
+          setUser(null);
+          setProfile(null);
+        } else {
+          // INITIAL_SESSION atau event lain di mana Supabase cloud session bernilai null
+          // Jangan hapus sesi lokal jika ada sesi demo/admin yang aktif
+          const hasLocal = restoreLocalSession();
+          if (!hasLocal) {
+            setUser(null);
+            setProfile(null);
+          }
+        }
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => {
       mounted = false;
       subscription.unsubscribe();
     };
-  }, [fetchProfile]);
+  }, [fetchProfile, restoreLocalSession]);
 
   const refreshProfile = async () => {
     if (user) {
@@ -292,6 +354,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
 
       if (data.user) {
+        localStorage.removeItem(LOCAL_FALLBACK_USER_KEY);
         setUser(data.user);
         setSession(data.session);
         const prof = await fetchProfile(data.user.id, data.user.email);
@@ -557,6 +620,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, error: error.message };
       }
 
+      sessionStorage.removeItem('osn_is_password_recovery');
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Gagal memperbarui kata sandi.' };
@@ -621,6 +685,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const currentRole: 'teacher' | 'student' =
     profile?.role === 'teacher' || profile?.role === 'guru'
+      ? 'teacher'
+      : (user as any)?.user_metadata?.role === 'teacher' || (user as any)?.user_metadata?.role === 'guru'
       ? 'teacher'
       : user?.email?.toLowerCase().includes('guru') ||
         user?.email?.toLowerCase() === 'fluffykitten.dev@gmail.com' ||

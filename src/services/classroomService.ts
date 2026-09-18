@@ -962,6 +962,99 @@ class ClassroomService {
   }
 
   /**
+   * Setujui semua siswa pending_approval di sebuah kelas sekaligus.
+   */
+  public async approveAllPending(classroomId: number): Promise<number> {
+    const members = await this.getClassroomMembers(classroomId);
+    const pending = members.filter((m) => m.status === 'pending_approval');
+    if (pending.length === 0) return 0;
+
+    await Promise.all(pending.map((m) => this.approveStudent(classroomId, m.id)));
+    return pending.length;
+  }
+
+  /**
+   * Mengambil seluruh siswa pending_approval lintas semua kelas milik guru.
+   * Digunakan oleh TeacherDashboard untuk banner persetujuan global.
+   */
+  public async getPendingApprovalsAcrossClasses(
+    teacherId: string
+  ): Promise<Array<ClassroomMember & { classroom_name: string; classroom_id: number }>> {
+    const classrooms = await this.getTeacherClassrooms(teacherId);
+    const allPending: Array<ClassroomMember & { classroom_name: string; classroom_id: number }> = [];
+    for (const cls of classrooms) {
+      const members = await this.getClassroomMembers(cls.id);
+      members
+        .filter((m) => m.status === 'pending_approval')
+        .forEach((m) =>
+          allPending.push({ ...m, classroom_name: cls.name, classroom_id: cls.id })
+        );
+    }
+    return allPending;
+  }
+
+  /**
+   * Menghapus penugasan worksheet dari kelas.
+   */
+  public async removeAssignment(assignmentId: number): Promise<boolean> {
+    this.localAssignments = this.localAssignments.filter((a) => a.id !== assignmentId);
+    this.persistLocalStore();
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        await supabase.from('classroom_assignments').delete().eq('id', assignmentId);
+      } catch (err) {
+        console.warn('Gagal menghapus assignment di cloud:', err);
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Mengambil riwayat submissions siswa untuk satu worksheet tertentu di sebuah kelas.
+   * Mencocokkan submission berdasarkan question_id dalam worksheet dan user_id siswa di kelas.
+   */
+  public async getWorksheetSubmissions(
+    questionIds: number[],
+    studentIds: string[]
+  ): Promise<any[]> {
+    if (questionIds.length === 0 || studentIds.length === 0) return [];
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('worksheet_submissions')
+          .select('*')
+          .in('question_id', questionIds)
+          .in('user_id', studentIds);
+
+        if (data && !error && data.length > 0) {
+          return data;
+        }
+      } catch (err) {
+        console.warn('Gagal memuat submissions dari cloud:', err);
+      }
+    }
+
+    // Fallback: cari dari local submissions cache di localStorage
+    try {
+      const raw = localStorage.getItem('osn_student_submissions');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return parsed.filter(
+          (sub: any) =>
+            questionIds.includes(Number(sub.questionId || sub.question_id)) &&
+            studentIds.includes(sub.userId || sub.user_id)
+        );
+      }
+    } catch {}
+
+    return [];
+  }
+
+  /**
    * Menghapus kelas (khusus guru pemilik)
    */
   public async deleteClassroom(classroomId: number): Promise<boolean> {

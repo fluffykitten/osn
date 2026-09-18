@@ -1,271 +1,392 @@
 /**
- * Cloudflare Worker: OSN Kimia Mastery Mailer Relay
- * Menangani pengiriman email notifikasi (Pendaftaran Siswa Baru & Notifikasi Admin)
+ * Cloudflare Worker: OSN Kimia Mastery Mailer & R2 Storage Relay
+ * Menangani pengiriman email notifikasi dan penyimpanan berkas/diagram Cloudflare R2
  * Dapat dijalankan pada subdomain gratis Cloudflare Workers (*.workers.dev) TANPA CUSTOM DOMAIN.
- * 
- * Menggunakan Brevo API (gratis 300 email/hari dengan verified sender Gmail pribadi)
- * atau Resend API (resend.com).
  */
 
-export default {
-  async fetch(request, env, ctx) {
-    // 1. Tangani preflight CORS
-    if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        },
-      });
-    }
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-    const url = new URL(request.url);
+const ALLOWED_MIME_TYPES = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg',
+  'image/webp': 'webp',
+  'image/svg+xml': 'svg',
+  'image/gif': 'gif',
+  'application/pdf': 'pdf',
+};
 
-    // Health Check Endpoint
-    if (request.method === 'GET' && (url.pathname === '/' || url.pathname === '/health')) {
-      return new Response(
-        JSON.stringify({
-          status: 'ok',
-          service: 'OSN Kimia Mastery Mailer Worker',
-          timestamp: new Date().toISOString(),
-        }),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      );
-    }
+const ALLOWED_CATEGORIES = ['diagrams', 'questions', 'materials', 'avatars', 'general'];
 
-    if (request.method !== 'POST' || url.pathname !== '/notify') {
-      return new Response(JSON.stringify({ error: 'Endpoint not found' }), {
-        status: 404,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-    }
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Category, X-Filename',
+  };
+}
 
+function jsonResponse(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: {
+      'Content-Type': 'application/json',
+      ...corsHeaders(),
+    },
+  });
+}
+
+function sanitizeCategory(rawCategory) {
+  const cat = (rawCategory || 'diagrams').toLowerCase().trim();
+  return ALLOWED_CATEGORIES.includes(cat) ? cat : 'diagrams';
+}
+
+function sanitizeFilename(originalName) {
+  if (!originalName) return 'file';
+  return originalName
+    .toLowerCase()
+    .replace(/[^a-z0-9.-]/g, '-')
+    .replace(/-+/g, '-')
+    .substring(0, 50);
+}
+
+async function handleStorageUpload(request, env) {
+  if (request.method !== 'POST') {
+    return jsonResponse({ error: 'Method not allowed. Gunakan POST untuk upload.' }, 405);
+  }
+
+  const bucket = env.STORAGE_BUCKET;
+  if (!bucket) {
+    return jsonResponse(
+      {
+        error: 'R2 Bucket (STORAGE_BUCKET) belum di-binding pada Cloudflare Worker.',
+        hint: 'Pastikan bucket "osn-storage" telah ditautkan di wrangler.toml / Dashboard Workers.',
+      },
+      503
+    );
+  }
+
+  const contentType = request.headers.get('content-type') || '';
+  const url = new URL(request.url);
+
+  let fileBuffer = null;
+  let fileMime = '';
+  let originalFilename = '';
+  let category = sanitizeCategory(request.headers.get('x-category') || url.searchParams.get('category'));
+
+  if (contentType.includes('multipart/form-data')) {
     try {
-      const body = await request.json();
-      const { action, student, adminEmail } = body;
+      const formData = await request.formData();
+      const fileEntry = formData.get('file');
 
-      if (action !== 'student_registered') {
-        return new Response(JSON.stringify({ error: 'Action not supported' }), {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        });
+      if (!fileEntry || typeof fileEntry === 'string') {
+        return jsonResponse({ error: 'Field "file" wajib disertakan dalam form-data.' }, 400);
       }
 
-      const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'fluffykitten.dev@gmail.com';
-      const studentEmail = student.email;
-      const studentName = student.fullName || 'Calon Medalis';
-      const schoolName = student.schoolName || 'Tidak Disebutkan';
-      const gradeLevel = student.gradeLevel || 'Kelas 10/11/12';
-      const targetOlympiad = student.targetOlympiad || 'OSK';
-      const phoneWhatsapp = student.phoneWhatsApp || '-';
-      const registeredAt = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+      if (formData.get('category')) {
+        category = sanitizeCategory(formData.get('category'));
+      }
 
-      // Cek penyedia email yang tersedia di environment secrets
-      // Prioritas 1: Brevo API (paling mudah tanpa custom domain, cukup daftar free dan verifikasi email Gmail Anda)
-      // Prioritas 2: Resend API
-      const brevoApiKey = env.BREVO_API_KEY;
-      const resendApiKey = env.RESEND_API_KEY;
-      const senderEmail = env.SENDER_EMAIL || 'fluffykitten.dev@gmail.com';
-      const senderName = env.SENDER_NAME || 'OSN Kimia Mastery';
+      originalFilename = fileEntry.name || 'diagram';
+      fileMime = fileEntry.type || 'application/octet-stream';
+      fileBuffer = await fileEntry.arrayBuffer();
+    } catch (err) {
+      return jsonResponse({ error: `Gagal membaca form-data: ${err.message}` }, 400);
+    }
+  } else {
+    originalFilename = request.headers.get('x-filename') || 'diagram';
+    fileMime = contentType.split(';')[0].trim().toLowerCase();
+    fileBuffer = await request.arrayBuffer();
+  }
 
-      // 1. Template HTML untuk Administrator
-      const adminHtmlContent = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
-          <div style="padding-bottom: 16px; border-bottom: 2px solid #0284c7;">
-            <h2 style="color: #0f172a; margin: 0; font-size: 20px;">🎓 Pendaftaran Siswa Baru - OSN Kimia Mastery</h2>
-            <p style="color: #64748b; font-size: 13px; margin: 4px 0 0 0;">Notifikasi sistem resmi platform olimpiade sains kimia</p>
-          </div>
-          
-          <div style="margin-top: 20px;">
-            <p style="color: #334155; font-size: 14px;">Halo <strong>Administrator (${recipientAdmin})</strong>,</p>
-            <p style="color: #334155; font-size: 14px;">Seorang siswa baru baru saja menyelesaikan pendaftaran di platform OSN Kimia Mastery:</p>
-            
-            <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px;">
-              <tr style="background-color: #f8fafc;">
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold; width: 35%;">Nama Lengkap</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0f172a;">${studentName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Email Siswa</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0284c7;"><a href="mailto:${studentEmail}">${studentEmail}</a></td>
-              </tr>
-              <tr style="background-color: #f8fafc;">
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Asal Sekolah</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0;">${schoolName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Jenjang / Kelas</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0;">Kelas ${gradeLevel}</td>
-              </tr>
-              <tr style="background-color: #f8fafc;">
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Target Prestasi</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">Olimpiade Sains ${targetOlympiad}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Nomor Kontak / WA</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0;">${phoneWhatsapp}</td>
-              </tr>
-              <tr style="background-color: #f8fafc;">
-                <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Waktu Pendaftaran</td>
-                <td style="padding: 10px; border: 1px solid #e2e8f0;">${registeredAt} WIB</td>
-              </tr>
-            </table>
+  if (!fileBuffer || fileBuffer.byteLength === 0) {
+    return jsonResponse({ error: 'Berkas kosong atau tidak dapat dibaca.' }, 400);
+  }
 
-            <div style="margin-top: 24px; padding: 12px; background-color: #eff6ff; border-radius: 8px; border-left: 4px solid #3b82f6; font-size: 12px; color: #1e40af;">
-              Siswa ini telah mendapatkan inisialisasi akun dengan 100 XP awal dan akses gratis ke seluruh peta silabus & worksheet interaktif.
-            </div>
-          </div>
-        </div>
-      `;
+  if (fileBuffer.byteLength > MAX_FILE_SIZE) {
+    return jsonResponse(
+      {
+        error: `Ukuran berkas (${(fileBuffer.byteLength / (1024 * 1024)).toFixed(2)} MB) melebihi batas maksimum 10 MB.`,
+      },
+      413
+    );
+  }
 
-      // 2. Template HTML Sambutan untuk Siswa
-      const studentHtmlContent = `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
-          <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9;">
-            <div style="display: inline-block; background-color: #0284c7; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">OSN Kimia Mastery</div>
-            <h1 style="color: #0f172a; margin: 12px 0 4px 0; font-size: 22px;">Selamat Datang, ${studentName}!</h1>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Langkah Awal Anda Menuju Medali Olimpiade Sains Nasional</p>
-          </div>
-          
-          <div style="margin-top: 20px; font-size: 14px; line-height: 1.6; color: #334155;">
-            <p>Akun siswa Anda telah berhasil diaktifkan dengan target kompetisi: <strong>${targetOlympiad} Kimia</strong>.</p>
-            
-            <h3 style="color: #0f172a; font-size: 15px; margin-top: 18px;">Langkah Awal Pembinaan Anda:</h3>
-            <ol style="padding-left: 20px; margin: 8px 0;">
-              <li><strong>Eksplorasi Peta Silabus:</strong> Pelajari kurikulum berjenjang dari Fase E & F SMA hingga 10 Pilar Silabus OSN Kimia.</li>
-              <li><strong>Kerjakan Lembar Kerja (Worksheet):</strong> Uji penalaran ilmiah dengan format scaffolding 4 langkah.</li>
-              <li><strong>Evaluasi Presisi AI:</strong> Dapatkan feedback instan per baris langkah pengerjaan dan deteksi miskonsepsi.</li>
-            </ol>
+  const ext = ALLOWED_MIME_TYPES[fileMime];
+  if (!ext) {
+    return jsonResponse(
+      {
+        error: `Tipe berkas "${fileMime}" tidak didukung. Format yang diperbolehkan: PNG, JPEG, WEBP, SVG, GIF, PDF.`,
+      },
+      415
+    );
+  }
 
-            <div style="margin-top: 24px; text-align: center;">
-              <a href="https://osn-kimia.vercel.app/worksheet" style="display: inline-block; background-color: #10b981; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 14px;">Mulai Belajar di Worksheet →</a>
-            </div>
-          </div>
-          
-          <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; color: #94a3b8; font-size: 11px;">
-            © ${new Date().getFullYear()} OSN Kimia Mastery • Dikirim secara otomatis oleh sistem notifikasi olimpiade
-          </div>
-        </div>
-      `;
+  const timestamp = Date.now();
+  const randomId = Math.random().toString(36).substring(2, 9);
+  const cleanName = sanitizeFilename(originalFilename.replace(/\.[^/.]+$/, ''));
+  const storageKey = `${category}/${timestamp}-${cleanName}-${randomId}.${ext}`;
 
-      let dispatchResult = { brevoSent: false, resendSent: false };
+  try {
+    await bucket.put(storageKey, fileBuffer, {
+      httpMetadata: {
+        contentType: fileMime,
+        cacheControl: 'public, max-age=31536000, immutable',
+      },
+      customMetadata: {
+        originalName: originalFilename,
+        category,
+        uploadedAt: new Date().toISOString(),
+        fileSize: String(fileBuffer.byteLength),
+      },
+    });
 
-      // Kirim via Brevo API jika BREVO_API_KEY tersedia
-      if (brevoApiKey) {
-        // Kirim ke Admin
-        const brevoAdminRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+    const publicUrl = `${url.origin}/api/storage/file/${storageKey}`;
+
+    return jsonResponse({
+      success: true,
+      url: publicUrl,
+      key: storageKey,
+      filename: originalFilename,
+      size: fileBuffer.byteLength,
+      contentType: fileMime,
+      category,
+      uploadedAt: new Date().toISOString(),
+    });
+  } catch (err) {
+    return jsonResponse({ error: `Gagal menyimpan berkas ke Cloudflare R2: ${err.message}` }, 500);
+  }
+}
+
+async function handleStorageGet(request, env, storageKey) {
+  const bucket = env.STORAGE_BUCKET;
+  if (!bucket) {
+    return jsonResponse({ error: 'R2 Bucket tidak terkonfigurasi.' }, 503);
+  }
+
+  if (!storageKey) {
+    return jsonResponse({ error: 'Kunci berkas (storage key) tidak diberikan.' }, 400);
+  }
+
+  try {
+    const object = await bucket.get(storageKey);
+    if (!object) {
+      return jsonResponse({ error: `Berkas "${storageKey}" tidak ditemukan di storage.` }, 404);
+    }
+
+    const clientEtag = request.headers.get('if-none-match');
+    if (clientEtag && clientEtag === object.httpEtag) {
+      return new Response(null, {
+        status: 304,
+        headers: {
+          ...corsHeaders(),
+          ETag: object.httpEtag,
+        },
+      });
+    }
+
+    const headers = new Headers();
+    object.writeHttpMetadata(headers);
+    headers.set('ETag', object.httpEtag);
+    headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    headers.set('Access-Control-Allow-Origin', '*');
+
+    return new Response(object.body, { headers });
+  } catch (err) {
+    return jsonResponse({ error: `Gagal mengambil berkas dari R2: ${err.message}` }, 500);
+  }
+}
+
+async function handleStorageDelete(request, env, storageKey) {
+  const bucket = env.STORAGE_BUCKET;
+  if (!bucket) {
+    return jsonResponse({ error: 'R2 Bucket tidak terkonfigurasi.' }, 503);
+  }
+
+  if (!storageKey) {
+    return jsonResponse({ error: 'Kunci berkas tidak diberikan.' }, 400);
+  }
+
+  try {
+    await bucket.delete(storageKey);
+    return jsonResponse({
+      success: true,
+      message: `Berkas "${storageKey}" berhasil dihapus dari Cloudflare R2.`,
+      key: storageKey,
+    });
+  } catch (err) {
+    return jsonResponse({ error: `Gagal menghapus berkas: ${err.message}` }, 500);
+  }
+}
+
+async function handleStorageList(request, env) {
+  const bucket = env.STORAGE_BUCKET;
+  if (!bucket) {
+    return jsonResponse({ error: 'R2 Bucket tidak terkonfigurasi.' }, 503);
+  }
+
+  const url = new URL(request.url);
+  const prefix = url.searchParams.get('prefix') || '';
+  const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 100);
+
+  try {
+    const listed = await bucket.list({ prefix, limit });
+    const objects = listed.objects.map((obj) => ({
+      key: obj.key,
+      size: obj.size,
+      uploadedAt: obj.uploaded.toISOString(),
+      httpEtag: obj.httpEtag,
+      url: `${url.origin}/api/storage/file/${obj.key}`,
+      customMetadata: obj.customMetadata || {},
+    }));
+
+    return jsonResponse({
+      success: true,
+      objects,
+      truncated: listed.truncated,
+      cursor: listed.cursor,
+    });
+  } catch (err) {
+    return jsonResponse({ error: `Gagal membaca daftar berkas dari R2: ${err.message}` }, 500);
+  }
+}
+
+async function handleNotify(request, env) {
+  try {
+    const body = await request.json();
+    const { action, student, adminEmail } = body;
+
+    if (action !== 'student_registered' || !student) {
+      return jsonResponse({ error: 'Action not supported or student data missing' }, 400);
+    }
+
+    const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'fluffykitten.dev@gmail.com';
+    const studentEmail = student.email;
+    const studentName = student.fullName || 'Calon Medalis';
+    const schoolName = student.schoolName || 'Tidak Disebutkan';
+    const gradeLevel = student.gradeLevel || 'Kelas 10/11/12';
+    const targetOlympiad = student.targetOlympiad || 'OSK';
+    const phoneWhatsapp = student.phoneWhatsApp || '-';
+    const registeredAt = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+
+    const resendApiKey = env.RESEND_API_KEY;
+    const brevoApiKey = env.BREVO_API_KEY;
+    const senderName = env.SENDER_NAME || 'OSN Kimia Mastery';
+    const senderEmail = env.SENDER_EMAIL || 'onboarding@resend.dev';
+
+    const adminHtmlContent = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <h2 style="color: #0f172a; border-bottom: 2px solid #0284c7; padding-bottom: 10px;">🎓 Pendaftaran Siswa Baru - OSN Kimia</h2>
+        <p><strong>Nama:</strong> ${studentName}</p>
+        <p><strong>Email:</strong> ${studentEmail}</p>
+        <p><strong>Sekolah:</strong> ${schoolName}</p>
+        <p><strong>Kelas:</strong> ${gradeLevel}</p>
+        <p><strong>Target:</strong> ${targetOlympiad}</p>
+        <p><strong>WA:</strong> ${phoneWhatsapp}</p>
+        <p><strong>Waktu:</strong> ${registeredAt} WIB</p>
+      </div>
+    `;
+
+    const studentHtmlContent = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <h2 style="color: #0284c7;">Selamat Datang di OSN Kimia Mastery!</h2>
+        <p>Halo <strong>${studentName}</strong>, akun belajarmu telah aktif.</p>
+        <p>Silakan bergabung ke kelas binaan gurumu menggunakan kode kelas untuk membuka seluruh materi kurikulum dan bank soal.</p>
+      </div>
+    `;
+
+    const dispatchResult = { brevoSent: false, resendSent: false };
+
+    if (brevoApiKey) {
+      try {
+        const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           headers: {
             'api-key': brevoApiKey,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            sender: { email: senderEmail, name: senderName },
-            to: [{ email: recipientAdmin, name: 'Administrator' }],
-            subject: `[OSN Kimia Mastery] Siswa Baru Terdaftar: ${studentName} (${schoolName})`,
+            sender: { name: senderName, email: senderEmail },
+            to: [{ email: recipientAdmin }],
+            subject: `[OSN Kimia] Pendaftaran Siswa Baru: ${studentName}`,
             htmlContent: adminHtmlContent,
           }),
         });
+        dispatchResult.brevoSent = brevoRes.ok;
+      } catch (_) {}
+    }
 
-        // Kirim ke Siswa
-        const brevoStudentRes = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'api-key': brevoApiKey,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            sender: { email: senderEmail, name: senderName },
-            to: [{ email: studentEmail, name: studentName }],
-            subject: `Selamat Datang di OSN Kimia Mastery, ${studentName}!`,
-            htmlContent: studentHtmlContent,
-          }),
-        });
-
-        dispatchResult.brevoSent = brevoAdminRes.ok && brevoStudentRes.ok;
-      }
-
-      // Kirim via Resend API jika RESEND_API_KEY tersedia
-      if (!dispatchResult.brevoSent && resendApiKey) {
-        const resendSender = env.SENDER_EMAIL && !env.SENDER_EMAIL.includes('gmail.com')
-          ? env.SENDER_EMAIL
-          : 'onboarding@resend.dev';
-
-        // Kirim ke Admin
-        const resendAdminRes = await fetch('https://api.resend.com/emails', {
+    if (resendApiKey) {
+      try {
+        const resendRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${resendApiKey}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: `${senderName} <${resendSender}>`,
+            from: `${senderName} <${senderEmail}>`,
             to: [recipientAdmin],
-            subject: `[OSN Kimia Mastery] Siswa Baru Terdaftar: ${studentName} (${schoolName})`,
+            subject: `[OSN Kimia] Pendaftaran Siswa Baru: ${studentName}`,
             html: adminHtmlContent,
           }),
         });
-
-        // Kirim email sambutan ke Siswa
-        try {
-          await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${resendApiKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              from: `${senderName} <${resendSender}>`,
-              to: [studentEmail],
-              subject: `Selamat Datang di OSN Kimia Mastery, ${studentName}!`,
-              html: studentHtmlContent,
-            }),
-          });
-        } catch (_) {}
-
-        dispatchResult.resendSent = resendAdminRes.ok;
-      }
-
-      return new Response(
-        JSON.stringify({
-          success: true,
-          message: 'Notifikasi pendaftaran siswa diproses.',
-          details: dispatchResult,
-        }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      );
-    } catch (err) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: err.message,
-        }),
-        {
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        }
-      );
+        dispatchResult.resendSent = resendRes.ok;
+      } catch (_) {}
     }
+
+    return jsonResponse({ success: true, message: 'Notifikasi diproses.', details: dispatchResult });
+  } catch (err) {
+    return jsonResponse({ success: false, error: err.message }, 500);
+  }
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: corsHeaders() });
+    }
+
+    const url = new URL(request.url);
+    const pathname = url.pathname;
+
+    if (request.method === 'GET' && (pathname === '/' || pathname === '/health' || pathname === '/api/health')) {
+      return jsonResponse({
+        status: 'ok',
+        service: 'OSN Kimia Mastery Mailer & R2 Storage Worker',
+        hasStorageBucket: Boolean(env.STORAGE_BUCKET),
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    if (pathname === '/notify' || pathname === '/api/notify') {
+      return handleNotify(request, env);
+    }
+
+    if (pathname === '/api/storage/upload' || pathname === '/storage/upload') {
+      return handleStorageUpload(request, env);
+    }
+
+    if (request.method === 'GET' && (pathname === '/api/storage/list' || pathname === '/storage/list')) {
+      return handleStorageList(request, env);
+    }
+
+    const filePrefix = pathname.startsWith('/api/storage/file/')
+      ? '/api/storage/file/'
+      : pathname.startsWith('/storage/file/')
+      ? '/storage/file/'
+      : null;
+
+    if (filePrefix) {
+      const storageKey = decodeURIComponent(pathname.substring(filePrefix.length));
+      if (request.method === 'GET') {
+        return handleStorageGet(request, env, storageKey);
+      }
+      if (request.method === 'DELETE') {
+        return handleStorageDelete(request, env, storageKey);
+      }
+    }
+
+    return jsonResponse({ error: 'Endpoint not found' }, 404);
   },
 };
