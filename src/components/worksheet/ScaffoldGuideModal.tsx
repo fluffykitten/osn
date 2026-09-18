@@ -27,6 +27,16 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
   const [isCopied, setIsCopied] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Initialize position on open (place nicely on the right side of desktop screen)
   useEffect(() => {
     if (isOpen) {
@@ -132,13 +142,23 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
   return (
     <div
       ref={modalRef}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        ...(isMinimized ? {} : { width: `${size.width}px`, height: `${size.height}px` }),
-      }}
+      style={
+        isMobile
+          ? {
+              ...(isMinimized ? {} : { maxHeight: '82vh' }),
+            }
+          : {
+              left: `${position.x}px`,
+              top: `${position.y}px`,
+              ...(isMinimized ? {} : { width: `${size.width}px`, height: `${size.height}px` }),
+            }
+      }
       className={`fixed z-40 bg-white rounded-2xl border-2 border-sky-300 shadow-2xl flex flex-col transition-shadow ${
-        isMinimized
+        isMobile
+          ? isMinimized
+            ? 'left-3 right-3 bottom-3 w-auto'
+            : 'left-3 right-3 bottom-3 w-auto max-h-[85vh]'
+          : isMinimized
           ? 'w-72 sm:w-80 shadow-lg'
           : 'max-w-[95vw] max-h-[90vh]'
       }`}
@@ -248,12 +268,12 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
             </button>
           </div>
 
-          {/* Bottom-Right Resize Grip Handle */}
+          {/* Bottom-Right Resize Grip Handle (Hanya di layar desktop/tablet) */}
           <div
             onPointerDown={handleResizePointerDown}
             onPointerMove={handleResizePointerMove}
             onPointerUp={handleResizePointerUp}
-            className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+            className="hidden sm:flex absolute bottom-1 right-1 w-5 h-5 cursor-se-resize items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
             title="Tarik untuk mengubah ukuran (Resize)"
           >
             <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">

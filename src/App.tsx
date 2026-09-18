@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
 
 // Auth Page
 import { LoginPage } from './pages/auth/LoginPage';
@@ -31,6 +32,10 @@ import { WorksheetBuilder } from './pages/teacher/WorksheetBuilder';
 import { LiveClassroomDashboard } from './pages/teacher/LiveClassroomDashboard';
 import { ClassroomManager } from './pages/teacher/ClassroomManager';
 import { ClassroomDetail } from './pages/teacher/ClassroomDetail';
+
+// Whiteboard (STEMBoard) Pages
+import { WhiteboardCatalogPage } from './pages/whiteboard/WhiteboardCatalogPage';
+import { WhiteboardPage } from './pages/whiteboard/WhiteboardPage';
 
 /**
  * Route guard untuk memproteksi seluruh halaman internal aplikasi agar tidak bisa diakses Tamu (Guest) sebelum login
@@ -130,22 +135,24 @@ function AppContent() {
     }
   }, [location, navigate]);
 
-  // Hanya mode pengerjaan lembar kerja (/worksheet/:type/:id) yang menggunakan tata letak full-screen fixed
-  const isWorksheetPlayer =
-    location.pathname.startsWith('/worksheet/') &&
-    location.pathname.replace('/worksheet/', '').trim().length > 0;
+  // Mode pengerjaan lembar kerja (/worksheet/:type/:id) atau papan tulis (/whiteboard/:id) menggunakan tata letak full-screen fixed
+  const isFullScreenWorkspace =
+    (location.pathname.startsWith('/worksheet/') &&
+      location.pathname.replace('/worksheet/', '').trim().length > 0) ||
+    (location.pathname.startsWith('/whiteboard/') &&
+      location.pathname.replace('/whiteboard/', '').trim().length > 0);
 
   return (
     <div
       className={`flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${
-        isWorksheetPlayer ? 'h-screen overflow-hidden' : 'min-h-screen'
+        isFullScreenWorkspace ? 'h-screen overflow-hidden' : 'min-h-screen'
       }`}
     >
       <Navbar />
 
       <main
         className={`flex-1 flex flex-col ${
-          isWorksheetPlayer ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40' : ''
+          isFullScreenWorkspace ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40' : ''
         }`}
       >
         <Routes>
@@ -356,12 +363,38 @@ function AppContent() {
             }
           />
 
+          {/* STEM Interactive Whiteboard (Guru & Siswa) */}
+          <Route
+            path="/whiteboard"
+            element={
+              <RequireAuth>
+                <WhiteboardCatalogPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/whiteboard/:id"
+            element={
+              <RequireAuth>
+                <WhiteboardPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/whiteboard/room/:roomCode"
+            element={
+              <RequireAuth>
+                <WhiteboardPage />
+              </RequireAuth>
+            }
+          />
+
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
 
-      {!isWorksheetPlayer && <Footer />}
+      {!isFullScreenWorkspace && <Footer />}
     </div>
   );
 }
@@ -370,7 +403,9 @@ export function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppContent />
+        <WhiteboardHeaderProvider>
+          <AppContent />
+        </WhiteboardHeaderProvider>
       </AuthProvider>
     </BrowserRouter>
   );

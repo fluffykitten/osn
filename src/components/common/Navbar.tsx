@@ -16,15 +16,29 @@ import {
   LayoutDashboard,
   BarChart3,
   Settings,
+  PenTool,
+  ArrowLeft,
+  Grid,
+  Share2,
+  Menu,
+  X,
 } from 'lucide-react';
 import { getLocalGamificationState, type UserGamificationState } from '../../lib/gamification';
 import { useAuth } from '../../contexts/AuthContext';
+import { useWhiteboardHeader } from '../../contexts/WhiteboardHeaderContext';
 
 export const Navbar: React.FC = () => {
   const location = useLocation();
   const { user, profile, isTeacher, isAdmin, logout } = useAuth();
+  const { headerState } = useWhiteboardHeader();
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setShowUserDropdown(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleStorage = () => setGamification(getLocalGamificationState());
@@ -38,13 +52,17 @@ export const Navbar: React.FC = () => {
     return false;
   };
 
+  const isWhiteboardCanvas =
+    location.pathname.startsWith('/whiteboard/') &&
+    location.pathname.replace('/whiteboard/', '').trim().length > 0;
+
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div className={`${isWhiteboardCanvas ? 'w-full px-4 sm:px-6' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'} h-16 flex items-center justify-between gap-4`}>
           {/* Logo & Brand */}
-          <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform">
                 ⚛
               </div>
@@ -63,8 +81,34 @@ export const Navbar: React.FC = () => {
               </div>
             </Link>
 
-            {/* Main Navigation Links: HANYA TAMPIL JIKA SUDAH LOGIN */}
-            {user && (
+            {/* Mode Whiteboard Canvas: Navigasi Dashboard & Katalog Whiteboard */}
+            {isWhiteboardCanvas && (
+              <div className="flex items-center gap-2">
+                <div className="h-5 w-[1px] bg-slate-200 mx-1 hidden sm:block" />
+
+                <Link
+                  to={isTeacher ? '/teacher' : '/student/dashboard'}
+                  className="h-9 inline-flex items-center gap-1.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-semibold text-xs transition shadow-2xs border border-slate-200/80 active:scale-95 cursor-pointer"
+                  title="Kembali ke Dashboard Utama"
+                >
+                  <ArrowLeft size={14} className="text-slate-500" />
+                  <span>Dashboard</span>
+                </Link>
+
+                <Link
+                  to="/whiteboard"
+                  className="h-9 inline-flex items-center gap-1.5 px-3 rounded-xl bg-blue-50 hover:bg-blue-100/80 text-blue-700 font-semibold text-xs transition shadow-2xs border border-blue-200/80 active:scale-95 cursor-pointer"
+                  title="Buka Daftar & Katalog Papan Tulis"
+                >
+                  <Grid size={14} className="text-blue-600" />
+                  <span className="hidden sm:inline">Katalog Whiteboard</span>
+                  <span className="sm:hidden">Katalog</span>
+                </Link>
+              </div>
+            )}
+
+            {/* Main Navigation Links: HANYA TAMPIL JIKA SUDAH LOGIN & BUKAN MODE WHITEBOARD CANVAS */}
+            {!isWhiteboardCanvas && user && (
               <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-slate-600">
                 {/* Siswa: Dashboard */}
                 {!isTeacher && (
@@ -120,6 +164,19 @@ export const Navbar: React.FC = () => {
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Worksheet</span>
+                </Link>
+
+                {/* STEMBoard / Papan Tulis */}
+                <Link
+                  to="/whiteboard"
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                    isActive('/whiteboard')
+                      ? 'bg-blue-50 text-blue-700 font-semibold'
+                      : 'hover:bg-slate-50 hover:text-slate-900'
+                  }`}
+                >
+                  <PenTool className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Papan Tulis</span>
                 </Link>
 
                 {/* Progress Report Siswa */}
@@ -182,13 +239,76 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Right Action Bar */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Informasi Sesi Whiteboard (Hanya di mode canvas whiteboard) */}
+            {isWhiteboardCanvas && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={headerState?.onOpenSession}
+                  className={`h-9 px-3 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-2xs transition active:scale-95 cursor-pointer ${
+                    headerState?.roomCode
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-blue-500/20 font-mono font-bold tracking-wide'
+                      : 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border border-slate-200/90'
+                  }`}
+                  title="Pengaturan Sesi Bersama Guru & Siswa (Kode Ruangan)"
+                >
+                  <Share2 size={13} className={headerState?.roomCode ? 'text-white' : 'text-blue-600'} />
+                  <span>{headerState?.roomCode ? `Kode: ${headerState.roomCode}` : 'Sesi Bersama'}</span>
+                </button>
+
+                {headerState?.roomCode && (
+                  headerState.isHost ? (
+                    <button
+                      onClick={headerState.onToggleSessionMode}
+                      className={`h-9 px-3 rounded-xl text-xs font-semibold transition flex items-center gap-2 border shadow-2xs cursor-pointer active:scale-95 ${
+                        headerState.sessionMode === 'collaborative'
+                          ? 'bg-emerald-50 hover:bg-emerald-100/80 border-emerald-300 text-emerald-800'
+                          : 'bg-amber-50 hover:bg-amber-100/80 border-amber-300 text-amber-800'
+                      }`}
+                      title="Klik untuk ubah mode izin siswa (Kolaboratif / Presentasi)"
+                    >
+                      <span className="relative flex h-2 w-2">
+                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                          headerState.sessionMode === 'collaborative' ? 'bg-emerald-400' : 'bg-amber-400'
+                        }`} />
+                        <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                          headerState.sessionMode === 'collaborative' ? 'bg-emerald-600' : 'bg-amber-600'
+                        }`} />
+                      </span>
+                      <span>{headerState.sessionMode === 'collaborative' ? 'Bisa Gambar ✏️' : 'Menyimak 🔒'}</span>
+                    </button>
+                  ) : (
+                    <div
+                      className={`h-9 px-3 rounded-xl text-xs font-semibold flex items-center gap-2 border shadow-2xs ${
+                        headerState.sessionMode === 'collaborative'
+                          ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
+                          : 'bg-amber-50 border-amber-300 text-amber-800'
+                      }`}
+                      title={headerState.sessionMode === 'collaborative' ? 'Mode Kolaboratif: Anda dapat mencoret di papan tulis' : 'Mode Menyimak: Hanya pembuat sesi yang dapat mencoret'}
+                    >
+                      <span className="relative flex h-2 w-2">
+                        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                          headerState.sessionMode === 'collaborative' ? 'bg-emerald-400' : 'bg-amber-400'
+                        }`} />
+                        <span className={`relative inline-flex rounded-full h-2 w-2 ${
+                          headerState.sessionMode === 'collaborative' ? 'bg-emerald-600' : 'bg-amber-600'
+                        }`} />
+                      </span>
+                      <span>{headerState.sessionMode === 'collaborative' ? 'Bisa Gambar ✏️' : 'Menyimak 🔒'}</span>
+                    </div>
+                  )
+                )}
+
+                <div className="h-5 w-[1px] bg-slate-200 mx-0.5 hidden sm:block" />
+              </div>
+            )}
+
             {/* Tombol Tentang Creator (Selalu terlihat baik tamu maupun login) */}
             <a
               href="https://github.com/fluffykitten"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 rounded-lg transition-all shadow-2xs"
+              className="h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-100/90 hover:bg-slate-200/90 border border-slate-200/80 rounded-xl transition-all shadow-2xs active:scale-95"
               title="Kunjungi profil GitHub Creator (fluffykitten)"
             >
               <img
@@ -205,9 +325,9 @@ export const Navbar: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setShowUserDropdown(!showUserDropdown)}
-                  className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer"
+                  className="h-9 flex items-center gap-2 px-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer active:scale-95"
                 >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center text-[10px] font-bold">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center text-[10px] font-bold shadow-2xs">
                     {(profile?.full_name || user.email || 'U').charAt(0).toUpperCase()}
                   </div>
                   <div className="hidden sm:flex flex-col text-left">
@@ -270,6 +390,14 @@ export const Navbar: React.FC = () => {
                           <Users className="w-3.5 h-3.5 text-indigo-600" />
                           <span>Studio Guru & Pemantauan</span>
                         </Link>
+                        <Link
+                          to="/whiteboard"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                        >
+                          <PenTool className="w-3.5 h-3.5 text-blue-600" />
+                          <span>Papan Tulis (STEMBoard)</span>
+                        </Link>
                       </>
                     ) : (
                       <>
@@ -288,6 +416,14 @@ export const Navbar: React.FC = () => {
                         >
                           <Layers className="w-3.5 h-3.5 text-emerald-600" />
                           <span>Worksheet Saya</span>
+                        </Link>
+                        <Link
+                          to="/whiteboard"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                        >
+                          <PenTool className="w-3.5 h-3.5 text-blue-600" />
+                          <span>Papan Tulis (STEMBoard)</span>
                         </Link>
                         <Link
                           to="/student/progress"
@@ -343,9 +479,306 @@ export const Navbar: React.FC = () => {
                 </Link>
               </div>
             )}
+
+            {/* Tombol Hamburger Menu (Hanya tampil di layar HP/Tablet < md) */}
+            {!isWhiteboardCanvas && (
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden h-9 w-9 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 transition cursor-pointer active:scale-95 border border-slate-200/80"
+                title={mobileMenuOpen ? 'Tutup Navigasi' : 'Buka Menu Navigasi'}
+                aria-label="Menu navigasi mobile"
+              >
+                {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            )}
           </div>
         </div>
       </header>
+
+      {/* Mobile Navigation Drawer Sheet (Khusus layar < md) */}
+      {mobileMenuOpen && !isWhiteboardCanvas && (
+        <div className="fixed inset-0 z-50 md:hidden animate-in fade-in duration-200">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Slide-out Sheet Panel */}
+          <div className="fixed inset-y-0 right-0 w-[84vw] max-w-xs bg-white shadow-2xl flex flex-col z-50 animate-in slide-in-from-right duration-250 border-l border-slate-200">
+            {/* Sheet Header */}
+            <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+                  ⚛
+                </div>
+                <div>
+                  <div className="font-extrabold text-sm text-slate-900 font-display leading-tight">
+                    OSN Kimia
+                  </div>
+                  <span className="text-[10px] font-semibold text-sky-700 font-mono">
+                    Mastery Mobile
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg transition cursor-pointer"
+                aria-label="Tutup menu"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* User Profile Summary (Jika sudah login) */}
+            {user && (
+              <div className="p-4 border-b border-slate-100 bg-sky-50/40">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-xs shrink-0">
+                    {(profile?.full_name || user.email || 'U').charAt(0).toUpperCase()}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-xs text-slate-900 truncate">
+                      {profile?.full_name || user.email?.split('@')[0]}
+                    </div>
+                    <div className="text-[10px] text-slate-500 truncate font-mono">{user.email}</div>
+                    <span className={`inline-block px-1.5 py-0.2 rounded text-[9px] font-bold mt-0.5 ${
+                      isAdmin
+                        ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                        : isTeacher
+                        ? 'bg-indigo-100 text-indigo-800'
+                        : 'bg-emerald-100 text-emerald-800'
+                    }`}>
+                      {isAdmin ? '⚡ Admin' : isTeacher ? '👨‍🏫 Guru / Pembina' : '🎓 Siswa'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Nav Links Scroll Area */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-1 text-xs font-semibold text-slate-700">
+              {user ? (
+                <>
+                  {/* Siswa: Dashboard */}
+                  {!isTeacher && (
+                    <Link
+                      to="/student/dashboard"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                        isActive('/student/dashboard')
+                          ? 'bg-sky-50 text-sky-800 font-bold border border-sky-200'
+                          : 'hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-sky-600" />
+                      <span>Dashboard Siswa</span>
+                    </Link>
+                  )}
+
+                  {/* Silabus 10 Topik */}
+                  <Link
+                    to="/roadmap"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                      isActive('/roadmap')
+                        ? 'bg-sky-50 text-sky-800 font-bold border border-sky-200'
+                        : 'hover:bg-slate-50 text-slate-700'
+                    }`}
+                  >
+                    <Compass className="w-4 h-4 text-sky-600" />
+                    <span>Peta Silabus 10 Topik</span>
+                  </Link>
+
+                  {/* Database Materi */}
+                  <Link
+                    to="/materi"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                      isActive('/materi')
+                        ? 'bg-sky-50 text-sky-800 font-bold border border-sky-200'
+                        : 'hover:bg-slate-50 text-slate-700'
+                    }`}
+                  >
+                    <BookOpen className="w-4 h-4 text-sky-600" />
+                    <span>Database Materi</span>
+                  </Link>
+
+                  {/* Worksheet Siswa */}
+                  <Link
+                    to="/worksheet"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                      isActive('/worksheet')
+                        ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-200'
+                        : 'hover:bg-slate-50 text-slate-700'
+                    }`}
+                  >
+                    <Layers className="w-4 h-4 text-emerald-600" />
+                    <span>Worksheet Siswa</span>
+                  </Link>
+
+                  {/* Papan Tulis STEMBoard */}
+                  <Link
+                    to="/whiteboard"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                      isActive('/whiteboard')
+                        ? 'bg-blue-50 text-blue-800 font-bold border border-blue-200'
+                        : 'hover:bg-slate-50 text-slate-700'
+                    }`}
+                  >
+                    <PenTool className="w-4 h-4 text-blue-600" />
+                    <span>Papan Tulis (STEMBoard)</span>
+                  </Link>
+
+                  {/* Siswa: Progress Report */}
+                  {!isTeacher && (
+                    <Link
+                      to="/student/progress"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                        isActive('/student/progress') || isActive('/profile')
+                          ? 'bg-sky-50 text-sky-800 font-bold border border-sky-200'
+                          : 'hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      <BarChart3 className="w-4 h-4 text-sky-600" />
+                      <span>Progress & Radar Siswa</span>
+                    </Link>
+                  )}
+
+                  {/* Fitur Khusus Guru & Admin */}
+                  {isTeacher && (
+                    <div className="pt-2 border-t border-slate-100 space-y-1">
+                      <div className="px-3 py-1 text-[10px] font-bold text-indigo-400 uppercase tracking-wider">
+                        Fitur Guru & Pembina
+                      </div>
+                      <Link
+                        to="/practice"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                          isActive('/practice')
+                            ? 'bg-indigo-50 text-indigo-800 font-bold border border-indigo-200'
+                            : 'hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <Layers className="w-4 h-4 text-indigo-600" />
+                        <span>Bank Soal Terkurasi</span>
+                      </Link>
+                      <Link
+                        to="/teacher/classes"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                          isActive('/teacher/classes')
+                            ? 'bg-indigo-50 text-indigo-800 font-bold border border-indigo-200'
+                            : 'hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <School className="w-4 h-4 text-indigo-600" />
+                        <span>Manajemen Kelas Binaan</span>
+                      </Link>
+                      <Link
+                        to="/teacher"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                          isActive('/teacher') && !isActive('/teacher/classes')
+                            ? 'bg-indigo-50 text-indigo-800 font-bold border border-indigo-200'
+                            : 'hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <Users className="w-4 h-4 text-indigo-600" />
+                        <span>Studio Guru & Monitor</span>
+                      </Link>
+                    </div>
+                  )}
+
+                  {!isTeacher && (
+                    <Link
+                      to="/student/settings"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition"
+                    >
+                      <Settings className="w-4 h-4 text-slate-500" />
+                      <span>Pengaturan Akun</span>
+                    </Link>
+                  )}
+                </>
+              ) : (
+                /* Tamu (Guest) Action in Drawer */
+                <div className="space-y-2.5 py-2">
+                  <Link
+                    to="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-sky-50 text-sky-800 font-bold border border-sky-200"
+                  >
+                    <Compass className="w-4 h-4 text-sky-600" />
+                    <span>Beranda Utama</span>
+                  </Link>
+
+                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2 text-slate-600">
+                    <p className="text-[11px] leading-relaxed">
+                      Silakan masuk atau daftar sebagai siswa untuk mulai mengakses 10 topik silabus, modul interaktif, dan penilaian cerdas AI.
+                    </p>
+                    <Link
+                      to="/login?mode=register"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-xs transition active:scale-95 text-xs"
+                    >
+                      <GraduationCap className="w-4 h-4" />
+                      <span>Daftar Akun Siswa</span>
+                    </Link>
+                    <Link
+                      to="/login"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-gradient-to-r from-sky-600 to-indigo-600 text-white font-bold rounded-xl shadow-xs transition active:scale-95 text-xs"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      <span>Masuk ke Portal</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Creator link in drawer */}
+              <div className="pt-2 border-t border-slate-100">
+                <a
+                  href="https://github.com/fluffykitten"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between px-3 py-2 text-slate-500 hover:text-slate-800 hover:bg-slate-50 rounded-xl transition text-[11px]"
+                >
+                  <span className="flex items-center gap-2">
+                    <img
+                      src="/fluffykitten-logo.png"
+                      alt="creator"
+                      className="w-4 h-4 rounded-full object-contain border border-slate-200"
+                    />
+                    <span>Tentang Creator (fluffykitten)</span>
+                  </span>
+                  <ExternalLink className="w-3 h-3 text-slate-400" />
+                </a>
+              </div>
+            </div>
+
+            {/* Sheet Footer Logout */}
+            {user && (
+              <div className="p-3 border-t border-slate-100 bg-slate-50/60">
+                <button
+                  onClick={async () => {
+                    setMobileMenuOpen(false);
+                    await logout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-rose-600 hover:bg-rose-50 rounded-xl transition text-xs font-bold border border-rose-200 cursor-pointer active:scale-95"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Keluar (Logout)</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

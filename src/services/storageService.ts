@@ -58,6 +58,7 @@ export const ALLOWED_IMAGE_MIME_TYPES = [
   'image/svg+xml',
   'image/gif',
   'application/pdf',
+  'application/json',
 ];
 
 class StorageService {
@@ -123,6 +124,7 @@ class StorageService {
         svg: 'image/svg+xml',
         gif: 'image/gif',
         pdf: 'application/pdf',
+        json: 'application/json',
       };
       if (extFromName && mimeMap[extFromName]) {
         mimeType = mimeMap[extFromName];

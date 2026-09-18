@@ -144,6 +144,8 @@ export const Worksheet: React.FC = () => {
   }, [targetId, questionsList]);
 
   const [currentQIndex, setCurrentQIndex] = useState(initialIdx);
+  // Mode panel mobile: 'question' (baca naskah soal) atau 'editor' (tulis jawaban & preview)
+  const [activeMobilePane, setActiveMobilePane] = useState<'question' | 'editor'>('question');
 
   // Reference to track whether user has navigated or draft has been restored (mencegah reset ke soal 1)
   const hasRestoredQIndexRef = useRef(false);
@@ -1259,6 +1261,34 @@ export const Worksheet: React.FC = () => {
             </button>
           </div>
         </div>
+
+        {/* Row 3 (Khusus Layar HP & Tablet Portrait: lg:hidden) - Segmented Switch Soal vs Lembar Jawaban */}
+        <div className="lg:hidden flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200">
+          <button
+            type="button"
+            onClick={() => setActiveMobilePane('question')}
+            className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              activeMobilePane === 'question'
+                ? 'bg-white text-sky-800 shadow-xs border border-slate-200/80 font-extrabold'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5 text-sky-600" />
+            <span>Naskah Soal #{currentQIndex + 1}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveMobilePane('editor')}
+            className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+              activeMobilePane === 'editor'
+                ? 'bg-white text-emerald-800 shadow-xs border border-slate-200/80 font-extrabold'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            <Edit3 className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Lembar Jawaban {answers[currentQIndex]?.steps?.trim() ? '✓' : ''}</span>
+          </button>
+        </div>
       </div>
 
       {/* Restored Draft Notification Banner */}
@@ -1305,7 +1335,9 @@ export const Worksheet: React.FC = () => {
       {/* Synchronized Side-by-Side Dual-Panel Container */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-w-0">
         {/* PANEL KIRI: Naskah Soal & Informasi (Lebar 38% di Desktop - Independent Scroll) */}
-        <div className="w-full lg:w-[40%] xl:w-[38%] h-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col overflow-y-auto p-4 sm:p-5 space-y-4 shrink-0 min-w-0">
+        <div className={`w-full lg:w-[40%] xl:w-[38%] h-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex-col overflow-y-auto p-4 sm:p-5 space-y-4 shrink-0 min-w-0 ${
+          activeMobilePane === 'question' ? 'flex' : 'hidden lg:flex'
+        }`}>
           {/* Question Metadata Header */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
@@ -1438,7 +1470,9 @@ export const Worksheet: React.FC = () => {
         </div>
 
         {/* PANEL KANAN: Tempat Pengerjaan & Live Preview (Lebar 62% di Desktop - Independent Scroll) */}
-        <div className="w-full lg:w-[60%] xl:w-[62%] h-full bg-slate-50 flex flex-col overflow-y-auto min-w-0">
+        <div className={`w-full lg:w-[60%] xl:w-[62%] h-full bg-slate-50 flex-col overflow-y-auto min-w-0 ${
+          activeMobilePane === 'editor' ? 'flex' : 'hidden lg:flex'
+        }`}>
           {/* Sub-Header: Informasi Lembar Kerja Siswa & Status Simpan */}
           <div className="bg-white border-b border-slate-200 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold shrink-0">
             <div className="flex items-center gap-2">
@@ -2018,6 +2052,31 @@ export const Worksheet: React.FC = () => {
           caption={`Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}
         />
       )}
+
+      {/* Floating Quick Action Button khusus di Layar HP/Tablet Portrait (lg:hidden) */}
+      <div className="lg:hidden fixed bottom-4 right-4 z-30">
+        {activeMobilePane === 'question' ? (
+          <button
+            type="button"
+            onClick={() => setActiveMobilePane('editor')}
+            className="px-4 py-2.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 text-white text-xs font-bold rounded-full shadow-xl shadow-sky-600/30 flex items-center gap-2 active:scale-95 transition cursor-pointer border border-white/20"
+            title="Buka Lembar Jawaban untuk mengetik penyelesaian"
+          >
+            <Edit3 className="w-4 h-4 text-emerald-300" />
+            <span>Tulis Jawaban ✏️</span>
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setActiveMobilePane('question')}
+            className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl flex items-center gap-2 active:scale-95 transition cursor-pointer border border-slate-700"
+            title="Kembali membaca naskah soal lengkap"
+          >
+            <BookOpen className="w-4 h-4 text-sky-400" />
+            <span>Baca Soal 📄</span>
+          </button>
+        )}
+      </div>
 
     </div>
   );

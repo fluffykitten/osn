@@ -14,6 +14,7 @@ const ALLOWED_MIME_TYPES = {
   'image/svg+xml': 'svg',
   'image/gif': 'gif',
   'application/pdf': 'pdf',
+  'application/json': 'json',
 };
 
 const ALLOWED_CATEGORIES = ['diagrams', 'questions', 'materials', 'avatars', 'general'];
@@ -123,6 +124,7 @@ async function handleStorageUpload(request, env) {
       svg: 'image/svg+xml',
       gif: 'image/gif',
       pdf: 'application/pdf',
+      json: 'application/json',
     };
     if (extFromName && mimeMap[extFromName]) {
       fileMime = mimeMap[extFromName];
