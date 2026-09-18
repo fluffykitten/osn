@@ -11,5 +11,24 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api/storage': {
+        target: 'https://osn.icmadani.workers.dev',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/api/notify': {
+        target: 'https://osn.icmadani.workers.dev',
+        changeOrigin: true,
+        secure: true,
+      },
+      '/notify': {
+        target: 'https://osn.icmadani.workers.dev',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 })
 

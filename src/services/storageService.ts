@@ -62,9 +62,13 @@ export const ALLOWED_IMAGE_MIME_TYPES = [
 
 class StorageService {
   /**
-   * Mengambil basis URL Cloudflare Worker penyedia storage
+   * Mengambil basis URL Cloudflare Worker penyedia storage.
+   * Pada mode development (localhost), menggunakan relative path '' agar otomatis melalui Vite dev proxy (/api/storage).
    */
   public getStorageBaseUrl(): string {
+    if (import.meta.env.DEV) {
+      return '';
+    }
     const raw =
       import.meta.env.VITE_CLOUDFLARE_STORAGE_URL ||
       import.meta.env.VITE_CLOUDFLARE_MAILER_URL ||
@@ -76,6 +80,9 @@ class StorageService {
    * Memeriksa apakah URL Cloudflare Worker telah terkonfigurasi
    */
   public isStorageConfigured(): boolean {
+    if (import.meta.env.DEV) {
+      return true; // Selalu aktif di localhost via Vite dev proxy
+    }
     const url = this.getStorageBaseUrl();
     return Boolean(
       url &&
@@ -104,8 +111,26 @@ class StorageService {
       );
     }
 
-    // 2. Validasi Tipe Berkas
-    const mimeType = (file.type || 'image/png').toLowerCase();
+    // 2. Validasi Tipe Berkas (Perluas deteksi ekstensi jika MIME generik di Windows)
+    let mimeType = (file.type || '').toLowerCase();
+    if (!mimeType || mimeType === 'application/octet-stream') {
+      const extFromName = originalName.split('.').pop()?.toLowerCase();
+      const mimeMap: Record<string, string> = {
+        png: 'image/png',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        webp: 'image/webp',
+        svg: 'image/svg+xml',
+        gif: 'image/gif',
+        pdf: 'application/pdf',
+      };
+      if (extFromName && mimeMap[extFromName]) {
+        mimeType = mimeMap[extFromName];
+      } else {
+        mimeType = 'image/png';
+      }
+    }
+
     const isAllowed = ALLOWED_IMAGE_MIME_TYPES.some((t) => mimeType.startsWith(t) || mimeType === t);
     if (!isAllowed) {
       throw new Error(
@@ -113,9 +138,9 @@ class StorageService {
       );
     }
 
-    // 3. Jika backend Cloudflare belum dikonfigurasi, gunakan Local Data URL Fallback untuk kenyamanan offline/dev
+    // 3. Jika backend Cloudflare belum dikonfigurasi, gunakan Local Data URL Fallback
     if (!this.isStorageConfigured()) {
-      console.warn('[storageService] VITE_CLOUDFLARE_STORAGE_URL belum diatur. Menggunakan Base64 Data URL sementara.');
+      console.warn('[storageService] Backend belum diatur. Menggunakan Base64 Data URL sementara.');
       return this.createLocalFallbackUpload(file, originalName, category);
     }
 
@@ -155,22 +180,49 @@ class StorageService {
               });
               resolve(data);
             } else {
+              // Jika di dev mode dan worker mengembalikan error, fallback ke data URL
+              if (import.meta.env.DEV) {
+                console.warn('[storageService] Worker response false di dev mode, fallback ke local:', data.error);
+                this.createLocalFallbackUpload(file, originalName, category).then(resolve).catch(reject);
+                return;
+              }
               reject(new Error(data.error || 'Gagal mengunggah berkas ke Cloudflare R2.'));
             }
           } catch (err: any) {
+            if (import.meta.env.DEV) {
+              console.warn('[storageService] Gagal parsing response worker di dev, fallback ke local.');
+              this.createLocalFallbackUpload(file, originalName, category).then(resolve).catch(reject);
+              return;
+            }
             reject(new Error(`Gagal memproses respons worker: ${err.message}`));
           }
         } else {
           try {
             const errData = JSON.parse(xhr.responseText);
+            if (import.meta.env.DEV && (xhr.status >= 500 || xhr.status === 404)) {
+              console.warn('[storageService] HTTP error di dev mode, fallback ke local:', errData);
+              this.createLocalFallbackUpload(file, originalName, category).then(resolve).catch(reject);
+              return;
+            }
             reject(new Error(errData.error || `HTTP ${xhr.status}: ${xhr.statusText}`));
           } catch {
+            if (import.meta.env.DEV) {
+              console.warn(`[storageService] HTTP ${xhr.status} di dev mode, fallback ke local.`);
+              this.createLocalFallbackUpload(file, originalName, category).then(resolve).catch(reject);
+              return;
+            }
             reject(new Error(`Gagal mengunggah (HTTP ${xhr.status}: ${xhr.statusText})`));
           }
         }
       };
 
       xhr.onerror = () => {
+        // Jika jaringan/worker tidak dapat dijangkau saat di localhost, otomatis beralih ke local fallback
+        if (import.meta.env.DEV) {
+          console.warn('[storageService] Koneksi ke Cloudflare Worker gagal di dev, beralih ke local fallback preview.');
+          this.createLocalFallbackUpload(file, originalName, category).then(resolve).catch(reject);
+          return;
+        }
         reject(new Error('Koneksi jaringan ke Cloudflare Storage Worker gagal.'));
       };
 

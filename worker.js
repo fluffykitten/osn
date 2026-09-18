@@ -377,12 +377,29 @@ async function handleStorageUpload(request, env) {
     );
   }
 
+  // Tebak MIME dari ekstensi jika MIME generik (Windows / browser quirks)
+  if (!fileMime || fileMime === 'application/octet-stream' || !ALLOWED_MIME_TYPES[fileMime]) {
+    const extFromName = originalFilename.split('.').pop()?.toLowerCase();
+    const mimeMap = {
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      webp: 'image/webp',
+      svg: 'image/svg+xml',
+      gif: 'image/gif',
+      pdf: 'application/pdf',
+    };
+    if (extFromName && mimeMap[extFromName]) {
+      fileMime = mimeMap[extFromName];
+    }
+  }
+
   // Validasi tipe berkas MIME
   const ext = ALLOWED_MIME_TYPES[fileMime];
   if (!ext) {
     return jsonResponse(
       {
-        error: `Tipe berkas "${fileMime}" tidak didukung. Format yang diperbolehkan: PNG, JPEG, WEBP, SVG, GIF, PDF.`,
+        error: `Tipe berkas "${fileMime || 'tidak diketahui'}" tidak didukung. Format yang diperbolehkan: PNG, JPEG, WEBP, SVG, GIF, PDF.`,
       },
       415
     );
