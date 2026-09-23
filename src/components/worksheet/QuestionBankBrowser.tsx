@@ -17,6 +17,7 @@ import {
   Image as ImageIcon,
 } from 'lucide-react';
 import { DiagramViewerModal } from '../common/DiagramViewerModal';
+import { resolveQuestionTopicMeta } from '../../utils/topicMapping';
 import type { Question, QuestionDifficulty } from '../../types/database';
 
 interface QuestionBankBrowserProps {
@@ -110,6 +111,7 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
             const isSelected = selectedQuestionIds.includes(q.id);
             const isBookmarked = tagAndBookmarkService.isBookmarked(q.id);
             const customTags = tagAndBookmarkService.getCustomTags(q.id);
+            const topicMeta = resolveQuestionTopicMeta(q);
 
             return (
               <div
@@ -147,9 +149,14 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                       {q.difficulty}
                     </span>
 
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-mono">
-                      Topik #{q.pillar_number}
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md text-white font-mono ${topicMeta.isSma ? 'bg-teal-700' : 'bg-slate-700'}`}>
+                      {topicMeta.topicBadgeLabel}
                     </span>
+                    {topicMeta.isSma && topicMeta.gradeBadgeLabel && (
+                      <span className="text-[11px] font-bold px-2 py-0.5 rounded-md border border-teal-200 bg-teal-50 text-teal-800 font-mono">
+                        {topicMeta.gradeBadgeLabel}
+                      </span>
+                    )}
 
                     {q.diagram_url && (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-50 border border-amber-200 text-amber-800 flex items-center gap-1 font-mono">
@@ -263,11 +270,16 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                 >
                   {activeModalQuestion.difficulty}
                 </span>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200/80 text-slate-800 font-mono">
-                  Topik #{activeModalQuestion.pillar_number}
-                </span>
+                {(() => {
+                  const modalMeta = resolveQuestionTopicMeta(activeModalQuestion);
+                  return (
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-lg font-mono ${modalMeta.isSma ? 'bg-teal-100 text-teal-800' : 'bg-slate-200/80 text-slate-800'}`}>
+                      {modalMeta.topicBadgeLabel}
+                    </span>
+                  );
+                })()}
                 <span className="text-xs text-slate-500 font-medium">
-                  {activeModalQuestion.source_event || 'Silabus Puspresnas'}
+                  {resolveQuestionTopicMeta(activeModalQuestion).topicTitle}
                 </span>
               </div>
 

@@ -184,6 +184,22 @@ class QuestionBankService {
         );
       }
 
+      if (filter.curriculum && filter.curriculum !== 'ALL') {
+        if (filter.curriculum === 'SMA') {
+          questions = questions.filter(q => q.curriculum === 'sma' || (q.difficulty && q.difficulty.startsWith('SMA')));
+        } else if (filter.curriculum === 'OSN') {
+          questions = questions.filter(q => q.curriculum !== 'sma' && (!q.difficulty || !q.difficulty.startsWith('SMA')));
+        }
+      }
+
+      if (filter.smaTopicNumber && filter.smaTopicNumber !== 'ALL') {
+        questions = questions.filter(q => q.sma_topic_number === filter.smaTopicNumber);
+      }
+
+      if (filter.smaGrade && filter.smaGrade !== 'ALL') {
+        questions = questions.filter(q => q.grade === filter.smaGrade);
+      }
+
       if (filter.pillarNumber && filter.pillarNumber !== 'ALL') {
         questions = questions.filter(q => q.pillar_number === filter.pillarNumber);
       }

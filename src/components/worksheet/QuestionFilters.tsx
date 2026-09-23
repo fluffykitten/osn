@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Search, Filter, Bookmark, Tag, RotateCcw, Plus, X } from 'lucide-react';
 import { PILLARS_DATA } from '../../data/syllabusData';
+import { SMA_MATERIALS } from '../../data/smaMaterialsData';
 import { tagAndBookmarkService } from '../../services/tagAndBookmarkService';
-import type { QuestionFilter, QuestionDifficulty, QuestionStyle } from '../../types/database';
+import type { QuestionFilter, QuestionDifficulty, QuestionStyle, CurriculumTrack, SmaGradeLevel } from '../../types/database';
 
 interface QuestionFiltersProps {
   filter: QuestionFilter;
@@ -67,6 +68,9 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
   const handleReset = () => {
     onChange({
       search: '',
+      curriculum: 'ALL',
+      smaTopicNumber: 'ALL',
+      smaGrade: 'ALL',
       difficulty: 'ALL',
       pillarNumber: 'ALL',
       questionStyle: 'ALL',
@@ -78,6 +82,9 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
 
   const activeFilterCount =
     (filter.search ? 1 : 0) +
+    (filter.curriculum && filter.curriculum !== 'ALL' ? 1 : 0) +
+    (filter.smaTopicNumber && filter.smaTopicNumber !== 'ALL' ? 1 : 0) +
+    (filter.smaGrade && filter.smaGrade !== 'ALL' ? 1 : 0) +
     (filter.difficulty && filter.difficulty !== 'ALL' ? 1 : 0) +
     (filter.pillarNumber && filter.pillarNumber !== 'ALL' ? 1 : 0) +
     (filter.questionStyle && filter.questionStyle !== 'ALL' ? 1 : 0) +
@@ -193,22 +200,94 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
         )}
       </div>
 
-      {/* Topik Silabus OSN (10 Pilar) */}
+      {/* Curriculum Switcher (Opsi 1) */}
       <div>
-        <label className="text-xs font-semibold text-slate-700 block mb-1.5">Pilar Silabus OSN:</label>
-        <select
-          value={filter.pillarNumber || 'ALL'}
-          onChange={handlePillarChange}
-          className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-slate-800"
-        >
-          <option value="ALL">Semua 10 Topik Silabus</option>
-          {PILLARS_DATA.map((p) => (
-            <option key={p.pillar_number} value={p.pillar_number}>
-              Topik #{p.pillar_number}: {p.title}
-            </option>
-          ))}
-        </select>
+        <label className="text-xs font-semibold text-slate-700 block mb-2">Jalur Kurikulum:</label>
+        <div className="flex bg-slate-100 p-1 rounded-xl">
+          <button
+            type="button"
+            onClick={() => onChange({ ...filter, curriculum: 'ALL' })}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              (!filter.curriculum || filter.curriculum === 'ALL') ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            🎓 Semua
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...filter, curriculum: 'SMA', pillarNumber: 'ALL' })}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              filter.curriculum === 'SMA' ? 'bg-white text-teal-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            📚 Kimia SMA
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...filter, curriculum: 'OSN', smaTopicNumber: 'ALL', smaGrade: 'ALL' })}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
+              filter.curriculum === 'OSN' ? 'bg-white text-emerald-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+            }`}
+          >
+            🏆 Silabus OSN
+          </button>
+        </div>
       </div>
+
+      {/* Topik Kurikulum SMA */}
+      {(!filter.curriculum || filter.curriculum === 'ALL' || filter.curriculum === 'SMA') && (
+        <div className="mb-2">
+          <label className="text-xs font-semibold text-slate-700 block mb-1.5">Topik Kimia SMA:</label>
+          {filter.curriculum === 'SMA' && (
+             <div className="flex gap-1.5 mb-2">
+                {(['ALL', 'Kelas 10', 'Kelas 11', 'Kelas 12'] as const).map(grade => (
+                  <button
+                    key={grade}
+                    onClick={() => onChange({ ...filter, smaGrade: grade as any })}
+                    className={`px-2 py-1 text-[10px] font-bold rounded-md transition-all ${
+                      (filter.smaGrade || 'ALL') === grade
+                        ? 'bg-teal-600 text-white'
+                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    }`}
+                  >
+                    {grade === 'ALL' ? 'Semua Kelas' : grade}
+                  </button>
+                ))}
+             </div>
+          )}
+          <select
+            value={filter.smaTopicNumber || 'ALL'}
+            onChange={(e) => onChange({ ...filter, smaTopicNumber: e.target.value === 'ALL' ? 'ALL' : Number(e.target.value) })}
+            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 text-slate-800"
+          >
+            <option value="ALL">Semua 16 Topik SMA</option>
+            {SMA_MATERIALS.filter(m => filter.smaGrade && filter.smaGrade !== 'ALL' ? m.grade === filter.smaGrade : true).map((m) => (
+              <option key={m.topic_number} value={m.topic_number}>
+                Topik #{m.topic_number}: {m.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/* Topik Silabus OSN (10 Pilar) */}
+      {(!filter.curriculum || filter.curriculum === 'ALL' || filter.curriculum === 'OSN') && (
+        <div>
+          <label className="text-xs font-semibold text-slate-700 block mb-1.5">Pilar Silabus OSN:</label>
+          <select
+            value={filter.pillarNumber || 'ALL'}
+            onChange={handlePillarChange}
+            className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 text-slate-800"
+          >
+            <option value="ALL">Semua 10 Pilar Silabus</option>
+            {PILLARS_DATA.map((p) => (
+              <option key={p.pillar_number} value={p.pillar_number}>
+                Pilar #{p.pillar_number}: {p.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* Gaya Soal (Question Style) */}
       <div>

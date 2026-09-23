@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 580" width="940" height="580">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 19px; fill: #0f172a; }
+      .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12.5px; fill: #64748b; }
+      .axis-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 12px; fill: #334155; }
+      .tick-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 10.5px; fill: #64748b; }
+      .line-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 11.5px; }
+      .card-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12.5px; fill: #0f172a; }
+      .card-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #475569; line-height: 1.4; }
+      .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 10px; }
+    </style>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="940" height="580" fill="#f8fafc" rx="16"/>
+
+  <!-- Top Title Header -->
+  <rect x="20" y="14" width="900" height="64" rx="12" fill="#ffffff" filter="url(#cardShadow)"/>
+  <text x="38" y="39" class="title">Diagram Ellingham Standar: Termodinamika Reduksi Metalurgi Oksida Logam</text>
+  <text x="38" y="60" class="subtitle">Plot Energi Bebas Gibbs Standar (ΔG° per mol O₂) vs Temperatur (°C / K) untuk Menentukan Kespontanan Reduksi Termal</text>
+
+  <!-- Plot Graph Area Box -->
+  <g transform="translate(20, 92)">
+    <rect width="630" height="466" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#cardShadow)"/>
+
+    <!-- Grid lines -->
+    <!-- Horizontal grids (ΔG° from 0 to -1200 kJ/mol) -->
+    <!-- Y = 40 (0 kJ), 105 (-200), 170 (-400), 235 (-600), 300 (-800), 365 (-1000), 430 (-1200) -->
+    <line x1="75" y1="40" x2="605" y2="40" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="105" x2="605" y2="105" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="170" x2="605" y2="170" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="235" x2="605" y2="235" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="300" x2="605" y2="300" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="365" x2="605" y2="365" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="75" y1="430" x2="605" y2="430" stroke="#f1f5f9" stroke-width="1.2"/>
+
+    <!-- Vertical grids (T: 0°C, 400°C, 800°C, 1200°C, 1600°C, 2000°C) -->
+    <!-- X = 75 (0°C), 181 (400°C), 287 (800°C), 393 (1200°C), 499 (1600°C), 605 (2000°C) -->
+    <line x1="181" y1="40" x2="181" y2="430" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="287" y1="40" x2="287" y2="430" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="393" y1="40" x2="393" y2="430" stroke="#f1f5f9" stroke-width="1.2"/>
+    <line x1="499" y1="40" x2="499" y2="430" stroke="#f1f5f9" stroke-width="1.2"/>
+
+    <!-- Reference Zero Line (ΔG° = 0) -->
+    <line x1="75" y1="40" x2="605" y2="40" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="68" y="44" class="tick-text" text-anchor="end">0</text>
+    <text x="68" y="109" class="tick-text" text-anchor="end">-200</text>
+    <text x="68" y="174" class="tick-text" text-anchor="end">-400</text>
+    <text x="68" y="239" class="tick-text" text-anchor="end">-600</text>
+    <text x="68" y="304" class="tick-text" text-anchor="end">-800</text>
+    <text x="68" y="369" class="tick-text" text-anchor="end">-1000</text>
+    <text x="68" y="434" class="tick-text" text-anchor="end">-1200</text>
+
+    <!-- X-axis ticks (Temperatur °C) -->
+    <text x="75" y="448" class="tick-text" text-anchor="middle">0°C</text>
+    <text x="181" y="448" class="tick-text" text-anchor="middle">400°C</text>
+    <text x="287" y="448" class="tick-text" text-anchor="middle">800°C</text>
+    <text x="393" y="448" class="tick-text" text-anchor="middle">1200°C</text>
+    <text x="499" y="448" class="tick-text" text-anchor="middle">1600°C</text>
+    <text x="605" y="448" class="tick-text" text-anchor="middle">2000°C</text>
+
+    <!-- Axes Titles -->
+    <text x="340" y="462" class="axis-label" text-anchor="middle">Temperatur T (°C)</text>
+    <text x="18" y="235" class="axis-label" text-anchor="middle" transform="rotate(-90, 18, 235)">ΔG° (kJ per mol O₂)</text>
+
+    <!-- 1. Curve: 2 Mg + O2 -> 2 MgO (Lowest line, purple #9333ea) -->
+    <!-- 0°C -> ~-1160 (y=417), 1100°C (x=366) boiling -> kink -> 2000°C (x=605, y=300, ~-800 kJ) -->
+    <path d="M 75 417 L 366 350 L 605 285" fill="none" stroke="#9333ea" stroke-width="2.6"/>
+    <text x="440" y="318" class="line-label" fill="#9333ea">2Mg + O₂ → 2MgO</text>
+
+    <!-- 2. Curve: Ti + O2 -> TiO2 (Blue #2563eb) -->
+    <!-- 0°C -> ~-880 (y=326), 2000°C -> ~-520 (y=209) -->
+    <path d="M 75 326 L 605 209" fill="none" stroke="#2563eb" stroke-width="2.6"/>
+    <text x="440" y="240" class="line-label" fill="#2563eb">Ti + O₂ → TiO₂</text>
+
+    <!-- 3. Curve: 2 C + O2 -> 2 CO (Red #dc2626) NEGATIVE SLOPE (ΔS > 0) -->
+    <!-- 0°C -> ~-280 (y=131), 2000°C -> ~-640 (y=248) -->
+    <path d="M 75 131 L 605 248" fill="none" stroke="#dc2626" stroke-width="2.8" stroke-dasharray="0"/>
+    <text x="440" y="195" class="line-label" fill="#dc2626">2C + O₂ → 2CO (Slope Negatif)</text>
+
+    <!-- 4. Curve: C + O2 -> CO2 (Slate #475569) HORIZONTAL (ΔS ≈ 0) -->
+    <!-- 0°C -> ~-394 (y=168), 2000°C -> ~-394 (y=168) -->
+    <line x1="75" y1="168" x2="605" y2="168" stroke="#64748b" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="210" y="161" class="line-label" fill="#64748b">C + O₂ → CO₂</text>
+
+    <!-- 5. Curve: 2 Fe + O2 -> 2 FeO (Emerald #059669) -->
+    <!-- 0°C -> ~-500 (y=202), 2000°C -> ~-180 (y=98) -->
+    <path d="M 75 202 L 605 98" fill="none" stroke="#059669" stroke-width="2.4"/>
+    <text x="240" y="125" class="line-label" fill="#059669">2Fe + O₂ → 2FeO</text>
+
+    <!-- Intersection Points -->
+    <!-- Intersection: C/CO line with Fe/FeO line (T ≈ 700°C, x=260, y=170) -->
+    <circle cx="260" cy="172" r="5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+    <!-- Intersection: Ti/TiO2 with C/CO (T > 1650°C, x=510, y=228) -->
+    <circle cx="510" cy="228" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+
+    <!-- Intersection Annotations -->
+    <rect x="270" y="185" width="138" height="34" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+    <text x="278" y="200" class="badge-text" fill="#b91c1c">T &gt; 700°C: C reduksi FeO</text>
+    <text x="278" y="213" class="tick-text" fill="#7f1d1d">Reaksi Tanur Tiup Besi</text>
+
+    <rect x="360" y="255" width="170" height="34" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="368" y="270" class="badge-text" fill="#1d4ed8">T &gt; 1650°C: C reduksi TiO₂?</text>
+    <text x="368" y="283" class="tick-text" fill="#1e3a8a">Terbentuk TiC (Gagal) → Kroll!</text>
+  </g>
+
+  <!-- Right Information Panel / Metallurgy Guide -->
+  <g transform="translate(664, 92)">
+    <!-- Card 1: Konsep Kunci Diagram Ellingham -->
+    <rect width="256" height="145" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+    <rect x="14" y="14" width="6" height="16" rx="3" fill="#2563eb"/>
+    <text x="28" y="27" class="card-title">Kaidah Termodinamika</text>
+    <text x="14" y="50" class="card-text">
+      <tspan x="14" dy="0">• Semakin rendah posisi garis,</tspan>
+      <tspan x="20" dy="16">semakin stabil oksida tersebut.</tspan>
+      <tspan x="14" dy="16">• Reduktor di bawah dapat me-</tspan>
+      <tspan x="20" dy="16">reduksi oksida di atasnya (ΔG° &lt; 0).</tspan>
+      <tspan x="14" dy="16">• Garis 2C + O₂ → 2CO memiliki</tspan>
+      <tspan x="20" dy="16">kemiringan negatif (ΔS° &gt; 0!).</tspan>
+    </text>
+
+    <!-- Card 2: Mengapa Proses Kroll untuk Titanium? -->
+    <rect y="160" width="256" height="152" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+    <rect x="14" y="174" width="6" height="16" rx="3" fill="#dc2626"/>
+    <text x="28" y="187" class="card-title">Proses Kroll (Titanium)</text>
+    <text x="14" y="210" class="card-text">
+      <tspan x="14" dy="0">• Reduksi karbotermal langsung</tspan>
+      <tspan x="20" dy="16">TiO₂ + C membutuhkan T &gt; 1650°C</tspan>
+      <tspan x="20" dy="16">dan menghasilkan TiC yang rapuh.</tspan>
+      <tspan x="14" dy="16">• Solusi Proses Kroll:</tspan>
+      <tspan x="20" dy="16">1. TiO₂ + 2C + 2Cl₂ → TiCl₄ + 2CO</tspan>
+      <tspan x="20" dy="16">2. TiCl₄ + 2Mg(l) → Ti(s) + 2MgCl₂</tspan>
+    </text>
+
+    <!-- Card 3: Efek Entropi Fasa Gas -->
+    <rect y="327" width="256" height="135" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+    <rect x="14" y="341" width="6" height="16" rx="3" fill="#9333ea"/>
+    <text x="28" y="354" class="card-title">Efek Entropi (ΔS°)</text>
+    <text x="14" y="377" class="card-text">
+      <tspan x="14" dy="0">• 2C(s) + O₂(g) → 2CO(g):</tspan>
+      <tspan x="20" dy="16">Δn_gas = +1 mol ⇒ ΔS° &gt; 0</tspan>
+      <tspan x="20" dy="16">Kemiringan -ΔS° bernilai negatif!</tspan>
+      <tspan x="14" dy="16">• Kemampuan C mereduksi makin</tspan>
+      <tspan x="20" dy="16">HEBAT pada temperatur tinggi.</tspan>
+    </text>
+  </g>
+</svg>

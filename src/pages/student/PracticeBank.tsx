@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PILLARS_DATA } from '../../data/syllabusData';
 import { findConceptByTag } from '../../data/materialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
+import { resolveQuestionTopicMeta } from '../../utils/topicMapping';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Search,
@@ -346,6 +347,7 @@ export const PracticeBank: React.FC = () => {
           {questions.map((q) => {
             const isBookmarked = tagAndBookmarkService.isBookmarked(q.id);
             const customTags = tagAndBookmarkService.getCustomTags(q.id);
+            const topicMeta = resolveQuestionTopicMeta(q);
 
             return (
               <div
@@ -355,9 +357,15 @@ export const PracticeBank: React.FC = () => {
                 {/* Header Card: Badges, Style, Bookmark, & Preview */}
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-2.5 py-0.5 bg-slate-900 text-white text-[10px] font-bold rounded font-mono">
-                      Topik #{q.pillar_number}
+                    <span className={`px-2.5 py-0.5 text-white text-[10px] font-bold rounded font-mono ${topicMeta.isSma ? 'bg-teal-700' : 'bg-slate-900'}`}>
+                      {topicMeta.topicBadgeLabel}
                     </span>
+                    
+                    {topicMeta.isSma && topicMeta.gradeBadgeLabel && (
+                      <span className="px-2.5 py-0.5 border border-teal-200 text-teal-800 bg-teal-50 text-[10px] font-bold rounded font-mono">
+                        {topicMeta.gradeBadgeLabel}
+                      </span>
+                    )}
 
                     {/* Difficulty Badge */}
                     <span
@@ -465,8 +473,10 @@ export const PracticeBank: React.FC = () => {
                     <span className="text-[10px] text-slate-400 font-semibold mr-0.5">Tag:</span>
                     {q.tags?.map((t) => {
                       const match = findConceptByTag(t);
-                      const targetTopic = match ? match.material.topic_number : q.pillar_number;
                       const targetTag = match ? match.block.tag : t;
+                      const navRoute = topicMeta.materialRoute.includes('?') 
+                                      ? `${topicMeta.materialRoute}&tag=${targetTag}` 
+                                      : `${topicMeta.materialRoute}?tag=${targetTag}`;
 
                       return (
                         <div
@@ -483,8 +493,8 @@ export const PracticeBank: React.FC = () => {
                           </button>
                           <button
                             type="button"
-                            onClick={() => navigate(`/materi/${targetTopic}?tag=${targetTag}`)}
-                            title={`Buka pembahasan konsep #${t} di Database Materi (Topik ${targetTopic})`}
+                            onClick={() => navigate(navRoute)}
+                            title={`Buka pembahasan konsep terkait di Database Materi`}
                             className="text-slate-400 group-hover/tag:text-sky-600 transition-colors cursor-pointer"
                           >
                             <ExternalLink className="w-2.5 h-2.5" />
@@ -550,11 +560,18 @@ export const PracticeBank: React.FC = () => {
                 >
                   {activeModalQuestion.difficulty}
                 </span>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200/80 text-slate-800 font-mono">
-                  Topik #{activeModalQuestion.pillar_number}
-                </span>
+                
+                {(() => {
+                  const modalMeta = resolveQuestionTopicMeta(activeModalQuestion);
+                  return (
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-lg font-mono ${modalMeta.isSma ? 'bg-teal-100 text-teal-800' : 'bg-slate-200/80 text-slate-800'}`}>
+                      {modalMeta.topicBadgeLabel}
+                    </span>
+                  );
+                })()}
+
                 <span className="text-xs text-slate-500 font-medium">
-                  {activeModalQuestion.subtopic}
+                  {resolveQuestionTopicMeta(activeModalQuestion).topicTitle}
                 </span>
               </div>
 

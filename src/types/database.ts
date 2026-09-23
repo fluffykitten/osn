@@ -109,6 +109,9 @@ export interface SubQuestion {
   diagram_url?: string;
 }
 
+export type CurriculumTrack = 'ALL' | 'SMA' | 'OSN';
+export type SmaGradeLevel = 'ALL' | 'Kelas 10' | 'Kelas 11' | 'Kelas 12';
+
 export interface Question {
   id: number;
   module_id?: number | null;
@@ -136,6 +139,12 @@ export interface Question {
   is_verified?: boolean;
   created_at?: string;
   tags?: string[];
+  // Metadata Kurikulum SMA (16 Topik Fase E & F) & Dual Mapping
+  curriculum?: 'osn' | 'sma' | 'both';
+  sma_topic_number?: number;          // 1 - 16
+  sma_topic_id?: number;              // 101 - 116 (sesuai id SMA_MATERIALS)
+  grade?: 'Kelas 10' | 'Kelas 11' | 'Kelas 12';
+  curriculum_phase?: 'Fase E' | 'Fase F';
   // Protected fields (only in teacher / AI context)
   solution_rubric?: string;
   expected_final_answer?: string;
@@ -144,8 +153,11 @@ export interface Question {
 
 export interface QuestionFilter {
   search?: string;
+  curriculum?: CurriculumTrack;        // 'ALL' | 'SMA' | 'OSN'
   difficulty?: QuestionDifficulty | 'ALL';
-  pillarNumber?: number | 'ALL';
+  pillarNumber?: number | 'ALL';      // 1 - 10 untuk Pilar Silabus OSN
+  smaTopicNumber?: number | 'ALL';    // 1 - 16 untuk Topik Kimia SMA
+  smaGrade?: SmaGradeLevel;            // Filter spesifik jenjang SMA
   questionStyle?: QuestionStyle | 'ALL';
   yearRange?: [number, number];
   sourceEvent?: string;
