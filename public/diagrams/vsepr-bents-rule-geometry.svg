@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="920" height="540">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #0f172a; }
+      .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #64748b; }
+      .card-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 15px; fill: #1e293b; }
+      .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 11px; }
+      .label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12px; fill: #334155; }
+      .formula { font-family: 'Cambria Math', 'KaTeX_Math', 'Times New Roman', serif; font-style: italic; font-size: 14px; fill: #0f172a; }
+      .atom-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #ffffff; text-anchor: middle; dominant-baseline: central; }
+      .note { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #475569; }
+    </style>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="540" fill="#f1f5f9" rx="16"/>
+
+  <!-- Main Header -->
+  <rect x="20" y="16" width="880" height="70" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="40" y="44" class="title">Visualisasi Geometri VSEPR Kerangka Trigonal Bipiramidal &amp; Aturan Bent</text>
+  <text x="40" y="66" class="subtitle">Analisis Domain Sterik SN = 5 (sp³d): Preferensi Alokasi Pasangan Elektron Bebas (PEB) &amp; Ligan Elektronegatif</text>
+
+  <!-- Panel 1: Kerangka Dasar & Sudut Ikatan -->
+  <g transform="translate(20, 100)">
+    <rect width="275" height="420" rx="12" fill="url(#cardGrad)" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="90" height="24" rx="6" fill="#e0f2fe"/>
+    <text x="60" y="31" class="badge-text" fill="#0369a1" text-anchor="middle">KERANGKA</text>
+    <text x="15" y="60" class="card-title">Kerangka Dasar AX₅ (PCl₅)</text>
+    <text x="15" y="80" class="label">Bipiramida Trigonal (sp³d)</text>
+
+    <!-- 3D Trigonal Bipyramidal Scheme -->
+    <g transform="translate(137, 190)">
+      <!-- Equatorial Plane Guide (dashed ellipse) -->
+      <ellipse cx="0" cy="0" rx="65" ry="24" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+      
+      <!-- Axial Bonds -->
+      <line x1="0" y1="-85" x2="0" y2="85" stroke="#334155" stroke-width="3"/>
+      
+      <!-- Equatorial Bonds -->
+      <line x1="0" y1="0" x2="-60" y2="15" stroke="#334155" stroke-width="3"/>
+      <line x1="0" y1="0" x2="60" y2="15" stroke="#334155" stroke-width="3"/>
+      <line x1="0" y1="0" x2="0" y2="-22" stroke="#334155" stroke-width="2.5" stroke-dasharray="3,3"/>
+
+      <!-- Central Atom (P) -->
+      <circle cx="0" cy="0" r="18" fill="#ea580c"/>
+      <text x="0" y="0" class="atom-text">P</text>
+
+      <!-- Axial Atoms (Cl) -->
+      <circle cx="0" cy="-85" r="14" fill="#0284c7"/>
+      <text x="0" y="-85" class="atom-text" font-size="11">Cl</text>
+      <circle cx="0" cy="85" r="14" fill="#0284c7"/>
+      <text x="0" y="85" class="atom-text" font-size="11">Cl</text>
+
+      <!-- Equatorial Atoms (Cl) -->
+      <circle cx="-60" cy="15" r="14" fill="#0284c7"/>
+      <text x="-60" y="15" class="atom-text" font-size="11">Cl</text>
+      <circle cx="60" cy="15" r="14" fill="#0284c7"/>
+      <text x="60" y="15" class="atom-text" font-size="11">Cl</text>
+      <circle cx="0" cy="-22" r="11" fill="#0284c7" opacity="0.9"/>
+      <text x="0" y="-22" class="atom-text" font-size="9">Cl</text>
+
+      <!-- Angle Indicators -->
+      <path d="M 18 -15 A 25 25 0 0 1 25 0" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+      <text x="32" y="-8" class="badge-text" fill="#dc2626">90°</text>
+
+      <path d="M 22 18 A 30 30 0 0 1 -20 18" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="0" y="38" class="badge-text" fill="#2563eb" text-anchor="middle">120°</text>
+    </g>
+
+    <!-- Legend & Properties -->
+    <rect x="15" y="305" width="245" height="100" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="25" y="325" class="badge-text" fill="#0f172a">• Posisi Ekuatorial (3 ikatan):</text>
+    <text x="35" y="342" class="note">Orbital hibrida sp² (33.3% karakter-s)</text>
+    <text x="35" y="358" class="note">Sudut 120°, ikatan lebih kuat &amp; pendek</text>
+    <text x="25" y="378" class="badge-text" fill="#0f172a">• Posisi Aksial (2 ikatan):</text>
+    <text x="35" y="395" class="note">Orbital dp (0% karakter-s, 100% p), 90°</text>
+  </g>
+
+  <!-- Panel 2: Distorsi Seesaw SF4 & T-Shaped ClF3 -->
+  <g transform="translate(315, 100)">
+    <rect width="290" height="420" rx="12" fill="url(#cardGrad)" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="130" height="24" rx="6" fill="#fef3c7"/>
+    <text x="80" y="31" class="badge-text" fill="#b45309" text-anchor="middle">TOLAKAN PEB (VSEPR)</text>
+    <text x="15" y="60" class="card-title">Seesaw (SF₄) &amp; T-Shaped (ClF₃)</text>
+    <text x="15" y="80" class="label">PEB Wajib di Posisi Ekuatorial!</text>
+
+    <!-- SF4 Seesaw Sub-graphic -->
+    <g transform="translate(75, 185)">
+      <text x="0" y="-80" class="card-title" font-size="13" text-anchor="middle">SF₄ (AX₄E₁)</text>
+      <!-- Axial bent bonds -->
+      <line x1="0" y1="-60" x2="-5" y2="0" stroke="#334155" stroke-width="2.5"/>
+      <line x1="-5" y1="0" x2="-8" y2="60" stroke="#334155" stroke-width="2.5"/>
+      <!-- Equatorial bonds -->
+      <line x1="-5" y1="0" x2="45" y2="-25" stroke="#334155" stroke-width="2.5"/>
+      <line x1="-5" y1="0" x2="45" y2="25" stroke="#334155" stroke-width="2.5"/>
+      
+      <!-- Lone pair lobe at equatorial -->
+      <path d="M -5 0 C -45 -25 -45 25 -5 0 Z" fill="#c084fc" opacity="0.4" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <circle cx="-25" cy="-5" r="2.5" fill="#7e22ce"/>
+      <circle cx="-25" cy="5" r="2.5" fill="#7e22ce"/>
+
+      <!-- Sulfur -->
+      <circle cx="-5" cy="0" r="15" fill="#ca8a04"/>
+      <text x="-5" y="0" class="atom-text" font-size="12">S</text>
+
+      <!-- Fluorine atoms -->
+      <circle cx="0" cy="-60" r="11" fill="#38bdf8"/>
+      <text x="0" y="-60" class="atom-text" font-size="9">F</text>
+      <circle cx="-8" cy="60" r="11" fill="#38bdf8"/>
+      <text x="-8" y="60" class="atom-text" font-size="9">F</text>
+      <circle cx="45" cy="-25" r="11" fill="#38bdf8"/>
+      <text x="45" y="-25" class="atom-text" font-size="9">F</text>
+      <circle cx="45" cy="25" r="11" fill="#38bdf8"/>
+      <text x="45" y="25" class="atom-text" font-size="9">F</text>
+
+      <text x="0" y="78" class="note" text-anchor="middle" font-weight="600" fill="#dc2626">173° (Aksial) &lt; 180°</text>
+      <text x="0" y="92" class="note" text-anchor="middle" font-weight="600" fill="#2563eb">102° (Ek.) &lt; 120°</text>
+    </g>
+
+    <!-- ClF3 T-shaped Sub-graphic -->
+    <g transform="translate(215, 185)">
+      <text x="0" y="-80" class="card-title" font-size="13" text-anchor="middle">ClF₃ (AX₃E₂)</text>
+      <!-- Axial bent bonds -->
+      <line x1="0" y1="-60" x2="-8" y2="0" stroke="#334155" stroke-width="2.5"/>
+      <line x1="-8" y1="0" x2="-12" y2="60" stroke="#334155" stroke-width="2.5"/>
+      <!-- Equatorial bond -->
+      <line x1="-8" y1="0" x2="45" y2="0" stroke="#334155" stroke-width="2.5"/>
+      
+      <!-- 2 Lone pair lobes at equatorial -->
+      <path d="M -8 0 C -45 -40 -15 -50 -8 0 Z" fill="#c084fc" opacity="0.4" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <circle cx="-25" cy="-28" r="2.5" fill="#7e22ce"/>
+      <circle cx="-18" cy="-32" r="2.5" fill="#7e22ce"/>
+
+      <path d="M -8 0 C -45 40 -15 50 -8 0 Z" fill="#c084fc" opacity="0.4" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <circle cx="-25" cy="28" r="2.5" fill="#7e22ce"/>
+      <circle cx="-18" cy="32" r="2.5" fill="#7e22ce"/>
+
+      <!-- Chlorine -->
+      <circle cx="-8" cy="0" r="15" fill="#16a34a"/>
+      <text x="-8" y="0" class="atom-text" font-size="12">Cl</text>
+
+      <!-- Fluorine atoms -->
+      <circle cx="0" cy="-60" r="11" fill="#38bdf8"/>
+      <text x="0" y="-60" class="atom-text" font-size="9">F</text>
+      <circle cx="-12" cy="60" r="11" fill="#38bdf8"/>
+      <text x="-12" y="60" class="atom-text" font-size="9">F</text>
+      <circle cx="45" cy="0" r="11" fill="#38bdf8"/>
+      <text x="45" y="0" class="atom-text" font-size="9">F</text>
+
+      <text x="0" y="78" class="note" text-anchor="middle" font-weight="600" fill="#dc2626">Sudut F-Cl-F: 87.5°</text>
+      <text x="0" y="92" class="note" text-anchor="middle" fill="#64748b">(Bentuk-T terdistorsi)</text>
+    </g>
+
+    <!-- VSEPR Rule Explanation Box -->
+    <rect x="15" y="305" width="260" height="100" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="25" y="325" class="badge-text" fill="#b45309">Mengapa PEB memilih Ekuatorial?</text>
+    <text x="25" y="342" class="note">• Di Ekuatorial: Hanya 2 tolakan 90° (ke aksial).</text>
+    <text x="25" y="358" class="note">• Jika di Aksial: Menghadapi 3 tolakan 90° (ke ek.),</text>
+    <text x="25" y="374" class="note">  sehingga tingkat energi sistem jauh lebih tinggi</text>
+    <text x="25" y="390" class="note">  dan sangat tidak stabil!</text>
+  </g>
+
+  <!-- Panel 3: Aplikasi Aturan Bent pada PF3Cl2 -->
+  <g transform="translate(625, 100)">
+    <rect width="275" height="420" rx="12" fill="url(#cardGrad)" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="105" height="24" rx="6" fill="#fce7f3"/>
+    <text x="67" y="31" class="badge-text" fill="#be185d" text-anchor="middle">ATURAN BENT</text>
+    <text x="15" y="60" class="card-title">Isomer Stabil PF₃Cl₂</text>
+    <text x="15" y="80" class="label">Alokasi Substituen Elektronegatif</text>
+
+    <!-- PF3Cl2 Graphic -->
+    <g transform="translate(137, 190)">
+      <!-- Equatorial Guide -->
+      <ellipse cx="0" cy="0" rx="62" ry="22" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+      
+      <!-- Axial Bonds (F atoms) -->
+      <line x1="0" y1="-80" x2="0" y2="80" stroke="#0284c7" stroke-width="3"/>
+      
+      <!-- Equatorial Bonds (2 Cl + 1 F) -->
+      <line x1="0" y1="0" x2="-55" y2="15" stroke="#16a34a" stroke-width="3"/>
+      <line x1="0" y1="0" x2="55" y2="15" stroke="#16a34a" stroke-width="3"/>
+      <line x1="0" y1="0" x2="0" y2="-20" stroke="#0284c7" stroke-width="2.5" stroke-dasharray="3,3"/>
+
+      <!-- Central Atom (P) -->
+      <circle cx="0" cy="0" r="18" fill="#ea580c"/>
+      <text x="0" y="0" class="atom-text">P</text>
+
+      <!-- Axial Fluorine Atoms (Most Electronegative) -->
+      <circle cx="0" cy="-80" r="14" fill="#38bdf8"/>
+      <text x="0" y="-80" class="atom-text" font-size="11">F</text>
+      <text x="25" y="-80" class="badge-text" fill="#0369a1">Aksial</text>
+
+      <circle cx="0" cy="80" r="14" fill="#38bdf8"/>
+      <text x="0" y="80" class="atom-text" font-size="11">F</text>
+      <text x="25" y="80" class="badge-text" fill="#0369a1">Aksial</text>
+
+      <!-- Equatorial Atoms (2 Cl + 1 F) -->
+      <circle cx="-55" cy="15" r="14" fill="#16a34a"/>
+      <text x="-55" y="15" class="atom-text" font-size="10">Cl</text>
+      <circle cx="55" cy="15" r="14" fill="#16a34a"/>
+      <text x="55" y="15" class="atom-text" font-size="10">Cl</text>
+      <circle cx="0" cy="-20" r="11" fill="#38bdf8"/>
+      <text x="0" y="-20" class="atom-text" font-size="9">F</text>
+    </g>
+
+    <!-- Bent's Rule Explanation Box -->
+    <rect x="15" y="305" width="245" height="100" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+    <text x="25" y="325" class="badge-text" fill="#be185d">Prinsip Aturan Bent:</text>
+    <text x="25" y="342" class="note">"Substituen lebih elektronegatif (F)</text>
+    <text x="25" y="358" class="note">mencari orbital dengan karakter-p lebih</text>
+    <text x="25" y="374" class="note">tinggi (posisi aksial dp, 100% p)."</text>
+    <text x="25" y="392" class="note" font-weight="600" fill="#0f172a">Ikatan P-F aksial &gt; P-F ekuatorial</text>
+  </g>
+</svg>

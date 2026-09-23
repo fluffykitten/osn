@@ -69,6 +69,14 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
 
   const getDifficultyBadge = (diff: QuestionDifficulty) => {
     switch (diff) {
+      case 'SMA-Mudah':
+        return 'bg-emerald-100 text-emerald-800 border-emerald-300';
+      case 'SMA-Sedang':
+        return 'bg-sky-100 text-sky-800 border-sky-300';
+      case 'SMA-Sulit':
+        return 'bg-purple-100 text-purple-800 border-purple-300';
+      case 'SMA':
+        return 'bg-teal-100 text-teal-800 border-teal-300';
       case 'OSK':
         return 'bg-blue-100 text-blue-800 border-blue-200';
       case 'OSP':
@@ -335,7 +343,7 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                       <img
                         src={activeModalQuestion.diagram_url}
                         alt="Diagram Soal"
-                        className="max-h-60 object-contain rounded"
+                        className="w-full max-w-lg max-h-64 object-contain rounded-lg bg-white"
                       />
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher';
-export type QuestionDifficulty = 'OSK' | 'OSP' | 'OSN' | 'IChO';
+export type QuestionDifficulty = 'SMA-Mudah' | 'SMA-Sedang' | 'SMA-Sulit' | 'SMA' | 'OSK' | 'OSP' | 'OSN' | 'IChO';
 export type GenerationVariant = 'manual' | 'pdf_extracted' | 'twin_parallel' | 'scaffolding' | 'challenging_extension';
 export type WorksheetType = 'static_module' | 'teacher_assignment';
 export type SubmissionStatus = 'in_progress' | 'submitted' | 'reviewed';

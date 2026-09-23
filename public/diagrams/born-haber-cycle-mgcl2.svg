@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #0f172a; }
+      .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #64748b; }
+      .species-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13.5px; fill: #0f172a; }
+      .delta-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 12px; }
+      .val-text { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 12px; }
+      .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 11px; }
+      .note-bold { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #0f172a; }
+      .note-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11.5px; fill: #475569; }
+    </style>
+    <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 7 L 4 1 L 7 7 Z" fill="#2563eb" />
+    </marker>
+    <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 1 L 4 7 L 7 1 Z" fill="#dc2626" />
+    </marker>
+    <marker id="arrowLattice" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto">
+      <path d="M 1 1 L 4.5 8 L 8 1 Z" fill="#7c3aed" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="560" fill="#f8fafc" rx="16"/>
+
+  <!-- Main Header -->
+  <rect x="24" y="14" width="872" height="66" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="44" y="40" class="title">Siklus Termodinamika Born-Haber Pembentukan Kristal MgCl₂(s)</text>
+  <text x="44" y="62" class="subtitle">Penentuan Nilai Energi Kisi (U_kisi = -2525 kJ/mol) Berdasarkan Hukum Kekekalan Energi Hess</text>
+
+  <!-- Main Cycle Diagram Box -->
+  <g transform="translate(24, 95)">
+    <rect width="610" height="445" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+
+    <!-- Energy Axis -->
+    <line x1="30" y1="410" x2="30" y2="35" stroke="#0f172a" stroke-width="2.5"/>
+    <polygon points="30,22 25,36 35,36" fill="#0f172a"/>
+    <text x="-225" y="18" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#0f172a" transform="rotate(-90)" text-anchor="middle">ENTALPI SISTEM (H)</text>
+
+    <!-- Energy Levels (Horizontal Platforms) -->
+    
+    <!-- Level 0: Elements in Standard State (y = 310) -->
+    <line x1="55" y1="310" x2="220" y2="310" stroke="#334155" stroke-width="3"/>
+    <text x="60" y="302" class="species-text">Mg(s) + Cl₂(g)</text>
+    <text x="60" y="325" class="val-text" fill="#64748b">Tingkat Acuan (0 kJ)</text>
+
+    <!-- Direct formation: Level Product MgCl2(s) (y = 410) -->
+    <line x1="55" y1="410" x2="580" y2="410" stroke="#16a34a" stroke-width="3.5"/>
+    <text x="60" y="430" class="species-text" fill="#15803d">MgCl₂(s) [Kristal Ionik Padat]</text>
+
+    <!-- Arrow Delta Hf° from Elements to Product (downwards) -->
+    <line x1="85" y1="315" x2="85" y2="400" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+    <text x="95" y="365" class="delta-text" fill="#dc2626">ΔH°f = −641.6 kJ</text>
+
+    <!-- Step 1: Sublimation of Mg -> Mg(g) + Cl2(g) (y = 265) -->
+    <line x1="160" y1="265" x2="280" y2="265" stroke="#334155" stroke-width="2"/>
+    <text x="165" y="257" class="species-text">Mg(g) + Cl₂(g)</text>
+    <line x1="180" y1="305" x2="180" y2="272" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowUp)"/>
+    <text x="190" y="292" class="delta-text" fill="#2563eb">ΔH_sub = +148 kJ</text>
+
+    <!-- Step 2: Dissociation of Cl2 -> Mg(g) + 2Cl(g) (y = 215) -->
+    <line x1="220" y1="215" x2="350" y2="215" stroke="#334155" stroke-width="2"/>
+    <text x="225" y="207" class="species-text">Mg(g) + 2Cl(g)</text>
+    <line x1="240" y1="260" x2="240" y2="222" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowUp)"/>
+    <text x="250" y="243" class="delta-text" fill="#2563eb">D(Cl−Cl) = +244 kJ</text>
+
+    <!-- Step 3: IE1 of Mg -> Mg+(g) + 2Cl(g) + e- (y = 150) -->
+    <line x1="280" y1="150" x2="420" y2="150" stroke="#334155" stroke-width="2"/>
+    <text x="285" y="142" class="species-text">Mg⁺(g) + 2Cl(g) + e⁻</text>
+    <line x1="300" y1="210" x2="300" y2="157" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowUp)"/>
+    <text x="310" y="185" class="delta-text" fill="#2563eb">IE₁ = +738 kJ</text>
+
+    <!-- Step 4: IE2 of Mg -> Mg2+(g) + 2Cl(g) + 2e- (Peak Level y = 60) -->
+    <line x1="340" y1="60" x2="520" y2="60" stroke="#334155" stroke-width="2.5"/>
+    <text x="345" y="52" class="species-text" fill="#b45309">Mg²⁺(g) + 2Cl(g) + 2e⁻ [PUNCAK]</text>
+    <line x1="360" y1="145" x2="360" y2="67" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowUp)"/>
+    <text x="370" y="105" class="delta-text" fill="#2563eb">IE₂ = +1451 kJ</text>
+
+    <!-- Step 5: Electron Affinity 2Cl -> 2Cl- (y = 125) -->
+    <line x1="430" y1="125" x2="590" y2="125" stroke="#334155" stroke-width="3"/>
+    <text x="435" y="117" class="species-text" fill="#0f172a">Mg²⁺(g) + 2Cl⁻(g)</text>
+    <text x="435" y="142" class="val-text" fill="#64748b">Gas Ion Bebas Terpisah</text>
+
+    <line x1="480" y1="65" x2="480" y2="117" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+    <text x="490" y="90" class="delta-text" fill="#dc2626">2 × EA(Cl)</text>
+    <text x="490" y="104" class="val-text" fill="#dc2626">= −698 kJ</text>
+
+    <!-- Step 6: LATTICE ENERGY (U_kisi) down to MgCl2(s) (from y=130 to y=405) -->
+    <line x1="560" y1="130" x2="560" y2="402" stroke="#7c3aed" stroke-width="4" marker-end="url(#arrowLattice)"/>
+    
+    <rect x="460" y="240" width="135" height="55" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="527" y="260" class="note-bold" fill="#6d28d9" text-anchor="middle">ENERGI KISI (U)</text>
+    <text x="527" y="280" font-family="'Cambria Math', serif" font-weight="700" font-size="14" fill="#6d28d9" text-anchor="middle">−2524.6 kJ/mol</text>
+  </g>
+
+  <!-- Right Side Calculation Card -->
+  <g transform="translate(648, 95)">
+    <!-- Hukum Hess Box -->
+    <rect width="248" height="215" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="125" height="22" rx="5" fill="#fef3c7"/>
+    <text x="77" y="30" class="badge-text" fill="#b45309" text-anchor="middle">HUKUM HESS</text>
+    
+    <text x="15" y="58" class="note-bold">Persamaan Siklus Tertutup:</text>
+    <text x="15" y="78" class="note-text" font-family="'Cambria Math', serif">ΔH°f = ΔHsub + D + IE₁</text>
+    <text x="50" y="94" class="note-text" font-family="'Cambria Math', serif">+ IE₂ + 2(EA) + U_kisi</text>
+
+    <text x="15" y="120" class="note-bold">Substitusi Nilai Eksperimen:</text>
+    <text x="15" y="138" class="note-text">• Endoterm (↑): +2581 kJ</text>
+    <text x="15" y="154" class="note-text">• Afinitas (↓): −698 kJ</text>
+    <text x="15" y="170" class="note-text">• Total ion gas: +1883 kJ</text>
+
+    <!-- Formula Result Box -->
+    <rect x="12" y="182" width="224" height="26" rx="5" fill="#f1f5f9"/>
+    <text x="124" y="199" font-family="'Cambria Math', serif" font-weight="700" font-size="12" fill="#0f172a" text-anchor="middle">U = −641.6 − 1883 = −2524.6 kJ</text>
+
+    <!-- Kapustinskii & Factor Card -->
+    <rect y="230" width="248" height="215" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="245" width="145" height="22" rx="5" fill="#e0f2fe"/>
+    <text x="87" y="260" class="badge-text" fill="#0369a1" text-anchor="middle">PERS. KAPUSTINSKII</text>
+    
+    <text x="15" y="288" class="note-bold">Faktor Penentu Energi Kisi:</text>
+    <text x="15" y="310" class="note-text">• Muatan kation/anion (|z₊ · z₋|):</text>
+    <text x="25" y="326" class="note-text">Makin besar muatan ion,</text>
+    <text x="25" y="342" class="note-text">energi kisi makin besar eksoterm.</text>
+
+    <text x="15" y="365" class="note-text">• Jarak antar-inti (r₊ + r₋):</text>
+    <text x="25" y="381" class="note-text">Makin kecil jari-jari ion,</text>
+    <text x="25" y="397" class="note-text">tarikan makin kuat &amp; U membesar.</text>
+
+    <text x="15" y="426" class="note-bold" fill="#7c3aed">U(MgO) &gt;&gt; U(MgCl₂) &gt; U(NaCl)</text>
+  </g>
+</svg>

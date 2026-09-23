@@ -6,6 +6,7 @@
 
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabaseClient';
 import { BENCHMARK_QUESTIONS } from '../data/syllabusData';
+import { SMA_CHEMISTRY_QUESTIONS } from '../data/smaQuestionsData';
 import { tagAndBookmarkService } from './tagAndBookmarkService';
 import type { Question, QuestionFilter, QuestionDifficulty, QuestionStyle, SubQuestion, Worksheet } from '../types/database';
 
@@ -67,6 +68,12 @@ const INITIAL_SEEDED_QUESTIONS: Question[] = BENCHMARK_QUESTIONS.map((q) => {
   };
 });
 
+// Gabungkan butir soal benchmark dengan bank soal Kimia SMA (Fase E & Fase F)
+const ALL_DEFAULT_QUESTIONS: Question[] = [
+  ...INITIAL_SEEDED_QUESTIONS,
+  ...SMA_CHEMISTRY_QUESTIONS
+];
+
 class QuestionBankService {
   private localQuestions: Map<number, Question> = new Map();
   private localWorksheets: Worksheet[] = [];
@@ -76,8 +83,8 @@ class QuestionBankService {
   }
 
   private initLocalStore(): void {
-    // 1. Seed benchmark questions
-    INITIAL_SEEDED_QUESTIONS.forEach(q => {
+    // 1. Seed benchmark & SMA curriculum questions
+    ALL_DEFAULT_QUESTIONS.forEach(q => {
       this.localQuestions.set(q.id, { ...q });
     });
 
@@ -100,7 +107,8 @@ class QuestionBankService {
 
   private persistLocalStore(): void {
     try {
-      const customOnes = Array.from(this.localQuestions.values()).filter(q => q.id > 200);
+      const defaultIds = new Set(ALL_DEFAULT_QUESTIONS.map(q => q.id));
+      const customOnes = Array.from(this.localQuestions.values()).filter(q => !defaultIds.has(q.id));
       localStorage.setItem(LOCAL_QUESTIONS_STORAGE_KEY, JSON.stringify(customOnes));
       localStorage.setItem(LOCAL_WORKSHEETS_STORAGE_KEY, JSON.stringify(this.localWorksheets));
     } catch (e) {
@@ -181,7 +189,11 @@ class QuestionBankService {
       }
 
       if (filter.difficulty && filter.difficulty !== 'ALL') {
-        questions = questions.filter(q => q.difficulty === filter.difficulty);
+        if (filter.difficulty === 'SMA') {
+          questions = questions.filter(q => q.difficulty.startsWith('SMA'));
+        } else {
+          questions = questions.filter(q => q.difficulty === filter.difficulty);
+        }
       }
 
       if (filter.questionStyle && filter.questionStyle !== 'ALL') {
@@ -206,8 +218,17 @@ class QuestionBankService {
 
       // Pengurutan (Sorting)
       if (filter.sortBy === 'difficulty') {
-        const order: Record<QuestionDifficulty, number> = { OSK: 1, OSP: 2, OSN: 3, IChO: 4 };
-        questions.sort((a, b) => order[a.difficulty] - order[b.difficulty]);
+        const order: Record<string, number> = {
+          'SMA-Mudah': 1,
+          'SMA-Sedang': 2,
+          'SMA-Sulit': 3,
+          'SMA': 2,
+          OSK: 4,
+          OSP: 5,
+          OSN: 6,
+          IChO: 7,
+        };
+        questions.sort((a, b) => (order[a.difficulty] || 0) - (order[b.difficulty] || 0));
       } else if (filter.sortBy === 'pillar') {
         questions.sort((a, b) => a.pillar_number - b.pillar_number);
       } else if (filter.sortBy === 'oldest') {
@@ -349,7 +370,7 @@ class QuestionBankService {
 
     try {
       // Periksa apakah tabel questions dapat diakses
-      const payload = INITIAL_SEEDED_QUESTIONS.map(q => ({
+      const payload = ALL_DEFAULT_QUESTIONS.map(q => ({
         id: q.id,
         pillar_number: q.pillar_number,
         subtopic: q.subtopic,

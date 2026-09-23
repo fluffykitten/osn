@@ -110,6 +110,11 @@ export const Worksheet: React.FC = () => {
               }
             }
           }
+        } else if (type === 'static_module') {
+          const questionRes = await questionBankService.getQuestions();
+          if (questionRes.questions && questionRes.questions.length > 0) {
+            setCustomQuestions(questionRes.questions);
+          }
         }
       } catch (e) {
         console.warn('Gagal memuat soal kustom:', e);

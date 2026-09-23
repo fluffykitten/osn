@@ -165,7 +165,16 @@ export const WorksheetBuilder: React.FC = () => {
   }, [selectedQuestions]);
 
   const difficultyBreakdown = useMemo(() => {
-    const counts: Record<QuestionDifficulty, number> = { OSK: 0, OSP: 0, OSN: 0, IChO: 0 };
+    const counts: Record<QuestionDifficulty, number> = {
+      'SMA-Mudah': 0,
+      'SMA-Sedang': 0,
+      'SMA-Sulit': 0,
+      'SMA': 0,
+      OSK: 0,
+      OSP: 0,
+      OSN: 0,
+      IChO: 0,
+    };
     selectedQuestions.forEach((q) => {
       if (counts[q.difficulty] !== undefined) counts[q.difficulty]++;
     });
@@ -476,6 +485,18 @@ export const WorksheetBuilder: React.FC = () => {
                   Komposisi Kesulitan Soal:
                 </span>
                 <div className="flex gap-1.5 flex-wrap">
+                  {(difficultyBreakdown['SMA-Mudah'] > 0 ||
+                    difficultyBreakdown['SMA-Sedang'] > 0 ||
+                    difficultyBreakdown['SMA-Sulit'] > 0 ||
+                    difficultyBreakdown['SMA'] > 0) && (
+                    <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-[10px] font-bold font-mono">
+                      SMA:{' '}
+                      {difficultyBreakdown['SMA-Mudah'] +
+                        difficultyBreakdown['SMA-Sedang'] +
+                        difficultyBreakdown['SMA-Sulit'] +
+                        difficultyBreakdown['SMA']}
+                    </span>
+                  )}
                   <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-bold font-mono">
                     OSK: {difficultyBreakdown.OSK}
                   </span>

@@ -132,17 +132,24 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
 
       {/* Tingkat Kesulitan Olympiad Badges */}
       <div>
-        <label className="text-xs font-semibold text-slate-700 block mb-2">Tingkat Kompetisi:</label>
-        <div className="grid grid-cols-5 gap-1.5">
-          {(['ALL', 'OSK', 'OSP', 'OSN', 'IChO'] as const).map((lvl) => {
-            const isSelected = (filter.difficulty || 'ALL') === lvl;
+        <label className="text-xs font-semibold text-slate-700 block mb-2">Tingkat Kesulitan / Jenjang:</label>
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 mb-2">
+          {(['ALL', 'SMA', 'OSK', 'OSP', 'OSN', 'IChO'] as const).map((lvl) => {
+            const isSelected =
+              lvl === 'SMA'
+                ? filter.difficulty === 'SMA' || filter.difficulty?.startsWith('SMA-')
+                : (filter.difficulty || 'ALL') === lvl;
+
             return (
               <button
                 key={lvl}
-                onClick={() => handleDifficultySelect(lvl)}
+                type="button"
+                onClick={() => handleDifficultySelect(lvl as QuestionDifficulty | 'ALL')}
                 className={`py-1.5 px-2 text-xs font-bold rounded-lg transition-all text-center ${
                   isSelected
-                    ? lvl === 'OSK'
+                    ? lvl === 'SMA'
+                      ? 'bg-teal-600 text-white shadow-xs'
+                      : lvl === 'OSK'
                       ? 'bg-blue-600 text-white shadow-xs'
                       : lvl === 'OSP'
                       ? 'bg-amber-600 text-white shadow-xs'
@@ -154,11 +161,36 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
                     : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
                 }`}
               >
-                {lvl === 'ALL' ? 'Semua' : lvl}
+                {lvl === 'ALL' ? 'Semua' : lvl === 'SMA' ? 'SMA' : lvl}
               </button>
             );
           })}
         </div>
+
+        {/* Sub-tier Tingkat SMA (Mudah, Sedang, Sulit) */}
+        {(filter.difficulty === 'SMA' || filter.difficulty?.startsWith('SMA-')) && (
+          <div className="flex flex-wrap items-center gap-1.5 p-2 bg-teal-50/70 border border-teal-200/80 rounded-xl text-xs">
+            <span className="text-[11px] font-bold text-teal-900">Tier SMA:</span>
+            {(['SMA', 'SMA-Mudah', 'SMA-Sedang', 'SMA-Sulit'] as const).map((subLvl) => {
+              const isSubSelected = filter.difficulty === subLvl;
+              const subLabel = subLvl === 'SMA' ? 'Semua SMA' : subLvl.replace('SMA-', '');
+              return (
+                <button
+                  key={subLvl}
+                  type="button"
+                  onClick={() => handleDifficultySelect(subLvl as QuestionDifficulty)}
+                  className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all ${
+                    isSubSelected
+                      ? 'bg-teal-700 text-white shadow-2xs'
+                      : 'bg-white text-teal-800 hover:bg-teal-100 border border-teal-200'
+                  }`}
+                >
+                  {subLabel}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Topik Silabus OSN (10 Pilar) */}

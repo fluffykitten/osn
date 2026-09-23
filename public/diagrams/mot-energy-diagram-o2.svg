@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #0f172a; }
+      .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #64748b; }
+      .header-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 14px; fill: #1e293b; text-anchor: middle; }
+      .orbital-label { font-family: 'Cambria Math', 'KaTeX_Math', 'Times New Roman', serif; font-size: 13px; fill: #1e293b; }
+      .mo-label { font-family: 'Cambria Math', 'KaTeX_Math', 'Times New Roman', serif; font-weight: 700; font-size: 13.5px; }
+      .spin { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 16px; text-anchor: middle; dominant-baseline: central; }
+      .spin-up { fill: #dc2626; }
+      .spin-down { fill: #2563eb; }
+      .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 11px; }
+      .note-bold { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 12px; fill: #0f172a; }
+      .note-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11.5px; fill: #475569; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="560" fill="#f8fafc" rx="16"/>
+
+  <!-- Main Header -->
+  <rect x="24" y="14" width="872" height="66" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="44" y="40" class="title">Diagram Tingkat Energi Teori Orbital Molekul (MOT) untuk Spesi Diatomik O₂</text>
+  <text x="44" y="62" class="subtitle">Pembuktian Kuantum Orde Ikatan (BO = 2) dan Sifat Paramagnetik Dua Elektron Tak Berpasangan (Aturan Hund)</text>
+
+  <!-- Left Main Diagram Box -->
+  <g transform="translate(24, 95)">
+    <rect width="600" height="445" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+
+    <!-- Energy Axis (Vertical Arrow) -->
+    <line x1="35" y1="420" x2="35" y2="40" stroke="#0f172a" stroke-width="2.5"/>
+    <polygon points="35,28 30,42 40,42" fill="#0f172a"/>
+    <text x="-230" y="22" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#0f172a" transform="rotate(-90)" text-anchor="middle">ENERGI RELATIF ORBITAL</text>
+
+    <!-- Column Headers -->
+    <text x="120" y="32" class="header-text">Orbital Atom O (A)</text>
+    <text x="320" y="32" class="header-text" fill="#0284c7">Orbital Molekul O₂</text>
+    <text x="510" y="32" class="header-text">Orbital Atom O (B)</text>
+
+    <!-- Sublevel 2s levels -->
+    <!-- 2s Atomic Orbitals (AO A & B at y=370) -->
+    <line x1="95" y1="370" x2="145" y2="370" stroke="#475569" stroke-width="3"/>
+    <text x="75" y="374" class="orbital-label">2s</text>
+    <!-- 2 electrons in 2s AO A: up & down -->
+    <text x="110" y="360" class="spin spin-up">↑</text>
+    <text x="130" y="360" class="spin spin-down">↓</text>
+
+    <line x1="485" y1="370" x2="535" y2="370" stroke="#475569" stroke-width="3"/>
+    <text x="545" y="374" class="orbital-label">2s</text>
+    <!-- 2 electrons in 2s AO B: up & down -->
+    <text x="500" y="360" class="spin spin-up">↑</text>
+    <text x="520" y="360" class="spin spin-down">↓</text>
+
+    <!-- MO sigma 2s (bonding at y=405) -->
+    <line x1="295" y1="405" x2="345" y2="405" stroke="#2563eb" stroke-width="3.5"/>
+    <text x="355" y="410" class="mo-label" fill="#2563eb">σ₂s</text>
+    <text x="310" y="395" class="spin spin-up">↑</text>
+    <text x="330" y="395" class="spin spin-down">↓</text>
+
+    <!-- MO sigma* 2s (antibonding at y=330) -->
+    <line x1="295" y1="330" x2="345" y2="330" stroke="#dc2626" stroke-width="3.5"/>
+    <text x="355" y="335" class="mo-label" fill="#dc2626">σ*₂s</text>
+    <text x="310" y="320" class="spin spin-up">↑</text>
+    <text x="330" y="320" class="spin spin-down">↓</text>
+
+    <!-- Correlation dashed lines for 2s -->
+    <line x1="145" y1="370" x2="295" y2="405" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="145" y1="370" x2="295" y2="330" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="485" y1="370" x2="345" y2="405" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="485" y1="370" x2="345" y2="330" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <!-- ==================== SUBLEVEL 2p ==================== -->
+    <!-- 2p Atomic Orbitals (AO A & B at y=210) -->
+    <!-- 3 boxes for AO A -->
+    <line x1="75" y1="210" x2="105" y2="210" stroke="#475569" stroke-width="3"/>
+    <line x1="115" y1="210" x2="145" y2="210" stroke="#475569" stroke-width="3"/>
+    <line x1="155" y1="210" x2="185" y2="210" stroke="#475569" stroke-width="3"/>
+    <text x="55" y="214" class="orbital-label">2p</text>
+    <!-- 4 electrons in AO A (2p4): pair, single, single -->
+    <text x="85" y="200" class="spin spin-up">↑</text>
+    <text x="95" y="200" class="spin spin-down">↓</text>
+    <text x="130" y="200" class="spin spin-up">↑</text>
+    <text x="170" y="200" class="spin spin-up">↑</text>
+
+    <!-- 3 boxes for AO B -->
+    <line x1="455" y1="210" x2="485" y2="210" stroke="#475569" stroke-width="3"/>
+    <line x1="495" y1="210" x2="525" y2="210" stroke="#475569" stroke-width="3"/>
+    <line x1="535" y1="210" x2="565" y2="210" stroke="#475569" stroke-width="3"/>
+    <text x="575" y="214" class="orbital-label">2p</text>
+    <!-- 4 electrons in AO B (2p4): pair, single, single -->
+    <text x="465" y="200" class="spin spin-up">↑</text>
+    <text x="475" y="200" class="spin spin-down">↓</text>
+    <text x="510" y="200" class="spin spin-up">↑</text>
+    <text x="550" y="200" class="spin spin-up">↑</text>
+
+    <!-- MO sigma 2pz (bonding at y=265) -->
+    <line x1="295" y1="265" x2="345" y2="265" stroke="#2563eb" stroke-width="3.5"/>
+    <text x="355" y="269" class="mo-label" fill="#2563eb">σ₂p_z</text>
+    <text x="310" y="255" class="spin spin-up">↑</text>
+    <text x="330" y="255" class="spin spin-down">↓</text>
+
+    <!-- MO pi 2px, pi 2py (degenerate bonding at y=215) -->
+    <line x1="265" y1="215" x2="310" y2="215" stroke="#2563eb" stroke-width="3.5"/>
+    <line x1="330" y1="215" x2="375" y2="215" stroke="#2563eb" stroke-width="3.5"/>
+    <text x="385" y="220" class="mo-label" fill="#2563eb">π₂p_x, π₂p_y</text>
+    <!-- 4 electrons: pair in px, pair in py -->
+    <text x="280" y="205" class="spin spin-up">↑</text>
+    <text x="295" y="205" class="spin spin-down">↓</text>
+    <text x="345" y="205" class="spin spin-up">↑</text>
+    <text x="360" y="205" class="spin spin-down">↓</text>
+
+    <!-- MO pi* 2px, pi* 2py (degenerate antibonding at y=135) - CRITICAL PARAMAGNETIC -->
+    <rect x="250" y="105" width="140" height="50" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="265" y1="135" x2="310" y2="135" stroke="#dc2626" stroke-width="3.5"/>
+    <line x1="330" y1="135" x2="375" y2="135" stroke="#dc2626" stroke-width="3.5"/>
+    <text x="395" y="140" class="mo-label" fill="#dc2626">π*₂p_x, π*₂p_y</text>
+    <!-- 2 unpaired electrons with parallel spins according to Hund's Rule! -->
+    <text x="287" y="125" class="spin spin-up" font-size="20">↑</text>
+    <text x="352" y="125" class="spin spin-up" font-size="20">↑</text>
+    <text x="320" y="98" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#dc2626" text-anchor="middle">PARAMAGNETIK (2 e⁻ tak berpasangan)</text>
+
+    <!-- MO sigma* 2pz (antibonding at y=65 - empty) -->
+    <line x1="295" y1="65" x2="345" y2="65" stroke="#dc2626" stroke-width="3.5"/>
+    <text x="355" y="70" class="mo-label" fill="#dc2626">σ*₂p_z</text>
+    <text x="320" y="52" font-family="'Inter', sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">(Kosong)</text>
+
+    <!-- Correlation dashed lines for 2p -->
+    <line x1="185" y1="210" x2="295" y2="265" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="185" y1="210" x2="265" y2="215" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="185" y1="210" x2="265" y2="135" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="185" y1="210" x2="295" y2="65" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+    <line x1="455" y1="210" x2="345" y2="265" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="455" y1="210" x2="375" y2="215" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="455" y1="210" x2="375" y2="135" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+    <line x1="455" y1="210" x2="345" y2="65" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- Right Analysis Panel -->
+  <g transform="translate(640, 95)">
+    <!-- Bond Order Calculation Card -->
+    <rect width="256" height="215" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="15" width="125" height="22" rx="5" fill="#e0f2fe"/>
+    <text x="77" y="30" class="badge-text" fill="#0369a1" text-anchor="middle">KALKULASI MOT</text>
+    <text x="15" y="58" class="note-bold" font-size="14">Perhitungan Orde Ikatan (BO):</text>
+    
+    <text x="15" y="80" class="note-text">• Total elektron valensi: 6 + 6 = <tspan font-weight="700">12 e⁻</tspan></text>
+    <text x="15" y="98" class="note-text">• Elektron ikatan (Nb): <tspan font-weight="700" fill="#2563eb">8 e⁻</tspan></text>
+    <text x="27" y="114" class="note-text">(σ₂s², σ₂pz², π₂px², π₂py²)</text>
+    <text x="15" y="132" class="note-text">• Elektron anti-ikatan (Na): <tspan font-weight="700" fill="#dc2626">4 e⁻</tspan></text>
+    <text x="27" y="148" class="note-text">(σ*₂s², π*₂px¹, π*₂py¹)</text>
+
+    <!-- Formula Box -->
+    <rect x="15" y="160" width="226" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+    <text x="128" y="186" font-family="'Cambria Math', serif" font-weight="700" font-size="15" fill="#0f172a" text-anchor="middle">BO = ½(8 − 4) = 2.0</text>
+
+    <!-- Deret Spesies Oksigen Card -->
+    <rect y="230" width="256" height="215" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="245" width="135" height="22" rx="5" fill="#fef3c7"/>
+    <text x="82" y="260" class="badge-text" fill="#b45309" text-anchor="middle">DERET REDOKS O₂</text>
+    <text x="15" y="288" class="note-bold">Korelasi BO &amp; Kemagnetan:</text>
+
+    <text x="15" y="310" class="note-text">• <tspan font-weight="700">O₂⁺</tspan> (11 e⁻): BO = 2.5 | Paramagnetik (1 e⁻)</text>
+    <text x="15" y="330" class="note-text">• <tspan font-weight="700">O₂</tspan> (12 e⁻): BO = 2.0 | Paramagnetik (2 e⁻)</text>
+    <text x="15" y="350" class="note-text">• <tspan font-weight="700">O₂⁻</tspan> (13 e⁻): BO = 1.5 | Paramagnetik (1 e⁻)</text>
+    <text x="15" y="370" class="note-text">• <tspan font-weight="700">O₂²⁻</tspan> (14 e⁻): BO = 1.0 | <tspan font-weight="700" fill="#059669">Diamagnetik</tspan></text>
+
+    <rect x="15" y="388" width="226" height="42" rx="6" fill="#f1f5f9"/>
+    <text x="25" y="405" class="note-bold" font-size="11">Panjang Ikatan: O₂²⁻ &gt; O₂⁻ &gt; O₂ &gt; O₂⁺</text>
+    <text x="25" y="420" class="note-bold" font-size="11">Energi Ikatan: O₂⁺ &gt; O₂ &gt; O₂⁻ &gt; O₂²⁻</text>
+  </g>
+</svg>

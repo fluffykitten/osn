@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="920" height="540">
+  <defs>
+    <style>
+      .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #0f172a; }
+      .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #64748b; }
+      .axis-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 13px; fill: #334155; }
+      .tick-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #64748b; text-anchor: middle; }
+      .tick-y { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #64748b; text-anchor: end; }
+      .point-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; }
+      .legend-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 13px; fill: #0f172a; }
+      .legend-item { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12px; fill: #334155; }
+      .note-bold { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 12px; fill: #0f172a; }
+      .note-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11.5px; fill: #475569; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="920" height="540" fill="#f8fafc" rx="16"/>
+
+  <!-- Main Header -->
+  <rect x="24" y="16" width="872" height="66" rx="12" fill="#ffffff" filter="url(#shadow)"/>
+  <text x="44" y="42" class="title">Kurva Titik Didih Senyawa Hidrida Biner (Golongan 14, 15, 16, &amp; 17)</text>
+  <text x="44" y="64" class="subtitle">Anomali Lonjakan Titik Didih Akibat Ikatan Hidrogen Kuat pada H₂O, HF, dan NH₃</text>
+
+  <!-- Chart Area Container -->
+  <g transform="translate(40, 100)">
+    <!-- Chart Box -->
+    <rect x="40" y="0" width="530" height="390" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+
+    <!-- Grid lines Y (-160, -120, -80, -40, 0, 40, 80, 100) -->
+    <!-- Scale: Y from -160 to +110 = 270 deg range across 330 px.
+         Formula: y_pos = 350 - (val - (-160)) * (310 / 270)
+         val = -160 -> y = 350
+         val = -120 -> y = 304
+         val = -80  -> y = 258
+         val = -40  -> y = 212
+         val = 0    -> y = 166 (zero line)
+         val = 40   -> y = 120
+         val = 80   -> y = 74
+         val = 100  -> y = 51
+    -->
+    <line x1="70" y1="350" x2="540" y2="350" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="354" class="tick-y">-160°C</text>
+
+    <line x1="70" y1="304" x2="540" y2="304" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="308" class="tick-y">-120°C</text>
+
+    <line x1="70" y1="258" x2="540" y2="258" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="262" class="tick-y">-80°C</text>
+
+    <line x1="70" y1="212" x2="540" y2="212" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="216" class="tick-y">-40°C</text>
+
+    <!-- Zero line (prominent) -->
+    <line x1="70" y1="166" x2="540" y2="166" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="62" y="170" class="tick-y" font-weight="700" fill="#475569">0°C</text>
+
+    <line x1="70" y1="120" x2="540" y2="120" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="124" class="tick-y">+40°C</text>
+
+    <line x1="70" y1="74" x2="540" y2="74" stroke="#f1f5f9" stroke-width="1"/>
+    <text x="62" y="78" class="tick-y">+80°C</text>
+
+    <line x1="70" y1="51" x2="540" y2="51" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="62" y="55" class="tick-y" font-weight="700" fill="#dc2626">+100°C</text>
+
+    <!-- X Axis Ticks (Periode 2, 3, 4, 5) -->
+    <!-- X coordinates: P2 = 140, P3 = 260, P4 = 380, P5 = 500 -->
+    <line x1="140" y1="360" x2="140" y2="30" stroke="#f8fafc" stroke-width="1.5"/>
+    <line x1="260" y1="360" x2="260" y2="30" stroke="#f8fafc" stroke-width="1.5"/>
+    <line x1="380" y1="360" x2="380" y2="30" stroke="#f8fafc" stroke-width="1.5"/>
+    <line x1="500" y1="360" x2="500" y2="30" stroke="#f8fafc" stroke-width="1.5"/>
+
+    <text x="140" y="378" class="tick-text" font-weight="700">Periode 2</text>
+    <text x="260" y="378" class="tick-text" font-weight="700">Periode 3</text>
+    <text x="380" y="378" class="tick-text" font-weight="700">Periode 4</text>
+    <text x="500" y="378" class="tick-text" font-weight="700">Periode 5</text>
+
+    <!-- Y-axis Label -->
+    <text x="-195" y="15" class="axis-title" transform="rotate(-90)" text-anchor="middle">Titik Didih (°C)</text>
+
+    <!-- ==================== PLOT SERIES ==================== -->
+
+    <!-- Series 1: Golongan 14 (CH4, SiH4, GeH4, SnH4) - Gray/Slate - Monotonic Trend -->
+    <!-- CH4 (-161 -> y=351), SiH4 (-112 -> y=295), GeH4 (-88 -> y=267), SnH4 (-52 -> y=226) -->
+    <path d="M 140 351 L 260 295 L 380 267 L 500 226" fill="none" stroke="#64748b" stroke-width="2.5" stroke-dasharray="5,4"/>
+    <circle cx="140" cy="351" r="5" fill="#64748b"/>
+    <text x="140" y="340" class="point-label" fill="#475569" text-anchor="middle">CH₄</text>
+    <circle cx="260" cy="295" r="4.5" fill="#64748b"/>
+    <text x="260" y="285" class="point-label" fill="#475569" text-anchor="middle">SiH₄</text>
+    <circle cx="380" cy="267" r="4.5" fill="#64748b"/>
+    <text x="380" y="257" class="point-label" fill="#475569" text-anchor="middle">GeH₄</text>
+    <circle cx="500" cy="226" r="4.5" fill="#64748b"/>
+    <text x="500" y="216" class="point-label" fill="#475569" text-anchor="middle">SnH₄</text>
+
+    <!-- Series 2: Golongan 15 (NH3, PH3, AsH3, SbH3) - Blue -->
+    <!-- NH3 (-33 -> y=204), PH3 (-88 -> y=267), AsH3 (-62 -> y=237), SbH3 (-17 -> y=186) -->
+    <path d="M 140 204 L 260 267 L 380 237 L 500 186" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <circle cx="140" cy="204" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+    <text x="140" y="192" class="point-label" fill="#1d4ed8" text-anchor="middle">NH₃ (-33°)</text>
+    <circle cx="260" cy="267" r="4.5" fill="#2563eb"/>
+    <text x="280" y="267" class="point-label" fill="#1d4ed8">PH₃</text>
+    <circle cx="380" cy="237" r="4.5" fill="#2563eb"/>
+    <text x="380" y="227" class="point-label" fill="#1d4ed8" text-anchor="middle">AsH₃</text>
+    <circle cx="500" cy="186" r="4.5" fill="#2563eb"/>
+    <text x="500" y="176" class="point-label" fill="#1d4ed8" text-anchor="middle">SbH₃</text>
+
+    <!-- Series 3: Golongan 17 (HF, HCl, HBr, HI) - Green/Emerald -->
+    <!-- HF (+20 -> y=143), HCl (-85 -> y=264), HBr (-67 -> y=243), HI (-35 -> y=206) -->
+    <path d="M 140 143 L 260 264 L 380 243 L 500 206" fill="none" stroke="#059669" stroke-width="3"/>
+    <circle cx="140" cy="143" r="6" fill="#059669" stroke="#ffffff" stroke-width="2"/>
+    <text x="140" y="132" class="point-label" fill="#047857" text-anchor="middle">HF (+20°)</text>
+    <circle cx="260" cy="264" r="4.5" fill="#059669"/>
+    <text x="240" y="267" class="point-label" fill="#047857" text-anchor="end">HCl</text>
+    <circle cx="380" cy="243" r="4.5" fill="#059669"/>
+    <text x="400" y="247" class="point-label" fill="#047857">HBr</text>
+    <circle cx="500" cy="206" r="4.5" fill="#059669"/>
+    <text x="520" y="206" class="point-label" fill="#047857">HI</text>
+
+    <!-- Series 4: Golongan 16 (H2O, H2S, H2Se, H2Te) - Red/Crimson -->
+    <!-- H2O (+100 -> y=51), H2S (-60 -> y=235), H2Se (-41 -> y=213), H2Te (-2 -> y=168) -->
+    <path d="M 140 51 L 260 235 L 380 213 L 500 168" fill="none" stroke="#dc2626" stroke-width="3.5"/>
+    <circle cx="140" cy="51" r="7" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+    <text x="140" y="38" class="point-label" fill="#b91c1c" text-anchor="middle">H₂O (+100°C)</text>
+    <circle cx="260" cy="235" r="4.5" fill="#dc2626"/>
+    <text x="260" y="224" class="point-label" fill="#b91c1c" text-anchor="middle">H₂S</text>
+    <circle cx="380" cy="213" r="4.5" fill="#dc2626"/>
+    <text x="360" y="208" class="point-label" fill="#b91c1c" text-anchor="end">H₂Se</text>
+    <circle cx="500" cy="168" r="4.5" fill="#dc2626"/>
+    <text x="500" y="157" class="point-label" fill="#b91c1c" text-anchor="middle">H₂Te</text>
+
+    <!-- Highlight Area for Hydrogen Bonding -->
+    <path d="M 120 20 C 175 20 175 220 120 220 Z" fill="#fee2e2" opacity="0.35" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="182" y="90" class="note-bold" fill="#dc2626">Lonjakan Ekstrem</text>
+    <text x="182" y="105" class="note-text" fill="#b91c1c">Ikatan Hidrogen Kuat</text>
+  </g>
+
+  <!-- Right Info Panel (Sidebar) -->
+  <g transform="translate(630, 100)">
+    <!-- Legend Box -->
+    <rect width="250" height="155" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="20" y="28" class="legend-title">Legenda Golongan:</text>
+    
+    <line x1="20" y1="48" x2="50" y2="48" stroke="#dc2626" stroke-width="3"/>
+    <circle cx="35" cy="48" r="4" fill="#dc2626"/>
+    <text x="60" y="52" class="legend-item"><tspan font-weight="700">Golongan 16</tspan> (H₂O, H₂S, ...)</text>
+
+    <line x1="20" y1="75" x2="50" y2="75" stroke="#059669" stroke-width="3"/>
+    <circle cx="35" cy="75" r="4" fill="#059669"/>
+    <text x="60" y="79" class="legend-item"><tspan font-weight="700">Golongan 17</tspan> (HF, HCl, ...)</text>
+
+    <line x1="20" y1="102" x2="50" y2="102" stroke="#2563eb" stroke-width="3"/>
+    <circle cx="35" cy="102" r="4" fill="#2563eb"/>
+    <text x="60" y="106" class="legend-item"><tspan font-weight="700">Golongan 15</tspan> (NH₃, PH₃, ...)</text>
+
+    <line x1="20" y1="129" x2="50" y2="129" stroke="#64748b" stroke-width="2.5" stroke-dasharray="4,3"/>
+    <circle cx="35" cy="129" r="4" fill="#64748b"/>
+    <text x="60" y="133" class="legend-item"><tspan font-weight="700">Golongan 14</tspan> (CH₄, SiH₄, ...)</text>
+
+    <!-- Pedagogical Analysis Card -->
+    <rect y="170" width="250" height="220" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="15" y="185" width="105" height="22" rx="5" fill="#fef3c7"/>
+    <text x="67" y="200" class="note-bold" fill="#b45309" text-anchor="middle">ANALISIS SOAL</text>
+    
+    <text x="15" y="228" class="note-bold">3 Syarat Ikatan Hidrogen:</text>
+    <text x="15" y="246" class="note-text">1. Atom H terikat kovalen langsung</text>
+    <text x="27" y="262" class="note-text">ke atom N, O, atau F.</text>
+    <text x="15" y="280" class="note-text">2. Keelektronegatifan N, O, F sangat</text>
+    <text x="27" y="296" class="note-text">tinggi &amp; jari-jari atomnya kecil.</text>
+    <text x="15" y="314" class="note-text">3. Terdapat PEB pada atom akseptor.</text>
+
+    <text x="15" y="342" class="note-bold" fill="#0f172a">Mengapa Titik Didih H₂O &gt; HF?</text>
+    <text x="15" y="360" class="note-text">Setiap molekul H₂O mampu membentuk</text>
+    <text x="15" y="376" class="note-text"><tspan font-weight="700" fill="#dc2626">4 ikatan hidrogen</tspan> 3D per molekul,</text>
+    <text x="15" y="392" class="note-text">sedangkan HF rata-rata hanya 2 ikatan.</text>
+  </g>
+</svg>

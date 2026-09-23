@@ -147,9 +147,9 @@ export const DiagramViewerModal: React.FC<DiagramViewerModalProps> = ({
         </div>
 
         {/* Viewport Image Area */}
-        <div className="flex-1 overflow-auto p-4 sm:p-8 flex items-center justify-center bg-slate-950/60 min-h-[350px]">
+        <div className="flex-1 overflow-auto p-4 sm:p-8 flex items-center justify-center bg-slate-950/60 min-h-[380px]">
           <div
-            className="transition-transform duration-150 ease-out select-none"
+            className="transition-transform duration-150 ease-out select-none flex items-center justify-center"
             style={{
               transform: `scale(${scale}) rotate(${rotation}deg)`,
               transformOrigin: 'center center',
@@ -158,14 +158,17 @@ export const DiagramViewerModal: React.FC<DiagramViewerModalProps> = ({
             <img
               src={imageUrl}
               alt={title}
-              className="max-w-full max-h-[70vh] object-contain rounded-lg shadow-lg border border-slate-800 bg-white/5"
+              className="max-w-full max-h-[70vh] w-auto h-auto min-w-[320px] object-contain rounded-xl shadow-2xl border border-slate-700 bg-white"
             />
           </div>
         </div>
 
         {/* Footer info */}
         <div className="px-5 py-2.5 bg-slate-900 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-          <span className="font-mono truncate max-w-md">Tersimpan di Cloudflare R2: {imageUrl}</span>
+          <span className="font-mono truncate max-w-md">
+            {imageUrl.startsWith('http') ? 'Tersimpan di Cloudflare R2: ' : 'Berkas Diagram: '}
+            {imageUrl}
+          </span>
           <span>Gunakan tombol perbesar atau putar untuk menganalisis detail struktur kimia</span>
         </div>
       </div>
