@@ -179,6 +179,21 @@ export const Navbar: React.FC = () => {
                   <span>Papan Tulis</span>
                 </Link>
 
+                {/* Bank Soal Siswa */}
+                {!isTeacher && (
+                  <Link
+                    to="/practice"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                      isActive('/practice')
+                        ? 'bg-emerald-50 text-emerald-800 font-semibold'
+                        : 'hover:bg-slate-50 hover:text-slate-900'
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>Bank Soal</span>
+                  </Link>
+                )}
+
                 {/* Progress Report Siswa */}
                 {!isTeacher && (
                   <Link
@@ -631,6 +646,22 @@ export const Navbar: React.FC = () => {
                     <PenTool className="w-4 h-4 text-blue-600" />
                     <span>Papan Tulis (STEMBoard)</span>
                   </Link>
+
+                  {/* Siswa: Bank Soal */}
+                  {!isTeacher && (
+                    <Link
+                      to="/practice"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
+                        isActive('/practice')
+                          ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-200'
+                          : 'hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      <Sparkles className="w-4 h-4 text-emerald-600" />
+                      <span>Bank Soal Terstandar</span>
+                    </Link>
+                  )}
 
                   {/* Siswa: Progress Report */}
                   {!isTeacher && (

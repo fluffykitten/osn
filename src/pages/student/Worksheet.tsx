@@ -118,6 +118,37 @@ export const Worksheet: React.FC = () => {
           if (questionRes.questions && questionRes.questions.length > 0) {
             setCustomQuestions(questionRes.questions);
           }
+        } else if (type === 'practice') {
+          const qId = id ? parseInt(id, 10) : undefined;
+          if (qId && !isNaN(qId)) {
+            // Ambil soal target dari Bank Soal
+            const targetQ = await questionBankService.getQuestionById(qId);
+            if (targetQ) {
+              // Muat seluruh butir soal dari pilar/topik yang sama agar siswa dapat bernavigasi
+              const questionRes = await questionBankService.getQuestions({
+                pillarNumber: targetQ.pillar_number,
+              });
+              if (questionRes.questions && questionRes.questions.length > 0) {
+                const exists = questionRes.questions.some((q) => q.id === qId);
+                const finalQuestions = exists
+                  ? questionRes.questions
+                  : [targetQ, ...questionRes.questions];
+                setCustomQuestions(finalQuestions);
+              } else {
+                setCustomQuestions([targetQ]);
+              }
+            } else {
+              const questionRes = await questionBankService.getQuestions();
+              if (questionRes.questions && questionRes.questions.length > 0) {
+                setCustomQuestions(questionRes.questions);
+              }
+            }
+          } else {
+            const questionRes = await questionBankService.getQuestions();
+            if (questionRes.questions && questionRes.questions.length > 0) {
+              setCustomQuestions(questionRes.questions);
+            }
+          }
         }
       } catch (e) {
         console.warn('Gagal memuat soal kustom:', e);
@@ -146,10 +177,10 @@ export const Worksheet: React.FC = () => {
   const initialIdx = useMemo(() => {
     if (!targetId || isNaN(targetId)) return 0;
     const foundIdx = questionsList.findIndex(
-      (q) => q.id === targetId || q.pillar_number === targetId || q.module_id === targetId
+      (q) => q.id === targetId || (type === 'static_module' && (q.pillar_number === targetId || q.module_id === targetId))
     );
     return foundIdx !== -1 ? foundIdx : 0;
-  }, [targetId, questionsList]);
+  }, [targetId, questionsList, type]);
 
   const [currentQIndex, setCurrentQIndex] = useState(initialIdx);
   // Mode panel mobile: 'question' (baca naskah soal) atau 'editor' (tulis jawaban & preview)
@@ -157,7 +188,19 @@ export const Worksheet: React.FC = () => {
 
   // Reference to track whether user has navigated or draft has been restored (mencegah reset ke soal 1)
   const hasRestoredQIndexRef = useRef(false);
+  // Flag untuk memastikan currentQIndex disinkronkan ke initialIdx saat customQuestions pertama kali dimuat
+  const hasInitializedIndexRef = useRef(false);
   const lastRouteIdRef = useRef<string | undefined>(id);
+
+  // Set currentQIndex saat initialIdx berubah setelah customQuestions selesai dimuat pertama kali
+  useEffect(() => {
+    if (!hasInitializedIndexRef.current && customQuestions && customQuestions.length > 0) {
+      hasInitializedIndexRef.current = true;
+      if (initialIdx >= 0 && initialIdx < customQuestions.length) {
+        setCurrentQIndex(initialIdx);
+      }
+    }
+  }, [customQuestions, initialIdx]);
 
   // Hanya perbarui indeks jika parameter rute :id benar-benar berubah dari navigasi luar (bukan re-render)
   useEffect(() => {
@@ -255,6 +298,7 @@ export const Worksheet: React.FC = () => {
     if (queryToken) return queryToken.trim().toUpperCase();
     if (loadedWorksheet?.access_token) return loadedWorksheet.access_token.trim().toUpperCase();
     if (type === 'teacher_assignment') return `ASSIGN-${id || 1}`;
+    if (type === 'practice') return `PRACTICE-${id || 1}`;
     return `WS-${id || 1}`;
   }, [type, id, loadedWorksheet?.access_token]);
 
@@ -263,6 +307,12 @@ export const Worksheet: React.FC = () => {
     if (loadedWorksheet?.title) return loadedWorksheet.title;
     if (type === 'live') return `Sesi Live [${id || 'OSN'}]`;
     if (type === 'teacher_assignment') return `Tugas Lembar Kerja #${id || 1}`;
+    if (type === 'practice') {
+      if (currentQuestion?.title) {
+        return `Latihan Soal #${currentQuestion.id}: ${currentQuestion.title}`;
+      }
+      return `Latihan Bank Soal #${id || 1}`;
+    }
     if (type === 'static_module') {
       const pNum = Number(id);
       const pillar = PILLARS_DATA.find((p) => p.pillar_number === pNum || p.id === pNum);
@@ -276,7 +326,7 @@ export const Worksheet: React.FC = () => {
     return currentQuestion?.title
       ? `Latihan OSN: ${currentQuestion.title}`
       : `Modul Latihan OSN Kimia #${id || 1}`;
-  }, [loadedWorksheet?.title, type, id, currentQuestion?.title, currentQuestion?.subtopic]);
+  }, [loadedWorksheet?.title, type, id, currentQuestion?.id, currentQuestion?.title, currentQuestion?.subtopic]);
 
   // Resolved Classroom ID
   const resolvedClassroomId = useMemo(() => {
@@ -1104,18 +1154,28 @@ export const Worksheet: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {!isZenMode && (
               <button
-                onClick={() => navigate('/worksheet')}
+                onClick={() => {
+                  if (type === 'practice') {
+                    navigate('/practice');
+                  } else {
+                    navigate('/worksheet');
+                  }
+                }}
                 className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-semibold shrink-0 cursor-pointer"
-                title="Kembali ke Daftar Worksheet Siswa"
+                title={type === 'practice' ? 'Kembali ke Bank Soal' : 'Kembali ke Daftar Worksheet Siswa'}
               >
                 <ArrowLeft className="w-4 h-4 text-slate-600" />
-                <span className="hidden md:inline">Daftar Worksheet</span>
+                <span className="hidden md:inline">
+                  {type === 'practice' ? 'Bank Soal' : 'Daftar Worksheet'}
+                </span>
               </button>
             )}
 
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded uppercase font-mono shrink-0">
-                {liveToken
+                {type === 'practice'
+                  ? 'Latihan Bank Soal'
+                  : liveToken
                   ? 'Live Sesi Guru'
                   : type === 'static_module'
                   ? 'Silabus Drill'

@@ -295,13 +295,15 @@ function AppContent() {
           <Route path="/profile" element={<Navigate to="/student/progress" replace />} />
           <Route path="/leaderboard" element={<Navigate to="/roadmap" replace />} />
 
-          {/* Fitur Bank Soal (Khusus Guru & Admin) */}
+          {/* Fitur Bank Soal (Dapat Diakses Siswa & Guru) */}
           <Route
             path="/practice"
             element={
-              <TeacherOnly>
-                <PracticeBank />
-              </TeacherOnly>
+              <RequireAuth>
+                <RequireClassroom>
+                  <PracticeBank />
+                </RequireClassroom>
+              </RequireAuth>
             }
           />
 
