@@ -33,6 +33,15 @@ import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import type { QuestionDifficulty, Question, QuestionFilter } from '../../types/database';
 
+// Helper untuk cuplikan teks soal di kartu Bank Soal tanpa merusak penutup rumus KaTeX ($/$$)
+const getQuestionExcerpt = (text: string): string => {
+  if (!text) return '';
+  // 1. Hilangkan daftar opsi ganda (A., B., C., D., E.) agar tidak memenuhi cuplikan kartu
+  const withoutOptions = text.split(/\n\s*[A-E]\.\s+/)[0].trim();
+  // 2. Ubah display math $$...$$ menjadi inline $...$ agar mengalir serasi di 3 baris tanpa blok margin yang terpotong
+  return withoutOptions.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => `$${math.trim()}$`);
+};
+
 export const PracticeBank: React.FC = () => {
   const navigate = useNavigate();
 
@@ -421,7 +430,7 @@ export const PracticeBank: React.FC = () => {
 
                 {/* Question Excerpt with KaTeX */}
                 <div className="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed">
-                  <KaTeXRenderer content={q.question_text.substring(0, 320) + '...'} />
+                  <KaTeXRenderer content={getQuestionExcerpt(q.question_text)} />
                 </div>
 
                 {/* Diagram Thumbnail jika tersedia */}
