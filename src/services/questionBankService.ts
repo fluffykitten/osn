@@ -69,7 +69,7 @@ const INITIAL_SEEDED_QUESTIONS: Question[] = BENCHMARK_QUESTIONS.map((q) => {
 });
 
 // Gabungkan butir soal benchmark dengan bank soal Kimia SMA (Fase E & Fase F)
-const ALL_DEFAULT_QUESTIONS: Question[] = [
+export const ALL_DEFAULT_QUESTIONS: Question[] = [
   ...INITIAL_SEEDED_QUESTIONS,
   ...SMA_CHEMISTRY_QUESTIONS
 ];

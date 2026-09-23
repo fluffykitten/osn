@@ -111,7 +111,10 @@ export const Worksheet: React.FC = () => {
             }
           }
         } else if (type === 'static_module') {
-          const questionRes = await questionBankService.getQuestions();
+          const targetPillar = id ? parseInt(id, 10) : undefined;
+          const questionRes = await questionBankService.getQuestions(
+            targetPillar && !isNaN(targetPillar) ? { pillarNumber: targetPillar } : undefined
+          );
           if (questionRes.questions && questionRes.questions.length > 0) {
             setCustomQuestions(questionRes.questions);
           }

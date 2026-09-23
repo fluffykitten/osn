@@ -5,6 +5,7 @@
  */
 
 import { PILLARS_DATA, BENCHMARK_QUESTIONS } from '../data/syllabusData';
+import { ALL_DEFAULT_QUESTIONS } from './questionBankService';
 import { getSupabaseClient, DEFAULT_STUDENT_ID } from '../lib/supabaseClient';
 import type { Worksheet } from '../types/database';
 
@@ -90,9 +91,10 @@ class StudentWorksheetService {
     const submissions = this.getLocalSubmissions();
 
     return PILLARS_DATA.map((pillar) => {
-      // Cari soal benchmark yang sesuai dengan pillar ini
-      const pillarQuestions = BENCHMARK_QUESTIONS.filter((q) => q.pillar_number === pillar.pillar_number);
-      const questionCount = pillarQuestions.length > 0 ? pillarQuestions.length : 1;
+      // Cari soal default (benchmark + SMA curriculum) yang sesuai dengan pillar ini
+      const pillarQuestions = ALL_DEFAULT_QUESTIONS.filter((q) => q.pillar_number === pillar.pillar_number);
+      const fallbackQuestions = BENCHMARK_QUESTIONS.filter((q) => q.pillar_number === pillar.pillar_number);
+      const questionCount = pillarQuestions.length > 0 ? pillarQuestions.length : (fallbackQuestions.length > 0 ? fallbackQuestions.length : 1);
 
       // Cari submission siswa untuk pillar ini
       const pillarSubmissions = submissions.filter((s) => s.pillarNumber === pillar.pillar_number);
