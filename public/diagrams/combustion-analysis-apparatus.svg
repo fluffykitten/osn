@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradCA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#151e32" />
+    </linearGradient>
+
+    <!-- Furnace Heat Glow Gradient -->
+    <linearGradient id="furnaceHeat" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Absorber H2O Water Gradient -->
+    <linearGradient id="absorberWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Absorber CO2 Base Gradient -->
+    <linearGradient id="absorberCO2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="shadowCA" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="960" height="520" fill="url(#bgGradCA)" rx="16" />
+
+  <!-- Header Section -->
+  <g transform="translate(480, 34)" text-anchor="middle">
+    <text fill="#f8fafc" font-family="system-ui, sans-serif" font-size="19" font-weight="700" letter-spacing="0.5">
+      SKEMA APARATUS ANALISIS PEMBAKARAN (COMBUSTION ANALYSIS)
+    </text>
+    <text y="22" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12.5">
+      Penentuan Rumus Empiris Senyawa Organik (C_x H_y O_z) melalui Penyerapan Stoikiometris Selektif H₂O dan CO₂
+    </text>
+  </g>
+
+  <!-- MAIN APPARATUS SCHEMATIC BOX -->
+  <g transform="translate(36, 75)">
+    <rect width="888" height="230" fill="#0f172a" fill-opacity="0.75" stroke="#334155" stroke-width="1.5" rx="12" filter="url(#shadowCA)" />
+
+    <!-- FLOW ARROW & O2 INLET -->
+    <g transform="translate(24, 75)">
+      <!-- Oxygen Gas Supply -->
+      <circle cx="28" cy="40" r="24" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="1.5" />
+      <text x="28" y="44" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Gas O₂</text>
+      <text x="28" y="78" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Murni Kering</text>
+
+      <!-- Connecting Pipe 1 -->
+      <line x1="52" y1="40" x2="105" y2="40" stroke="#64748b" stroke-width="4" stroke-linecap="round" />
+      <polygon points="98,35 106,40 98,45" fill="#38bdf8" />
+    </g>
+
+    <!-- SECTION 1: COMBUSTION FURNACE & SAMPLE BOAT -->
+    <g transform="translate(130, 35)">
+      <!-- Furnace Outer Box (Insulation) -->
+      <rect x="0" y="10" width="250" height="135" rx="8" fill="url(#furnaceHeat)" stroke="#f97316" stroke-width="1.5" />
+      <text x="125" y="28" text-anchor="middle" fill="#fdba74" font-family="system-ui, sans-serif" font-size="11" font-weight="700">
+        Tungku Pembakaran Listrik (800°C - 1000°C)
+      </text>
+
+      <!-- Quartz Tube -->
+      <rect x="5" y="55" width="240" height="42" rx="4" fill="#1e293b" fill-opacity="0.6" stroke="#e2e8f0" stroke-width="1.2" />
+
+      <!-- Sample Boat (Cawan Sampel) -->
+      <path d="M 30 82 L 35 92 L 75 92 L 80 82 Z" fill="#64748b" stroke="#cbd5e1" stroke-width="1" />
+      <!-- Sample Powder -->
+      <ellipse cx="55" cy="85" rx="15" ry="4" fill="#ef4444" />
+      <text x="55" y="112" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="700">
+        Sampel CxHyOz
+      </text>
+
+      <!-- Catalyst CuO Pellets -->
+      <g transform="translate(135, 62)">
+        <rect x="0" y="0" width="70" height="28" rx="3" fill="#334155" stroke="#94a3b8" stroke-dasharray="2 2" stroke-width="1" />
+        <circle cx="15" cy="14" r="5" fill="#475569" /><circle cx="35" cy="14" r="5" fill="#475569" /><circle cx="55" cy="14" r="5" fill="#475569" />
+        <circle cx="25" cy="22" r="4" fill="#334155" /><circle cx="45" cy="22" r="4" fill="#334155" />
+        <text x="35" y="44" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9.5">
+          Katalis CuO
+        </text>
+      </g>
+    </g>
+
+    <!-- Connecting Pipe 2: Furnace to Absorber 1 -->
+    <line x1="380" y1="110" x2="425" y2="110" stroke="#64748b" stroke-width="4" stroke-linecap="round" />
+    <polygon points="418,105 426,110 418,115" fill="#38bdf8" />
+    <text x="402" y="98" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600">
+      H₂O + CO₂ + O₂
+    </text>
+
+    <!-- SECTION 2: ABSORBER 1 (H2O ABSORBER) -->
+    <g transform="translate(425, 30)">
+      <!-- U-Tube Glass -->
+      <rect x="0" y="15" width="180" height="145" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.8" />
+      <rect x="10" y="55" width="160" height="85" rx="6" fill="url(#absorberWaterGrad)" />
+
+      <!-- Absorbent Beads / Packing -->
+      <text x="90" y="36" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700">
+        1. Tabung Penyerap H₂O
+      </text>
+      <text x="90" y="80" text-anchor="middle" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600">
+        CaCl₂ / Mg(ClO₄)₂
+      </text>
+      <text x="90" y="96" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">
+        (Anhidrat Higroskopis)
+      </text>
+
+      <rect x="25" y="112" width="130" height="22" rx="4" fill="#0369a1" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1" />
+      <text x="90" y="127" text-anchor="middle" fill="#f0f9ff" font-family="system-ui, sans-serif" font-size="10" font-weight="700">
+        Δm₁ = Massa H₂O
+      </text>
+    </g>
+
+    <!-- Connecting Pipe 3: Absorber 1 to Absorber 2 -->
+    <line x1="605" y1="110" x2="648" y2="110" stroke="#64748b" stroke-width="4" stroke-linecap="round" />
+    <polygon points="641,105 649,110 641,115" fill="#c084fc" />
+    <text x="626" y="98" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600">
+      CO₂ + O₂
+    </text>
+
+    <!-- SECTION 3: ABSORBER 2 (CO2 ABSORBER) -->
+    <g transform="translate(648, 30)">
+      <!-- U-Tube Glass -->
+      <rect x="0" y="15" width="180" height="145" rx="10" fill="#0f172a" stroke="#c084fc" stroke-width="1.8" />
+      <rect x="10" y="55" width="160" height="85" rx="6" fill="url(#absorberCO2Grad)" />
+
+      <!-- Absorbent Beads / Packing -->
+      <text x="90" y="36" text-anchor="middle" fill="#c084fc" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700">
+        2. Tabung Penyerap CO₂
+      </text>
+      <text x="90" y="80" text-anchor="middle" fill="#e9d5ff" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600">
+        NaOH Padat / Ascarite
+      </text>
+      <text x="90" y="96" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">
+        (2 NaOH + CO₂ → Na₂CO₃ + H₂O)
+      </text>
+
+      <rect x="25" y="112" width="130" height="22" rx="4" fill="#6b21a8" fill-opacity="0.4" stroke="#c084fc" stroke-width="1" />
+      <text x="90" y="127" text-anchor="middle" fill="#fdf4ff" font-family="system-ui, sans-serif" font-size="10" font-weight="700">
+        Δm₂ = Massa CO₂
+      </text>
+    </g>
+
+    <!-- SECTION 4: OUTLET VALVE -->
+    <g transform="translate(828, 85)">
+      <line x1="0" y1="25" x2="30" y2="25" stroke="#64748b" stroke-width="4" stroke-linecap="round" />
+      <polygon points="25,20 33,25 25,30" fill="#10b981" />
+      <text x="32" y="44" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="600">
+        Sisa Gas O₂
+      </text>
+    </g>
+
+    <!-- FLOW DIRECTION BANNER -->
+    <rect x="35" y="190" width="818" height="28" rx="6" fill="#1e293b" />
+    <text x="444" y="208" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">
+      💡 <tspan fill="#f8fafc" font-weight="700">Prinsip Selektivitas Urutan:</tspan> Tabung H₂O HARUS diletakkan sebelum tabung CO₂ karena reaksi penyerapan CO₂ oleh basa NaOH juga menghasilkan uap air sampingan!
+    </text>
+  </g>
+
+  <!-- LOWER MATHEMATICAL CALCULATION PANEL -->
+  <g transform="translate(36, 320)">
+    <rect width="888" height="175" fill="#0f172a" fill-opacity="0.75" stroke="#334155" stroke-width="1.5" rx="12" filter="url(#shadowCA)" />
+
+    <!-- 3 Calculation Columns -->
+    <!-- Col 1: Carbon Calculation -->
+    <g transform="translate(20, 20)">
+      <rect width="265" height="135" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="132" y="26" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700">
+        1. Stoikiometri Atom Karbon (C)
+      </text>
+      <text x="15" y="52" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • n_C = n_CO₂ = Δm_CO₂ / 44.01 g/mol
+      </text>
+      <text x="15" y="78" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • m_C = n_C × 12.011 g/mol
+      </text>
+      <text x="15" y="104" fill="#38bdf8" font-family="'Cambria Math', serif" font-size="12" font-weight="600">
+        • % C = (m_C / m_sampel) × 100%
+      </text>
+      <text x="132" y="125" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">
+        Semua C terkonversi menjadi CO₂
+      </text>
+    </g>
+
+    <!-- Col 2: Hydrogen Calculation -->
+    <g transform="translate(310, 20)">
+      <rect width="265" height="135" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="132" y="26" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="12" font-weight="700">
+        2. Stoikiometri Atom Hidrogen (H)
+      </text>
+      <text x="15" y="52" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • n_H = 2 × n_H₂O = 2 × (Δm_H₂O / 18.016)
+      </text>
+      <text x="15" y="78" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • m_H = n_H × 1.008 g/mol
+      </text>
+      <text x="15" y="104" fill="#34d399" font-family="'Cambria Math', serif" font-size="12" font-weight="600">
+        • % H = (m_H / m_sampel) × 100%
+      </text>
+      <text x="132" y="125" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">
+        Tiap 1 mol H₂O mengandung 2 mol atom H
+      </text>
+    </g>
+
+    <!-- Col 3: Oxygen & Empirical Formula -->
+    <g transform="translate(600, 20)">
+      <rect width="265" height="135" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="132" y="26" text-anchor="middle" fill="#c084fc" font-family="system-ui, sans-serif" font-size="12" font-weight="700">
+        3. Atom Oksigen (O) &amp; Rumus Empiris
+      </text>
+      <text x="15" y="52" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • m_O = m_sampel - (m_C + m_H)
+      </text>
+      <text x="15" y="78" fill="#cbd5e1" font-family="'Cambria Math', serif" font-size="12">
+        • n_O = m_O / 15.999 g/mol
+      </text>
+      <text x="15" y="104" fill="#c084fc" font-family="'Cambria Math', serif" font-size="12" font-weight="600">
+        • Rasio n_C : n_H : n_O → (C_x H_y O_z)
+      </text>
+      <text x="132" y="125" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9.5">
+        Massa O dihitung dari selisih massa sampel
+      </text>
+    </g>
+  </g>
+</svg>

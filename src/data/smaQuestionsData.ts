@@ -12,6 +12,7 @@
 
 import type { Question } from '../types/database';
 import { SMA_TOPIC_2_QUESTIONS } from './smaQuestionsTopic2Data';
+import { SMA_TOPIC_3_QUESTIONS } from './smaQuestionsTopic3Data';
 
 export const SMA_TOPIC_1_QUESTIONS: Question[] = [
   // =========================================================================
@@ -1429,11 +1430,12 @@ Semua spesi tersebut memiliki total 10 elektron dengan konfigurasi elektron yang
   },
 ];
 
-// Gabungkan Batch 1 (Topik 1) dan Batch 2 (Topik 2) ke dalam bank soal SMA
+// Gabungkan Batch 1 (Topik 1), Batch 2 (Topik 2), dan Batch 3 (Topik 3) ke dalam bank soal SMA
 export const SMA_CHEMISTRY_QUESTIONS: Question[] = [
   ...SMA_TOPIC_1_QUESTIONS,
   ...SMA_TOPIC_2_QUESTIONS,
+  ...SMA_TOPIC_3_QUESTIONS,
 ];
 
-export { SMA_TOPIC_2_QUESTIONS };
+export { SMA_TOPIC_2_QUESTIONS, SMA_TOPIC_3_QUESTIONS };
 

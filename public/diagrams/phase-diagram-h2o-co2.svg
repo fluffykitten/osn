@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <linearGradient id="waterSolidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.15" />
+    </linearGradient>
+    <linearGradient id="waterLiquidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="waterGasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.1" />
+    </linearGradient>
+
+    <linearGradient id="co2SolidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#7e22ce" stop-opacity="0.15" />
+    </linearGradient>
+    <linearGradient id="co2LiquidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#be185d" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="co2GasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#c2410c" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Filter Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="960" height="520" fill="url(#bgGrad)" rx="16" />
+
+  <!-- Header Title -->
+  <g transform="translate(480, 36)" text-anchor="middle">
+    <text fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">
+      KOMPARASI DIAGRAM FASA P-T: AIR (H₂O) vs KARBON DIOKSIDA (CO₂)
+    </text>
+    <text y="22" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">
+      Pengaruh Kemiringan Kurva Peleburan (dP/dT) &amp; Perbedaan Fenomena Sublimasi pada 1 atm
+    </text>
+  </g>
+
+  <!-- PANEL 1: WATER (H2O) -->
+  <g transform="translate(40, 80)">
+    <!-- Container Box -->
+    <rect width="420" height="390" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="12" filter="url(#shadow)" />
+
+    <!-- Subtitle Panel -->
+    <rect x="16" y="16" width="130" height="28" rx="6" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+    <text x="81" y="35" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="700">
+      Diagram Fasa H₂O
+    </text>
+
+    <!-- Highlight Notice: Kemiringan Negatif -->
+    <rect x="180" y="16" width="224" height="28" rx="6" fill="#ef4444" fill-opacity="0.15" stroke="#f87171" stroke-width="1" />
+    <text x="292" y="34" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="11" font-weight="600">
+      ⚠️ Kemiringan Garis Leleh Negatif (dP/dT &lt; 0)
+    </text>
+
+    <!-- Axes: Origin at (70, 330) -->
+    <!-- X-Axis: T (°C) -->
+    <line x1="70" y1="330" x2="390" y2="330" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+    <text x="390" y="350" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Suhu T (°C) →</text>
+
+    <!-- Y-Axis: P (atm) - Logarithmic Representation -->
+    <line x1="70" y1="330" x2="70" y2="55" stroke="#64748b" stroke-width="2" />
+    <text x="65" y="55" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Tekanan P (atm) ↑</text>
+
+    <!-- Phase Regions: H2O -->
+    <!-- Solid Padat Area -->
+    <path d="M 70 330 L 70 80 L 150 80 L 165 240 L 70 330 Z" fill="url(#waterSolidGrad)" />
+    <!-- Liquid Cair Area -->
+    <path d="M 150 80 L 340 80 L 340 100 L 165 240 Z" fill="url(#waterLiquidGrad)" />
+    <!-- Gas Uap Area -->
+    <path d="M 70 330 L 165 240 L 340 100 L 390 120 L 390 330 Z" fill="url(#waterGasGrad)" />
+
+    <!-- Phase Boundary Curves -->
+    <!-- Sublimation: Solid -> Gas -->
+    <path d="M 70 330 Q 120 290 165 240" fill="none" stroke="#38bdf8" stroke-width="2.5" />
+    <!-- Fusion/Melting: Solid -> Liquid (Kemiringan Negatif condong ke kiri!) -->
+    <path d="M 165 240 L 150 80" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="0" />
+    <!-- Vaporization: Liquid -> Gas -->
+    <path d="M 165 240 Q 230 180 340 100" fill="none" stroke="#f59e0b" stroke-width="2.5" />
+
+    <!-- Important Points -->
+    <!-- Triple Point H2O -->
+    <circle cx="165" cy="240" r="4.5" fill="#f8fafc" stroke="#0284c7" stroke-width="2" />
+    <text x="175" y="246" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Titik Tripel (0.01°C, 0.006 atm)</text>
+
+    <!-- Normal Freezing Point (0 °C, 1 atm) -->
+    <!-- 1 atm Dash Line -->
+    <line x1="70" y1="180" x2="310" y2="180" stroke="#475569" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="65" y="184" text-anchor="end" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10" font-weight="600">1 atm</text>
+
+    <!-- Normal Freezing Point Dot: Intersects at x=161 (since line slopes back) -->
+    <circle cx="161" cy="180" r="3.5" fill="#ef4444" />
+    <line x1="161" y1="180" x2="161" y2="330" stroke="#475569" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="161" y="345" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="10" font-weight="600">0°C</text>
+
+    <!-- Normal Boiling Point Dot (100 °C, 1 atm) -->
+    <circle cx="280" cy="180" r="3.5" fill="#f59e0b" />
+    <line x1="280" y1="180" x2="280" y2="330" stroke="#475569" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="280" y="345" text-anchor="middle" fill="#fde68a" font-family="system-ui, sans-serif" font-size="10" font-weight="600">100°C</text>
+
+    <!-- Critical Point (374 °C, 218 atm) -->
+    <circle cx="340" cy="100" r="4.5" fill="#f43f5e" stroke="#fff" stroke-width="1.5" />
+    <text x="345" y="95" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Titik Kritis (374°C, 218 atm)</text>
+
+    <!-- Region Labels -->
+    <text x="110" y="160" text-anchor="middle" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="14" font-weight="800">PADAT</text>
+    <text x="110" y="176" text-anchor="middle" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="10">(Es)</text>
+
+    <text x="210" y="130" text-anchor="middle" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="14" font-weight="800">CAIR</text>
+    <text x="210" y="146" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10">(Air)</text>
+
+    <text x="320" y="270" text-anchor="middle" fill="#fed7aa" font-family="system-ui, sans-serif" font-size="14" font-weight="800">GAS / UAP</text>
+
+    <!-- Explanatory footer tag -->
+    <text x="210" y="375" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">
+      Menaikkan tekanan pada es menyebabkan es meleleh (Densitas es &lt; air).
+    </text>
+  </g>
+
+  <!-- PANEL 2: CARBON DIOXIDE (CO2) -->
+  <g transform="translate(500, 80)">
+    <!-- Container Box -->
+    <rect width="420" height="390" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="12" filter="url(#shadow)" />
+
+    <!-- Subtitle Panel -->
+    <rect x="16" y="16" width="130" height="28" rx="6" fill="#a855f7" fill-opacity="0.2" stroke="#c084fc" stroke-width="1" />
+    <text x="81" y="35" text-anchor="middle" fill="#c084fc" font-family="system-ui, sans-serif" font-size="14" font-weight="700">
+      Diagram Fasa CO₂
+    </text>
+
+    <!-- Highlight Notice: Kemiringan Positif & Sublimasi -->
+    <rect x="180" y="16" width="224" height="28" rx="6" fill="#10b981" fill-opacity="0.15" stroke="#34d399" stroke-width="1" />
+    <text x="292" y="34" text-anchor="middle" fill="#6ee7b7" font-family="system-ui, sans-serif" font-size="11" font-weight="600">
+      ✓ Kemiringan Normal Positif (dP/dT &gt; 0)
+    </text>
+
+    <!-- Axes: Origin at (70, 330) -->
+    <!-- X-Axis: T (°C) -->
+    <line x1="70" y1="330" x2="390" y2="330" stroke="#64748b" stroke-width="2" />
+    <text x="390" y="350" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Suhu T (°C) →</text>
+
+    <!-- Y-Axis: P (atm) -->
+    <line x1="70" y1="330" x2="70" y2="55" stroke="#64748b" stroke-width="2" />
+    <text x="65" y="55" text-anchor="end" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Tekanan P (atm) ↑</text>
+
+    <!-- Phase Regions: CO2 -->
+    <!-- Solid Padat Area (Dry Ice) -->
+    <path d="M 70 330 L 70 80 L 220 80 L 195 210 L 70 330 Z" fill="url(#co2SolidGrad)" />
+    <!-- Liquid Cair Area -->
+    <path d="M 220 80 L 350 80 L 350 110 L 195 210 Z" fill="url(#co2LiquidGrad)" />
+    <!-- Gas Area -->
+    <path d="M 70 330 L 195 210 L 350 110 L 390 120 L 390 330 Z" fill="url(#co2GasGrad)" />
+
+    <!-- Phase Boundary Curves -->
+    <!-- Sublimation: Solid -> Gas -->
+    <path d="M 70 330 Q 130 270 195 210" fill="none" stroke="#c084fc" stroke-width="2.5" />
+    <!-- Fusion/Melting: Solid -> Liquid (Kemiringan Positif normal condong ke kanan!) -->
+    <path d="M 195 210 L 220 80" fill="none" stroke="#10b981" stroke-width="3" />
+    <!-- Vaporization: Liquid -> Gas -->
+    <path d="M 195 210 Q 270 160 350 110" fill="none" stroke="#f97316" stroke-width="2.5" />
+
+    <!-- Triple Point CO2 (5.11 atm, -56.6°C) -->
+    <circle cx="195" cy="210" r="4.5" fill="#f8fafc" stroke="#9333ea" stroke-width="2" />
+    <text x="205" y="212" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Titik Tripel (-56.6°C, 5.11 atm)</text>
+    <line x1="70" y1="210" x2="195" y2="210" stroke="#a855f7" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="65" y="214" text-anchor="end" fill="#c084fc" font-family="system-ui, sans-serif" font-size="10" font-weight="700">5.11 atm</text>
+
+    <!-- 1 atm Pressure Line (Berada di BAWAH Titik Tripel!) -->
+    <line x1="70" y1="280" x2="350" y2="280" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 4" />
+    <text x="65" y="284" text-anchor="end" fill="#fb7185" font-family="system-ui, sans-serif" font-size="10" font-weight="700">1.0 atm</text>
+
+    <!-- Sublimation Point at 1 atm (-78.5 °C) -->
+    <circle cx="150" cy="280" r="4" fill="#fb7185" />
+    <line x1="150" y1="280" x2="150" y2="330" stroke="#fb7185" stroke-width="1" stroke-dasharray="3 3" />
+    <text x="150" y="345" text-anchor="middle" fill="#fda4af" font-family="system-ui, sans-serif" font-size="10" font-weight="700">-78.5°C</text>
+    <text x="150" y="270" text-anchor="middle" fill="#fb7185" font-family="system-ui, sans-serif" font-size="9.5" font-weight="600">Sublimasi 1 atm</text>
+
+    <!-- Critical Point CO2 (31.1 °C, 73 atm) -->
+    <circle cx="350" cy="110" r="4.5" fill="#f43f5e" stroke="#fff" stroke-width="1.5" />
+    <text x="355" y="105" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="10.5" font-weight="700">Titik Kritis (31.1°C, 73 atm)</text>
+
+    <!-- Region Labels -->
+    <text x="120" y="140" text-anchor="middle" fill="#e9d5ff" font-family="system-ui, sans-serif" font-size="14" font-weight="800">PADAT</text>
+    <text x="120" y="156" text-anchor="middle" fill="#c084fc" font-family="system-ui, sans-serif" font-size="10">(Dry Ice)</text>
+
+    <text x="260" y="125" text-anchor="middle" fill="#fbcfe8" font-family="system-ui, sans-serif" font-size="14" font-weight="800">CAIR</text>
+    <text x="260" y="141" text-anchor="middle" fill="#f472b6" font-family="system-ui, sans-serif" font-size="10">(Hanya ada bila P &gt; 5.11 atm)</text>
+
+    <text x="310" y="270" text-anchor="middle" fill="#fed7aa" font-family="system-ui, sans-serif" font-size="14" font-weight="800">GAS</text>
+
+    <!-- Explanatory footer tag -->
+    <text x="210" y="375" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">
+      Pada 1 atm, pemanasan Dry Ice langsung menyublim jadi gas tanpa lewat fasa cair.
+    </text>
+  </g>
+</svg>

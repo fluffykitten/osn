@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Water Gradients -->
+    <linearGradient id="waterTroughGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="gasWaterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.6" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="960" height="520" fill="url(#bgGrad)" rx="16" />
+
+  <!-- Header Title -->
+  <g transform="translate(480, 36)" text-anchor="middle">
+    <text fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">
+      PENGUMPULAN GAS DI ATAS AIR &amp; HUKUM TEKANAN PARSIAL DALTON
+    </text>
+    <text y="22" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">
+      Koreksi Tekanan Uap Jenuh Air (P_H₂O) pada Penentuan Mol Gas Kering (Dry Gas) Melalui P_total = P_gas + P_H₂O
+    </text>
+  </g>
+
+  <!-- Main Canvas Container -->
+  <g transform="translate(40, 80)">
+    <rect width="880" height="400" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="12" filter="url(#shadow)" />
+
+    <!-- 1. LABU REAKSI GENERATOR GAS (KIRI) -->
+    <g transform="translate(40, 110)">
+      <!-- Erlenmeyer Flask Outline -->
+      <path d="M 45 40 L 45 80 L 10 200 C 5 215, 20 220, 35 220 L 115 220 C 130 220, 145 215, 140 200 L 105 80 L 105 40 Z" fill="#1e293b" stroke="#94a3b8" stroke-width="2" />
+      
+      <!-- Liquid Reactant inside Flask -->
+      <path d="M 23 160 Q 75 165 127 160 L 138 200 C 142 215, 128 218, 115 218 L 35 218 C 22 218, 8 215, 12 200 Z" fill="#0284c7" fill-opacity="0.4" stroke="#38bdf8" stroke-width="1" />
+      
+      <!-- Metal Pellets (Zn / Mg) -->
+      <circle cx="50" cy="205" r="7" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5" />
+      <circle cx="70" cy="210" r="6" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5" />
+      <circle cx="95" cy="204" r="7.5" fill="#64748b" stroke="#cbd5e1" stroke-width="1.5" />
+      
+      <!-- Gas Bubbles Generated -->
+      <circle cx="55" cy="180" r="3" fill="#38bdf8" fill-opacity="0.8" />
+      <circle cx="68" cy="150" r="4" fill="#38bdf8" fill-opacity="0.8" />
+      <circle cx="90" cy="170" r="3.5" fill="#38bdf8" fill-opacity="0.8" />
+      <circle cx="75" cy="110" r="4" fill="#38bdf8" fill-opacity="0.8" />
+
+      <!-- Rubber Stopper -->
+      <rect x="42" y="32" width="66" height="16" rx="3" fill="#475569" stroke="#334155" stroke-width="1" />
+
+      <!-- Labels -->
+      <text x="75" y="15" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="12" font-weight="700">
+        Labu Reaksi Generator
+      </text>
+      <text x="75" y="245" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">
+        Zn(s) + 2HCl(aq) → ZnCl₂(aq) + H₂(g)
+      </text>
+    </g>
+
+    <!-- 2. PIPA PENGHUBUNG GAS (DELIVERY TUBE) -->
+    <path d="M 115 145 L 115 65 L 430 65 L 430 270 L 460 270" fill="none" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+    <polygon points="260,60 275,65 260,70" fill="#f8fafc" />
+    <text x="270" y="52" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="600">
+      Gas H₂ Basah Mengalir →
+    </text>
+
+    <!-- 3. BAK PENAMPUNG AIR & SILINDER UKUR TERBALIK (KANAN) -->
+    <g transform="translate(400, 70)">
+      <!-- Water Trough (Bak Air) -->
+      <rect x="20" y="170" width="420" height="110" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="2" />
+      <rect x="25" y="180" width="410" height="95" rx="6" fill="url(#waterTroughGrad)" />
+      <text x="370" y="260" text-anchor="middle" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="11" font-weight="600">
+        Bak Air (T = 25°C)
+      </text>
+
+      <!-- Inverted Graduated Cylinder / Eudiometer Tube -->
+      <g transform="translate(140, 20)">
+        <!-- Cylinder Glass Tube -->
+        <rect x="0" y="0" width="90" height="240" rx="4" fill="#0f172a" fill-opacity="0.3" stroke="#94a3b8" stroke-width="2" />
+        
+        <!-- Water Level inside Inverted Tube (H_water level = y=120) -->
+        <rect x="2" y="120" width="86" height="120" fill="url(#waterTroughGrad)" />
+        <ellipse cx="45" cy="120" rx="43" ry="5" fill="#38bdf8" stroke="#0284c7" stroke-width="1.5" />
+
+        <!-- Collected Moist Gas (H2 + H2O vapor) inside top volume -->
+        <rect x="2" y="2" width="86" height="118" fill="url(#gasWaterGrad)" />
+
+        <!-- Gas Molecules Representation Inside Top -->
+        <text x="45" y="45" text-anchor="middle" fill="#fef08a" font-family="system-ui, sans-serif" font-size="12" font-weight="800">
+          Gas H₂
+        </text>
+        <text x="45" y="65" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="700">
+          + Uap H₂O
+        </text>
+        <text x="45" y="85" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10.5">
+          Volume = V_gas
+        </text>
+
+        <!-- Graduated Measurement Ticks -->
+        <line x1="5" y1="30" x2="18" y2="30" stroke="#cbd5e1" stroke-width="1.5" />
+        <line x1="5" y1="50" x2="14" y2="50" stroke="#cbd5e1" stroke-width="1" />
+        <line x1="5" y1="70" x2="18" y2="70" stroke="#cbd5e1" stroke-width="1.5" />
+        <line x1="5" y1="90" x2="14" y2="90" stroke="#cbd5e1" stroke-width="1" />
+        <line x1="5" y1="110" x2="18" y2="110" stroke="#cbd5e1" stroke-width="1.5" />
+        <text x="22" y="73" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9">Skala mL</text>
+
+        <!-- Bubbles entering from tube mouth -->
+        <circle cx="45" cy="225" r="4.5" fill="#fef08a" fill-opacity="0.8" />
+        <circle cx="48" cy="180" r="5" fill="#fef08a" fill-opacity="0.8" />
+        <circle cx="42" cy="145" r="4" fill="#fef08a" fill-opacity="0.8" />
+      </g>
+
+      <!-- Level Comparison & Height Difference Δh -->
+      <!-- Water level in trough line -->
+      <line x1="25" y1="180" x2="435" y2="180" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 4" />
+      <text x="360" y="174" fill="#fb7185" font-family="system-ui, sans-serif" font-size="10" font-weight="700">
+        Permukaan Air Bak (P_atm)
+      </text>
+
+      <!-- Inside water level line -->
+      <line x1="140" y1="140" x2="310" y2="140" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3" />
+      <text x="240" y="134" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="10" font-weight="700">
+        Permukaan Air Tabung
+      </text>
+
+      <!-- Height Difference Arrow Δh -->
+      <line x1="290" y1="140" x2="290" y2="180" stroke="#facc15" stroke-width="2" marker-start="url(#dot)" marker-end="url(#dot)" />
+      <text x="300" y="163" fill="#fde047" font-family="system-ui, sans-serif" font-size="11" font-weight="800">
+        Δh
+      </text>
+    </g>
+
+    <!-- 4. BOTTOM FORMULA & LAW EXPLANATION BANNER -->
+    <g transform="translate(25, 335)">
+      <rect width="830" height="52" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1" />
+      <text x="20" y="20" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11.5" font-weight="700">
+        Prinsip Tekanan Parsial Dalton:
+      </text>
+      <text x="20" y="38" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">
+        • <tspan fill="#f87171" font-weight="700">P_total = P_H₂ + P_H₂O(uap)</tspan> | 
+        • Tekanan Gas Kering: <tspan fill="#38bdf8" font-weight="700">P_H₂ = P_total - P_H₂O*(T)</tspan> | 
+        • Mol Gas Riil: <tspan fill="#4ade80" font-weight="700">n_H₂ = (P_H₂ · V) / (R · T)</tspan>
+      </text>
+    </g>
+  </g>
+</svg>
