@@ -23,6 +23,7 @@ import {
   Eye,
   Code,
   Sparkles,
+  Trash2,
 } from 'lucide-react';
 import { adminService, type CreateUserPayload } from '../../services/adminService';
 import type { Profile } from '../../types/database';
@@ -43,7 +44,9 @@ export const AdminUserManagement: React.FC = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isResetPassModalOpen, setIsResetPassModalOpen] = useState(false);
   const [isSuspendModalOpen, setIsSuspendModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
+  const [userToDelete, setUserToDelete] = useState<Profile | null>(null);
 
   // Email Template Modal state
   const [isEmailTemplateModalOpen, setIsEmailTemplateModalOpen] = useState(false);
@@ -265,6 +268,30 @@ export const AdminUserManagement: React.FC = () => {
       }
     } catch {
       showNotification('error', 'Terjadi kesalahan sistem.');
+    }
+  };
+
+  // Hapus Akun Pengguna
+  const handleDeleteUser = async () => {
+    if (!userToDelete) return;
+    setIsSubmitting(true);
+    try {
+      const res = await adminService.deleteUser(userToDelete.id, userToDelete.email);
+      if (res.success) {
+        showNotification(
+          'success',
+          `Akun ${userToDelete.full_name} (${userToDelete.email}) berhasil dihapus dari sistem.`
+        );
+        setIsDeleteModalOpen(false);
+        setUserToDelete(null);
+        await loadUsers();
+      } else {
+        showNotification('error', res.error || 'Gagal menghapus akun.');
+      }
+    } catch (err: any) {
+      showNotification('error', err?.message || 'Terjadi kesalahan sistem saat menghapus akun.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -621,21 +648,34 @@ export const AdminUserManagement: React.FC = () => {
                           </button>
 
                           {!isAdminUser && (
-                            <button
-                              onClick={() => {
-                                setSelectedUser(u);
-                                setSuspendReasonInput(u.suspended_reason || '');
-                                setIsSuspendModalOpen(true);
-                              }}
-                              className={`p-1.5 rounded-lg transition cursor-pointer ${
-                                u.is_suspended || u.account_status === 'suspended'
-                                  ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'
-                                  : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
-                              }`}
-                              title={u.is_suspended ? 'Buka Penangguhan (Aktifkan)' : 'Tangguhkan Akun (Suspend)'}
-                            >
-                              <Ban size={13} />
-                            </button>
+                            <>
+                              <button
+                                onClick={() => {
+                                  setSelectedUser(u);
+                                  setSuspendReasonInput(u.suspended_reason || '');
+                                  setIsSuspendModalOpen(true);
+                                }}
+                                className={`p-1.5 rounded-lg transition cursor-pointer ${
+                                  u.is_suspended || u.account_status === 'suspended'
+                                    ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'
+                                    : 'bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200'
+                                }`}
+                                title={u.is_suspended ? 'Buka Penangguhan (Aktifkan)' : 'Tangguhkan Akun (Suspend)'}
+                              >
+                                <Ban size={13} />
+                              </button>
+
+                              <button
+                                onClick={() => {
+                                  setUserToDelete(u);
+                                  setIsDeleteModalOpen(true);
+                                }}
+                                className="p-1.5 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-700 text-slate-400 border border-transparent hover:border-rose-200 transition cursor-pointer"
+                                title="Hapus Akun Pengguna"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>
@@ -1272,6 +1312,62 @@ export const AdminUserManagement: React.FC = () => {
                   : selectedUser.is_suspended
                   ? 'Aktifkan Akun'
                   : 'Tangguhkan Sekarang'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 6: HAPUS AKUN PENGGUNA */}
+      {isDeleteModalOpen && userToDelete && (
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-xl animate-in zoom-in-95 text-xs">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2 text-rose-600 font-bold text-sm">
+                <Trash2 className="w-5 h-5" />
+                <span>Konfirmasi Hapus Akun</span>
+              </div>
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="p-1 text-slate-400 hover:text-slate-700 rounded cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-slate-600 leading-relaxed">
+              <p>Apakah Anda yakin ingin menghapus akun pengguna berikut dari platform?</p>
+              <div className="p-3.5 bg-rose-50/60 border border-rose-200/80 rounded-xl space-y-1.5">
+                <div className="font-bold text-slate-900 text-sm">{userToDelete.full_name}</div>
+                <div className="font-mono text-slate-700 text-[11px]">{userToDelete.email}</div>
+                <div className="text-[10px] text-slate-500 font-semibold pt-0.5">
+                  {userToDelete.role === 'teacher' || userToDelete.role === 'guru'
+                    ? '👨‍🏫 Guru / Pembina'
+                    : '🎓 Siswa Peserta OSN'}{' '}
+                  • {userToDelete.school_name || 'Sekolah'}
+                </div>
+              </div>
+              <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-500 text-[11px] leading-relaxed">
+                ⚠️ <strong>Peringatan:</strong> Data profil, riwayat submisi, dan relasi kelas pengguna ini akan dihapus dari direktori platform. Tindakan ini tidak dapat dibatalkan.
+              </div>
+            </div>
+
+            <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-medium transition cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteUser}
+                disabled={isSubmitting}
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold transition shadow-xs cursor-pointer disabled:opacity-50 flex items-center gap-1.5"
+              >
+                <Trash2 size={13} />
+                <span>{isSubmitting ? 'Menghapus...' : 'Hapus Akun Permanen'}</span>
               </button>
             </div>
           </div>

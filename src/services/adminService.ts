@@ -455,6 +455,47 @@ class AdminService {
     return { success: true };
   }
 
+  public async deleteUser(
+    userId: string,
+    userEmail: string,
+    adminEmail = 'fluffykitten.dev@gmail.com'
+  ): Promise<{ success: boolean; error?: string }> {
+    if (userEmail === 'fluffykitten.dev@gmail.com') {
+      return { success: false, error: 'Akun master administrator tidak dapat dihapus.' };
+    }
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        const { error } = await supabase.from('profiles').delete().eq('id', userId);
+        if (error) {
+          console.warn('[AdminService] Supabase delete user profile error:', error.message);
+        }
+      } catch (err: any) {
+        console.warn('[AdminService] Gagal menghapus user dari Supabase:', err?.message);
+      }
+    }
+
+    // Hapus dari local storage cache
+    const localUsers = this.getLocalUsers();
+    const filtered = localUsers.filter(
+      (u) => u.id !== userId && u.email.toLowerCase() !== userEmail.toLowerCase()
+    );
+    this.saveLocalUsers(filtered);
+
+    // Catat audit log
+    await this.logAction({
+      actor_id: 'admin-master-uuid',
+      actor_email: adminEmail,
+      action_type: 'USER_DELETED',
+      target_resource: `users/${userId}`,
+      description: `Menghapus akun pengguna: ${userEmail} (${userId})`,
+      details: { deletedUserId: userId, deletedEmail: userEmail },
+    });
+
+    return { success: true };
+  }
+
   // -------------------------------------------------------------
   // 2. AUDIT LOGS
   // -------------------------------------------------------------

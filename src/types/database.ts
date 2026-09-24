@@ -465,6 +465,7 @@ export interface AuditLog {
   action_type:
     | 'USER_CREATED'
     | 'USER_INVITED'
+    | 'USER_DELETED'
     | 'ACTIVATION_EMAIL_SENT'
     | 'USER_SUSPENDED'
     | 'USER_ACTIVATED'
