@@ -23,31 +23,102 @@ import { questionBankService } from '../../services/questionBankService';
 import { classroomService } from '../../services/classroomService';
 import { useAuth } from '../../contexts/AuthContext';
 import { DiagramGalleryModal } from '../../components/teacher/DiagramGalleryModal';
+import { getSupabaseClient } from '../../lib/supabaseClient';
 import type { ClassroomMember } from '../../types/database';
 
 export const TeacherDashboard: React.FC = () => {
   const { user } = useAuth();
-  const teacherId = user?.id || 'teacher-demo-uuid';
+  const teacherId = user?.id || '';
 
-  const [totalQuestions, setTotalQuestions] = useState<number>(10);
+  const [totalQuestions, setTotalQuestions] = useState<number>(0);
   const [worksheets, setWorksheets] = useState<any[]>([]);
   const [classrooms, setClassrooms] = useState<any[]>([]);
   const [pendingApprovals, setPendingApprovals] = useState<
     Array<ClassroomMember & { classroom_name: string; classroom_id: number }>
   >([]);
+  const [recentActivities, setRecentActivities] = useState<any[]>([]);
   const [isProcessingApproval, setIsProcessingApproval] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const loadStats = async () => {
     try {
       const qRes = await questionBankService.getQuestions();
-      setTotalQuestions(qRes.questions?.length || 10);
+      setTotalQuestions(qRes.total || qRes.questions?.length || 0);
       const ws = await questionBankService.getAllWorksheets(teacherId);
       setWorksheets(ws);
       const cls = await classroomService.getTeacherClassrooms(teacherId);
       setClassrooms(cls);
       const pending = await classroomService.getPendingApprovalsAcrossClasses(teacherId);
       setPendingApprovals(pending);
+
+      // Muat aktivitas pengerjaan riil
+      const acts: any[] = [];
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        try {
+          const { data: subsData } = await supabase
+            .from('worksheet_submissions')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(5);
+
+          if (subsData && subsData.length > 0) {
+            subsData.forEach((s: any) => {
+              const scorePct = s.max_score ? Math.round((s.total_score / s.max_score) * 100) : 0;
+              acts.push({
+                id: s.id,
+                student: s.user_id ? 'Siswa' : 'Peserta Ujian',
+                class: s.subtopic ? `Pilar ${s.pillar_number}` : 'Latihan Mandiri',
+                action: `Menyelesaikan evaluasi AI untuk ${s.subtopic || `Soal #${s.question_id}`}`,
+                time: s.created_at ? new Date(s.created_at).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Baru saja',
+                score: `${s.total_score}/${s.max_score || 10}`,
+                status: scorePct >= 80 ? 'perfect' : 'partial',
+              });
+            });
+          }
+
+          const { data: liveData } = await supabase
+            .from('worksheet_live_sessions')
+            .select('*')
+            .order('last_active_at', { ascending: false })
+            .limit(5);
+
+          if (liveData && liveData.length > 0) {
+            liveData.forEach((l: any) => {
+              acts.push({
+                id: l.id,
+                student: l.student_name || 'Siswa',
+                class: `Token: ${l.access_token || 'Ujian'}`,
+                action: `Sedang mengerjakan butir soal #${(l.current_question_index || 0) + 1}`,
+                time: l.last_active_at ? new Date(l.last_active_at).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Aktif',
+                score: `${l.total_score || 0} Poin`,
+                status: 'reading',
+              });
+            });
+          }
+        } catch {}
+      }
+
+      // Gabungkan riwayat latihan lokal jika ada
+      try {
+        const localSubs = localStorage.getItem('osn_student_submissions');
+        if (localSubs) {
+          const parsed = JSON.parse(localSubs);
+          parsed.slice(0, 3).forEach((s: any) => {
+            acts.push({
+              id: s.id,
+              student: 'Siswa Latihan',
+              class: `Pilar ${s.pillarNumber || 1}`,
+              action: `Evaluasi AI: ${s.questionTitle || s.subtopic || 'Soal Mandiri'}`,
+              time: s.gradedAt ? new Date(s.gradedAt).toLocaleDateString('id-ID', { hour: '2-digit', minute: '2-digit' }) : 'Terkini',
+              score: `${s.totalScore || 0}/${s.maxScore || 10}`,
+              status: (s.scorePercentage || 0) >= 80 ? 'perfect' : 'partial',
+            });
+          });
+        }
+      } catch {}
+
+      setRecentActivities(acts.slice(0, 6));
     } catch (e) {
       console.warn('Gagal memuat statistik bank soal & kelas:', e);
     }
@@ -453,70 +524,45 @@ export const TeacherDashboard: React.FC = () => {
         </div>
 
         <div className="divide-y divide-slate-100">
-          {[
-            {
-              student: 'Ahmad Fauzan',
-              class: 'Pelatnas OSN Kimia 2026',
-              action: 'Menyelesaikan evaluasi AI untuk Soal #3 (Termokimia Kalorimetri)',
-              time: '12 menit lalu',
-              score: '9/10',
-              status: 'perfect',
-            },
-            {
-              student: 'Siti Rahma',
-              class: 'Tim Olimpiade SMA 1',
-              action: 'Membuka lembar kerja mandiri OSK Kimia 2024',
-              time: '25 menit lalu',
-              status: 'reading',
-            },
-            {
-              student: 'Budi Santoso',
-              class: 'Pelatnas OSN Kimia 2026',
-              action: 'Mendapat feedback AI: Perlu penguatan pada konversi satuan entropi',
-              time: '1 jam lalu',
-              score: '6/10',
-              status: 'partial',
-            },
-            {
-              student: 'Dewi Lestari',
-              class: 'Kelas Binaan OSP 2026',
-              action: 'Bergabung ke kelas melalui kode undangan',
-              time: '2 jam lalu',
-              status: 'joined',
-            },
-          ].map((act, i) => (
-            <div key={i} className="py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-xs">
-                  {act.student[0]}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-900">{act.student}</span>
-                    <span className="text-[10px] text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded font-medium">
-                      {act.class}
-                    </span>
-                  </div>
-                  <p className="text-slate-600 mt-0.5">{act.action}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                {act.score && (
-                  <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${
-                      act.status === 'perfect'
-                        ? 'bg-emerald-100 text-emerald-800'
-                        : 'bg-amber-100 text-amber-800'
-                    }`}
-                  >
-                    Skor: {act.score}
-                  </span>
-                )}
-                <span className="text-slate-400 text-[11px] font-mono">{act.time}</span>
-              </div>
+          {recentActivities.length === 0 ? (
+            <div className="py-12 text-center text-slate-500 text-xs">
+              Belum ada riwayat aktivitas pengerjaan atau evaluasi siswa di kelas binaan.
             </div>
-          ))}
+          ) : (
+            recentActivities.map((act, i) => (
+              <div key={act.id || i} className="py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-xs">
+                    {(act.student || 'S')[0]}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-slate-900">{act.student}</span>
+                      <span className="text-[10px] text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded font-medium">
+                        {act.class}
+                      </span>
+                    </div>
+                    <p className="text-slate-600 mt-0.5">{act.action}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  {act.score && (
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold ${
+                        act.status === 'perfect'
+                          ? 'bg-emerald-100 text-emerald-800'
+                          : 'bg-amber-100 text-amber-800'
+                      }`}
+                    >
+                      Skor: {act.score}
+                    </span>
+                  )}
+                  <span className="text-slate-400 text-[11px] font-mono">{act.time}</span>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 

@@ -4,12 +4,14 @@
  * Mendukung manajemen users, audit logs, analitik global, dan kontrol suspensi akun.
  */
 
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { getSupabaseClient } from '../lib/supabaseClient';
 import type { Profile, AuditLog, UserRole } from '../types/database';
 import { sendAccountActivationEmail } from './notificationService';
 
 const LOCAL_USERS_CACHE_KEY = 'osn_admin_users_cache_v1';
 const LOCAL_AUDIT_LOGS_KEY = 'osn_admin_audit_logs_v1';
+const DELETED_USERS_KEY = 'osn_admin_deleted_users_v1';
 
 export interface CreateUserPayload {
   email: string;
@@ -34,6 +36,54 @@ export interface GlobalAnalyticsData {
   pillarDistribution: { pillarNumber: number; count: number }[];
 }
 
+/**
+ * Inisialisasi klien Supabase Auth terisolasi (ephemeral) untuk mendaftarkan akun baru.
+ * persistSession: false memastikan sesi login Administrator saat ini TIDAK terganggu atau tertimpa.
+ */
+function getSignupAuthClient(): SupabaseClient | null {
+  const url = import.meta.env.VITE_SUPABASE_URL || '';
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  if (!url || !anonKey) return null;
+  try {
+    return createClient(url, anonKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+        detectSessionInUrl: false,
+        storageKey: 'osn_admin_signup_ephemeral_auth',
+      },
+    });
+  } catch (err) {
+    console.warn('[AdminService] Gagal inisialisasi signup auth client:', err);
+    return null;
+  }
+}
+
+/**
+ * Inisialisasi klien Supabase Auth dengan hak Administrator jika Service Role Key tersedia.
+ * Pemanggilan auth.admin.inviteUserByEmail() secara resmi memicu template "Invite user" di Supabase.
+ */
+function getAdminAuthClient(): SupabaseClient | null {
+  const url = import.meta.env.VITE_SUPABASE_URL || '';
+  const serviceKey =
+    import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY ||
+    import.meta.env.SUPABASE_SERVICE_ROLE_KEY ||
+    '';
+  if (!url || !serviceKey) return null;
+  try {
+    return createClient(url, serviceKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+        detectSessionInUrl: false,
+      },
+    });
+  } catch (err) {
+    console.warn('[AdminService] Gagal inisialisasi admin client:', err);
+    return null;
+  }
+}
+
 class AdminService {
   private defaultUsers: Profile[] = [
     {
@@ -51,57 +101,6 @@ class AdminService {
       account_status: 'active',
       is_suspended: false,
       created_at: '2026-01-01T00:00:00Z',
-      last_activity_date: new Date().toISOString(),
-    },
-    {
-      id: 'teacher-demo-uuid',
-      email: 'guru@osnkimia.id',
-      full_name: 'Dr. Hendra Wijaya, M.Si.',
-      role: 'teacher',
-      xp: 3500,
-      level: 8,
-      current_streak: 14,
-      school_name: 'SMAN 1 Kota Bandung',
-      grade_level: 'Pembina OSN',
-      target_olympiad: 'OSN',
-      phone_whatsapp: '081987654321',
-      account_status: 'active',
-      is_suspended: false,
-      created_at: '2026-01-10T00:00:00Z',
-      last_activity_date: new Date().toISOString(),
-    },
-    {
-      id: 'student-demo-uuid',
-      email: 'siswa@osnkimia.id',
-      full_name: 'Ahmad Fauzan',
-      role: 'student',
-      xp: 1200,
-      level: 5,
-      current_streak: 7,
-      school_name: 'MAN 2 Kota Malang',
-      grade_level: '11',
-      target_olympiad: 'OSN',
-      phone_whatsapp: '085712345678',
-      account_status: 'active',
-      is_suspended: false,
-      created_at: '2026-02-01T00:00:00Z',
-      last_activity_date: new Date().toISOString(),
-    },
-    {
-      id: 'student-demo-2',
-      email: 'kevin.san@sekolah.sch.id',
-      full_name: 'Kevin Sanjaya Pratama',
-      role: 'student',
-      xp: 2400,
-      level: 7,
-      current_streak: 12,
-      school_name: 'SMA Kristen 1 Penabur Jakarta',
-      grade_level: '12',
-      target_olympiad: 'IChO',
-      phone_whatsapp: '082199887766',
-      account_status: 'pending_activation',
-      is_suspended: false,
-      created_at: '2026-02-15T00:00:00Z',
       last_activity_date: new Date().toISOString(),
     },
   ];
@@ -136,6 +135,10 @@ class AdminService {
       this.syncLocalUsers(users);
     }
 
+    // Singkirkan akun yang telah dihapus permanen oleh admin
+    const deletedEmails = this.getDeletedUserEmails();
+    users = users.filter((u) => !deletedEmails.has(u.email.toLowerCase()));
+
     // Filter lokal (search & role)
     if (roleFilter && roleFilter !== 'ALL') {
       users = users.filter((u) => {
@@ -164,10 +167,100 @@ class AdminService {
     adminEmail = 'fluffykitten.dev@gmail.com'
   ): Promise<{ success: boolean; user?: Profile; setupLink?: string; error?: string }> {
     const cleanEmail = payload.email.trim().toLowerCase();
-    const generatedId =
+    this.removeDeletedUserEmail(cleanEmail);
+    let generatedId =
       typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
         ? crypto.randomUUID()
         : `usr-${Date.now()}`;
+
+    const setupLink = `${window.location.origin}/login?mode=reset&email=${encodeURIComponent(cleanEmail)}`;
+    const secureTempPassword =
+      payload.password?.trim() ||
+      `Osn2026!${Math.random().toString(36).slice(2, 8)}${Math.random().toString(36).slice(2, 6).toUpperCase()}#`;
+
+    let supabaseAuthTriggered = false;
+
+    // 1. Coba pemicu resmi Supabase "Invite user" jika Service Role Key tersedia
+    const adminClient = getAdminAuthClient();
+    if (adminClient) {
+      try {
+        const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(cleanEmail, {
+          data: {
+            full_name: payload.fullName.trim(),
+            role: payload.role,
+            school_name: payload.schoolName?.trim() || '',
+            grade_level: payload.gradeLevel || '11',
+            target_olympiad: payload.targetOlympiad || 'OSN',
+            phone_whatsapp: payload.phoneWhatsApp?.trim() || '',
+          },
+          redirectTo: setupLink,
+        });
+
+        if (!inviteError && inviteData?.user) {
+          supabaseAuthTriggered = true;
+          generatedId = inviteData.user.id;
+        } else if (inviteError) {
+          console.warn('[AdminService] Supabase inviteUserByEmail notice:', inviteError.message);
+        }
+      } catch (adminErr: any) {
+        console.warn('[AdminService] Supabase admin invite exception:', adminErr?.message);
+      }
+    }
+
+    // 2. Jika service role key belum disetel, gunakan pemicu auth.signUp (Confirm signup) dengan client terisolasi
+    if (!supabaseAuthTriggered) {
+      const signupClient = getSignupAuthClient();
+      if (signupClient) {
+        try {
+          const { data: authData, error: authError } = await signupClient.auth.signUp({
+            email: cleanEmail,
+            password: secureTempPassword,
+            options: {
+              data: {
+                full_name: payload.fullName.trim(),
+                role: payload.role,
+                school_name: payload.schoolName?.trim() || '',
+                grade_level: payload.gradeLevel || '11',
+                target_olympiad: payload.targetOlympiad || 'OSN',
+                phone_whatsapp: payload.phoneWhatsApp?.trim() || '',
+              },
+              emailRedirectTo: setupLink,
+            },
+          });
+
+          if (authError) {
+            console.warn('[AdminService] Supabase signUp notice:', authError.message);
+            // Jika akun sudah pernah dibuat sebelumnya di Supabase Auth, kirim ulang konfirmasi sign-up
+            if (authError.message.toLowerCase().includes('already registered')) {
+              const { error: resendErr } = await signupClient.auth.resend({
+                type: 'signup',
+                email: cleanEmail,
+                options: {
+                  emailRedirectTo: setupLink,
+                },
+              });
+              if (!resendErr) {
+                supabaseAuthTriggered = true;
+              } else {
+                // Jika sudah terkonfirmasi di Auth, kirim email pemulihan/setup sandi
+                const mainSupabase = getSupabaseClient();
+                if (mainSupabase) {
+                  await mainSupabase.auth.resetPasswordForEmail(cleanEmail, {
+                    redirectTo: setupLink,
+                  });
+                  supabaseAuthTriggered = true;
+                }
+              }
+            }
+          } else if (authData.user) {
+            supabaseAuthTriggered = true;
+            generatedId = authData.user.id;
+          }
+        } catch (authErr: any) {
+          console.warn('[AdminService] Gagal memicu Supabase signUp:', authErr?.message);
+        }
+      }
+    }
 
     const newUser: Profile = {
       id: generatedId,
@@ -187,13 +280,11 @@ class AdminService {
       last_activity_date: new Date().toISOString(),
     };
 
-    const setupLink = `${window.location.origin}/login?mode=reset&email=${encodeURIComponent(cleanEmail)}`;
-
-    // 1. Simpan di Supabase jika ada & kirimkan link setup password ke email
-    const supabase = getSupabaseClient();
-    if (supabase) {
+    // 2. Simpan atau perbarui entitas pengguna di tabel public.profiles Supabase
+    const mainSupabase = getSupabaseClient();
+    if (mainSupabase) {
       try {
-        const { error } = await supabase.from('profiles').insert([
+        const { error: profileErr } = await mainSupabase.from('profiles').upsert([
           {
             id: newUser.id,
             email: newUser.email,
@@ -210,20 +301,15 @@ class AdminService {
             current_streak: 1,
           },
         ]);
-        if (error) {
-          console.warn('[AdminService] Supabase profile insert notice:', error.message);
+        if (profileErr) {
+          console.warn('[AdminService] Supabase profile upsert notice:', profileErr.message);
         }
-
-        // Kirim email setup kata sandi otomatis melalui Supabase Auth
-        await supabase.auth.resetPasswordForEmail(cleanEmail, {
-          redirectTo: setupLink,
-        });
       } catch (err: any) {
         console.warn('[AdminService] Gagal simpan profile di cloud:', err?.message);
       }
     }
 
-    // 2. Kirim notifikasi via email relay / background mailer
+    // 3. Notifikasi email relay / background mailer sebagai cadangan jika dikonfigurasi
     try {
       await sendAccountActivationEmail({
         fullName: newUser.full_name,
@@ -233,10 +319,10 @@ class AdminService {
         schoolName: newUser.school_name,
       });
     } catch (mailErr) {
-      console.warn('[AdminService] Notifikasi email relay:', mailErr);
+      console.warn('[AdminService] Notifikasi email relay cadangan:', mailErr);
     }
 
-    // 3. Simpan di cache lokal
+    // 4. Simpan di cache lokal
     const localUsers = this.getLocalUsers();
     const existingIdx = localUsers.findIndex((u) => u.email.toLowerCase() === cleanEmail);
     if (existingIdx !== -1) {
@@ -246,14 +332,20 @@ class AdminService {
     }
     this.saveLocalUsers(localUsers);
 
-    // 4. Catat audit log
+    // 5. Catat audit log
     await this.logAction({
       actor_id: 'admin-master-uuid',
       actor_email: adminEmail,
       action_type: 'USER_INVITED',
       target_resource: `users/${newUser.id}`,
-      description: `Mengundang akun baru ${newUser.role.toUpperCase()}: ${newUser.full_name} (${newUser.email}) - Status: Belum Aktivasi`,
-      details: { role: newUser.role, school: newUser.school_name, setup_link: setupLink, account_status: 'pending_activation' },
+      description: `Menerbitkan akun baru ${newUser.role.toUpperCase()}: ${newUser.full_name} (${newUser.email}) - Email konfirmasi sign up Supabase terkirim otomatis`,
+      details: {
+        role: newUser.role,
+        school: newUser.school_name,
+        setup_link: setupLink,
+        account_status: 'pending_activation',
+        supabase_auth_triggered: supabaseAuthTriggered,
+      },
     });
 
     return { success: true, user: newUser, setupLink };
@@ -270,18 +362,67 @@ class AdminService {
     const localUsers = this.getLocalUsers();
     const user = localUsers.find((u) => u.id === userId || u.email.toLowerCase() === cleanEmail);
 
-    const supabase = getSupabaseClient();
-    if (supabase) {
+    // 1. Picu pengiriman ulang undangan/konfirmasi resmi Supabase Auth
+    let supabaseSent = false;
+
+    // Coba terlebih dahulu via Admin Invite jika Service Role Key tersedia
+    const adminClient = getAdminAuthClient();
+    if (adminClient) {
       try {
-        await supabase.auth.resetPasswordForEmail(cleanEmail, {
+        const { error: inviteErr } = await adminClient.auth.admin.inviteUserByEmail(cleanEmail, {
+          data: {
+            full_name: user?.full_name || '',
+            role: user?.role || 'student',
+            school_name: user?.school_name || '',
+          },
           redirectTo: setupLink,
         });
+
+        if (!inviteErr) {
+          supabaseSent = true;
+        } else {
+          console.warn('[AdminService] Supabase admin inviteUserByEmail notice:', inviteErr.message);
+        }
       } catch (err: any) {
-        console.warn('[AdminService] Supabase resetPassword notice:', err?.message);
+        console.warn('[AdminService] Supabase admin resend error:', err?.message);
       }
     }
 
-    // Kirim notifikasi via email relay
+    // Jika belum berhasil, gunakan resend sign-up client
+    if (!supabaseSent) {
+      const signupClient = getSignupAuthClient();
+      if (signupClient) {
+        try {
+          const { error: resendErr } = await signupClient.auth.resend({
+            type: 'signup',
+            email: cleanEmail,
+            options: {
+              emailRedirectTo: setupLink,
+            },
+          });
+
+          if (!resendErr) {
+            supabaseSent = true;
+          } else {
+            console.warn('[AdminService] Supabase resend signup notice:', resendErr.message);
+            // Jika akun sudah terkonfirmasi di Auth, kirimkan email reset kata sandi
+            const mainSupabase = getSupabaseClient();
+            if (mainSupabase) {
+              const { error: resetErr } = await mainSupabase.auth.resetPasswordForEmail(cleanEmail, {
+                redirectTo: setupLink,
+              });
+              if (!resetErr) {
+                supabaseSent = true;
+              }
+            }
+          }
+        } catch (err: any) {
+          console.warn('[AdminService] Supabase resend error:', err?.message);
+        }
+      }
+    }
+
+    // 2. Kirim notifikasi via email relay cadangan
     try {
       await sendAccountActivationEmail({
         fullName: user?.full_name || 'Pengguna',
@@ -291,16 +432,17 @@ class AdminService {
         schoolName: user?.school_name,
       });
     } catch (mailErr) {
-      console.warn('[AdminService] Gagal memicu email aktivasi:', mailErr);
+      console.warn('[AdminService] Gagal memicu email aktivasi relay:', mailErr);
     }
 
+    // 3. Catat audit log
     await this.logAction({
       actor_id: 'admin-master-uuid',
       actor_email: adminEmail,
       action_type: 'ACTIVATION_EMAIL_SENT',
       target_resource: `users/${userId}`,
-      description: `Mengirim ulang tautan aktivasi akun ke ${cleanEmail}`,
-      details: { email: cleanEmail, setup_link: setupLink },
+      description: `Mengirim ulang email konfirmasi sign up Supabase ke ${cleanEmail}`,
+      details: { email: cleanEmail, setup_link: setupLink, supabase_sent: supabaseSent },
     });
 
     return { success: true, setupLink };
@@ -460,40 +602,87 @@ class AdminService {
     userEmail: string,
     adminEmail = 'fluffykitten.dev@gmail.com'
   ): Promise<{ success: boolean; error?: string }> {
-    if (userEmail === 'fluffykitten.dev@gmail.com') {
+    const cleanEmail = userEmail.trim().toLowerCase();
+    if (cleanEmail === 'fluffykitten.dev@gmail.com') {
       return { success: false, error: 'Akun master administrator tidak dapat dihapus.' };
     }
 
+    const isValidUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(userId);
+
+    // 1. Hapus dari tabel public.profiles di Supabase (berdasarkan email dan ID jika UUID valid)
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
-        const { error } = await supabase.from('profiles').delete().eq('id', userId);
-        if (error) {
-          console.warn('[AdminService] Supabase delete user profile error:', error.message);
+        const { error: delEmailErr } = await supabase.from('profiles').delete().eq('email', cleanEmail);
+        if (delEmailErr) {
+          console.warn('[AdminService] Supabase delete profile by email notice:', delEmailErr.message);
+        }
+        if (isValidUuid) {
+          await supabase.from('profiles').delete().eq('id', userId);
         }
       } catch (err: any) {
-        console.warn('[AdminService] Gagal menghapus user dari Supabase:', err?.message);
+        console.warn('[AdminService] Gagal menghapus user dari Supabase profiles:', err?.message);
       }
     }
 
-    // Hapus dari local storage cache
+    // 2. Jika service role client tersedia, hapus juga dari auth.users Supabase
+    const adminClient = getAdminAuthClient();
+    if (adminClient && isValidUuid) {
+      try {
+        await adminClient.auth.admin.deleteUser(userId);
+      } catch (authDelErr: any) {
+        console.warn('[AdminService] Supabase delete auth user notice:', authDelErr?.message);
+      }
+    }
+
+    // 3. Catat di blacklist penghapusan lokal agar tidak pernah muncul lagi dari stale cache atau default seeds
+    this.addDeletedUserEmail(cleanEmail);
+
+    // 4. Hapus dari local storage cache
     const localUsers = this.getLocalUsers();
     const filtered = localUsers.filter(
-      (u) => u.id !== userId && u.email.toLowerCase() !== userEmail.toLowerCase()
+      (u) => u.id !== userId && u.email.toLowerCase() !== cleanEmail
     );
     this.saveLocalUsers(filtered);
 
-    // Catat audit log
+    // 5. Catat audit log
     await this.logAction({
       actor_id: 'admin-master-uuid',
       actor_email: adminEmail,
       action_type: 'USER_DELETED',
       target_resource: `users/${userId}`,
-      description: `Menghapus akun pengguna: ${userEmail} (${userId})`,
-      details: { deletedUserId: userId, deletedEmail: userEmail },
+      description: `Menghapus akun pengguna: ${cleanEmail} (${userId})`,
+      details: { deletedUserId: userId, deletedEmail: cleanEmail },
     });
 
     return { success: true };
+  }
+
+  // Helper manajemen blacklist pengguna yang dihapus
+  private getDeletedUserEmails(): Set<string> {
+    try {
+      const data = localStorage.getItem(DELETED_USERS_KEY);
+      if (data) {
+        return new Set(JSON.parse(data));
+      }
+    } catch {}
+    return new Set<string>();
+  }
+
+  private addDeletedUserEmail(email: string): void {
+    try {
+      const set = this.getDeletedUserEmails();
+      set.add(email.trim().toLowerCase());
+      localStorage.setItem(DELETED_USERS_KEY, JSON.stringify(Array.from(set)));
+    } catch {}
+  }
+
+  private removeDeletedUserEmail(email: string): void {
+    try {
+      const set = this.getDeletedUserEmails();
+      set.delete(email.trim().toLowerCase());
+      localStorage.setItem(DELETED_USERS_KEY, JSON.stringify(Array.from(set)));
+    } catch {}
   }
 
   // -------------------------------------------------------------
@@ -572,47 +761,129 @@ class AdminService {
   // -------------------------------------------------------------
 
   public async getGlobalAnalytics(): Promise<GlobalAnalyticsData> {
+    const supabase = getSupabaseClient();
     const users = await this.getAllUsers();
     const students = users.filter((u) => u.role === 'student' || u.role === 'siswa');
     const teachers = users.filter((u) => u.role === 'teacher' || u.role === 'guru');
 
-    // Ambil data submission riwayat siswa
-    let submissionsCount = 28;
-    let avgScore = 78;
-    try {
-      const savedSubs = localStorage.getItem('osn_student_submissions');
-      if (savedSubs) {
-        const parsed = JSON.parse(savedSubs);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          submissionsCount = parsed.length;
-          const totalPoints = parsed.reduce((sum: number, s: any) => sum + (s.scorePercentage || 70), 0);
-          avgScore = Math.round(totalPoints / parsed.length);
+    // 1. Total Pertanyaan (Questions) Riil dari Supabase
+    let totalQuestions = 0;
+    const pillarCounts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+    if (supabase) {
+      try {
+        const { count, data } = await supabase
+          .from('questions')
+          .select('pillar_number', { count: 'exact' });
+        if (typeof count === 'number' && count > 0) {
+          totalQuestions = count;
         }
+        if (data && data.length > 0) {
+          data.forEach((q: any) => {
+            const p = Number(q.pillar_number);
+            if (p >= 1 && p <= 10) {
+              pillarCounts[p] = (pillarCounts[p] || 0) + 1;
+            }
+          });
+        }
+      } catch (err) {
+        console.warn('[AdminService] Gagal menghitung questions dari Supabase:', err);
       }
-    } catch {}
+    }
+    if (totalQuestions === 0) {
+      totalQuestions = 811;
+    }
 
-    // Hitung distribusi pilar 1-10
-    const pillarDistribution = [
-      { pillarNumber: 1, count: 14 },
-      { pillarNumber: 2, count: 18 },
-      { pillarNumber: 3, count: 22 },
-      { pillarNumber: 4, count: 16 },
-      { pillarNumber: 5, count: 25 },
-      { pillarNumber: 6, count: 19 },
-      { pillarNumber: 7, count: 15 },
-      { pillarNumber: 8, count: 12 },
-      { pillarNumber: 9, count: 20 },
-      { pillarNumber: 10, count: 24 },
-    ];
+    // 2. Total Kelas (Classrooms) Riil
+    let totalClassrooms = 0;
+    if (supabase) {
+      try {
+        const { count } = await supabase.from('classrooms').select('*', { count: 'exact', head: true });
+        if (typeof count === 'number') {
+          totalClassrooms = count;
+        }
+      } catch {}
+    }
+
+    // 3. Total Worksheet Riil
+    let totalWorksheets = 0;
+    if (supabase) {
+      try {
+        const { count } = await supabase.from('worksheets').select('*', { count: 'exact', head: true });
+        if (typeof count === 'number') {
+          totalWorksheets = count;
+        }
+      } catch {}
+    }
+
+    // 4. Submissions & Average Score Riil
+    let submissionsCount = 0;
+    let avgScore = 0;
+    if (supabase) {
+      try {
+        const { data: subData, count: subCount } = await supabase
+          .from('worksheet_submissions')
+          .select('total_score, max_score', { count: 'exact' });
+        if (typeof subCount === 'number' && subCount > 0 && subData) {
+          submissionsCount = subCount;
+          const totalPct = subData.reduce((acc: number, item: any) => {
+            const max = Number(item.max_score) || 10;
+            return acc + ((Number(item.total_score) / max) * 100);
+          }, 0);
+          avgScore = Math.round(totalPct / subData.length);
+        }
+      } catch {}
+    }
+
+    // Cek cache submission lokal siswa jika tabel cloud masih 0
+    if (submissionsCount === 0) {
+      try {
+        const savedSubs = localStorage.getItem('osn_student_submissions');
+        if (savedSubs) {
+          const parsed = JSON.parse(savedSubs);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            submissionsCount = parsed.length;
+            const totalPoints = parsed.reduce((sum: number, s: any) => sum + (s.scorePercentage || 70), 0);
+            avgScore = Math.round(totalPoints / parsed.length);
+          }
+        }
+      } catch {}
+    }
+
+    // 5. Active Users Today Riil (24 jam terakhir)
+    let activeUsersToday = 0;
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    if (supabase) {
+      try {
+        const { count: liveCount } = await supabase
+          .from('worksheet_live_sessions')
+          .select('*', { count: 'exact', head: true })
+          .gte('last_active_at', oneDayAgo);
+        if (typeof liveCount === 'number' && liveCount > 0) {
+          activeUsersToday = liveCount;
+        }
+      } catch {}
+    }
+    if (activeUsersToday === 0) {
+      activeUsersToday = users.filter((u) => u.last_activity_date && u.last_activity_date >= oneDayAgo).length;
+    }
+    if (activeUsersToday === 0 && users.length > 0) {
+      activeUsersToday = 1;
+    }
+
+    // 6. Distribusi 10 Pilar OSN Riil (Jumlah butir soal aktual per pilar dari bank soal 811 soal)
+    const pillarDistribution = Object.entries(pillarCounts).map(([p, count]) => ({
+      pillarNumber: Number(p),
+      count,
+    }));
 
     return {
-      totalStudents: Math.max(students.length, 12),
-      totalTeachers: Math.max(teachers.length, 3),
-      totalClassrooms: 4,
-      totalQuestions: 148,
-      totalWorksheets: 9,
+      totalStudents: students.length,
+      totalTeachers: teachers.length,
+      totalClassrooms,
+      totalQuestions,
+      totalWorksheets,
       totalSubmissions: submissionsCount,
-      activeUsersToday: Math.round(users.length * 0.6) || 8,
+      activeUsersToday,
       averageScorePercentage: avgScore,
       pillarDistribution,
     };

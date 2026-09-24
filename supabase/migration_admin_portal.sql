@@ -121,6 +121,11 @@ DO $$ BEGIN
         CREATE POLICY "Allow public update on profiles" ON public.profiles FOR UPDATE USING (true);
     END IF;
 
+    -- Policy profiles: Public delete
+    IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'profiles' AND policyname = 'Allow public delete on profiles') THEN
+        CREATE POLICY "Allow public delete on profiles" ON public.profiles FOR DELETE USING (true);
+    END IF;
+
     -- Policy audit_logs
     IF NOT EXISTS (SELECT 1 FROM pg_policies WHERE tablename = 'audit_logs' AND policyname = 'Allow public select on audit_logs') THEN
         CREATE POLICY "Allow public select on audit_logs" ON public.audit_logs FOR SELECT USING (true);

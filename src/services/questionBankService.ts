@@ -86,6 +86,12 @@ class QuestionBankService {
   private localQuestions: Map<number, Question> = new Map();
   private localWorksheets: Worksheet[] = [];
 
+  // SMART IN-MEMORY CACHE & REQUEST DEDUPLICATION
+  private cachedCloudQuestions: Question[] | null = null;
+  private lastFetchTimestamp: number = 0;
+  private activeFetchPromise: Promise<Question[]> | null = null;
+  private readonly CACHE_TTL_MS = 5 * 60 * 1000; // 5 menit cache TTL
+
   constructor() {
     this.initLocalStore();
   }
@@ -125,49 +131,96 @@ class QuestionBankService {
   }
 
   /**
-   * Mengambil daftar soal dengan filter, pagination, dan status bookmark/tag
+   * Reset cache memori untuk memaksa unduh data segar dari Supabase
    */
-  public async getQuestions(filter?: QuestionFilter): Promise<{
+  public invalidateCache(): void {
+    this.cachedCloudQuestions = null;
+    this.lastFetchTimestamp = 0;
+    this.activeFetchPromise = null;
+  }
+
+  /**
+   * Cek apakah cache pertanyaan sudah siap di memori
+   */
+  public hasCachedQuestions(): boolean {
+    return this.cachedCloudQuestions !== null && Date.now() - this.lastFetchTimestamp < this.CACHE_TTL_MS;
+  }
+
+  /**
+   * Mengambil seluruh pertanyaan dari Supabase cloud dengan deduping & caching
+   */
+  public async fetchCloudQuestions(forceRefresh = false): Promise<Question[]> {
+    const isCacheValid =
+      !forceRefresh &&
+      this.cachedCloudQuestions !== null &&
+      Date.now() - this.lastFetchTimestamp < this.CACHE_TTL_MS;
+
+    if (isCacheValid) {
+      return this.cachedCloudQuestions!;
+    }
+
+    if (this.activeFetchPromise) {
+      return this.activeFetchPromise;
+    }
+
+    const supabase = getSupabaseClient();
+    if (!supabase) {
+      return Array.from(this.localQuestions.values());
+    }
+
+    this.activeFetchPromise = (async () => {
+      try {
+        const { data, error } = await supabase.from('questions').select('*');
+        if (!error && data) {
+          const cloudList = data as Question[];
+          this.cachedCloudQuestions = cloudList;
+          this.lastFetchTimestamp = Date.now();
+          // Perbarui local store map jika ada soal baru
+          cloudList.forEach((q) => this.localQuestions.set(q.id, q));
+          return cloudList;
+        }
+      } catch (err) {
+        console.warn('Gagal fetch cloud questions:', err);
+      } finally {
+        this.activeFetchPromise = null;
+      }
+      return this.cachedCloudQuestions || Array.from(this.localQuestions.values());
+    })();
+
+    return this.activeFetchPromise;
+  }
+
+  /**
+   * Mengambil daftar soal dengan filter, pagination, dan status bookmark/tag
+   * Mendukung instant in-memory cache untuk performa maksimal (<1ms)
+   */
+  public async getQuestions(
+    filter?: QuestionFilter,
+    options?: { forceRefresh?: boolean }
+  ): Promise<{
     questions: Question[];
     total: number;
     isCloudConnected: boolean;
   }> {
-    const supabase = getSupabaseClient();
-    let questions: Question[] = [];
-    let isCloudConnected = false;
+    const isCloudConnected = Boolean(getSupabaseClient());
+    let rawQuestions: Question[] = [];
 
-    if (supabase) {
-      try {
-        let query = supabase.from('questions').select('*');
-
-        if (filter?.pillarNumber && filter.pillarNumber !== 'ALL') {
-          query = query.eq('pillar_number', filter.pillarNumber);
-        }
-        if (filter?.difficulty && filter.difficulty !== 'ALL') {
-          query = query.eq('difficulty', filter.difficulty);
-        }
-        if (filter?.questionStyle && filter.questionStyle !== 'ALL') {
-          query = query.eq('question_style', filter.questionStyle);
-        }
-        if (filter?.search && filter.search.trim()) {
-          query = query.or(`title.ilike.%${filter.search.trim()}%,question_text.ilike.%${filter.search.trim()}%,subtopic.ilike.%${filter.search.trim()}%`);
-        }
-
-        const { data, error } = await query;
-        if (!error && data) {
-          questions = data as Question[];
-          isCloudConnected = true;
-        }
-      } catch (err) {
-        // Fallback hening ke cache lokal jika tabel belum dibuat di Supabase
-      }
+    // Jika cache sudah tersedia dan tidak force refresh, gunakan langsung (0ms)
+    if (
+      this.cachedCloudQuestions &&
+      !options?.forceRefresh &&
+      Date.now() - this.lastFetchTimestamp < this.CACHE_TTL_MS
+    ) {
+      rawQuestions = this.cachedCloudQuestions;
+    } else {
+      rawQuestions = await this.fetchCloudQuestions(options?.forceRefresh);
     }
 
     // Merge local dan cloud: cloud menimpa local jika ada duplikasi ID
     const mergedMap = new Map<number, Question>();
     this.localQuestions.forEach(q => mergedMap.set(q.id, q));
-    questions.forEach(q => mergedMap.set(q.id, q));
-    questions = Array.from(mergedMap.values());
+    rawQuestions.forEach(q => mergedMap.set(q.id, q));
+    let questions = Array.from(mergedMap.values());
 
     // Gabungkan dengan state Bookmark & Custom Tag dari tagAndBookmarkService
     questions = questions.map(q => {
@@ -180,7 +233,7 @@ class QuestionBankService {
       };
     });
 
-    // Lakukan pemfilteran di memory (komprehensif untuk semua kondisi)
+    // Lakukan pemfilteran di memory (komprehensif untuk semua kondisi, <1ms)
     if (filter) {
       if (filter.search && filter.search.trim()) {
         const term = filter.search.toLowerCase().trim();
@@ -271,9 +324,32 @@ class QuestionBankService {
   }
 
   /**
-   * Mengambil soal tunggal berdasarkan ID
+   * Mengambil soal tunggal berdasarkan ID (dengan fast-path memory cache)
    */
   public async getQuestionById(id: number): Promise<Question | null> {
+    // 1. Cek di cache cloud jika ada (0ms)
+    if (this.cachedCloudQuestions) {
+      const found = this.cachedCloudQuestions.find(q => q.id === id);
+      if (found) {
+        return {
+          ...found,
+          is_bookmarked: tagAndBookmarkService.isBookmarked(found.id),
+          custom_tags: tagAndBookmarkService.getCustomTags(found.id)
+        };
+      }
+    }
+
+    // 2. Cek di localQuestions map (0ms)
+    const localQ = this.localQuestions.get(id);
+    if (localQ) {
+      return {
+        ...localQ,
+        is_bookmarked: tagAndBookmarkService.isBookmarked(localQ.id),
+        custom_tags: tagAndBookmarkService.getCustomTags(localQ.id)
+      };
+    }
+
+    // 3. Fallback ke Supabase query jika belum ter-cache
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
@@ -289,15 +365,6 @@ class QuestionBankService {
       } catch (err) {
         // Fallback
       }
-    }
-
-    const localQ = this.localQuestions.get(id);
-    if (localQ) {
-      return {
-        ...localQ,
-        is_bookmarked: tagAndBookmarkService.isBookmarked(localQ.id),
-        custom_tags: tagAndBookmarkService.getCustomTags(localQ.id)
-      };
     }
 
     return null;
@@ -318,13 +385,23 @@ class QuestionBankService {
     this.localQuestions.set(newId, newQuestion);
     this.persistLocalStore();
 
+    // Reaktif perbarui cache memori agar langsung muncul tanpa refetch
+    if (this.cachedCloudQuestions) {
+      this.cachedCloudQuestions = [newQuestion, ...this.cachedCloudQuestions];
+    }
+
     // Simpan di Supabase jika aktif
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
         const { data, error } = await supabase.from('questions').insert([newQuestion]).select().single();
         if (!error && data) {
-          return data as Question;
+          const inserted = data as Question;
+          this.localQuestions.set(inserted.id, inserted);
+          if (this.cachedCloudQuestions) {
+            this.cachedCloudQuestions = [inserted, ...this.cachedCloudQuestions.filter(q => q.id !== newId)];
+          }
+          return inserted;
         }
       } catch (err) {
         console.warn('Gagal menyimpan soal ke Supabase:', err);
@@ -345,6 +422,11 @@ class QuestionBankService {
     this.localQuestions.set(id, updated);
     this.persistLocalStore();
 
+    // Reaktif perbarui cache memori
+    if (this.cachedCloudQuestions) {
+      this.cachedCloudQuestions = this.cachedCloudQuestions.map(q => q.id === id ? updated : q);
+    }
+
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
@@ -363,6 +445,11 @@ class QuestionBankService {
   public async deleteQuestion(id: number): Promise<boolean> {
     this.localQuestions.delete(id);
     this.persistLocalStore();
+
+    // Reaktif hapus dari cache memori
+    if (this.cachedCloudQuestions) {
+      this.cachedCloudQuestions = this.cachedCloudQuestions.filter(q => q.id !== id);
+    }
 
     const supabase = getSupabaseClient();
     if (supabase) {
@@ -722,6 +809,48 @@ class QuestionBankService {
     }
 
     return updated;
+  }
+
+  /**
+   * Hapus sebuah worksheet dari Supabase dan Local Store
+   */
+  public async deleteWorksheet(id: number | string): Promise<boolean> {
+    const numId = typeof id === 'string' ? parseInt(id, 10) : id;
+    this.localWorksheets = this.localWorksheets.filter(w => w.id !== numId);
+    this.persistLocalStore();
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        await supabase.from('worksheets').delete().eq('id', numId);
+      } catch (err) {
+        console.warn('Gagal menghapus worksheet dari Supabase:', err);
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Bersihkan seluruh worksheet dari Supabase dan Local Store (Clean Sweep)
+   */
+  public async clearAllWorksheets(): Promise<boolean> {
+    this.localWorksheets = [];
+    this.persistLocalStore();
+    try {
+      localStorage.removeItem(LOCAL_WORKSHEETS_STORAGE_KEY);
+      localStorage.removeItem('osn_live_worksheets_registry');
+    } catch {}
+
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        await supabase.from('worksheets').delete().neq('id', -999);
+        await supabase.from('worksheet_live_sessions').delete().not('id', 'is', null);
+      } catch (err) {
+        console.warn('Gagal membersihkan worksheets di Supabase:', err);
+      }
+    }
+    return true;
   }
 }
 

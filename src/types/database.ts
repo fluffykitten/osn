@@ -476,7 +476,11 @@ export interface AuditLog {
     | 'QUESTION_UPDATED'
     | 'QUESTION_DELETED'
     | 'CLASSROOM_UPDATED'
-    | 'CLASSROOM_DELETED';
+    | 'CLASSROOM_DELETED'
+    | 'WORKSHEET_CREATED'
+    | 'WORKSHEET_UPDATED'
+    | 'WORKSHEET_DELETED'
+    | 'ALL_WORKSHEETS_CLEARED';
   target_resource?: string;
   description: string;
   details?: Record<string, any>;

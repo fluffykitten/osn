@@ -9,6 +9,8 @@ import type {
   SavedSubmissionRecord,
   PillarMasteryScore,
 } from '../types/database';
+
+export type { SavedSubmissionRecord, PillarMasteryScore, GradingResponse };
 import { getSupabaseClient, DEFAULT_STUDENT_ID } from '../lib/supabaseClient';
 import { PILLARS_DATA } from '../data/syllabusData';
 
@@ -295,3 +297,88 @@ function saveLocalSubmissions(records: SavedSubmissionRecord[]): void {
     console.error('Gagal menyimpan submission ke local storage:', err);
   }
 }
+
+export interface QuestionAggregatedTelemetry {
+  attempts: number;
+  correctCount: number;
+  wrongCount: number;
+  successRate: number;
+  avgScore: number;
+  hasRealData: boolean;
+}
+
+/**
+ * Mengambil telemetri pengerjaan aktual untuk sekumpulan butir soal sekaligus
+ * Terhubung ke tabel Supabase worksheet_submissions dan cache lokal siswa
+ */
+export async function getBatchQuestionTelemetry(
+  questionIds: number[]
+): Promise<Map<number, QuestionAggregatedTelemetry>> {
+  const result = new Map<number, QuestionAggregatedTelemetry>();
+  const supabase = getSupabaseClient();
+  let allSubs: Array<{ question_id: number; total_score: number; max_score: number }> = [];
+
+  if (supabase && questionIds.length > 0) {
+    try {
+      const { data, error } = await supabase
+        .from('worksheet_submissions')
+        .select('question_id, total_score, max_score')
+        .in('question_id', questionIds);
+      if (!error && data && data.length > 0) {
+        allSubs = data.map((d: any) => ({
+          question_id: Number(d.question_id),
+          total_score: Number(d.total_score),
+          max_score: Number(d.max_score) || 10,
+        }));
+      }
+    } catch {}
+  }
+
+  // Gabungkan dengan local submissions jika ada
+  try {
+    const local = getSubmissionHistory();
+    local.forEach((s) => {
+      if (questionIds.includes(s.questionId)) {
+        allSubs.push({
+          question_id: s.questionId,
+          total_score: s.totalScore,
+          max_score: s.maxScore || 10,
+        });
+      }
+    });
+  } catch {}
+
+  questionIds.forEach((qId) => {
+    const matched = allSubs.filter((s) => s.question_id === qId);
+    if (matched.length === 0) {
+      result.set(qId, {
+        attempts: 0,
+        correctCount: 0,
+        wrongCount: 0,
+        successRate: 0,
+        avgScore: 0,
+        hasRealData: false,
+      });
+    } else {
+      const attempts = matched.length;
+      let correct = 0;
+      let sum = 0;
+      matched.forEach((m) => {
+        const pct = (m.total_score / m.max_score) * 100;
+        if (pct >= 60) correct++;
+        sum += m.total_score;
+      });
+      result.set(qId, {
+        attempts,
+        correctCount: correct,
+        wrongCount: Math.max(0, attempts - correct),
+        successRate: Math.round((correct / attempts) * 100),
+        avgScore: Number((sum / attempts).toFixed(1)),
+        hasRealData: true,
+      });
+    }
+  });
+
+  return result;
+}
+

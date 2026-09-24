@@ -422,7 +422,7 @@ export const AdminClassroomManagement: React.FC = () => {
                   onChange={(e) => setEditTeacherId(e.target.value)}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:outline-none focus:bg-white focus:border-slate-800"
                 >
-                  <option value="teacher-demo-uuid">Dr. Hendra Wijaya, M.Si. (guru@osnkimia.id)</option>
+                  <option value="">-- Pilih Guru Pembina --</option>
                   {teachers.map((t) => (
                     <option key={t.id} value={t.id}>
                       {t.full_name} ({t.email})

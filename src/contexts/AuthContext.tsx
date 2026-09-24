@@ -620,6 +620,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, error: error.message };
       }
 
+      // Otomatis aktifkan status akun di tabel profiles jika sebelumnya pending_activation
+      if (user?.id) {
+        try {
+          await supabase
+            .from('profiles')
+            .update({ account_status: 'active', is_suspended: false })
+            .eq('id', user.id);
+        } catch (statusErr) {
+          console.warn('[AuthContext] Update profile account_status notice:', statusErr);
+        }
+      }
+
       sessionStorage.removeItem('osn_is_password_recovery');
       return { success: true };
     } catch (err: any) {

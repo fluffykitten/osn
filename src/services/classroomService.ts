@@ -32,70 +32,33 @@ class ClassroomService {
     try {
       const cls = localStorage.getItem(LOCAL_CLASSROOMS_KEY);
       if (cls) {
-        this.localClassrooms = JSON.parse(cls);
+        const parsed = JSON.parse(cls);
+        // Bersihkan seed dummy PELATNAS-26 jika pernah tersimpan di browser
+        this.localClassrooms = Array.isArray(parsed) ? parsed.filter((c: any) => c.code !== 'PELATNAS-26') : [];
       } else {
-        // Seed contoh kelas default untuk pengalaman interaktif langsung
-        this.localClassrooms = [
-          {
-            id: 1,
-            teacher_id: 'teacher-demo-uuid',
-            name: 'Pelatnas OSN Kimia 2026',
-            code: 'PELATNAS-26',
-            description: 'Kelas pembinaan intensif persiapan OSN Tingkat Nasional dan Seleksi IChO.',
-            created_at: new Date().toISOString(),
-            member_count: 1,
-            assignment_count: 2,
-          },
-        ];
+        this.localClassrooms = [];
       }
 
       const mem = localStorage.getItem(LOCAL_MEMBERS_KEY);
       if (mem) {
-        this.localMembers = JSON.parse(mem);
+        const parsed = JSON.parse(mem);
+        this.localMembers = Array.isArray(parsed) ? parsed.filter((m: any) => m.student_email !== 'siswa@gmail.com' || m.classroom_id !== 1) : [];
       } else {
-        // Seed default siswa@gmail.com di kelas contoh
-        this.localMembers = [
-          {
-            id: 1,
-            classroom_id: 1,
-            student_email: 'siswa@gmail.com',
-            student_id: 'student-demo-uuid',
-            student_name: 'Ahmad Fauzan',
-            status: 'active',
-            invited_at: new Date().toISOString(),
-            joined_at: new Date().toISOString(),
-          },
-        ];
+        this.localMembers = [];
       }
 
       const asg = localStorage.getItem(LOCAL_ASSIGNMENTS_KEY);
       if (asg) {
-        this.localAssignments = JSON.parse(asg);
+        const parsed = JSON.parse(asg);
+        this.localAssignments = Array.isArray(parsed) ? parsed.filter((a: any) => a.worksheet?.access_token !== 'PELATNAS-WS1') : [];
       } else {
-        // Seed default penugasan untuk kelas contoh (Pelatnas OSN Kimia 2026)
-        this.localAssignments = [
-          {
-            id: 1,
-            classroom_id: 1,
-            worksheet_id: 1,
-            assigned_at: new Date().toISOString(),
-            due_date: new Date(Date.now() + 7 * 86400000).toISOString(),
-            is_live_monitored: true,
-            worksheet: {
-              id: 1,
-              title: 'Paket Latihan 01: Struktur Atom & Ikatan Kimia',
-              description: 'Latihan mandiri pembinaan intensif OSN Tingkat Nasional.',
-              item_count: 10,
-              time_limit_minutes: 60,
-              pass_score: 75,
-              access_token: 'PELATNAS-WS1',
-              created_at: new Date().toISOString(),
-            } as any,
-          },
-        ];
+        this.localAssignments = [];
       }
     } catch (e) {
       console.warn('Gagal membaca cache lokal kelas:', e);
+      this.localClassrooms = [];
+      this.localMembers = [];
+      this.localAssignments = [];
     }
   }
 

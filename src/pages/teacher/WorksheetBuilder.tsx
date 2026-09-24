@@ -100,12 +100,14 @@ export const WorksheetBuilder: React.FC = () => {
 
   // Load questions
   const loadQuestions = async () => {
-    setIsLoading(true);
+    if (!questionBankService.hasCachedQuestions()) {
+      setIsLoading(true);
+    }
     try {
       const res = await questionBankService.getQuestions(filter);
       setFilteredQuestions(res.questions);
 
-      // Load all questions without filter for selected summary
+      // Load all questions without filter for selected summary (instant dari memory cache)
       const allRes = await questionBankService.getQuestions();
       setAllQuestions(allRes.questions);
     } catch (e) {

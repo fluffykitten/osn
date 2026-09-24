@@ -222,12 +222,26 @@ export function wrapWithCe(textarea: HTMLTextAreaElement): string {
 }
 
 /**
+ * Normalizes double-escaped LaTeX backslashes commonly found in JSON or database strings
+ * E.g., \\ce -> \ce, \\text -> \text, \\xrightarrow -> \xrightarrow, \\lambda -> \lambda, \\quad -> \quad
+ */
+export function normalizeLatexBackslashes(text: string): string {
+  if (!text) return '';
+  // 1. Double backslash before LaTeX command letters, delimiters, accents, and symbols
+  let s = text.replace(/\\\\([a-zA-Z\^_{}~#%[\]()<>,;! ])/g, '\\$1');
+  // 2. Double backslash before spaces or another command
+  s = s.replace(/\\\\(?=\s*[a-zA-Z])/g, '\\');
+  return s;
+}
+
+/**
  * Render LaTeX / mhchem formula string cleanly with graceful error recovery
  */
 export function renderKaTeX(formula: string, displayMode: boolean = false): string {
   try {
+    const normalized = normalizeLatexBackslashes(formula);
     // Automatically escape unescaped % (e.g. 50% -> 50\%) so KaTeX never treats % as a comment
-    const safeFormula = formula.replace(/(?<!\\)%/g, '\\%');
+    const safeFormula = normalized.replace(/(?<!\\)%/g, '\\%');
     const rendered = katex.renderToString(safeFormula, {
       displayMode,
       throwOnError: false,
@@ -236,7 +250,7 @@ export function renderKaTeX(formula: string, displayMode: boolean = false): stri
       strict: false,
     });
     // Add role="math" and aria-label for accessibility (Fase 4)
-    const cleanLabel = formula.replace(/[{}\$^_\\]/g, ' ').replace(/"/g, '&quot;').trim().replace(/\s+/g, ' ');
+    const cleanLabel = safeFormula.replace(/[{}\$^_\\]/g, ' ').replace(/"/g, '&quot;').trim().replace(/\s+/g, ' ');
     return `<span role="math" aria-label="${cleanLabel || 'formula matematika'}">${rendered}</span>`;
   } catch {
     return `<span role="math" class="font-mono text-xs text-slate-700 bg-slate-100 px-1 py-0.5 rounded">${formula}</span>`;
@@ -265,7 +279,7 @@ export function preprocessFriendlyFormula(rawText: string): {
 } {
   if (!rawText) return { text: '', protectedMath: [], protectedSvg: [] };
 
-  let t = rawText;
+  let t = normalizeLatexBackslashes(rawText);
   const protectedMath: ProtectedMathItem[] = [];
   const protectedSvg: string[] = [];
 
@@ -290,8 +304,11 @@ export function preprocessFriendlyFormula(rawText: string): {
 
   const stash = (mathContent: string, isDisplay = false): string => {
     const id = protectedMath.length;
-    // Strip any accidental leading/trailing/nested unescaped dollar signs and escape percent
-    const cleanContent = mathContent.replace(/(?<!\\)\$/g, '').replace(/(?<!\\)%/g, '\\%').trim();
+    // Strip any accidental leading/trailing/nested unescaped dollar signs, normalize backslashes, and escape percent
+    const cleanContent = normalizeLatexBackslashes(mathContent)
+      .replace(/(?<!\\)\$/g, '')
+      .replace(/(?<!\\)%/g, '\\%')
+      .trim();
     protectedMath.push({ content: cleanContent, isDisplay });
     return `___FORMULA_MATH_${id}___`;
   };
@@ -429,7 +446,7 @@ export function parseAndRenderMixedText(rawText: string): string {
         const id = parseInt(trimmed.replace(/\D/g, ''), 10);
         const item = protectedMath[id];
         if (item && item.isDisplay) {
-          return `<div data-laser-math="${id}" data-laser-display="true" class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`;
+          return `<div data-laser-math="${id}" data-laser-display="true" class="my-3.5 py-3 px-4 text-center bg-slate-50/70 hover:bg-slate-50/90 rounded-xl border border-slate-200/75 shadow-2xs overflow-x-auto transition-colors">${renderKaTeX(item.content, true)}</div>`;
         }
       }
 
@@ -628,8 +645,8 @@ export function parseAndRenderMixedText(rawText: string): string {
   // Restore all math blocks rendered with KaTeX
   protectedMath.forEach((item, idx) => {
     const rendered = item.isDisplay
-      ? `<div data-laser-math="${idx}" data-laser-display="true" class="my-3 py-2 px-3 text-center bg-slate-50/90 rounded-lg border border-slate-200/70 overflow-x-auto">${renderKaTeX(item.content, true)}</div>`
-      : `<span data-laser-math="${idx}" class="inline-math-anchor inline-block">${renderKaTeX(item.content, false)}</span>`;
+      ? `<div data-laser-math="${idx}" data-laser-display="true" class="my-3.5 py-3 px-4 text-center bg-slate-50/70 hover:bg-slate-50/90 rounded-xl border border-slate-200/75 shadow-2xs overflow-x-auto transition-colors">${renderKaTeX(item.content, true)}</div>`
+      : `<span data-laser-math="${idx}" class="inline-math-anchor inline align-baseline">${renderKaTeX(item.content, false)}</span>`;
     processed = processed.replaceAll(`___FORMULA_MATH_${idx}___`, rendered);
   });
 
@@ -649,7 +666,7 @@ export function parseAndRenderMixedText(rawText: string): string {
  */
 export function renderInlineText(rawText: string): string {
   if (!rawText) return '';
-  const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(rawText);
+  const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(normalizeLatexBackslashes(rawText));
 
   let processed = text
     .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold">$1</strong>')

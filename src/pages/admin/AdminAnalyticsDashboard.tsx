@@ -157,7 +157,7 @@ export const AdminAnalyticsDashboard: React.FC = () => {
             <div className="flex items-center gap-2">
               <BarChart2 className="w-4 h-4 text-slate-700" />
               <h2 className="text-xs font-bold text-slate-800 uppercase tracking-wider font-mono">
-                Distribusi Pengerjaan 10 Pilar Silabus OSN
+                Koleksi 10 Pilar Silabus OSN Kimia
               </h2>
             </div>
             <Link
@@ -180,7 +180,7 @@ export const AdminAnalyticsDashboard: React.FC = () => {
                       Pilar {p.pillarNumber}: {getPillarTitle(p.pillarNumber)}
                     </span>
                     <span className="text-slate-500 font-mono text-[11px]">
-                      {p.count} submission ({percentage}%)
+                      {p.count} butir soal ({percentage}%)
                     </span>
                   </div>
                   <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">

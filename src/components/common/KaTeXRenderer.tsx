@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { parseAndRenderMixedText, renderInlineText, renderKaTeX } from '../../lib/katex-helpers';
+import { parseAndRenderMixedText, renderInlineText, renderKaTeX, normalizeLatexBackslashes } from '../../lib/katex-helpers';
 
 interface KaTeXRendererProps {
   content: string;
@@ -17,16 +17,18 @@ export const KaTeXRenderer: React.FC<KaTeXRendererProps> = ({
   const renderedHtml = useMemo(() => {
     if (!content) return '';
 
+    const normalizedContent = normalizeLatexBackslashes(content);
+
     // If it's a single formula without delimiters (e.g. \ce{H2SO4})
-    if (content.startsWith('\\ce{') || content.startsWith('\\Delta') || content.startsWith('\\rightleftharpoons')) {
-      return renderKaTeX(content, !inlineOnly);
+    if (normalizedContent.startsWith('\\ce{') || normalizedContent.startsWith('\\Delta') || normalizedContent.startsWith('\\rightleftharpoons')) {
+      return renderKaTeX(normalizedContent, !inlineOnly);
     }
 
     if (inlineOnly) {
-      return renderInlineText(content);
+      return renderInlineText(normalizedContent);
     }
 
-    return parseAndRenderMixedText(content);
+    return parseAndRenderMixedText(normalizedContent);
   }, [content, inlineOnly]);
 
   if (inlineOnly) {

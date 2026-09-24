@@ -274,13 +274,21 @@ export const AdminUserManagement: React.FC = () => {
   // Hapus Akun Pengguna
   const handleDeleteUser = async () => {
     if (!userToDelete) return;
+    const targetToDelete = userToDelete;
     setIsSubmitting(true);
     try {
-      const res = await adminService.deleteUser(userToDelete.id, userToDelete.email);
+      const res = await adminService.deleteUser(targetToDelete.id, targetToDelete.email);
       if (res.success) {
         showNotification(
           'success',
-          `Akun ${userToDelete.full_name} (${userToDelete.email}) berhasil dihapus dari sistem.`
+          `Akun ${targetToDelete.full_name} (${targetToDelete.email}) berhasil dihapus dari sistem.`
+        );
+        setUsers((prev) =>
+          prev.filter(
+            (u) =>
+              u.id !== targetToDelete.id &&
+              u.email.toLowerCase() !== targetToDelete.email.toLowerCase()
+          )
         );
         setIsDeleteModalOpen(false);
         setUserToDelete(null);

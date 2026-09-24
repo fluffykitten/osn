@@ -311,6 +311,8 @@ class StorageService {
     return cached;
   }
 
+  private inMemoryDataUrls: Map<string, string> = new Map();
+
   /**
    * Ambil daftar riwayat unggahan lokal
    */
@@ -318,8 +320,13 @@ class StorageService {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_CACHE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed)) return parsed;
+        const parsed: StoredObject[] = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          return parsed.map((item) => ({
+            ...item,
+            url: this.inMemoryDataUrls.get(item.key) || item.url,
+          }));
+        }
       }
     } catch {}
     return [];
@@ -327,13 +334,23 @@ class StorageService {
 
   private saveToRecentCache(item: StoredObject): void {
     try {
+      if (item.url && item.url.startsWith('data:')) {
+        this.inMemoryDataUrls.set(item.key, item.url);
+      }
       const existing = this.getRecentCache().filter((c) => c.key !== item.key);
-      const updated = [item, ...existing].slice(0, 80); // simpan 80 item terbaru
+      // Hindari menyimpan string data URL base64 raksasa ke localStorage browser (kuota 5MB)
+      const sanitizedItem: StoredObject = item.url && item.url.startsWith('data:')
+        ? { ...item, url: '[local-memory]' }
+        : item;
+      const updated = [sanitizedItem, ...existing].slice(0, 30);
       localStorage.setItem(LOCAL_STORAGE_CACHE_KEY, JSON.stringify(updated));
-    } catch {}
+    } catch (err) {
+      console.warn('[storageService] Gagal menyimpan cache media ke localStorage:', err);
+    }
   }
 
   private removeFromRecentCache(key: string): void {
+    this.inMemoryDataUrls.delete(key);
     try {
       const existing = this.getRecentCache().filter((c) => c.key !== key);
       localStorage.setItem(LOCAL_STORAGE_CACHE_KEY, JSON.stringify(existing));
