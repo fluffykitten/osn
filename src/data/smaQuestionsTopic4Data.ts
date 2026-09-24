@@ -4,9 +4,9 @@
  * 
  * BATCH 4: Termodinamika Kimia & Termokimia (Pilar 4 / Modul 4)
  * Distribusi Standar:
- * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 276 - 280]
- * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 281 - 290]
- * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 291 - 300]
+ * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 106001 - 106025]
+ * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 106001 - 106025]
+ * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 106001 - 106025]
  * Total: 25 Butir Soal (13 MCQ + 12 Uraian Terstruktur)
  */
 
@@ -14,10 +14,10 @@ import type { Question } from '../types/database';
 
 export const SMA_TOPIC_4_QUESTIONS: Question[] = [
   // =========================================================================
-  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 276 - 280)
+  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 106001 - 106025)
   // =========================================================================
   {
-    id: 276,
+    id: 106001,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -70,7 +70,7 @@ E. Sistem tertutup; $\\Delta U = +1050\\ \\text{J}$`,
     tags: ['sistem-lingkungan', 'hukum-pertama', 'energi-dalam', 'kerja-pv', 'konvensi-iupac'],
   },
   {
-    id: 277,
+    id: 106002,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -117,7 +117,7 @@ E. $\\ce{CaO}(s) + \\ce{CO2}(g) \\rightarrow \\ce{CaCO3}(s) \\quad \\Delta H^\\c
     tags: ['entalpi-pembentukan-standar', 'persamaan-termokimia', 'alotrop-stabil', 'wujud-standar'],
   },
   {
-    id: 278,
+    id: 106003,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -181,7 +181,7 @@ E. $+27{,}17\\ \\text{kJ/mol}$`,
     tags: ['kalorimetri-larutan', 'entalpi-netralisasi', 'asas-black', 'reaksi-eksoterm'],
   },
   {
-    id: 279,
+    id: 106004,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -270,7 +270,7 @@ Data hasil pengamatan eksperimen tercatat sebagai berikut:
     tags: ['kalorimetri-spiritus', 'pembakaran-etanol', 'efisiensi-termal', 'analisis-galat'],
   },
   {
-    id: 280,
+    id: 106005,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -358,10 +358,10 @@ Diketahui data entalpi pembentukan standar ($\\Delta H_f^\\circ$) pada $298\\ \\
   },
 
   // =========================================================================
-  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 281 - 290)
+  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 106001 - 106025)
   // =========================================================================
   {
-    id: 281,
+    id: 106006,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -425,7 +425,7 @@ E. $+453{,}4\\ \\text{kJ/mol}$`,
     tags: ['hukum-hess', 'asetilena', 'entalpi-pembentukan', 'penjumlahan-reaksi'],
   },
   {
-    id: 282,
+    id: 106007,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -493,7 +493,7 @@ E. $+166\\ \\text{kJ/mol}$`,
     tags: ['energi-ikatan', 'hidrogenasi', 'etena-etana', 'entalpi-fasa-gas'],
   },
   {
-    id: 283,
+    id: 106008,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -547,7 +547,7 @@ E. $w = -506{,}6\\ \\text{J}$ dan $\\Delta U = +993{,}4\\ \\text{J}$`,
     tags: ['kerja-pv', 'hukum-pertama', 'konversi-joule', 'ekspansi-gas'],
   },
   {
-    id: 284,
+    id: 106009,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -605,7 +605,7 @@ E. $\\Delta S^\\circ_{\\text{rxn}} = +129{,}5\\ \\text{J/K}$; entropi naik karen
     tags: ['entropi-standar', 'sintesis-amonia', 'derajat-keacakan', 'perubahan-mol-gas'],
   },
   {
-    id: 285,
+    id: 106010,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -668,7 +668,7 @@ E. Spontan pada semua temperatur`,
     tags: ['energi-bebas-gibbs', 'temperatur-transisi', 'kespontanan-reaksi', 'dekomposisi-karbonat'],
   },
   {
-    id: 286,
+    id: 106011,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -759,7 +759,7 @@ Diketahui tetapan gas universal $R = 8{,}314\\ \\text{J}\\cdot\\text{mol}^{-1}\\
     tags: ['kalorimeter-bom', 'energi-dalam-delta-u', 'koreksi-delta-h', 'asam-benzoat'],
   },
   {
-    id: 287,
+    id: 106012,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -848,7 +848,7 @@ Data termodinamika standar pada $298{,}15\\ \\text{K}$ dan tekanan $1\\ \\text{b
     tags: ['alotrop-karbon', 'grafit-intan', 'metastabilitas', 'energi-aktivasi', 'gibbs-standar'],
   },
   {
-    id: 288,
+    id: 106013,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -940,7 +940,7 @@ Untuk gas metana ($\\ce{CH4}$), diketahui data termokimia standar pada $298\\ \\
     tags: ['atomisasi', 'energi-ikatan-rata-rata', 'siklus-termokimia', 'metana'],
   },
   {
-    id: 289,
+    id: 106014,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1029,7 +1029,7 @@ Tabel data termodinamika standar pada $298{,}15\\ \\text{K}$:
     tags: ['kalsinasi-caco3', 'gibbs-kespontanan', 'temperatur-transisi', 'batu-kapur'],
   },
   {
-    id: 290,
+    id: 106015,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1117,10 +1117,10 @@ Data termodinamika standar pada $298{,}15\\ \\text{K}$:
   },
 
   // =========================================================================
-  // KATEGORI SULIT (40% = 10 Butir Soal: ID 291 - 300)
+  // KATEGORI SULIT (40% = 10 Butir Soal: ID 106001 - 106025)
   // =========================================================================
   {
-    id: 291,
+    id: 106016,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1183,7 +1183,7 @@ E. $\\Delta H^\\circ = +47{,}5\\ \\text{kJ/mol}$ dan $\\Delta S^\\circ = +56{,}8
     tags: ['persamaan-van-t-hoff', 'kesetimbangan-kp', 'temperatur-ketergantungan', 'entalpi-reaksi'],
   },
   {
-    id: 292,
+    id: 106017,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1247,7 +1247,7 @@ E. $-94{,}56\\ \\text{kJ/mol}$`,
     tags: ['hukum-kirchhoff', 'kapasitas-kalor-cp', 'entalpi-temperatur', 'hcl-sintesis'],
   },
   {
-    id: 293,
+    id: 106018,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1307,7 +1307,7 @@ E. $w_{\\text{rev}} = -8314\\ \\text{J}$ dan $w_{\\text{irrev}} = -4157\\ \\text
     tags: ['kerja-reversibel', 'kerja-ireversibel', 'ekspansi-isotermal', 'entropi-semesta'],
   },
   {
-    id: 294,
+    id: 106019,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1365,7 +1365,7 @@ E. $\\Delta H_{\\text{vap}} = 36{,}4\\ \\text{kJ/mol}$ dan $T_b = 341{,}4^\\circ
     tags: ['clausius-clapeyron', 'entalpi-penguapan', 'tekanan-uap-jenuh', 'titik-didih-normal'],
   },
   {
-    id: 295,
+    id: 106020,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1425,7 +1425,7 @@ E. Karbon mengikat oksigen membentuk gas $\\ce{CO2}$; kemiringan negatif disebab
     tags: ['diagram-ellingham', 'reduksi-karbotermal', 'entropi-gas-co', 'metalurgi-ekstraksi'],
   },
   {
-    id: 296,
+    id: 106021,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1524,7 +1524,7 @@ Diberikan data termokimia siklus Born-Haber pada $298\\ \\text{K}$:
     tags: ['siklus-born-haber', 'energi-kisi', 'persamaan-kapustinskii', 'polarisasi-fajans', 'mgcl2'],
   },
   {
-    id: 297,
+    id: 106022,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1626,7 +1626,7 @@ Data termodinamika standar pada temperatur $298{,}15\\ \\text{K}$:
     tags: ['disosiasi-gas', 'n2o4-no2', 'potensial-kimia', 'energi-gibbs-campuran', 'derajat-disosiasi'],
   },
   {
-    id: 298,
+    id: 106023,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1729,7 +1729,7 @@ $$\\mu_{\\text{JT}} = \\left(\\frac{\\partial T}{\\partial P}\\right)_H$$
     tags: ['efek-joule-thomson', 'temperatur-inversi', 'gas-van-der-waals', 'proses-isentalpik'],
   },
   {
-    id: 299,
+    id: 106024,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',
@@ -1817,7 +1817,7 @@ dengan $k_B$ adalah tetapan Boltzmann ($k_B = R / N_A$) dan $\\Omega$ adalah jum
     tags: ['hukum-ketiga-termodinamika', 'entropi-residual', 'statistik-boltzmann', 'entropi-mutlak', 'teorema-nernst'],
   },
   {
-    id: 300,
+    id: 106025,
     sma_topic_number: 6,
     sma_topic_id: 106,
     curriculum: 'sma',

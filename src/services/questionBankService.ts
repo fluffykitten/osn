@@ -7,6 +7,10 @@
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabaseClient';
 import { BENCHMARK_QUESTIONS } from '../data/syllabusData';
 import { SMA_CHEMISTRY_QUESTIONS } from '../data/smaQuestionsData';
+import { OSK_CHEMISTRY_QUESTIONS } from '../data/oskQuestionsData';
+import { OSP_CHEMISTRY_QUESTIONS } from '../data/ospQuestionsData';
+import { OSN_CHEMISTRY_QUESTIONS } from '../data/osnQuestionsData';
+import { ICHO_CHEMISTRY_QUESTIONS } from '../data/ichoQuestionsData';
 import { tagAndBookmarkService } from './tagAndBookmarkService';
 import type { Question, QuestionFilter, QuestionDifficulty, QuestionStyle, SubQuestion, Worksheet } from '../types/database';
 
@@ -68,10 +72,14 @@ const INITIAL_SEEDED_QUESTIONS: Question[] = BENCHMARK_QUESTIONS.map((q) => {
   };
 });
 
-// Gabungkan butir soal benchmark dengan bank soal Kimia SMA (Fase E & Fase F)
+// Gabungkan butir soal benchmark dengan bank soal Kimia SMA, OSK, OSP, OSN Nasional, dan IChO
 export const ALL_DEFAULT_QUESTIONS: Question[] = [
   ...INITIAL_SEEDED_QUESTIONS,
-  ...SMA_CHEMISTRY_QUESTIONS
+  ...SMA_CHEMISTRY_QUESTIONS,
+  ...OSK_CHEMISTRY_QUESTIONS,
+  ...OSP_CHEMISTRY_QUESTIONS,
+  ...OSN_CHEMISTRY_QUESTIONS,
+  ...ICHO_CHEMISTRY_QUESTIONS,
 ];
 
 class QuestionBankService {
@@ -244,14 +252,14 @@ class QuestionBankService {
           OSN: 6,
           IChO: 7,
         };
-        questions.sort((a, b) => (order[a.difficulty] || 0) - (order[b.difficulty] || 0));
+        questions.sort((a, b) => (order[a.difficulty] || 0) - (order[b.difficulty] || 0) || a.id - b.id);
       } else if (filter.sortBy === 'pillar') {
-        questions.sort((a, b) => a.pillar_number - b.pillar_number);
+        questions.sort((a, b) => (a.pillar_number || 0) - (b.pillar_number || 0) || a.id - b.id);
       } else if (filter.sortBy === 'oldest') {
-        questions.sort((a, b) => (a.year || 2020) - (b.year || 2020));
+        questions.sort((a, b) => (a.year || 2020) - (b.year || 2020) || a.id - b.id);
       } else {
         // default newest
-        questions.sort((a, b) => (b.year || 2024) - (a.year || 2024));
+        questions.sort((a, b) => (b.year || 2024) - (a.year || 2024) || b.id - a.id);
       }
     }
 
@@ -385,15 +393,21 @@ class QuestionBankService {
     }
 
     try {
-      // Periksa apakah tabel questions dapat diakses
+      // Ekstrak payload lengkap termasuk metadata kurikulum SMA dan modul
       const payload = ALL_DEFAULT_QUESTIONS.map(q => ({
         id: q.id,
         pillar_number: q.pillar_number,
+        module_id: q.module_id || q.pillar_number,
         subtopic: q.subtopic,
         difficulty: q.difficulty,
         question_style: q.question_style || 'structured',
         title: q.title,
         question_text: q.question_text,
+        curriculum: q.curriculum || (q.id < 200000 ? 'sma' : 'osn'),
+        grade: q.grade || null,
+        curriculum_phase: q.curriculum_phase || null,
+        sma_topic_number: q.sma_topic_number || null,
+        sma_topic_id: q.sma_topic_id || null,
         year: q.year || 2024,
         source_event: q.source_event || 'OSN Silabus Puspresnas',
         estimated_time_minutes: q.estimated_time_minutes || 15,
@@ -406,27 +420,35 @@ class QuestionBankService {
         is_verified: true
       }));
 
-      const { data, error } = await supabase.from('questions').upsert(payload, { onConflict: 'id' });
+      // Unggah secara batch (50 butir per batch) agar aman dari batas payload HTTP
+      const BATCH_SIZE = 50;
+      let totalUploaded = 0;
 
-      if (error) {
-        if (error.code === 'PGRST205') {
+      for (let i = 0; i < payload.length; i += BATCH_SIZE) {
+        const batch = payload.slice(i, i + BATCH_SIZE);
+        const { error } = await supabase.from('questions').upsert(batch, { onConflict: 'id' });
+
+        if (error) {
+          if (error.code === 'PGRST205') {
+            return {
+              success: false,
+              count: totalUploaded,
+              message: 'Tabel `public.questions` belum dibuat di Supabase. Harap jalankan migrasi SQL di Supabase SQL Editor terlebih dahulu.'
+            };
+          }
           return {
             success: false,
-            count: 0,
-            message: 'Tabel `public.questions` belum dibuat di Supabase. Harap jalankan file `supabase/schema.sql` di SQL Editor Supabase terlebih dahulu.'
+            count: totalUploaded,
+            message: `Error Supabase pada batch ${i + 1}-${i + batch.length}: ${error.message}`
           };
         }
-        return {
-          success: false,
-          count: 0,
-          message: `Error Supabase: ${error.message}`
-        };
+        totalUploaded += batch.length;
       }
 
       return {
         success: true,
-        count: payload.length,
-        message: `Berhasil menyinkronkan ${payload.length} butir soal olimpiade ke Supabase Cloud!`
+        count: totalUploaded,
+        message: `Berhasil menyinkronkan ${totalUploaded} butir soal olimpiade & kurikulum ke Supabase Cloud!`
       };
     } catch (err: any) {
       return {

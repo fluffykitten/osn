@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
-import { getSubmissionHistory, calculatePillarMastery } from '../../services/submissionService';
+import { getSubmissionHistory, syncSubmissionsFromCloud, calculatePillarMastery } from '../../services/submissionService';
 import type {
   Classroom,
   ClassroomAssignment,
@@ -53,10 +53,16 @@ export const StudentDashboard: React.FC = () => {
         const studentAssignments = await classroomService.getStudentAssignments(user.email, user.id);
         setAssignments(studentAssignments);
 
-        // 3. Ambil riwayat pengerjaan & penguasaan 10 pilar
-        const history = getSubmissionHistory(user.id);
-        setSubmissions(history);
-        setPillarScores(calculatePillarMastery(history));
+        // 3. Ambil riwayat pengerjaan & penguasaan 10 pilar (lokal + cloud sync)
+        const localHist = getSubmissionHistory(user.id);
+        setSubmissions(localHist);
+        setPillarScores(calculatePillarMastery(localHist));
+
+        const cloudHist = await syncSubmissionsFromCloud(user.id);
+        if (cloudHist && cloudHist.length > 0) {
+          setSubmissions(cloudHist);
+          setPillarScores(calculatePillarMastery(cloudHist));
+        }
       } catch (err) {
         console.error('Gagal memuat data student dashboard:', err);
       } finally {

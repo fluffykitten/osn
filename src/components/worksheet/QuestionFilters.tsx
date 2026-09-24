@@ -19,9 +19,29 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
   const [newTagInput, setNewTagInput] = useState('');
   const [showTagInput, setShowTagInput] = useState(false);
   const [availableTags, setAvailableTags] = useState<string[]>(tagAndBookmarkService.getAllGlobalTags());
+  const [searchTerm, setSearchTerm] = useState(filter.search || '');
+
+  // Sinkronkan searchTerm saat filter.search diubah dari luar (misal tombol reset)
+  React.useEffect(() => {
+    setSearchTerm(filter.search || '');
+  }, [filter.search]);
+
+  // Debounce pemanggilan onChange filter pencarian selama 250ms
+  React.useEffect(() => {
+    if (searchTerm === (filter.search || '')) return;
+    const timer = setTimeout(() => {
+      onChange({ ...filter, search: searchTerm });
+    }, 250);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange({ ...filter, search: e.target.value });
+    setSearchTerm(e.target.value);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    onChange({ ...filter, search: '' });
   };
 
   const handleDifficultySelect = (difficulty: QuestionDifficulty | 'ALL') => {
@@ -123,14 +143,16 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
         <input
           type="text"
           placeholder="Cari konsep, rumus, atau judul..."
-          value={filter.search || ''}
+          value={searchTerm}
           onChange={handleSearchChange}
           className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 text-slate-900 placeholder:text-slate-400 transition-all"
         />
-        {filter.search && (
+        {searchTerm && (
           <button
-            onClick={() => onChange({ ...filter, search: '' })}
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
+            type="button"
+            onClick={handleClearSearch}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5 cursor-pointer"
+            title="Hapus pencarian"
           >
             <X className="w-3.5 h-3.5" />
           </button>

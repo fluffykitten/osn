@@ -1,41 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
 
-// Auth Page
+// Auth & Landing Pages (Eagerly Loaded for Immediate First Paint)
 import { LoginPage } from './pages/auth/LoginPage';
-
-// Public Landing Page (Informasi platform, fitur, kapabilitas, aksi masuk/daftar siswa)
 import { LandingPage } from './pages/public/LandingPage';
-
-// Student Pages
-import { Roadmap } from './pages/student/Roadmap';
-import { MaterialsDatabase } from './pages/student/MaterialsDatabase';
-import { PracticeBank } from './pages/student/PracticeBank';
-import { StudentWorksheetList } from './pages/student/StudentWorksheetList';
-import { StudentClassroomView } from './pages/student/StudentClassroomView';
-import { Worksheet } from './pages/student/Worksheet';
-import { Profile } from './pages/student/Profile';
-import { StudentDashboard } from './pages/student/StudentDashboard';
-import { StudentProgressReport } from './pages/student/StudentProgressReport';
-import { StudentSettings } from './pages/student/StudentSettings';
-import { StudentLockedGate } from './pages/student/StudentLockedGate';
 import { RequireClassroom } from './components/common/RequireClassroom';
+import { StudentLockedGate } from './pages/student/StudentLockedGate';
 
-// Teacher Studio Pages
-import { TeacherDashboard } from './pages/teacher/TeacherDashboard';
-import { AiQuestionStudio } from './pages/teacher/AiQuestionStudio';
-import { WorksheetBuilder } from './pages/teacher/WorksheetBuilder';
-import { LiveClassroomDashboard } from './pages/teacher/LiveClassroomDashboard';
-import { ClassroomManager } from './pages/teacher/ClassroomManager';
-import { ClassroomDetail } from './pages/teacher/ClassroomDetail';
+// Student Pages (Lazy Loaded on Demand)
+const Roadmap = lazy(() => import('./pages/student/Roadmap').then((m) => ({ default: m.Roadmap })));
+const MaterialsDatabase = lazy(() => import('./pages/student/MaterialsDatabase').then((m) => ({ default: m.MaterialsDatabase })));
+const PracticeBank = lazy(() => import('./pages/student/PracticeBank').then((m) => ({ default: m.PracticeBank })));
+const StudentWorksheetList = lazy(() => import('./pages/student/StudentWorksheetList').then((m) => ({ default: m.StudentWorksheetList })));
+const StudentClassroomView = lazy(() => import('./pages/student/StudentClassroomView').then((m) => ({ default: m.StudentClassroomView })));
+const Worksheet = lazy(() => import('./pages/student/Worksheet').then((m) => ({ default: m.Worksheet })));
+const StudentDashboard = lazy(() => import('./pages/student/StudentDashboard').then((m) => ({ default: m.StudentDashboard })));
+const StudentProgressReport = lazy(() => import('./pages/student/StudentProgressReport').then((m) => ({ default: m.StudentProgressReport })));
+const StudentSettings = lazy(() => import('./pages/student/StudentSettings').then((m) => ({ default: m.StudentSettings })));
 
-// Whiteboard (STEMBoard) Pages
-import { WhiteboardCatalogPage } from './pages/whiteboard/WhiteboardCatalogPage';
-import { WhiteboardPage } from './pages/whiteboard/WhiteboardPage';
+// Teacher Studio Pages (Lazy Loaded on Demand)
+const TeacherDashboard = lazy(() => import('./pages/teacher/TeacherDashboard').then((m) => ({ default: m.TeacherDashboard })));
+const AiQuestionStudio = lazy(() => import('./pages/teacher/AiQuestionStudio').then((m) => ({ default: m.AiQuestionStudio })));
+const WorksheetBuilder = lazy(() => import('./pages/teacher/WorksheetBuilder').then((m) => ({ default: m.WorksheetBuilder })));
+const LiveClassroomDashboard = lazy(() => import('./pages/teacher/LiveClassroomDashboard').then((m) => ({ default: m.LiveClassroomDashboard })));
+const ClassroomManager = lazy(() => import('./pages/teacher/ClassroomManager').then((m) => ({ default: m.ClassroomManager })));
+const ClassroomDetail = lazy(() => import('./pages/teacher/ClassroomDetail').then((m) => ({ default: m.ClassroomDetail })));
+
+// Whiteboard (STEMBoard) Pages (Lazy Loaded on Demand)
+const WhiteboardCatalogPage = lazy(() => import('./pages/whiteboard/WhiteboardCatalogPage').then((m) => ({ default: m.WhiteboardCatalogPage })));
+const WhiteboardPage = lazy(() => import('./pages/whiteboard/WhiteboardPage').then((m) => ({ default: m.WhiteboardPage })));
+
+// Fallback Loader saat chunk modul sedang diunduh
+const PageLoadingFallback: React.FC = () => (
+  <div className="min-h-[55vh] flex flex-col items-center justify-center p-8 space-y-3">
+    <div className="w-9 h-9 border-3 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
+    <span className="text-xs font-mono font-medium text-slate-500">Memuat halaman...</span>
+  </div>
+);
 
 /**
  * Route guard untuk memproteksi seluruh halaman internal aplikasi agar tidak bisa diakses Tamu (Guest) sebelum login
@@ -155,7 +160,8 @@ function AppContent() {
           isFullScreenWorkspace ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40' : ''
         }`}
       >
-        <Routes>
+        <Suspense fallback={<PageLoadingFallback />}>
+          <Routes>
           {/* Landing Page: Informasi web, kapabilitas, fitur, tombol Masuk, Daftar Siswa, Lupa Password, Tentang Creator */}
           <Route path="/" element={<LandingPage />} />
 
@@ -306,6 +312,7 @@ function AppContent() {
               </RequireAuth>
             }
           />
+          <Route path="/bank-soal" element={<Navigate to="/practice" replace />} />
 
           {/* Teacher Studio & Classroom Management (Khusus Guru & Admin) */}
           <Route
@@ -394,6 +401,7 @@ function AppContent() {
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
       </main>
 
       {!isFullScreenWorkspace && <Footer />}

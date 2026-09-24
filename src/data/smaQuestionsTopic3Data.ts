@@ -4,9 +4,9 @@
  * 
  * BATCH 3: Stoikiometri & Wujud Zat (Pilar 3 / Modul 3)
  * Distribusi Standar:
- * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 251 - 255]
- * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 256 - 265]
- * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 266 - 275]
+ * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 105001 - 105025]
+ * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 105001 - 105025]
+ * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 105001 - 105025]
  * Total: 25 Butir Soal (13 MCQ + 12 Uraian Terstruktur)
  */
 
@@ -14,10 +14,10 @@ import type { Question } from '../types/database';
 
 export const SMA_TOPIC_3_QUESTIONS: Question[] = [
   // =========================================================================
-  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 251 - 255)
+  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 105001 - 105025)
   // =========================================================================
   {
-    id: 251,
+    id: 105001,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -69,7 +69,7 @@ E. $A_r = 35{,}97$ dan $1{,}204 \\times 10^{23}$ molekul`,
     tags: ['konsep-mol', 'bilangan-avogadro', 'kelimpahan-isotop', 'massa-atom-relatif'],
   },
   {
-    id: 252,
+    id: 105002,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -121,7 +121,7 @@ E. $1 : 1$ dan $50{,}0\\%$`,
     tags: ['hukum-proust', 'persen-massa', 'oksida-besi', 'hukum-dasar-kimia'],
   },
   {
-    id: 253,
+    id: 105003,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -176,7 +176,7 @@ E. $\\ce{CH2}$ dan $\\ce{C4H8}$`,
     tags: ['rumus-empiris', 'rumus-molekul', 'hidrokarbon', 'persen-unsur'],
   },
   {
-    id: 254,
+    id: 105004,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -263,7 +263,7 @@ Diketahui massa atom relatif: $A_r\\ \\ce{Mg} = 24{,}31$, $A_r\\ \\ce{O} = 16{,}
     tags: ['stoikiometri-reaksi', 'penyetaraan-reaksi', 'hukum-lavoisier', 'pembakaran-magnesium'],
   },
   {
-    id: 255,
+    id: 105005,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -354,10 +354,10 @@ Ke dalam suatu reaktor bervolume fleksibel dimasukkan $15{,}0\\ \\text{L}$ gas $
   },
 
   // =========================================================================
-  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 256 - 265)
+  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 105001 - 105025)
   // =========================================================================
   {
-    id: 256,
+    id: 105006,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -413,7 +413,7 @@ E. $\\ce{Pb(NO3)2}$ dan $95{,}5\\%$`,
     tags: ['pereaksi-pembatas', 'persen-hasil', 'stoikiometri-larutan', 'pengendapan'],
   },
   {
-    id: 257,
+    id: 105007,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -468,7 +468,7 @@ E. $M_r = 56{,}1\\ \\text{g/mol}$ (Butena, $\\ce{C4H8}$)`,
     tags: ['gas-ideal', 'pv-nrt', 'kerapatan-gas', 'massa-molar', 'hidrokarbon'],
   },
   {
-    id: 258,
+    id: 105008,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -521,7 +521,7 @@ E. Karbon monoksida ($\\ce{CO}$, $M_r = 28{,}01$)`,
     tags: ['hukum-graham', 'efusi-gas', 'laju-efusi', 'massa-molar', 'metana'],
   },
   {
-    id: 259,
+    id: 105009,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -581,7 +581,7 @@ E. $245\\ \\text{mg}$`,
     tags: ['hukum-dalton', 'tekanan-parsial', 'pengumpulan-gas-di-atas-air', 'gas-ideal', 'hidrogen'],
   },
   {
-    id: 260,
+    id: 105010,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -635,7 +635,7 @@ E. $0{,}5000\\ \\text{M}$`,
     tags: ['titrasi-asam-basa', 'asam-oksalat', 'standarisasi-naoh', 'valensi-asam', 'molaritas'],
   },
   {
-    id: 261,
+    id: 105011,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -728,7 +728,7 @@ Diketahui massa molar $\\ce{BaSO4} = 233{,}39\\ \\text{g/mol}$. Anggap volume la
     tags: ['tabel-mrs', 'gravimetri', 'pengendapan', 'konsentrasi-ion', 'barium-sulfat'],
   },
   {
-    id: 262,
+    id: 105012,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -834,7 +834,7 @@ Melalui metode spektrometri massa, diketahui massa molar vitamin C adalah $176{,
     tags: ['analisis-pembakaran', 'rumus-empiris', 'rumus-molekul', 'vitamin-c', 'aparatus-kimia'],
   },
   {
-    id: 263,
+    id: 105013,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -925,7 +925,7 @@ Diagram di atas memperlihatkan batas fasa termodinamika untuk dua zat sederhana:
     tags: ['diagram-fasa', 'titik-tripel', 'persamaan-clapeyron', 'sublimasi', 'titik-kritis'],
   },
   {
-    id: 264,
+    id: 105014,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1015,7 +1015,7 @@ Diketahui massa atom relatif isotop murni:
     tags: ['hukum-graham', 'efusi-gas', 'pengayaan-uranium', 'isotop', 'kaskade-difusi'],
   },
   {
-    id: 265,
+    id: 105015,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1104,10 +1104,10 @@ Diketahui massa atom relatif aluminium $A_r\\ \\ce{Al} = 26{,}98$, dan tetapan g
   },
 
   // =========================================================================
-  // KATEGORI SULIT (40% = 10 Butir Soal: ID 266 - 275)
+  // KATEGORI SULIT (40% = 10 Butir Soal: ID 105001 - 105025)
   // =========================================================================
   {
-    id: 266,
+    id: 105016,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1170,7 +1170,7 @@ E. $138{,}5\\ \\text{atm}$ dan $Z = 1{,}125$`,
     tags: ['gas-nyata', 'van-der-waals', 'faktor-kompresibilitas', 'tekanan-kohesif'],
   },
   {
-    id: 267,
+    id: 105017,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1228,7 +1228,7 @@ E. $35{,}20\\%$`,
     tags: ['iodometri', 'titrasi-redoks', 'stoikiometri-multi-tahap', 'paduan-kuningan', 'tembaga'],
   },
   {
-    id: 268,
+    id: 105018,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1287,7 +1287,7 @@ E. $1828{,}6\\ \\text{K}$`,
     diagram_url: '/diagrams/maxwell-boltzmann-distribution.svg',
   },
   {
-    id: 269,
+    id: 105019,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1353,7 +1353,7 @@ E. $8{,}40\\%$`,
     tags: ['metode-warder', 'dua-indikator', 'campuran-karbonat', 'titrasi-asam-basa', 'bikarbonat'],
   },
   {
-    id: 270,
+    id: 105020,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1408,7 +1408,7 @@ E. $48{,}5\\ \\text{kJ/mol}$ dan $82{,}4^\\circ\\text{C}$`,
     tags: ['clausius-clapeyron', 'entalpi-penguapan', 'titik-didih-normal', 'tekanan-uap'],
   },
   {
-    id: 271,
+    id: 105021,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1503,7 +1503,7 @@ Diketahui massa atom relatif ($A_r$): $\\ce{Na} = 22{,}99$, $\\ce{Ag} = 107{,}87
     tags: ['gravimetri', 'halida-perak', 'penggantian-halogen', 'osn-nasional', 'stoikiometri-campuran'],
   },
   {
-    id: 272,
+    id: 105022,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1608,7 +1608,7 @@ $$\\left(P + \\frac{a}{V_m^2}\\right) (V_m - b) = RT$$
     tags: ['persamaan-virial', 'suhu-boyle', 'van-der-waals', 'gas-nyata', 'helium'],
   },
   {
-    id: 273,
+    id: 105023,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1726,7 +1726,7 @@ Diketahui massa atom relatif ($A_r$): $\\ce{Y} = 88{,}91$, $\\ce{Ba} = 137{,}33$
     tags: ['superkonduktor-ybco', 'iodometri', 'non-stoikiometri', 'valensi-campuran', 'osn-nasional'],
   },
   {
-    id: 274,
+    id: 105024,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',
@@ -1837,7 +1837,7 @@ Diketahui:
     diagram_url: '/diagrams/maxwell-boltzmann-distribution.svg',
   },
   {
-    id: 275,
+    id: 105025,
     sma_topic_number: 5,
     sma_topic_id: 105,
     curriculum: 'sma',

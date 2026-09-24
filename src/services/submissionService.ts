@@ -137,12 +137,71 @@ export async function saveWorksheetSubmission(
 /**
  * Mengambil seluruh riwayat pengerjaan siswa
  */
-export function getSubmissionHistory(userId: string = DEFAULT_STUDENT_ID): SavedSubmissionRecord[] {
+export function getSubmissionHistory(userId?: string): SavedSubmissionRecord[] {
   const localList = getLocalSubmissions();
   // Urutkan berdasarkan tanggal terbaru
   return localList
-    .filter((item) => !userId || item.userId === userId)
+    .filter((item) => !userId || item.userId === userId || item.userId === DEFAULT_STUDENT_ID)
     .sort((a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime());
+}
+
+/**
+ * Mengambil & menyinkronkan riwayat pengerjaan siswa dari Supabase Cloud
+ */
+export async function syncSubmissionsFromCloud(userId?: string): Promise<SavedSubmissionRecord[]> {
+  const supabase = getSupabaseClient();
+  if (!supabase) return getSubmissionHistory(userId);
+
+  try {
+    let query = supabase.from('worksheet_submissions').select('*');
+    if (userId && userId !== DEFAULT_STUDENT_ID) {
+      query = query.or(`user_id.eq.${userId},user_id.eq.${DEFAULT_STUDENT_ID}`);
+    }
+    const { data, error } = await query;
+    if (!error && data && data.length > 0) {
+      const cloudRecords: SavedSubmissionRecord[] = data.map((d: any) => ({
+        id: d.id,
+        userId: d.user_id,
+        questionId: Number(d.question_id),
+        questionTitle: d.subtopic || `Soal #${d.question_id}`,
+        pillarNumber: Number(d.pillar_number),
+        subtopic: d.subtopic || '',
+        studentWorkSteps: d.student_work_steps || '',
+        studentFinalAnswer: d.student_final_answer || '',
+        totalScore: Number(d.total_score),
+        maxScore: Number(d.max_score) || 10,
+        scorePercentage: Math.round((Number(d.total_score) / (Number(d.max_score) || 10)) * 100),
+        status: d.status,
+        criteriaBreakdown: d.criteria_breakdown || [],
+        overallFeedback: d.overall_feedback || '',
+        strengths: d.strengths || [],
+        missingOrIncorrectPoints: d.missing_points || [],
+        misconceptionDiagnosis: d.misconception_diagnosis,
+        suggestedReviewTopic: d.suggested_review_topic,
+        xpAwarded: d.xp_awarded || 0,
+        confidenceScore: d.confidence_score || 0.9,
+        elapsedSeconds: Number(d.elapsed_seconds) || 0,
+        gradedAt: d.created_at || new Date().toISOString(),
+        modelUsed: d.model_used,
+        syncedToCloud: true,
+      }));
+
+      // Merge dengan Local Storage
+      const local = getLocalSubmissions();
+      const map = new Map<string, SavedSubmissionRecord>();
+      local.forEach((item) => map.set(item.id, item));
+      cloudRecords.forEach((item) => map.set(item.id, item));
+      const merged = Array.from(map.values()).sort(
+        (a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime()
+      );
+      saveLocalSubmissions(merged);
+      return merged.filter((item) => !userId || item.userId === userId || item.userId === DEFAULT_STUDENT_ID);
+    }
+  } catch (err: any) {
+    console.warn('Gagal sinkronisasi submissions dari cloud:', err?.message);
+  }
+
+  return getSubmissionHistory(userId);
 }
 
 /**

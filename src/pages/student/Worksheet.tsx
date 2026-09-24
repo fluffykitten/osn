@@ -118,36 +118,37 @@ export const Worksheet: React.FC = () => {
           if (questionRes.questions && questionRes.questions.length > 0) {
             setCustomQuestions(questionRes.questions);
           }
-        } else if (type === 'practice') {
-          const qId = id ? parseInt(id, 10) : undefined;
-          if (qId && !isNaN(qId)) {
-            // Ambil soal target dari Bank Soal
-            const targetQ = await questionBankService.getQuestionById(qId);
-            if (targetQ) {
-              // Muat seluruh butir soal dari pilar/topik yang sama agar siswa dapat bernavigasi
-              const questionRes = await questionBankService.getQuestions({
-                pillarNumber: targetQ.pillar_number,
-              });
-              if (questionRes.questions && questionRes.questions.length > 0) {
-                const exists = questionRes.questions.some((q) => q.id === qId);
-                const finalQuestions = exists
-                  ? questionRes.questions
-                  : [targetQ, ...questionRes.questions];
-                setCustomQuestions(finalQuestions);
-              } else {
-                setCustomQuestions([targetQ]);
-              }
-            } else {
-              const questionRes = await questionBankService.getQuestions();
-              if (questionRes.questions && questionRes.questions.length > 0) {
-                setCustomQuestions(questionRes.questions);
-              }
+        } else if (type === 'practice' && id) {
+          // Mendukung ID tunggal (e.g. "501001") maupun multi-ID pilihan (e.g. "501001,501002,102005")
+          const rawIds = id.split(',').map((s) => parseInt(s.trim(), 10)).filter((n) => !isNaN(n));
+          if (rawIds.length === 1) {
+            // Tepat 1 soal: hanya memuat soal tunggal yang diklik di Bank Soal
+            const singleQ = await questionBankService.getQuestionById(rawIds[0]);
+            if (singleQ) {
+              setCustomQuestions([singleQ]);
+              return;
             }
-          } else {
+          } else if (rawIds.length > 1) {
+            // Multi-soal pilihan dari Bank Soal: memuat tepat soal-soal yang dipilih
             const questionRes = await questionBankService.getQuestions();
-            if (questionRes.questions && questionRes.questions.length > 0) {
-              setCustomQuestions(questionRes.questions);
+            const allQ = questionRes.questions || [];
+            const matched = rawIds
+              .map((qId) => allQ.find((q) => q.id === qId))
+              .filter(Boolean) as Question[];
+            if (matched.length > 0) {
+              setCustomQuestions(matched);
+              return;
             }
+          }
+          // Fallback umum jika ID tidak ditemukan
+          const fallbackRes = await questionBankService.getQuestions();
+          if (fallbackRes.questions && fallbackRes.questions.length > 0) {
+            setCustomQuestions(fallbackRes.questions);
+          }
+        } else if (type === 'practice') {
+          const fallbackRes = await questionBankService.getQuestions();
+          if (fallbackRes.questions && fallbackRes.questions.length > 0) {
+            setCustomQuestions(fallbackRes.questions);
           }
         }
       } catch (e) {
@@ -1085,6 +1086,7 @@ export const Worksheet: React.FC = () => {
       // Milestone 3: Auto-Save evaluasi pengerjaan ke Portofolio Siswa (Supabase + Local Cache)
       try {
         await saveWorksheetSubmission({
+          userId: studentId,
           questionId: currentQuestion.id,
           questionTitle: currentQuestion.title,
           pillarNumber: currentQuestion.pillar_number,
@@ -1174,7 +1176,9 @@ export const Worksheet: React.FC = () => {
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded uppercase font-mono shrink-0">
                 {type === 'practice'
-                  ? 'Latihan Bank Soal'
+                  ? questionsList.length === 1
+                    ? 'Latihan 1 Soal Mandiri'
+                    : `Latihan Pilihan (${questionsList.length} Soal)`
                   : liveToken
                   ? 'Live Sesi Guru'
                   : type === 'static_module'
@@ -1187,8 +1191,8 @@ export const Worksheet: React.FC = () => {
                   <span>{liveToken}</span>
                 </span>
               )}
-              <h1 className="text-xs sm:text-sm font-bold text-slate-900 font-display truncate max-w-[180px] lg:max-w-xs hidden sm:inline" title={`Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
-                T#{currentQuestion.pillar_number}: {currentQuestion.subtopic}
+              <h1 className="text-xs sm:text-sm font-bold text-slate-900 font-display truncate max-w-[200px] lg:max-w-md hidden sm:inline" title={currentQuestion.title || `Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
+                {currentQuestion.title || `T#${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}
               </h1>
             </div>
           </div>

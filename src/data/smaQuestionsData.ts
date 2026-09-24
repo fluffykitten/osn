@@ -4,9 +4,9 @@
  * 
  * BATCH 1: Struktur Atom & Sistem Periodik Unsur (Pilar 1)
  * Distribusi:
- * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 201 - 205]
- * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 206 - 215]
- * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 216 - 225]
+ * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 102001 - 102025]
+ * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 102001 - 102025]
+ * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 102001 - 102025]
  * Total: 25 Butir Soal (13 MCQ + 12 Uraian Terstruktur)
  */
 
@@ -14,13 +14,25 @@ import type { Question } from '../types/database';
 import { SMA_TOPIC_2_QUESTIONS } from './smaQuestionsTopic2Data';
 import { SMA_TOPIC_3_QUESTIONS } from './smaQuestionsTopic3Data';
 import { SMA_TOPIC_4_QUESTIONS } from './smaQuestionsTopic4Data';
+import { SMA_TOPIC_5_QUESTIONS } from './smaQuestionsTopic5Data';
+import { SMA_TOPIC_6_QUESTIONS } from './smaQuestionsTopic6Data';
+import { SMA_TOPIC_7_QUESTIONS } from './smaQuestionsTopic7Data';
+import { SMA_TOPIC_8_QUESTIONS } from './smaQuestionsTopic8Data';
+import { SMA_TOPIC_9_QUESTIONS } from './smaQuestionsTopic9Data';
+import { SMA_TOPIC_10_QUESTIONS } from './smaQuestionsTopic10Data';
+import { SMA_TOPIC_11_QUESTIONS } from './smaQuestionsTopic11Data';
+import { SMA_TOPIC_12_QUESTIONS } from './smaQuestionsTopic12Data';
+import { SMA_TOPIC_13_QUESTIONS } from './smaQuestionsTopic13Data';
+import { SMA_TOPIC_14_QUESTIONS } from './smaQuestionsTopic14Data';
+import { SMA_TOPIC_15_QUESTIONS } from './smaQuestionsTopic15Data';
+import { SMA_TOPIC_16_QUESTIONS } from './smaQuestionsTopic16Data';
 
 export const SMA_TOPIC_1_QUESTIONS: Question[] = [
   // =========================================================================
-  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 201 - 205)
+  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 102001 - 102025)
   // =========================================================================
   {
-    id: 201,
+    id: 102001,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -66,7 +78,7 @@ E. 14 proton, 11 elektron, dan 13 neutron`,
     tags: ['partikel-dasar-atom', 'notasi-nuklida', 'kation-anion', 'struktur-atom'],
   },
   {
-    id: 202,
+    id: 102002,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -119,7 +131,7 @@ E. (2) dan (4)`,
     tags: ['isotop-isobar-isoton', 'notasi-nuklida', 'struktur-atom'],
   },
   {
-    id: 203,
+    id: 102003,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -167,7 +179,7 @@ E. $2, 8, 6, 4$ dengan elektron valensi 4`,
     tags: ['model-atom-bohr', 'konfigurasi-elektron', 'elektron-valensi'],
   },
   {
-    id: 204,
+    id: 102004,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -183,18 +195,18 @@ E. $2, 8, 6, 4$ dengan elektron valensi 4`,
 
 **Data Notasi:**
 1. Atom besi netral: $_{26}^{56}\\ce{Fe}$
-2. Ion sulfida: $_{16}^{32}\\ce{S^2-}`,
+2. Ion sulfida: $_{16}^{32}\\ce{S^2-}$`,
     sub_questions: [
       {
         label: 'a',
-        question_text: 'Hitunglah jumlah proton, elektron, dan neutron pada atom netral $_{26}^{56}\\ce{Fe}!',
+        question_text: 'Hitunglah jumlah proton, elektron, dan neutron pada atom netral $_{26}^{56}\\ce{Fe}$!',
         points: 2.5,
         rubric: 'Proton = 26 (1 poin), Elektron = 26 (0.5 poin), Neutron = 56 - 26 = 30 (1 poin).',
         expected_answer: 'Proton = 26, Elektron = 26, Neutron = 30'
       },
       {
         label: 'b',
-        question_text: 'Hitunglah jumlah proton, elektron, dan neutron pada anion $_{16}^{32}\\ce{S^2-}!',
+        question_text: 'Hitunglah jumlah proton, elektron, dan neutron pada anion $_{16}^{32}\\ce{S^2-}$!',
         points: 2.5,
         rubric: 'Proton = 16 (1 poin), Elektron = 16 + 2 = 18 (1 poin), Neutron = 32 - 16 = 16 (0.5 poin).',
         expected_answer: 'Proton = 16, Elektron = 18, Neutron = 16'
@@ -238,7 +250,7 @@ E. $2, 8, 6, 4$ dengan elektron valensi 4`,
     tags: ['partikel-dasar-atom', 'notasi-nuklida', 'kation-anion'],
   },
   {
-    id: 205,
+    id: 102005,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -316,10 +328,10 @@ Berdasarkan konfigurasi elektron kulit utamanya, tentukan letak periode dan golo
   },
 
   // =========================================================================
-  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 206 - 215)
+  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 102001 - 102025)
   // =========================================================================
   {
-    id: 206,
+    id: 102006,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -368,7 +380,7 @@ E. $[\\ce{He}]\\, 2s^2\\, 2p^6\\, 3s^2\\, 3p^3$ dengan 0 elektron tidak berpasan
     tags: ['konfigurasi-elektron', 'aturan-hund', 'prinsip-aufbau', 'diagram-orbital'],
   },
   {
-    id: 207,
+    id: 102007,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -420,7 +432,7 @@ E. $n = 2, l = 1, m_l = -1, m_s = -1/2$`,
     tags: ['bilangan-kuantum', 'subkulit-spdf', 'struktur-atom'],
   },
   {
-    id: 208,
+    id: 102008,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -465,7 +477,7 @@ E. Golongan VIIIB, Periode 4`,
     tags: ['logam-transisi', 'golongan-b', 'periode-dan-golongan', 'konfigurasi-elektron'],
   },
   {
-    id: 209,
+    id: 102009,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -514,7 +526,7 @@ E. $_{19}\\ce{K}$`,
     tags: ['sifat-periodik', 'jari-jari-atom', 'tren-periodik'],
   },
   {
-    id: 210,
+    id: 102010,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -551,7 +563,7 @@ E. Selalu bernilai sama karena semua unsur berada pada kulit utama yang sama ($n
     tags: ['energi-ionisasi', 'sifat-periodik', 'anomali-energi-ionisasi', 'periode-3'],
   },
   {
-    id: 211,
+    id: 102011,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -630,7 +642,7 @@ Berdasarkan prinsip konfigurasi elektron subkulit:`,
     tags: ['logam-transisi', 'ion-transisi', 'kestabilan-setengah-penuh', 'konfigurasi-elektron'],
   },
   {
-    id: 212,
+    id: 102012,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -698,7 +710,7 @@ Berdasarkan konfigurasi elektron mekanika gelombang:`,
     tags: ['bilangan-kuantum', 'diagram-orbital', 'aturan-hund'],
   },
   {
-    id: 213,
+    id: 102013,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -758,7 +770,7 @@ Berdasarkan konfigurasi elektron mekanika gelombang:`,
     tags: ['halogen', 'sifat-periodik', 'keelektronegatifan', 'daya-oksidator'],
   },
   {
-    id: 214,
+    id: 102014,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -821,7 +833,7 @@ Jelaskan perbandingan ukuran jari-jari berikut secara teoritis:`,
     tags: ['jari-jari-ion', 'kation-anion', 'sifat-periodik', 'gaya-elektrostatik'],
   },
   {
-    id: 215,
+    id: 102015,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -901,10 +913,10 @@ $$n = 4,\\quad l = 1,\\quad m_l = 0,\\quad m_s = +1/2$$`,
   },
 
   // =========================================================================
-  // KATEGORI SULIT (40% = 10 Butir Soal: ID 216 - 225)
+  // KATEGORI SULIT (40% = 10 Butir Soal: ID 102001 - 102025)
   // =========================================================================
   {
-    id: 216,
+    id: 102016,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -946,7 +958,7 @@ E. $[\\ce{Ar}]\\, 4s^2\\, 3d^5$ dan $[\\ce{Ar}]\\, 4s^2\\, 3d^{10}$ karena elekt
     tags: ['anomali-konfigurasi', 'aturan-aufbau', 'kestabilan-setengah-penuh', 'kromium-tembaga'],
   },
   {
-    id: 217,
+    id: 102017,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -997,7 +1009,7 @@ E. $\\ce{Al^3+} < \\ce{Na+} < \\ce{Mg^2+} < \\ce{N^3-} < \\ce{O^2-} < \\ce{F-}$`
     tags: ['spesi-isoelektronik', 'jari-jari-ion', 'muatan-inti-efektif', 'sifat-periodik'],
   },
   {
-    id: 218,
+    id: 102018,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1051,7 +1063,7 @@ E. Golongan VA, membentuk senyawa $X\\ce{Cl5}$`,
     tags: ['energi-ionisasi-bertingkat', 'elektron-valensi', 'rumus-senyawa', 'periode-dan-golongan'],
   },
   {
-    id: 219,
+    id: 102019,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1097,7 +1109,7 @@ E. Elektron valensi nitrogen berada pada kulit $n = 3$, sedangkan elektron valen
     tags: ['anomali-energi-ionisasi', 'nitrogen-oksigen', 'aturan-hund', 'tolakan-elektron-sekamar'],
   },
   {
-    id: 220,
+    id: 102020,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1144,7 +1156,7 @@ E. $\\ce{Cr^3+}$`,
     tags: ['paramagnetik-diamagnetik', 'ion-transisi', 'diagram-orbital', 'seng'],
   },
   {
-    id: 221,
+    id: 102021,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1245,7 +1257,7 @@ E. $\\ce{Cr^3+}$`,
     tags: ['energi-ionisasi-bertingkat', 'magnesium', 'elektron-valensi', 'rumus-senyawa'],
   },
   {
-    id: 222,
+    id: 102022,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1322,7 +1334,7 @@ Meskipun nomor atom oksigen lebih besar dari nitrogen, energi ionisasi pertama o
     tags: ['anomali-energi-ionisasi', 'nitrogen-oksigen', 'diagram-orbital', 'energi-pertukaran'],
   },
   {
-    id: 223,
+    id: 102023,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1399,7 +1411,7 @@ Semua spesi tersebut memiliki total 10 elektron dengan konfigurasi elektron yang
     tags: ['spesi-isoelektronik', 'jari-jari-ion', 'muatan-inti-efektif', 'sifat-periodik'],
   },
   {
-    id: 224,
+    id: 102024,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1479,7 +1491,7 @@ Semua spesi tersebut memiliki total 10 elektron dengan konfigurasi elektron yang
     tags: ['periode-3', 'sifat-oksida', 'amfoter', 'daya-reduktor', 'sifat-periodik'],
   },
   {
-    id: 225,
+    id: 102025,
     sma_topic_number: 2,
     sma_topic_id: 102,
     curriculum: 'sma',
@@ -1556,13 +1568,25 @@ Semua spesi tersebut memiliki total 10 elektron dengan konfigurasi elektron yang
   },
 ];
 
-// Gabungkan Batch 1 (Topik 1), Batch 2 (Topik 2), Batch 3 (Topik 3), dan Batch 4 (Topik 4) ke dalam bank soal SMA
+// Gabungkan Batch 1 s.d. Batch 11 ke dalam bank soal SMA
 export const SMA_CHEMISTRY_QUESTIONS: Question[] = [
   ...SMA_TOPIC_1_QUESTIONS,
   ...SMA_TOPIC_2_QUESTIONS,
   ...SMA_TOPIC_3_QUESTIONS,
   ...SMA_TOPIC_4_QUESTIONS,
+  ...SMA_TOPIC_5_QUESTIONS,
+  ...SMA_TOPIC_6_QUESTIONS,
+  ...SMA_TOPIC_7_QUESTIONS,
+  ...SMA_TOPIC_8_QUESTIONS,
+  ...SMA_TOPIC_9_QUESTIONS,
+  ...SMA_TOPIC_10_QUESTIONS,
+  ...SMA_TOPIC_11_QUESTIONS,
+  ...SMA_TOPIC_12_QUESTIONS,
+  ...SMA_TOPIC_13_QUESTIONS,
+  ...SMA_TOPIC_14_QUESTIONS,
+  ...SMA_TOPIC_15_QUESTIONS,
+  ...SMA_TOPIC_16_QUESTIONS,
 ];
 
-export { SMA_TOPIC_2_QUESTIONS, SMA_TOPIC_3_QUESTIONS, SMA_TOPIC_4_QUESTIONS };
+export { SMA_TOPIC_2_QUESTIONS, SMA_TOPIC_3_QUESTIONS, SMA_TOPIC_4_QUESTIONS, SMA_TOPIC_5_QUESTIONS, SMA_TOPIC_6_QUESTIONS, SMA_TOPIC_7_QUESTIONS, SMA_TOPIC_8_QUESTIONS, SMA_TOPIC_9_QUESTIONS, SMA_TOPIC_10_QUESTIONS, SMA_TOPIC_11_QUESTIONS, SMA_TOPIC_12_QUESTIONS, SMA_TOPIC_13_QUESTIONS, SMA_TOPIC_14_QUESTIONS, SMA_TOPIC_15_QUESTIONS, SMA_TOPIC_16_QUESTIONS };
 

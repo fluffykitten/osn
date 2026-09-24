@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { KaTeXRenderer } from '../common/KaTeXRenderer';
 import { tagAndBookmarkService } from '../../services/tagAndBookmarkService';
 import {
@@ -12,7 +12,10 @@ import {
   Tag as TagIcon,
   X,
   Printer,
+  ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Sparkles,
   Image as ImageIcon,
 } from 'lucide-react';
@@ -37,6 +40,48 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
   const [diagramViewerUrl, setDiagramViewerUrl] = useState<string | null>(null);
   const [diagramViewerTitle, setDiagramViewerTitle] = useState<string>('');
   const [newTagInput, setNewTagInput] = useState('');
+
+  // Pagination State: 10, 25, atau 50 butir per halaman
+  const [pageSize, setPageSize] = useState<10 | 25 | 50>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [questions]);
+
+  const totalFiltered = questions.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+  const activePage = Math.min(Math.max(1, currentPage), totalPages);
+
+  const startIndex = (activePage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, totalFiltered);
+
+  const paginatedQuestions = useMemo(() => {
+    return questions.slice(startIndex, endIndex);
+  }, [questions, startIndex, endIndex]);
+
+  const handlePageChange = (newPage: number) => {
+    const target = Math.max(1, Math.min(newPage, totalPages));
+    setCurrentPage(target);
+  };
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (activePage > 3) pages.push('...');
+      const start = Math.max(2, activePage - 1);
+      const end = Math.min(totalPages - 1, activePage + 1);
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      if (activePage < totalPages - 2) pages.push('...');
+      if (!pages.includes(totalPages)) pages.push(totalPages);
+    }
+    return pages;
+  };
 
   const handleToggleBookmark = async (e: React.MouseEvent, qId: number) => {
     e.stopPropagation();
@@ -93,6 +138,37 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
 
   return (
     <div className="space-y-4">
+      {/* Top Header Pagination Info & 10/25/50 Selector */}
+      {totalFiltered > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-2 px-1 pb-1 text-xs border-b border-slate-100">
+          <div className="text-slate-600 font-medium">
+            Menampilkan <strong className="text-slate-900 font-bold">{startIndex + 1}–{endIndex}</strong> dari{' '}
+            <strong className="text-slate-900 font-bold">{totalFiltered}</strong> soal
+          </div>
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
+            <span className="text-[11px] font-semibold text-slate-500 pl-1">Per hal:</span>
+            {([10, 25, 50] as const).map((size) => (
+              <button
+                key={size}
+                type="button"
+                onClick={() => {
+                  setPageSize(size);
+                  setCurrentPage(1);
+                }}
+                className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                  pageSize === size
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/80'
+                }`}
+                title={`Tampilkan ${size} pertanyaan per halaman`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {questions.length === 0 ? (
         <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-3">
           <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
@@ -107,7 +183,7 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
         </div>
       ) : (
         <div className="space-y-3">
-          {questions.map((q) => {
+          {paginatedQuestions.map((q) => {
             const isSelected = selectedQuestionIds.includes(q.id);
             const isBookmarked = tagAndBookmarkService.isBookmarked(q.id);
             const customTags = tagAndBookmarkService.getCustomTags(q.id);
@@ -247,6 +323,103 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
               </div>
             );
           })}
+
+          {/* Bottom Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="bg-white border border-slate-200 rounded-2xl p-3 shadow-2xs flex flex-wrap items-center justify-between gap-2 mt-4">
+              <div className="text-xs text-slate-500 font-mono">
+                Halaman {activePage} / {totalPages}
+              </div>
+
+              <div className="flex items-center gap-1 text-xs">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(1)}
+                  disabled={activePage === 1}
+                  className="p-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                  title="Halaman Pertama"
+                >
+                  <ChevronsLeft className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(activePage - 1)}
+                  disabled={activePage === 1}
+                  className="p-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                  title="Halaman Sebelumnya"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+
+                <div className="flex items-center gap-1 mx-1">
+                  {getPageNumbers().map((p, idx) => {
+                    if (p === '...') {
+                      return (
+                        <span key={`ellipsis-${idx}`} className="px-1 text-slate-400 font-mono text-xs">
+                          ...
+                        </span>
+                      );
+                    }
+                    const pageNum = p as number;
+                    const isActive = pageNum === activePage;
+                    return (
+                      <button
+                        key={pageNum}
+                        type="button"
+                        onClick={() => handlePageChange(pageNum)}
+                        className={`min-w-7 h-7 px-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+                          isActive
+                            ? 'bg-emerald-600 text-white shadow-xs'
+                            : 'border border-slate-200 text-slate-700 hover:bg-slate-100'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(activePage + 1)}
+                  disabled={activePage === totalPages}
+                  className="p-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                  title="Halaman Berikutnya"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(totalPages)}
+                  disabled={activePage === totalPages}
+                  className="p-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                  title="Halaman Terakhir"
+                >
+                  <ChevronsRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px]">
+                {([10, 25, 50] as const).map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => {
+                      setPageSize(size);
+                      setCurrentPage(1);
+                    }}
+                    className={`px-1.5 py-0.5 rounded font-mono font-bold transition-all ${
+                      pageSize === size
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

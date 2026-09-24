@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import {
   getSubmissionHistory,
+  syncSubmissionsFromCloud,
   calculatePillarMastery,
 } from '../../services/submissionService';
 import { generateRemedialRecommendations } from '../../services/remedialService';
@@ -36,11 +37,20 @@ export const StudentProgressReport: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'radar' | 'history' | 'remedial'>('radar');
 
   useEffect(() => {
-    // Muat data riwayat pengerjaan aktual dari layanan persistensi
+    // 1. Muat data riwayat pengerjaan lokal secara instan
     const history = getSubmissionHistory(user?.id);
     setSubmissions(history);
     setPillarScores(calculatePillarMastery(history));
     setRecommendations(generateRemedialRecommendations(history));
+
+    // 2. Sinkronkan dari Supabase Cloud jika terhubung
+    syncSubmissionsFromCloud(user?.id).then((cloudHistory) => {
+      if (cloudHistory && cloudHistory.length > 0) {
+        setSubmissions(cloudHistory);
+        setPillarScores(calculatePillarMastery(cloudHistory));
+        setRecommendations(generateRemedialRecommendations(cloudHistory));
+      }
+    });
   }, [user]);
 
   // Metrik Akademis Siswa

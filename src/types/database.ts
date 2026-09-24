@@ -136,6 +136,8 @@ export interface Question {
   custom_tags?: string[];
   common_misconceptions?: string[];
   created_by?: string;
+  author?: string;
+  institution?: string;
   is_verified?: boolean;
   created_at?: string;
   tags?: string[];

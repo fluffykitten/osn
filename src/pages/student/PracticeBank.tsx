@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { PILLARS_DATA } from '../../data/syllabusData';
 import { findConceptByTag } from '../../data/materialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
@@ -27,6 +27,13 @@ import {
   ListFilter,
   CheckCircle2,
   SlidersHorizontal,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  CheckSquare,
+  Square,
+  ListChecks,
 } from 'lucide-react';
 import { questionBankService } from '../../services/questionBankService';
 import { tagAndBookmarkService } from '../../services/tagAndBookmarkService';
@@ -34,14 +41,50 @@ import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import type { QuestionDifficulty, Question, QuestionFilter } from '../../types/database';
 
-// Helper untuk cuplikan teks soal di kartu Bank Soal tanpa merusak penutup rumus KaTeX ($/$$)
+// Cache memoization untuk cuplikan teks soal di kartu Bank Soal
+const excerptCache = new Map<string, string>();
+
 const getQuestionExcerpt = (text: string): string => {
   if (!text) return '';
+  const cached = excerptCache.get(text);
+  if (cached) return cached;
   // 1. Hilangkan daftar opsi ganda (A., B., C., D., E.) agar tidak memenuhi cuplikan kartu
   const withoutOptions = text.split(/\n\s*[A-E]\.\s+/)[0].trim();
   // 2. Ubah display math $$...$$ menjadi inline $...$ agar mengalir serasi di 3 baris tanpa blok margin yang terpotong
-  return withoutOptions.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => `$${math.trim()}$`);
+  const processed = withoutOptions.replace(/\$\$([\s\S]*?)\$\$/g, (_, math) => `$${math.trim()}$`);
+  excerptCache.set(text, processed);
+  return processed;
 };
+
+// Komponen Skeleton Loader untuk memuat kartu soal secara mulus
+const QuestionCardSkeleton: React.FC = () => (
+  <div className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-xs animate-pulse space-y-4">
+    <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div className="flex items-center gap-2">
+        <div className="h-5 w-24 bg-slate-200 rounded-md" />
+        <div className="h-5 w-16 bg-slate-200 rounded-md" />
+        <div className="h-5 w-20 bg-slate-200 rounded-md" />
+      </div>
+      <div className="h-6 w-14 bg-slate-200 rounded-md" />
+    </div>
+    <div className="space-y-2">
+      <div className="h-5 w-3/4 bg-slate-200 rounded-md" />
+      <div className="h-3 w-1/4 bg-slate-100 rounded-md" />
+    </div>
+    <div className="space-y-1.5 py-1">
+      <div className="h-4 w-full bg-slate-100 rounded-md" />
+      <div className="h-4 w-5/6 bg-slate-100 rounded-md" />
+      <div className="h-4 w-2/3 bg-slate-100 rounded-md" />
+    </div>
+    <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+      <div className="flex gap-1.5">
+        <div className="h-4 w-12 bg-slate-100 rounded-md" />
+        <div className="h-4 w-16 bg-slate-100 rounded-md" />
+      </div>
+      <div className="h-8 w-28 bg-slate-200 rounded-xl" />
+    </div>
+  </div>
+);
 
 export const PracticeBank: React.FC = () => {
   const navigate = useNavigate();
@@ -61,6 +104,10 @@ export const PracticeBank: React.FC = () => {
   const [totalQuestionsCount, setTotalQuestionsCount] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // Pagination State: 10, 25, atau 50 pertanyaan per halaman
+  const [pageSize, setPageSize] = useState<10 | 25 | 50>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   // Modal Preview Detail & Rubrik Soal
   const [activeModalQuestion, setActiveModalQuestion] = useState<Question | null>(null);
   const [newTagInput, setNewTagInput] = useState<string>('');
@@ -71,6 +118,9 @@ export const PracticeBank: React.FC = () => {
 
   // Mobile filter drawer state
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState<boolean>(false);
+
+  // State butir soal terpilih untuk dikerjakan bersama di Lembar Kerja
+  const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);
 
   // Load questions saat filter berubah
   const loadQuestions = async () => {
@@ -98,6 +148,7 @@ export const PracticeBank: React.FC = () => {
   };
 
   useEffect(() => {
+    setCurrentPage(1);
     loadQuestions();
   }, [filter]);
 
@@ -180,6 +231,77 @@ export const PracticeBank: React.FC = () => {
     const isAlready = currentTags.includes(cleanTag);
     const newTags = isAlready ? currentTags.filter((x) => x !== cleanTag) : [...currentTags, cleanTag];
     setFilter({ ...filter, selectedTags: newTags });
+  };
+
+  // Kalkulasi & slice data pagination
+  const totalFiltered = questions.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+  const activePage = Math.min(Math.max(1, currentPage), totalPages);
+
+  const startIndex = (activePage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, totalFiltered);
+
+  const paginatedQuestions = useMemo(() => {
+    return questions.slice(startIndex, endIndex);
+  }, [questions, startIndex, endIndex]);
+
+  // Logika Pemilihan Soal untuk Lembar Kerja
+  const handleToggleSelectQuestion = (qId: number) => {
+    setSelectedQuestionIds((prev) =>
+      prev.includes(qId) ? prev.filter((id) => id !== qId) : [...prev, qId]
+    );
+  };
+
+  const isCurrentPageAllSelected = useMemo(() => {
+    if (paginatedQuestions.length === 0) return false;
+    return paginatedQuestions.every((q) => selectedQuestionIds.includes(q.id));
+  }, [paginatedQuestions, selectedQuestionIds]);
+
+  const handleToggleSelectCurrentPage = () => {
+    if (isCurrentPageAllSelected) {
+      const pageIds = new Set(paginatedQuestions.map((q) => q.id));
+      setSelectedQuestionIds((prev) => prev.filter((id) => !pageIds.has(id)));
+    } else {
+      const currentSelected = new Set(selectedQuestionIds);
+      paginatedQuestions.forEach((q) => currentSelected.add(q.id));
+      setSelectedQuestionIds(Array.from(currentSelected));
+    }
+  };
+
+  const handleClearSelection = () => {
+    setSelectedQuestionIds([]);
+  };
+
+  const handleLaunchSelectedWorksheet = () => {
+    if (selectedQuestionIds.length === 0) return;
+    navigate(`/worksheet/practice/${selectedQuestionIds.join(',')}`);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const target = Math.max(1, Math.min(newPage, totalPages));
+    setCurrentPage(target);
+    const topEl = document.getElementById('question-results-top');
+    if (topEl) {
+      topEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (activePage > 3) pages.push('...');
+      const start = Math.max(2, activePage - 1);
+      const end = Math.min(totalPages - 1, activePage + 1);
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      if (activePage < totalPages - 2) pages.push('...');
+      if (!pages.includes(totalPages)) pages.push(totalPages);
+    }
+    return pages;
   };
 
   return (
@@ -290,25 +412,109 @@ export const PracticeBank: React.FC = () => {
         </div>
 
         {/* Right Column (8 cols): Question Results List */}
-        <div className="lg:col-span-8 space-y-4">
+        <div id="question-results-top" className="lg:col-span-8 space-y-4 scroll-mt-6">
           {/* Result Header & Status */}
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 font-semibold px-1 pb-1 border-b border-slate-100">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 font-semibold px-1 pb-2 border-b border-slate-200">
             <div className="flex items-center gap-2">
               <span className="text-slate-900 font-bold">
-                Menampilkan {questions.length} Butir Soal Terstandarisasi
+                Menampilkan {totalFiltered === 0 ? 0 : startIndex + 1}–{endIndex} dari {totalFiltered} Soal
               </span>
               {isLoading && (
                 <span className="w-3.5 h-3.5 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
               )}
             </div>
 
-            <div className="flex items-center gap-2 text-[11px]">
-              <span>Urutan:</span>
-              <span className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md font-mono capitalize">
-                {filter.sortBy || 'newest'}
-              </span>
+            {/* Kontrol Jumlah Tampilan Per Halaman & Urutan */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
+                <span className="text-[11px] font-semibold text-slate-500 pl-1">Per hal:</span>
+                {([10, 25, 50] as const).map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => {
+                      setPageSize(size);
+                      setCurrentPage(1);
+                    }}
+                    className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                      pageSize === size
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/80'
+                    }`}
+                    title={`Tampilkan ${size} pertanyaan per halaman`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+
+              <div className="hidden sm:flex items-center gap-1.5 text-[11px]">
+                <span className="text-slate-400">Urut:</span>
+                <span className="px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md font-mono capitalize">
+                  {filter.sortBy || 'newest'}
+                </span>
+              </div>
             </div>
           </div>
+
+          {/* Quick Selection Toolbar untuk Memilih Soal */}
+          {!isLoading && paginatedQuestions.length > 0 && (
+            <div className="flex flex-wrap items-center justify-between gap-2.5 px-3.5 py-2.5 bg-white border border-slate-200/90 rounded-2xl shadow-2xs text-xs">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleToggleSelectCurrentPage}
+                  className="flex items-center gap-2 text-slate-700 hover:text-emerald-700 font-semibold cursor-pointer select-none transition-colors"
+                >
+                  {isCurrentPageAllSelected ? (
+                    <CheckSquare className="w-4 h-4 text-emerald-600" />
+                  ) : (
+                    <Square className="w-4 h-4 text-slate-400" />
+                  )}
+                  <span>
+                    {isCurrentPageAllSelected
+                      ? 'Batalkan Pilihan Halaman Ini'
+                      : 'Pilih Semua di Halaman Ini'}
+                  </span>
+                </button>
+                <span className="text-[11px] text-slate-400 font-mono">
+                  ({paginatedQuestions.length} butir)
+                </span>
+              </div>
+
+              {selectedQuestionIds.length > 0 && (
+                <div className="flex items-center gap-2 ml-auto">
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold font-mono text-[11px]">
+                    {selectedQuestionIds.length} soal terpilih
+                  </span>
+                  <button
+                    type="button"
+                    onClick={handleClearSelection}
+                    className="px-2 py-1 text-slate-500 hover:text-slate-800 text-[11px] font-medium cursor-pointer"
+                  >
+                    Batal Pilih
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleLaunchSelectedWorksheet}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all shadow-xs cursor-pointer hover:scale-102"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Kerjakan {selectedQuestionIds.length} Soal</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Loading Skeleton State */}
+          {isLoading && (
+            <div className="space-y-4">
+              {Array.from({ length: Math.min(pageSize, 4) }).map((_, idx) => (
+                <QuestionCardSkeleton key={idx} />
+              ))}
+            </div>
+          )}
 
           {/* Empty State */}
           {questions.length === 0 && !isLoading && (
@@ -343,20 +549,50 @@ export const PracticeBank: React.FC = () => {
             </div>
           )}
 
-          {/* Question Cards */}
-          {questions.map((q) => {
+          {/* Question Cards (Dipaginasi 10/25/50 per halaman) */}
+          {!isLoading && paginatedQuestions.map((q) => {
             const isBookmarked = tagAndBookmarkService.isBookmarked(q.id);
             const customTags = tagAndBookmarkService.getCustomTags(q.id);
             const topicMeta = resolveQuestionTopicMeta(q);
+            const isSelected = selectedQuestionIds.includes(q.id);
 
             return (
               <div
                 key={q.id}
-                className="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-slate-300 hover:shadow-2xs transition-all space-y-4 group"
+                className={`bg-white border rounded-2xl p-5 sm:p-6 shadow-xs hover:border-slate-300 hover:shadow-2xs transition-all space-y-4 group ${
+                  isSelected
+                    ? 'ring-2 ring-emerald-500/80 bg-emerald-50/15 border-emerald-400'
+                    : 'border-slate-200/90'
+                }`}
               >
                 {/* Header Card: Badges, Style, Bookmark, & Preview */}
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                   <div className="flex flex-wrap items-center gap-2">
+                    {/* Tombol Centang Pilih Soal */}
+                    <button
+                      type="button"
+                      onClick={() => handleToggleSelectQuestion(q.id)}
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer border ${
+                        isSelected
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs font-bold'
+                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 hover:border-slate-300'
+                      }`}
+                      title={
+                        isSelected
+                          ? 'Batalkan pilihan soal ini'
+                          : 'Pilih soal ini untuk dikerjakan di Lembar Kerja'
+                      }
+                    >
+                      {isSelected ? (
+                        <CheckSquare className="w-3.5 h-3.5 text-white" />
+                      ) : (
+                        <Square className="w-3.5 h-3.5 text-slate-400" />
+                      )}
+                      <span className="text-[10px] font-mono">
+                        {isSelected ? 'Terpilih' : 'Pilih'}
+                      </span>
+                    </button>
+
                     <span className={`px-2.5 py-0.5 text-white text-[10px] font-bold rounded font-mono ${topicMeta.isSma ? 'bg-teal-700' : 'bg-slate-900'}`}>
                       {topicMeta.topicBadgeLabel}
                     </span>
@@ -391,6 +627,20 @@ export const PracticeBank: React.FC = () => {
                       <span className="px-2 py-0.5 bg-amber-50 border border-amber-200 text-amber-800 text-[10px] font-bold rounded flex items-center gap-1">
                         <ImageIcon className="w-3 h-3 text-amber-600" />
                         <span>Diagram Visual</span>
+                      </span>
+                    )}
+
+                    {q.source_event && (
+                      <span
+                        className={`px-2 py-0.5 text-[10px] font-bold rounded font-mono flex items-center gap-1 border ${
+                          q.generation_type === 'manual'
+                            ? 'bg-blue-50 text-blue-800 border-blue-200'
+                            : 'bg-purple-50 text-purple-800 border-purple-200'
+                        }`}
+                        title={q.generation_type === 'manual' ? 'Naskah Asli Arsip Kompetisi Resmi' : 'Soal Sintetis Terkalibrasi Model Kisi-kisi'}
+                      >
+                        <span>{q.generation_type === 'manual' ? '🏛️' : '⚡'}</span>
+                        <span className="truncate max-w-[200px] sm:max-w-none">{q.source_event}</span>
                       </span>
                     )}
 
@@ -537,6 +787,116 @@ export const PracticeBank: React.FC = () => {
               </div>
             );
           })}
+
+          {/* Bottom Pagination Controls */}
+          {!isLoading && totalFiltered > 0 && (
+            <div className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-2xs flex flex-wrap items-center justify-between gap-3 mt-6">
+              {/* Info Halaman & Rentang */}
+              <div className="text-xs text-slate-600 font-medium">
+                Halaman <strong className="text-slate-900 font-bold">{activePage}</strong> dari{' '}
+                <strong className="text-slate-900 font-bold">{totalPages}</strong>{' '}
+                <span className="text-slate-400 font-mono">
+                  (Menampilkan {startIndex + 1}–{endIndex} dari {totalFiltered} soal)
+                </span>
+              </div>
+
+              {/* Tombol Navigasi Halaman */}
+              {totalPages > 1 && (
+                <div className="flex items-center gap-1 text-xs">
+                  {/* First & Prev */}
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(1)}
+                    disabled={activePage === 1}
+                    className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    title="Halaman Pertama"
+                  >
+                    <ChevronsLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(activePage - 1)}
+                    disabled={activePage === 1}
+                    className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    title="Halaman Sebelumnya"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1 mx-1">
+                    {getPageNumbers().map((p, idx) => {
+                      if (p === '...') {
+                        return (
+                          <span key={`ellipsis-${idx}`} className="px-1 text-slate-400 font-mono text-xs">
+                            ...
+                          </span>
+                        );
+                      }
+                      const pageNum = p as number;
+                      const isActive = pageNum === activePage;
+                      return (
+                        <button
+                          key={pageNum}
+                          type="button"
+                          onClick={() => handlePageChange(pageNum)}
+                          className={`min-w-8 h-8 px-2 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                            isActive
+                              ? 'bg-emerald-600 text-white shadow-xs'
+                              : 'border border-slate-200 text-slate-700 hover:bg-slate-100'
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Next & Last */}
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(activePage + 1)}
+                    disabled={activePage === totalPages}
+                    className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    title="Halaman Berikutnya"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handlePageChange(totalPages)}
+                    disabled={activePage === totalPages}
+                    className="p-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    title="Halaman Terakhir"
+                  >
+                    <ChevronsRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
+
+              {/* Selector 10/25/50 di Bagian Bawah */}
+              <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs ml-auto sm:ml-0">
+                <span className="text-[11px] font-semibold text-slate-500 pl-1">Per hal:</span>
+                {([10, 25, 50] as const).map((size) => (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => {
+                      setPageSize(size);
+                      setCurrentPage(1);
+                    }}
+                    className={`px-2 py-0.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                      pageSize === size
+                        ? 'bg-emerald-600 text-white shadow-xs'
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/80'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -573,14 +933,50 @@ export const PracticeBank: React.FC = () => {
                 <span className="text-xs text-slate-500 font-medium">
                   {resolveQuestionTopicMeta(activeModalQuestion).topicTitle}
                 </span>
+
+                {activeModalQuestion.source_event && (
+                  <span
+                    className={`text-xs font-bold px-2.5 py-1 rounded-lg border font-mono flex items-center gap-1.5 ${
+                      activeModalQuestion.generation_type === 'manual'
+                        ? 'bg-blue-50 text-blue-800 border-blue-200'
+                        : 'bg-purple-50 text-purple-800 border-purple-200'
+                    }`}
+                  >
+                    <span>{activeModalQuestion.generation_type === 'manual' ? '🏛️ Arsip Resmi:' : '⚡ Model Sintetis:'}</span>
+                    <span>{activeModalQuestion.source_event}</span>
+                  </span>
+                )}
               </div>
 
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleToggleSelectQuestion(activeModalQuestion.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all border cursor-pointer ${
+                    selectedQuestionIds.includes(activeModalQuestion.id)
+                      ? 'bg-emerald-100 text-emerald-800 border-emerald-300 font-bold'
+                      : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
+                  {selectedQuestionIds.includes(activeModalQuestion.id) ? (
+                    <>
+                      <CheckSquare className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Soal Terpilih</span>
+                    </>
+                  ) : (
+                    <>
+                      <Square className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Pilih Soal</span>
+                    </>
+                  )}
+                </button>
+
                 <Link
                   to={`/worksheet/practice/${activeModalQuestion.id}`}
-                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs flex items-center gap-1.5 transition-all"
+                  className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs flex items-center gap-1.5 transition-all hover:scale-102"
+                  title="Buka dan kerjakan hanya soal ini di Lembar Kerja"
                 >
-                  <span>Buka di Lembar Kerja</span>
+                  <span>Kerjakan Soal Ini</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
 
@@ -762,6 +1158,43 @@ export const PracticeBank: React.FC = () => {
         imageUrl={previewDiagramUrl || ''}
         title={previewDiagramTitle || 'Diagram Soal'}
       />
+
+      {/* Floating Sticky Bar untuk Menjalankan Soal-Soal Terpilih */}
+      {selectedQuestionIds.length > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 backdrop-blur-md text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-center justify-between gap-4 max-w-xl w-[92vw] animate-in fade-in slide-in-from-bottom-4 duration-200">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-500 text-slate-950 font-mono font-bold text-sm shadow-xs shrink-0">
+              {selectedQuestionIds.length}
+            </span>
+            <div className="leading-tight truncate">
+              <p className="text-xs sm:text-sm font-bold text-white truncate">
+                {selectedQuestionIds.length} Butir Soal Terpilih
+              </p>
+              <p className="text-[10px] sm:text-xs text-slate-400 truncate">
+                Siap dikerjakan bersama dalam 1 lembar kerja
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={handleClearSelection}
+              className="px-3 py-1.5 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              onClick={handleLaunchSelectedWorksheet}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-md transition-all hover:scale-102 cursor-pointer"
+            >
+              <span>Kerjakan Sekarang</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

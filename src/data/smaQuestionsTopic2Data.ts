@@ -4,9 +4,9 @@
  * 
  * BATCH 2: Ikatan Kimia & Geometri Molekul (Pilar 2 / Modul 2)
  * Distribusi Standar:
- * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 226 - 230]
- * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 231 - 240]
- * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 241 - 250]
+ * - 20% Mudah (5 Soal: 3 MCQ, 2 Uraian)  [ID 103001 - 103025]
+ * - 40% Sedang (10 Soal: 5 MCQ, 5 Uraian) [ID 103001 - 103025]
+ * - 40% Sulit (10 Soal: 5 MCQ, 5 Uraian)  [ID 103001 - 103025]
  * Total: 25 Butir Soal (13 MCQ + 12 Uraian Terstruktur)
  */
 
@@ -14,10 +14,10 @@ import type { Question } from '../types/database';
 
 export const SMA_TOPIC_2_QUESTIONS: Question[] = [
   // =========================================================================
-  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 226 - 230)
+  // KATEGORI MUDAH (20% = 5 Butir Soal: ID 103001 - 103025)
   // =========================================================================
   {
-    id: 226,
+    id: 103001,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -67,7 +67,7 @@ E. Atom $\\ce{Mg}$ melepas 1 elektron dan atom $\\ce{F}$ menangkap 2 elektron, m
     tags: ['ikatan-ion', 'transfer-elektron', 'kaidah-oktet', 'senyawa-biner', 'ikatan-kovalen'],
   },
   {
-    id: 227,
+    id: 103002,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -114,7 +114,7 @@ E. 1 PEI dan 3 PEB`,
     tags: ['struktur-lewis', 'pasangan-elektron-bebas', 'pasangan-elektron-ikatan', 'amonia', 'vsepr'],
   },
   {
-    id: 228,
+    id: 103003,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -162,7 +162,7 @@ E. Ikatan kovalen koordinasi terbentuk karena adanya gaya tarik dipol-dipol perm
     tags: ['ikatan-kovalen-koordinasi', 'ikatan-datif', 'asam-basa-lewis', 'ion-hidronium'],
   },
   {
-    id: 229,
+    id: 103004,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -224,7 +224,7 @@ E. Ikatan kovalen koordinasi terbentuk karena adanya gaya tarik dipol-dipol perm
     tags: ['pengecualian-oktet', 'sub-oktet', 'asam-lewis', 'ikatan-kovalen-koordinasi', 'struktur-lewis'],
   },
   {
-    id: 230,
+    id: 103005,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -294,10 +294,10 @@ E. Ikatan kovalen koordinasi terbentuk karena adanya gaya tarik dipol-dipol perm
   },
 
   // =========================================================================
-  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 231 - 240)
+  // KATEGORI SEDANG (40% = 10 Butir Soal: ID 103001 - 103025)
   // =========================================================================
   {
-    id: 231,
+    id: 103006,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -359,7 +359,7 @@ E. Ketiga struktur memiliki kestabilan identik karena muatan totalnya sama-sama 
     tags: ['muatan-formal', 'resonansi-struktur', 'tiosianat', 'elektronegativitas', 'kontributor-mayor'],
   },
   {
-    id: 232,
+    id: 103007,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -418,7 +418,7 @@ Molekul yang keduanya bersifat **nonpolar** adalah pasangan nomor **(1) dan (3)*
     tags: ['kepolaran-ikatan', 'momen-dipol', 'simetri-molekul', 'vsepr', 'vektor-dipol'],
   },
   {
-    id: 233,
+    id: 103008,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -470,7 +470,7 @@ E. 4 ikatan $\\sigma$, 5 ikatan $\\pi$, dan hibridisasi $sp, sp^2, sp^2$`,
     tags: ['hibridisasi-orbital', 'ikatan-sigma-pi', 'akrilonitril', 'domain-elektron'],
   },
   {
-    id: 234,
+    id: 103009,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -517,7 +517,7 @@ E. Atom belerang tidak memiliki orbital $d$, sehingga tidak mampu menampung elek
     tags: ['vsepr', 'aturan-bent', 'sf4-seesaw', 'posisi-ekuatorial-aksial', 'tolakan-peb'],
   },
   {
-    id: 235,
+    id: 103010,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -564,7 +564,7 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
     tags: ['ikatan-hidrogen', 'gaya-antarmolekul', 'titik-didih', 'anomali-air', 'stoikiometri-ikatan'],
   },
   {
-    id: 236,
+    id: 103011,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -660,7 +660,7 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
     tags: ['muatan-formal', 'resonansi-struktur', 'dinitrogen-monoksida', 'kontributor-mayor', 'aturan-oktet'],
   },
   {
-    id: 237,
+    id: 103012,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -744,7 +744,7 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
     tags: ['vsepr', 'clf3-t-shape', 'sudut-ikatan-terdistorsi', 'aturan-bent', 'posisi-ekuatorial'],
   },
   {
-    id: 238,
+    id: 103013,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -821,7 +821,7 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
     tags: ['hibridisasi-orbital', 'karakter-s', 'panjang-ikatan', 'keasaman-hidrokarbon', 'ikatan-sigma-pi'],
   },
   {
-    id: 239,
+    id: 103014,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -897,7 +897,7 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
     tags: ['ikatan-hidrogen', 'intramolekul-vs-intermolekul', 'nitrofenol', 'titik-didih', 'kelarutan'],
   },
   {
-    id: 240,
+    id: 103015,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -983,10 +983,10 @@ E. Molekul $\\ce{HF}$ mengalami disosiasi sempurna menjadi ion $\\ce{H+}$ dan $\
   },
 
   // =========================================================================
-  // KATEGORI SULIT (40% = 10 Butir Soal: ID 241 - 250)
+  // KATEGORI SULIT (40% = 10 Butir Soal: ID 103001 - 103025)
   // =========================================================================
   {
-    id: 241,
+    id: 103016,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1057,7 +1057,7 @@ E. $\\ce{O2^2-}$`,
     tags: ['teori-orbital-molekul-mot', 'orde-ikatan', 'paramagnetik', 'diamagnetik', 'deret-spesi-oksigen'],
   },
   {
-    id: 242,
+    id: 103017,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1100,7 +1100,7 @@ E. Kedua atom karbon dan oksigen mendonorkan pasangan elektron secara simetris m
     tags: ['teori-orbital-molekul-mot', 'karbon-monoksida-co', 'homo-lumo', 'ligan-logam-karbonil', 'diatomik-heteronuklir'],
   },
   {
-    id: 243,
+    id: 103018,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1149,7 +1149,7 @@ E. Ketiga atom fluorin menempati posisi ekuatorial untuk memaksimalkan gaya tola
     tags: ['aturan-bent', 'bents-rule', 'pf3cl2', 'panjang-ikatan-aksial-ekuatorial', 'hibridisasi-sp3d'],
   },
   {
-    id: 244,
+    id: 103019,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1207,7 +1207,7 @@ E. $-3222.6\\text{ kJ/mol}$`,
     tags: ['siklus-born-haber', 'energi-kisi', 'hukum-hess', 'mgcl2', 'termodinamika-ionik'],
   },
   {
-    id: 245,
+    id: 103020,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1253,7 +1253,7 @@ E. 4 PEI dan 3 PEB; ketiga PEB menempati posisi ekuatorial seperti pada molekul 
     tags: ['vsepr-eksotis', 'xef5-pentagonal-planar', 'bilangan-sterik-7', 'hibridisasi-sp3d3', 'senyawa-gas-mulia'],
   },
   {
-    id: 246,
+    id: 103021,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1339,7 +1339,7 @@ E. 4 PEI dan 3 PEB; ketiga PEB menempati posisi ekuatorial seperti pada molekul 
     tags: ['teori-orbital-molekul-mot', 'sp-mixing', 'n2-dan-no+', 'orde-ikatan', 'energi-ionisasi-molekul'],
   },
   {
-    id: 247,
+    id: 103022,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1418,7 +1418,7 @@ E. 4 PEI dan 3 PEB; ketiga PEB menempati posisi ekuatorial seperti pada molekul 
     tags: ['aturan-bent', 'bents-rule', 'halometana', 'sudut-ikatan-riil', 'redistribusi-karakter-s'],
   },
   {
-    id: 248,
+    id: 103023,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1519,7 +1519,7 @@ E. 4 PEI dan 3 PEB; ketiga PEB menempati posisi ekuatorial seperti pada molekul 
     tags: ['siklus-born-haber', 'energi-kisi', 'persamaan-kapustinskii', 'afinitas-elektron-kedua', 'kalsium-oksida'],
   },
   {
-    id: 249,
+    id: 103024,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
@@ -1603,7 +1603,7 @@ E. 4 PEI dan 3 PEB; ketiga PEB menempati posisi ekuatorial seperti pada molekul 
     tags: ['vsepr-eksotis', 'if7-pentagonal-bipyramidal', 'panjang-ikatan-anomali', 'crowding-sterik', 'hibridisasi-sp3d3'],
   },
   {
-    id: 250,
+    id: 103025,
     sma_topic_number: 3,
     sma_topic_id: 103,
     curriculum: 'sma',
