@@ -1,7 +1,7 @@
 # ⚛️ OSN Kimia Mastery
 
 > **Platform Terpadu Pembinaan Olimpiade Sains Nasional (OSN) Kimia SMA & IChO Standar Puspresnas / BPTI**  
-> Dilengkapi gamifikasi silabus komprehensif, lembar kerja interaktif formula KaTeX $\text{mhchem}$, evaluasi cerdas multi-step berbasis AI, papan tulis interaktif STEMBoard, dan studio pemantauan guru *realtime*.
+> Dilengkapi gamifikasi silabus komprehensif, lembar kerja interaktif formula KaTeX $\text{mhchem}$, evaluasi cerdas multi-step berbasis penalaran ilmiah, papan tulis interaktif STEMBoard, studio pemantauan guru *realtime*, serta *Dynamic Theme Studio* dengan beragam palet warna kurasi.
 
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
@@ -18,11 +18,12 @@
 - [Fitur Utama](#-fitur-utama)
   - [1. 10 Modul Silabus Kompetensi OSN & Kurikulum Merdeka](#1-10-modul-silabus-kompetensi-osn--kurikulum-merdeka)
   - [2. Lembar Kerja Interaktif (Interactive Worksheet)](#2-lembar-kerja-interaktif-interactive-worksheet)
-  - [3. Evaluasi Cerdas Berbasis AI (Diagnostic AI Grading)](#3-evaluasi-cerdas-berbasis-ai-diagnostic-ai-grading)
+  - [3. Evaluasi Cerdas Berbasis Penalaran Ilmiah & Rubrik Bertingkat](#3-evaluasi-cerdas-berbasis-penalaran-ilmiah--rubrik-bertingkat)
   - [4. Papan Tulis Interaktif STEM (STEMBoard / Whiteboard)](#4-papan-tulis-interaktif-stem-stemboard--whiteboard)
   - [5. Studio Guru, SpeedGrader & Manajemen Kelas Binaan](#5-studio-guru-speedgrader--manajemen-kelas-binaan)
   - [6. Portofolio Akademik & Radar Diagnostik Siswa](#6-portofolio-akademik--radar-diagnostik-siswa)
-  - [7. Optimasi Penuh Layar Mobile & Tablet](#7-optimasi-penuh-layar-mobile--tablet)
+  - [7. Dynamic Theme Studio & Appearance Manager](#7-dynamic-theme-studio--appearance-manager)
+  - [8. Optimasi Penuh Layar Mobile & Tablet](#8-optimasi-penuh-layar-mobile--tablet)
 - [Arsitektur & Tech Stack](#-arsitektur--tech-stack)
 - [Struktur Proyek](#-struktur-proyek)
 - [Panduan Instalasi & Menjalankan Lokal](#-panduan-instalasi--menjalankan-lokal)
@@ -38,8 +39,9 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
 
 **OSN Kimia Mastery** hadir untuk menjembatani kesenjangan fasilitas pelatihan antara siswa dan pembina sekolah melalui:
 1. **Penalaran Terstruktur (Scaffolding):** Membiasakan siswa menyelesaikan soal dengan 4 pilar penalaran sistematis, bukan hafalan rumus instan.
-2. **Umpan Balik Diagnostik AI:** Menilai langkah per langkah, mendeteksi miskonsepsi kimia ilmiah (seperti konversi satuan termodinamika, penentuan bilangan oksidasi, atau perhitungan pH garam terhidrolisis), dan memberikan saran remedial otomatis.
+2. **Evaluasi Diagnostik Bertingkat:** Menilai langkah per langkah, mendeteksi miskonsepsi kimia ilmiah (seperti konversi satuan termodinamika, penentuan bilangan oksidasi, atau perhitungan pH garam terhidrolisis), dan memberikan saran remedial otomatis.
 3. **Pembinaan Kolaboratif:** Guru dapat membuat kelas, menugaskan paket soal terkurasi, dan memantau progres coretan kanvas maupun lembar kerja secara *live*.
+4. **Desain Fleksibel & Terpadu:** Antarmuka adaptif dengan dukungan palet warna modern yang nyaman di mata untuk sesi belajar intensif jangka panjang.
 
 ---
 
@@ -47,6 +49,11 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
 
 ### 1. 10 Modul Silabus Kompetensi OSN & Kurikulum Merdeka
 - Peta jalur pembelajaran komprehensif dari jenjang sekolah menengah (Fase E Kelas 10 & Fase F Kelas 11–12) hingga materi olimpiade tingkat lanjut (OSK, OSP, OSN, IChO).
+- **Diagram Peta Silabus Dinamis (SVG Theme-Aware):**
+  - *Peta Kurikulum Terstruktur 10 Topik Silabus OSN Kimia* (`ChemistryOsnSyllabusSvg`).
+  - *Peta Silabus Fondasi Kimia SMA — Fase E & Fase F* (`ChemistrySmaSyllabusSvg`).
+  - Seluruh warna diagram, kartu pilar, dan garis alur terhubung secara reaktif ke tema aktif via `useTheme()` dan CSS Variables.
+  - Tab switcher interaktif di landing page untuk beralih antara Silabus OSN, Silabus SMA, atau menampilkan keduanya sekaligus.
 - **10 Topik Silabus Puspresnas:**
   1. *Struktur Atom & Mekanika Kuantum* (Konfigurasi elektron, bilangan kuantum, aturan Slater).
   2. *Ikatan Kimia & Bentuk Molekul* (VSEPR, hibridisasi orbital, teori orbital molekul / MOT).
@@ -73,8 +80,8 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
 
 ---
 
-### 3. Evaluasi Cerdas Berbasis AI (Diagnostic AI Grading)
-- **Penilaian Berbasis Rubrik Multi-Langkah:** AI mengevaluasi logika tahapan siswa secara berjenjang (bukan sekadar mencocokkan angka akhir).
+### 3. Evaluasi Cerdas Berbasis Penalaran Ilmiah & Rubrik Bertingkat
+- **Penilaian Berbasis Rubrik Multi-Langkah:** Evaluasi analitis yang menilai kebenaran logika tahapan pengerjaan siswa secara berjenjang (bukan sekadar mencocokkan angka akhir).
 - **Deteksi Miskonsepsi Kimia:** Mengidentifikasi secara spesifik kekeliruan konseptual yang sering dilakukan siswa (misal: selisih satuan Joule vs kiloJoule pada termokimia, atau penggunaan rumus asam kuat pada asam lemah bivalen).
 - **Sistem Gamifikasi & XP:** Siswa memperoleh poin XP yang memperbarui level dan *streak* harian berdasarkan kualitas penalaran.
 
@@ -114,7 +121,21 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
 
 ---
 
-### 7. Optimasi Penuh Layar Mobile & Tablet
+### 7. Dynamic Theme Studio & Appearance Manager
+- **Manajemen Tema Administrator (`/admin/appearance`):**
+  - Tersedia 6 palet warna pilihan yang terkurasi untuk kenyamanan visual:
+    1. 🌿 **Serene Minimalist** (Bawaan): Harmoni tenang bernuansa akademis (Alice Blue, Ivory, Light Steel Blue, Slate Gray).
+    2. 🌸 **Pastel Vintage & Lavender**: Perpaduan lembut Cream Vanilla, Pastel Sky, Dusty Lavender, dan Mauve Brown.
+    3. 🌊 **Deep Midnight & Royal Blue**: Kontras tajam modern Midnight Navy, Royal Electric Blue, Cornflower Blue, dan Ice Blue.
+    4. 🏺 **Terracotta & Marine Blue**: Kombinasi klasik Almond Linen, Terracotta Coral hangat, Deep Marine Blue, dan Dark Espresso.
+    5. ❄️ **Scandinavian Slate & Ink**: Estetika Nordik Sand Cream, Slate Sky Blue, Classic Slate Blue, dan aksen tinta hitam.
+    6. 🏖️ **Nordic Dune & Glacier Blue**: Keseimbangan pesisir Dusty Cadet Blue, Glacier Blue, Warm Sand Bisque, dan Taupe Khaki.
+  - **Custom Palette Builder:** Admin dapat merancang palet warna baru secara langsung dengan *live preview* dan menyimpannya ke penyimpanan lokal.
+  - **Papan Tulis Hero Banner:** Banner seragam bernuansa papan tulis akademis pada modul Materi, Bank Soal, Worksheet, dan Detail Latihan Topik.
+
+---
+
+### 8. Optimasi Penuh Layar Mobile & Tablet
 - **Responsivitas Terisolasi:** Menggunakan breakpoint Tailwind CSS modern (`lg:`, `md:`, `max-md:`, `max-lg:`).
 - **Tampilan Desktop (PC/Laptop ≥ 1024px):** Layout *Side-by-Side Dual-Panel* 38%:62% dan navigasi horizontal tetap aktif 100% tanpa perubahan.
 - **Tampilan Ponsel / Tablet Portrait (< 1024px):**
@@ -131,6 +152,10 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
 graph TD
     Client[Aplikasi Web Frontend\nReact 19 + TypeScript + Vite + Tailwind v4]
     
+    subgraph Tema & Tampilan
+        ThemeEngine[ThemeContext & Dynamic CSS Injections\nTokens: canvas, surface, border, primary, accent, hero]
+    end
+    
     subgraph Layanan Cloud & Backend
         SB_Auth[Supabase Auth\nEmail/Password + Recovery + RLS]
         SB_DB[(PostgreSQL Database\nWorksheet, Classroom, Submissions)]
@@ -139,9 +164,10 @@ graph TD
         CF_Worker[Cloudflare Workers\nWebSocket Engine & API Proxy]
         CF_R2[(Cloudflare R2 Bucket\nDiagram Soal & Dokumen Whiteboard)]
         
-        Gemini[Google Gemini 3 Flash / 2.5 API\nMulti-Key Quota Rotation & Fallback]
+        Gemini[Google Gemini API\nMulti-Key Quota Rotation & Fallback]
     end
     
+    Client --> ThemeEngine
     Client -->|Autentikasi & Query| SB_Auth
     Client -->|Data Relasional| SB_DB
     Client -->|Live Monitor & Sesi| SB_RT
@@ -153,13 +179,13 @@ graph TD
 | Lapisan | Komponen / Pustaka | Keterangan |
 | :--- | :--- | :--- |
 | **Core UI** | React 19, TypeScript 5.x, Vite 6 | Arsitektur frontend modern berkinerja tinggi |
-| **Styling** | Tailwind CSS v4, Google Fonts | Inter, Plus Jakarta Sans, JetBrains Mono |
-| **Routing** | React Router DOM v7 | Route guards (`RequireAuth`, `TeacherOnly`, `StudentOnly`) |
+| **Styling & Theme** | Tailwind CSS v4, Dynamic CSS Tokens | Sistem tema dinamis dengan CSS Variables & Google Fonts |
+| **Routing** | React Router DOM v7 | Route guards (`RequireAuth`, `TeacherOnly`, `StudentOnly`, `AdminOnly`) |
 | **Notasi Sains** | KaTeX 0.18 + `mhchem` extension | Formula kimia dan persamaan matematika berkecepatan tinggi |
 | **Penyimpanan Dokumen** | `jspdf`, `canvas-confetti` | Ekspor PDF naskah ujian & selebrasi skor kelulusan |
 | **Ikonografi** | Lucide React | Ikon antarmuka modern |
 | **Database & Auth** | Supabase (PostgreSQL 15) | Row-Level Security (RLS) & REST API |
-| **Cloud Engine** | Cloudflare Workers & R2 | Engine sinkronisasi WebSocket & penyimpanan aset |
+| **Cloud Engine** | Cloudflare Workers & R2 | Engine sinkronisasi WebSocket & penyimpanan aset diagram |
 | **Kecerdasan Buatan** | Google Gemini API (`@google/genai`) | Model penalaran diagnostik olimpiade sains |
 
 ---
@@ -173,26 +199,30 @@ osn/
 ├── src/
 │   ├── assets/                 # Aset grafik dan pendukung
 │   ├── components/
+│   │   ├── admin/              # AdminLayout Command Center
 │   │   ├── auth/               # Komponen proteksi rute dan modal autentikasi
 │   │   ├── classroom/          # Komponen kelas binaan dan dialog keanggotaan
 │   │   ├── common/             # Navbar, Footer, Tabel Periodik, KaTeXRenderer, dsb.
 │   │   ├── materials/          # Pembaca materi teori dan penjelajah topik
+│   │   ├── practice/           # ChemistCatAvatars, PracticeStatsHeader
 │   │   ├── profile/            # PillarRadarChart, SubmissionHistory, RemedialCard
-│   │   ├── syllabus/           # SVG Infografis Kurikulum Merdeka & Silabus OSN
+│   │   ├── syllabus/           # ChemistryOsnSyllabusSvg, ChemistrySmaSyllabusSvg
 │   │   ├── teacher/            # DiagramGallery, SpeedGrader, QuestionBankPicker
 │   │   ├── whiteboard/         # Kanvas Whiteboard, Toolbar, Virtual Instruments
 │   │   └── worksheet/          # ChemToolbar, ScaffoldGuideModal, ScalePresetToggle
-│   ├── contexts/               # React Contexts (AuthContext, WhiteboardHeaderContext)
+│   ├── contexts/               # React Contexts (AuthContext, ThemeContext, WhiteboardContext)
 │   ├── data/                   # Data statis 10 pilar silabus, materi dasar SMA, dsb.
 │   ├── lib/                    # Helper Supabase, KaTeX syntax helpers, gamifikasi
 │   ├── pages/
+│   │   ├── admin/              # AdminAppearanceSettings, AdminUserManagement, dsb.
 │   │   ├── auth/               # Halaman Login, Pendaftaran Siswa, Pemulihan Sandi
-│   │   ├── public/             # LandingPage publik
+│   │   ├── public/             # LandingPage publik adaptif tema
 │   │   ├── student/            # Dashboard, Roadmap, Materi, Worksheet, Progress
 │   │   ├── teacher/            # TeacherDashboard, ClassroomManager, AiQuestionStudio
 │   │   └── whiteboard/         # Katalog Papan Tulis & Halaman Gambar STEMBoard
 │   ├── services/               # Layanan API (aiGrading, submission, classroom, r2)
-│   ├── types/                  # Definisi TypeScript Database, Worksheet, Whiteboard
+│   ├── types/                  # Definisi TypeScript Database, Theme, Worksheet, Whiteboard
+│   ├── utils/                  # themePresets (6 palet tema), practiceDataUtils
 │   ├── App.tsx                 # Routing konfigurasi utama & layout wrapper
 │   ├── index.css               # Basis tema Tailwind CSS v4
 │   └── main.tsx                # Entry point aplikasi

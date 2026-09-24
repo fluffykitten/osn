@@ -736,6 +736,25 @@ Meskipun afinitas elektron Fluorin lebih rendah karena tolakan interelektronik v
       'teori-orbital-molekul-mot',
       'gaya-antarmolekul-ikatan-hidrogen',
       'energi-kisi-born-haber',
+      'teori-pita-ssh-peierls',
+      'model-ssh',
+      'su-schrieffer-heeger',
+      'transisi-peierls',
+      'poliasetilena',
+      'celah-pita',
+      'soliton',
+      'tight-binding',
+      'zona-brillouin',
+      'teori-grup-simetri-salc',
+      'teori-grup',
+      'point-group',
+      'schoenflies',
+      'tabel-karakter',
+      'salc',
+      'operator-proyeksi',
+      'mot-simetri',
+      'efek-pseudo-jahn-teller',
+      'diagram-walsh',
       'soal-lewis-muatan-formal-scn',
       'soal-vsepr-aturan-bent-sf4-clf3',
       'soal-mot-karbon-monoksida',
@@ -1090,6 +1109,161 @@ Energi kisi kristal ionik berbanding lurus dengan kuadrat perkalian muatan ion (
           { name: 'Persamaan Kapustinskii', formula: 'U_L = -\\frac{1202 \\nu |z_+ z_-|}{r_+ + r_-}\\left(1 - \\frac{34.5}{r_+ + r_-}\\right)' },
         ],
       },
+      {
+        tag: 'teori-pita-ssh-peierls',
+        tags: [
+          'teori-pita-ssh-peierls',
+          'model-ssh',
+          'su-schrieffer-heeger',
+          'transisi-peierls',
+          'poliasetilena',
+          'celah-pita',
+          'soliton',
+          'tight-binding',
+          'zona-brillouin',
+        ],
+        title: 'Konsep Inti 6: Teori Pita Elektronik, Model Su-Schrieffer-Heeger (SSH) & Distorsi Peierls',
+        summary:
+          'Kajian mekanika kuantum tight-binding polimer terkonjugasi 1D trans-poliasetilena, Hamiltonian SSH dalam ruang momentum, pembentukan celah pita (bandgap) pada batas Zona Brillouin via distorsi Peierls, dan fisika defek soliton topologis.',
+        content: `### 1. Rantai Karbon 1D & Ketidakstabilan Kisi Peierls:
+Rantai konduktif satu-dimensi (1D) dengan satu elektron valensi per atom (seperti poliasetilena terdelokalisasi murni $[\\ce{-CH=}]_n$) idealnya memiliki pita energi setengah terisi (*half-filled band*) dan diprediksi bersifat logam konduktor.
+
+Namun, menurut **Teorema Distorsi Peierls (1955)**:
+Sistem elektronik 1D periodik dengan kisi berjarak seragam $a_0$ selalu **tidak stabil secara termodinamika** terhadap distorsi dimerisasi kisi spontan pada suhu rendah.
+- Dimerisasi mengubah kisi seragam berjarak $a_0$ menjadi kisi berselang-seling dengan ikatan tunggal ($r_1 = a_0 + \\delta$) dan ikatan rangkap ($r_2 = a_0 - \\delta$), sehingga konstanta kisi baru berlipat ganda menjadi $a = 2a_0$.
+- Penggandaan periode sel satuan membelah Zona Brillouin pertama dari $\\left[-\\frac{\\pi}{a_0}, \\frac{\\pi}{a_0}\\right]$ menjadi $\\left[-\\frac{\\pi}{a}, \\frac{\\pi}{a}\\right]$.
+- Tingkat energi tepat pada permukaan Fermi ($k_F = \\pm \\frac{\\pi}{a}$) terbelah membentuk **celah pita energi (*bandgap*, $E_g$)**, menurunkan seluruh energi total elektron valensi di bawah tingkat Fermi dan mengubah polimer dari konduktor menjadi semikonduktor/isolator.
+
+---
+
+### 2. Formulasi Hamiltonian Tight-Binding Su-Schrieffer-Heeger (SSH):
+Model Su-Schrieffer-Heeger (1979) merumuskan Hamiltonian transfer elektron $\\pi$ antar-atom karbon dalam ruang kisi riil:
+$$\\mathcal{H} = -\\sum_{n} \\left(t_1 c_{n,A}^\\dagger c_{n,B} + t_2 c_{n,B}^\\dagger c_{n+1,A} + \\text{h.c.}\\right)$$
+di mana:
+- $t_1 = t_0 - \\alpha\\delta$: Integral hopping intra-sel (ikatan tunggal lebih panjang)
+- $t_2 = t_0 + \\alpha\\delta$: Integral hopping inter-sel (ikatan rangkap lebih pendek)
+- $t_0 \\approx 2{,}5\\text{ eV}$: Integral transfer rata-rata elektron $\\pi$
+- $\\alpha$: Konstanta kopling elektron-kisi (elektron-fonon)
+- $\\delta$: Parameter pergeseran dimerisasi kisi
+
+Dalam ruang momentum (vektor gelombang $k$), melalui Transformasi Fourier, Hamiltonian elektronik direduksi menjadi matriks Bloch $2 \\times 2$:
+$$\\mathcal{H}(k) = \\begin{pmatrix} 0 & t_1 + t_2 e^{-ika} \\\\ t_1 + t_2 e^{ika} & 0 \\end{pmatrix} = d_x(k)\\sigma_x + d_y(k)\\sigma_y$$
+dengan komponen vektor Bloch:
+$$d_x(k) = t_1 + t_2\\cos(ka), \\quad d_y(k) = t_2\\sin(ka)$$
+
+---
+
+### 3. Relasi Dispersi Energi & Celah Pita (Bandgap):
+Nilai eigen energi $E(k)$ diperoleh dari determinan sekular $\\det[\\mathcal{H}(k) - E(k)\\mathbf{I}] = 0$:
+$$E^2(k) - |t_1 + t_2 e^{-ika}|^2 = 0$$
+$$E(k) = \\pm \\sqrt{t_1^2 + t_2^2 + 2t_1 t_2\\cos(ka)}$$
+- Tanda $(+)$ menyatakan **Pita Konduksi** (*LUMO band* / pita anti-ikatan $\\pi^*$).
+- Tanda $(-)$ menyatakan **Pita Valensi** (*HOMO band* / pita ikatan $\\pi$).
+
+**Evaluasi pada Batas Zona Brillouin ($k = \\pm \\frac{\\pi}{a}$):**
+Pada batas zona, $\\cos(ka) = \\cos(\\pi) = -1$:
+$$E\\left(\\frac{\\pi}{a}\\right) = \\pm \\sqrt{t_1^2 + t_2^2 - 2t_1 t_2} = \\pm \\sqrt{(t_2 - t_1)^2} = \\pm |t_2 - t_1|$$
+Besar celah pita terlarang (*bandgap*, $E_g$) adalah selisih energi pita konduksi dan pita valensi:
+$$E_g = E_+ - E_- = 2|t_2 - t_1|$$
+Substitusi $t_1 = t_0 - \\alpha\\delta$ dan $t_2 = t_0 + \\alpha\\delta$:
+$$t_2 - t_1 = 2\\alpha\\delta \\implies E_g = 4\\alpha|\\delta|$$
+
+Jika tidak terjadi dimerisasi ($\\delta = 0 \\implies t_1 = t_2$), celah pita lenyap ($E_g = 0$) di $k = \\pi/a$, membuktikan bahwa dimerisasi kisi adalah pemicu langsung terbukanya celah pita semikonduktor pada *trans*-poliasetilena ($E_g \\approx 1{,}5 - 1{,}8\\text{ eV}$).
+
+---
+
+### 4. Defek Topologis Soliton & Keadaan Mid-Gap ($E = 0$):
+*Trans*-poliasetilena memiliki dua keadaan dasar berenergi degenerate (fasa terdimerisasi A: tunggal-rangkap, dan fasa B: rangkap-tunggal).
+- Ketika domain fasa A dan fasa B bertemu dalam satu rantai, terbentuk batas dinding domain (*domain wall defect*) yang disebut **Soliton Topologis**.
+- Secara matematis, soliton membalikkan parameter urutan $\\delta(x)$ melintasi nol, menghasilkan solusi terikat kuantum tepat di tengah celah pita (**Mid-gap Bound State** pada $E = 0$).
+- **Fenomena Kuantum Soliton:** Soliton memperlihatkan pemisahan unik antara muatan dan spin (*charge-spin separation*):
+  1. **Soliton Netral ($S^0$):** Mid-gap state terisi 1 elektron $\\implies$ Muatan $q = 0$, Spin $s = 1/2$ (radikal bebas non-magnetik terdelokalisasi).
+  2. **Soliton Positif ($S^+$ / Doping Akseptor):** Mid-gap state kosong ($0$ elektron) $\\implies$ Muatan $q = +e$, Spin $s = 0$.
+  3. **Soliton Negatif ($S^-$ / Doping Donor):** Mid-gap state terisi penuh ($2$ elektron) $\\implies$ Muatan $q = -e$, Spin $s = 0$.`,
+        keyFormulas: [
+          { name: 'Hamiltonian Tight-Binding SSH k-Space', formula: '\\mathcal{H}(k) = \\begin{pmatrix} 0 & t_1 + t_2 e^{-ika} \\\\ t_1 + t_2 e^{ika} & 0 \\end{pmatrix}' },
+          { name: 'Dispersi Energi Pita SSH', formula: 'E(k) = \\pm \\sqrt{t_1^2 + t_2^2 + 2t_1 t_2\\cos(ka)}' },
+          { name: 'Celah Pita Energi (Bandgap)', formula: 'E_g = 2|t_2 - t_1| = 4\\alpha|\\delta|' },
+          { name: 'Tingkat Energi Mid-gap Soliton', formula: 'E_{\\text{soliton}} = 0 \\quad (\\text{di tengah bandgap})' },
+        ],
+      },
+      {
+        tag: 'teori-grup-simetri-salc',
+        tags: [
+          'teori-grup-simetri-salc',
+          'teori-grup',
+          'point-group',
+          'schoenflies',
+          'tabel-karakter',
+          'salc',
+          'operator-proyeksi',
+          'mot-simetri',
+        ],
+        title: 'Konsep Inti 7: Teori Grup Simetri Molekul, Tabel Karakter & Pembentukan SALC Orbital Molekul',
+        summary:
+          'Klasifikasi grup titik Schoenflies, operasi simetri, pembacaan tabel karakter Mulliken, Teorema Ortogonalitas Besar (GOT), formula reduksi representasi, dan teknik pembentukan Symmetry Adapted Linear Combinations (SALC) menggunakan operator proyeksi.',
+        content: `### 1. Unsur dan Operasi Simetri Molekul:
+Setiap operasi simetri adalah transformasi spasial yang memetakan molekul ke konfigurasi yang secara eksperimen tak dapat dibedakan (*indistinguishable*) dari konfigurasi awal:
+1. **Identitas ($E$):** Tidak melakukan perubahan apa pun ($E\\psi = \\psi$).
+2. **Sumbu Rotasi Proper ($C_n$):** Rotasi sebesar sudut $\\theta = \\frac{360^\\circ}{n}$ mengelilingi sumbu simetri molekul.
+3. **Bidang Refleksi Simetri ($\\sigma$):**
+   - $\\sigma_h$ (*horizontal*): Tegak lurus terhadap sumbu rotasi utama berorde tertinggi ($C_n$).
+   - $\\sigma_v$ (*vertical*): Mengandung sumbu rotasi utama $C_n$.
+   - $\\sigma_d$ (*dihedral*): Bidang vertikal yang membagi dua sudut antara dua sumbu rotasi $C_2$ sekunder.
+4. **Pusat Inversi ($i$):** Pembalikan koordinat melintasi titik pusat asal: $(x, y, z) \\to (-x, -y, -z)$.
+5. **Sumbu Rotasi Improper ($S_n$):** Operasi gabungan rotasi $C_n$ diikuti refleksi $\\sigma_h$ yang tegak lurus sumbu tersebut: $S_n = \\sigma_h \\cdot C_n$.
+
+---
+
+### 2. Notasi Simetri Mulliken pada Tabel Karakter:
+Representasi tak-tereduksi (*irreducible representations*) dilabeli dengan simbol Mulliken:
+- **$A$ vs $B$ (Representasi 1-Dimensi):** $A$ simetris ($+1$) terhadap rotasi utama $C_n$; $B$ antisimetris ($-1$) terhadap $C_n$.
+- **$E$ (Representasi 2-Dimensi terdegenerasi):** Karakter identitas $\\chi(E) = 2$.
+- **$T$ atau $F$ (Representasi 3-Dimensi terdegenerasi):** Karakter identitas $\\chi(E) = 3$.
+- **Subskrip $g$ (*gerade*) vs $u$ (*ungerade*):** Simetris ($+1$) atau antisimetris ($-1$) terhadap pusat inversi $i$.
+- **Subskrip $1$ vs $2$:** Simetris ($+1$) atau antisimetris ($-1$) terhadap sumbu rotasi tegak lurus $C_2'$, atau terhadap bidang vertikal $\\sigma_v$.
+
+---
+
+### 3. Formula Reduksi Representasi Redusibel:
+Untuk menguraikan representasi reducible $\\Gamma_{\\text{red}}$ menjadi jumlahan representasi tak-tereduksi $\\Gamma_i$:
+$$\\Gamma_{\\text{red}} = \\sum_i a_i \\Gamma_i$$
+Koefisien kelipatan $a_i$ ditentukan secara eksak melalui **Teorema Ortogonalitas Besar (Great Orthogonality Theorem)**:
+$$a_i = \\frac{1}{h} \\sum_R g_R \\cdot \\chi(R) \\cdot \\chi_i(R)$$
+di mana:
+- $h$: Orde grup (total seluruh operasi simetri dalam grup titik).
+- $g_R$: Jumlah operasi simetri dalam kelas $R$ (contoh: $2C_3 \\implies g_R = 2$).
+- $\\chi(R)$: Karakter representasi tereduksi untuk kelas operasi $R$.
+- $\\chi_i(R)$: Karakter representasi tak-tereduksi $\\Gamma_i$ pada tabel karakter.
+
+---
+
+### 4. Konstruksi SALC Menggunakan Operator Proyeksi:
+Orbital atom ligan harus dikombinasikan secara linear membentuk orbital kelompok simetri (*Symmetry Adapted Linear Combinations* / SALC) yang bertransformasi menurut representasi simetri grup titik molekul.
+
+Operator proyeksi $\\hat{P}^\\Gamma$ yang bertindak pada orbital basis $\\phi_1$:
+$$\\hat{P}^{\\Gamma} \\phi_1 = \\frac{l_\\Gamma}{h} \\sum_{R} \\chi^\\Gamma(R) \\cdot \\hat{R} \\phi_1$$
+di mana $l_\\Gamma$ adalah dimensi representasi tak-tereduksi.
+
+**Contoh Aplikasi: Orbital Molekul Air ($\\ce{H2O}$, Grup Titik $C_{2v}$):**
+Grup $C_{2v}$ memiliki 4 operasi simetri ($E, C_2, \\sigma_v(xz), \\sigma_v'(yz)$) dengan $h = 4$.
+Basis ligan: Dua orbital hidrogen $1s$ ($\\ce{H_A}$ dan $\\ce{H_B}$).
+1. Representasi redusibel orbital hidrogen: $\\Gamma_{H} = (2, 0, 0, 2)$.
+2. Reduksi ke representasi tak-tereduksi:
+   $$\\Gamma_{H} = A_1 + B_2$$
+3. Aplikasi operator proyeksi:
+   - Untuk $A_1$: $\\psi(A_1) = \\frac{1}{\\sqrt{2}}(\\phi_{H_A} + \\phi_{H_B})$ (kombinasi fase sefasa).
+   - Untuk $B_2$: $\\psi(B_2) = \\frac{1}{\\sqrt{2}}(\\phi_{H_A} - \\phi_{H_B})$ (kombinasi fase berlawanan).
+4. Pencocokan Simetri dengan Orbital Valensi Atom Pusat Oksigen:
+   - Orbital Oksigen $2s$ dan $2p_z$ memiliki simetri $A_1 \\implies$ bertumpang tindih dengan SALC $\\psi(A_1)$ membentuk orbital ikatan $2a_1$ dan anti-ikatan $4a_1$.
+   - Orbital Oksigen $2p_y$ memiliki simetri $B_2 \\implies$ bertumpang tindih dengan SALC $\\psi(B_2)$ membentuk orbital $1b_2$ dan $2b_2$.
+   - Orbital Oksigen $2p_x$ memiliki simetri $B_1 \\implies$ tidak ada pasangan SALC simetri $B_1$, sehingga menjadi **Orbital Non-Ikatan murni ($1b_1$)** yang menampung pasangan elektron bebas (PEB).`,
+        keyFormulas: [
+          { name: 'Formula Reduksi Karakter (GOT)', formula: 'a_i = \\frac{1}{h} \\sum_R g_R \\chi(R) \\chi_i(R)' },
+          { name: 'Operator Proyeksi SALC', formula: '\\hat{P}^\\Gamma \\phi_1 = \\frac{l_\\Gamma}{h} \\sum_R \\chi^\\Gamma(R) \\hat{R} \\phi_1' },
+          { name: 'Aturan Orde Grup Simetri', formula: 'h = \\sum_i l_i^2' },
+        ],
+      },
     ],
     worked_examples: [
       {
@@ -1430,6 +1604,14 @@ Anion $\\ce{XeF5-}$ secara intrinsik bersifat **nonpolar**.`,
       'hukum-efusi-difusi-graham',
       'diagram-fasa-clausius-clapeyron',
       'struktur-kristal-padat-unit-cell',
+      'kristalografi-lanjutan-perovskite-xrd',
+      'perovskite',
+      'faktor-toleransi-goldschmidt',
+      'kisi-hcp',
+      'cacat-kristal',
+      'hukum-bragg-xrd',
+      'indeks-miller',
+      'schottky-frenkel',
       'soal-campuran-gas',
       'soal-efusi-graham',
       'soal-van-der-waals',
@@ -1836,6 +2018,87 @@ di mana:
         { name: 'Hubungan Kisi FCC', formula: 'a\\sqrt{2} = 4r \\implies a = 2\\sqrt{2}r' },
         { name: 'Hubungan Kisi BCC', formula: 'a\\sqrt{3} = 4r \\implies a = \\frac{4r}{\\sqrt{3}}' },
         { name: 'Atomic Packing Factor', formula: '\\text{APF} = \\frac{n \\cdot \\frac{4}{3}\\pi r^3}{a^3}' },
+      ],
+    },
+    {
+      tag: 'kristalografi-lanjutan-perovskite-xrd',
+      tags: [
+        'kristalografi-lanjutan-perovskite-xrd',
+        'perovskite',
+        'faktor-toleransi-goldschmidt',
+        'kisi-hcp',
+        'cacat-kristal',
+        'hukum-bragg-xrd',
+        'indeks-miller',
+        'schottky-frenkel',
+      ],
+      title: 'Konsep Inti 6: Kristalografi Lanjutan: Struktur Kisi Perovskite, Faktor Toleransi Goldschmidt, Kisi HCP & Difraksi Sinar-X (XRD)',
+      summary:
+        'Kajian komprehensif kristalografi material: sel satuan struktur perovskite ABO3, faktor toleransi geometris Goldschmidt (t), geometri susunan heksagonal terjejal (HCP), termodinamika cacat kristal Frenkel dan Schottky, serta prinsip difraksi sinar-X (XRD) Bragg dan aturan seleksi indeks Miller.',
+      content: `### 1. Struktur Kristal Kisi Perovskite ($\\ce{ABO3}$):
+Perovskite ideal (senyawa prototipikal $\\ce{CaTiO3}$ atau $\\ce{SrTiO3}$) mengkristal dalam sistem kisi kubus:
+- **Kation A (Kation bervalensi rendah & berukuran besar, misal $\\ce{Ca^2+}, \\ce{Ba^2+}, \\ce{Pb^2+}$):**
+  Menempati posisi sudut kubus ($8 \\times \\frac{1}{8} = 1$) atau pusat kubus, terkoordinasi oleh 12 anion oksigen (Bilangan Koordinasi $\\text{BK} = 12$, membentuk polihedron kuboktahedron).
+- **Kation B (Kation logam transisi kecil bervalensi tinggi, misal $\\ce{Ti^4+}, \\ce{Zr^4+}, \\ce{Mn^4+}$):**
+  Menempati pusat badan kubus ($1$) atau sudut kubus, terkoordinasi oleh 6 anion oksigen membentuk oktahedron $[\\ce{BO6}]$ (Bilangan Koordinasi $\\text{BK} = 6$).
+- **Anion Oksigen ($\\ce{O^2-}$):**
+  Menempati seluruh pusat rusuk kubus ($12 \\times \\frac{1}{4} = 3$) atau seluruh pusat muka kubus ($6 \\times \\frac{1}{2} = 3$), menjembatani oktahedron $[\\ce{BO6}]$ dengan sudut ikatan linear $\\angle \\ce{B-O-B} = 180^\\circ$.
+
+---
+
+### 2. Faktor Toleransi Goldschmidt (*Goldschmidt Tolerance Factor*, $t$):
+Kestabilan dan distorsi geometri kisi perovskite diatur oleh rasio geometris jari-jari ionik kation dan anion:
+$$t = \\frac{r_A + r_O}{\\sqrt{2}(r_B + r_O)}$$
+- **$0{,}9 < t \\le 1{,}0$ (Perovskite Kubus Ideal):**
+  Jari-jari kation A dan B pas sempurna mengisi rongga kisi. Contoh: $\\ce{SrTiO3}$ ($t \\approx 1{,}00$).
+- **$0{,}71 < t < 0{,}90$ (Perovskite Terdistorsi / Ortorombik / Rombotedral):**
+  Kation A terlalu kecil untuk rongga 12-koordinasi, menyebabkan oktahedron $[\\ce{BO6}]$ berotasi dan miring (*octahedral tilting*) untuk memperpendek jarak $\\ce{A-O}$. Sudut $\\angle \\ce{B-O-B} < 180^\\circ$. Contoh: $\\ce{CaTiO3}$ ($t \\approx 0{,}97$), $\\ce{GdFeO3}$.
+- **$t > 1{,}0$ (Struktur Heksagonal / Fasa Ilmenit):**
+  Kation A terlalu besar atau kation B terlalu kecil, mendorong pembentukan oktahedron $[\\ce{BO6}]$ yang berbagi muka (*face-sharing octahedra*). Contoh: $\\ce{BaNiO3}$.
+- **$t < 0{,}71$:** Kation A dan B memiliki ukuran serupa, mengadopsi struktur korundum atau ilmenit ($\\ce{FeTiO3}$).
+
+---
+
+### 3. Geometri Kisi Heksagonal Terjejal (*Hexagonal Close-Packed* / HCP):
+Kisi HCP dibentuk oleh penataan bola atom rapat dengan urutan lapisan selang-seling **ABABAB...**:
+- Setiap atom bersentuhan langsung dengan 6 atom di lapisan yang sama, 3 atom di lapisan atas, dan 3 atom di lapisan bawah (Bilangan Koordinasi $= 12$).
+- **Atomic Packing Factor (APF):** $\\text{APF} = \\frac{\\pi}{3\\sqrt{2}} \\approx 0{,}74$ ($74\\%$ volume ruang terisi rapat, identik dengan kisi FCC/CCP).
+- **Rasio Sumbu Kisi Ideal ($c/a$):**
+  Tinggi sel satuan heksagonal ($c$) dan panjang sisi heksagon ($a$) memiliki relasi matematis ideal:
+  $$\\frac{c}{a} = \\sqrt{\\frac{8}{3}} = 2\\sqrt{\\frac{2}{3}} \\approx 1{,}633$$
+  Jika rasio eksperimen $c/a < 1{,}633$ (seperti pada $\\ce{Ti}$ dan $\\ce{Mg}$), kisi mengalami kompresi aksial; jika $c/a > 1{,}633$ (seperti pada $\\ce{Zn}$ dan $\\ce{Cd}$), kisi mengalami elongasi aksial.
+
+---
+
+### 4. Termodinamika Cacat Kristal Non-Stoikiometri & Titik:
+Kristal riil selalu mengandung cacat kisi termodinamika pada suhu $T > 0\\text{ K}$ karena pembentukan cacat meningkatkan entropi kisi ($\\Delta S > 0$):
+1. **Cacat Schottky:**
+   Pasangan kekosongan stokiometri (*stoichiometric vacancy pair*) kation dan anion yang hilang bersamaan meninggalkan kisi menuju permukaan. Densitas kristal menurun secara terukur tanpa mengubah bilangan oksidasi rata-rata kation. Lazim terjadi pada kristal ionik dengan rasio ukuran ion seimbang dan bilangan koordinasi tinggi (misal: $\\ce{NaCl}, \\ce{KCl}, \\ce{CsCl}$).
+2. **Cacat Frenkel:**
+   Perpindahan kation kecil dari posisi kisi normalnya menuju rongga interstisial terdekat, membentuk pasangan lubang kation-kation interstisial (*vacancy-interstitial pair*). Densitas kristal tetap konstan. Lazim terjadi pada kristal dengan perbedaan ukuran kation dan anion sangat mencolok serta sifat polarisabilitas tinggi (misal: $\\ce{AgCl}, \\ce{AgBr}, \\ce{ZnS}$).
+3. **Pusat Warna (F-Center / *Farbe-Center*):**
+   Kekosongan anion halogen dalam kisi kristal yang memerangkap elektron bebas. Transisi elektronik terperangkap ini menyerap cahaya tampak dan menghasilkan warna karakteristik (contoh: pemanasan uap $\\ce{Na}$ pada kristal bening $\\ce{NaCl}$ menghasilkan warna kuning pekat).
+
+---
+
+### 5. Difraksi Sinar-X (XRD) & Aturan Seleksi Indeks Miller ($hkl$):
+Difraksi gelombang elektromagnetik sinar-X pada bidang kristal atomik memenuhi **Hukum Bragg**:
+$$n\\lambda = 2d_{hkl} \\sin\\theta$$
+di mana jarak tegak lurus antar-bidang kisi paralel $(hkl)$ pada kristal kubus bersisi $a$ adalah:
+$$d_{hkl} = \\frac{a}{\\sqrt{h^2 + k^2 + l^2}}$$
+
+**Aturan Seleksi Refleksi XRD Kisi Kubus:**
+- **Kubus Primitif (SC):** Semua refleksi $(hkl)$ diizinkan ($h^2+k^2+l^2 = 1, 2, 3, 4, 5, 6, 8, \\dots$).
+- **Kubus Berpusat Badan (BCC):** Refleksi hanya muncul jika jumlahan indeks Miller bernilai genap:
+  $$h + k + l = 2n \\quad (\\text{contoh: } (110), (200), (211), (220), \\dots)$$
+- **Kubus Berpusat Muka (FCC):** Refleksi hanya muncul jika indeks Miller bersifat unmixed (semua ganjil atau semua genap):
+  $$h, k, l \\text{ semua ganjil ATAU semua genap} \\quad (\\text{contoh: } (111), (200), (220), (311), (222), \\dots)$$
+Rasio kuadrat sinus sudut difraksi $\\sin^2\\theta_1 : \\sin^2\\theta_2 : \\dots$ memungkinkan penentuan jenis kisi kristal dan penentuan konstanta kisi $a$ secara presisi.`,
+      keyFormulas: [
+        { name: 'Faktor Toleransi Goldschmidt Perovskite', formula: 't = \\frac{r_A + r_O}{\\sqrt{2}(r_B + r_O)}' },
+        { name: 'Rasio Sumbu Ideal Kisi HCP', formula: '\\frac{c}{a} = \\sqrt{\\frac{8}{3}} \\approx 1{,}633' },
+        { name: 'Hukum Difraksi Bragg XRD', formula: 'n\\lambda = 2d_{hkl}\\sin\\theta' },
+        { name: 'Jarak Antar-Bidang Kisi Kubus', formula: 'd_{hkl} = \\frac{a}{\\sqrt{h^2 + k^2 + l^2}}' },
       ],
     },
   ],
@@ -5177,6 +5440,15 @@ Potensial reduksi standar langsung $\\ce{MnO4- / Mn^2+}$ adalah $+1.51\\text{ V}
   readTimeMinutes: 38,
   summary: 'Kajian komprehensif kimia koordinasi modern: struktur atom pusat & klasifikasi ligan (dentisitas, efek kelat), tata nama IUPAC resmi, Teori Ikatan Valensi (VBT), Teori Medan Kristal (CFT) geometri oktahedral, tetrahedral, dan bujur sangkar, Energi Penstabilan Medan Kristal (CFSE), deret spektrokimia & ligan pi-akseptor/pi-donor, konfigurasi high-spin vs low-spin, efek Jahn-Teller distorsi tetragonal, spektra elektronik d-d & warna kompleks, kemagnetan (momen magnetik spin-only mu_eff), isomerisme struktural & stereoisomerisme (cis-trans, fac-mer, kiralitas optis), serta kinetika substitusi ligan (efek trans).',
   allTags: [
+    'kluster-boran-wade-mingos-organologam',
+    'aturan-wade',
+    'psept',
+    'boran',
+    'closo-nido-arachno',
+    'parameter-racah',
+    'efek-nefelauxetik',
+    'katalisis-wilkinson',
+    'organologam',
     'senyawa-koordinasi',
     'ligan',
     'bilangan-koordinasi',
@@ -5594,6 +5866,76 @@ $$\\ce{H2O < OH- < NH3 < py < Cl- < Br- < I- < CH3- < H- < NO2- < PPh3 < C2H4 \\
    Pada tahap 2, ion $\\ce{Cl-}$ yang telah terikat memiliki kekuatan trans jauh melampaui $\\ce{NH3}$ ($\\ce{Cl- > NH3}$). Oleh karena itu, klorida kedua diarahkan masuk tepat pada posisi *trans* terhadap klorida pertama, menghasilkan produk eksklusif **Transplatin**.`,
       keyFormulas: [
         { name: 'Kekuatan Efek Trans', formula: '\\ce{CO \\approx CN- \\approx C2H4 > PPh3 > NO2- > I- > Br- > Cl- > NH3 > H2O}' },
+      ],
+    },
+    {
+      tag: 'kluster-boran-wade-mingos-organologam',
+      tags: [
+        'kluster-boran-wade-mingos-organologam',
+        'aturan-wade',
+        'psept',
+        'boran',
+        'closo-nido-arachno',
+        'parameter-racah',
+        'efek-nefelauxetik',
+        'katalisis-wilkinson',
+        'organologam',
+      ],
+      title: 'Konsep Inti 6: Aturan Wade-Mingos (PSEPT) Kluster Boran, Efek Nefelauxetik Racah & Katalisis Organologam',
+      summary:
+        'Kajian kuantitatif struktur kluster polihedral: Aturan Wade-Mingos (PSEPT) menghitung pasangan elektron kerangka (SEP) closo, nido, arachno, dan hypho, derajat kovalensi ikatan via deret nefelauxetik parameter Racah (B), serta mekanisme tahapan siklus katalisis organologam homogen.',
+      content: `### 1. Aturan Wade-Mingos (Polyhedral Skeletal Electron Pair Theory / PSEPT):
+Molekul kluster borana dan heteroborana tidak dapat dijelaskan oleh ikatan 2-pusat 2-elektron konvensional karena kekurangan elektron (*electron-deficient*). Struktur geometrinya diatur oleh jumlah **Pasangan Elektron Kerangka (*Skeletal Electron Pairs*, SEP)**.
+
+**Metode Menghitung Elektron Kerangka (Skeletal Electrons):**
+Setiap unit verteks menyumbangkan elektron kerangka sebagai berikut:
+- Setiap unit $\\ce{B-H}$ menyumbang **2 elektron kerangka** (karena atom B memiliki 3 elektron valensi, 1 dipakai untuk ikatan terminal $\\ce{B-H}$, menyisakan 2 untuk kerangka kluster).
+- Setiap atom Hidrogen jembatan ($\\ce{H_{bridge}}$) menyumbang **1 elektron kerangka**.
+- Setiap muatan negatif net menyumbang **1 elektron kerangka per muatan**.
+- Unit isoelektronik $\\ce{C-H}$ (pada karborana) menyumbang **3 elektron kerangka**.
+
+**Klasifikasi Polihedron Kluster Berdasarkan Jumlah Verteks ($n$):**
+1. **Kluster Closo ($n + 1$ pasang elektron kerangka / $2n + 2$ elektron):**
+   Membentuk sangkar polihedron tertutup berwajah segitiga (*deltahedron*) lengkap dengan $n$ verteks. Rumus umum: $\\ce{[B_n H_n]^2-}$ atau karborana netral $\\ce{C2B_{n-2}H_n}$. Contoh: $\\ce{[B6H6]^2-}$ (oktahedron, $\\text{SEP} = 7$), $\\ce{C2B10H12}$ (ikosahedron, $\\text{SEP} = 13$).
+2. **Kluster Nido ($n + 2$ pasang elektron kerangka / $2n + 4$ elektron):**
+   Geometri sangkar terbuka sarang burung (*nest-like*), diturunkan dari polihedron closo dengan $(n+1)$ verteks yang kehilangan **1 verteks**. Rumus umum: $\\ce{B_n H_{n+4}}$. Contoh: pentaborana(9) $\\ce{B5H9}$ ($n=5, \\text{SEP} = 7 \\implies$ oktahedron minus 1 puncak = piramida tetragonal).
+3. **Kluster Arachno ($n + 3$ pasang elektron kerangka / $2n + 6$ elektron):**
+   Geometri sangkar jaring laba-laba (*spider-web-like*), diturunkan dari polihedron closo dengan $(n+2)$ verteks yang kehilangan **2 verteks**. Rumus umum: $\\ce{B_n H_{n+6}}$. Contoh: tetraborana(10) $\\ce{B4H10}$ ($n=4, \\text{SEP} = 7 \\implies$ oktahedron minus 2 verteks).
+4. **Kluster Hypho ($n + 4$ pasang elektron kerangka / $2n + 8$ elektron):**
+   Kluster jaring sangat terbuka, kehilangan **3 verteks** dari deltahedron induknya. Rumus umum: $\\ce{B_n H_{n+8}}$.
+
+---
+
+### 2. Parameter Racah ($B$) & Efek Nefelauxetik:
+Spektra elektronik senyawa kompleks logam transisi dipengaruhi oleh repulsi antar-elektron dalam subkulit $d$. Repulsi elektrostatik ini dirumuskan oleh Giulio Racah melalui tiga parameter $A, B, C$.
+- **Parameter Racah $B$:** Mengukur besarnya repulsi antar-elektron dalam orbital $d$.
+- Dalam ion logam bebas berfase gas, parameter ini bernilai $B_0$.
+- Ketika ion logam dikoordinasikan oleh ligan membentuk kompleks, awan elektron $d$ terdelokalisasi ke arah ligan (tumpang tindih orbital ikatan kovalen), menyebabkan ekspansi awan elektron logam. Fenomena ini disebut **Efek Nefelauxetik (*cloud-expanding effect*)**.
+- **Rasio Nefelauxetik ($\\beta$):**
+  $$\\beta = \\frac{B_{\\text{kompleks}}}{B_0} < 1$$
+Nilai $\\beta$ yang semakin kecil mencerminkan derajat kovalensi ikatan koordinasi yang semakin tinggi dan delokalisasi muatan yang semakin kuat.
+- **Deret Nefelauxetik Ligan:**
+  $$\\ce{F- > H2O > NH3 > en > NCS- > Cl- > CN- > Br- > I-}$$
+(Ligan iodida dan bromida sangat polarisabel dan menghasilkan kovalensi ikatan paling tinggi dengan nilai $\\beta$ terendah).
+
+---
+
+### 3. Tahapan Fundamental Siklus Katalisis Organologam:
+Katalis organologam homogen logam transisi (seperti Katalis Wilkinson $\\ce{[RhCl(PPh3)3]}$ untuk hidrogenasi alkena) beroperasi melalui urutan siklus 4 reaksi elementer:
+1. **Adisi Oksidatif (*Oxidative Addition*):**
+   Molekul substrat non-polar $\\ce{X-Y}$ (misal $\\ce{H2}$) berikatan ke pusat logam koordinatif tak-jenuh, disertai kenaikan bilangan oksidasi logam sebesar $+2$, penambahan bilangan koordinasi sebesar $+2$, dan penambahan elektron valensi sebesar $+2e^-$.
+   $$\\ce{L_n M^{m} + X-Y -> L_n M^{m+2}(X)(Y)}$$
+2. **Insersi Migrasi (*Migratory Insertion*):**
+   Ligan tak jenuh terkoordinasi (seperti alkena $\\ce{C2H4}$ atau karbon monoksida $\\ce{CO}$) bermigrasi dan menyusup ke dalam ikatan logam-alkil atau logam-hidrida tetangganya. Bilangan oksidasi logam tidak berubah, tetapi situs koordinasi kosong terbentuk kembali.
+3. **Eliminasi $\\beta$-Hidrida (*$\\beta$-Hydride Elimination*):**
+   Atom hidrogen pada posisi karbon-$\\beta$ dari ligan alkil ditransfer ke pusat logam, menghasilkan ligan hidrida baru dan melepaskan alkena terkoordinasi. Merupakan kebalikan dari insersi alkena ke ikatan $\\ce{M-H}$.
+4. **Eliminasi Reduktif (*Reductive Elimination*):**
+   Dua ligan cis (misal alkil dan hidrida membentuk alkana $\\ce{R-H}$) saling bergabung membentuk ikatan tunggal kovalen dan lepas dari pusat logam. Bilangan oksidasi logam turun $-2$, bilangan koordinasi turun $-2$, dan elektron valensi turun $-2e^-$, meregenerasi spesies katalis aktif awal untuk siklus berikutnya.`,
+      keyFormulas: [
+        { name: 'Pasangan Elektron Kerangka (SEP) Closo', formula: '\\text{SEP} = n + 1 \\implies [\\ce{B_n H_n}]^{2-}' },
+        { name: 'Pasangan Elektron Kerangka (SEP) Nido', formula: '\\text{SEP} = n + 2 \\implies \\ce{B_n H_{n+4}}' },
+        { name: 'Pasangan Elektron Kerangka (SEP) Arachno', formula: '\\text{SEP} = n + 3 \\implies \\ce{B_n H_{n+6}}' },
+        { name: 'Parameter Efek Nefelauxetik', formula: '\\beta = \\frac{B_{\\text{kompleks}}}{B_{\\text{ion bebas}}} < 1' },
       ],
     },
   ],
@@ -6743,6 +7085,16 @@ Integrasi data spektra MS ($[M]^{+\\bullet} = 150$, ion tropilium $m/z = 91$, ka
   readTimeMinutes: 38,
   summary: 'Kajian mendalam stereokimia Cahn-Ingold-Prelog (CIP), termodinamika & kinetika reaksi organik (Hammond & intermediet reaktif), teori asam-basa organik & aromatisitas Hückel, mekanisme substitusi nukleofilik (SN1 vs SN2) & inversi Walden, eliminasi (E1 vs E2) geometri anti-periplanar Zaitsev/Hofmann, adisi elektrofilik alkena stereospesifik Markovnikov, kimia karbonil & kondensasi enolat, serta biokimia asam amino, peptida, titik isoelektrik (pI) dan karbohidrat.',
   allTags: [
+    'kinetika-enzim-michaelis-menten-inhibisi',
+    'michaelis-menten',
+    'lineweaver-burk',
+    'inhibisi-enzim',
+    'km-vmax',
+    'kcat',
+    'inhibisi-kompetitif',
+    'inhibisi-unkompetitif',
+    'inhibisi-nonkompetitif',
+    'biokimia',
     'stereokimia',
     'aturan-cip',
     'kiralitas-r-s',
@@ -7127,6 +7479,84 @@ $$\\ce{-C(=O)-NH- <-> -C(O^-)=N^+H-}$$
         { name: 'Titik Isoelektrik Asam Amino Netral', formula: 'pI = \\frac{pK_{a1} + pK_{a2}}{2}' },
         { name: 'Titik Isoelektrik Asam Amino Asam', formula: 'pI = \\frac{pK_{a1} + pK_{aR}}{2}' },
         { name: 'Titik Isoelektrik Asam Amino Basa', formula: 'pI = \\frac{pK_{aR} + pK_{a2}}{2}' },
+      ],
+    },
+    {
+      tag: 'kinetika-enzim-michaelis-menten-inhibisi',
+      tags: [
+        'kinetika-enzim-michaelis-menten-inhibisi',
+        'michaelis-menten',
+        'lineweaver-burk',
+        'inhibisi-enzim',
+        'km-vmax',
+        'kcat',
+        'inhibisi-kompetitif',
+        'inhibisi-unkompetitif',
+        'inhibisi-nonkompetitif',
+        'biokimia',
+      ],
+      title: 'Konsep Inti 6: Kinetika Enzim Michaelis-Menten & Mekanisme Inhibisi Lineweaver-Burk',
+      summary:
+        'Penurunan mekanika laju reaksi enzimatis model Michaelis-Menten (Briggs-Haldane steady state), makna fisik konstanta afinitas Km, turnover number kcat, batas difusi katalitik sempurna, serta diagnostik grafik plot timbal-balik ganda Lineweaver-Burk pada inhibisi reversibel kompetitif, unkompetitif, dan non-kompetitif.',
+      content: `### 1. Skema Reaksi Enzimatis & Pendekatan Keadaan Tunak (Steady-State):
+Kinetika biokimia reaksi enzimatik satu substrat dimodelkan melalui mekanisme pembentukan kompleks enzim-substrat ($\\ce{ES}$):
+$$\\ce{E + S <=> [k_1][k_{-1}] ES ->[k_{cat}] E + P}$$
+di mana:
+- $\\ce{E}$: Enzim bebas, $\\ce{S}$: Substrat, $\\ce{ES}$: Kompleks enzim-substrat, $\\ce{P}$: Produk.
+- Konsentrasi enzim total terkonservasi: $[E]_0 = [E] + [ES]$.
+
+Berdasarkan **Aproksimasi Keadaan Tunak Briggs-Haldane** ($\\frac{d[ES]}{dt} = 0$):
+Laju pembentukan $\\ce{ES}$ sama dengan laju penguraian $\\ce{ES}$:
+$$k_1 [E][S] = (k_{-1} + k_{cat})[ES]$$
+Substitusikan $[E] = [E]_0 - [ES]$:
+$$k_1 ([E]_0 - [ES])[S] = (k_{-1} + k_{cat})[ES]$$
+$$[ES] = \\frac{[E]_0 [S]}{\\frac{k_{-1} + k_{cat}}{k_1} + [S]} = \\frac{[E]_0 [S]}{K_m + [S]}$$
+di mana **Konstanta Michaelis ($K_m$)** didefinisikan sebagai:
+$$K_m = \\frac{k_{-1} + k_{cat}}{k_1}$$
+
+---
+
+### 2. Persamaan Laju Awal Michaelis-Menten:
+Laju pembentukan produk awal ($v_0$) adalah:
+$$v_0 = \\frac{d[P]}{dt} = k_{cat}[ES] = \\frac{k_{cat}[E]_0 [S]}{K_m + [S]}$$
+Ketika seluruh enzim jenuh oleh substrat ($[ES] \\to [E]_0$), laju reaksi mencapai nilai maksimum teoritis ($V_{\\max} = k_{cat}[E]_0$):
+$$v_0 = \\frac{V_{\\max}[S]}{K_m + [S]}$$
+
+**Interpretasi Parameter Kinetika Utama:**
+1. **Konstanta Michaelis ($K_m$):**
+   Konsentrasi substrat saat laju awal mencapai setengah laju maksimum ($v_0 = \\frac{1}{2}V_{\\max}$). Jika $k_{-1} \\gg k_{cat}$, $K_m \\approx K_d$ (kebalikan dari konstanta afinitas enzim terhadap substrat). Semakin kecil nilai $K_m$, semakin tinggi afinitas enzim terhadap substratnya.
+2. **Turnover Number ($k_{cat}$):**
+   Jumlah molekul substrat yang diubah menjadi produk per detik oleh satu molekul enzim aktif dalam kondisi jenuh ($k_{cat} = V_{\\max}/[E]_0$, berdimensi $\\text{s}^{-1}$).
+3. **Efisiensi Katalitik ($k_{cat} / K_m$):**
+   Konstanta laju orde kedua reaksi enzim bebas dengan substrat bebas pada $[S] \\ll K_m$. Batas maksimum efisiensi katalitik dibatasi oleh frekuensi tumbukan difusi molekul dalam larutan berair (**batas difusi Smoluchowski**, $10^8 - 10^9\\text{ M}^{-1}\\text{s}^{-1}$). Enzim dengan nilai $k_{cat}/K_m$ mendekati rentang ini dijuluki *katalisator kinetik sempurna*.
+
+---
+
+### 3. Plot Lineweaver-Burk (Transformasi Dua Resiprokal):
+Membalik persamaan Michaelis-Menten menghasilkan hubungan linear:
+$$\\frac{1}{v_0} = \\left(\\frac{K_m}{V_{\\max}}\\right) \\frac{1}{[S]} + \\frac{1}{V_{\\max}}$$
+Grafik linear $\\frac{1}{v_0}$ (sumbu-y) terhadap $\\frac{1}{[S]}$ (sumbu-x) memberikan:
+- **Kemiringan kurva (*Slope*):** $m = \\frac{K_m}{V_{\\max}}$
+- **Titik potong sumbu-y (*y-intercept*):** $\\frac{1}{V_{\\max}}$
+- **Titik potong sumbu-x (*x-intercept*):** $-\\frac{1}{K_m}$
+
+---
+
+### 4. Mekanisme & Diagnostik Grafik Inhibisi Enzim Reversibel:
+
+| Jenis Inhibisi | Mekanisme Pengikatan Inhibitor | Parameter Nyata ($V_{\\max}^{\\text{app}}$ & $K_m^{\\text{app}}$) | Karakteristik Plot Lineweaver-Burk |
+| :--- | :--- | :--- | :--- |
+| **Kompetitif** | Inhibitor mirip substrat, bersaing mengikat sisi aktif enzim bebas ($\\ce{E + I <=> EI}$). | $V_{\\max}^{\\text{app}} = V_{\\max}$ (tetap)<br>$K_m^{\\text{app}} = \\alpha K_m > K_m$ (meningkat) | Garis berpotongan tepat di sumbu-y ($1/V_{\\max}$ identik). Kemiringan kurva meningkat seiring konsentrasi $[I]$. Inhibisi dapat diatasi dengan konsentrasi substrat sangat tinggi. |
+| **Unkompetitif** | Inhibitor hanya mengikat kompleks enzim-substrat ($\\ce{ES + I <=> ESI}$), tidak dapat mengikat enzim bebas. | $V_{\\max}^{\\text{app}} = \\frac{V_{\\max}}{\\alpha'}$ (menurun)<br>$K_m^{\\text{app}} = \\frac{K_m}{\\alpha'}$ (menurun dengan rasio sama) | Sekumpulan garis-garis **sejajar sempurna** (*parallel lines*). Rasio kemiringan kurva $K_m/V_{\\max}$ konstan. |
+| **Non-Kompetitif Murni** | Inhibitor mengikat sisi alosterik dengan afinitas sama pada $\\ce{E}$ bebas maupun kompleks $\\ce{ES}$ ($\\alpha = \\alpha'$). | $V_{\\max}^{\\text{app}} = \\frac{V_{\\max}}{\\alpha}$ (menurun)<br>$K_m^{\\text{app}} = K_m$ (tetap konstan) | Garis berpotongan tepat di sumbu-x pada nilai $-1/K_m$. |
+| **Campuran (*Mixed*)** | Inhibitor mengikat sisi alosterik dengan afinitas berbeda antara $\\ce{E}$ bebas dan $\\ce{ES}$ ($\\alpha \\ne \\alpha'$). | $V_{\\max}^{\\text{app}} = \\frac{V_{\\max}}{\\alpha'}$ (menurun)<br>$K_m^{\\text{app}} = \\frac{\\alpha}{\\alpha'} K_m$ (berubah) | Garis berpotongan di kuadran II (jika $\\alpha > \\alpha'$) atau kuadran III (jika $\\alpha < \\alpha'$), bukan di sumbu koordinat. |
+
+Faktor pengali pergeseran didefinisikan sebagai $\\alpha = 1 + \\frac{[I]}{K_i}$ dan $\\alpha' = 1 + \\frac{[I]}{K_i'}$.`,
+      keyFormulas: [
+        { name: 'Persamaan Laju Michaelis-Menten', formula: 'v_0 = \\frac{V_{\\max}[S]}{K_m + [S]}' },
+        { name: 'Plot Lineweaver-Burk', formula: '\\frac{1}{v_0} = \\left(\\frac{K_m}{V_{\\max}}\\right)\\frac{1}{[S]} + \\frac{1}{V_{\\max}}' },
+        { name: 'Konstanta Michaelis', formula: 'K_m = \\frac{k_{-1} + k_{cat}}{k_1}' },
+        { name: 'Efisiensi Katalitik Enzim', formula: '\\text{Efisiensi} = \\frac{k_{cat}}{K_m}' },
       ],
     },
   ],

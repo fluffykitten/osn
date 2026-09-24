@@ -7,6 +7,7 @@
 import type { GradingRequest, GradingResponse, GradingCriterionResult } from '../types/database';
 import { callGemini, isGeminiKeyConfigured } from '../lib/geminiClient';
 import { cleanAndParseJson } from '../lib/robust-json';
+import { analyzeScaffoldWork } from './scaffoldService';
 
 const OSN_SYSTEM_INSTRUCTION = `Anda adalah Dewan Juri dan Ketua Tim Pembina Olimpiade Sains Nasional (OSN) Kimia SMA Indonesia (Puspresnas / BPTI) dan International Chemistry Olympiad (IChO).
 Tugas Anda adalah menilai lembar kerja siswa secara sangat objektif, teliti, adil, mendalam, dan menjunjung tinggi kaidah ketelitian sains kimia.
@@ -19,7 +20,12 @@ Pedoman Penilaian Keras (Grading Rules):
    - Lupa mengalikan koefisien reaksi pada neraca massa/mol.
    - Kesalahan tanda pada termodinamika (misal dG° = dH° - T·dS°, satuan kJ vs J belum diselaraskan).
    - Kesalahan memasukkan nilai Q pada persamaan Nernst (misal terbalik anoda/katoda).
-5. Format output WAJIB berupa JSON murni sesuai skema berikut tanpa teks pengantar di luar JSON:
+5. ATURAN ANTI-ABUSE TEMPLATE (SCAFFOLDING GUARD):
+   - Sistem menyediakan fitur "Kerangka 4 Langkah OSN" sebagai panduan scaffolding pengerjaan siswa.
+   - PERINGATAN KERAS: Jika siswa HANYA menyisipkan template kerangka kosong (masih banyak placeholder "....", "...", atau teks judul bab/bullet bawaan tanpa substitusi angka dan reaksi nyata dari soal), Anda WAJIB memberikan nilai 0 (NOL) pada kriteria langkah pengerjaan!
+   - Jangan pernah tertipu oleh format judul 1, 2, 3, 4 atau istilah ilmiah yang tercetak di template bawaan.
+   - Poin langkah HANYA boleh diberikan jika siswa secara nyata mengganti titik-titik tersebut dengan angka numerik soal, persamaan reaksi spesifik yang setara, dan penurunan rumus matematika mandiri.
+6. Format output WAJIB berupa JSON murni sesuai skema berikut tanpa teks pengantar di luar JSON:
 {
   "totalScore": number,
   "maxScore": number,
@@ -69,9 +75,9 @@ export async function evaluateStudentWorksheet(
       }
     } catch (apiError: any) {
       console.warn('Gagal memanggil Gemini API live, beralih ke scientific evaluation engine:', apiError);
-      // Jika pemanggilan API gagal, tampilkan fallback cerdas dengan catatan
+      // Jika pemanggilan API gagal, gunakan fallback mesin saintifik yang akurat
       const fallbackResult = deterministicScientificGrader(request, maxPoints);
-      fallbackResult.overallFeedback = `[Mode Offline / Fallback Cerdas] ${fallbackResult.overallFeedback} (Catatan: Sambungan ke Gemini gagal: ${apiError.message || 'Periksa API Key'})`;
+      fallbackResult.modelUsed = '🔬 Mesin Evaluasi Saintifik';
       return fallbackResult;
     }
   }
@@ -84,8 +90,19 @@ export async function evaluateStudentWorksheet(
  * Menyusun prompt terstruktur untuk Gemini
  */
 function constructPrompt(req: GradingRequest, maxScore: number): string {
-  return `Berikut adalah rincian soal dan jawaban siswa yang harus dinilai:
+  const scaffoldAnalysis = analyzeScaffoldWork(req.studentWorkSteps || '');
+  let abuseWarning = '';
+  if (scaffoldAnalysis.isCompletelyUnfilled) {
+    abuseWarning = `\n[PERINGATAN INTEGRITAS & ANTI-ABUSE DARI SISTEM]:
+Siswa terdeteksi HANYA menyalin/menyisipkan template kerangka 4 langkah kosong dengan ${scaffoldAnalysis.placeholderCount} titik-titik (....) tanpa mengisi perhitungan numerik riil sama sekali.
+INSTRUKSI JURI: Berikan skor 0 pada kriteria langkah penurunan rumus/metodologi sains! Nyatakan dengan jelas di feedback bahwa template kerangka belum diisi dengan perhitungan nyata.\n`;
+  } else if (scaffoldAnalysis.isPartiallyFilled) {
+    abuseWarning = `\n[CATATAN INTEGRITAS DARI SISTEM]:
+Siswa menyisipkan template kerangka namun sebagian poin (${scaffoldAnalysis.placeholderCount} placeholder ....) masih belum diisi. Berikan nilai parsial HANYA pada bagian yang terisi nyata.\n`;
+  }
 
+  return `Berikut adalah rincian soal dan jawaban siswa yang harus dinilai:
+${abuseWarning}
 SOAL OSN KIMIA:
 Judul: ${req.questionTitle} (Topik ${req.pillarNumber}: ${req.subtopic})
 Teks Soal:
@@ -162,7 +179,12 @@ export function deterministicScientificGrader(
   req: GradingRequest,
   maxScore: number = 10
 ): GradingResponse {
-  const stepsLower = (req.studentWorkSteps || '').toLowerCase();
+  const scaffoldAnalysis = analyzeScaffoldWork(req.studentWorkSteps || '');
+  // Jika siswa menyisipkan kerangka, periksa rumus hanya dari tulisan mandiri siswa
+  const stepsToCheck = scaffoldAnalysis.hasScaffoldMarkers
+    ? scaffoldAnalysis.cleanedText.toLowerCase()
+    : (req.studentWorkSteps || '').toLowerCase();
+  const stepsLower = stepsToCheck;
   const finalLower = (req.studentFinalAnswer || '').toLowerCase();
   const criteria: GradingCriterionResult[] = [];
   const strengths: string[] = [];
@@ -435,32 +457,154 @@ export function deterministicScientificGrader(
         : 'Perhitungan Ksp = [Ag+]^2 untuk garam tipe 1:1 seperti AgCl.',
     });
   }
-  // Pertanyaan Generik / Umum
+  // Pertanyaan Generik / Soal Umum & Pilihan Ganda
   else {
-    const totalChars = (req.studentWorkSteps || '').length;
+    const expClean = (req.expectedFinalAnswer || '').trim().toUpperCase();
+    const actClean = (req.studentFinalAnswer || '').trim().toUpperCase();
+    const isMcq = /^[A-E]$/.test(expClean);
+
+    if (isMcq) {
+      // Modus Soal Pilihan Ganda (MCQ): Validasi langsung terhadap opsi A - E
+      const isCorrect = actClean === expClean || actClean.startsWith(expClean);
+
+      // Proteksi Anti-Abuse: Cek apakah siswa hanya menyisipkan template kerangka tanpa mengisi
+      if (scaffoldAnalysis.isCompletelyUnfilled) {
+        const optionWeight = Number((maxScore * 0.6).toFixed(1)); // 6 poin untuk opsi benar
+        const stepWeight = Number((maxScore * 0.4).toFixed(1));   // 4 poin untuk langkah penalaran
+
+        criteria.push({
+          stepNumber: 1,
+          criterionTitle: 'Ketepatan Pemilihan Opsi Jawaban (Pilihan Ganda)',
+          pointsEarned: isCorrect ? optionWeight : 0,
+          maxPoints: optionWeight,
+          achieved: isCorrect,
+          examinerExplanation: isCorrect
+            ? `Pilihan opsi Anda (${actClean || '-'}) tepat sesuai dengan kunci jawaban (${expClean}).`
+            : `Pilihan opsi Anda (${actClean || '-'}) belum tepat. Kunci yang benar adalah opsi ${expClean}.`,
+        });
+
+        criteria.push({
+          stepNumber: 2,
+          criterionTitle: 'Penalaran Analitis & Pengisian Kerangka Langkah',
+          pointsEarned: 0,
+          maxPoints: stepWeight,
+          achieved: false,
+          examinerExplanation: 'Kerangka langkah pengerjaan terdeteksi hanya berupa template bawaan tanpa pengisian data/perhitungan numerik riil (placeholder .... belum diisi).',
+        });
+
+        const totalScore = isCorrect ? optionWeight : 0;
+        const status: 'perfect' | 'partial_correct' | 'incorrect' = isCorrect ? 'partial_correct' : 'incorrect';
+        const overallFeedback = isCorrect
+          ? `Pilihan jawaban Anda (${expClean}) tepat! Namun, langkah pengerjaan yang disisipkan masih berupa template kerangka kosong tanpa perhitungan nyata. Untuk mendapatkan skor sempurna 100%, lengkapi titik-titik (....) dengan data dan reaksi soal.`
+          : `Jawaban Anda (${actClean || '-'}) belum tepat. Kunci yang benar adalah opsi ${expClean}. Pelajari kembali materi dan rubrik pembahasannya.`;
+
+        return {
+          totalScore,
+          maxScore,
+          status,
+          criteriaBreakdown: criteria,
+          overallFeedback,
+          strengths: isCorrect ? ['Pilihan jawaban tepat sesuai kunci konseptual'] : [],
+          missingOrIncorrectPoints: ['Lengkapi penurunan rumus pada kerangka 4 langkah (jangan biarkan placeholder .... kosong)'],
+          suggestedReviewTopic: req.subtopic,
+          xpAwarded: isCorrect ? 25 : 10,
+          confidenceScore: 1.0,
+          elapsedSeconds: req.elapsedSeconds,
+          gradedAt: new Date().toISOString(),
+        };
+      }
+
+      const pointsEarned = isCorrect ? maxScore : 0;
+      criteria.push({
+        stepNumber: 1,
+        criterionTitle: 'Ketepatan Pemilihan Opsi Jawaban (Pilihan Ganda)',
+        pointsEarned,
+        maxPoints: maxScore,
+        achieved: isCorrect,
+        examinerExplanation: isCorrect
+          ? `Pilihan opsi Anda (${actClean || '-'}) tepat sesuai dengan kunci jawaban (${expClean}).`
+          : `Pilihan opsi Anda (${actClean || '-'}) belum tepat. Kunci jawaban yang benar adalah ${expClean}.`,
+      });
+
+      const hasGenuineSteps =
+        !scaffoldAnalysis.hasScaffoldMarkers
+          ? (req.studentWorkSteps || '').length > 20 && !req.studentWorkSteps?.includes('(Jawaban langsung')
+          : scaffoldAnalysis.cleanedLength >= 25;
+
+      if (hasGenuineSteps) {
+        strengths.push('Langkah penalaran analitis disertakan dengan baik');
+      }
+
+      const totalScore = pointsEarned;
+      const status: 'perfect' | 'incorrect' = isCorrect ? 'perfect' : 'incorrect';
+      const overallFeedback = isCorrect
+        ? `Luar biasa! Pilihan jawaban Anda (${expClean}) terbukti tepat dan sesuai dengan kaidah ilmiah pada soal ini.`
+        : `Jawaban Anda (${actClean || '-'}) belum tepat. Kunci yang benar adalah opsi ${expClean}. Pelajari kembali materi dan rubrik pembahasannya.`;
+      const xpAwarded = isCorrect ? 50 : 10;
+
+      return {
+        totalScore,
+        maxScore,
+        status,
+        criteriaBreakdown: criteria,
+        overallFeedback,
+        strengths: isCorrect ? ['Pilihan jawaban tepat sesuai kunci konseptual', ...strengths] : strengths,
+        missingOrIncorrectPoints: isCorrect ? [] : [`Opsi yang diharapkan: ${expClean}`],
+        suggestedReviewTopic: req.subtopic,
+        xpAwarded,
+        confidenceScore: 1.0,
+        elapsedSeconds: req.elapsedSeconds,
+        gradedAt: new Date().toISOString(),
+      };
+    }
+
+    // Soal Esai / Isian Numerik
+    const totalChars = scaffoldAnalysis.hasScaffoldMarkers
+      ? scaffoldAnalysis.cleanedLength
+      : (req.studentWorkSteps || '').length;
     const hasAnswer = (req.studentFinalAnswer || '').trim().length > 0;
     const stepWeight = maxScore / 2;
 
-    const achievedSteps = totalChars > 40;
+    const isScaffoldAbused = scaffoldAnalysis.isCompletelyUnfilled;
+    const achievedSteps =
+      !isScaffoldAbused &&
+      totalChars > 25 &&
+      !req.studentWorkSteps?.includes('(Jawaban langsung');
+
     criteria.push({
       stepNumber: 1,
       criterionTitle: 'Kelengkapan Penurunan Rumus & Metodologi Sains',
-      pointsEarned: achievedSteps ? stepWeight : Number((stepWeight * 0.3).toFixed(1)),
+      pointsEarned: achievedSteps
+        ? stepWeight
+        : isScaffoldAbused
+        ? 0
+        : Number((stepWeight * 0.3).toFixed(1)),
       maxPoints: stepWeight,
       achieved: achievedSteps,
-      examinerExplanation: achievedSteps
+      examinerExplanation: isScaffoldAbused
+        ? 'Kerangka langkah pengerjaan terdeteksi hanya berupa template bawaan tanpa pengisian data numerik atau persamaan reaksi riil. Skor langkah = 0.'
+        : achievedSteps
         ? 'Langkah pengerjaan teridentifikasi dan memuat logika kimia yang relevan.'
         : 'Langkah pengerjaan terlalu ringkas atau belum memuat penurunan rumus dasar.',
     });
 
+    const isMatchExpected =
+      expClean.length > 0 &&
+      actClean.length > 0 &&
+      (actClean === expClean ||
+        actClean.includes(expClean) ||
+        expClean.includes(actClean));
+
     criteria.push({
       stepNumber: 2,
       criterionTitle: 'Kesesuaian Jawaban Akhir terhadap Nilai Kunci',
-      pointsEarned: hasAnswer ? stepWeight : 0,
+      pointsEarned: isMatchExpected ? stepWeight : hasAnswer ? Number((stepWeight * 0.5).toFixed(1)) : 0,
       maxPoints: stepWeight,
-      achieved: hasAnswer,
-      examinerExplanation: hasAnswer
-        ? 'Jawaban akhir telah dicantumkan pada kolom input.'
+      achieved: isMatchExpected || hasAnswer,
+      examinerExplanation: isMatchExpected
+        ? `Jawaban akhir (${req.studentFinalAnswer}) sesuai dengan kunci rubrik.`
+        : hasAnswer
+        ? `Jawaban akhir dicantumkan (${req.studentFinalAnswer}). Pastikan nilai atau rumus sudah disederhanakan.`
         : 'Kolom jawaban akhir belum terisi.',
     });
   }

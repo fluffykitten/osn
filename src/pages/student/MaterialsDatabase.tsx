@@ -1524,71 +1524,66 @@ export const MaterialsDatabase: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Header Section with Dual Database Switcher & Progress Tracker */}
-      <div className="border-b border-slate-200 pb-6 space-y-5">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className={`px-2.5 py-0.5 text-[10px] font-bold rounded uppercase font-mono ${
-                isSmaDb ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'
-              }`}>
-                {isSmaDb ? '📚 Kurikulum Merdeka (Fase E & F) & K13' : '🏆 Puspresnas & IChO Standard'}
-              </span>
-              <span className="text-xs text-slate-500 font-medium">Database Materi Pembelajaran Terstruktur</span>
+      {/* Hero Header Section (Matching Papan Tulis Design with Dual Database Switcher) */}
+      <div className="theme-hero-banner bg-gradient-to-r from-[#596A7A] via-[#708090] to-[#5C6D7D] text-[#FFFFF0] rounded-3xl p-6 sm:p-8 md:p-10 shadow-md border border-[#B0C4DE]/30 relative overflow-hidden space-y-6">
+        {/* Subtle ambient lighting */}
+        <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#FFFFF0]/10 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFFFF0]/15 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase text-[#FFFFF0] border border-[#B0C4DE]/30">
+              <BookOpen size={14} className="text-[#B0C4DE]" />
+              <span>{isSmaDb ? 'Kurikulum Merdeka (Fase E & F) & K13' : 'Puspresnas & IChO Standard'} • Database Materi</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display">
+            <h1 className="text-3xl md:text-4xl font-black text-[#FFFFF0] tracking-tight font-display">
               {isSmaDb ? 'Database Materi Sains Kimia Dasar SMA' : 'Database Materi OSN Kimia'}
             </h1>
 
-            <p className="text-slate-600 text-xs sm:text-sm max-w-3xl leading-relaxed text-justify">
+            <p className="text-[#F0F8FF]/90 text-xs sm:text-sm md:text-base max-w-3xl leading-relaxed">
               {isSmaDb
                 ? 'Pustaka fondasi kurikulum kimia SMA dari Fase E (Kelas 10) hingga Fase F Lanjutan (Kelas 12). Disusun dengan alur konsep prasyarat, teori inti, formula KaTeX, dan contoh soal kontekstual sebagai batu loncatan persiapan ujian sekolah, UTBK-SNBT, hingga kompetisi sains.'
                 : 'Pustaka komprehensif teori sains kimia tingkat lanjut dengan standar Puspresnas & International Chemistry Olympiad (IChO). Dilengkapi konsep prasyarat, pendalaman teori esensial, formula matematis, dan pembahasan teladan soal olimpiade.'}
             </p>
           </div>
 
-          {/* Progress Tracker Card */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs sm:w-64 shrink-0 space-y-2">
+          {/* Progress Tracker Card (Ivory Aesthetic) */}
+          <div className="bg-[#FFFFF0] text-[#2D3748] border border-[#D3D3D3] rounded-2xl p-4 shadow-sm sm:w-64 shrink-0 space-y-2">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="font-bold text-[#708090] flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#708090]" />
                 <span>Progress Belajar</span>
               </span>
-              <span className={`font-mono font-bold ${isSmaDb ? 'text-emerald-700' : 'text-sky-700'}`}>
+              <span className="font-mono font-bold text-[#2D3748]">
                 {completedCount}/{totalCount} {isSmaDb ? 'Modul' : 'Topik'}
               </span>
             </div>
-            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+            <div className="w-full bg-[#D3D3D3]/40 h-2 rounded-full overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-500 ${
-                  isSmaDb
-                    ? 'bg-linear-to-r from-emerald-500 to-teal-500'
-                    : 'bg-linear-to-r from-sky-500 to-emerald-500'
-                }`}
+                className="h-full rounded-full transition-all duration-500 bg-[#708090]"
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>
-            <p className="text-[10px] text-slate-400 text-right font-mono">
+            <p className="text-[10px] text-[#708090] text-right font-mono font-semibold">
               {progressPercentage}% Selesai Dipelajari
             </p>
           </div>
         </div>
 
         {/* Segmented Database Switcher */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/80 w-fit">
+        <div className="relative z-10 flex flex-wrap items-center gap-2 p-1.5 bg-[#FFFFF0]/15 backdrop-blur-md rounded-2xl border border-[#B0C4DE]/30 w-fit">
           <button
             onClick={() => handleDatabaseSwitch('osn')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeDatabase === 'osn'
-                ? 'bg-white text-sky-700 shadow-xs border border-slate-200/50'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#FFFFF0] text-[#708090] shadow-sm border border-[#D3D3D3]'
+                : 'text-[#FFFFF0]/90 hover:text-white hover:bg-white/10'
             }`}
           >
             <span>🏆 Materi Olimpiade (OSN)</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                activeDatabase === 'osn' ? 'bg-sky-100 text-sky-800' : 'bg-slate-200 text-slate-700'
+                activeDatabase === 'osn' ? 'bg-[#B0C4DE]/40 text-[#708090]' : 'bg-black/20 text-[#FFFFF0]'
               }`}
             >
               10 Topik
@@ -1599,14 +1594,14 @@ export const MaterialsDatabase: React.FC = () => {
             onClick={() => handleDatabaseSwitch('sma')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeDatabase === 'sma'
-                ? 'bg-white text-emerald-700 shadow-xs border border-slate-200/50'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#FFFFF0] text-[#708090] shadow-sm border border-[#D3D3D3]'
+                : 'text-[#FFFFF0]/90 hover:text-white hover:bg-white/10'
             }`}
           >
             <span>📚 Materi Dasar SMA</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                activeDatabase === 'sma' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'
+                activeDatabase === 'sma' ? 'bg-[#B0C4DE]/40 text-[#708090]' : 'bg-black/20 text-[#FFFFF0]'
               }`}
             >
               16 Modul

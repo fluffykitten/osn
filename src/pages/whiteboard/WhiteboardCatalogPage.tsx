@@ -137,19 +137,19 @@ export const WhiteboardCatalogPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 pb-16">
+    <div className="min-h-screen bg-[#F0F8FF] text-[#2D3748] pb-16">
       {/* Hero Header */}
-      <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-sky-700 text-white py-12 px-4 shadow-md">
+      <div className="theme-hero-banner bg-gradient-to-r from-[#596A7A] via-[#708090] to-[#5C6D7D] text-[#FFFFF0] py-12 px-4 shadow-md border-b border-[#B0C4DE]/30">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/15 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase mb-3">
-              <Sparkles size={14} className="text-amber-300" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFFFF0]/15 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase mb-3 text-[#FFFFF0] border border-[#B0C4DE]/30">
+              <Sparkles size={14} className="text-[#B0C4DE]" />
               <span>STEM Interactive Whiteboard</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-black tracking-tight text-[#FFFFF0]">
               Papan Tulis Sains & Olimpiade
             </h1>
-            <p className="text-blue-100 text-sm md:text-base mt-2 max-w-xl">
+            <p className="text-[#F0F8FF]/90 text-sm md:text-base mt-2 max-w-xl">
               Ruang belajar interaktif Kimia, Fisika, Biologi, dan Matematika dengan instrumen presisi, kolaborasi realtime guru-siswa, serta kanvas fleksibel.
             </p>
           </div>
@@ -157,7 +157,7 @@ export const WhiteboardCatalogPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="w-full sm:w-auto px-5 py-3 bg-white text-blue-700 hover:bg-blue-50 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-95"
+              className="w-full sm:w-auto px-5 py-3 bg-[#FFFFF0] text-[#708090] hover:bg-white rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-md transition active:scale-95 border border-[#D3D3D3]"
             >
               <Plus size={18} />
               <span>Buat Papan Tulis</span>
@@ -170,12 +170,12 @@ export const WhiteboardCatalogPage: React.FC = () => {
                 value={roomCodeInput}
                 onChange={(e) => setRoomCodeInput(e.target.value)}
                 placeholder="Kode STEM-XXXX"
-                className="px-4 py-3 bg-white/10 hover:bg-white/15 focus:bg-white text-white focus:text-slate-900 placeholder:text-blue-200 focus:placeholder:text-slate-400 border border-white/20 rounded-2xl text-xs font-mono font-bold tracking-wider uppercase transition focus:outline-none w-36"
+                className="px-4 py-3 bg-white/10 hover:bg-white/15 focus:bg-[#FFFFF0] text-white focus:text-[#2D3748] placeholder-[#B0C4DE] focus:placeholder-slate-400 border border-[#B0C4DE]/30 rounded-2xl text-xs font-mono font-bold tracking-wider uppercase transition focus:outline-none w-36"
               />
               <button
                 type="submit"
                 disabled={!roomCodeInput.trim()}
-                className="px-4 py-3 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 text-white rounded-2xl font-bold text-xs flex items-center gap-1 transition"
+                className="px-4 py-3 bg-[#B0C4DE] hover:bg-[#9CB3D0] disabled:opacity-40 text-[#2D3748] rounded-2xl font-bold text-xs flex items-center gap-1 transition shadow-sm"
               >
                 <span>Gabung</span>
                 <ArrowRight size={14} />

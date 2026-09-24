@@ -131,35 +131,35 @@ export const StudentDashboard: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
       {/* 1. Hero Banner: Profil & Status Prestasi */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-sky-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-800/40">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 -mb-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#4A5867] via-[#708090] to-[#556677] text-[#FFFFF0] rounded-3xl p-6 sm:p-8 shadow-xl border border-[#B0C4DE]/40">
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#B0C4DE]/15 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 -mb-20 w-80 h-80 bg-[#FFFFF0]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
-            <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-sky-400 to-indigo-500 text-white flex items-center justify-center text-3xl sm:text-4xl shadow-xl ring-4 ring-white/10 shrink-0">
+            <div className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-[#B0C4DE] to-[#708090] text-[#FFFFF0] flex items-center justify-center text-3xl sm:text-4xl shadow-xl ring-4 ring-[#FFFFF0]/25 shrink-0">
               🎓
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-white">
+                <h1 className="text-2xl sm:text-3xl font-black font-display tracking-tight text-[#FFFFF0]">
                   {profile?.full_name || 'Siswa OSN Kimia'}
                 </h1>
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-400/20 text-sky-300 border border-sky-400/30">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FFFFF0]/20 text-[#FFFFF0] border border-[#B0C4DE]/40">
                   Target: {profile?.target_olympiad || 'OSN'}
                 </span>
                 {profile?.grade_level && (
-                  <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-white/10 text-slate-200">
+                  <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-[#FFFFF0]/10 text-[#F0F8FF] border border-[#FFFFF0]/20">
                     Kelas {profile.grade_level}
                   </span>
                 )}
               </div>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <p className="text-xs sm:text-sm text-[#F0F8FF]/85 mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
                 <span>{profile?.school_name || 'SMA Mitra OSN Kimia'}</span>
                 {activeClassroom && (
                   <>
                     <span>•</span>
-                    <span className="text-emerald-300 font-semibold flex items-center gap-1">
+                    <span className="text-[#E2F0D9] font-semibold flex items-center gap-1">
                       <UserCheck className="w-3.5 h-3.5" />
                       {activeClassroom.name}
                     </span>
@@ -171,32 +171,32 @@ export const StudentDashboard: React.FC = () => {
 
           {/* Gamification Mini Pills */}
           <div className="flex items-center gap-3 self-stretch sm:self-auto justify-between sm:justify-start">
-            <div className="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/15 text-center min-w-[90px]">
-              <div className="text-[10px] text-slate-300 font-medium flex items-center justify-center gap-1">
-                <Flame className="w-3 h-3 text-amber-400" />
+            <div className="px-4 py-2.5 rounded-2xl bg-[#FFFFF0]/15 backdrop-blur-md border border-[#B0C4DE]/30 text-center min-w-[90px] shadow-xs">
+              <div className="text-[10px] text-[#F0F8FF]/80 font-medium flex items-center justify-center gap-1">
+                <Flame className="w-3 h-3 text-[#D4A359]" />
                 <span>Streak</span>
               </div>
-              <div className="text-base sm:text-lg font-bold font-mono text-amber-300">
+              <div className="text-base sm:text-lg font-bold font-mono text-[#FFFFF0]">
                 {profile?.current_streak || 0} Hari
               </div>
             </div>
 
-            <div className="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/15 text-center min-w-[90px]">
-              <div className="text-[10px] text-slate-300 font-medium flex items-center justify-center gap-1">
-                <Zap className="w-3 h-3 text-sky-400" />
+            <div className="px-4 py-2.5 rounded-2xl bg-[#FFFFF0]/15 backdrop-blur-md border border-[#B0C4DE]/30 text-center min-w-[90px] shadow-xs">
+              <div className="text-[10px] text-[#F0F8FF]/80 font-medium flex items-center justify-center gap-1">
+                <Zap className="w-3 h-3 text-[#B0C4DE]" />
                 <span>XP Total</span>
               </div>
-              <div className="text-base sm:text-lg font-bold font-mono text-sky-300">
+              <div className="text-base sm:text-lg font-bold font-mono text-[#FFFFF0]">
                 {profile?.xp || 0} XP
               </div>
             </div>
 
-            <div className="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/15 text-center min-w-[90px]">
-              <div className="text-[10px] text-slate-300 font-medium flex items-center justify-center gap-1">
-                <Award className="w-3 h-3 text-emerald-400" />
+            <div className="px-4 py-2.5 rounded-2xl bg-[#FFFFF0]/15 backdrop-blur-md border border-[#B0C4DE]/30 text-center min-w-[90px] shadow-xs">
+              <div className="text-[10px] text-[#F0F8FF]/80 font-medium flex items-center justify-center gap-1">
+                <Award className="w-3 h-3 text-[#B0C4DE]" />
                 <span>Level</span>
               </div>
-              <div className="text-base sm:text-lg font-bold font-mono text-emerald-300">
+              <div className="text-base sm:text-lg font-bold font-mono text-[#FFFFF0]">
                 Lv. {profile?.level || 1}
               </div>
             </div>
@@ -358,7 +358,7 @@ export const StudentDashboard: React.FC = () => {
           </div>
 
           {/* Pintasan Cepat Fitur Pembelajaran */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <Link
               to="/roadmap"
               className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 hover:bg-sky-50/40 transition-all group"
@@ -382,14 +382,25 @@ export const StudentDashboard: React.FC = () => {
             </Link>
 
             <Link
+              to="/practice"
+              className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-amber-300 hover:bg-amber-50/40 transition-all group"
+            >
+              <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div className="text-xs font-bold text-slate-900">Bank Soal</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">Latihan Mandiri</div>
+            </Link>
+
+            <Link
               to="/worksheet"
-              className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/40 transition-all group col-span-2 sm:col-span-1"
+              className="p-4 rounded-2xl bg-white border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50/40 transition-all group"
             >
               <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                 <Layers className="w-4 h-4" />
               </div>
               <div className="text-xs font-bold text-slate-900">Worksheet</div>
-              <div className="text-[11px] text-slate-500 mt-0.5">Latihan Mandiri</div>
+              <div className="text-[11px] text-slate-500 mt-0.5">Lembar Kerja</div>
             </Link>
           </div>
         </div>

@@ -14,6 +14,7 @@ export interface GeminiCallOptions {
   temperature?: number;
   systemInstruction?: string;
   responseMimeType?: string;
+  thinkingBudget?: number;
 }
 
 export interface GeminiCallResult {
@@ -25,7 +26,7 @@ export interface GeminiCallResult {
 
 const STORAGE_KEY = 'osn_gemini_api_key';
 const DEFAULT_MODEL = 'gemini-3.6-flash';
-const CANDIDATE_MODELS = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-1.5-flash'];
+const CANDIDATE_MODELS = ['gemini-3.6-flash', 'gemini-3.5-flash'];
 
 /**
  * Mengumpulkan seluruh API key yang tersedia dari environment variables (.env.local)
@@ -149,6 +150,9 @@ export async function callGemini(
             temperature,
             topP: 0.95,
             responseMimeType,
+            thinkingConfig: {
+              thinkingBudget: options.thinkingBudget ?? 0,
+            },
           },
         };
 
@@ -159,7 +163,7 @@ export async function callGemini(
         }
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 35000); // 35 detik timeout
+        const timeoutId = setTimeout(() => controller.abort(), 12000); // 12 detik timeout cepat per percobaan
 
         try {
           const response = await fetch(url, {
@@ -191,9 +195,9 @@ export async function callGemini(
           const errMsg = errorData.error?.message || `HTTP ${response.status}: ${response.statusText}`;
           lastError = new Error(`Gemini (${currentModel}, Kunci #${keyIdx + 1}): ${errMsg}`);
 
-          // Jika 404 (Model tidak ditemukan), lanjutkan ke model alternatif pada kunci yang sama
-          if (response.status === 404) {
-            console.warn(`Model ${currentModel} tidak tersedia, mencoba model cadangan...`);
+          // Jika 404 (Model tidak ditemukan), 503 (Spike/kapasitas sibuk), atau 500, lanjutkan ke model alternatif
+          if (response.status === 404 || response.status === 503 || response.status === 500) {
+            console.warn(`Model ${currentModel} mengembalikan status ${response.status}, mencoba model cadangan...`);
             continue;
           }
 

@@ -24,6 +24,7 @@ import {
 import {
   studentWorksheetService,
   type StudentWorksheetItem,
+  type ActiveWorksheetSession,
 } from '../../services/studentWorksheetService';
 import { classroomService } from '../../services/classroomService';
 import { useAuth } from '../../contexts/AuthContext';
@@ -42,6 +43,22 @@ export const StudentWorksheetList: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'teacher' | 'syllabus'>('teacher');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
+  const [activeSession, setActiveSession] = useState<ActiveWorksheetSession | null>(null);
+
+  // Pantau sesi worksheet yang sedang aktif dikerjakan siswa
+  useEffect(() => {
+    const updateSession = () => {
+      const session = studentWorksheetService.getActiveSession(user?.id);
+      setActiveSession(session);
+    };
+    updateSession();
+    window.addEventListener('osn_active_worksheet_changed', updateSession);
+    window.addEventListener('storage', updateSession);
+    return () => {
+      window.removeEventListener('osn_active_worksheet_changed', updateSession);
+      window.removeEventListener('storage', updateSession);
+    };
+  }, [user?.id]);
 
   // Muat daftar worksheet siswa dan tugas dari kelas binaan
   const loadWorksheets = async () => {
@@ -147,62 +164,116 @@ export const StudentWorksheetList: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Header Section (Light Theme with Frantic Studying Cats) */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-2xs flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
-        <div className="space-y-1.5 text-center md:text-left flex-1 min-w-0">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight font-display text-slate-900 leading-tight">
-            Worksheet{' '}
-            <span className="bg-gradient-to-r from-sky-600 via-indigo-600 to-emerald-600 bg-clip-text text-transparent">
-              Saya
-            </span>
+      {/* Header Section (Matching Papan Tulis Design with Frantic Studying Cats) */}
+      <div className="theme-hero-banner bg-gradient-to-r from-[#596A7A] via-[#708090] to-[#5C6D7D] text-[#FFFFF0] rounded-3xl p-6 sm:p-8 md:p-10 shadow-md border border-[#B0C4DE]/30 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
+        <div className="absolute -right-20 -top-20 w-80 h-80 bg-[#FFFFF0]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="space-y-3 text-center md:text-left flex-1 min-w-0 relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#FFFFF0]/15 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase text-[#FFFFF0] border border-[#B0C4DE]/30">
+            <Sparkles size={14} className="text-[#B0C4DE]" />
+            <span>PORTAL LEMBAR KERJA & PENUGASAN</span>
+          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display text-[#FFFFF0] leading-tight">
+            Dashboard Worksheet Siswa
           </h1>
+          <p className="text-[#F0F8FF]/90 text-xs sm:text-sm md:text-base max-w-xl leading-relaxed">
+            Pusat lembar kerja terstruktur, latihan silabus mandiri, dan penugasan kelas binaan olimpiade kimia dengan evaluasi cerdas AI.
+          </p>
         </div>
 
         {/* Animated Frantic Cats Illustration */}
-        <div className="shrink-0 w-full max-w-[260px] sm:max-w-[300px] md:max-w-[320px]">
+        <div className="shrink-0 w-full max-w-[240px] sm:max-w-[280px] md:max-w-[300px] relative z-10 bg-[#FFFFF0]/10 backdrop-blur-xs p-3 rounded-2xl border border-[#B0C4DE]/20 shadow-inner">
           <FranticCatStudySvg className="w-full h-auto" />
         </div>
       </div>
 
+      {/* Active Worksheet Session Banner */}
+      {activeSession && (
+        <div className="relative overflow-hidden bg-[#FFFFF0] rounded-3xl p-5 sm:p-6 text-[#2D3748] shadow-md border border-[#D3D3D3] animate-in fade-in slide-in-from-top-3 duration-300">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5 relative z-10">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#708090] text-[#FFFFF0] flex items-center justify-center shrink-0 border border-[#B0C4DE]/40 shadow-sm">
+                <Play className="w-6 h-6 text-[#FFFFF0] fill-[#FFFFF0] ml-0.5" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#B0C4DE]/40 text-[#708090] border border-[#B0C4DE]/70 uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#708090] animate-ping" />
+                    Sesi Latihan Berjalan
+                  </span>
+                  <span className="text-xs text-[#708090] font-medium font-mono">
+                    Soal {activeSession.currentQIndex + 1} dari {activeSession.totalQuestions}
+                  </span>
+                </div>
+                <h2 className="text-lg sm:text-xl font-black text-[#2D3748] leading-snug">
+                  {activeSession.title}
+                </h2>
+                <p className="text-xs text-[#708090] line-clamp-1">
+                  Progres Anda tersimpan otomatis. Klik tombol untuk langsung melanjutkan pada nomor soal terakhir.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2.5 sm:self-center shrink-0">
+              <button
+                onClick={() => {
+                  studentWorksheetService.clearActiveSession();
+                  setActiveSession(null);
+                }}
+                className="px-3.5 py-2.5 rounded-xl bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] text-xs font-semibold transition-all border border-[#D3D3D3] cursor-pointer"
+                title="Tutup sesi aktif"
+              >
+                Tutup Sesi
+              </button>
+              <button
+                onClick={() => navigate(activeSession.url)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#708090] text-[#FFFFF0] hover:bg-[#5C6D7D] font-bold text-xs shadow-md transition-all group cursor-pointer border border-[#708090]"
+              >
+                <span>Lanjutkan Soal Ini</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Quick Metrics Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 text-sky-700 flex items-center justify-center">
+        <div className="bg-[#FFFFF0] p-4 rounded-2xl border border-[#D3D3D3] shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/50 text-[#708090] flex items-center justify-center">
             <Layers className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-extrabold text-slate-900 font-mono">{stats.total}</div>
-            <div className="text-[11px] font-medium text-slate-500">Total Worksheet</div>
+            <div className="text-xl font-extrabold text-[#2D3748] font-mono">{stats.total}</div>
+            <div className="text-[11px] font-medium text-[#708090]">Total Worksheet</div>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center">
+        <div className="bg-[#FFFFF0] p-4 rounded-2xl border border-[#D3D3D3] shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/50 text-[#708090] flex items-center justify-center">
             <Radio className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-extrabold text-slate-900 font-mono">{stats.teacherCount}</div>
-            <div className="text-[11px] font-medium text-slate-500">Tugas Guru (Live)</div>
+            <div className="text-xl font-extrabold text-[#2D3748] font-mono">{stats.teacherCount}</div>
+            <div className="text-[11px] font-medium text-[#708090]">Tugas Guru (Live)</div>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center">
+        <div className="bg-[#FFFFF0] p-4 rounded-2xl border border-[#D3D3D3] shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/50 text-[#708090] flex items-center justify-center">
             <Clock className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-extrabold text-slate-900 font-mono">{stats.inProgressCount}</div>
-            <div className="text-[11px] font-medium text-slate-500">Sedang Dikerjakan</div>
+            <div className="text-xl font-extrabold text-[#2D3748] font-mono">{stats.inProgressCount}</div>
+            <div className="text-[11px] font-medium text-[#708090]">Sedang Dikerjakan</div>
           </div>
         </div>
 
-        <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center">
+        <div className="bg-[#FFFFF0] p-4 rounded-2xl border border-[#D3D3D3] shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/50 text-[#708090] flex items-center justify-center">
             <CheckCircle2 className="w-5 h-5" />
           </div>
           <div>
-            <div className="text-xl font-extrabold text-slate-900 font-mono">{stats.completedCount}</div>
-            <div className="text-[11px] font-medium text-slate-500">Selesai / Dinilai</div>
+            <div className="text-xl font-extrabold text-[#2D3748] font-mono">{stats.completedCount}</div>
+            <div className="text-[11px] font-medium text-[#708090]">Selesai / Dinilai</div>
           </div>
         </div>
       </div>

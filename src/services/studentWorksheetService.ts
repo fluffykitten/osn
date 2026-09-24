@@ -31,10 +31,22 @@ export interface StudentWorksheetItem {
   last_accessed_at?: string;
 }
 
+export interface ActiveWorksheetSession {
+  url: string;               // e.g. "/worksheet/practice/103001"
+  type: string;              // "practice" | "teacher_assignment" | "live" | "static_module"
+  id: string;                // "103001"
+  title: string;             // e.g. "Latihan Soal #103001"
+  currentQIndex: number;     // 0-indexed
+  totalQuestions: number;    // e.g. 10
+  lastActiveAt: number;      // Date.now()
+  studentId: string;
+}
+
 const LOCAL_ENROLLED_WORKSHEETS_KEY = 'osn_student_enrolled_worksheets_v1';
 const LOCAL_SUBMISSIONS_KEY = 'osn_student_submissions';
 const LOCAL_SESSIONS_KEY = 'osn_live_sessions_registry_v1';
 const LOCAL_WORKSHEET_STATUS_KEY = 'osn_student_worksheet_statuses_v2';
+const LOCAL_ACTIVE_SESSION_KEY = 'osn_active_worksheet_session_v1';
 
 interface StatusRecord {
   status: StudentWorksheetStatus;
@@ -226,8 +238,71 @@ class StudentWorksheetService {
       }
 
       localStorage.setItem(LOCAL_WORKSHEET_STATUS_KEY, JSON.stringify(records));
+
+      // Jika worksheet yang selesai ini adalah sesi yang sedang aktif, bersihkan sesi aktifnya
+      const active = this.getActiveSession(params.studentId);
+      if (active && active.type === params.type && String(active.id) === String(params.id)) {
+        this.clearActiveSession();
+      }
     } catch (e) {
       console.warn('Gagal menandai worksheet selesai:', e);
+    }
+  }
+
+  /**
+   * Menyimpan sesi pengerjaan worksheet yang sedang aktif (url, index soal, dll)
+   */
+  public setActiveSession(session: ActiveWorksheetSession): void {
+    try {
+      localStorage.setItem(LOCAL_ACTIVE_SESSION_KEY, JSON.stringify(session));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('osn_active_worksheet_changed', { detail: session }));
+      }
+    } catch (err) {
+      console.warn('Gagal menyimpan sesi aktif worksheet:', err);
+    }
+  }
+
+  /**
+   * Membaca sesi pengerjaan worksheet yang sedang aktif
+   */
+  public getActiveSession(studentId?: string): ActiveWorksheetSession | null {
+    try {
+      if (typeof window === 'undefined') return null;
+      const raw = localStorage.getItem(LOCAL_ACTIVE_SESSION_KEY);
+      if (!raw) return null;
+      const parsed: ActiveWorksheetSession = JSON.parse(raw);
+      if (!parsed || !parsed.url) return null;
+
+      // Validasi studentId jika ada
+      if (studentId && parsed.studentId && parsed.studentId !== studentId) {
+        return null;
+      }
+
+      // Validasi kedaluwarsa sesi (misal aktif dalam 48 jam terakhir)
+      const maxAgeMs = 48 * 60 * 60 * 1000;
+      if (Date.now() - (parsed.lastActiveAt || 0) > maxAgeMs) {
+        this.clearActiveSession();
+        return null;
+      }
+
+      return parsed;
+    } catch (err) {
+      console.warn('Gagal membaca sesi aktif worksheet:', err);
+      return null;
+    }
+  }
+
+  /**
+   * Menghapus sesi pengerjaan worksheet yang aktif (misal saat selesai dikumpulkan atau ditutup siswa)
+   */
+  public clearActiveSession(): void {
+    try {
+      if (typeof window === 'undefined') return;
+      localStorage.removeItem(LOCAL_ACTIVE_SESSION_KEY);
+      window.dispatchEvent(new CustomEvent('osn_active_worksheet_changed', { detail: null }));
+    } catch (err) {
+      console.warn('Gagal menghapus sesi aktif worksheet:', err);
     }
   }
 

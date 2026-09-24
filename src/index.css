@@ -6,17 +6,27 @@
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Serene Minimalist Blues and Ivory Harmony Palette */
+    --serene-steel: #B0C4DE;       /* Light Steel Blue */
+    --serene-ivory: #FFFFF0;       /* Ivory */
+    --serene-alice: #F0F8FF;       /* Alice Blue Canvas */
+    --serene-gray: #D3D3D3;        /* Light Gray Border */
+    --serene-slate: #708090;       /* Slate Gray Heading & Primary Action */
+    --serene-slate-dark: #2D3748;  /* Deep Slate Text */
+    --serene-slate-hover: #5D6D7D; /* Hover Slate */
   }
 
   body {
     font-family: var(--font-sans);
-    background-color: #f8fafc; /* Slate-50 */
-    color: #0f172a; /* Slate-900 */
+    background-color: #F0F8FF; /* Serene Alice Blue Canvas */
+    color: #2D3748; /* Deep Slate Charcoal Text */
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    color: #2D3748;
   }
 }
 
@@ -31,12 +41,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #B0C4DE;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #708090;
 }
 
 /* KaTeX formula fine-tuning for chemistry inline readability */
@@ -73,17 +83,52 @@
   animation: flame-pulse 2.2s infinite ease-in-out;
 }
 
-/* Glassmorphism surface subtle border */
+/* Serene Ivory Lab Card Surface */
 .lab-card {
-  background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.02);
+  background: #FFFFF0; /* Ivory surface */
+  border: 1px solid #D3D3D3; /* Light Gray border */
+  box-shadow: 0 1px 3px 0 rgba(112, 128, 144, 0.05), 0 1px 2px -1px rgba(112, 128, 144, 0.03);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lab-card:hover {
-  border-color: rgba(203, 213, 225, 1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  border-color: #B0C4DE;
+  box-shadow: 0 4px 6px -1px rgba(112, 128, 144, 0.1), 0 2px 4px -2px rgba(112, 128, 144, 0.06);
+}
+
+/* Serene Palette Helper Utilities */
+.bg-serene-canvas { background-color: #F0F8FF; }
+.bg-serene-surface { background-color: #FFFFF0; }
+.bg-serene-steel { background-color: #B0C4DE; }
+.bg-serene-slate { background-color: #708090; }
+.border-serene { border-color: #D3D3D3; }
+.text-serene-slate { color: #708090; }
+.text-serene-dark { color: #2D3748; }
+
+.btn-serene-primary {
+  background-color: #708090;
+  color: #FFFFF0;
+  transition: all 0.2s ease-in-out;
+}
+.btn-serene-primary:hover {
+  background-color: #5D6D7D;
+}
+
+.btn-serene-secondary {
+  background-color: #FFFFF0;
+  color: #708090;
+  border: 1px solid #D3D3D3;
+  transition: all 0.2s ease-in-out;
+}
+.btn-serene-secondary:hover {
+  background-color: #F0F8FF;
+  border-color: #B0C4DE;
+}
+
+.badge-serene {
+  background-color: rgba(176, 196, 222, 0.25);
+  color: #708090;
+  border: 1px solid rgba(176, 196, 222, 0.6);
 }
 
 /* Mobile KaTeX formula fine-tuning for smaller screens */

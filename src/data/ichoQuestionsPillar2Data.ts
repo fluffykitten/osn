@@ -26,6 +26,7 @@ export const ICHO_PILLAR_2_QUESTIONS: Question[] = [
     curriculum: 'osn',
     subtopic: 'Teori Grup Lanjut, Simetri Ikosahedral Ih & Spektroskopi Vibrasi C60',
     title: 'Analisis Teori Grup Vibrasi Normal C60 (Buckminsterfullerene) pada Grup Titik Ih',
+    tags: ['teori-grup-simetri-salc', 'teori-grup', 'point-group', 'schoenflies', 'tabel-karakter', 'spektroskopi-vibrasi'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Molekul buckminsterfullerene ($\\ce{C60}$) memiliki simetri ikosahedral sempurna ($I_h$) yang memiliki $h = 120$ operasi simetri. Total derajat kebebasan vibrasi untuk $\\ce{C60}$ adalah:
@@ -85,6 +86,7 @@ Langkah 4: Hitung jumlah pita Raman = 2 ($A_g$) + 8 ($H_g$) = 10 pita.`,
     curriculum: 'osn',
     subtopic: 'Teori Grup Lanjut, Proyeksi Operator & SALC Orbital Molekul D3h',
     title: 'Konstruksi Kombinasi Linier Orbital Ligan (SALC) σ pada Molekul Planar SO3 Menggunakan Operator Proyeksi',
+    tags: ['teori-grup-simetri-salc', 'salc', 'operator-proyeksi', 'tabel-karakter', 'point-group', 'mot-simetri'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Molekul belerang trioksida ($\\ce{SO3}$) berada pada geometri planar trigonal dengan grup titik $D_{3h}$. Karakter representasi untuk grup $D_{3h}$ adalah:
@@ -153,6 +155,7 @@ Langkah 4: Lakukan normalisasi dengan asumsi $\\langle \\phi_i | \\phi_j \\rangl
     curriculum: 'osn',
     subtopic: 'Teori Orbital Molekul Kluster Logam Oktahedral & Aturan Cotton',
     title: 'Struktur Elektronik dan Ikatan Logam-Logam pada Kluster Oktahedral [Mo6Cl8]4+ dan [Mo6Cl14]2-',
+    tags: ['teori-orbital-molekul-mot', 'kluster-logam', 'ikatan-logam', 'aturan-cotton'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Kluster halida molibdenum oktrainti $[\\ce{Mo6Cl8}]^{4+}$ memiliki inti oktahedron berongga $\\ce{Mo6}$ di mana setiap muka segitiga oktahedron dinaungi oleh ligan $\\mu_3\\text{-}\\ce{Cl}$. 
@@ -219,6 +222,7 @@ Langkah 4: Hitung orde ikatan = 24 / (2 x 12) = 1,0 dan simpulkan diamagnetisme 
     curriculum: 'osn',
     subtopic: 'Teori Orbital Molekul Lanjut, Diagram Walsh & Geometri Molekul Poliatomik',
     title: 'Analisis Diagram Walsh untuk Molekul Triatomik: Mengapa I3- Linier sedangkan NO2 Bengkok?',
+    tags: ['teori-orbital-molekul-mot', 'diagram-walsh', 'geometri-molekul', 'vsepr-lanjutan-aturan-bent'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Diagram Walsh menghubungkan energi orbital molekul triatomik $AB_2$ saat sudut ikatan $\\angle BAB$ terdistorsi dari geometri linier ($D_{\\infty h}$) ke geometri bengkok ($C_{2v}$).
@@ -272,6 +276,7 @@ Langkah 4: Analisis spesi 22 elektron di mana pengisian orbital anti-ikatan meng
     curriculum: 'osn',
     subtopic: 'Teori Orbital Kluster Borana, Aturan Wade-Mingos & Ikatan 3c-2e',
     title: 'Topologi Ikatan dan Struktur Elektronik Kluster Borana Oktahedral [B6H6]2- Menurut Aturan Wade-Mingos',
+    tags: ['kluster-boran-wade-mingos-organologam', 'aturan-wade', 'psept', 'boran', 'closo-nido-arachno'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Kluster anion heksahidro-kloso-heksaborat $[\\ce{B6H6}]^{2-}$ membentuk polihedron oktahedral reguler ($O_h$) dengan 6 atom boron di tiap apeks. 
@@ -324,6 +329,7 @@ Langkah 4: Petakan 7 orbital ikatan kerangka dalam grup simetri Oh: a1g (1) + t1
     curriculum: 'osn',
     subtopic: 'Teori Grup Lanjut, Aturan Seleksi Laporte & Kopling Vibronik Kompleks Logam Oh',
     title: 'Penentuan Keaktifan Transisi Elektronik d-d Laporte-Forbidden Melalui Mekanisme Kopling Vibronik Menggunakan Perkalian Langsung Simetri',
+    tags: ['teori-grup-simetri-salc', 'aturan-seleksi-laporte', 'kopling-vibronik', 'spektra-elektronik-kompleks'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Transisi elektronik $d-d$ pada kompleks oktahedral sentrosimetris ($O_h$) seperti $[\\ce{Ti(H2O)6}]^{3+}$ ($d^1$) dilarang oleh aturan seleksi Laporte ($\\Delta l = \\pm 1$ atau $g \\leftrightarrow u$), karena keadaan dasar ($^2T_{2g}$) dan keadaan tereksitasi ($^2E_g$) keduanya memiliki paritas genap (*gerade*, $g$). 
@@ -391,6 +397,7 @@ Langkah 4: Temukan representasi vibrasi kerangka yang cocok dalam hasil perkalia
     curriculum: 'osn',
     subtopic: 'Teori Perturbasi Orde Kedua, Efek Pseudo-Jahn-Teller & Hambatan Inversi Piramidal',
     title: 'Dinamika Inversi Molekul NH3 dan Efek Pseudo-Jahn-Teller Orde Kedua pada Kestabilan Geometri',
+    tags: ['efek-pseudo-jahn-teller', 'inversi-piramidal', 'vsepr-lanjutan-aturan-bent', 'teori-perturbasi'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Efek Jahn-Teller Orde Kedua (*Pseudo-Jahn-Teller Effect*, PJTE) menjelaskan mengapa molekul dengan keadaan dasar *non-degenerate* dapat mengalami distorsi geometri spontan yang menurunkan simetri molekul. 
@@ -454,6 +461,7 @@ Langkah 4: Hitung direct product: A2'' x A2'' x A1' = A1' (diizinkan secara sime
     curriculum: 'osn',
     subtopic: 'Teori Grup Lanjut, Simetri D5d & Orbital Molekul Ferosen Fe(Cp)2',
     title: 'Konstruksi Diagram Orbital Molekul Ferosen Fe(C5H5)2 dalam Simetri Terhuyung (Staggered) D5d',
+    tags: ['teori-grup-simetri-salc', 'salc', 'ferosen', 'organologam', 'mot-simetri'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Molekul ferosen terhuyung (*staggered* $\\ce{Fe(\\eta^5-C5H5)2}$) memiliki simetri grup titik $D_{5d}$. 
@@ -518,6 +526,7 @@ Langkah 4: Urutkan tingkat energi orbital terisi dan tentukan HOMO ferosen (a1g'
     curriculum: 'osn',
     subtopic: 'Kimia Supramolekuler, Hidrat Klatrat & Enkapsulasi Gas Mulia',
     title: 'Termodinamika Kavitasi dan Enkapsulasi Gas Mulia dalam Klatrat Hidrat Struktur I (sI)',
+    tags: ['gaya-antarmolekul-ikatan-hidrogen', 'klatrat-hidrat', 'kimia-supramolekuler'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Klatrat hidrat struktur I (sI) mengkristal dalam sel satuan kubus (grup ruang $Pm\\bar{3}n$) yang tersusun dari kerangka ikatan hidrogen molekul air ($\\ce{H2O}$):
@@ -574,6 +583,7 @@ Langkah 4: Tentukan rasio stoikiometri H2O : Xe = 46 : N.`,
     curriculum: 'osn',
     subtopic: 'Struktur Pita Elektronik, Model Su-Schrieffer-Heeger (SSH) & Celah Pita Poliasetilena',
     title: 'Model Su-Schrieffer-Heeger (SSH) untuk Transisi Peierls dan Pembentukan Celah Pita pada Trans-Poliasetilena',
+    tags: ['teori-pita-ssh-peierls', 'model-ssh', 'su-schrieffer-heeger', 'transisi-peierls', 'poliasetilena', 'celah-pita', 'soliton', 'tight-binding'],
     difficulty: 'IChO',
     question_style: 'mcq',
     question_text: `Rantai polimer konduktif *trans*-poliasetilena ($(\\ce{CH})_n$) mengalami distorsi dimerisasi ikatan (Transisi Peierls), di mana panjang ikatan berselang-seling antara ikatan tunggal ($r_1$) dan ikatan rangkap dua ($r_2$). 

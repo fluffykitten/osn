@@ -243,3 +243,87 @@ export function getQuestionScaffold(question: Partial<Question>): string {
 
   return DOMAIN_SCAFFOLDS.general;
 }
+
+export interface ScaffoldWorkAnalysis {
+  hasScaffoldMarkers: boolean;
+  placeholderCount: number;
+  cleanedText: string;
+  cleanedLength: number;
+  isCompletelyUnfilled: boolean;
+  isPartiallyFilled: boolean;
+  status: 'no_scaffold' | 'completely_unfilled' | 'partially_filled' | 'properly_filled';
+}
+
+/**
+ * Menganalisis teks pengerjaan siswa untuk mendeteksi penyisipan template kerangka (scaffolding).
+ * Mencegah abuse/eksploitasi nilai jika siswa hanya menyisipkan kerangka kosong tanpa perhitungan riil.
+ */
+export function analyzeScaffoldWork(text: string): ScaffoldWorkAnalysis {
+  if (!text || typeof text !== 'string') {
+    return {
+      hasScaffoldMarkers: false,
+      placeholderCount: 0,
+      cleanedText: '',
+      cleanedLength: 0,
+      isCompletelyUnfilled: false,
+      isPartiallyFilled: false,
+      status: 'no_scaffold',
+    };
+  }
+
+  // 1. Deteksi keberadaan placeholder titik-titik atau tanda kurung bawaan template
+  const placeholderMatches = text.match(/\.{3,}|_{3,}|\[\.\.\.\]|\[sertakan\s+satuan\]/gi) || [];
+  const placeholderCount = placeholderMatches.length;
+
+  // 2. Deteksi header khas Kerangka 4 Langkah OSN
+  const hasScaffoldMarkers =
+    /1\.\s*(diketahui|data)/i.test(text) &&
+    /2\.\s*(persamaan|konfigurasi|reaksi|analisis)/i.test(text) &&
+    /3\.\s*(perhitungan|penentuan|aplikasi|analisis)/i.test(text);
+
+  // 3. Ekstrak konten tulisan mandiri siswa dengan membersihkan boilerplate template
+  let cleaned = text
+    .replace(/\d+\.\s+[^\n]+/g, '') // Hapus judul bab (1. Diketahui..., 2. ...)
+    .replace(/•\s*[^:\n]+:\s*/g, '') // Hapus bullet label (• Besaran terukur: ...)
+    .replace(/\.{3,}|_{3,}|\[\.\.\.\]|\[sertakan\s+satuan\]/gi, '') // Hapus placeholder titik
+    .replace(/\$\s*PV\s*=\s*nRT\s*\$/gi, '') // Hapus rumus mentah template
+    .replace(/\$\s*n\s*=\s*m\/Mr\s*\$/gi, '')
+    .trim();
+
+  // Normalkan spasi
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  const cleanedLength = cleaned.length;
+
+  if (!hasScaffoldMarkers) {
+    return {
+      hasScaffoldMarkers: false,
+      placeholderCount,
+      cleanedText: text,
+      cleanedLength: text.trim().length,
+      isCompletelyUnfilled: false,
+      isPartiallyFilled: false,
+      status: 'no_scaffold',
+    };
+  }
+
+  // Jika terdapat kerangka tapi teks riil sangat sedikit (< 18 karakter) atau placeholder >= 3
+  const isCompletelyUnfilled = cleanedLength < 18;
+  const isPartiallyFilled = !isCompletelyUnfilled && placeholderCount >= 3;
+
+  let status: 'no_scaffold' | 'completely_unfilled' | 'partially_filled' | 'properly_filled' = 'properly_filled';
+  if (isCompletelyUnfilled) {
+    status = 'completely_unfilled';
+  } else if (isPartiallyFilled) {
+    status = 'partially_filled';
+  }
+
+  return {
+    hasScaffoldMarkers: true,
+    placeholderCount,
+    cleanedText: cleaned,
+    cleanedLength,
+    isCompletelyUnfilled,
+    isPartiallyFilled,
+    status,
+  };
+}

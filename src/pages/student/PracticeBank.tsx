@@ -32,6 +32,7 @@ import {
   getTopicProgress,
   calculateOverallPracticeStats,
   getQuickDrillQuestionIds,
+  getTopicFocusTags,
 } from '../../utils/practiceDataUtils';
 import type { Question, QuestionFilter, QuestionDifficulty, ModuleItem } from '../../types/database';
 import {
@@ -270,9 +271,9 @@ export const PracticeBank: React.FC = () => {
     }
   };
 
-  // Handler Buka Drawer Eksplorasi Soal Topik
+  // Handler Buka Halaman Eksplorasi & Gamifikasi Soal Topik
   const handleOpenExploreDrawer = (topicNumber: number) => {
-    setActiveDrawerTopicId(topicNumber);
+    navigate(`/practice/${activeDatabase}/${topicNumber}`);
   };
 
   // Detail topik aktif untuk Drawer
@@ -394,23 +395,23 @@ export const PracticeBank: React.FC = () => {
       />
 
       {/* 2. Segmented Dual Database Switcher: OSN vs SMA */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-5">
-        <div className="inline-flex p-1.5 bg-slate-200/80 rounded-2xl border border-slate-300/80 shadow-inner w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#D3D3D3] pb-5">
+        <div className="inline-flex p-1.5 bg-[#B0C4DE]/20 rounded-2xl border border-[#D3D3D3] shadow-inner w-full sm:w-auto">
           {/* Tombol Tab OSN */}
           <button
             type="button"
             onClick={() => handleDatabaseSwitch('osn')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeDatabase === 'osn'
-                ? 'bg-white text-sky-950 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/50'
+                ? 'bg-[#FFFFF0] text-[#708090] shadow-sm border border-[#B0C4DE]/60'
+                : 'text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF]'
             }`}
           >
-            <Trophy className={`w-4 h-4 ${activeDatabase === 'osn' ? 'text-sky-600' : 'text-slate-400'}`} />
+            <Trophy className={`w-4 h-4 ${activeDatabase === 'osn' ? 'text-[#708090]' : 'text-[#708090]/60'}`} />
             <span>Bank Soal Olimpiade (OSN)</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                activeDatabase === 'osn' ? 'bg-sky-100 text-sky-800' : 'bg-slate-300/60 text-slate-700'
+                activeDatabase === 'osn' ? 'bg-[#B0C4DE]/40 text-[#708090]' : 'bg-[#D3D3D3]/60 text-[#708090]'
               }`}
             >
               10 Pilar
@@ -423,15 +424,15 @@ export const PracticeBank: React.FC = () => {
             onClick={() => handleDatabaseSwitch('sma')}
             className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
               activeDatabase === 'sma'
-                ? 'bg-white text-emerald-950 shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/50'
+                ? 'bg-[#FFFFF0] text-[#708090] shadow-sm border border-[#B0C4DE]/60'
+                : 'text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF]'
             }`}
           >
-            <BookOpen className={`w-4 h-4 ${activeDatabase === 'sma' ? 'text-emerald-600' : 'text-slate-400'}`} />
+            <BookOpen className={`w-4 h-4 ${activeDatabase === 'sma' ? 'text-[#708090]' : 'text-[#708090]/60'}`} />
             <span>Bank Soal Kurikulum SMA</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${
-                activeDatabase === 'sma' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-300/60 text-slate-700'
+                activeDatabase === 'sma' ? 'bg-[#B0C4DE]/40 text-[#708090]' : 'bg-[#D3D3D3]/60 text-[#708090]'
               }`}
             >
               16 Modul
@@ -441,14 +442,14 @@ export const PracticeBank: React.FC = () => {
 
         {/* View Mode Switcher: Cards vs Table Mode */}
         <div className="flex items-center gap-2 self-end sm:self-center">
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+          <div className="flex items-center bg-[#FFFFF0] p-1 rounded-xl border border-[#D3D3D3]">
             <button
               type="button"
               onClick={() => setViewMode('cards')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'cards'
-                  ? 'bg-white text-slate-900 shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#B0C4DE]/35 text-[#708090] shadow-2xs border border-[#B0C4DE]/60'
+                  : 'text-[#708090] hover:text-[#2D3748]'
               }`}
               title="Tampilkan dalam bentuk Kartu Topik Visual"
             >
@@ -460,8 +461,8 @@ export const PracticeBank: React.FC = () => {
               onClick={() => setViewMode('table')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'table'
-                  ? 'bg-white text-slate-900 shadow-2xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[#B0C4DE]/35 text-[#708090] shadow-2xs border border-[#B0C4DE]/60'
+                  : 'text-[#708090] hover:text-[#2D3748]'
               }`}
               title="Tampilkan dalam mode tabel filter teknis / kurasi mendalam"
             >
@@ -602,7 +603,7 @@ export const PracticeBank: React.FC = () => {
                 const summaryText =
                   'summary' in topicItem ? topicItem.summary : (topicItem as ModuleItem).description;
 
-                const tags = 'allTags' in topicItem ? topicItem.allTags : undefined;
+                const tags = getTopicFocusTags(topicNumber, activeDatabase);
 
                 return (
                   <PracticeTopicCard

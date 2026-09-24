@@ -4,6 +4,7 @@ import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 // Auth & Landing Pages (Eagerly Loaded for Immediate First Paint)
 import { LoginPage } from './pages/auth/LoginPage';
@@ -15,6 +16,7 @@ import { StudentLockedGate } from './pages/student/StudentLockedGate';
 const Roadmap = lazy(() => import('./pages/student/Roadmap').then((m) => ({ default: m.Roadmap })));
 const MaterialsDatabase = lazy(() => import('./pages/student/MaterialsDatabase').then((m) => ({ default: m.MaterialsDatabase })));
 const PracticeBank = lazy(() => import('./pages/student/PracticeBank').then((m) => ({ default: m.PracticeBank })));
+const PracticeTopicDetail = lazy(() => import('./pages/student/PracticeTopicDetail').then((m) => ({ default: m.PracticeTopicDetail })));
 const StudentWorksheetList = lazy(() => import('./pages/student/StudentWorksheetList').then((m) => ({ default: m.StudentWorksheetList })));
 const StudentClassroomView = lazy(() => import('./pages/student/StudentClassroomView').then((m) => ({ default: m.StudentClassroomView })));
 const Worksheet = lazy(() => import('./pages/student/Worksheet').then((m) => ({ default: m.Worksheet })));
@@ -44,6 +46,7 @@ const AdminMaterialEditor = lazy(() => import('./pages/admin/AdminMaterialEditor
 const AdminWorksheetManagement = lazy(() => import('./pages/admin/AdminWorksheetManagement').then((m) => ({ default: m.AdminWorksheetManagement })));
 const AdminQuestionManagement = lazy(() => import('./pages/admin/AdminQuestionManagement').then((m) => ({ default: m.AdminQuestionManagement })));
 const AdminAuditLogs = lazy(() => import('./pages/admin/AdminAuditLogs').then((m) => ({ default: m.AdminAuditLogs })));
+const AdminAppearanceSettings = lazy(() => import('./pages/admin/AdminAppearanceSettings').then((m) => ({ default: m.AdminAppearanceSettings })));
 
 // Fallback Loader saat chunk modul sedang diunduh
 const PageLoadingFallback: React.FC = () => (
@@ -198,10 +201,11 @@ function AppContent() {
 
   return (
     <div
-      className={`flex flex-col ${
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+      className={`flex flex-col transition-colors duration-200 ${
         isAdminPortal
-          ? 'min-h-screen bg-slate-50 text-slate-900'
-          : `bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${
+          ? 'min-h-screen'
+          : `font-sans selection:bg-[#B0C4DE]/40 selection:text-[#2D3748] ${
               isFullScreenWorkspace ? 'h-screen overflow-hidden' : 'min-h-screen'
             }`
       }`}
@@ -209,11 +213,12 @@ function AppContent() {
       {!isAdminPortal && <Navbar />}
 
       <main
-        className={`flex-1 flex flex-col ${
+        style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+        className={`flex-1 flex flex-col transition-colors duration-200 ${
           isAdminPortal
-            ? 'min-h-screen bg-slate-50'
+            ? 'min-h-screen'
             : isFullScreenWorkspace
-            ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40'
+            ? 'h-[calc(100vh-64px)] overflow-hidden'
             : ''
         }`}
       >
@@ -338,6 +343,17 @@ function AppContent() {
               <RequireAuth>
                 <RequireClassroom>
                   <PracticeBank />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          {/* Halaman Gamifikasi & Peta Petualangan Soal per Konsep */}
+          <Route
+            path="/practice/:database/:topicId"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <PracticeTopicDetail />
                 </RequireClassroom>
               </RequireAuth>
             }
@@ -494,6 +510,14 @@ function AppContent() {
               </AdminOnly>
             }
           />
+          <Route
+            path="/admin/appearance"
+            element={
+              <AdminOnly>
+                <AdminAppearanceSettings />
+              </AdminOnly>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -509,11 +533,13 @@ function AppContent() {
 export function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <WhiteboardHeaderProvider>
-          <AppContent />
-        </WhiteboardHeaderProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <WhiteboardHeaderProvider>
+            <AppContent />
+          </WhiteboardHeaderProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

@@ -327,3 +327,110 @@ export function getQuickDrillQuestionIds(
 
   return result;
 }
+
+/**
+ * Peta Tag Konsep Kunci Deskriptif untuk 10 Pilar Silabus OSN Kimia
+ */
+export const OSN_TOPIC_FOCUS_TAGS: Record<number, string[]> = {
+  1: [
+    'Model Atom Bohr',
+    'Mekanika Kuantum Schrödinger',
+    '4 Bilangan Kuantum',
+    'Aturan Slater (Zeff)',
+    'Tren Sifat Periodik',
+    'Energi Ionisasi',
+    'Afinitas Elektron',
+  ],
+  2: [
+    'Struktur Lewis & Muatan Formal',
+    'Geometri VSEPR',
+    'Hibridisasi Orbital',
+    'Teori Orbital Molekul (MOT)',
+    'Energi Kisi Born-Haber',
+    'Gaya Antarmolekul',
+  ],
+  3: [
+    'Konsep Mol & Pereaksi Pembatas',
+    'Hukum Gas Ideal & Dalton',
+    'Gas Nyata Van der Waals',
+    'Efusi Graham',
+    'Diagram Fasa P-T',
+    'Stoikiometri Reaksi Larutan',
+  ],
+  4: [
+    'Hukum I Termodinamika & Entalpi',
+    'Hukum Hess & Kalorimetri',
+    'Entropi (ΔS) & Hukum II/III',
+    'Energi Bebas Gibbs (ΔG)',
+    'Kesetimbangan Termodinamika',
+    "Persamaan Van 't Hoff",
+  ],
+  5: [
+    'Hukum Laju & Penentuan Orde',
+    'Mekanisme Reaksi & Tahap RDS',
+    'Persamaan Arrhenius & Energi Aktivasi',
+    'Waktu Paruh (t1/2)',
+    'Teori Tumbukan',
+    'Katalisis Homogen & Heterogen',
+  ],
+  6: [
+    'Tetapan Kesetimbangan (Kc & Kp)',
+    'Hubungan Kp = Kc(RT)^Δn',
+    'Azas Le Chatelier',
+    'Derajat Disosiasi (α)',
+    'Kesetimbangan Homogen & Heterogen',
+    'Kuosien Reaksi (Qc)',
+  ],
+  7: [
+    'Teori Asam-Basa (Arrhenius, Bronsted, Lewis)',
+    'Kalkulasi pH & Derajat Ionisasi',
+    'Larutan Penyangga (Buffer)',
+    'Titrasi Asam-Basa & Indikator',
+    'Hasil Kali Kelarutan (Ksp)',
+    'Pengendapan & Efek Ion Senama',
+  ],
+  8: [
+    'Penyetaraan Redoks Ion-Elektron',
+    'Sel Volta & Potensial Standar (E°)',
+    'Persamaan Nernst',
+    'Termodinamika Sel (ΔG = -nFE)',
+    'Elektrolisis & Hukum Faraday',
+    'Diagram Latimer & Frost',
+  ],
+  9: [
+    'Tata Nama Kompleks & Jenis Ligan',
+    'Bilangan Koordinasi & Geometri',
+    'Teori Medan Kristal (CFT)',
+    'Pemisahan Orbital d (Oh & Td)',
+    'Sifat Magnetik High/Low Spin',
+    'Isomerisme Senyawa Kompleks',
+  ],
+  10: [
+    'Tata Nama IUPAC & Gugus Fungsi',
+    'Isomerisme & Stereokimia (R/S, E/Z)',
+    'Substitusi Nukleofilik (SN1/SN2)',
+    'Eliminasi (E1/E2)',
+    'Adisi & Substitusi Aromatik',
+    'Biomolekul (Karbohidrat, Asam Amino)',
+  ],
+};
+
+/**
+ * Mendapatkan daftar fokus materi/tag deskriptif per topik baik OSN maupun SMA
+ */
+export function getTopicFocusTags(topicNumber: number, database: 'osn' | 'sma'): string[] {
+  if (database === 'osn') {
+    return OSN_TOPIC_FOCUS_TAGS[topicNumber] || ['Teori Kimia', 'Silabus Olimpiade', 'Problem Solving'];
+  }
+  const mat = SMA_MATERIALS.find((m) => m.topic_number === topicNumber);
+  if (mat && Array.isArray(mat.allTags) && mat.allTags.length > 0) {
+    // Format tag kebab-case menjadi format judul yang rapi
+    return mat.allTags.slice(0, 7).map((t) =>
+      t
+        .split('-')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')
+    );
+  }
+  return ['Kimia SMA', 'Kurikulum Merdeka'];
+}

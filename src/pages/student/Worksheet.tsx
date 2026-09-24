@@ -9,10 +9,13 @@ import { ScaffoldGuideModal } from '../../components/worksheet/ScaffoldGuideModa
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import { addXpLocally } from '../../lib/gamification';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
+import { analyzeScaffoldWork } from '../../services/scaffoldService';
 import { saveWorksheetSubmission, getSubmissionHistory } from '../../services/submissionService';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { studentWorksheetService } from '../../services/studentWorksheetService';
-import { findConceptByTag } from '../../data/materialsData';
+import { findConceptByTag, OSN_MATERIALS, type MaterialItem, type ConceptBlock } from '../../data/materialsData';
+import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
+import { resolveQuestionTopicMeta } from '../../utils/topicMapping';
 import { questionBankService } from '../../services/questionBankService';
 import { useAuth } from '../../contexts/AuthContext';
 import { ScaledDocumentCanvas } from '../../components/worksheet/ScaledDocumentCanvas';
@@ -197,7 +200,8 @@ export const Worksheet: React.FC = () => {
   useEffect(() => {
     if (!hasInitializedIndexRef.current && customQuestions && customQuestions.length > 0) {
       hasInitializedIndexRef.current = true;
-      if (initialIdx >= 0 && initialIdx < customQuestions.length) {
+      // Jangan timpa jika draft lokal/sesi sebelumnya sudah memulihkan indeks soal yang sedang dikerjakan siswa
+      if (!hasRestoredQIndexRef.current && initialIdx >= 0 && initialIdx < customQuestions.length) {
         setCurrentQIndex(initialIdx);
       }
     }
@@ -207,7 +211,7 @@ export const Worksheet: React.FC = () => {
   useEffect(() => {
     if (lastRouteIdRef.current !== id) {
       lastRouteIdRef.current = id;
-      if (initialIdx !== currentQIndex) {
+      if (initialIdx !== currentQIndex && !hasRestoredQIndexRef.current) {
         setCurrentQIndex(initialIdx);
         setEvaluationError(null);
       }
@@ -328,6 +332,406 @@ export const Worksheet: React.FC = () => {
       ? `Latihan OSN: ${currentQuestion.title}`
       : `Modul Latihan OSN Kimia #${id || 1}`;
   }, [loadedWorksheet?.title, type, id, currentQuestion?.id, currentQuestion?.title, currentQuestion?.subtopic]);
+
+  // Catat sesi worksheet aktif agar jika siswa berpindah tab atau refresh, tab Worksheet langsung melanjutkan soal ini
+  useEffect(() => {
+    if (type && id) {
+      const currentUrl = `/worksheet/${type}/${id}`;
+      studentWorksheetService.setActiveSession({
+        url: currentUrl,
+        type,
+        id,
+        title: currentWorksheetTitle,
+        currentQIndex,
+        totalQuestions: questionsList.length,
+        lastActiveAt: Date.now(),
+        studentId,
+      });
+    }
+  }, [type, id, currentWorksheetTitle, currentQIndex, questionsList.length, studentId]);
+
+  // Resolusi konsep materi terkait untuk soal yang sedang aktif
+  const relatedConceptsData = useMemo(() => {
+    if (!currentQuestion) return null;
+
+    const topicMeta = resolveQuestionTopicMeta(currentQuestion);
+    const isSma = topicMeta.isSma;
+
+    // Temukan modul materi yang sesuai di database SMA atau OSN
+    let materialItem: MaterialItem | SmaMaterialItem | undefined;
+    if (isSma) {
+      const smaNum = topicMeta.mappedSmaTopicNumber || 1;
+      materialItem =
+        SMA_MATERIALS.find(
+          (m) =>
+            m.topic_number === smaNum ||
+            m.id === currentQuestion.sma_topic_id ||
+            m.id === currentQuestion.module_id
+        ) ||
+        SMA_MATERIALS.find((m) => m.topic_number === smaNum) ||
+        SMA_MATERIALS[0];
+    } else {
+      materialItem =
+        OSN_MATERIALS.find((m) => m.topic_number === currentQuestion.pillar_number) ||
+        OSN_MATERIALS[0];
+    }
+
+    // Filter daftar tag kotor/metadata generic (seperti '#sma', '#SMA-Mudah', '#Pilar-1')
+    const JUNK_TAG_REGEX = /^(sma|osn|pilar|pilar-\d+|sma-\w+|sma-mudah|sma-sedang|sma-sukar|mudah|sedang|sukar|sulit)$/i;
+
+    const cleanQuestionTags = (currentQuestion.tags || []).filter(
+      (t) => !JUNK_TAG_REGEX.test(t.trim())
+    );
+
+    // Kumpulkan semua blok konsep dari materi yang ditemukan
+    const allConceptBlocks: ConceptBlock[] = materialItem
+      ? [...(materialItem.prerequisites || []), ...(materialItem.core_concepts || [])]
+      : [];
+
+    interface ResolvedConceptChip {
+      label: string;
+      tag: string;
+      url: string;
+      summary?: string;
+    }
+
+    const matchedChips: ResolvedConceptChip[] = [];
+    const usedTags = new Set<string>();
+
+    // 1. Cocokkan dari cleanQuestionTags
+    for (const rawTag of cleanQuestionTags) {
+      const norm = rawTag.toLowerCase().trim().replace(/^#/, '');
+      let block = allConceptBlocks.find(
+        (b) =>
+          b.tag.toLowerCase() === norm ||
+          b.tag.toLowerCase().includes(norm) ||
+          norm.includes(b.tag.toLowerCase()) ||
+          (b.tags && b.tags.some((t) => t.toLowerCase() === norm || norm.includes(t.toLowerCase())))
+      );
+      let targetMaterial = materialItem;
+
+      // Jika tidak ditemukan di modul pilar ini, cari lintas silabus secara global via findConceptByTag
+      if (!block && !isSma) {
+        const globalFound = findConceptByTag(norm);
+        if (globalFound) {
+          block = globalFound.block;
+          targetMaterial = globalFound.material;
+        }
+      }
+
+      const chipTag = block ? block.tag : norm;
+      if (!usedTags.has(chipTag)) {
+        usedTags.add(chipTag);
+        const url = isSma
+          ? `/materi/sma-${targetMaterial?.topic_number || 1}?tag=${encodeURIComponent(chipTag)}&db=sma`
+          : `/materi/${targetMaterial?.topic_number || 1}?tag=${encodeURIComponent(chipTag)}&db=osn`;
+
+        matchedChips.push({
+          label: block?.title || rawTag.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+          tag: chipTag,
+          url,
+          summary: block?.summary,
+        });
+      }
+    }
+
+    // 2. Cocokkan dari currentQuestion.subtopic dan title jika chip masih kurang dari 3
+    if (matchedChips.length < 3 && (currentQuestion.subtopic || currentQuestion.title)) {
+      const queryText = `${currentQuestion.subtopic || ''} ${currentQuestion.title || ''}`.toLowerCase();
+      const keywords = queryText
+        .split(/[\s,&/()\-]+/)
+        .filter((w) => w.length > 3 && !['pada', 'dan', 'senyawa', 'reaksi', 'tingkat', 'soal', 'analisis', 'model', 'penentuan', 'menurut'].includes(w));
+
+      // 2a. Pertama cari di dalam modul saat ini
+      for (const block of allConceptBlocks) {
+        if (usedTags.has(block.tag)) continue;
+        const blockTitleLower = block.title.toLowerCase();
+        const blockTagLower = block.tag.toLowerCase();
+
+        const isMatch = keywords.some(
+          (kw) => blockTitleLower.includes(kw) || blockTagLower.includes(kw)
+        );
+
+        if (isMatch) {
+          usedTags.add(block.tag);
+          const url = isSma
+            ? `/materi/sma-${materialItem.topic_number}?tag=${encodeURIComponent(block.tag)}&db=sma`
+            : `/materi/${materialItem.topic_number}?tag=${encodeURIComponent(block.tag)}&db=osn`;
+
+          matchedChips.push({
+            label: block.title,
+            tag: block.tag,
+            url,
+            summary: block.summary,
+          });
+          if (matchedChips.length >= 3) break;
+        }
+      }
+
+      // 2b. Jika masih kurang dan merupakan jalur OSN, cari di seluruh silabus OSN
+      if (!isSma && matchedChips.length < 2) {
+        for (const mat of OSN_MATERIALS) {
+          if (mat.topic_number === materialItem?.topic_number) continue;
+          const otherBlocks = [...(mat.prerequisites || []), ...(mat.core_concepts || [])];
+          for (const block of otherBlocks) {
+            if (usedTags.has(block.tag)) continue;
+            const blockTitleLower = block.title.toLowerCase();
+            const blockTagLower = block.tag.toLowerCase();
+
+            const isMatch = keywords.some(
+              (kw) => kw.length >= 5 && (blockTitleLower.includes(kw) || blockTagLower.includes(kw))
+            );
+
+            if (isMatch) {
+              usedTags.add(block.tag);
+              const url = `/materi/${mat.topic_number}?tag=${encodeURIComponent(block.tag)}&db=osn`;
+              matchedChips.push({
+                label: block.title,
+                tag: block.tag,
+                url,
+                summary: block.summary,
+              });
+              if (matchedChips.length >= 3) break;
+            }
+          }
+          if (matchedChips.length >= 3) break;
+        }
+      }
+    }
+
+    // 3. Fallback jika masih kosong: sertakan 2-3 konsep materi inti dari modul terkait
+    if (matchedChips.length === 0 && materialItem?.core_concepts) {
+      for (const block of materialItem.core_concepts.slice(0, 3)) {
+        if (!usedTags.has(block.tag)) {
+          usedTags.add(block.tag);
+          const url = isSma
+            ? `/materi/sma-${materialItem.topic_number}?tag=${encodeURIComponent(block.tag)}&db=sma`
+            : `/materi/${materialItem.topic_number}?tag=${encodeURIComponent(block.tag)}&db=osn`;
+
+          matchedChips.push({
+            label: block.title,
+            tag: block.tag,
+            url,
+            summary: block.summary,
+          });
+        }
+      }
+    }
+
+    return {
+      topicMeta,
+      materialItem,
+      chips: matchedChips,
+      mainModuleUrl: topicMeta.materialRoute,
+      mainModuleTitle: topicMeta.topicTitle,
+      mainBadgeLabel: topicMeta.topicBadgeLabel,
+      subtopicName: currentQuestion.subtopic,
+    };
+  }, [currentQuestion]);
+
+  // Tetapan dan Data Pendukung Konseptual Dinamis yang Menyesuaikan dengan Karakteristik Soal
+  const supportingData = useMemo(() => {
+    if (!currentQuestion) return null;
+
+    const textLower = (currentQuestion.question_text || '').toLowerCase();
+    const subtopicLower = (currentQuestion.subtopic || '').toLowerCase();
+    const titleLower = (currentQuestion.title || '').toLowerCase();
+    const combined = `${textLower} ${subtopicLower} ${titleLower}`;
+
+    // 1. Struktur Atom & Notasi Partikel Subatomik (Proton, Elektron, Neutron)
+    if (
+      combined.includes('proton') ||
+      combined.includes('neutron') ||
+      combined.includes('elektron') ||
+      combined.includes('nuklida') ||
+      combined.includes('isotop') ||
+      combined.includes('isobar') ||
+      combined.includes('isoton') ||
+      combined.includes('nomor atom') ||
+      combined.includes('nomor massa')
+    ) {
+      return {
+        title: 'Data Pendukung: Notasi & Hubungan Partikel Subatomik',
+        content: `• Notasi nuklida ion/atom: $^{A}_{Z}\\ce{X}^{q\\pm}$ dengan $A = \\text{nomor massa}$, $Z = \\text{nomor atom}$
+• Jumlah proton: $p = Z$
+• Jumlah neutron: $n = A - Z$
+• Jumlah elektron: $e = Z - (\\text{muatan ion } q)$
+• Massa: $m_p \\approx 1.0073\\text{ sma},\\ m_n \\approx 1.0087\\text{ sma},\\ m_e \\approx 0.00055\\text{ sma}$`,
+      };
+    }
+
+    // 2. Kuantum, Model Bohr, Spektrum & Teori Orbital
+    if (
+      combined.includes('bohr') ||
+      combined.includes('kuantum') ||
+      combined.includes('spektrum') ||
+      combined.includes('panjang gelombang') ||
+      combined.includes('foton') ||
+      combined.includes('de broglie') ||
+      combined.includes('slater') ||
+      combined.includes('rydberg') ||
+      currentQuestion.pillar_number === 1
+    ) {
+      return {
+        title: 'Tetapan Fisika Kuantum & Spektroskopi:',
+        content: `• Kecepatan cahaya: $c = 3.0 \\times 10^8\\text{ m/s}$
+• Tetapan Planck: $h = 6.626 \\times 10^{-34}\\text{ J}\\cdot\\text{s}$
+• Energi foton: $E = h\\nu = \\frac{hc}{\\lambda}$
+• Tetapan Rydberg: $R_H = 1.097 \\times 10^7\\text{ m}^{-1}$
+• Aturan perisai Slater: $Z_{\\text{eff}} = Z - \\sigma$`,
+      };
+    }
+
+    // 3. Ikatan Kimia, Geometri Domain & Muatan Formal
+    if (
+      combined.includes('ikatan') ||
+      combined.includes('vsepr') ||
+      combined.includes('lewis') ||
+      combined.includes('hibridisasi') ||
+      combined.includes('kovalen') ||
+      combined.includes('ionik') ||
+      combined.includes('muatan formal') ||
+      currentQuestion.pillar_number === 2
+    ) {
+      return {
+        title: 'Prinsip Ikatan & Geometri Domain:',
+        content: `• Muatan formal: $\\text{MF} = EV - \\text{PEB} - \\frac{1}{2}\\text{PEI}$
+• Tipe geometri domain: $AX_nE_m$ ($n = \\text{PEI},\\ m = \\text{PEB}$)
+• Skala elektronegativitas Pauling: $\\ce{F} (4.0) > \\ce{O} (3.5) > \\ce{Cl} (3.0) \\approx \\ce{N} (3.0)$`,
+      };
+    }
+
+    // 4. Termokimia & Kalorimetri
+    if (
+      combined.includes('kalor') ||
+      combined.includes('entalpi') ||
+      combined.includes('hess') ||
+      combined.includes('termodinamika') ||
+      combined.includes('entropi') ||
+      combined.includes('gibbs') ||
+      currentQuestion.pillar_number === 4
+    ) {
+      return {
+        title: 'Tetapan & Hubungan Termodinamika:',
+        content: `• Kalor: $q = m \\cdot c \\cdot \\Delta T$ ($c_{\\text{air}} = 4.184\\text{ J}/(\\text{g}\\cdot^\\circ\\text{C})$)
+• Tetapan gas: $R = 8.314\\text{ J}/(\\text{mol}\\cdot\\text{K})$
+• Persamaan Gibbs: $\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ = -RT \\ln K$
+• Suhu mutlak standar: $T = 298.15\\text{ K}\\ (25^\\circ\\text{C})$`,
+      };
+    }
+
+    // 5. Kinetika Kimia & Persamaan Laju
+    if (
+      combined.includes('laju') ||
+      combined.includes('orde') ||
+      combined.includes('arrhenius') ||
+      combined.includes('energi aktivasi') ||
+      combined.includes('waktu paruh') ||
+      currentQuestion.pillar_number === 5
+    ) {
+      return {
+        title: 'Persamaan & Tetapan Kinetika Kimia:',
+        content: `• Hukum laju reaksi: $v = k[\\ce{A}]^m[\\ce{B}]^n$
+• Persamaan Arrhenius: $k = A \\cdot e^{-E_a / RT}$ ($R = 8.314\\text{ J}/(\\text{mol}\\cdot\\text{K})$)
+• Waktu paruh reaksi orde-1: $t_{1/2} = \\frac{\\ln 2}{k} = \\frac{0.693}{k}$`,
+      };
+    }
+
+    // 6. Kesetimbangan Kimia & Asas Le Chatelier
+    if (
+      combined.includes('kesetimbangan') ||
+      combined.includes('le chatelier') ||
+      combined.includes('tetapan kc') ||
+      combined.includes('tetapan kp') ||
+      currentQuestion.pillar_number === 6
+    ) {
+      return {
+        title: 'Tetapan & Hubungan Kesetimbangan:',
+        content: `• Relasi $K_p$ dan $K_c$: $K_p = K_c(RT)^{\\Delta n}$ ($R = 0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$)
+• Derajat disosiasi: $\\alpha = \\frac{\\text{mol terurai}}{\\text{mol mula-mula}}$
+• Kuosien reaksi: $Q_c < K_c$ (arah maju), $Q_c > K_c$ (arah balik)`,
+      };
+    }
+
+    // 7. Larutan, Asam-Basa, Buffer & Titrasi
+    if (
+      combined.includes('asam') ||
+      combined.includes('basa') ||
+      combined.includes('ph') ||
+      combined.includes('poh') ||
+      combined.includes('buffer') ||
+      combined.includes('penyangga') ||
+      combined.includes('titrasi') ||
+      combined.includes('hidrolisis') ||
+      combined.includes('ksp') ||
+      combined.includes('kelarutan') ||
+      currentQuestion.pillar_number === 7
+    ) {
+      return {
+        title: 'Tetapan Larutan & Kesetimbangan Asam-Basa:',
+        content: `• Tetapan air ($25^\\circ\\text{C}$): $K_w = 1.0 \\times 10^{-14},\\quad \\text{pH} + \\text{pOH} = 14$
+• Asam lemah: $[\\ce{H+}] = \\sqrt{K_a \\cdot M_a} = \\alpha \\cdot M_a$
+• Penyangga (buffer asam): $[\\ce{H+}] = K_a \\cdot \\frac{n_{\\text{asam}}}{n_{\\text{basa konjugasi}}}$
+• Hasil kali kelarutan: $K_{sp}(\\ce{A_xB_y}) = [A^{y+}]^x [B^{x-}]^y$`,
+      };
+    }
+
+    // 8. Redoks & Elektrokimia
+    if (
+      combined.includes('redoks') ||
+      combined.includes('sel volta') ||
+      combined.includes('katoda') ||
+      combined.includes('anoda') ||
+      combined.includes('nernst') ||
+      combined.includes('faraday') ||
+      combined.includes('elektrolisis') ||
+      currentQuestion.pillar_number === 8
+    ) {
+      return {
+        title: 'Tetapan Elektrokimia & Potensial Reduksi:',
+        content: `• Tetapan Faraday: $F = 96485\\text{ C/mol e}^-$
+• Potensial sel standar: $E^\\circ_{\\text{sel}} = E^\\circ_{\\text{katoda}} - E^\\circ_{\\text{anoda}}$
+• Persamaan Nernst ($25^\\circ\\text{C}$): $E = E^\\circ - \\frac{0.0592}{n} \\log Q$
+• Hukum Faraday I: $w = \\frac{A_r \\cdot I \\cdot t}{n \\cdot 96485}$`,
+      };
+    }
+
+    // 9. Kimia Karbon & Organik
+    if (
+      combined.includes('organik') ||
+      combined.includes('alkana') ||
+      combined.includes('alkena') ||
+      combined.includes('alkuna') ||
+      combined.includes('alkohol') ||
+      combined.includes('eter') ||
+      combined.includes('aldehid') ||
+      combined.includes('keton') ||
+      combined.includes('ester') ||
+      combined.includes('karbon') ||
+      currentQuestion.pillar_number === 10
+    ) {
+      return {
+        title: 'Kaidah Senyawa Karbon & Gugus Fungsi:',
+        content: `• Rumus homolog: Alkana ($\\ce{C_nH_{2n+2}}$), Alkena ($\\ce{C_nH_{2n}}$), Alkuna ($\\ce{C_nH_{2n-2}}$)
+• Massa atom relatif: $A_r(\\ce{C}) = 12.011,\\ A_r(\\ce{H}) = 1.008,\\ A_r(\\ce{O}) = 15.999\\text{ g/mol}$
+• Prioritas Cahn-Ingold-Prelog (CIP): ditentukan oleh nomor atom tertinggi dari atom yang terikat langsung`,
+      };
+    }
+
+    // 10. Default Stoikiometri / Gas Ideal Umum
+    const hasBaCO3 = currentQuestion.id === 101 || combined.includes('baco3');
+    return {
+      title: 'Tetapan Kimia & Nilai Acuan Standar:',
+      content: hasBaCO3
+        ? `• Tetapan gas: $R = 0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$
+• Massa molar: $M_r(\\ce{BaCO3}) = 197.34\\text{ g/mol}$
+• Suhu standar: $T = 25^\\circ\\text{C} = 298.15\\text{ K}$`
+        : `• Tetapan gas: $R = 0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) = 8.314\\text{ J}/(\\text{mol}\\cdot\\text{K})$
+• Bilangan Avogadro: $N_A = 6.022 \\times 10^{23}\\text{ mol}^{-1}$
+• Kondisi STP: $V_m = 22.4\\text{ L/mol}\\ (0^\\circ\\text{C}, 1\\text{ atm})$
+• Kondisi standar RTP: $25^\\circ\\text{C} = 298.15\\text{ K},\\ 1\\text{ atm} = 760\\text{ mmHg}$`,
+    };
+  }, [currentQuestion]);
 
   // Resolved Classroom ID
   const resolvedClassroomId = useMemo(() => {
@@ -938,14 +1342,35 @@ export const Worksheet: React.FC = () => {
     return () => clearInterval(interval);
   }, [storageDraftKey, currentWorksheetTitle]);
 
-  // Auto-save on page exit / refresh
+  // Auto-save on page exit / refresh / switching browser tabs (visibilitychange)
   useEffect(() => {
     const handleBeforeUnload = () => {
       saveProgress();
     };
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        saveProgress();
+        if (type && id) {
+          studentWorksheetService.setActiveSession({
+            url: `/worksheet/${type}/${id}`,
+            type,
+            id,
+            title: currentWorksheetTitle,
+            currentQIndex: currentQIndexRef.current,
+            totalQuestions: questionsList.length,
+            lastActiveAt: Date.now(),
+            studentId,
+          });
+        }
+      }
+    };
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [storageDraftKey, currentWorksheetTitle]);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [storageDraftKey, currentWorksheetTitle, type, id, questionsList.length, studentId]);
 
   const currentStepValue = answers[currentQIndex]?.steps || '';
   const currentFinalAnswer = answers[currentQIndex]?.finalAnswer || '';
@@ -1042,7 +1467,22 @@ export const Worksheet: React.FC = () => {
 
   // Real Multi-Stage AI Evaluation
   const handleEvaluate = async () => {
-    if (!currentStepValue.trim()) return;
+    const hasSteps = Boolean(currentStepValue.trim());
+    const hasFinal = Boolean(currentFinalAnswer.trim());
+    const scaffoldAnalysis = analyzeScaffoldWork(currentStepValue);
+
+    // Proteksi anti-abuse frontend: cegah submit jika hanya menyisipkan template kerangka kosong
+    if (scaffoldAnalysis.isCompletelyUnfilled && !hasFinal) {
+      setEvaluationError(
+        'Kerangka 4 Langkah terdeteksi belum diisi (masih berupa template kosong dengan placeholder `....`). Harap isi titik-titik dengan angka dan penurunan rumus nyata sebelum meminta evaluasi.'
+      );
+      return;
+    }
+
+    if (!hasSteps && !hasFinal) {
+      setEvaluationError('Silakan masukkan jawaban Anda (tuliskan langkah pengerjaan atau isi jawaban akhir) terlebih dahulu.');
+      return;
+    }
 
     setIsEvaluating(true);
     setEvaluationError(null);
@@ -1061,8 +1501,8 @@ export const Worksheet: React.FC = () => {
         subtopic: currentQuestion.subtopic,
         expectedFinalAnswer: currentQuestion.expected_final_answer || '',
         solutionRubric: currentQuestion.solution_rubric || '',
-        studentWorkSteps: currentStepValue,
-        studentFinalAnswer: currentFinalAnswer,
+        studentWorkSteps: currentStepValue.trim() || `(Jawaban langsung: ${currentFinalAnswer.trim()})`,
+        studentFinalAnswer: currentFinalAnswer.trim(),
         elapsedSeconds,
         maxPoints: 10,
       });
@@ -1143,38 +1583,30 @@ export const Worksheet: React.FC = () => {
 
   return (
     <div
-      className={`flex flex-col bg-slate-100 ${
+      className={`flex flex-col bg-[#F0F8FF] ${
         isZenMode
-          ? 'fixed inset-0 z-50 bg-white overflow-y-auto'
-          : 'h-full w-full max-w-7xl mx-auto overflow-hidden border-x border-slate-200/80 shadow-xs'
+          ? 'fixed inset-0 z-50 bg-[#FFFFF0] overflow-y-auto'
+          : 'h-full w-full max-w-7xl mx-auto overflow-hidden border-x border-[#D3D3D3] shadow-xs'
       }`}
     >
       {/* Top Header Bar */}
-      <div className="bg-white border-b border-slate-200 px-3 sm:px-6 py-2.5 flex flex-col gap-2 shadow-2xs shrink-0">
+      <div className="bg-[#FFFFF0] border-b border-[#D3D3D3] px-3 sm:px-6 py-2.5 flex flex-col gap-2 shadow-2xs shrink-0">
         {/* Row 1: Nav, Topic Title, & Question Stepper */}
         <div className="flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {!isZenMode && (
               <button
-                onClick={() => {
-                  if (type === 'practice') {
-                    navigate('/practice');
-                  } else {
-                    navigate('/worksheet');
-                  }
-                }}
-                className="p-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-semibold shrink-0 cursor-pointer"
-                title={type === 'practice' ? 'Kembali ke Bank Soal' : 'Kembali ke Daftar Worksheet Siswa'}
+                onClick={() => navigate('/worksheet')}
+                className="p-1.5 text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF] rounded-lg transition-colors flex items-center gap-1.5 text-xs font-semibold shrink-0 cursor-pointer"
+                title="Kembali ke Dashboard Worksheet"
               >
-                <ArrowLeft className="w-4 h-4 text-slate-600" />
-                <span className="hidden md:inline">
-                  {type === 'practice' ? 'Bank Soal' : 'Daftar Worksheet'}
-                </span>
+                <ArrowLeft className="w-4 h-4 text-[#708090]" />
+                <span className="hidden md:inline">Dashboard Worksheet</span>
               </button>
             )}
 
             <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-              <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded uppercase font-mono shrink-0">
+              <span className="px-2 py-0.5 bg-[#B0C4DE]/30 text-[#708090] border border-[#B0C4DE]/60 font-bold text-[10px] rounded uppercase font-mono shrink-0">
                 {type === 'practice'
                   ? questionsList.length === 1
                     ? 'Latihan 1 Soal Mandiri'
@@ -1191,7 +1623,7 @@ export const Worksheet: React.FC = () => {
                   <span>{liveToken}</span>
                 </span>
               )}
-              <h1 className="text-xs sm:text-sm font-bold text-slate-900 font-display truncate max-w-[200px] lg:max-w-md hidden sm:inline" title={currentQuestion.title || `Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
+              <h1 className="text-xs sm:text-sm font-bold text-[#2D3748] font-display truncate max-w-[200px] lg:max-w-md hidden sm:inline" title={currentQuestion.title || `Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
                 {currentQuestion.title || `T#${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}
               </h1>
             </div>
@@ -1215,22 +1647,22 @@ export const Worksheet: React.FC = () => {
                   }}
                   className={`px-2.5 py-1 rounded-lg font-semibold text-xs transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                     isCurrent
-                      ? 'bg-sky-500 text-white shadow-2xs font-bold ring-2 ring-sky-300'
+                      ? 'bg-[#708090] text-[#FFFFF0] shadow-2xs font-bold ring-2 ring-[#B0C4DE]'
                       : isGraded
-                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100'
+                      ? 'bg-[#B0C4DE]/35 text-[#708090] border border-[#B0C4DE]/80 hover:bg-[#B0C4DE]/50'
                       : isAnswered
-                      ? 'bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100'
-                      : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                      ? 'bg-[#B0C4DE]/20 text-[#708090] border border-[#B0C4DE]/40 hover:bg-[#B0C4DE]/30'
+                      : 'bg-[#FFFFF0] text-[#708090] hover:bg-[#F0F8FF] border border-[#D3D3D3]'
                   }`}
                   title={`Soal #${idx + 1}: ${q.title || q.subtopic || ''}${isGraded ? ` (Dinilai: ${qEval.totalScore}/${qEval.maxScore || 10})` : ''}`}
                 >
                   <span className="text-[10px] opacity-75 font-mono">#{idx + 1}</span>
                   {isGraded ? (
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/90 px-1 rounded">
+                    <span className="text-[10px] font-bold text-[#FFFFF0] bg-[#708090] px-1 rounded">
                       {qEval.totalScore}p
                     </span>
                   ) : isAnswered ? (
-                    <Check className="w-3 h-3 text-sky-600" />
+                    <Check className="w-3 h-3 text-[#708090]" />
                   ) : null}
                 </button>
               );
@@ -1407,32 +1839,32 @@ export const Worksheet: React.FC = () => {
       {/* Synchronized Side-by-Side Dual-Panel Container */}
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-w-0">
         {/* PANEL KIRI: Naskah Soal & Informasi (Lebar 38% di Desktop - Independent Scroll) */}
-        <div className={`w-full lg:w-[40%] xl:w-[38%] h-full bg-white border-b lg:border-b-0 lg:border-r border-slate-200 flex-col overflow-y-auto p-4 sm:p-5 space-y-4 shrink-0 min-w-0 ${
+        <div className={`w-full lg:w-[40%] xl:w-[38%] h-full bg-[#FFFFF0] border-b lg:border-b-0 lg:border-r border-[#D3D3D3] flex-col overflow-y-auto p-4 sm:p-5 space-y-4 shrink-0 min-w-0 ${
           activeMobilePane === 'question' ? 'flex' : 'hidden lg:flex'
         }`}>
           {/* Question Metadata Header */}
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="flex items-center justify-between border-b border-[#D3D3D3]/60 pb-3">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-slate-900 text-white text-xs font-bold rounded font-mono">
+              <span className="px-2 py-0.5 bg-[#708090] text-[#FFFFF0] text-xs font-bold rounded font-mono">
                 No. {currentQIndex + 1}
               </span>
-              <span className="px-2 py-0.5 bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold rounded">
+              <span className="px-2 py-0.5 bg-[#B0C4DE]/30 border border-[#B0C4DE]/60 text-[#708090] text-xs font-bold rounded">
                 Tingkat {currentQuestion.difficulty}
               </span>
             </div>
 
-            <span className="text-xs font-bold text-sky-800 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
+            <span className="text-xs font-bold text-[#708090] bg-[#B0C4DE]/25 px-2.5 py-0.5 rounded-full border border-[#B0C4DE]/50">
               Bobot: 10.0 Poin
             </span>
           </div>
 
           {/* Question Title */}
-          <h2 className="text-base sm:text-lg font-bold text-slate-900 font-display">
+          <h2 className="text-base sm:text-lg font-bold text-[#2D3748] font-display">
             {currentQuestion.title}
           </h2>
 
           {/* Question Text with KaTeX and Virtual Teacher Laser & Highlight Overlay (Tinggi Diperbesar 3x ke Bawah) */}
-          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 shadow-2xs overflow-x-auto overflow-y-auto min-h-[500px] sm:min-h-[560px] max-h-[78vh] flex flex-col">
+          <div className="rounded-2xl border border-[#D3D3D3] bg-[#F0F8FF]/50 shadow-2xs overflow-x-auto overflow-y-auto min-h-[500px] sm:min-h-[560px] max-h-[78vh] flex flex-col">
             <ScaledDocumentCanvas
               baseWidth={540}
               scale={canvasScale}
@@ -1491,52 +1923,73 @@ export const Worksheet: React.FC = () => {
             </ScaledDocumentCanvas>
           </div>
 
-          {/* Useful Constants Quick Box */}
-          <div className="p-3.5 bg-amber-50/50 border border-amber-200/80 rounded-xl space-y-1.5 text-xs">
-            <div className="flex items-center gap-1.5 font-bold text-amber-900">
-              <Info className="w-4 h-4 text-amber-600" />
-              <span>Tetapan & Data Pendukung:</span>
-            </div>
-            <div className="text-amber-900 leading-relaxed text-[11px]">
-              <KaTeXRenderer
-                content={`• $R = 0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$
-• $M_r(\\ce{BaCO3}) = 197.34\\text{ g/mol}$
-• $T = 25^\\circ\\text{C} = 298.15\\text{ K}$`}
-              />
-            </div>
-          </div>
-
-          {/* Tags Konsep Interaktif Terhubung ke Database Materi (Membuka Tab Baru) */}
-          {currentQuestion.tags && (
-            <div className="p-3 bg-sky-50/50 border border-sky-200/70 rounded-xl space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-sky-900 flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Pelajari Konsep Terkait (Database Materi):</span>
-                </span>
-                <span className="text-[10px] text-slate-400 font-normal">Klik untuk buka di tab baru</span>
+          {/* Useful Constants Quick Box (Dinamis Menyesuaikan Topik Soal) */}
+          {supportingData && (
+            <div className="p-3.5 bg-amber-50/50 border border-amber-200/80 rounded-xl space-y-1.5 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-amber-900">
+                <Info className="w-4 h-4 text-amber-600" />
+                <span>{supportingData.title}</span>
               </div>
-              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                {currentQuestion.tags.map((t) => {
-                  const match = findConceptByTag(t);
-                  const targetTopic = match ? match.material.topic_number : currentQuestion.pillar_number;
-                  const targetTag = match ? match.block.tag : t;
+              <div className="text-amber-900 leading-relaxed text-[11px]">
+                <KaTeXRenderer content={supportingData.content} />
+              </div>
+            </div>
+          )}
 
-                  return (
+          {/* Pelajari Konsep Terkait (Database Materi) */}
+          {relatedConceptsData && (
+            <div className="p-4 bg-sky-50/60 border border-sky-200/80 rounded-2xl space-y-3 shadow-2xs">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-sky-100 border border-sky-200 text-sky-700 flex items-center justify-center shrink-0">
+                    <BookOpen className="w-3.5 h-3.5" />
+                  </div>
+                  <div>
+                    <span className="font-bold text-sky-950 text-xs block">
+                      Pelajari Konsep Terkait (Database Materi):
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-medium">
+                      {relatedConceptsData.subtopicName || relatedConceptsData.mainModuleTitle}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tautan Utama ke Modul Teori Lengkap */}
+                <a
+                  href={relatedConceptsData.mainModuleUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-sky-50 text-sky-800 text-xs font-bold border border-sky-200 shadow-2xs transition-all hover:scale-102 shrink-0 group"
+                  title={`Buka modul teori lengkap ${relatedConceptsData.mainModuleTitle} di tab baru`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span>Buka {relatedConceptsData.mainBadgeLabel}</span>
+                  <ExternalLink className="w-3 h-3 text-sky-500 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
+
+              {/* Daftar Chip Konsep Spesifik */}
+              {relatedConceptsData.chips.length > 0 && (
+                <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-sky-100">
+                  <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider mr-1">
+                    Fokus Materi:
+                  </span>
+                  {relatedConceptsData.chips.map((chip) => (
                     <a
-                      key={t}
-                      href={`/materi/${targetTopic}?tag=${encodeURIComponent(targetTag)}`}
+                      key={chip.tag}
+                      href={chip.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-sky-100 text-sky-800 text-[11px] font-mono font-semibold rounded-lg border border-sky-200 transition-all shadow-2xs hover:scale-102"
-                      title={`Buka pembahasan konsep #${t} di tab baru (Topik ${targetTopic})`}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-sky-100 text-sky-900 text-[11px] font-medium rounded-lg border border-sky-200 transition-all shadow-2xs hover:border-sky-400 group"
+                      title={chip.summary || `Pelajari teori konsep ${chip.label} di tab baru`}
                     >
-                      <span>#{t}</span>
-                      <ExternalLink className="w-2.5 h-2.5 text-sky-500" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 group-hover:bg-sky-700" />
+                      <span className="font-semibold">{chip.label}</span>
+                      <ExternalLink className="w-2.5 h-2.5 text-sky-400 group-hover:text-sky-600" />
                     </a>
-                  );
-                })}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -1723,21 +2176,61 @@ export const Worksheet: React.FC = () => {
             </div>
 
             {/* Final Answer Input */}
-            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
-              <label className="block text-xs font-bold text-slate-800 uppercase tracking-wider">
-                Jawaban Akhir / Senyawa Final:
-              </label>
+            <div className="bg-[#FFFFF0] p-4 rounded-xl border border-[#D3D3D3] shadow-2xs space-y-2.5">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-bold text-[#2D3748] uppercase tracking-wider">
+                  Jawaban Akhir / Opsi Jawaban:
+                </label>
+                {(currentQuestion.question_style === 'mcq' ||
+                  /^[A-E]$/i.test(currentQuestion.expected_final_answer?.trim() || '')) && (
+                  <span className="text-[10px] font-bold text-[#708090] bg-[#B0C4DE]/30 px-2 py-0.5 rounded-md border border-[#B0C4DE]/60 font-mono">
+                    PILIHAN GANDA
+                  </span>
+                )}
+              </div>
+
+              {/* Quick Choice Buttons for Multiple Choice Questions */}
+              {(currentQuestion.question_style === 'mcq' ||
+                /^[A-E]$/i.test(currentQuestion.expected_final_answer?.trim() || '')) && (
+                <div className="flex items-center gap-2 pt-0.5 pb-1">
+                  <span className="text-xs font-semibold text-[#708090] mr-1">Pilih Opsi:</span>
+                  {['A', 'B', 'C', 'D', 'E'].map((opt) => {
+                    const isSelected = currentFinalAnswer.trim().toUpperCase() === opt;
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => handleFinalAnswerChange(opt)}
+                        className={`w-9 h-9 rounded-xl text-xs font-bold font-mono transition-all border cursor-pointer ${
+                          isSelected
+                            ? 'bg-[#708090] text-[#FFFFF0] border-[#708090] shadow-sm scale-105 ring-2 ring-[#B0C4DE]'
+                            : 'bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border-[#D3D3D3]'
+                        }`}
+                        title={`Pilih opsi ${opt}`}
+                      >
+                        {opt}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="text"
                   value={currentFinalAnswer}
                   onChange={(e) => handleFinalAnswerChange(e.target.value)}
-                  placeholder="Contoh: X_CH4 = 0.50 atau \ce{CH3COOH}"
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                  placeholder={
+                    currentQuestion.question_style === 'mcq' ||
+                    /^[A-E]$/i.test(currentQuestion.expected_final_answer?.trim() || '')
+                      ? 'Ketik atau klik opsi jawaban (A / B / C / D / E)'
+                      : 'Contoh: X_CH4 = 0.50 atau \\ce{CH3COOH}'
+                  }
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm font-mono font-medium text-[#2D3748] bg-[#FFFFF0] border border-[#D3D3D3] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090]"
                 />
 
                 {currentFinalAnswer && (
-                  <div className="px-3 py-1.5 bg-sky-50 border border-sky-200 rounded-lg text-xs font-semibold text-sky-900 flex items-center shrink-0">
+                  <div className="px-3 py-1.5 bg-[#B0C4DE]/25 border border-[#B0C4DE]/60 rounded-lg text-xs font-semibold text-[#708090] flex items-center shrink-0">
                     <KaTeXRenderer content={currentFinalAnswer} inlineOnly />
                   </div>
                 )}
@@ -1756,7 +2249,7 @@ export const Worksheet: React.FC = () => {
                     }
                   }}
                   disabled={currentQIndex === 0}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   <span>Soal Sebelumnya</span>
@@ -1770,7 +2263,7 @@ export const Worksheet: React.FC = () => {
                     }
                   }}
                   disabled={currentQIndex === questionsList.length - 1}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
                 >
                   <span>Soal Berikutnya</span>
                   <ChevronRight className="w-4 h-4" />
@@ -1780,8 +2273,8 @@ export const Worksheet: React.FC = () => {
               {/* Progress Stage Text, Manual Save Button, and AI Evaluate Button */}
               <div className="flex items-center gap-2.5">
                 {isEvaluating && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-sky-50 border border-sky-200 rounded-xl text-xs text-sky-800 font-medium animate-pulse">
-                    <span className="w-3.5 h-3.5 border-2 border-sky-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-[#B0C4DE]/20 border border-[#B0C4DE]/50 rounded-xl text-xs text-[#708090] font-medium animate-pulse">
+                    <span className="w-3.5 h-3.5 border-2 border-[#708090] border-t-transparent rounded-full animate-spin" />
                     <span>
                       {evaluationStage === 'analyzing' && '🔍 Menganalisis langkah penurunan & notasi kimia...'}
                       {evaluationStage === 'validating_math' &&
@@ -1796,26 +2289,28 @@ export const Worksheet: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleManualSave}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold transition-all shadow-2xs active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-xl text-xs font-semibold transition-all shadow-2xs active:scale-95 cursor-pointer"
                   title="Simpan lembar kerja ke cloud Supabase agar progres tersimpan aman"
                 >
                   {isSaveSuccess ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-600" />
-                      <span className="text-emerald-700 font-bold">Tersimpan Online!</span>
+                      <Check className="w-4 h-4 text-[#708090]" />
+                      <span className="text-[#708090] font-bold">Tersimpan Online!</span>
                     </>
                   ) : (
                     <>
-                      <Save className="w-4 h-4 text-sky-600" />
+                      <Save className="w-4 h-4 text-[#708090]" />
                       <span>Simpan Progress</span>
                     </>
                   )}
                 </button>
 
                 <button
+                  type="button"
                   onClick={handleEvaluate}
-                  disabled={isEvaluating || !currentStepValue.trim()}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-semibold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer"
+                  disabled={isEvaluating}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-bold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer border border-[#708090]"
+                  title="Evaluasi jawaban Anda dengan AI"
                 >
                   {isEvaluating ? (
                     <>
@@ -1824,8 +2319,8 @@ export const Worksheet: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4 text-amber-300" />
-                      <span>Evaluasi Kriteria AI OSN (+50 XP)</span>
+                      <Sparkles className="w-4 h-4 text-[#FFFFF0]" />
+                      <span>Evaluasi Jawaban</span>
                     </>
                   )}
                 </button>
