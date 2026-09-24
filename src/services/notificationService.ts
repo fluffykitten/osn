@@ -61,3 +61,56 @@ export const sendStudentRegistrationNotification = async (
     return { success: false, message: err?.message };
   }
 };
+
+export interface ActivationEmailPayload {
+  fullName: string;
+  email: string;
+  role: 'student' | 'teacher' | 'admin' | string;
+  activationUrl: string;
+  schoolName?: string;
+}
+
+export const sendAccountActivationEmail = async (
+  data: ActivationEmailPayload
+): Promise<{ success: boolean; message?: string }> => {
+  if (!CLOUDFLARE_MAILER_URL) {
+    console.info(
+      '[NotificationService] VITE_CLOUDFLARE_MAILER_URL belum dikonfigurasi. Menggunakan tautan langsung dan integrasi email client.'
+    );
+    return {
+      success: true,
+      message: 'Email relay belum terkonfigurasi, tautan aktivasi mandiri dapat disalin atau dikirim melalui email client.',
+    };
+  }
+
+  try {
+    const payload = {
+      action: 'account_activation',
+      recipient: {
+        ...data,
+        invitedAt: new Date().toISOString(),
+      },
+      adminEmail: 'fluffykitten.dev@gmail.com',
+    };
+
+    const response = await fetch(`${CLOUDFLARE_MAILER_URL.replace(/\/$/, '')}/notify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      console.warn('[NotificationService] Gagal mengirim email aktivasi via Worker:', errText);
+      return { success: false, message: errText };
+    }
+
+    const resJson = await response.json();
+    return { success: true, message: resJson?.message || 'Email aktivasi berhasil dikirim ke pengguna.' };
+  } catch (err: any) {
+    console.warn('[NotificationService] Terjadi kesalahan koneksi ke email relay:', err?.message);
+    return { success: false, message: err?.message };
+  }
+};

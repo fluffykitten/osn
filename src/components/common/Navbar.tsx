@@ -209,8 +209,19 @@ export const Navbar: React.FC = () => {
                   </Link>
                 )}
 
-                {/* Menu Khusus Guru & Admin */}
-                {isTeacher && (
+                {/* Menu Khusus Admin */}
+                {isAdmin && (
+                  <Link
+                    to="/admin/analytics"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 text-amber-900 border border-amber-300 font-bold hover:bg-amber-200 transition shadow-2xs"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                    <span>⚡ Portal Admin</span>
+                  </Link>
+                )}
+
+                {/* Menu Khusus Guru */}
+                {!isAdmin && isTeacher && (
                   <>
                     <Link
                       to="/practice"
@@ -376,18 +387,66 @@ export const Navbar: React.FC = () => {
                       </div>
                     </div>
 
-                    {isTeacher && (
-                      <Link
-                        to="/roadmap"
-                        onClick={() => setShowUserDropdown(false)}
-                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
-                      >
-                        <Compass className="w-3.5 h-3.5 text-sky-600" />
-                        <span>Peta Silabus 10 Topik</span>
-                      </Link>
-                    )}
-
-                    {isTeacher ? (
+                    {isAdmin ? (
+                      <>
+                        <Link
+                          to="/admin/analytics"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-amber-900 bg-amber-50 hover:bg-amber-100 font-bold transition-colors"
+                        >
+                          <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                          <span>⚡ Command Center Admin</span>
+                        </Link>
+                        <Link
+                          to="/admin/users"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <Users className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Manajemen Users</span>
+                        </Link>
+                        <Link
+                          to="/admin/classrooms"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <School className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Manajemen Kelas</span>
+                        </Link>
+                        <Link
+                          to="/admin/materials"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Editor Materi Silabus</span>
+                        </Link>
+                        <Link
+                          to="/admin/worksheets"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <Layers className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Pengawasan Worksheet</span>
+                        </Link>
+                        <Link
+                          to="/admin/questions"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <Code2 className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Kurasi Bank Soal</span>
+                        </Link>
+                        <Link
+                          to="/admin/audit-logs"
+                          onClick={() => setShowUserDropdown(false)}
+                          className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+                        >
+                          <BarChart3 className="w-3.5 h-3.5 text-slate-600" />
+                          <span>Audit Log Aktivitas</span>
+                        </Link>
+                      </>
+                    ) : isTeacher ? (
                       <>
                         <Link
                           to="/teacher/classes"

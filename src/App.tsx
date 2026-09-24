@@ -34,6 +34,17 @@ const ClassroomDetail = lazy(() => import('./pages/teacher/ClassroomDetail').the
 const WhiteboardCatalogPage = lazy(() => import('./pages/whiteboard/WhiteboardCatalogPage').then((m) => ({ default: m.WhiteboardCatalogPage })));
 const WhiteboardPage = lazy(() => import('./pages/whiteboard/WhiteboardPage').then((m) => ({ default: m.WhiteboardPage })));
 
+// Admin Portal Pages (Lazy Loaded on Demand)
+import { AdminLayout } from './components/admin/AdminLayout';
+const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AdminAnalyticsDashboard').then((m) => ({ default: m.AdminAnalyticsDashboard })));
+const AdminUserManagement = lazy(() => import('./pages/admin/AdminUserManagement').then((m) => ({ default: m.AdminUserManagement })));
+const AdminClassroomManagement = lazy(() => import('./pages/admin/AdminClassroomManagement').then((m) => ({ default: m.AdminClassroomManagement })));
+const AdminMaterialsManagement = lazy(() => import('./pages/admin/AdminMaterialsManagement').then((m) => ({ default: m.AdminMaterialsManagement })));
+const AdminMaterialEditor = lazy(() => import('./pages/admin/AdminMaterialEditor').then((m) => ({ default: m.AdminMaterialEditor })));
+const AdminWorksheetManagement = lazy(() => import('./pages/admin/AdminWorksheetManagement').then((m) => ({ default: m.AdminWorksheetManagement })));
+const AdminQuestionManagement = lazy(() => import('./pages/admin/AdminQuestionManagement').then((m) => ({ default: m.AdminQuestionManagement })));
+const AdminAuditLogs = lazy(() => import('./pages/admin/AdminAuditLogs').then((m) => ({ default: m.AdminAuditLogs })));
+
 // Fallback Loader saat chunk modul sedang diunduh
 const PageLoadingFallback: React.FC = () => (
   <div className="min-h-[55vh] flex flex-col items-center justify-center p-8 space-y-3">
@@ -65,7 +76,34 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Route guard untuk membatasi fitur Bank Soal dan Studio Guru khusus bagi Guru dan Administrator
+ * Route guard khusus Portal Administrator mandiri
+ */
+function AdminOnly({ children }: { children: React.ReactNode }) {
+  const { user, isAdmin, loading } = useAuth();
+  const location = useLocation();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="w-8 h-8 border-3 border-slate-200 border-t-slate-800 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <AdminLayout>{children}</AdminLayout>;
+}
+
+/**
+ * Route guard untuk membatasi fitur Bank Soal dan Studio Guru khusus bagi Guru
+ * (Admin dialihkan ke Portal Admin mandiri /admin/analytics)
  */
 function TeacherOnly({ children }: { children: React.ReactNode }) {
   const { user, isTeacher, isAdmin, loading } = useAuth();
@@ -83,7 +121,11 @@ function TeacherOnly({ children }: { children: React.ReactNode }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (!isTeacher && !isAdmin) {
+  if (isAdmin) {
+    return <Navigate to="/admin/analytics" replace />;
+  }
+
+  if (!isTeacher) {
     return <Navigate to="/worksheet" replace />;
   }
 
@@ -92,7 +134,7 @@ function TeacherOnly({ children }: { children: React.ReactNode }) {
 
 /**
  * Route guard untuk membatasi fitur profil dan kelas binaan siswa khusus bagi Siswa
- * (Jika Guru/Admin membukanya, dialihkan ke Studio Guru /teacher)
+ * (Jika Admin membuka, dialihkan ke /admin/analytics; jika Guru membuka, ke /teacher)
  */
 function StudentOnly({ children }: { children: React.ReactNode }) {
   const { user, isTeacher, isAdmin, loading } = useAuth();
@@ -110,7 +152,11 @@ function StudentOnly({ children }: { children: React.ReactNode }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (isTeacher || isAdmin) {
+  if (isAdmin) {
+    return <Navigate to="/admin/analytics" replace />;
+  }
+
+  if (isTeacher) {
     return <Navigate to="/teacher" replace />;
   }
 
@@ -147,17 +193,28 @@ function AppContent() {
     (location.pathname.startsWith('/whiteboard/') &&
       location.pathname.replace('/whiteboard/', '').trim().length > 0);
 
+  // Portal Administrator Mandiri menggunakan tata letak AdminLayout Command Center
+  const isAdminPortal = location.pathname.startsWith('/admin');
+
   return (
     <div
-      className={`flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${
-        isFullScreenWorkspace ? 'h-screen overflow-hidden' : 'min-h-screen'
+      className={`flex flex-col ${
+        isAdminPortal
+          ? 'min-h-screen bg-slate-50 text-slate-900'
+          : `bg-slate-50 text-slate-900 font-sans selection:bg-emerald-100 selection:text-emerald-900 ${
+              isFullScreenWorkspace ? 'h-screen overflow-hidden' : 'min-h-screen'
+            }`
       }`}
     >
-      <Navbar />
+      {!isAdminPortal && <Navbar />}
 
       <main
         className={`flex-1 flex flex-col ${
-          isFullScreenWorkspace ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40' : ''
+          isAdminPortal
+            ? 'min-h-screen bg-slate-50'
+            : isFullScreenWorkspace
+            ? 'h-[calc(100vh-64px)] overflow-hidden bg-slate-200/40'
+            : ''
         }`}
       >
         <Suspense fallback={<PageLoadingFallback />}>
@@ -180,37 +237,10 @@ function AppContent() {
             }
           />
 
-          {/* Database Materi OSN Kimia & Materi Dasar SMA (Wajib Login & Kelas Aktif) */}
-          <Route
-            path="/materi"
-            element={
-              <RequireAuth>
-                <RequireClassroom>
-                  <MaterialsDatabase />
-                </RequireClassroom>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/materi/sma/:id"
-            element={
-              <RequireAuth>
-                <RequireClassroom>
-                  <MaterialsDatabase />
-                </RequireClassroom>
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/materi/:id"
-            element={
-              <RequireAuth>
-                <RequireClassroom>
-                  <MaterialsDatabase />
-                </RequireClassroom>
-              </RequireAuth>
-            }
-          />
+          {/* Database Materi OSN Kimia & Materi Dasar SMA (Dapat Diakses Bebas & Pratinjau Admin Langsung) */}
+          <Route path="/materi" element={<MaterialsDatabase />} />
+          <Route path="/materi/sma/:id" element={<MaterialsDatabase />} />
+          <Route path="/materi/:id" element={<MaterialsDatabase />} />
 
           {/* Student Experience */}
           {/* Dashboard Utama Siswa (Wajib Siswa & Kelas Aktif) */}
@@ -398,13 +428,80 @@ function AppContent() {
             }
           />
 
+          {/* Portal Administrator Mandiri (6 Modul Tata Kelola) */}
+          <Route path="/admin" element={<Navigate to="/admin/analytics" replace />} />
+          <Route
+            path="/admin/analytics"
+            element={
+              <AdminOnly>
+                <AdminAnalyticsDashboard />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <AdminOnly>
+                <AdminUserManagement />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/classrooms"
+            element={
+              <AdminOnly>
+                <AdminClassroomManagement />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/materials"
+            element={
+              <AdminOnly>
+                <AdminMaterialsManagement />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/materials/:type/:id/edit"
+            element={
+              <AdminOnly>
+                <AdminMaterialEditor />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/worksheets"
+            element={
+              <AdminOnly>
+                <AdminWorksheetManagement />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/questions"
+            element={
+              <AdminOnly>
+                <AdminQuestionManagement />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/audit-logs"
+            element={
+              <AdminOnly>
+                <AdminAuditLogs />
+              </AdminOnly>
+            }
+          />
+
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </Suspense>
       </main>
 
-      {!isFullScreenWorkspace && <Footer />}
+      {!isFullScreenWorkspace && !isAdminPortal && <Footer />}
     </div>
   );
 }

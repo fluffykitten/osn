@@ -1,9 +1,11 @@
-export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher';
+export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher' | 'admin';
 export type QuestionDifficulty = 'SMA-Mudah' | 'SMA-Sedang' | 'SMA-Sulit' | 'SMA' | 'OSK' | 'OSP' | 'OSN' | 'IChO';
 export type GenerationVariant = 'manual' | 'pdf_extracted' | 'twin_parallel' | 'scaffolding' | 'challenging_extension';
 export type WorksheetType = 'static_module' | 'teacher_assignment';
 export type SubmissionStatus = 'in_progress' | 'submitted' | 'reviewed';
 export type AiStatus = 'perfect' | 'partial_correct' | 'incorrect';
+
+export type AccountStatus = 'pending_activation' | 'active' | 'suspended';
 
 export interface Profile {
   id: string;
@@ -20,6 +22,10 @@ export interface Profile {
   target_olympiad?: 'OSK' | 'OSP' | 'OSN' | 'IChO' | string;
   phone_whatsapp?: string;
   membership_tier?: 'free' | 'pro' | 'school';
+  account_status?: AccountStatus;
+  is_suspended?: boolean;
+  suspended_reason?: string;
+  last_login_at?: string;
   created_at: string;
   updated_at?: string;
 }
@@ -451,4 +457,46 @@ export interface RemedialRecommendation {
   difficulty: QuestionDifficulty;
   generationType: GenerationVariant;
 }
+
+export interface AuditLog {
+  id: number;
+  actor_id: string;
+  actor_email: string;
+  action_type:
+    | 'USER_CREATED'
+    | 'USER_INVITED'
+    | 'ACTIVATION_EMAIL_SENT'
+    | 'USER_SUSPENDED'
+    | 'USER_ACTIVATED'
+    | 'PASSWORD_RESET'
+    | 'ROLE_CHANGED'
+    | 'MATERIAL_UPDATED'
+    | 'QUESTION_CREATED'
+    | 'QUESTION_UPDATED'
+    | 'QUESTION_DELETED'
+    | 'CLASSROOM_UPDATED'
+    | 'CLASSROOM_DELETED';
+  target_resource?: string;
+  description: string;
+  details?: Record<string, any>;
+  ip_address?: string;
+  created_at: string;
+}
+
+export interface MaterialOverride {
+  id: number;
+  material_type: 'osn' | 'sma';
+  title: string;
+  category?: string;
+  level?: string;
+  read_time_minutes?: number;
+  summary?: string;
+  all_tags?: string[];
+  prerequisites?: any[];
+  core_concepts?: any[];
+  worked_examples?: any[];
+  updated_by?: string;
+  updated_at: string;
+}
+
 

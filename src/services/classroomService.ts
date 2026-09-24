@@ -276,6 +276,99 @@ class ClassroomService {
   }
 
   /**
+   * Mengambil SELURUH kelas dari semua guru (Khusus Portal Administrator)
+   */
+  public async getAllClassrooms(): Promise<Classroom[]> {
+    this.initLocalStore();
+    const supabase = getSupabaseClient();
+
+    if (supabase) {
+      try {
+        const { data, error } = await supabase
+          .from('classrooms')
+          .select('*, classroom_members(count), classroom_assignments(count)')
+          .order('created_at', { ascending: false });
+
+        if (data && !error) {
+          const formatted: Classroom[] = data.map((c: any) => ({
+            id: c.id,
+            teacher_id: c.teacher_id,
+            name: c.name,
+            code: c.code,
+            description: c.description,
+            created_at: c.created_at,
+            member_count: c.classroom_members?.[0]?.count ?? 0,
+            assignment_count: c.classroom_assignments?.[0]?.count ?? 0,
+          }));
+
+          const cloudCodes = new Set(formatted.map((c) => c.code.toUpperCase()));
+          const unsyncedLocal = this.localClassrooms.filter((c) => !cloudCodes.has(c.code.toUpperCase()));
+          return [...formatted, ...unsyncedLocal];
+        }
+      } catch (err) {
+        console.warn('Gagal mengambil semua kelas dari cloud:', err);
+      }
+    }
+
+    return [...this.localClassrooms];
+  }
+
+  /**
+   * Menghapus kelas secara permanen oleh Administrator
+   */
+  public async adminDeleteClassroom(classroomId: number): Promise<{ success: boolean; error?: string }> {
+    this.initLocalStore();
+    const supabase = getSupabaseClient();
+
+    if (supabase) {
+      try {
+        await supabase.from('classrooms').delete().eq('id', classroomId);
+      } catch (err: any) {
+        console.warn('Gagal menghapus kelas dari cloud:', err?.message);
+      }
+    }
+
+    this.localClassrooms = this.localClassrooms.filter((c) => c.id !== classroomId);
+    this.localMembers = this.localMembers.filter((m) => m.classroom_id !== classroomId);
+    this.localAssignments = this.localAssignments.filter((a) => a.classroom_id !== classroomId);
+    this.persistLocalStore();
+
+    return { success: true };
+  }
+
+  /**
+   * Memperbarui detail kelas atau memindahkan pembina oleh Administrator
+   */
+  public async adminUpdateClassroom(
+    classroomId: number,
+    patch: { name?: string; description?: string; code?: string; teacher_id?: string }
+  ): Promise<{ success: boolean; classroom?: Classroom; error?: string }> {
+    this.initLocalStore();
+    const supabase = getSupabaseClient();
+
+    if (supabase) {
+      try {
+        await supabase.from('classrooms').update(patch).eq('id', classroomId);
+      } catch (err: any) {
+        console.warn('Gagal update kelas di cloud:', err?.message);
+      }
+    }
+
+    const idx = this.localClassrooms.findIndex((c) => c.id === classroomId);
+    if (idx !== -1) {
+      this.localClassrooms[idx] = {
+        ...this.localClassrooms[idx],
+        ...patch,
+        updated_at: new Date().toISOString(),
+      };
+      this.persistLocalStore();
+      return { success: true, classroom: this.localClassrooms[idx] };
+    }
+
+    return { success: true };
+  }
+
+  /**
    * Mengambil detail satu kelas berdasarkan ID
    */
   public async getClassroomById(

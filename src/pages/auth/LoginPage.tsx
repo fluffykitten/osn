@@ -71,7 +71,11 @@ export const LoginPage: React.FC = () => {
         navigate(redirectPath, { replace: true });
         return;
       }
-      if (isTeacher || isAdmin) {
+      if (isAdmin) {
+        navigate('/admin/analytics', { replace: true });
+        return;
+      }
+      if (isTeacher) {
         navigate('/teacher', { replace: true });
       } else {
         classroomService.getStudentClassrooms(user.email || '', user.id).then((classes) => {
@@ -245,7 +249,22 @@ export const LoginPage: React.FC = () => {
         } else {
           sessionStorage.removeItem('osn_is_password_recovery');
           const currentEmail = user?.email || email;
-          setSuccessMessage('Kata sandi berhasil diperbarui! Mengalihkan ke beranda untuk masuk...');
+
+          // Perbarui status akun menjadi aktif jika sebelumnya pending_activation
+          try {
+            const cachedUsers = JSON.parse(localStorage.getItem('osn_admin_users_cache_v1') || '[]');
+            const uIdx = cachedUsers.findIndex(
+              (u: any) => u.email?.toLowerCase() === currentEmail?.toLowerCase()
+            );
+            if (uIdx !== -1 && cachedUsers[uIdx].account_status === 'pending_activation') {
+              cachedUsers[uIdx].account_status = 'active';
+              localStorage.setItem('osn_admin_users_cache_v1', JSON.stringify(cachedUsers));
+            }
+          } catch {
+            // Abaikan kesalahan local storage
+          }
+
+          setSuccessMessage('Kata sandi berhasil diperbarui dan akun Anda telah aktif! Mengalihkan...');
           // Logout dari sesi recovery sementara Supabase agar pengguna dapat masuk secara segar
           await logout();
           setNewPassword('');
@@ -280,7 +299,9 @@ export const LoginPage: React.FC = () => {
         setTimeout(async () => {
           if (redirectPath) {
             navigate(redirectPath);
-          } else if (type === 'teacher' || type === 'admin') {
+          } else if (type === 'admin') {
+            navigate('/admin/analytics');
+          } else if (type === 'teacher') {
             navigate('/teacher');
           } else {
             try {
