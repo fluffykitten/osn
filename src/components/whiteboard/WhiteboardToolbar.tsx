@@ -50,9 +50,17 @@ const FloatingPopover: React.FC<FloatingPopoverProps> = ({
 }) => {
   if (!anchorRect) return null;
 
-  // Posisikan popover tepat di sebelah kanan tombol tanpa terpotong batas bawah viewport
-  const top = Math.max(16, Math.min(window.innerHeight - 340, anchorRect.top + offsetY));
-  const left = anchorRect.right + 10;
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const popoverWidth = 265;
+
+  // Posisikan popover tanpa terpotong batas layar baik di desktop maupun mobile
+  const top = isMobile
+    ? Math.max(60, Math.min(window.innerHeight - 380, anchorRect.top + offsetY))
+    : Math.max(16, Math.min(window.innerHeight - 340, anchorRect.top + offsetY));
+
+  const left = isMobile
+    ? Math.max(10, Math.min(window.innerWidth - popoverWidth - 10, anchorRect.right + 8))
+    : anchorRect.right + 10;
 
   return createPortal(
     <>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PILLARS_DATA } from '../../data/syllabusData';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import {
   Compass,
   ArrowRight,
@@ -16,7 +17,12 @@ export const Roadmap: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Hero Welcome Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl border border-sky-900/50">
         <div className="relative z-10 max-w-3xl space-y-4">
@@ -119,12 +125,12 @@ export const Roadmap: React.FC = () => {
               {/* Action Buttons: Pelajari Materi & Latihan Soal */}
               <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
                 <Link
-                  to={`/worksheet/static_module/${pillar.id}`}
+                  to={`/practice/osn/${pillar.pillar_number}`}
                   className="text-slate-500 hover:text-slate-800 font-semibold inline-flex items-center gap-1 transition-colors"
-                  title="Kerjakan Soal Latihan & Evaluasi Juri AI"
+                  title="Latihan Soal Topik Ini di Bank Soal"
                 >
                   <Layers className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Worksheet Soal</span>
+                  <span>Latihan di Bank Soal</span>
                 </Link>
 
                 <button
@@ -141,5 +147,6 @@ export const Roadmap: React.FC = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };

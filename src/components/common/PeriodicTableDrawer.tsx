@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   PERIODIC_TABLE_ELEMENTS,
   PHYSICAL_CONSTANTS,
@@ -27,6 +27,16 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   // Width resizing state & handlers (drag from left edge)
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const [drawerWidth, setDrawerWidth] = useState<number>(() =>
     Math.min(680, typeof window !== 'undefined' ? window.innerWidth - 40 : 680)
   );
@@ -34,6 +44,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
   const resizeStartRef = useRef<{ startX: number; startW: number } | null>(null);
 
   const handleResizePointerDown = (e: React.PointerEvent) => {
+    if (isMobile) return;
     e.stopPropagation();
     e.preventDefault();
     setIsResizing(true);
@@ -49,7 +60,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
   };
 
   const handleResizePointerMove = (e: React.PointerEvent) => {
-    if (!isResizing || !resizeStartRef.current) return;
+    if (!isResizing || !resizeStartRef.current || isMobile) return;
     const deltaX = e.clientX - resizeStartRef.current.startX;
     const minW = 420;
     const maxW = Math.min(1200, window.innerWidth - 30);
@@ -85,19 +96,21 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/30 backdrop-blur-xs transition-opacity">
       <div
-        style={{ width: `${drawerWidth}px` }}
-        className="w-full max-w-[95vw] h-full bg-white shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-200 relative"
+        style={isMobile ? { width: '100%' } : { width: `${drawerWidth}px` }}
+        className={`w-full ${isMobile ? 'max-w-full' : 'max-w-[95vw]'} h-full bg-white shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-200 relative`}
       >
-        {/* Left Edge Resize Drag Handle */}
-        <div
-          onPointerDown={handleResizePointerDown}
-          onPointerMove={handleResizePointerMove}
-          onPointerUp={handleResizePointerUp}
-          className="absolute top-0 bottom-0 -left-2 w-4 cursor-ew-resize hover:bg-sky-500/20 active:bg-sky-500/40 transition-colors z-30 touch-none flex items-center justify-center group select-none"
-          title="Tarik untuk mengubah lebar panel tabel periodik"
-        >
-          <div className="w-1 h-12 rounded-full bg-slate-300 group-hover:bg-sky-500 group-active:bg-sky-600 transition-colors" />
-        </div>
+        {/* Left Edge Resize Drag Handle (Desktop Only) */}
+        {!isMobile && (
+          <div
+            onPointerDown={handleResizePointerDown}
+            onPointerMove={handleResizePointerMove}
+            onPointerUp={handleResizePointerUp}
+            className="absolute top-0 bottom-0 -left-2 w-4 cursor-ew-resize hover:bg-sky-500/20 active:bg-sky-500/40 transition-colors z-30 touch-none flex items-center justify-center group select-none"
+            title="Tarik untuk mengubah lebar panel tabel periodik"
+          >
+            <div className="w-1 h-12 rounded-full bg-slate-300 group-hover:bg-sky-500 group-active:bg-sky-600 transition-colors" />
+          </div>
+        )}
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 bg-slate-50/80">
           <div className="flex items-center gap-2">
@@ -191,15 +204,15 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
               {/* Selected Element Quick Inspector Card */}
               {selectedElement && (
                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-                  <div className="flex items-start justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-14 h-14 bg-white border border-slate-300 rounded-lg flex flex-col items-center justify-center shadow-xs">
+                      <div className="w-14 h-14 bg-white border border-slate-300 rounded-lg flex flex-col items-center justify-center shadow-xs shrink-0">
                         <span className="text-[10px] text-slate-400 font-mono leading-none">{selectedElement.num}</span>
                         <span className="text-xl font-bold font-mono text-slate-900 leading-tight">{selectedElement.sym}</span>
                         <span className="text-[9px] text-slate-500 font-mono leading-none">{selectedElement.mass.toFixed(2)}</span>
                       </div>
-                      <div>
-                        <h3 className="text-sm font-bold text-slate-900">
+                      <div className="min-w-0">
+                        <h3 className="text-sm font-bold text-slate-900 truncate">
                           {selectedElement.nameId}{' '}
                           <span className="text-xs font-normal text-slate-500">({selectedElement.name})</span>
                         </h3>
@@ -207,7 +220,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                           {CATEGORY_COLORS[selectedElement.category]?.name} • Periode {selectedElement.period}, Golongan {selectedElement.group}
                         </p>
                         {selectedElement.electronConfig && (
-                          <p className="text-xs font-mono text-emerald-700 mt-0.5">
+                          <p className="text-xs font-mono text-emerald-700 mt-0.5 truncate">
                             Konfig: {selectedElement.electronConfig}
                           </p>
                         )}
@@ -215,19 +228,19 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                     </div>
 
                     {/* Quick Insert Buttons */}
-                    <div className="flex flex-col gap-1 text-xs">
+                    <div className="flex flex-row sm:flex-col gap-1.5 text-xs">
                       <button
                         onClick={() => handleCopy(`${selectedElement.mass}`, 'ar')}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-200 rounded-md font-medium transition-all shadow-2xs"
+                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-2.5 py-1.5 bg-white hover:bg-sky-50 text-sky-800 border border-sky-200 rounded-md font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
                       >
-                        {copiedId === 'ar' ? <Check className="w-3 h-3 text-sky-600" /> : <Copy className="w-3 h-3" />}
+                        {copiedId === 'ar' ? <Check className="w-3.5 h-3.5 text-sky-600" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>Salin Aᵣ ({selectedElement.mass})</span>
                       </button>
                       <button
                         onClick={() => handleCopy(selectedElement.sym, 'sym')}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-md font-medium transition-all shadow-2xs"
+                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-2.5 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-md font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
                       >
-                        {copiedId === 'sym' ? <Check className="w-3 h-3 text-sky-600" /> : <Copy className="w-3 h-3" />}
+                        {copiedId === 'sym' ? <Check className="w-3.5 h-3.5 text-sky-600" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>Salin Simbol ({selectedElement.sym})</span>
                       </button>
                     </div>
@@ -258,7 +271,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                   <span className="text-[11px] font-normal text-slate-400">Klik unsur untuk melihat detail</span>
                 </div>
 
-                <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5">
+                <div className="grid grid-cols-3 min-[440px]:grid-cols-4 sm:grid-cols-6 gap-1.5">
                   {elementsList.map((el) => {
                     const catColor = CATEGORY_COLORS[el.category];
                     const isSelected = selectedElement?.sym === el.sym;

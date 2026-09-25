@@ -10,7 +10,7 @@ import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import { addXpLocally } from '../../lib/gamification';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
 import { analyzeScaffoldWork } from '../../services/scaffoldService';
-import { saveWorksheetSubmission, getSubmissionHistory } from '../../services/submissionService';
+import { saveWorksheetSubmission, getSubmissionHistory, syncSubmissionsFromCloud } from '../../services/submissionService';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { studentWorksheetService } from '../../services/studentWorksheetService';
 import { findConceptByTag, OSN_MATERIALS, type MaterialItem, type ConceptBlock } from '../../data/materialsData';
@@ -246,46 +246,94 @@ export const Worksheet: React.FC = () => {
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [isSubmissionSaved, setIsSubmissionSaved] = useState(false);
 
-  // Sinkronkan riwayat submission yang sudah pernah dinilai sebelumnya ke state evaluations
+  // Sinkronkan riwayat submission yang sudah pernah dinilai sebelumnya ke state evaluations & answers
   useEffect(() => {
+    let isMounted = true;
+
+    const restoreFromSubs = (subs: any[]) => {
+      if (!isMounted || !subs || subs.length === 0 || questionsList.length === 0) return;
+
+      // 1. Pulihkan evaluasi penilaian AI
+      setEvaluations((prev) => {
+        const updated = { ...prev };
+        let changed = false;
+        questionsList.forEach((q, idx) => {
+          if (!updated[idx]) {
+            const matched = subs.find((s) => s.questionId === q.id);
+            if (matched && matched.totalScore !== undefined) {
+              const stat = matched.status === 'perfect' || matched.status === 'partial_correct' || matched.status === 'incorrect'
+                ? matched.status
+                : (matched.totalScore >= 8 ? 'perfect' : matched.totalScore >= 5 ? 'partial_correct' : 'incorrect');
+              updated[idx] = {
+                status: stat,
+                totalScore: matched.totalScore,
+                maxScore: matched.maxScore || 10,
+                criteriaBreakdown: matched.criteriaBreakdown || [],
+                overallFeedback: matched.overallFeedback || '',
+                strengths: matched.strengths || [],
+                missingOrIncorrectPoints: matched.missingOrIncorrectPoints || [],
+                misconceptionDiagnosis: matched.misconceptionDiagnosis,
+                suggestedReviewTopic: matched.suggestedReviewTopic,
+                xpAwarded: matched.xpAwarded || 0,
+                confidenceScore: matched.confidenceScore || 0.9,
+                gradedAt: matched.gradedAt || new Date().toISOString(),
+              };
+              changed = true;
+            }
+          }
+        });
+        return changed ? updated : prev;
+      });
+
+      // 2. Pulihkan jawaban pengerjaan siswa (langkah KaTeX & jawaban akhir) agar tidak kosong saat ditinjau
+      setAnswers((prev) => {
+        const updatedAnswers = { ...prev };
+        let answersChanged = false;
+        questionsList.forEach((q, idx) => {
+          const currentAns = updatedAnswers[idx];
+          const hasSteps = Boolean(currentAns?.steps && currentAns.steps.trim());
+          const hasFinal = Boolean(currentAns?.finalAnswer && currentAns.finalAnswer.trim());
+
+          if (!hasSteps && !hasFinal) {
+            const matched = subs.find((s) => s.questionId === q.id);
+            if (matched && (matched.studentWorkSteps || matched.studentFinalAnswer)) {
+              updatedAnswers[idx] = {
+                steps: matched.studentWorkSteps || '',
+                finalAnswer: matched.studentFinalAnswer || '',
+              };
+              answersChanged = true;
+            }
+          }
+        });
+        if (answersChanged) {
+          answersRef.current = updatedAnswers;
+        }
+        return answersChanged ? updatedAnswers : prev;
+      });
+    };
+
     try {
       const subs = getSubmissionHistory(studentId);
-      if (subs && subs.length > 0 && questionsList.length > 0) {
-        setEvaluations((prev) => {
-          const updated = { ...prev };
-          let changed = false;
-          questionsList.forEach((q, idx) => {
-            if (!updated[idx]) {
-              const matched = subs.find((s) => s.questionId === q.id);
-              if (matched && matched.totalScore !== undefined) {
-                const stat = matched.status === 'perfect' || matched.status === 'partial_correct' || matched.status === 'incorrect'
-                  ? matched.status
-                  : (matched.totalScore >= 8 ? 'perfect' : matched.totalScore >= 5 ? 'partial_correct' : 'incorrect');
-                updated[idx] = {
-                  status: stat,
-                  totalScore: matched.totalScore,
-                  maxScore: matched.maxScore || 10,
-                  criteriaBreakdown: matched.criteriaBreakdown || [],
-                  overallFeedback: matched.overallFeedback || '',
-                  strengths: matched.strengths || [],
-                  missingOrIncorrectPoints: matched.missingOrIncorrectPoints || [],
-                  misconceptionDiagnosis: matched.misconceptionDiagnosis,
-                  suggestedReviewTopic: matched.suggestedReviewTopic,
-                  xpAwarded: matched.xpAwarded || 0,
-                  confidenceScore: matched.confidenceScore || 0.9,
-                  gradedAt: matched.gradedAt || new Date().toISOString(),
-                };
-                changed = true;
-              }
-            }
-          });
-          return changed ? updated : prev;
-        });
+      if (subs && subs.length > 0) {
+        restoreFromSubs(subs);
+      }
+
+      // Sinkronkan pembaruan dari cloud Supabase jika siswa telah terautentikasi
+      if (user?.id) {
+        syncSubmissionsFromCloud(user.id).then((cloudSubs) => {
+          if (isMounted && cloudSubs && cloudSubs.length > 0) {
+            restoreFromSubs(cloudSubs);
+          }
+        }).catch(() => {});
       }
     } catch (e) {
-      console.warn('Gagal membaca riwayat submission untuk evaluasi:', e);
+      console.warn('Gagal membaca riwayat submission untuk evaluasi & jawaban:', e);
     }
-  }, [studentId, questionsList]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [studentId, questionsList, user?.id]);
 
   // Statistik progres penilaian seluruh butir soal dalam worksheet ini
   const gradedQuestionsCount = useMemo(() => {
@@ -1235,9 +1283,24 @@ export const Worksheet: React.FC = () => {
         const parsed = JSON.parse(rawDraft);
         if (parsed && typeof parsed === 'object') {
           let hasData = false;
-          if (parsed.answers && Object.keys(parsed.answers).length > 0) {
-            setAnswers(parsed.answers);
-            hasData = true;
+          if (parsed.answers && typeof parsed.answers === 'object') {
+            setAnswers((prev) => {
+              const merged = { ...prev };
+              let updated = false;
+              for (const [k, v] of Object.entries(parsed.answers as Record<string, any>)) {
+                const idx = Number(k);
+                const hasContent = Boolean(v?.steps?.trim() || v?.finalAnswer?.trim());
+                if (hasContent) {
+                  merged[idx] = v;
+                  updated = true;
+                }
+              }
+              if (updated) {
+                answersRef.current = merged;
+                hasData = true;
+              }
+              return updated ? merged : prev;
+            });
           }
           if (parsed.evaluations && typeof parsed.evaluations === 'object') {
             setEvaluations((prev) => ({ ...prev, ...parsed.evaluations }));
@@ -1288,9 +1351,24 @@ export const Worksheet: React.FC = () => {
               const cloudSavedAt = cloudDraft.savedAt || 0;
               if (cloudSavedAt >= localSavedAtRef.current) {
                 let hasCloudData = false;
-                if (cloudDraft.answers && Object.keys(cloudDraft.answers).length > 0) {
-                  setAnswers(cloudDraft.answers);
-                  hasCloudData = true;
+                if (cloudDraft.answers && typeof cloudDraft.answers === 'object') {
+                  setAnswers((prev) => {
+                    const merged = { ...prev };
+                    let updated = false;
+                    for (const [k, v] of Object.entries(cloudDraft.answers as Record<string, any>)) {
+                      const idx = Number(k);
+                      const hasContent = Boolean(v?.steps?.trim() || v?.finalAnswer?.trim());
+                      if (hasContent) {
+                        merged[idx] = v;
+                        updated = true;
+                      }
+                    }
+                    if (updated) {
+                      answersRef.current = merged;
+                      hasCloudData = true;
+                    }
+                    return updated ? merged : prev;
+                  });
                 }
                 if (cloudDraft.evaluations && typeof cloudDraft.evaluations === 'object') {
                   setEvaluations((prev) => ({ ...prev, ...cloudDraft.evaluations }));
@@ -1614,7 +1692,7 @@ export const Worksheet: React.FC = () => {
                   : liveToken
                   ? 'Live Sesi Guru'
                   : type === 'static_module'
-                  ? 'Silabus Drill'
+                  ? 'Latihan Mandiri'
                   : 'Tugas Guru'}
               </span>
               {liveToken && (

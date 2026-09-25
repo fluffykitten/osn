@@ -32,6 +32,7 @@ import {
 import { PILLARS_DATA } from '../../data/syllabusData';
 import { SMA_MATERIALS } from '../../data/smaMaterialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { TopicSvgArt } from '../../components/materials/TopicSvgArt';
 import { ChemistCat } from '../../components/practice/ChemistCatAvatars';
 import { questionBankService } from '../../services/questionBankService';
@@ -345,7 +346,12 @@ export const PracticeTopicDetail: React.FC = () => {
   const nextTopicNumber = topicNumber < topicMeta.totalConceptCount ? topicNumber + 1 : null;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 animate-fade-in pb-28">
+    <div
+      className="min-h-screen pb-28 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 animate-fade-in">
       {/* 1. Header Navigasi & Breadcrumb */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -1178,6 +1184,7 @@ export const PracticeTopicDetail: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

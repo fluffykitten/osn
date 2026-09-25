@@ -13,6 +13,18 @@ export const ChemistrySmaSyllabusSvg: React.FC<{ className?: string }> = ({ clas
       }}
       className={`w-full overflow-x-auto rounded-3xl border shadow-md p-4 sm:p-6 transition-colors duration-200 ${className}`}
     >
+      {/* Mobile Scroll Indicator Helper */}
+      <div
+        style={{
+          backgroundColor: tokens.canvas,
+          borderColor: tokens.border,
+          color: tokens.textMuted,
+        }}
+        className="sm:hidden flex items-center justify-center gap-1.5 text-[11px] font-medium py-1.5 px-3 rounded-xl mb-3 border shadow-2xs select-none"
+      >
+        <span>↔ Geser ke samping untuk menjelajahi peta kurikulum</span>
+      </div>
+
       <svg
         viewBox="0 0 1200 810"
         fill="none"

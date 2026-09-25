@@ -20,6 +20,7 @@ import {
   Compass,
   GraduationCap
 } from 'lucide-react';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 
 interface StudentLockedGateProps {
   onClassStatusChanged?: () => void;
@@ -130,7 +131,12 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-in fade-in duration-300">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-in fade-in duration-300">
       {/* Header Sambutan & Status Akun */}
       <div className="relative overflow-hidden bg-gradient-to-r from-sky-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-sky-800/40">
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -428,5 +434,6 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
         </div>
       </div>
     </div>
+  </div>
   );
 };

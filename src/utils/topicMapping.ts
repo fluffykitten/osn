@@ -71,6 +71,14 @@ const DEFAULT_OSN_TO_SMA_TOPIC: Record<number, number> = {
 };
 
 /**
+ * Mendapatkan topik materi dasar SMA yang menjadi prasyarat untuk suatu Pilar OSN
+ */
+export const getSmaTopicForOsnPillar = (pillarNumber: number): SmaMaterialItem | undefined => {
+  const smaTopicNum = DEFAULT_OSN_TO_SMA_TOPIC[pillarNumber] || 2;
+  return getSmaTopic(smaTopicNum);
+};
+
+/**
  * Menghasilkan metadata representasi topik pada kartu soal (PracticeBank / QuestionBankBrowser)
  */
 export const resolveQuestionTopicMeta = (q: Question): {

@@ -138,17 +138,25 @@ export async function saveWorksheetSubmission(
 
 /**
  * Mengambil seluruh riwayat pengerjaan siswa
+ * Terisolasi secara ketat berdasarkan userId siswa yang sedang aktif
  */
 export function getSubmissionHistory(userId?: string): SavedSubmissionRecord[] {
   const localList = getLocalSubmissions();
-  // Urutkan berdasarkan tanggal terbaru
   return localList
-    .filter((item) => !userId || item.userId === userId || item.userId === DEFAULT_STUDENT_ID)
+    .filter((item) => {
+      if (!userId) return true;
+      // Jika userId dispesifikasikan (misal akun terdaftar), ambil tepat milik userId tersebut
+      if (userId === DEFAULT_STUDENT_ID) {
+        return !item.userId || item.userId === DEFAULT_STUDENT_ID;
+      }
+      return item.userId === userId;
+    })
     .sort((a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime());
 }
 
 /**
  * Mengambil & menyinkronkan riwayat pengerjaan siswa dari Supabase Cloud
+ * Mengambil baris data yang strictly milik akun siswa yang sedang login
  */
 export async function syncSubmissionsFromCloud(userId?: string): Promise<SavedSubmissionRecord[]> {
   const supabase = getSupabaseClient();
@@ -156,8 +164,8 @@ export async function syncSubmissionsFromCloud(userId?: string): Promise<SavedSu
 
   try {
     let query = supabase.from('worksheet_submissions').select('*');
-    if (userId && userId !== DEFAULT_STUDENT_ID) {
-      query = query.or(`user_id.eq.${userId},user_id.eq.${DEFAULT_STUDENT_ID}`);
+    if (userId) {
+      query = query.eq('user_id', userId);
     }
     const { data, error } = await query;
     if (!error && data && data.length > 0) {
@@ -197,7 +205,11 @@ export async function syncSubmissionsFromCloud(userId?: string): Promise<SavedSu
         (a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime()
       );
       saveLocalSubmissions(merged);
-      return merged.filter((item) => !userId || item.userId === userId || item.userId === DEFAULT_STUDENT_ID);
+      return merged.filter((item) => {
+        if (!userId) return true;
+        if (userId === DEFAULT_STUDENT_ID) return !item.userId || item.userId === DEFAULT_STUDENT_ID;
+        return item.userId === userId;
+      });
     }
   } catch (err: any) {
     console.warn('Gagal sinkronisasi submissions dari cloud:', err?.message);

@@ -1,12 +1,13 @@
 /**
  * MobileTableOfContents.tsx
- * Floating Bottom Sheet Navigation for OSN Chemistry Materials
+ * Floating Bottom Sheet Navigation for OSN & SMA Chemistry Materials
  * Provides mobile-friendly 3-stage curriculum navigation with touch-optimized targets,
- * active item indicator, smooth scroll targeting, and worksheet quick launch.
+ * active item indicator, smooth scroll targeting, and practice bank launch.
  */
 
 import React, { useState, useEffect } from 'react';
 import type { MaterialItem } from '../../data/materialsData';
+import type { SmaMaterialItem } from '../../data/smaMaterialsData';
 import { KaTeXRenderer } from './KaTeXRenderer';
 import {
   ListOrdered,
@@ -20,10 +21,11 @@ import {
 } from 'lucide-react';
 
 interface MobileTableOfContentsProps {
-  material: MaterialItem;
+  material: MaterialItem | SmaMaterialItem;
   activeVisibleTag: string | null;
   onSelectConcept: (tag: string) => void;
   onLaunchWorksheet: () => void;
+  isCurrentSma?: boolean;
 }
 
 export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
@@ -31,6 +33,7 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
   activeVisibleTag,
   onSelectConcept,
   onLaunchWorksheet,
+  isCurrentSma = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -113,7 +116,7 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
               <div className="flex items-center gap-2">
                 <Atom className="w-4 h-4 text-sky-600" />
                 <h3 className="text-sm font-bold text-slate-900 font-display">
-                  Alur Pembelajaran Topik {material.topic_number}
+                  Alur Pembelajaran {isCurrentSma ? 'Modul' : 'Topik'} {material.topic_number}
                 </h3>
               </div>
               <button
@@ -171,7 +174,7 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
                 <div className="flex items-center justify-between text-xs font-bold text-sky-900 px-1">
                   <span className="flex items-center gap-1.5">
                     <GraduationCap className="w-3.5 h-3.5 text-sky-600" />
-                    <span>2. Konsep Inti (OSN / IChO)</span>
+                    <span>2. Konsep Inti {isCurrentSma ? 'Materi SMA' : '(OSN / IChO)'}</span>
                   </span>
                   <span className="px-1.5 py-0.5 bg-sky-100 text-sky-800 rounded text-[10px] font-mono">
                     {material.core_concepts.length} Konsep
@@ -210,7 +213,7 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
                 <div className="flex items-center justify-between text-xs font-bold text-emerald-900 px-1">
                   <span className="flex items-center gap-1.5">
                     <FileCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>3. Teladan Soal OSN</span>
+                    <span>3. {isCurrentSma ? 'Contoh Soal & Solusi SMA' : 'Teladan Soal OSN'}</span>
                   </span>
                   <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-mono">
                     {material.worked_examples.length} Soal
@@ -254,7 +257,9 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
                 }}
                 className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Kerjakan Latihan Topik {material.topic_number} di Worksheet</span>
+                <span>
+                  Latihan Soal {isCurrentSma ? `Modul ${material.topic_number}` : `Topik ${material.topic_number}`} di Bank Soal
+                </span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -264,3 +269,5 @@ export const MobileTableOfContents: React.FC<MobileTableOfContentsProps> = ({
     </>
   );
 };
+
+export default MobileTableOfContents;

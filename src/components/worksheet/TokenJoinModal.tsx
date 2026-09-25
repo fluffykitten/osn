@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { studentWorksheetService } from '../../services/studentWorksheetService';
 import { DEFAULT_STUDENT_NAME } from '../../lib/supabaseClient';
+import { useAuth } from '../../contexts/AuthContext';
 import { KeyRound, User, ArrowRight, X, AlertCircle, CheckCircle2, Sparkles } from 'lucide-react';
 
 interface TokenJoinModalProps {
@@ -17,9 +18,10 @@ export const TokenJoinModal: React.FC<TokenJoinModalProps> = ({
   defaultToken = '',
 }) => {
   const navigate = useNavigate();
+  const { user, profile } = useAuth();
   const [tokenInput, setTokenInput] = useState(defaultToken);
   const [studentName, setStudentName] = useState(() => {
-    return localStorage.getItem('osn_student_name') || DEFAULT_STUDENT_NAME;
+    return profile?.full_name || localStorage.getItem('osn_student_name') || DEFAULT_STUDENT_NAME;
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -45,13 +47,14 @@ export const TokenJoinModal: React.FC<TokenJoinModalProps> = ({
     try {
       // Simpan nama siswa ke localStorage
       localStorage.setItem('osn_student_name', studentName.trim());
-      const studentId =
+      const actualStudentId =
+        user?.id ||
         localStorage.getItem('osn_student_id') ||
         `std-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
-      localStorage.setItem('osn_student_id', studentId);
+      localStorage.setItem('osn_student_id', actualStudentId);
 
       const res = await worksheetRealtimeService.joinWorksheetByToken(clean, {
-        id: studentId,
+        id: actualStudentId,
         name: studentName.trim(),
       });
 
@@ -62,7 +65,7 @@ export const TokenJoinModal: React.FC<TokenJoinModalProps> = ({
       }
 
       // Daftarkan ke koleksi worksheet siswa agar muncul di daftar worksheet siswa
-      studentWorksheetService.enrollWorksheet(res.worksheet, clean);
+      studentWorksheetService.enrollWorksheet(res.worksheet, clean, 'Guru Pembina OSN', actualStudentId);
 
       // Berhasil bergabung, arahkan ke lembar kerja live
       onClose();

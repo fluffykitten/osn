@@ -23,6 +23,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { PracticeStatsHeader } from '../../components/practice/PracticeStatsHeader';
 import { PracticeTopicCard } from '../../components/practice/PracticeTopicCard';
 import { TopicQuestionDrawer } from '../../components/practice/TopicQuestionDrawer';
@@ -384,7 +385,12 @@ export const PracticeBank: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
       {/* 1. Header Eksekutif Gamifikasi Siswa */}
       <PracticeStatsHeader
         stats={overallStats}
@@ -927,6 +933,7 @@ export const PracticeBank: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

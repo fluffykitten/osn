@@ -23,7 +23,7 @@ export const THEME_PRESETS: ThemePalette[] = [
       primaryHover: '#5C6D7D',
       primaryText: '#FFFFF0',
       accent: '#B0C4DE',
-      accentText: '#708090',
+      accentText: '#0F172A',
       text: '#2D3748',
       textMuted: '#708090',
       hero: {
@@ -57,7 +57,7 @@ export const THEME_PRESETS: ThemePalette[] = [
       primaryHover: '#7F5959',
       primaryText: '#FDF4D2',
       accent: '#B0CDE6',
-      accentText: '#5A465B',
+      accentText: '#1E293B',
       text: '#3A2E2E',
       textMuted: '#7A6B6B',
       hero: {
@@ -193,7 +193,7 @@ export const THEME_PRESETS: ThemePalette[] = [
       primaryHover: '#4C6F8E',
       primaryText: '#FFFFFF',
       accent: '#AACDDC',
-      accentText: '#2B4A62',
+      accentText: '#0F172A',
       text: '#2C3A46',
       textMuted: '#637482',
       hero: {

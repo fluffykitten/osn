@@ -317,6 +317,16 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
   const [formulaFillState, setFormulaFillState] = useState<FormulaFillState | null>(null);
   const [templateFillState, setTemplateFillState] = useState<TemplateFillState | null>(null);
 
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Floating & Draggable window state synchronized with shared modal position
   const [fillPosition, setFillPosition] = useState<{ x: number; y: number }>(() => getSharedModalPosition(460, 420));
   const [fillSize, setFillSize] = useState<{ width: number; height: number }>({ width: 460, height: 500 });
@@ -354,7 +364,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
   }, [formulaFillState, templateFillState, showTemplatesModal]);
 
   const handleFillPointerDown = (e: React.PointerEvent) => {
-    if ((e.target as HTMLElement).closest('button, input, textarea')) return;
+    if (isMobile || (e.target as HTMLElement).closest('button, input, textarea')) return;
     setIsDraggingFill(true);
     fillDragStartRef.current = {
       startX: e.clientX,
@@ -366,7 +376,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
   };
 
   const handleFillPointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingFill) return;
+    if (!isDraggingFill || isMobile) return;
     const dx = e.clientX - fillDragStartRef.current.startX;
     const dy = e.clientY - fillDragStartRef.current.startY;
     const newX = Math.max(10, Math.min(window.innerWidth - 320, fillDragStartRef.current.initX + dx));
@@ -387,6 +397,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
 
   // Handle Resize for Fill Modals
   const handleFillResizePointerDown = (e: React.PointerEvent) => {
+    if (isMobile) return;
     e.stopPropagation();
     e.preventDefault();
     setIsResizingFill(true);
@@ -404,7 +415,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
   };
 
   const handleFillResizePointerMove = (e: React.PointerEvent) => {
-    if (!isResizingFill || !fillResizeStartRef.current) return;
+    if (!isResizingFill || !fillResizeStartRef.current || isMobile) return;
     const deltaX = e.clientX - fillResizeStartRef.current.startX;
     const deltaY = e.clientY - fillResizeStartRef.current.startY;
     const minW = 340;
@@ -822,7 +833,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
             type="button"
             onClick={() => handleActionClick(action)}
             title={action.tooltip}
-            className={`min-w-[28px] h-7 px-2 flex items-center justify-center rounded-lg border text-xs font-mono transition-all active:scale-95 ${
+            className={`min-w-[34px] sm:min-w-[28px] h-8 sm:h-7 px-2.5 sm:px-2 flex items-center justify-center rounded-lg border text-xs font-mono transition-all active:scale-95 cursor-pointer ${
               action.category === 'format'
                 ? 'bg-sky-50 border-sky-200 text-sky-800 font-bold hover:bg-sky-100'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
@@ -839,13 +850,17 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
 
       {/* Quick Formula Templates Selector Modal */}
       {showTemplatesModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/30 backdrop-blur-2xs animate-in fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/30 backdrop-blur-2xs animate-in fade-in">
           <div
-            style={{
-              width: `${templateSelectorSize.width}px`,
-              height: `${templateSelectorSize.height}px`,
-            }}
-            className="bg-white rounded-2xl max-w-[95vw] max-h-[90vh] border border-slate-200 shadow-2xl overflow-hidden flex flex-col relative"
+            style={
+              isMobile
+                ? { maxHeight: '90vh' }
+                : {
+                    width: `${templateSelectorSize.width}px`,
+                    height: `${templateSelectorSize.height}px`,
+                  }
+            }
+            className="bg-white rounded-2xl w-full max-w-[95vw] sm:max-w-2xl max-h-[90vh] border border-slate-200 shadow-2xl overflow-hidden flex flex-col relative"
           >
             {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-sky-50/50">
@@ -1018,23 +1033,48 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
         </div>
       )}
 
-      {/* Interactive Direct-Fill Modal for Formula Ramah (Floating & Draggable Window, No Dark Background, No Blur) */}
+      {/* Interactive Direct-Fill Modal for Formula Ramah */}
       {formulaFillState && (
-        <div className="fixed inset-0 z-50 pointer-events-none select-none">
+        <div
+          className={
+            isMobile
+              ? 'fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-200 pointer-events-auto select-none'
+              : 'fixed inset-0 z-50 pointer-events-none select-none'
+          }
+        >
+          {isMobile && <div className="flex-1" onClick={() => setFormulaFillState(null)} />}
+
           <div
-            style={{
-              transform: `translate3d(${fillPosition.x}px, ${fillPosition.y}px, 0)`,
-              width: `${fillSize.width}px`,
-              height: `${fillSize.height}px`,
-            }}
-            className="pointer-events-auto bg-white/98 rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]"
+            style={
+              isMobile
+                ? { maxHeight: '85vh' }
+                : {
+                    transform: `translate3d(${fillPosition.x}px, ${fillPosition.y}px, 0)`,
+                    width: `${fillSize.width}px`,
+                    height: `${fillSize.height}px`,
+                  }
+            }
+            className={
+              isMobile
+                ? 'pointer-events-auto bg-white rounded-t-3xl border-t border-slate-300 shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-250 w-full relative'
+                : 'pointer-events-auto bg-white/98 rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]'
+            }
           >
-            {/* Draggable Header (Biru Muda / Sky Gradient) */}
+            {/* Mobile Grab Pill Bar */}
+            {isMobile && (
+              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 to-blue-600">
+                <div className="w-10 h-1 rounded-full bg-white/40" />
+              </div>
+            )}
+
+            {/* Header (Biru Muda / Sky Gradient) */}
             <div
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-grab active:cursor-grabbing select-none shadow-xs"
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white select-none shadow-xs ${
+                isMobile ? '' : 'cursor-grab active:cursor-grabbing'
+              }`}
             >
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center text-xs font-bold">
@@ -1045,15 +1085,17 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                     {formulaFillState.title}
                   </h3>
                 </div>
-                <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
-                  <Move className="w-2.5 h-2.5" />
-                  <span>Geser</span>
-                </span>
+                {!isMobile && (
+                  <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
+                    <Move className="w-2.5 h-2.5" />
+                    <span>Geser</span>
+                  </span>
+                )}
               </div>
               <button
                 type="button"
                 onClick={() => setFormulaFillState(null)}
-                className="p-1 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors"
+                className="p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
                 title="Tutup (Esc)"
               >
                 <X className="w-4 h-4" />
@@ -1142,44 +1184,71 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               </div>
             </form>
 
-            {/* Bottom-Right Resize Grip Handle */}
-            <div
-              onPointerDown={handleFillResizePointerDown}
-              onPointerMove={handleFillResizePointerMove}
-              onPointerUp={handleFillResizePointerUp}
-              className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
-              title="Tarik untuk mengubah ukuran (Resize)"
-            >
-              <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
-                <circle cx="5" cy="5" r="0.75" />
-                <circle cx="5" cy="3" r="0.75" />
-                <circle cx="3" cy="5" r="0.75" />
-                <circle cx="5" cy="1" r="0.75" />
-                <circle cx="3" cy="3" r="0.75" />
-                <circle cx="1" cy="5" r="0.75" />
-              </svg>
-            </div>
+            {/* Bottom-Right Resize Grip Handle (Desktop Only) */}
+            {!isMobile && (
+              <div
+                onPointerDown={handleFillResizePointerDown}
+                onPointerMove={handleFillResizePointerMove}
+                onPointerUp={handleFillResizePointerUp}
+                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+                title="Tarik untuk mengubah ukuran (Resize)"
+              >
+                <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
+                  <circle cx="5" cy="5" r="0.75" />
+                  <circle cx="5" cy="3" r="0.75" />
+                  <circle cx="3" cy="5" r="0.75" />
+                  <circle cx="5" cy="1" r="0.75" />
+                  <circle cx="3" cy="3" r="0.75" />
+                  <circle cx="1" cy="5" r="0.75" />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
       )}
 
-      {/* Interactive Direct-Fill Modal for TEMPLATE CEPAT OSN (Floating & Draggable Window, Shared Position) */}
+      {/* Interactive Direct-Fill Modal for TEMPLATE CEPAT OSN */}
       {templateFillState && (
-        <div className="fixed inset-0 z-50 pointer-events-none select-none">
+        <div
+          className={
+            isMobile
+              ? 'fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-200 pointer-events-auto select-none'
+              : 'fixed inset-0 z-50 pointer-events-none select-none'
+          }
+        >
+          {isMobile && <div className="flex-1" onClick={() => setTemplateFillState(null)} />}
+
           <div
-            style={{
-              transform: `translate3d(${fillPosition.x}px, ${fillPosition.y}px, 0)`,
-              width: `${fillSize.width}px`,
-              height: `${fillSize.height}px`,
-            }}
-            className="pointer-events-auto bg-white/98 rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]"
+            style={
+              isMobile
+                ? { maxHeight: '85vh' }
+                : {
+                    transform: `translate3d(${fillPosition.x}px, ${fillPosition.y}px, 0)`,
+                    width: `${fillSize.width}px`,
+                    height: `${fillSize.height}px`,
+                  }
+            }
+            className={
+              isMobile
+                ? 'pointer-events-auto bg-white rounded-t-3xl border-t border-slate-300 shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-250 w-full relative'
+                : 'pointer-events-auto bg-white/98 rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]'
+            }
           >
-            {/* Draggable Header (Biru Muda / Sky Gradient) */}
+            {/* Mobile Grab Pill Bar */}
+            {isMobile && (
+              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600">
+                <div className="w-10 h-1 rounded-full bg-white/40" />
+              </div>
+            )}
+
+            {/* Header (Biru Muda / Sky Gradient) */}
             <div
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white cursor-grab active:cursor-grabbing select-none shadow-xs"
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white select-none shadow-xs ${
+                isMobile ? '' : 'cursor-grab active:cursor-grabbing'
+              }`}
             >
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 rounded-md bg-white/20 flex items-center justify-center text-xs font-bold">
@@ -1190,15 +1259,17 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                     {templateFillState.title}
                   </h3>
                 </div>
-                <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
-                  <Move className="w-2.5 h-2.5" />
-                  <span>Geser</span>
-                </span>
+                {!isMobile && (
+                  <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
+                    <Move className="w-2.5 h-2.5" />
+                    <span>Geser</span>
+                  </span>
+                )}
               </div>
               <button
                 type="button"
                 onClick={() => setTemplateFillState(null)}
-                className="p-1 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors"
+                className="p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
                 title="Tutup (Esc)"
               >
                 <X className="w-4 h-4" />
@@ -1293,23 +1364,25 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               </div>
             </form>
 
-            {/* Bottom-Right Resize Grip Handle */}
-            <div
-              onPointerDown={handleFillResizePointerDown}
-              onPointerMove={handleFillResizePointerMove}
-              onPointerUp={handleFillResizePointerUp}
-              className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
-              title="Tarik untuk mengubah ukuran (Resize)"
-            >
-              <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
-                <circle cx="5" cy="5" r="0.75" />
-                <circle cx="5" cy="3" r="0.75" />
-                <circle cx="3" cy="5" r="0.75" />
-                <circle cx="5" cy="1" r="0.75" />
-                <circle cx="3" cy="3" r="0.75" />
-                <circle cx="1" cy="5" r="0.75" />
-              </svg>
-            </div>
+            {/* Bottom-Right Resize Grip Handle (Desktop Only) */}
+            {!isMobile && (
+              <div
+                onPointerDown={handleFillResizePointerDown}
+                onPointerMove={handleFillResizePointerMove}
+                onPointerUp={handleFillResizePointerUp}
+                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+                title="Tarik untuk mengubah ukuran (Resize)"
+              >
+                <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
+                  <circle cx="5" cy="5" r="0.75" />
+                  <circle cx="5" cy="3" r="0.75" />
+                  <circle cx="3" cy="5" r="0.75" />
+                  <circle cx="5" cy="1" r="0.75" />
+                  <circle cx="3" cy="3" r="0.75" />
+                  <circle cx="1" cy="5" r="0.75" />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
       )}

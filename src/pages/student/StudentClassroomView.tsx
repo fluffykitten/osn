@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import type {
   Classroom,
   ClassroomAssignment,
@@ -131,7 +132,12 @@ export const StudentClassroomView: React.FC = () => {
   const activeMembers = members.filter((m) => m.status === 'active');
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fadeIn">
       {/* Back Link */}
       <Link
         to="/worksheet"
@@ -492,6 +498,7 @@ export const StudentClassroomView: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

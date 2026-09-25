@@ -13,8 +13,11 @@ import confetti from 'canvas-confetti';
 import { OSN_MATERIALS, findConceptByTag, type MaterialItem } from '../../data/materialsData';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { MobileTableOfContents } from '../../components/common/MobileTableOfContents';
 import { TopicSvgArt } from '../../components/materials/TopicSvgArt';
+import { useAuth } from '../../contexts/AuthContext';
+import { studentReadingService } from '../../services/studentReadingService';
 import {
   Search,
   Clock,
@@ -44,6 +47,7 @@ export const MaterialsDatabase: React.FC = () => {
   const activeTag = searchParams.get('tag');
   const dbParam = searchParams.get('db'); // 'osn' | 'sma'
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -270,6 +274,21 @@ export const MaterialsDatabase: React.FC = () => {
       ? scrollPositionsSma[activeMaterial.id]
       : scrollPositionsOsn[activeMaterial.id];
 
+    // Simpan sesi aktif membaca ke studentReadingService
+    studentReadingService.saveActiveReadingSession({
+      database: isCurrentSma ? 'sma' : 'osn',
+      materialId: activeMaterial.id,
+      slug: activeMaterial.slug,
+      title: activeMaterial.title,
+      category: activeMaterial.category,
+      progressPercent: savedPos?.progressPercent || 0,
+      scrollY: savedPos?.scrollY || 0,
+      lastReadAt: Date.now(),
+      readTimeMinutes: activeMaterial.readTimeMinutes,
+      topicNumber: activeMaterial.topic_number,
+      userId: user?.id,
+    });
+
     let restoreTimer: ReturnType<typeof setTimeout> | null = null;
     let toastTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -291,7 +310,7 @@ export const MaterialsDatabase: React.FC = () => {
       if (restoreTimer) clearTimeout(restoreTimer);
       if (toastTimer) clearTimeout(toastTimer);
     };
-  }, [activeMaterial?.id, isCurrentSma]);
+  }, [activeMaterial?.id, isCurrentSma, user?.id]);
 
   // Reset tag collapse state on topic change
   useEffect(() => {
@@ -365,6 +384,22 @@ export const MaterialsDatabase: React.FC = () => {
           } catch {
             // ignore
           }
+
+          // Sinkronkan ke studentReadingService untuk dashboard siswa
+          studentReadingService.saveActiveReadingSession({
+            database: isCurrentSma ? 'sma' : 'osn',
+            materialId: activeMaterial.id,
+            slug: activeMaterial.slug,
+            title: activeMaterial.title,
+            category: activeMaterial.category,
+            progressPercent: highestPercent,
+            scrollY: Math.round(scrollY),
+            lastReadAt: Date.now(),
+            readTimeMinutes: activeMaterial.readTimeMinutes,
+            topicNumber: activeMaterial.topic_number,
+            userId: user?.id,
+          });
+
           return next;
         });
       }, 250);
@@ -384,12 +419,27 @@ export const MaterialsDatabase: React.FC = () => {
         const saved = localStorage.getItem(scrollStorageKey);
         const current: ScrollProgressMap = saved ? JSON.parse(saved) : {};
         const prevItem = current[activeMaterial.id];
+        const finalPercent = Math.max(currentPercent, prevItem?.progressPercent || 0);
         current[activeMaterial.id] = {
           scrollY: Math.round(scrollY),
-          progressPercent: Math.max(currentPercent, prevItem?.progressPercent || 0),
+          progressPercent: finalPercent,
           updatedAt: Date.now(),
         };
         localStorage.setItem(scrollStorageKey, JSON.stringify(current));
+
+        studentReadingService.saveActiveReadingSession({
+          database: isCurrentSma ? 'sma' : 'osn',
+          materialId: activeMaterial.id,
+          slug: activeMaterial.slug,
+          title: activeMaterial.title,
+          category: activeMaterial.category,
+          progressPercent: finalPercent,
+          scrollY: Math.round(scrollY),
+          lastReadAt: Date.now(),
+          readTimeMinutes: activeMaterial.readTimeMinutes,
+          topicNumber: activeMaterial.topic_number,
+          userId: user?.id,
+        });
       } catch {
         // ignore
       }
@@ -707,7 +757,12 @@ export const MaterialsDatabase: React.FC = () => {
       : (scrollPositionsOsn[activeMaterial.id]?.progressPercent || 0);
 
     return (
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div
+        className="min-h-screen pb-16 transition-colors duration-200 relative"
+        style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+      >
+        <ChemistryWatermarkBackground />
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Navigation Breadcrumb */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 min-w-0">
@@ -728,11 +783,11 @@ export const MaterialsDatabase: React.FC = () => {
             </span>
           </div>
 
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
             {/* Status Selesai Belajar Toggle Button */}
             <button
               onClick={() => toggleComplete(activeMaterial.id)}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border cursor-pointer ${
+              className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border cursor-pointer ${
                 isCompleted
                   ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow-2xs'
                   : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
@@ -740,21 +795,21 @@ export const MaterialsDatabase: React.FC = () => {
               title={isCompleted ? 'Materi telah selesai dipelajari' : 'Tandai materi ini sudah selesai dibaca'}
             >
               <CheckCircle2 className={`w-3.5 h-3.5 ${isCompleted ? 'text-emerald-600 fill-emerald-100' : 'text-slate-400'}`} />
-              <span>{isCompleted ? 'Selesai Dipelajari' : 'Tandai Selesai'}</span>
+              <span>{isCompleted ? 'Selesai' : 'Tandai Selesai'}</span>
             </button>
 
             <button
-              onClick={() => navigate(`/worksheet/static_module/${activeMaterial.id}`)}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer"
+              onClick={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap"
             >
-              <span>Uji Pemahaman di Worksheet</span>
+              <span>Latihan di Bank Soal</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
         {/* Material Header Banner with Ambient Topic SVG Art */}
-        <div className="relative bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xs space-y-4 overflow-hidden">
+        <div className="relative bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-xs space-y-4 overflow-hidden">
           {/* Ambient SVG Art Background (faded right side) */}
           <div className="absolute right-0 top-0 bottom-0 w-80 lg:w-96 opacity-15 pointer-events-none hidden sm:block overflow-hidden">
             <TopicSvgArt
@@ -1003,7 +1058,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-6 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-amber-400 ring-2 ring-amber-400/40 bg-amber-50/20 shadow-md'
                           : 'border-slate-200'
@@ -1084,7 +1139,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-6 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-sky-400 ring-2 ring-sky-400/40 bg-sky-50/20 shadow-md'
                           : 'border-slate-200'
@@ -1165,7 +1220,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-6 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-emerald-400 ring-2 ring-emerald-400/40 bg-emerald-50/20 shadow-md'
                           : 'border-emerald-200/80'
@@ -1228,18 +1283,18 @@ export const MaterialsDatabase: React.FC = () => {
             </div>
 
             {/* Next / Previous Material Footer Navigation */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-200">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-slate-200">
               {prevMaterial ? (
                 <Link
                   to={isCurrentSma ? `/materi/sma-${prevMaterial.topic_number}?db=sma` : `/materi/${prevMaterial.topic_number}?db=osn`}
-                  className="inline-flex items-center gap-2 p-3 bg-white border border-slate-200 hover:border-slate-300 rounded-xl text-xs text-slate-700 font-bold transition-all shadow-2xs cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center gap-2.5 p-3 bg-white border border-slate-200 hover:border-slate-300 rounded-xl text-xs text-slate-700 font-bold transition-all shadow-2xs cursor-pointer"
                 >
-                  <ArrowLeft className="w-4 h-4 text-slate-500" />
-                  <div className="text-left">
+                  <ArrowLeft className="w-4 h-4 text-slate-500 shrink-0" />
+                  <div className="text-left min-w-0">
                     <span className="text-[10px] text-slate-400 block font-normal">
                       {isCurrentSma ? 'Modul Sebelumnya' : 'Topik Sebelumnya'}
                     </span>
-                    <span>
+                    <span className="truncate block max-w-[240px] sm:max-w-xs">
                       {isCurrentSma ? `Modul ${prevMaterial.topic_number}: ${prevMaterial.title}` : `Topik ${prevMaterial.topic_number}: ${prevMaterial.title}`}
                     </span>
                   </div>
@@ -1251,17 +1306,17 @@ export const MaterialsDatabase: React.FC = () => {
               {nextMaterial && (
                 <Link
                   to={isCurrentSma ? `/materi/sma-${nextMaterial.topic_number}?db=sma` : `/materi/${nextMaterial.topic_number}?db=osn`}
-                  className="inline-flex items-center gap-2 p-3 bg-white border border-slate-200 hover:border-slate-300 rounded-xl text-xs text-slate-700 font-bold transition-all shadow-2xs text-right cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-end gap-2.5 p-3 bg-white border border-slate-200 hover:border-slate-300 rounded-xl text-xs text-slate-700 font-bold transition-all shadow-2xs text-right cursor-pointer"
                 >
-                  <div className="text-right">
+                  <div className="text-right min-w-0">
                     <span className="text-[10px] text-slate-400 block font-normal">
                       {isCurrentSma ? 'Modul Selanjutnya' : 'Topik Selanjutnya'}
                     </span>
-                    <span>
+                    <span className="truncate block max-w-[240px] sm:max-w-xs">
                       {isCurrentSma ? `Modul ${nextMaterial.topic_number}: ${nextMaterial.title}` : `Topik ${nextMaterial.topic_number}: ${nextMaterial.title}`}
                     </span>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-slate-500" />
+                  <ArrowRight className="w-4 h-4 text-slate-500 shrink-0" />
                 </Link>
               )}
             </div>
@@ -1437,11 +1492,11 @@ export const MaterialsDatabase: React.FC = () => {
               {/* Pinned Action Footer */}
               <div className="p-4 border-t border-slate-100 bg-slate-50/70 shrink-0">
                 <button
-                  onClick={() => navigate(`/worksheet/static_module/${activeMaterial.id}`)}
+                  onClick={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
                   className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>
-                    Kerjakan Latihan {isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`}
+                    Latihan Soal {isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`} di Bank Soal
                   </span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -1486,7 +1541,8 @@ export const MaterialsDatabase: React.FC = () => {
           material={activeMaterial}
           activeVisibleTag={activeVisibleTag}
           onSelectConcept={scrollToConcept}
-          onLaunchWorksheet={() => navigate(`/worksheet/static_module/${activeMaterial.id}`)}
+          onLaunchWorksheet={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
+          isCurrentSma={isCurrentSma}
         />
 
         {/* Floating Quick-Summon Sidebar Pill (Desktop Only when Sidebar is Hidden) */}
@@ -1512,7 +1568,8 @@ export const MaterialsDatabase: React.FC = () => {
           >
             <ArrowUp className="w-4 h-4" />
           </button>
-        )}
+          )}
+        </div>
       </div>
     );
   }
@@ -1523,7 +1580,12 @@ export const MaterialsDatabase: React.FC = () => {
   const isSmaDb = activeDatabase === 'sma';
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Hero Header Section (Matching Papan Tulis Design with Dual Database Switcher) */}
       <div className="theme-hero-banner bg-gradient-to-r from-[#596A7A] via-[#708090] to-[#5C6D7D] text-[#FFFFF0] rounded-3xl p-6 sm:p-8 md:p-10 shadow-md border border-[#B0C4DE]/30 relative overflow-hidden space-y-6">
         {/* Subtle ambient lighting */}
@@ -1864,5 +1926,6 @@ export const MaterialsDatabase: React.FC = () => {
         })}
       </div>
     </div>
+  </div>
   );
 };

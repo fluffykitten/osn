@@ -877,7 +877,7 @@ export const Navbar: React.FC = () => {
                     <Link
                       to="/login?mode=register"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] font-bold rounded-xl shadow-xs transition active:scale-95 text-xs border border-[#B0C4DE]"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-slate-900 font-bold rounded-xl shadow-xs transition active:scale-95 text-xs border border-[#B0C4DE]"
                     >
                       <GraduationCap className="w-4 h-4" />
                       <span>Daftar Akun Siswa</span>

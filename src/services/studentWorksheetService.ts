@@ -13,7 +13,7 @@ export type StudentWorksheetStatus = 'not_started' | 'in_progress' | 'completed'
 
 export interface StudentWorksheetItem {
   id: string | number;
-  type: 'static_module' | 'live' | 'teacher_assignment';
+  type: 'static_module' | 'live' | 'teacher_assignment' | 'practice';
   title: string;
   description: string;
   pillar_number?: number;
@@ -60,9 +60,10 @@ interface StatusRecord {
 
 class StudentWorksheetService {
   /**
-   * Mengambil semua worksheet yang dimiliki siswa:
-   * 1. 10 Modul Mandiri Silabus Kompetensi OSN
-   * 2. Worksheet Penugasan Guru yang telah diklaim via Token
+   * Mengambil semua lembar kerja siswa:
+   * 1. Worksheet Penugasan Guru (Live via Token / Tugas Kelas)
+   * 2. Soal-soal latihan Bank Soal yang sedang dikerjakan / telah selesai
+   * (Modul silabus mandiri telah ditiadakan dari dashboard worksheet agar siswa langsung menggunakan Bank Soal)
    */
   public getStudentWorksheets(studentId?: string): StudentWorksheetItem[] {
     const list: StudentWorksheetItem[] = [];
@@ -71,24 +72,145 @@ class StudentWorksheetService {
     const enrolledTeacherWorksheets = this.getEnrolledTeacherWorksheets(studentId);
     list.push(...enrolledTeacherWorksheets);
 
-    // 2. Tambahkan 10 Modul Mandiri Silabus OSN Kimia
-    const staticModules = this.getStaticSyllabusWorksheets(studentId);
-    list.push(...staticModules);
+    // 2. Ambil soal-soal latihan yang sedang dikerjakan atau telah diselesaikan siswa dari Bank Soal
+    const practiceWorksheets = this.getPracticeWorksheets(studentId);
+    list.push(...practiceWorksheets);
 
     return list;
+  }
+
+  /**
+   * Mengambil butir/paket soal yang sedang dikerjakan (in_progress)
+   * atau telah selesai dinilai (completed) oleh siswa dari Bank Soal
+   */
+  public getPracticeWorksheets(studentId?: string): StudentWorksheetItem[] {
+    const sId = studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
+    const items: StudentWorksheetItem[] = [];
+    const processedIds = new Set<string>();
+
+    // A. Soal yang sudah dinilai/selesai (completed) khusus riwayat submission siswa ini
+    const submissions = this.getLocalSubmissions(sId);
+    for (const sub of submissions) {
+      if (!sub || !sub.questionId) continue;
+      const strId = String(sub.questionId);
+      if (processedIds.has(strId)) continue;
+      processedIds.add(strId);
+
+      items.push({
+        id: sub.questionId,
+        type: 'practice',
+        title: sub.questionTitle || `Latihan Soal #${sub.questionId}`,
+        description: sub.overallFeedback || `Latihan mandiri konsep ${sub.subtopic || 'Kimia'}.`,
+        pillar_number: sub.pillarNumber,
+        category: sub.subtopic ? `Topik #${sub.pillarNumber} • ${sub.subtopic}` : 'Latihan Bank Soal',
+        item_count: 1,
+        time_limit_minutes: Math.max(1, Math.ceil((sub.elapsedSeconds || 120) / 60)),
+        pass_score: 70,
+        status: 'completed',
+        score: sub.totalScore,
+        max_score: sub.maxScore || 10,
+        progress_percent: 100,
+        enrolled_at: sub.gradedAt || new Date().toISOString(),
+        last_accessed_at: sub.gradedAt || new Date().toISOString(),
+      });
+    }
+
+    // B. Soal yang sedang berlangsung (in_progress)
+    // 1. Cek dari sesi pengerjaan aktif
+    const active = this.getActiveSession(sId);
+    if (active && active.type === 'practice') {
+      const activeStrId = String(active.id);
+      if (!processedIds.has(activeStrId)) {
+        processedIds.add(activeStrId);
+        items.unshift({
+          id: active.id,
+          type: 'practice',
+          title: active.title || `Latihan Soal #${active.id}`,
+          description: `Sesi latihan mandiri sedang berlangsung (Soal ke-${active.currentQIndex + 1} dari ${active.totalQuestions}).`,
+          category: 'Bank Soal (Sedang Dikerjakan)',
+          item_count: active.totalQuestions || 1,
+          time_limit_minutes: 30,
+          pass_score: 70,
+          status: 'in_progress',
+          progress_percent: Math.min(
+            95,
+            Math.max(10, Math.round(((active.currentQIndex + 1) / (active.totalQuestions || 1)) * 100))
+          ),
+          enrolled_at: new Date(active.lastActiveAt).toISOString(),
+          last_accessed_at: new Date(active.lastActiveAt).toISOString(),
+        });
+      }
+    }
+
+    // 2. Scan draft pengerjaan lokal yang belum selesai
+    try {
+      if (typeof window !== 'undefined') {
+        const prefix = `osn_ws_draft_${sId}_practice_`;
+        const prefixGeneric = `osn_ws_draft_practice_`;
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (!key) continue;
+          if (key.startsWith(prefix) || key.startsWith(prefixGeneric)) {
+            const rawDraft = localStorage.getItem(key);
+            if (!rawDraft) continue;
+            try {
+              const draft = JSON.parse(rawDraft);
+              if (draft && draft.worksheetId) {
+                const draftStrId = String(draft.worksheetId);
+                if (!processedIds.has(draftStrId)) {
+                  const answeredCount = Object.keys(draft.answers || {}).length;
+                  if (answeredCount > 0 || (draft.elapsedSeconds && draft.elapsedSeconds > 0)) {
+                    processedIds.add(draftStrId);
+                    items.push({
+                      id: draft.worksheetId,
+                      type: 'practice',
+                      title: draft.worksheetTitle || `Latihan Soal #${draft.worksheetId}`,
+                      description: 'Draf pengerjaan tersimpan di perangkat ini. Klik untuk melanjutkan.',
+                      category: 'Bank Soal (Draft Tersimpan)',
+                      item_count: 1,
+                      time_limit_minutes: 30,
+                      pass_score: 70,
+                      status: 'in_progress',
+                      progress_percent: Math.min(90, Math.max(15, answeredCount * 30)),
+                      enrolled_at: draft.savedAt ? new Date(draft.savedAt).toISOString() : new Date().toISOString(),
+                      last_accessed_at: draft.savedAt ? new Date(draft.savedAt).toISOString() : new Date().toISOString(),
+                    });
+                  }
+                }
+              }
+            } catch {}
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Gagal membaca draft latihan practice:', e);
+    }
+
+    // Urutkan berdasarkan waktu akses terakhir
+    return items.sort((a, b) => {
+      const timeA = a.last_accessed_at ? new Date(a.last_accessed_at).getTime() : 0;
+      const timeB = b.last_accessed_at ? new Date(b.last_accessed_at).getTime() : 0;
+      return timeB - timeA;
+    });
   }
 
   /**
    * Membaca worksheet guru yang telah diklaim / diikuti oleh siswa
    */
   public getEnrolledTeacherWorksheets(studentId?: string): StudentWorksheetItem[] {
+    const sId = studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
     try {
       const raw = localStorage.getItem(LOCAL_ENROLLED_WORKSHEETS_KEY);
       if (!raw) return [];
-      const parsed: StudentWorksheetItem[] = JSON.parse(raw);
+      const parsed: (StudentWorksheetItem & { enrolled_by_student_id?: string })[] = JSON.parse(raw);
+
+      // Filter hanya worksheet yang dienroll oleh studentId ini atau belum ber-ID (kompatibilitas)
+      const userWorksheets = parsed.filter(
+        (item) => !item.enrolled_by_student_id || item.enrolled_by_student_id === sId
+      );
 
       // Perbarui status pengerjaan secara real-time dari session/submission/drafts
-      return parsed.map((item) => this.enrichWorksheetStatus(item, studentId));
+      return userWorksheets.map((item) => this.enrichWorksheetStatus(item, sId));
     } catch (err) {
       console.warn('Gagal membaca enrolled worksheets:', err);
       return [];
@@ -165,22 +287,27 @@ class StudentWorksheetService {
     try {
       const records = this.getStatusRecords();
       const sId = params.studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
-      const key = `${params.type}_${params.id}`;
+      const userKey = `${sId}_${params.type}_${params.id}`;
+      const fallbackKey = `${params.type}_${params.id}`;
       const now = new Date().toISOString();
 
-      const existing = records[key] || {};
+      const existing = records[userKey] || records[fallbackKey] || {};
       if (existing.status !== 'completed') {
-        records[key] = {
+        const recordData = {
           ...existing,
-          status: 'in_progress',
+          status: 'in_progress' as const,
           lastAccessedAt: now,
           type: params.type,
           id: params.id,
           token: params.token,
         };
 
+        records[userKey] = recordData;
+        records[fallbackKey] = recordData;
+
         if (params.token) {
-          records[params.token.trim().toUpperCase()] = records[key];
+          records[`${sId}_${params.token.trim().toUpperCase()}`] = recordData;
+          records[params.token.trim().toUpperCase()] = recordData;
         }
 
         localStorage.setItem(LOCAL_WORKSHEET_STATUS_KEY, JSON.stringify(records));
@@ -220,11 +347,13 @@ class StudentWorksheetService {
   }): void {
     try {
       const records = this.getStatusRecords();
-      const key = `${params.type}_${params.id}`;
+      const sId = params.studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
+      const userKey = `${sId}_${params.type}_${params.id}`;
+      const fallbackKey = `${params.type}_${params.id}`;
       const now = new Date().toISOString();
 
-      records[key] = {
-        status: 'completed',
+      const recordData = {
+        status: 'completed' as const,
         lastAccessedAt: now,
         type: params.type,
         id: params.id,
@@ -233,8 +362,12 @@ class StudentWorksheetService {
         maxScore: params.maxScore || 10,
       };
 
+      records[userKey] = recordData;
+      records[fallbackKey] = recordData;
+
       if (params.token) {
-        records[params.token.trim().toUpperCase()] = records[key];
+        records[`${sId}_${params.token.trim().toUpperCase()}`] = recordData;
+        records[params.token.trim().toUpperCase()] = recordData;
       }
 
       localStorage.setItem(LOCAL_WORKSHEET_STATUS_KEY, JSON.stringify(records));
@@ -309,16 +442,22 @@ class StudentWorksheetService {
   /**
    * Mendaftarkan worksheet penugasan guru baru ke daftar "Worksheet Saya"
    */
-  public enrollWorksheet(worksheet: Worksheet, token: string, teacherName: string = 'Guru Pembina OSN'): StudentWorksheetItem {
+  public enrollWorksheet(
+    worksheet: Worksheet,
+    token: string,
+    teacherName: string = 'Guru Pembina OSN',
+    studentId?: string
+  ): StudentWorksheetItem {
     const cleanToken = token.trim().toUpperCase();
-    const enrolledList = this.getEnrolledTeacherWorksheets();
+    const sId = studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
+    const enrolledList = this.getEnrolledTeacherWorksheets(sId);
 
     // Periksa apakah sudah terdaftar sebelumnya
     const existingIndex = enrolledList.findIndex(
       (item) => item.token === cleanToken || item.id === worksheet.id
     );
 
-    const newItem: StudentWorksheetItem = {
+    const newItem: StudentWorksheetItem & { enrolled_by_student_id?: string } = {
       id: worksheet.id,
       type: 'live',
       title: worksheet.title,
@@ -332,6 +471,7 @@ class StudentWorksheetService {
       enrolled_at: new Date().toISOString(),
       last_accessed_at: new Date().toISOString(),
       progress_percent: 0,
+      enrolled_by_student_id: sId,
     };
 
     if (existingIndex >= 0) {
@@ -379,10 +519,14 @@ class StudentWorksheetService {
     const sId = studentId || localStorage.getItem('osn_student_id') || DEFAULT_STUDENT_ID;
     const records = this.getStatusRecords();
 
-    // 1. Cek dari registry status eksplisit
+    // 1. Cek dari registry status eksplisit (utamakan key per-student)
+    const userSpecificKey = `${sId}_${item.type}_${item.id}`;
     const specificKey = `${item.type}_${item.id}`;
+    const userTokenKey = item.token ? `${sId}_${item.token.trim().toUpperCase()}` : null;
     const tokenKey = item.token ? item.token.trim().toUpperCase() : null;
     const statusRec: StatusRecord | undefined =
+      records[userSpecificKey] ||
+      (userTokenKey ? records[userTokenKey] : undefined) ||
       records[specificKey] ||
       (tokenKey ? records[tokenKey] : undefined) ||
       records[String(item.id)];
@@ -407,8 +551,8 @@ class StudentWorksheetService {
       }
     }
 
-    // 2. Cek riwayat submission lokal (misal untuk tugas guru atau kuis mandiri)
-    const submissions = this.getLocalSubmissions();
+    // 2. Cek riwayat submission lokal khusus milik siswa ini
+    const submissions = this.getLocalSubmissions(sId);
     const requiredCount = item.item_count || 1;
     const matchedSubs = submissions.filter(
       (s) =>
@@ -538,13 +682,22 @@ class StudentWorksheetService {
     }
   }
 
-  private getLocalSubmissions(): any[] {
+  private getLocalSubmissions(studentId?: string): any[] {
     try {
       const raw = localStorage.getItem(LOCAL_SUBMISSIONS_KEY);
       if (!raw) return [];
       const parsed: any[] = JSON.parse(raw);
-      // Bersihkan catatan dummy sub-baseline
-      return parsed.filter((item) => item && !item.id?.startsWith('sub-baseline-'));
+      // Bersihkan catatan dummy sub-baseline dan filter strictly per studentId jika diberikan
+      return parsed.filter((item) => {
+        if (!item || item.id?.startsWith('sub-baseline-')) return false;
+        if (studentId) {
+          if (studentId === DEFAULT_STUDENT_ID) {
+            return !item.userId || item.userId === DEFAULT_STUDENT_ID;
+          }
+          return item.userId === studentId;
+        }
+        return true;
+      });
     } catch {
       return [];
     }

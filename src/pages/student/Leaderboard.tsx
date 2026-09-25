@@ -3,6 +3,7 @@ import { Award, Flame, Medal, Sparkles, TrendingUp, Users, RefreshCw } from 'luc
 import { useAuth } from '../../contexts/AuthContext';
 import { getSupabaseClient } from '../../lib/supabaseClient';
 import { getLocalGamificationState } from '../../lib/gamification';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 
 interface LeaderboardUser {
   rank: number;
@@ -96,7 +97,12 @@ export const Leaderboard: React.FC = () => {
   const top3 = leaderboard[2];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 font-sans">
       {/* Header */}
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold rounded-full">
@@ -218,6 +224,7 @@ export const Leaderboard: React.FC = () => {
           </div>
         </>
       )}
+      </div>
     </div>
   );
 };

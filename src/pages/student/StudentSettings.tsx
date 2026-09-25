@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getSupabaseClient } from '../../lib/supabaseClient';
 import { classroomService } from '../../services/classroomService';
 import type { Classroom } from '../../types/database';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import {
   User,
   School,
@@ -196,7 +197,12 @@ export const StudentSettings: React.FC = () => {
   const studentClassroom = classrooms[0] || null;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
+    <div
+      className="min-h-screen pb-16 transition-colors duration-200 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
+    >
+      <ChemistryWatermarkBackground />
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
       {/* Header Pengaturan */}
       <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs">
         <h1 className="text-xl sm:text-2xl font-bold font-display text-slate-900">
@@ -568,6 +574,7 @@ export const StudentSettings: React.FC = () => {
           </div>
         </form>
       )}
+      </div>
     </div>
   );
 };

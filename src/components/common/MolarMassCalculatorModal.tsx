@@ -173,6 +173,16 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
   const [isResizing, setIsResizing] = useState(false);
   const resizeStartRef = useRef<{ startX: number; startY: number; startW: number; startH: number } | null>(null);
 
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (isOpen) {
       setFormulaInput(initialFormula || 'BaCO3');
@@ -182,7 +192,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
   }, [isOpen, initialFormula, size.width, size.height]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    if ((e.target as HTMLElement).closest('button, input')) return;
+    if (isMobile || (e.target as HTMLElement).closest('button, input')) return;
     setIsDragging(true);
     dragStartRef.current = {
       startX: e.clientX,
@@ -194,7 +204,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging) return;
+    if (!isDragging || isMobile) return;
     const dx = e.clientX - dragStartRef.current.startX;
     const dy = e.clientY - dragStartRef.current.startY;
     const newX = Math.max(10, Math.min(window.innerWidth - 320, dragStartRef.current.initX + dx));
@@ -215,6 +225,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
 
   // Handle Resizing
   const handleResizePointerDown = (e: React.PointerEvent) => {
+    if (isMobile) return;
     e.stopPropagation();
     e.preventDefault();
     setIsResizing(true);
@@ -232,7 +243,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
   };
 
   const handleResizePointerMove = (e: React.PointerEvent) => {
-    if (!isResizing || !resizeStartRef.current) return;
+    if (!isResizing || !resizeStartRef.current || isMobile) return;
     const deltaX = e.clientX - resizeStartRef.current.startX;
     const deltaY = e.clientY - resizeStartRef.current.startY;
     const minW = 340;
@@ -272,36 +283,64 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
   };
 
   return (
-    <div className="fixed inset-0 z-50 pointer-events-none select-none">
+    <div
+      className={
+        isMobile
+          ? 'fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-200 pointer-events-auto select-none'
+          : 'fixed inset-0 z-50 pointer-events-none select-none'
+      }
+    >
+      {/* Mobile backdrop tap to close */}
+      {isMobile && <div className="flex-1" onClick={onClose} />}
+
       <div
-        style={{
-          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-          width: `${size.width}px`,
-          height: `${size.height}px`,
-        }}
-        className="pointer-events-auto bg-white/98 backdrop-blur-md rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]"
+        style={
+          isMobile
+            ? { maxHeight: '88vh' }
+            : {
+                transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
+                width: `${size.width}px`,
+                height: `${size.height}px`,
+              }
+        }
+        className={
+          isMobile
+            ? 'pointer-events-auto bg-white rounded-t-3xl border-t border-slate-300 shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-250 w-full relative'
+            : 'pointer-events-auto bg-white/98 backdrop-blur-md rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]'
+        }
       >
-        {/* Draggable Header (Biru Muda / Sky Gradient) */}
+        {/* Mobile Grab Pill Bar */}
+        {isMobile && (
+          <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 to-blue-600">
+            <div className="w-10 h-1 rounded-full bg-white/40" />
+          </div>
+        )}
+
+        {/* Header (Biru Muda / Sky Gradient) */}
         <div
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-grab active:cursor-grabbing select-none shadow-xs"
+          className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white select-none shadow-xs ${
+            isMobile ? '' : 'cursor-grab active:cursor-grabbing'
+          }`}
         >
           <div className="flex items-center gap-2">
             <Scale className="w-4 h-4 text-sky-100" />
             <span className="font-bold text-xs font-display tracking-wide text-white">
               Kalkulator Massa Molar (Mr)
             </span>
-            <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
-              <Move className="w-2.5 h-2.5" />
-              <span>Geser Window</span>
-            </span>
+            {!isMobile && (
+              <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
+                <Move className="w-2.5 h-2.5" />
+                <span>Geser Window</span>
+              </span>
+            )}
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors"
+            className="p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
             title="Tutup (Esc)"
           >
             <X className="w-4 h-4" />
@@ -458,23 +497,25 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
           )}
         </div>
 
-        {/* Bottom-Right Resize Grip Handle */}
-        <div
-          onPointerDown={handleResizePointerDown}
-          onPointerMove={handleResizePointerMove}
-          onPointerUp={handleResizePointerUp}
-          className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
-          title="Tarik untuk mengubah ukuran (Resize)"
-        >
-          <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
-            <circle cx="5" cy="5" r="0.75" />
-            <circle cx="5" cy="3" r="0.75" />
-            <circle cx="3" cy="5" r="0.75" />
-            <circle cx="5" cy="1" r="0.75" />
-            <circle cx="3" cy="3" r="0.75" />
-            <circle cx="1" cy="5" r="0.75" />
-          </svg>
-        </div>
+        {/* Bottom-Right Resize Grip Handle (Desktop Only) */}
+        {!isMobile && (
+          <div
+            onPointerDown={handleResizePointerDown}
+            onPointerMove={handleResizePointerMove}
+            onPointerUp={handleResizePointerUp}
+            className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+            title="Tarik untuk mengubah ukuran (Resize)"
+          >
+            <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
+              <circle cx="5" cy="5" r="0.75" />
+              <circle cx="5" cy="3" r="0.75" />
+              <circle cx="3" cy="5" r="0.75" />
+              <circle cx="5" cy="1" r="0.75" />
+              <circle cx="3" cy="3" r="0.75" />
+              <circle cx="1" cy="5" r="0.75" />
+            </svg>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { classroomService } from '../../services/classroomService';
 import type { Classroom } from '../../types/database';
 import { ChemistrySmaSyllabusSvg } from '../../components/syllabus/ChemistrySmaSyllabusSvg';
 import { ChemistryOsnSyllabusSvg } from '../../components/syllabus/ChemistryOsnSyllabusSvg';
+import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import {
   LogIn,
   GraduationCap,
@@ -63,9 +64,11 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen pb-20 transition-colors duration-200"
+      className="min-h-screen pb-20 transition-colors duration-200 relative overflow-hidden"
       style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
     >
+      {/* Background Abstract Chemistry Watermark Decoration */}
+      <ChemistryWatermarkBackground />
       {/* Password Reset Success Notification Banner */}
       {showResetSuccessBanner && pageState?.passwordResetSuccess && (
         <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-3.5 px-4 shadow-md text-xs sm:text-sm animate-in fade-in slide-in-from-top-2 duration-300">
@@ -126,7 +129,7 @@ export const LandingPage: React.FC = () => {
       )}
 
       {/* Hero Section */}
-      <section className="relative pt-12 sm:pt-16 pb-10 overflow-hidden">
+      <section className="relative z-10 pt-12 sm:pt-16 pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           {/* Main Headline (1 Warna Solid Saja Menyesuaikan Tema, Tanpa Mention AI) */}
           <h1
@@ -170,11 +173,18 @@ export const LandingPage: React.FC = () => {
                     backgroundColor: 'var(--theme-accent)',
                     color: 'var(--theme-accent-text)',
                   }}
-                  className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 hover:opacity-95"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg active:scale-98 hover:-translate-y-0.5 border border-black/10 dark:border-white/10"
                 >
-                  <GraduationCap className="w-4 h-4" />
-                  <span>Daftar Akun Siswa</span>
-                  <span className="text-[10px] bg-black/20 px-1.5 py-0.5 rounded font-mono font-normal">
+                  <GraduationCap className="w-4 h-4 shrink-0" />
+                  <span className="tracking-tight">Daftar Akun Siswa</span>
+                  <span
+                    className="text-[10.5px] font-bold tracking-wider px-2 py-0.5 rounded-full border shadow-2xs font-mono uppercase transition-colors"
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                      borderColor: 'rgba(0, 0, 0, 0.14)',
+                      color: 'var(--theme-accent-text)',
+                    }}
+                  >
                     Khusus Siswa
                   </span>
                 </Link>
@@ -185,9 +195,9 @@ export const LandingPage: React.FC = () => {
                   style={{
                     backgroundColor: 'var(--theme-surface)',
                     borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text-muted)',
+                    color: 'var(--theme-text)',
                   }}
-                  className="inline-flex items-center gap-2 px-5 py-3 font-semibold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
+                  className="inline-flex items-center gap-2 px-5 py-3 font-semibold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90 hover:-translate-y-0.5"
                 >
                   <KeyRound className="w-4 h-4" />
                   <span>Lupa Password?</span>
@@ -200,9 +210,9 @@ export const LandingPage: React.FC = () => {
                   style={{
                     backgroundColor: 'var(--theme-surface)',
                     borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text-muted)',
+                    color: 'var(--theme-text)',
                   }}
-                  className="text-[11px] max-w-lg mx-auto py-2 px-4 rounded-xl border"
+                  className="text-[11.5px] max-w-lg mx-auto py-2.5 px-4 rounded-xl border shadow-2xs leading-relaxed"
                 >
                   ℹ️ <strong>Catatan Hak Akses:</strong> Pendaftaran publik dibuka khusus untuk <strong>Siswa</strong>. Akun Guru/Pembina ditentukan & diterbitkan langsung oleh Administrator (
                   <span className="font-mono font-bold" style={{ color: 'var(--theme-primary)' }}>fluffykitten.dev@gmail.com</span>). Tamu (guest) wajib masuk sebelum mengakses lembar kerja & database materi.
@@ -390,7 +400,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* Apa Itu Platform OSN Kimia Mastery? (Overview Section) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
         <div
           style={{
             backgroundColor: 'var(--theme-surface)',
@@ -519,7 +529,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 3 Fitur & Kapabilitas Utama */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <div
             style={{
@@ -643,7 +653,7 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* SVG Sections: Peta Silabus OSN Kimia & Silabus Fondasi SMA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 relative z-10">
         {/* Tab Switcher */}
         <div className="flex flex-wrap items-center justify-center gap-2">
           <button
@@ -778,7 +788,7 @@ export const LandingPage: React.FC = () => {
 
       {/* Call to Action (CTA) Section: Khusus Tamu (Guest) Belum Login */}
       {!user && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 relative z-10">
           <div
             style={{
               backgroundColor: 'var(--theme-surface)',
