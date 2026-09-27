@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Compass,
   BookOpen,
@@ -22,6 +22,7 @@ import {
   Share2,
   Menu,
   X,
+  Bug,
 } from 'lucide-react';
 import { getLocalGamificationState, type UserGamificationState } from '../../lib/gamification';
 import { UserTitleBadge } from '../gamification/UserTitleBadge';
@@ -34,11 +35,19 @@ import {
 
 export const Navbar: React.FC = React.memo(() => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, profile, isTeacher, isAdmin, logout } = useAuth();
   const { headerState } = useWhiteboardHeader();
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    setShowUserDropdown(false);
+    setMobileMenuOpen(false);
+    await logout();
+    navigate('/', { replace: true });
+  };
 
   // Pantau sesi worksheet yang sedang aktif dikerjakan siswa
   const [activeWorksheet, setActiveWorksheet] = useState<ActiveWorksheetSession | null>(() =>
@@ -575,12 +584,20 @@ export const Navbar: React.FC = React.memo(() => {
                       </>
                     )}
 
-                    <div className="pt-1 border-t border-[#D3D3D3]/60">
+                    <div className="pt-1 border-t border-[#D3D3D3]/60 space-y-0.5">
                       <button
-                        onClick={async () => {
+                        onClick={() => {
                           setShowUserDropdown(false);
-                          await logout();
+                          window.dispatchEvent(new CustomEvent('open-bug-report-modal'));
                         }}
+                        className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#708090] hover:bg-[#F0F8FF] hover:text-[#2D3748] transition-colors font-medium cursor-pointer text-xs"
+                      >
+                        <Bug className="w-3.5 h-3.5 text-amber-600" />
+                        <span>Laporkan Bug / Kendala</span>
+                      </button>
+
+                      <button
+                        onClick={handleLogout}
                         className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-rose-600 hover:bg-rose-50 transition-colors font-medium cursor-pointer"
                       >
                         <LogOut className="w-3.5 h-3.5" />
@@ -909,6 +926,25 @@ export const Navbar: React.FC = React.memo(() => {
                 </div>
               )}
 
+              {/* Laporkan Kendala / Bug in Drawer */}
+              <div className="pt-2 border-t border-[#D3D3D3]/60">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.dispatchEvent(new CustomEvent('open-bug-report-modal'));
+                  }}
+                  className="w-full flex items-center justify-between px-3 py-2 text-amber-800 hover:bg-amber-50 rounded-xl transition text-[11px] font-semibold cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <Bug className="w-4 h-4 text-amber-600" />
+                    <span>Laporkan Kendala / Bug</span>
+                  </span>
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 bg-amber-100 text-amber-800 rounded">
+                    Bantuan
+                  </span>
+                </button>
+              </div>
+
               {/* Creator link in drawer */}
               <div className="pt-2 border-t border-[#D3D3D3]/60">
                 <a
@@ -934,10 +970,7 @@ export const Navbar: React.FC = React.memo(() => {
             {user && (
               <div className="p-3 border-t border-[#D3D3D3] bg-[#F0F8FF]/60">
                 <button
-                  onClick={async () => {
-                    setMobileMenuOpen(false);
-                    await logout();
-                  }}
+                  onClick={handleLogout}
                   className="w-full flex items-center justify-center gap-2 py-2.5 text-rose-600 hover:bg-rose-50 rounded-xl transition text-xs font-bold border border-rose-200 cursor-pointer active:scale-95"
                 >
                   <LogOut className="w-3.5 h-3.5" />

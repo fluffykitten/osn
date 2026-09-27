@@ -291,13 +291,17 @@ export function preprocessFriendlyFormula(rawText: string): {
   });
 
   // Protect generic code blocks (```lang ... ```)
-  t = t.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+  t = t.replace(/```([a-zA-Z0-9_-]*)[ \t\r]*\n([\s\S]*?)```/g, (_, rawLang, code) => {
     const id = protectedSvg.length;
+    const cleanLang = (rawLang || '').trim().toLowerCase();
     const escaped = code
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
-    const block = `<pre class="my-3 p-3.5 bg-slate-900 text-slate-100 rounded-xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-xs"><div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider font-sans"><span>${lang || 'CODE'}</span></div><code>${escaped}</code></pre>`;
+    const isCode = cleanLang && !['ascii', 'diagram', 'text', 'txt', ''].includes(cleanLang);
+    const block = isCode
+      ? `<pre class="my-3.5 p-3.5 bg-slate-900 text-slate-100 rounded-xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-xs"><div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider font-sans"><span>${rawLang.trim()}</span></div><code>${escaped}</code></pre>`
+      : `<pre class="my-3.5 p-4 bg-slate-50 text-slate-800 rounded-xl text-xs font-mono overflow-x-auto leading-relaxed border border-slate-200 shadow-2xs select-text"><div class="flex items-center gap-1.5 pb-2 mb-2 border-b border-slate-200 text-[10px] text-slate-500 font-sans font-semibold"><span>📊 Diagram / Skema Monospace</span></div><code class="font-mono text-slate-800 font-medium">${escaped}</code></pre>`;
     protectedSvg.push(block);
     return `\n\n___PROTECTED_SVG_${id}___\n\n`;
   });
@@ -454,7 +458,10 @@ export function parseAndRenderMixedText(rawText: string): string {
 
   // Normalize markdown headings, steps, and tables so they form isolated blocks and do not bleed into lists or paragraphs
   const normalized = text
-    .replace(/([^\n])\n(#{1,5}\s+[^\n]+)/g, '$1\n\n$2')
+    .replace(/([^\n])\n(#{1,5}\s+[^\n]+)/g, (match, p1, p2) => {
+      if (p1.startsWith('>') || /\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(p1)) return match;
+      return `${p1}\n\n${p2}`;
+    })
     .replace(/(#{1,5}\s+[^\n]+)\n([^\n#])/g, '$1\n\n$2')
     .replace(/([^\n])\n(\|[^\n]+\|\s*\n\s*\|[-:\s|]+\|)/g, '$1\n\n$2')
     .replace(/(\|[^\n]+\|)\n([^\n|])/g, '$1\n\n$2')
@@ -632,13 +639,215 @@ export function parseAndRenderMixedText(rawText: string): string {
         }
       }
 
-      // 5. Blockquote (> ...)
-      if (trimmed.startsWith('>')) {
-        const quoteContent = trimmed
-          .split('\n')
-          .map((line) => line.replace(/^>\s?/, ''))
+      // 5. Alert Callouts (> [!WARNING], > [!TIP], etc.) & Blockquotes (> ...)
+      const isBlockquote = trimmed.startsWith('>');
+      const isCalloutDirect = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(trimmed);
+
+      if (isBlockquote || isCalloutDirect) {
+        const rawLines = trimmed.split('\n');
+        const quoteLines = isBlockquote ? rawLines.map((l) => l.replace(/^>\s?/, '')) : rawLines;
+        const firstLine = (quoteLines[0] || '').trim();
+        const alertMatch = firstLine.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i);
+
+        if (alertMatch) {
+          const typeKey = alertMatch[1].toUpperCase();
+          const themeMap: Record<
+            string,
+            {
+              bg: string;
+              border: string;
+              containerBorder: string;
+              badgeBg: string;
+              badgeText: string;
+              badgeBorder: string;
+              titleText: string;
+              bodyText: string;
+              bulletBg: string;
+              icon: string;
+              label: string;
+            }
+          > = {
+            WARNING: {
+              bg: 'bg-amber-50/90',
+              border: 'border-amber-500',
+              containerBorder: 'border-amber-200/90',
+              badgeBg: 'bg-amber-100',
+              badgeText: 'text-amber-900',
+              badgeBorder: 'border-amber-300',
+              titleText: 'text-amber-950',
+              bodyText: 'text-amber-950/95',
+              bulletBg: 'bg-amber-500',
+              icon: '⚠️',
+              label: 'PERINGATAN',
+            },
+            TIP: {
+              bg: 'bg-emerald-50/90',
+              border: 'border-emerald-500',
+              containerBorder: 'border-emerald-200/90',
+              badgeBg: 'bg-emerald-100',
+              badgeText: 'text-emerald-900',
+              badgeBorder: 'border-emerald-300',
+              titleText: 'text-emerald-950',
+              bodyText: 'text-emerald-950/95',
+              bulletBg: 'bg-emerald-500',
+              icon: '💡',
+              label: 'TIPS OSN',
+            },
+            IMPORTANT: {
+              bg: 'bg-indigo-50/90',
+              border: 'border-indigo-500',
+              containerBorder: 'border-indigo-200/90',
+              badgeBg: 'bg-indigo-100',
+              badgeText: 'text-indigo-900',
+              badgeBorder: 'border-indigo-300',
+              titleText: 'text-indigo-950',
+              bodyText: 'text-indigo-950/95',
+              bulletBg: 'bg-indigo-500',
+              icon: '📌',
+              label: 'PENTING',
+            },
+            NOTE: {
+              bg: 'bg-sky-50/90',
+              border: 'border-sky-500',
+              containerBorder: 'border-sky-200/90',
+              badgeBg: 'bg-sky-100',
+              badgeText: 'text-sky-900',
+              badgeBorder: 'border-sky-300',
+              titleText: 'text-sky-950',
+              bodyText: 'text-sky-950/95',
+              bulletBg: 'bg-sky-500',
+              icon: 'ℹ️',
+              label: 'CATATAN',
+            },
+            INFO: {
+              bg: 'bg-sky-50/90',
+              border: 'border-sky-500',
+              containerBorder: 'border-sky-200/90',
+              badgeBg: 'bg-sky-100',
+              badgeText: 'text-sky-900',
+              badgeBorder: 'border-sky-300',
+              titleText: 'text-sky-950',
+              bodyText: 'text-sky-950/95',
+              bulletBg: 'bg-sky-500',
+              icon: 'ℹ️',
+              label: 'INFORMASI',
+            },
+            CAUTION: {
+              bg: 'bg-rose-50/90',
+              border: 'border-rose-500',
+              containerBorder: 'border-rose-200/90',
+              badgeBg: 'bg-rose-100',
+              badgeText: 'text-rose-900',
+              badgeBorder: 'border-rose-300',
+              titleText: 'text-rose-950',
+              bodyText: 'text-rose-950/95',
+              bulletBg: 'bg-rose-500',
+              icon: '🚨',
+              label: 'PERHATIAN KHUSUS',
+            },
+            DANGER: {
+              bg: 'bg-rose-50/90',
+              border: 'border-rose-500',
+              containerBorder: 'border-rose-200/90',
+              badgeBg: 'bg-rose-100',
+              badgeText: 'text-rose-900',
+              badgeBorder: 'border-rose-300',
+              titleText: 'text-rose-950',
+              bodyText: 'text-rose-950/95',
+              bulletBg: 'bg-rose-500',
+              icon: '🚨',
+              label: 'BAHAYA',
+            },
+          };
+
+          const theme = themeMap[typeKey] || themeMap.NOTE;
+          const contentLines = quoteLines.slice(1);
+
+          let title = '';
+          let bodyStartIndex = 0;
+
+          for (let i = 0; i < contentLines.length; i++) {
+            const line = contentLines[i].trim();
+            if (!line) continue;
+
+            const headingMatch = line.match(/^#{1,4}\s+(.+)$/);
+            if (headingMatch) {
+              title = headingMatch[1].trim();
+              bodyStartIndex = i + 1;
+              break;
+            }
+
+            const boldHtmlMatch = line.match(/^<strong[^>]*>(.+?)<\/strong>:?\s*$/i);
+            if (boldHtmlMatch) {
+              title = boldHtmlMatch[1].trim();
+              bodyStartIndex = i + 1;
+              break;
+            }
+
+            const boldMdMatch = line.match(/^\*\*(.+?)\*\*:?\s*$/);
+            if (boldMdMatch) {
+              title = boldMdMatch[1].trim();
+              bodyStartIndex = i + 1;
+              break;
+            }
+
+            break;
+          }
+
+          // Clean title if it contains leading redundant emoji matching the theme icon
+          if (title) {
+            title = title
+              .replace(/^⚠️\s*/, '')
+              .replace(/^💡\s*/, '')
+              .replace(/^📌\s*/, '')
+              .replace(/^ℹ️\s*/, '')
+              .replace(/^🚨\s*/, '');
+          }
+
+          const remainingLines = contentLines.slice(bodyStartIndex);
+          const bodyItems: string[] = [];
+
+          for (const rLine of remainingLines) {
+            const trimmedLine = rLine.trim();
+            if (!trimmedLine) continue;
+
+            if (/^[-*•]\s+/.test(trimmedLine)) {
+              const itemContent = trimmedLine.replace(/^[-*•]\s+/, '');
+              bodyItems.push(
+                `<div class="flex items-start gap-2 pl-0.5"><span class="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${theme.bulletBg}"></span><div class="flex-1 leading-relaxed">${itemContent}</div></div>`
+              );
+            } else if (/^#{1,4}\s+(.+)$/.test(trimmedLine)) {
+              const hText = trimmedLine.replace(/^#{1,4}\s+/, '');
+              bodyItems.push(
+                `<div class="font-bold text-xs uppercase tracking-wide mt-2 pt-1.5 border-t ${theme.containerBorder}">${hText}</div>`
+              );
+            } else {
+              bodyItems.push(`<div class="leading-relaxed">${trimmedLine}</div>`);
+            }
+          }
+
+          return `<div class="my-4 p-4 rounded-2xl border border-l-4 ${theme.bg} ${theme.border} ${theme.containerBorder} shadow-2xs">
+            <div class="flex items-center gap-2 mb-2 font-display flex-wrap">
+              <span class="text-sm select-none">${theme.icon}</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider ${theme.badgeText} px-2 py-0.5 rounded-md ${theme.badgeBg} border ${theme.badgeBorder}">${theme.label}</span>
+              ${title ? `<span class="text-xs sm:text-sm font-bold ${theme.titleText}">${title}</span>` : ''}
+            </div>
+            <div class="text-xs sm:text-sm ${theme.bodyText} space-y-1.5 font-sans">${bodyItems.join('')}</div>
+          </div>`;
+        }
+
+        // Regular Quote
+        const quoteCleanLines = quoteLines.map((l) => l.trim()).filter(Boolean);
+        const quoteContent = quoteCleanLines
+          .map((line) => {
+            if (/^[-*•]\s+/.test(line)) {
+              return `<span class="block pl-3 py-0.5">• ${line.replace(/^[-*•]\s+/, '')}</span>`;
+            }
+            return line.replace(/^#{1,4}\s+/, '');
+          })
           .join('<br />');
-        return `<blockquote class="p-3 my-3 bg-amber-50/70 border-l-4 border-amber-400 rounded-r-xl text-xs text-amber-950 font-medium leading-relaxed shadow-2xs">${quoteContent}</blockquote>`;
+
+        return `<blockquote class="p-3.5 my-3.5 bg-amber-50/70 border-l-4 border-amber-400 rounded-r-xl text-xs sm:text-sm text-amber-950 font-medium leading-relaxed shadow-2xs">${quoteContent}</blockquote>`;
       }
 
       // 6. Unordered List (- item or * item)

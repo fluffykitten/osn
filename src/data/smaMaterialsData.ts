@@ -4672,19 +4672,19 @@ $$\\mathbf{2\\ce{C8H18(l)} + 25\\ce{O2(g)} \\to 16\\ce{CO2(g)} + 18\\ce{H2O(g)}}
 },
 
   {
-  id: 105,
-  topic_number: 5,
-  grade: 'Kelas 10',
-  semester: 2,
-  curriculumPhase: 'Fase E',
-  relatedOsnTopicId: 3,
-  title: 'Hukum Dasar Kimia & Konsep Mol (Stoikiometri Dasar)',
-  slug: 'hukum-dasar-kimia-konsep-mol',
-  category: 'Stoikiometri Dasar',
-  level: 'SMA',
-  readTimeMinutes: 35,
-  summary: 'Pondasi kuantitatif stoikiometri sains kimia meliputi 5 hukum dasar kimia klasik (Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro); konsep massa atom relatif (Ar) dan molekul relatif (Mr); jembatan konversi mol terhadap massa, jumlah partikel Avogadro, volume gas (STP, RTP, gas ideal PV=nRT), dan molaritas; penentuan rumus empiris dan rumus molekul; serta analisis stoikiometri reaksi menggunakan tabel M-R-S, pereaksi pembatas, dan kalkulasi persen hasil reaksi.',
-  allTags: [
+    id: 105,
+    topic_number: 5,
+    grade: 'Kelas 10',
+    semester: 2,
+    curriculumPhase: 'Fase E',
+    relatedOsnTopicId: 3,
+    title: 'Hukum Dasar Kimia & Konsep Mol (Stoikiometri Dasar)',
+    slug: 'hukum-dasar-kimia-konsep-mol',
+    category: 'Stoikiometri Dasar',
+    level: 'SMA',
+    readTimeMinutes: 35,
+    summary: 'Panduan pedagogis komprehensif stoikiometri kimia dasar: 5 hukum dasar kimia klasik (Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro); konsep massa atom relatif (Ar) dan massa molekul relatif (Mr); peta jembatan mol cerdas (massa, jumlah partikel, volume gas STP/RTP/ideal, dan molaritas); alur 3 langkah penentuan rumus empiris & molekul; serta teknik analisis reaksi kimia dengan tabel M-R-S dan pereaksi pembatas.',
+    allTags: [
       'hukum-dasar-kimia',
       'hukum-lavoisier',
       'hukum-proust-perbandingan-tetap',
@@ -4726,898 +4726,728 @@ $$\\mathbf{2\\ce{C8H18(l)} + 25\\ce{O2(g)} \\to 16\\ce{CO2(g)} + 18\\ce{H2O(g)}}
       'pv-nrt',
       'kerapatan-gas',
       'massa-molar',
-      'hukum-graham',
-      'efusi-gas',
-      'laju-efusi',
-      'metana',
-      'hukum-dalton',
-      'tekanan-parsial',
-      'pengumpulan-gas-di-atas-air',
-      'hidrogen',
-      'titrasi-asam-basa',
-      'asam-oksalat',
-      'standarisasi-naoh',
-      'valensi-asam',
-      'molaritas',
-      'gravimetri',
-      'konsentrasi-ion',
-      'barium-sulfat',
       'analisis-pembakaran',
       'vitamin-c',
-      'aparatus-kimia',
-      'diagram-fasa',
-      'titik-tripel',
-      'persamaan-clapeyron',
-      'sublimasi',
-      'titik-kritis',
-      'pengayaan-uranium',
-      'isotop',
-      'kaskade-difusi',
-      'logam-amfoter',
-      'aluminium',
-      'reaksi-pengendapan',
-      'gas-nyata',
-      'van-der-waals',
-      'faktor-kompresibilitas',
-      'tekanan-kohesif',
-      'iodometri',
-      'titrasi-redoks',
-      'stoikiometri-multi-tahap',
-      'paduan-kuningan',
-      'tembaga',
-      'maxwell-boltzmann',
-      'kecepatan-rms',
-      'kecepatan-paling-mungkin',
-      'teori-kinetik-gas',
-      'metode-warder',
-      'dua-indikator',
-      'campuran-karbonat',
-      'bikarbonat',
-      'clausius-clapeyron',
-      'entalpi-penguapan',
-      'titik-didih-normal',
-      'tekanan-uap',
-      'halida-perak',
-      'penggantian-halogen',
-      'osn-nasional',
-      'stoikiometri-campuran',
-      'persamaan-virial',
-      'suhu-boyle',
-      'helium',
-      'superkonduktor-ybco',
-      'non-stoikiometri',
-      'valensi-campuran',
-      'fluks-knudsen',
-      'waktu-paruh-tekanan',
-      'kinetika-gas',
-      'disosiasi-termal',
-      'n2o4-no2',
-      'kerapatan-uap-dumas',
-      'derajat-disosiasi',
-      'tetapan-kp',
     ],
-  prerequisites: [
-    {
-      tag: 'massa-atom-relatif-dan-isotop-karbon12',
-      tags: ['massa-atom-relatif', 'isotop-karbon-12', 'satuan-massa-atom-sma', 'massa-molekul-relatif'],
-      title: 'Prasyarat 1: Standar Massa Atom Relatif (Ar), Isotop Karbon-12 & Massa Molekul Relatif (Mr)',
-      summary: 'Konsep dasar skala massa atom komparatif dan perhitungan massa molar senyawa.',
-      content: `Atom memiliki massa riil yang luar biasa mungil (berorde $10^{-24}$ hingga $10^{-22}\\text{ gram}$), sehingga mustahil ditimbang satu per satu menggunakan neraca laboratorium biasa.
+    prerequisites: [
+      {
+        tag: 'massa-atom-relatif-dan-isotop-karbon12',
+        tags: ['massa-atom-relatif', 'isotop-karbon-12', 'satuan-massa-atom-sma', 'massa-molekul-relatif'],
+        title: 'Prasyarat 1: Standar Massa Atom Relatif (Ar), Isotop Karbon-12 & Massa Molekul Relatif (Mr)',
+        summary: 'Pondasi sistem penimbangan atom komparatif dan pembedaan konseptual antara Mr tanpa satuan dengan massa molar.',
+        content: `### 🎯 Mengapa Kita Perlu Standar Perbandingan? (Mental Model)
 
-### 1. Definisi Satuan Massa Atom (sma / amu / Dalton)
+Atom memiliki ukuran dan massa yang luar biasa mungil (berorde $10^{-24}$ hingga $10^{-22}\\text{ gram}$). Neraca paling presisi di laboratorium kimia mana pun tidak akan mampu menimbang satu butir atom.
 
-Para kimiawan sedunia (IUPAC) pada tahun 1961 menetapkan isotop **Karbon-12 ($\\ce{^{12}_6C}$)** sebagai standar rujukan universal:
-$$1\\text{ sma} = \\frac{1}{12} \\times \\text{massa } 1 \\text{ atom } \\ce{^{12}_6C} \\approx 1.66054 \\times 10^{-24}\\text{ gram}$$
+Oleh karena itu, para kimiawan sepakat membuat **sistem penimbangan komparatif**: sama seperti kita mengukur tinggi badan dengan mistar meteran standar, kita membandingkan massa satu atom dengan suatu "anak timbangan rujukan universal".
 
 ---
 
-### 2. Massa Atom Relatif ($A_r$)
+### 1. Standar Karbon-12 & Satuan Massa Atom (sma / amu)
 
-Massa atom relatif ($A_r$) adalah perbandingan massa rata-rata satu atom suatu unsur terhadap $\\frac{1}{12}$ massa satu atom Karbon-12:
-$$A_r(\\text{X}) = \\frac{\\text{massa rata-rata } 1 \\text{ atom X}}{\\frac{1}{12} \\times \\text{massa } 1 \\text{ atom } \\ce{^{12}_6C}}$$
-- Karena di alam suatu unsur dapat terdiri dari beberapa isotop dengan kelimpahan berbeda, nilai $A_r$ yang tertera pada tabel periodik merupakan **rata-rata berbobot (*weighted average*)** dari seluruh isotop alaminya:
-  $$A_r = \\sum (\\% \\text{ Kelimpahan}_i \\times \\text{Massa Isotop}_i)$$
-  *Contoh:* Klorin terdiri dari $75.77\\% \\ce{^{35}Cl}$ dan $24.23\\% \\ce{^{37}Cl}$, menghasilkan $A_r(\\ce{Cl}) = 35.45\\text{ sma}$.
+Pada tahun 1961, badan kimia internasional (IUPAC) secara resmi menetapkan isotop **Karbon-12 ($\\ce{^{12}_6C}$)** sebagai anak timbangan standar universal:
+$1\\text{ sma} = \\frac{1}{12} \\times \\text{massa } 1 \\text{ atom } \\ce{^{12}_6C} \\approx 1.66054 \\times 10^{-24}\\text{ gram}$
+
+*Artinya:* Jika suatu atom memiliki massa $24\\text{ sma}$, berarti atom tersebut tepat 24 kali lebih berat dibanding $\\frac{1}{12}$ massa satu atom Karbon-12.
+
+---
+
+### 2. Massa Atom Relatif ($A_r$) - Rata-Rata Berbobot Isotop
+
+Di alam, hampir semua unsur tidak hanya terdiri dari satu jenis atom, melainkan memiliki beberapa "kembaran" dengan massa berbeda yang disebut **isotop**.
+
+Nilai $A_r$ yang Anda lihat pada Tabel Periodik bukanlah massa satu butir isotop, melainkan **rata-rata berbobot (*weighted average*)** dari kelimpahan seluruh isotop alaminya di planet bumi:
+$A_r(\\text{X}) = \\sum \\left( \\frac{\\% \\text{ Kelimpahan}_i}{100} \\times \\text{Massa Isotop}_i \\right)$
+
+**Contoh Cepat:** Klorin di alam terdiri dari dua isotop:
+- $75.77\\%$ adalah isotop $\\ce{^{35}Cl}$ (massa $\\approx 35\\text{ sma}$)
+- $24.23\\%$ adalah isotop $\\ce{^{37}Cl}$ (massa $\\approx 37\\text{ sma}$)
+
+Kalkulasi nilai $A_r$:
+$A_r(\\ce{Cl}) = (0.7577 \\times 35) + (0.2423 \\times 37) = 26.52 + 8.96 = \\mathbf{35.48} \\approx 35.5$
+*(Itulah alasan mengapa nilai $A_r$ Klorin pada tabel periodik berkoma $35.5$).*
 
 ---
 
 ### 3. Massa Molekul Relatif ($M_r$)
 
-> [!NOTE]
-> **Distingsi Dimensi Fisika ($M_r$ vs Massa Molar):**  
-> Massa Molekul Relatif ($M_r$) secara definisi IUPAC adalah besaran komparatif **tanpa satuan (dimensi 1)**. Besaran yang memiliki satuan $\text{gram/mol}$ adalah **Massa Molar ($M_m$)**, di mana nilai numerik massa molar selalu tepat sama dengan nilai $M_r$.
+Massa Molekul Relatif ($M_r$) adalah jumlah total $A_r$ dari seluruh atom yang menyusun suatu rumus molekul atau senyawa:
+$M_r(\\ce{A_x B_y}) = x \\cdot A_r(\\ce{A}) + y \\cdot A_r(\\ce{B})$
 
-Massa molekul relatif ($M_r$) atau massa rumus relatif adalah jumlah total $A_r$ dari seluruh atom penyusun suatu molekul atau senyawa:
-$$M_r(\\ce{A_x B_y}) = x \\cdot A_r(\\ce{A}) + y \\cdot A_r(\\ce{B})$$
-- *Contoh Air ($\\ce{H2O}$):*  
-  $M_r = 2 \cdot A_r(\ce{H}) + 1 \cdot A_r(\ce{O}) = 2(1.01) + 16.00 = 18.02$ (Massa Molar $= 18.02\text{ g/mol}$).
-- *Contoh Glukosa ($\\ce{C6H12O6}$):*  
-  $M_r = 6(12.01) + 12(1.01) + 6(16.00) = 72.06 + 12.12 + 96.00 = 180.18\\text{ g/mol}$.
-- *Contoh Kalsium Fosfat ($\\ce{Ca3(PO4)2}$):*  
-  $M_r = 3(40.08) + 2[30.97 + 4(16.00)] = 120.24 + 2(94.97) = 310.18\\text{ g/mol}$.`,
-      keyFormulas: [
-        { name: 'Rumus Ar Rata-rata Isotop', formula: 'A_r = \\sum_{i} \\left( \\frac{\\%_i}{100} \\times m_i \\right)' },
-        { name: 'Rumus Massa Molekul Relatif', formula: 'M_r = \\sum_{i} n_i \\cdot A_{r,i}' },
-      ],
-    },
-    {
-      tag: 'persen-komposisi-massa-unsur',
-      tags: ['persen-komposisi', 'fraksi-massa', 'analisis-unsur'],
-      title: 'Prasyarat 2: Persen Komposisi Massa Unsur dalam Senyawa',
-      summary: 'Kalkulasi kontribusi fraksi massa tiap unsur terhadap massa molekul total.',
-      content: `Persen massa unsur dalam suatu senyawa menyatakan persentase massa yang disumbangkan oleh unsur tersebut terhadap massa total senyawa:
-$$\\% \\text{ Unsur X} = \\frac{n \\times A_r(\\text{X})}{M_r(\\text{Senyawa})} \\times 100\\%$$
-- $n$ = jumlah atom unsur X di dalam satu rumus kimia senyawa.
-
-*Contoh Kasus:* Hitung persen massa Nitrogen dalam pupuk Urea ($\\ce{CO(NH2)2}$, $M_r = 60.06\\text{ g/mol}$):
-- Dalam satu molekul urea terdapat $2$ atom Nitrogen ($n = 2, A_r(\\ce{N}) = 14.01$).
-$$\\% \\ce{N} = \\frac{2 \\times 14.01}{60.06} \\times 100\\% = \\frac{28.02}{60.06} \\times 100\\% = \\mathbf{46.65\\%}$$
-*(Artinya dalam setiap $100\\text{ kg}$ pupuk urea murni, terkandung $46.65\\text{ kg}$ unsur nitrogen yang siap diserap tanaman).*`,
-      keyFormulas: [
-        { name: 'Persen Komposisi Unsur', formula: '\\% X = \\frac{n \\cdot A_r(X)}{M_r} \\times 100\\%' },
-      ],
-    },
-  ],
-  core_concepts: [
-    {
-      tag: 'lima-hukum-dasar-kimia-lengkap',
-      tags: ['hukum-dasar-kimia', 'lavoisier', 'proust', 'dalton', 'gay-lussac', 'avogadro', 'perbandingan-berganda'],
-      title: 'Konsep Inti 1: Peta 5 Hukum Dasar Kimia Klasik (Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro)',
-      summary: 'Evolusi hukum-hukum stoikiometri kuantitatif yang melahirkan teori atom modern dan konsep mol.',
-      content: `Seluruh stoikiometri modern berakar pada lima hukum dasar kimia yang ditemukan melalui eksperimen penimbangan presisi pada abad ke-18 dan ke-19.
-
-### 1. Kajian Mendalam 5 Hukum Dasar Kimia
-
-1. **Hukum Kekekalan Massa (Antoine Lavoisier, 1789):**
-   > *"Dalam sistem tertutup, massa zat sebelum reaksi kimia selalu sama dengan massa zat setelah reaksi kimia."*
-   $$\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}$$
-   - *Eksperimen:* Pembakaran merkuri dalam bejana tertutup menghasilkan merkuri oksida dengan massa total yang tepat setara dengan massa merkuri ditambah massa gas oksigen yang terserap.
-2. **Hukum Perbandingan Tetap (Joseph Louis Proust, 1799):**
-   > *"Perbandingan massa unsur-unsur pembentuk suatu senyawa selalu tetap dan tertentu, dari mana pun sumber senyawa itu diperoleh atau dengan cara apa pun senyawa itu disintesis."*
-   - *Contoh Air ($\\ce{H2O}$):* Perbandingan massa Hidrogen dan Oksigen selalu tepat **$1 : 8$**. Jika $2\\text{ g } \\ce{H2}$ direaksikan dengan $8\\text{ g } \\ce{O2}$, maka hanya $1\\text{ g } \\ce{H2}$ yang bereaksi membentuk $9\\text{ g } \\ce{H2O}$, dan tersisa $1\\text{ g } \\ce{H2}$ yang tidak bereaksi.
-3. **Hukum Perbandingan Berganda (John Dalton, 1803):**
-   > *"Jika dua unsur dapat membentuk lebih dari satu jenis senyawa, dan jika massa salah satu unsur dibuat bernilai tetap (sama), maka perbandingan massa unsur yang lain dalam senyawa-senyawa tersebut merupakan perbandingan bilangan bulat dan sederhana."*
-   - *Contoh Oksida Karbon:*
-     - Pada Karbon Monoksida ($\\ce{CO}$): $12\\text{ g } \\ce{C}$ mengikat $16\\text{ g } \\ce{O}$ (rasio $\\ce{C : O} = 1 : 1.33$).
-     - Pada Karbon Dioksida ($\\ce{CO2}$): $12\\text{ g } \\ce{C}$ mengikat $32\\text{ g } \\ce{O}$ (rasio $\\ce{C : O} = 1 : 2.67$).
-     - Untuk massa $\\ce{C}$ yang sama ($12\\text{ g}$), rasio massa Oksigen pada $\\ce{CO : CO2} = 16 : 32 = \\mathbf{1 : 2}$ (bilangan bulat sederhana!).
-4. **Hukum Perbandingan Volume (Joseph Louis Gay-Lussac, 1808):**
-   > *"Pada suhu dan tekanan yang sama ($T, P$ konstan), volume gas-gas yang bereaksi dan volume gas-gas hasil reaksi berbanding sebagai bilangan-bilangan bulat dan sederhana."*
-   - Rasio volume gas setara langsung dengan rasio koefisien stoikiometri reaksinya!
-   - Contoh sintesis gas amonia:
-     $$\\ce{1 N2(g) + 3 H2(g) -> 2 NH3(g)}$$
-     Rasio volume: $1\\text{ L } \\ce{N2} : 3\\text{ L } \\ce{H2} : 2\\text{ L } \\ce{NH3}$ (total volume menyusut dari $4\\text{ L}$ menjadi $2\\text{ L}$).
-5. **Hipotesis / Hukum Avogadro (Amedeo Avogadro, 1811):**
-   > *"Pada suhu dan tekanan yang sama, semua gas yang bervolume sama selalu mengandung jumlah molekul yang sama banyak."*
-   $$\\frac{V_1}{V_2} = \\frac{n_1}{n_2} = \\frac{N_1}{N_2}$$
-   - Avogadro memecahkan misteri eksperimen Gay-Lussac dengan mendalilkan bahwa gas-gas seperti hidrogen, oksigen, dan nitrogen tidak berada sebagai atom tunggal bebas, melainkan sebagai **molekul diatomik ($\\ce{H2}, \\ce{O2}, \\ce{N2}$)**.
+**Contoh Perhitungan:**
+1. **Molekul Air ($\\ce{H2O}$):**
+   $M_r = 2 \\cdot A_r(\\ce{H}) + 1 \\cdot A_r(\\ce{O}) = 2(1.01) + 16.00 = \\mathbf{18.02}$
+2. **Glukosa ($\\ce{C6H12O6}$):**
+   $M_r = 6(12.01) + 12(1.01) + 6(16.00) = 72.06 + 12.12 + 96.00 = \\mathbf{180.18}$
+3. **Pupuk Urea ($\\ce{CO(NH2)2}$):**
+   $M_r = 1(12.01) + 1(16.00) + 2(14.01) + 4(1.01) = 12.01 + 16.00 + 28.02 + 4.04 = \\mathbf{60.07}$
 
 ---
 
-### 2. Peta Komparasi 5 Hukum Dasar Kimia
+> [!WARNING]
+> ### ⚠️ Jebakan Miskonsepsi Penting: $M_r$ vs Massa Molar
+> Banyak siswa sering mencampuradukkan kedua istilah ini dalam ujian:
+> - **Massa Molekul Relatif ($M_r$)**: Merupakan angka perbandingan murni, sehingga **TIDAK memiliki satuan** (dimensi 1).
+> - **Massa Molar ($M_m$)**: Menyatakan massa untuk setiap $1\\text{ mol}$ zat, dan memiliki satuan resmi **$\\text{gram/mol}$**.
+>
+> *Secara angka numerik keduanya tepat sama:*  
+> Air memiliki $M_r = 18.02$, dan Massa Molar air adalah $18.02\\text{ g/mol}$.`,
+        keyFormulas: [
+          { name: 'Rumus Ar Rata-rata Isotop', formula: 'A_r = \\sum_{i} \\left( \\frac{\\%_i}{100} \\times m_i \\right)' },
+          { name: 'Rumus Massa Molekul Relatif', formula: 'M_r = \\sum_{i} n_i \\cdot A_{r,i}' },
+        ],
+      },
+      {
+        tag: 'persen-komposisi-massa-unsur',
+        tags: ['persen-komposisi', 'fraksi-massa', 'analisis-unsur'],
+        title: 'Prasyarat 2: Persen Komposisi Massa Unsur dalam Senyawa',
+        summary: 'Metode kalkulasi fraksi massa tiap atom penyusun dan aplikasinya dalam memilih bahan kimia bernilai ekonomis.',
+        content: `### 🎯 Analogi Sederhana: Berapa Persen Daging dalam Bakso?
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 330" width="100%" height="auto" class="max-w-[840px] select-none font-sans">
+Bayangkan Anda membeli semangkuk bakso seberat $100\\text{ gram}$. Jika daging sapi di dalamnya seberat $45\\text{ gram}$, maka kadar dagingnya adalah $45\\%$.
+
+Hal serupa berlaku pada senyawa kimia. **Persen massa unsur** menyatakan persentase kontribusi massa dari suatu unsur tertentu terhadap massa total molekul senyawa.
+
+---
+
+### 📌 Formula Inti Persen Komposisi
+
+$\\% \\text{ Unsur X} = \\frac{n \\times A_r(\\text{X})}{M_r(\\text{Senyawa})} \\times 100\\%$
+
+- $n$ = jumlah atom unsur X di dalam satu rumus kimia molekul.
+- $A_r(\\text{X})$ = massa atom relatif unsur X.
+- $M_r(\\text{Senyawa})$ = massa molekul relatif total senyawa.
+
+---
+
+### 🧭 Alur 3 Langkah Pengerjaan:
+
+1. **Langkah 1**: Hitung $M_r$ total dari senyawa yang ditanyakan.
+2. **Langkah 2**: Hitung kontribusi massa atom target ($n \\times A_r$).
+3. **Langkah 3**: Bagi kontribusi unsur dengan $M_r$ total, lalu kalikan $100\\%$.
+
+---
+
+### 💼 Studi Kasus Nyata: Petani Cerdas Memilih Pupuk Nitrogen
+
+Seorang petani ingin membeli pupuk yang memberikan kandungan unsur Nitrogen ($\\ce{N}$) paling banyak per kilogram karung pupuk. Di toko pertanian tersedia dua opsi:
+1. **Pupuk Urea ($\\ce{CO(NH2)2}$)**, $M_r = 60.06$
+2. **Pupuk Amonium Nitrat ($\\ce{NH4NO3}$)**, $M_r = 80.05$
+
+Mari kita bantu petani tersebut menghitung kadar nitrogennya ($A_r\\ \\ce{N} = 14.01$):
+
+- **Kadar N pada Pupuk Urea ($\\ce{CO(NH2)2}$):**  
+  Terdapat 2 atom N ($n = 2$):
+  $\\% \\ce{N} = \\frac{2 \\times 14.01}{60.06} \\times 100\\% = \\frac{28.02}{60.06} \\times 100\\% = \\mathbf{46.65\\%}$
+
+- **Kadar N pada Pupuk Amonium Nitrat ($\\ce{NH4NO3}$):**  
+  Terdapat 2 atom N ($n = 2$):
+  $\\% \\ce{N} = \\frac{2 \\times 14.01}{80.05} \\times 100\\% = \\frac{28.02}{80.05} \\times 100\\% = \\mathbf{35.00\\%}$
+
+**Kesimpulan Aplikatif:** Petani lebih diuntungkan memilih **Urea**, karena dalam setiap $100\\text{ kg}$ urea terkandung $46.65\\text{ kg}$ unsur nitrogen aktif, lebih tinggi daripada amonium nitrat ($35.00\\text{ kg}$).`,
+        keyFormulas: [
+          { name: 'Persen Komposisi Unsur', formula: '\\% X = \\frac{n \\cdot A_r(X)}{M_r} \\times 100\\%' },
+        ],
+      },
+    ],
+    core_concepts: [
+      {
+        tag: 'lima-hukum-dasar-kimia-lengkap',
+        tags: ['hukum-dasar-kimia', 'lavoisier', 'proust', 'dalton', 'gay-lussac', 'avogadro', 'perbandingan-berganda'],
+        title: 'Konsep Inti 1: Peta 5 Hukum Dasar Kimia Klasik (Lavoisier, Proust, Dalton, Gay-Lussac, Avogadro)',
+        summary: 'Memahami 5 aturan main alam semesta yang menjadi landasan seluruh perhitungan reaksi kimia.',
+        content: `### 🎯 Mengapa Hukum-Hukum Ini Dibuat? (Big Picture)
+
+Sebelum abad ke-18, kimia dianggap seperti "sihir" alkimia karena orang belum menimbang zat secara teliti. Revolusi sains kimia modern lahir ketika para ilmuwan mulai menggunakan neraca analitis presisi.
+
+Mereka menemukan **5 aturan main fundamental alam semesta**:
+
+---
+
+### 1. Hukum Kekekalan Massa (Antoine Lavoisier, 1789)
+> *"Di dalam sistem tertutup, massa zat sebelum reaksi kimia selalu sama dengan massa zat sesudah reaksi."*
+
+$\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}$
+
+- **Analogi Logika:** Jika Anda mereaksikan $10\\text{ gram}$ lilin dengan $32\\text{ gram}$ oksigen di dalam toples kedap tertutup, total abu, jelaga, gas $\\ce{CO2}$, dan uap air yang terbentuk di akhir reaksi tetap tepat $42\\text{ gram}$.
+- **⚠️ Peringatan Ujian:** Hati-hati dengan eksperimen di wadah terbuka! Kertas yang dibakar di lantai terbuka terasa "berkurang massanya" semata-mata karena gas $\\ce{CO2}$ dan $\\ce{H2O}$ terbang ke udara bebas.
+
+---
+
+### 2. Hukum Perbandingan Tetap (Joseph Louis Proust, 1799)
+> *"Perbandingan massa unsur-unsur pembentuk suatu senyawa selalu tetap dan tertentu, dari mana pun asal senyawa itu diperoleh."*
+
+- **Analogi Resep Baku:** Resep molekul air ($\\ce{H2O}$) selalu paten:
+  $\\text{Massa } \\ce{H} : \\text{Massa } \\ce{O} = 1 : 8$
+  Jika Anda mencampurkan $2\\text{ gram}$ gas Hidrogen dengan $8\\text{ gram}$ gas Oksigen:
+  - Hanya $1\\text{ gram } \\ce{H2}$ yang bereaksi dengan seluruh $8\\text{ gram } \\ce{O2}$.
+  - Terbentuk $9\\text{ gram } \\ce{H2O}$.
+  - Tersisa $1\\text{ gram } \\ce{H2}$ yang tidak ikut bereaksi. Senyawa tidak bisa "dipaksa" mengubah proporsi rasio alaminya.
+
+---
+
+### 3. Hukum Perbandingan Berganda (John Dalton, 1803)
+> *"Jika dua unsur dapat membentuk lebih dari satu jenis senyawa, dan jika massa salah satu unsur dibuat bernilai tetap (sama), maka perbandingan massa unsur yang lain merupakan perbandingan bilangan bulat dan sederhana."*
+
+- **Kasus Klasik (Oksida Nitrogen):**
+  Unsur $\\ce{N}$ dan $\\ce{O}$ dapat membentuk $\\ce{NO}$ dan $\\ce{NO2}$.
+  - Pada $\\ce{NO}$: $14\\text{ g } \\ce{N}$ mengikat $16\\text{ g } \\ce{O}$.
+  - Pada $\\ce{NO2}$: $14\\text{ g } \\ce{N}$ mengikat $32\\text{ g } \\ce{O}$.
+  - Untuk massa $\\ce{N}$ yang sama ($14\\text{ g}$), perbandingan massa oksigen adalah:
+    $\\text{Massa O (I)} : \\text{Massa O (II)} = 16 : 32 = \\mathbf{1 : 2}$
+    Angka $1 : 2$ adalah bilangan bulat sederhana! Inilah bukti awal bahwa materi tersusun atas atom-atom diskret.
+
+---
+
+### 4. Hukum Perbandingan Volume (Joseph Gay-Lussac, 1808)
+> *"Pada suhu dan tekanan yang sama ($P, T$ sama), perbandingan volume gas-gas yang bereaksi dan gas-gas hasil reaksi berbanding sebagai bilangan bulat sederhana."*
+
+**Kunci Emas:** Pada fasa gas ($P, T$ konstan):
+$\\text{Perbandingan Volume Gas} = \\text{Perbandingan Koefisien Reaksi}$
+
+*Contoh Reaksi Pembentukan Amonia:*
+$\\ce{1 N2(g) + 3 H2(g) -> 2 NH3(g)}$
+Artinya, jika direaksikan $10\\text{ Liter}$ gas $\\ce{N2}$, maka:
+- Dibutuhkan gas hidrogen sebanyak: $\\frac{3}{1} \\times 10 = \\mathbf{30\\text{ Liter } \\ce{H2}}$
+- Dihasilkan gas amonia sebanyak: $\\frac{2}{1} \\times 10 = \\mathbf{20\\text{ Liter } \\ce{NH3}}$
+
+---
+
+### 5. Hipotesis Avogadro (Amedeo Avogadro, 1811)
+> *"Pada suhu dan tekanan yang sama, semua gas yang bervolume sama memiliki jumlah molekul yang sama banyak."*
+
+$\\frac{V_1}{V_2} = \\frac{n_1}{n_2} = \\frac{N_1}{N_2}$
+
+Avogadro menyatukan hukum Gay-Lussac dengan teori atom: perbandingan volume gas sama dengan perbandingan mol dan perbandingan jumlah molekul partikelnya.`,
+        keyFormulas: [
+          { name: 'Hukum Kekekalan Massa', formula: '\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}' },
+          { name: 'Hukum Perbandingan Volume Gay-Lussac', formula: '\\frac{V_1}{V_2} = \\frac{\\text{Koefisien}_1}{\\text{Koefisien}_2}' },
+          { name: 'Hipotesis Avogadro Gas', formula: '\\frac{V_1}{V_2} = \\frac{n_1}{n_2} = \\frac{N_1}{N_2}' },
+        ],
+      },
+      {
+        tag: 'konsep-mol-dan-jembatan-mol-lengkap',
+        tags: ['konsep-mol', 'jembatan-mol', 'bilangan-avogadro', 'volume-molar', 'stp-rtp', 'gas-ideal', 'molaritas'],
+        title: 'Konsep Inti 2: Konsep Mol & Peta Jembatan Mol (Massa, Partikel, Volume Gas & Molaritas)',
+        summary: 'Peta navigasi pusat konversi kuantitatif kimia: mengubah gram, jumlah molekul, liter gas, dan molaritas larutan.',
+        content: `### 🎯 Apa Itu "Mol"? (Mental Model Lusin)
+
+Dalam kehidupan sehari-hari, kita membeli telur menggunakan satuan **lusin** ($12$ butir) atau kertas menggunakan satuan **rim** ($500$ lembar). 
+
+Karena atom terlalu banyak dan terlalu kecil, kimiawan membuat satuan kemasan praktis yang disebut **Mol**:
+$1\\text{ mol} = 6.022 \\times 10^{23}\\text{ butir partikel (Bilangan Avogadro, } N_A)$
+
+Jika Anda punya $1\\text{ mol}$ atom Karbon, berarti Anda memegang $6.022 \\times 10^{23}$ butir atom Karbon, dan ketika ditimbang di neraca, massanya tepat sama dengan nilai $A_r$-nya: **$12.01\\text{ gram}$**!
+
+---
+
+### 🌉 Peta Jembatan Mol (The Central Hub)
+
+Mol ($n$) adalah **Ibu Kota** kimia. Jika Anda ingin mengonversi dari satu besaran ke besaran lain (misal dari gram ke liter gas), Anda **wajib singgah ke Mol terlebih dahulu**:
+
+<svg viewBox="0 0 900 480" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" class="select-none font-sans max-w-full h-auto">
   <defs>
-    <linearGradient id="lawGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#eff6ff"/><stop offset="100%" stop-color="#dbeafe"/>
-    </linearGradient>
-    <linearGradient id="lawGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ecfdf5"/><stop offset="100%" stop-color="#d1fae5"/>
-    </linearGradient>
-    <linearGradient id="lawGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fde68a"/>
-    </linearGradient>
-    <linearGradient id="lawGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f3e8ff"/><stop offset="100%" stop-color="#e9d5ff"/>
-    </linearGradient>
-    <linearGradient id="lawGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fee2e2"/><stop offset="100%" stop-color="#fecaca"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="840" height="330" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="420" y="25" font-size="13.5" font-weight="bold" fill="#0f172a" text-anchor="middle">5 HUKUM DASAR KIMIA KLASIK (FONDASI STOIKIOMETRI)</text>
-
-  <!-- ROW ATAS: 3 HUKUM MASSA -->
-  <!-- 1. Lavoisier -->
-  <g transform="translate(20, 45)">
-    <rect width="250" height="125" rx="10" fill="url(#lawGrad1)" stroke="#93c5fd" stroke-width="1.2"/>
-    <rect x="10" y="8" width="135" height="18" rx="4" fill="#2563eb"/>
-    <text x="77" y="21" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">LAVOISIER (1789)</text>
-    <text x="125" y="42" font-size="10.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Hukum Kekekalan Massa</text>
-    <text x="125" y="60" font-size="9" fill="#334155" text-anchor="middle">Massa sistem tertutup selalu konstan:</text>
-    <rect x="25" y="70" width="200" height="25" rx="5" fill="#ffffff" stroke="#bfdbfe"/>
-    <text x="125" y="87" font-size="10.5" font-family="monospace" font-weight="bold" fill="#1e40af" text-anchor="middle">Σ m_reaktan = Σ m_produk</text>
-    <text x="125" y="112" font-size="8.5" font-style="italic" fill="#64748b" text-anchor="middle">Atom tidak diciptakan / dimusnahkan</text>
-  </g>
-
-  <!-- 2. Proust -->
-  <g transform="translate(295, 45)">
-    <rect width="250" height="125" rx="10" fill="url(#lawGrad2)" stroke="#86efac" stroke-width="1.2"/>
-    <rect x="10" y="8" width="130" height="18" rx="4" fill="#059669"/>
-    <text x="75" y="21" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">PROUST (1799)</text>
-    <text x="125" y="42" font-size="10.5" font-weight="bold" fill="#065f46" text-anchor="middle">Hukum Perbandingan Tetap</text>
-    <text x="125" y="60" font-size="9" fill="#334155" text-anchor="middle">Rasio massa unsur senyawa selalu pasti:</text>
-    <rect x="25" y="70" width="200" height="25" rx="5" fill="#ffffff" stroke="#a7f3d0"/>
-    <text x="125" y="87" font-size="10" font-family="monospace" font-weight="bold" fill="#047857" text-anchor="middle">m_H : m_O dalam H₂O = 1 : 8</text>
-    <text x="125" y="112" font-size="8.5" font-style="italic" fill="#64748b" text-anchor="middle">Kelebihan reaktan menjadi sisa</text>
-  </g>
-
-  <!-- 3. Dalton -->
-  <g transform="translate(570, 45)">
-    <rect width="250" height="125" rx="10" fill="url(#lawGrad3)" stroke="#fcd34d" stroke-width="1.2"/>
-    <rect x="10" y="8" width="125" height="18" rx="4" fill="#d97706"/>
-    <text x="72" y="21" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">DALTON (1803)</text>
-    <text x="125" y="42" font-size="10" font-weight="bold" fill="#92400e" text-anchor="middle">Perbandingan Berganda</text>
-    <text x="125" y="60" font-size="8.5" fill="#334155" text-anchor="middle">Jika massa 1 unsur sama, unsur lain:</text>
-    <rect x="25" y="70" width="200" height="25" rx="5" fill="#ffffff" stroke="#fde68a"/>
-    <text x="125" y="87" font-size="9.5" font-family="monospace" font-weight="bold" fill="#b45309" text-anchor="middle">CO : CO₂ → m_O = 1 : 2</text>
-    <text x="125" y="112" font-size="8.5" font-style="italic" fill="#64748b" text-anchor="middle">Berbanding bulat &amp; sederhana</text>
-  </g>
-
-  <!-- ROW BAWAH: 2 HUKUM GAS -->
-  <!-- 4. Gay-Lussac -->
-  <g transform="translate(110, 185)">
-    <rect width="290" height="130" rx="10" fill="url(#lawGrad4)" stroke="#c084fc" stroke-width="1.2"/>
-    <rect x="10" y="8" width="155" height="18" rx="4" fill="#9333ea"/>
-    <text x="87" y="21" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">GAY-LUSSAC (1808)</text>
-    <text x="145" y="42" font-size="10.5" font-weight="bold" fill="#581c87" text-anchor="middle">Hukum Perbandingan Volume</text>
-    <text x="145" y="60" font-size="9" fill="#334155" text-anchor="middle">Pada T, P sama, volume gas reaktif:</text>
-    <rect x="25" y="70" width="240" height="25" rx="5" fill="#ffffff" stroke="#e9d5ff"/>
-    <text x="145" y="87" font-size="10" font-family="monospace" font-weight="bold" fill="#7e22ce" text-anchor="middle">Perbandingan V = Koefisien Reaksi</text>
-    <text x="145" y="112" font-size="8.5" font-style="italic" fill="#64748b" text-anchor="middle">2 Vol H₂ + 1 Vol O₂ → 2 Vol H₂O(g)</text>
-  </g>
-
-  <!-- 5. Avogadro -->
-  <g transform="translate(440, 185)">
-    <rect width="290" height="130" rx="10" fill="url(#lawGrad5)" stroke="#f87171" stroke-width="1.2"/>
-    <rect x="10" y="8" width="150" height="18" rx="4" fill="#dc2626"/>
-    <text x="85" y="21" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">AVOGADRO (1811)</text>
-    <text x="145" y="42" font-size="10.5" font-weight="bold" fill="#991b1b" text-anchor="middle">Hipotesis / Hukum Avogadro</text>
-    <text x="145" y="60" font-size="9" fill="#334155" text-anchor="middle">Pada T, P sama, volume sama mengandung:</text>
-    <rect x="25" y="70" width="240" height="25" rx="5" fill="#ffffff" stroke="#fecaca"/>
-    <text x="145" y="87" font-size="10.5" font-family="monospace" font-weight="bold" fill="#b91c1c" text-anchor="middle">V₁ / V₂ = n₁ / n₂ = N₁ / N₂</text>
-    <text x="145" y="112" font-size="8.5" font-style="italic" fill="#64748b" text-anchor="middle">Jumlah molekul sama pada volume sama</text>
-  </g>
-</svg>`,
-      keyFormulas: [
-        { name: 'Hukum Kekekalan Massa Lavoisier', formula: '\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}' },
-        { name: 'Hukum Avogadro', formula: '\\frac{V_1}{V_2} = \\frac{n_1}{n_2}' },
-      ],
-    },
-    {
-      tag: 'jembatan-mol-lengkap-dan-konversi',
-      tags: ['konsep-mol', 'jembatan-mol', 'bilangan-avogadro', 'volume-stp-rtp', 'gas-ideal', 'molaritas'],
-      title: 'Konsep Inti 2: Konsep Mol & Peta Jembatan Mol (Massa, Partikel, Volume Gas & Molaritas)',
-      summary: 'Satuan dasar jumlah zat kimia SI, konstanta Avogadro, rumus konversi volume gas STP/RTP/ideal, dan konsentrasi larutan.',
-      content: `Dalam Sistem Internasional (SI), **Mol (mol)** adalah satuan pokok yang menyatakan kuantitas zat yang mengandung tepat **$6.02214076 \\times 10^{23}$ entitas elementer** (atom, molekul, ion, atau elektron). Nilai ini disebut sebagai **Bilangan Avogadro** (atau **Konstanta Avogadro**, $N_A = 6.02214076 \times 10^{23}\text{ mol}^{-1}$).
-
-### 1. Diagram Jembatan Mol Sentral (The Central Mole Map)
-
-Mol bertindak sebagai terminal penghubung (jembatan transit) antarsifat makroskopis yang dapat diukur di laboratorium (massa dalam gram, volume dalam liter, konsentrasi molar) dengan dunia mikroskopis (jumlah atom atau molekul).
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="molCenter" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#0284c7"/>
-    </linearGradient>
-    <marker id="mArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#0284c7"/>
+    <!-- Arrowheads -->
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#2563eb" />
     </marker>
-  </defs>
-
-  <rect width="820" height="380" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="410" y="24" font-size="13.5" font-weight="bold" fill="#0f172a" text-anchor="middle">DIAGRAM JEMBATAN KONVERSI MOL LENGKAP</text>
-
-  <!-- PUSAT: MOL (n) -->
-  <g transform="translate(410, 190)">
-    <circle r="46" fill="url(#molCenter)" stroke="#0369a1" stroke-width="2.5"/>
-    <text x="0" y="-4" font-size="15" font-weight="extrabold" fill="#ffffff" text-anchor="middle">MOL (n)</text>
-    <text x="0" y="14" font-size="9" fill="#e0f2fe" text-anchor="middle">Jumlah Zat</text>
-  </g>
-
-  <!-- 1. ATAS: MASSA (gram) -->
-  <g transform="translate(410, 60)">
-    <rect x="-110" y="-30" width="220" height="55" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-    <text x="0" y="-6" font-size="12" font-weight="bold" fill="#1e40af" text-anchor="middle">MASSA ZAT (m)</text>
-    <text x="0" y="12" font-size="9.5" fill="#64748b" text-anchor="middle">Satuan: gram (g)</text>
-  </g>
-  <!-- Panah Mol <-> Massa -->
-  <line x1="395" y1="90" x2="395" y2="140" stroke="#0284c7" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="385" y="118" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="end">÷ Mr (atau Ar)</text>
-  <line x1="425" y1="140" x2="425" y2="90" stroke="#0284c7" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="435" y="118" font-size="9" font-weight="bold" fill="#0369a1">× Mr (atau Ar)</text>
-
-  <!-- 2. KANAN: VOLUME GAS (Liter) -->
-  <g transform="translate(680, 190)">
-    <rect x="-95" y="-45" width="190" height="90" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
-    <text x="0" y="-22" font-size="11.5" font-weight="bold" fill="#166534" text-anchor="middle">VOLUME GAS (V)</text>
-    <text x="0" y="-6" font-size="8.5" fill="#334155" text-anchor="middle">STP (0°C, 1 atm): V = n × 22.4 L</text>
-    <text x="0" y="10" font-size="8.5" fill="#334155" text-anchor="middle">RTP (25°C, 1 atm): V = n × 24.4 L</text>
-    <text x="0" y="26" font-size="8.5" font-weight="bold" fill="#15803d" text-anchor="middle">Ideal: V = (n·R·T) / P</text>
-  </g>
-  <!-- Panah Mol <-> Volume -->
-  <line x1="465" y1="175" x2="575" y2="175" stroke="#16a34a" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="520" y="168" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">× 22.4 L/mol (STP)</text>
-  <line x1="575" y1="205" x2="465" y2="205" stroke="#16a34a" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="520" y="222" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">÷ 22.4 L/mol (STP)</text>
-
-  <!-- 3. KIRI: JUMLAH PARTIKEL (N) -->
-  <g transform="translate(140, 190)">
-    <rect x="-95" y="-40" width="190" height="80" rx="10" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
-    <text x="0" y="-18" font-size="11.5" font-weight="bold" fill="#92400e" text-anchor="middle">JUMLAH PARTIKEL (N)</text>
-    <text x="0" y="-2" font-size="9" fill="#64748b" text-anchor="middle">(Atom, Molekul, Ion)</text>
-    <line x1="-75" y1="6" x2="75" y2="6" stroke="#fef08a"/>
-    <text x="0" y="22" font-size="9" font-family="monospace" font-weight="bold" fill="#b45309" text-anchor="middle">N_A = 6.022 × 10²³</text>
-  </g>
-  <!-- Panah Mol <-> Partikel -->
-  <line x1="355" y1="175" x2="245" y2="175" stroke="#d97706" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="300" y="168" font-size="9" font-weight="bold" fill="#b45309" text-anchor="middle">× 6.022 × 10²³</text>
-  <line x1="245" y1="205" x2="355" y2="205" stroke="#d97706" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="300" y="222" font-size="9" font-weight="bold" fill="#b45309" text-anchor="middle">÷ 6.022 × 10²³</text>
-
-  <!-- 4. BAWAH: MOLARITAS LARUTAN (M) -->
-  <g transform="translate(410, 320)">
-    <rect x="-110" y="-25" width="220" height="52" rx="10" fill="#ffffff" stroke="#c084fc" stroke-width="1.5"/>
-    <text x="0" y="-4" font-size="11.5" font-weight="bold" fill="#6b21a8" text-anchor="middle">MOLARITAS LARUTAN (M)</text>
-    <text x="0" y="14" font-size="9" font-family="monospace" fill="#7e22ce" text-anchor="middle">M = n / V(Liter) = mol/L</text>
-  </g>
-  <!-- Panah Mol <-> Molaritas -->
-  <line x1="395" y1="245" x2="395" y2="290" stroke="#9333ea" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="385" y="272" font-size="9" font-weight="bold" fill="#7e22ce" text-anchor="end">÷ V (Liter)</text>
-  <line x1="425" y1="290" x2="425" y2="245" stroke="#9333ea" stroke-width="2" marker-end="url(#mArrow)"/>
-  <text x="435" y="272" font-size="9" font-weight="bold" fill="#7e22ce">× V (Liter)</text>
-</svg>
-
----
-
-### 2. Formulasi Kuantitatif Konsep Mol
-
-1. **Hubungan Mol dengan Massa:**
-   $$m = n \\times M_r \\iff n = \\frac{m}{M_r}$$
-2. **Hubungan Mol dengan Jumlah Partikel:**
-   $$N = n \\times N_A \\iff n = \\frac{N}{6.022 \\times 10^{23}}$$
-3. **Hubungan Mol dengan Volume Gas:**
-   - **Kondisi Standar (STP: $0^\\circ\\text{C}, 1\\text{ atm}$):** Volume molar $V_m = 22.414\\text{ L/mol}$.
-     $$V = n \\times 22.4\\text{ L/mol}$$
-   - **Kondisi Kamar (RTP: $25^\\circ\\text{C}, 1\\text{ atm}$):** Volume molar $V_m = 24.4\\text{ L/mol}$.
-     $$V = n \\times 24.4\\text{ L/mol}$$
-   - **Kondisi Non-Standar (Persamaan Gas Ideal):**
-     $$P V = n R T \\implies V = \\frac{n R T}{P}$$
-     *(dengan $P$ dalam atm, $V$ dalam Liter, $n$ dalam mol, $T$ dalam Kelvin $= ^\\circ\\text{C} + 273.15$, dan tetapan gas universal $R = 0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$).*
-   - **Kondisi Gas Pembanding pada $T$ dan $P$ yang Sama:**
-     $$\\frac{V_1}{V_2} = \\frac{n_1}{n_2}$$
-4. **Hubungan Mol dengan Molaritas Larutan:**
-   $$M = \\frac{n}{V(\\text{Liter})} = \\frac{m}{M_r} \\times \\frac{1000}{V(\\text{mL})}$$`,
-      keyFormulas: [
-        { name: 'Konversi Mol ke Massa', formula: 'n = \\frac{m}{M_r}' },
-        { name: 'Konversi Mol ke Partikel', formula: 'n = \\frac{N}{N_A} \\quad (N_A = 6.022 \\times 10^{23})' },
-        { name: 'Volume Gas Ideal STP', formula: 'V = n \\times 22.4\\text{ L}' },
-        { name: 'Persamaan Gas Ideal', formula: 'P V = n R T' },
-      ],
-    },
-    {
-      tag: 'rumus-empiris-dan-rumus-molekul',
-      tags: ['rumus-empiris', 'rumus-molekul', 'algoritma-re-rm', 'persen-massa-ke-rumus'],
-      title: 'Konsep Inti 3: Penentuan Rumus Empiris (RE) & Rumus Molekul (RM)',
-      summary: 'Perbedaan rumus perbandingan atom terkecil vs rumus molekul sesungguhnya serta langkah-langkah aljabar penentuannya.',
-      content: `Dua jenis formula kimia digunakan untuk merepresentasikan komposisi senyawa:
-- **Rumus Empiris (RE):** Rumus kimia yang menyatakan **perbandingan bilangan bulat paling sederhana** dari atom-atom penyusun suatu molekul.
-- **Rumus Molekul (RM):** Rumus kimia yang menyatakan **jumlah atom sesungguhnya** dari setiap unsur yang membentuk satu molekul senyawa tersebut.
-
-Hubungan matematis mendasar antara keduanya:
-$$\\mathbf{\\text{Rumus Molekul} = (\\text{Rumus Empiris})_n} \\quad \\implies \\quad M_r(\\text{RM}) = n \\times M_r(\\text{RE})$$
-*(di mana $n$ adalah bilangan bulat positif: $n = 1, 2, 3, \\dots$).*
-
-*Contoh Kasus:*
-- Asetilena ($\\ce{C2H2}$) dan Benzena ($\\ce{C6H6}$) memiliki Rumus Empiris yang sama: **$\\ce{CH}$** ($M_{r,\\text{RE}} = 13.02\\text{ g/mol}$).
-- Untuk asetilena ($M_r = 26.04$): $n = \\frac{26.04}{13.02} = 2 \\implies \\mathbf{\\ce{(CH)2} = \\ce{C2H2}}$.
-- Untuk benzena ($M_r = 78.11$): $n = \\frac{78.11}{13.02} = 6 \\implies \\mathbf{\\ce{(CH)6} = \\ce{C6H6}}$.
-
----
-
-### 1. Algoritma 4 Langkah Penentuan Rumus Empiris
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="auto" class="max-w-[800px] select-none font-sans">
-  <defs>
-    <linearGradient id="reStep" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0284c7"/>
-      <stop offset="100%" stop-color="#0369a1"/>
-    </linearGradient>
-    <marker id="reArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#0284c7"/>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#059669" />
     </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#7c3aed" />
+    </marker>
+    <marker id="arrow-teal" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#0d9488" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08" />
+    </filter>
+    <filter id="glow-gold" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#f59e0b" flood-opacity="0.25" />
+    </filter>
   </defs>
 
-  <rect width="800" height="240" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="400" y="24" font-size="12.5" font-weight="bold" fill="#0f172a" text-anchor="middle">ALUR SISTEMATIS PENENTUAN RUMUS EMPIRIS &amp; RUMUS MOLEKUL</text>
-
-  <!-- 4 KARTU TAHAP -->
-  <!-- TAHAP 1 -->
-  <g transform="translate(20, 48)">
-    <rect width="165" height="135" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
-    <circle cx="22" cy="22" r="12" fill="url(#reStep)"/>
-    <text x="22" y="26" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="40" y="26" font-size="10" font-weight="bold" fill="#1e3a8a">Persen / Massa</text>
-    <line x1="10" y1="42" x2="155" y2="42" stroke="#e2e8f0"/>
-    <text x="82" y="62" font-size="8.5" fill="#334155" text-anchor="middle">Asumsikan 100 gram</text>
-    <text x="82" y="78" font-size="8.5" fill="#334155" text-anchor="middle">sampel total:</text>
-    <text x="82" y="98" font-size="9" font-family="monospace" font-weight="bold" fill="#2563eb" text-anchor="middle">% unsur = gram</text>
-    <text x="82" y="118" font-size="8" fill="#64748b" text-anchor="middle">Contoh: 40% C = 40 g C</text>
-  </g>
-  <path d="M 190 115 L 210 115" stroke="#0284c7" stroke-width="2" marker-end="url(#reArrow)"/>
-
-  <!-- TAHAP 2 -->
-  <g transform="translate(215, 48)">
-    <rect width="165" height="135" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
-    <circle cx="22" cy="22" r="12" fill="url(#reStep)"/>
-    <text x="22" y="26" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="40" y="26" font-size="10" font-weight="bold" fill="#1e3a8a">Konversi ke Mol</text>
-    <line x1="10" y1="42" x2="155" y2="42" stroke="#e2e8f0"/>
-    <text x="82" y="62" font-size="8.5" fill="#334155" text-anchor="middle">Bagi massa tiap unsur</text>
-    <text x="82" y="78" font-size="8.5" fill="#334155" text-anchor="middle">dengan Ar-nya:</text>
-    <text x="82" y="98" font-size="9.5" font-family="monospace" font-weight="bold" fill="#2563eb" text-anchor="middle">n = gram / Ar</text>
-    <text x="82" y="118" font-size="8" fill="#64748b" text-anchor="middle">Dapat mol n_C, n_H, n_O</text>
-  </g>
-  <path d="M 385 115 L 405 115" stroke="#0284c7" stroke-width="2" marker-end="url(#reArrow)"/>
-
-  <!-- TAHAP 3 -->
-  <g transform="translate(410, 48)">
-    <rect width="175" height="135" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-    <circle cx="22" cy="22" r="12" fill="#16a34a"/>
-    <text x="22" y="26" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="40" y="26" font-size="10" font-weight="bold" fill="#166534">Rasio Terkecil (RE)</text>
-    <line x1="10" y1="42" x2="165" y2="42" stroke="#e2e8f0"/>
-    <text x="87" y="62" font-size="8.5" fill="#334155" text-anchor="middle">Bagi semua nilai mol</text>
-    <text x="87" y="78" font-size="8.5" fill="#334155" text-anchor="middle">dengan mol terkecil:</text>
-    <text x="87" y="98" font-size="9" font-family="monospace" font-weight="bold" fill="#15803d" text-anchor="middle">n_A : n_B : n_C</text>
-    <text x="87" y="118" font-size="8" font-weight="bold" fill="#15803d" text-anchor="middle">→ Rumus Empiris (RE)</text>
-  </g>
-  <path d="M 590 115 L 610 115" stroke="#16a34a" stroke-width="2" marker-end="url(#reArrow)"/>
-
-  <!-- TAHAP 4 -->
-  <g transform="translate(615, 48)">
-    <rect width="165" height="135" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
-    <circle cx="22" cy="22" r="12" fill="#d97706"/>
-    <text x="22" y="26" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="40" y="26" font-size="10" font-weight="bold" fill="#92400e">Faktor Pengali (RM)</text>
-    <line x1="10" y1="42" x2="155" y2="42" stroke="#e2e8f0"/>
-    <text x="82" y="62" font-size="8.5" fill="#334155" text-anchor="middle">Gunakan Mr aktual:</text>
-    <text x="82" y="80" font-size="9" font-family="monospace" font-weight="bold" fill="#b45309" text-anchor="middle">n = Mr / Mr(RE)</text>
-    <text x="82" y="100" font-size="8.5" fill="#334155" text-anchor="middle">Kalikan subskrip:</text>
-    <text x="82" y="118" font-size="8.5" font-weight="bold" fill="#b45309" text-anchor="middle">RM = (RE)_n</text>
+  <!-- Background Canvas -->
+  <rect width="900" height="480" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+  
+  <!-- Subtle Grid Accent -->
+  <g opacity="0.06" stroke="#475569" stroke-width="1">
+    <line x1="150" y1="0" x2="150" y2="480" />
+    <line x1="300" y1="0" x2="300" y2="480" />
+    <line x1="450" y1="0" x2="450" y2="480" stroke-dasharray="4" />
+    <line x1="600" y1="0" x2="600" y2="480" />
+    <line x1="750" y1="0" x2="750" y2="480" />
+    <line x1="0" y1="120" x2="900" y2="120" />
+    <line x1="0" y1="240" x2="900" y2="240" stroke-dasharray="4" />
+    <line x1="0" y1="360" x2="900" y2="360" />
   </g>
 
-  <!-- KETERANGAN BAWAH -->
-  <g transform="translate(20, 195)">
-    <rect width="760" height="30" rx="6" fill="#1e293b"/>
-    <text x="380" y="19" font-size="9.5" font-weight="bold" fill="#f8fafc" text-anchor="middle">
-      Tips: Jika hasil pembagian menghasilkan desimal seperti 1.5, kalikan semua dengan 2; jika 1.33, kalikan dengan 3!
-    </text>
-  </g>
-</svg>`,
-      keyFormulas: [
-        { name: 'Korelasi Rumus Molekul dan Rumus Empiris', formula: 'M_r = n \\times M_{r,\\text{RE}} \\implies \\text{RM} = (\\text{RE})_n' },
-      ],
-    },
-    {
-      tag: 'stoikiometri-reaksi-tabel-mrs-dan-pereaksi-pembatas',
-      tags: ['stoikiometri-reaksi', 'tabel-mrs', 'pereaksi-pembatas', 'limiting-reactant', 'persen-hasil'],
-      title: 'Konsep Inti 4: Stoikiometri Reaksi, Tabel M-R-S & Mekanisme Pereaksi Pembatas',
-      summary: 'Metode tabulasi Mula-mula, Reaksi, Sisa untuk memprediksi kuantitas produk dan sisa reaktan.',
-      content: `Dalam laboratorium nyata, zat-zat pereaksi jarang sekali dicampurkan dalam perbandingan stoikiometri yang tepat pas. Umumnya salah satu reaktan ditambahkan secara berlebih (*excess reactant*) agar reaktan lain yang lebih mahal atau langka dapat bereaksi tuntas hingga habis.
-
-### 1. Hakikat Pereaksi Pembatas (*Limiting Reactant*)
-
-> **Pereaksi Pembatas:** Reaktan yang pertama kali habis bereaksi seluruhnya, sehingga membatasi (menghentikan) kelanjutan reaksi kimia dan menentukan jumlah maksimum produk yang dapat dihasilkan secara teoretis.
-
-#### Cara Mudah Menentukan Pereaksi Pembatas:
-1. Hitung jumlah mol ($n$) setiap zat pereaksi.
-2. Bagi jumlah mol masing-masing pereaksi dengan koefisien stoikiometrinya:
-   $$\\text{Nilai Uji} = \\frac{n_{\\text{reaktan}}}{\\text{koefisien}}$$
-3. **Reaktan dengan nilai $\\frac{n}{\\text{koefisien}}$ PALING KECIL adalah PEREAKSI PEMBATAS.**
-
----
-
-### 2. Visualisasi Analogi & Mekanisme Pereaksi Pembatas
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 310" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="limGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f8fafc"/>
-    </linearGradient>
-  </defs>
-
-  <rect width="820" height="310" rx="16" fill="url(#limGrad)" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="410" y="24" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">MEKANISME PEREAKSI PEMBATAS: 2 Al + 6 HCl → 2 AlCl₃ + 3 H₂</text>
-
-  <!-- PANEL KIRI: UJI RASIO MOL / KOEFISIEN -->
-  <g transform="translate(30, 45)">
-    <rect width="360" height="235" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
-    <text x="180" y="24" font-size="11" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1. UJI RASIO: (MOL / KOEFISIEN)</text>
-    <line x1="20" y1="34" x2="340" y2="34" stroke="#e2e8f0"/>
-
-    <!-- Bar Al -->
-    <text x="25" y="60" font-size="10" font-weight="bold" fill="#334155">Logam Al: n = 0.20 mol, koefisien = 2</text>
-    <rect x="25" y="70" width="220" height="24" rx="4" fill="#bfdbfe"/>
-    <text x="135" y="86" font-size="10" font-family="monospace" font-weight="bold" fill="#1e40af" text-anchor="middle">0.20 / 2 = 0.100</text>
-    <text x="255" y="86" font-size="9" font-weight="bold" fill="#1e40af">Berlebih (Sisa)</text>
-
-    <!-- Bar HCl -->
-    <text x="25" y="125" font-size="10" font-weight="bold" fill="#dc2626">Larutan HCl: n = 0.30 mol, koefisien = 6</text>
-    <rect x="25" y="135" width="110" height="24" rx="4" fill="#fca5a5"/>
-    <text x="80" y="151" font-size="10" font-family="monospace" font-weight="bold" fill="#991b1b" text-anchor="middle">0.30 / 6 = 0.050</text>
-    <text x="145" y="151" font-size="9" font-weight="bold" fill="#dc2626">Terkecil (HABIS!)</text>
-
-    <!-- Callout Box Pemenang Pembatas -->
-    <rect x="20" y="175" width="320" height="46" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
-    <text x="180" y="194" font-size="10" font-weight="bold" fill="#991b1b" text-anchor="middle">0.050 &lt; 0.100 → HCl ADALAH PEREAKSI PEMBATAS</text>
-    <text x="180" y="210" font-size="8.5" fill="#475569" text-anchor="middle">Seluruh perhitungan produk H₂ dan AlCl₃ WAJIB berpijak pada HCl!</text>
+  <!-- Title Badge Top Left -->
+  <g transform="translate(24, 20)">
+    <rect width="186" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <text x="12" y="17" font-size="11" font-weight="700" fill="#475569" letter-spacing="0.06em">INFOGRAFIK JEMBATAN MOL</text>
   </g>
 
-  <!-- PANEL KANAN: TABEL M-R-S -->
-  <g transform="translate(410, 45)">
-    <rect width="380" height="235" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
-    <text x="190" y="24" font-size="11" font-weight="bold" fill="#166534" text-anchor="middle">2. TABEL M-R-S (MULA-MULA, REAKSI, SISA)</text>
-    <line x1="20" y1="34" x2="360" y2="34" stroke="#e2e8f0"/>
+  <!-- Direction Arrows & Operation Pills: MASSA (Top) -->
+  <!-- Massa -> Mol (Down) -->
+  <line x1="415" y1="88" x2="415" y2="190" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+  <g transform="translate(365, 126)" filter="url(#shadow)">
+    <rect width="45" height="24" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" />
+    <text x="22.5" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">÷ Mr</text>
+  </g>
+  <!-- Mol -> Massa (Up) -->
+  <line x1="485" y1="190" x2="485" y2="88" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+  <g transform="translate(490, 126)" filter="url(#shadow)">
+    <rect width="45" height="24" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" />
+    <text x="22.5" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">× Mr</text>
+  </g>
 
-    <!-- Grid Tabel MRS -->
-    <g transform="translate(15, 45)">
-      <!-- Header Persamaan -->
-      <rect width="350" height="26" fill="#f0fdf4" rx="4"/>
-      <text x="60" y="17" font-size="9" font-weight="bold" fill="#15803d">2 Al</text>
-      <text x="100" y="17" font-size="9" fill="#64748b">+</text>
-      <text x="135" y="17" font-size="9" font-weight="bold" fill="#dc2626">6 HCl</text>
-      <text x="180" y="17" font-size="9" fill="#64748b">→</text>
-      <text x="220" y="17" font-size="9" font-weight="bold" fill="#0369a1">2 AlCl₃</text>
-      <text x="270" y="17" font-size="9" fill="#64748b">+</text>
-      <text x="310" y="17" font-size="9" font-weight="bold" fill="#0369a1">3 H₂</text>
+  <!-- Direction Arrows & Operation Pills: PARTIKEL (Left) -->
+  <!-- Partikel -> Mol (Right) -->
+  <line x1="250" y1="225" x2="340" y2="225" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <g transform="translate(270, 196)" filter="url(#shadow)">
+    <rect width="55" height="22" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5" />
+    <text x="27.5" y="15" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">÷ NA</text>
+  </g>
+  <!-- Mol -> Partikel (Left) -->
+  <line x1="340" y1="255" x2="250" y2="255" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <g transform="translate(270, 260)" filter="url(#shadow)">
+    <rect width="55" height="22" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5" />
+    <text x="27.5" y="15" text-anchor="middle" font-size="11" font-weight="800" fill="#047857">× NA</text>
+  </g>
 
-      <!-- Baris Mula-mula -->
-      <g transform="translate(0, 32)">
-        <text x="15" y="16" font-size="9" font-weight="bold" fill="#475569">Mula:</text>
-        <text x="60" y="16" font-size="9" font-family="monospace">0.20</text>
-        <text x="135" y="16" font-size="9" font-family="monospace" fill="#dc2626">0.30</text>
-        <text x="225" y="16" font-size="9" font-family="monospace" fill="#94a3b8">0</text>
-        <text x="315" y="16" font-size="9" font-family="monospace" fill="#94a3b8">0</text>
-      </g>
+  <!-- Direction Arrows & Operation Pills: GAS (Right) -->
+  <!-- Gas -> Mol (Left) -->
+  <line x1="650" y1="225" x2="560" y2="225" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)" />
+  <g transform="translate(575, 196)" filter="url(#shadow)">
+    <rect width="60" height="22" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" />
+    <text x="30" y="15" text-anchor="middle" font-size="11" font-weight="800" fill="#6d28d9">÷ 22.4</text>
+  </g>
+  <!-- Mol -> Gas (Right) -->
+  <line x1="560" y1="255" x2="650" y2="255" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)" />
+  <g transform="translate(575, 260)" filter="url(#shadow)">
+    <rect width="60" height="22" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" />
+    <text x="30" y="15" text-anchor="middle" font-size="11" font-weight="800" fill="#6d28d9">× 22.4</text>
+  </g>
 
-      <!-- Baris Reaksi -->
-      <g transform="translate(0, 60)">
-        <rect width="350" height="24" fill="#eff6ff" rx="4"/>
-        <text x="15" y="16" font-size="9" font-weight="bold" fill="#2563eb">Reaksi:</text>
-        <text x="55" y="16" font-size="9" font-family="monospace" fill="#1e40af">-0.10</text>
-        <text x="130" y="16" font-size="9" font-family="monospace" font-weight="bold" fill="#dc2626">-0.30</text>
-        <text x="220" y="16" font-size="9" font-family="monospace" fill="#15803d">+0.10</text>
-        <text x="310" y="16" font-size="9" font-family="monospace" fill="#15803d">+0.15</text>
-      </g>
-      <line x1="0" y1="92" x2="350" y2="92" stroke="#94a3b8" stroke-width="1.5"/>
+  <!-- Direction Arrows & Operation Pills: MOLARITAS (Bottom) -->
+  <!-- Molaritas -> Mol (Up) -->
+  <line x1="415" y1="385" x2="415" y2="290" stroke="#0d9488" stroke-width="2.5" marker-end="url(#arrow-teal)" />
+  <g transform="translate(365, 326)" filter="url(#shadow)">
+    <rect width="45" height="24" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="1.5" />
+    <text x="22.5" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#0f766e">× V</text>
+  </g>
+  <!-- Mol -> Molaritas (Down) -->
+  <line x1="485" y1="290" x2="485" y2="385" stroke="#0d9488" stroke-width="2.5" marker-end="url(#arrow-teal)" />
+  <g transform="translate(490, 326)" filter="url(#shadow)">
+    <rect width="45" height="24" rx="6" fill="#ffffff" stroke="#0d9488" stroke-width="1.5" />
+    <text x="22.5" y="16.5" text-anchor="middle" font-size="12" font-weight="800" fill="#0f766e">÷ V</text>
+  </g>
 
-      <!-- Baris Sisa -->
-      <g transform="translate(0, 100)">
-        <text x="15" y="16" font-size="9" font-weight="bold" fill="#0f172a">Sisa:</text>
-        <text x="60" y="16" font-size="9.5" font-family="monospace" font-weight="bold" fill="#0f172a">0.10 mol</text>
-        <text x="135" y="16" font-size="9.5" font-family="monospace" font-weight="extrabold" fill="#dc2626">0 (HABIS)</text>
-        <text x="220" y="16" font-size="9.5" font-family="monospace" font-weight="bold" fill="#15803d">0.10 mol</text>
-        <text x="310" y="16" font-size="9.5" font-family="monospace" font-weight="bold" fill="#15803d">0.15 mol</text>
-      </g>
-    </g>
+  <!-- CARD 1: MASSA (Top) -->
+  <g transform="translate(340, 20)" filter="url(#shadow)">
+    <rect width="220" height="66" rx="14" fill="#ffffff" stroke="#bfdbfe" stroke-width="2" />
+    <rect x="0" y="0" width="220" height="6" rx="3" fill="#2563eb" />
+    <text x="110" y="32" text-anchor="middle" font-size="14" font-weight="800" fill="#1e3a8a">⚖️ MASSA (m)</text>
+    <text x="110" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">Satuan gram (g) | m = n × Mr</text>
+  </g>
 
-    <!-- Footer Kanan -->
-    <rect x="20" y="195" width="340" height="28" rx="6" fill="#f0fdf4" stroke="#86efac"/>
-    <text x="190" y="213" font-size="9" font-weight="bold" fill="#166534" text-anchor="middle">
-      Volume gas H₂ yang terbentuk: 0.15 mol × 22.4 L = 3.36 Liter (STP)
-    </text>
+  <!-- CARD 2: JUMLAH PARTIKEL (Left) -->
+  <g transform="translate(24, 205)" filter="url(#shadow)">
+    <rect width="220" height="74" rx="14" fill="#ffffff" stroke="#a7f3d0" stroke-width="2" />
+    <rect x="0" y="0" width="220" height="6" rx="3" fill="#059669" />
+    <text x="110" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#064e3b">⚛️ JUMLAH PARTIKEL (N)</text>
+    <text x="110" y="50" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">N = n × NA (butir atom/molekul)</text>
+    <text x="110" y="66" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">NA = 6.022 × 10²³</text>
+  </g>
+
+  <!-- CARD 3: VOLUME GAS (Right) -->
+  <g transform="translate(656, 192)" filter="url(#shadow)">
+    <rect width="220" height="98" rx="14" fill="#ffffff" stroke="#ddd6fe" stroke-width="2" />
+    <rect x="0" y="0" width="220" height="6" rx="3" fill="#7c3aed" />
+    <text x="110" y="28" text-anchor="middle" font-size="13" font-weight="800" fill="#4c1d95">💨 VOLUME GAS (V)</text>
+    <text x="110" y="48" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6d28d9">STP (0°C, 1 atm): V = n × 22.4 L</text>
+    <text x="110" y="65" text-anchor="middle" font-size="10.5" font-weight="600" fill="#6d28d9">RTP (25°C, 1 atm): V = n × 24.4 L</text>
+    <text x="110" y="83" text-anchor="middle" font-size="10.5" font-weight="700" fill="#5b21b6">Kondisi Non-STP: P·V = n·R·T</text>
+  </g>
+
+  <!-- CARD 4: MOLARITAS (Bottom) -->
+  <g transform="translate(340, 390)" filter="url(#shadow)">
+    <rect width="220" height="68" rx="14" fill="#ffffff" stroke="#99f6e4" stroke-width="2" />
+    <rect x="0" y="0" width="220" height="6" rx="3" fill="#0d9488" />
+    <text x="110" y="32" text-anchor="middle" font-size="13" font-weight="800" fill="#134e4a">🧪 KONSENTRASI / MOLARITAS (M)</text>
+    <text x="110" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="#0f766e">M = n / V(Liter) | Mol zat dalam larutan</text>
+  </g>
+
+  <!-- CENTER HUB: MOL (n) -->
+  <g transform="translate(350, 195)" filter="url(#glow-gold)">
+    <rect width="200" height="90" rx="45" fill="#fef3c7" stroke="#f59e0b" stroke-width="3.5" />
+    <circle cx="35" cy="45" r="8" fill="#f59e0b" opacity="0.3" />
+    <circle cx="35" cy="45" r="4" fill="#d97706" />
+    <circle cx="165" cy="45" r="8" fill="#f59e0b" opacity="0.3" />
+    <circle cx="165" cy="45" r="4" fill="#d97706" />
+    <text x="100" y="42" text-anchor="middle" font-size="22" font-weight="900" fill="#78350f" letter-spacing="0.04em">MOL (n)</text>
+    <text x="100" y="64" text-anchor="middle" font-size="10.5" font-weight="800" fill="#b45309" letter-spacing="0.08em">THE CENTRAL HUB</text>
   </g>
 </svg>
 
----
-
-### 3. Persen Hasil Reaksi (*Percent Yield*)
-
-Dalam kondisi nyata, produk yang diperoleh dari reaksi di laboratorium hampir selalu lebih sedikit daripada perhitungan teoretis di atas kertas karena faktor ketidaksempurnaan reaksi, adanya reaksi sampingan, atau hilangnya zat saat penyaringan:
-$$\\% \\text{ Hasil} = \\frac{\\text{Hasil Aktual (Nyata)}}{\\text{Hasil Teoretis}} \\times 100\\%$$`,
-      keyFormulas: [
-        { name: 'Kriteria Pereaksi Pembatas', formula: '\\text{Nilai Uji} = \\min \\left( \\frac{n_i}{\\text{koef}_i} \\right)' },
-        { name: 'Persen Hasil Reaksi', formula: '\\% \\text{ Hasil} = \\frac{\\text{Massa Aktual}}{\\text{Massa Teoretis}} \\times 100\\%' },
-      ],
-    },
-    {
-      tag: 'pengayaan-kinetika-gas-dan-hukum-efusi-graham',
-      tags: [
-        'hukum-graham',
-        'laju-efusi',
-        'difusi-gas',
-        'kaskade-isotop',
-        'kinetika-gas',
-        'kecepatan-molekuler',
-        'kecepatan-rms',
-        'kecepatan-rata-rata',
-        'kecepatan-paling-mungkin',
-        'distribusi-maxwell-boltzmann',
-        'fluks-knudsen',
-        'kerapatan-uap-dumas',
-        'disosiasi-termal',
-        'massa-molar-semu'
-      ],
-      title: 'Pengayaan HOTS/OSN: Kinetika Gas Riil, Hukum Efusi Graham, Distribusi Maxwell-Boltzmann & Fluks Knudsen',
-      summary: 'Kajian mendalam laju efusi Graham dan pemisahan kaskade isotop, distribusi kecepatan termal Maxwell-Boltzmann (v_rms, v_mp, v_avg), fluks efusi Knudsen pada ruang hampa, serta kerapatan uap Dumas pada disosiasi termal gas.',
-      content: `Dalam termodinamika dan mekanika statistik lanjut, perilaku partikel gas melampaui asumsi dasar gas ideal:
-
-### 1. Hukum Efusi dan Difusi Graham
-
-Efusi adalah proses lolosnya partikel gas melalui celah mikroskopis (lubang jarum) ke dalam ruang vakum tanpa tumbukan antaramolekul. Menurut Thomas Graham (1829):
-$$\\frac{r_1}{r_2} = \\sqrt{\\frac{M_2}{M_1}} = \\frac{t_2}{t_1} = \\frac{\\rho_2}{\\rho_1}$$
-- **Pemisahan Kaskade Isotop:** Pada pengayaan isotop $\\ce{^{235}U}$ dari $\\ce{^{238}U}$ menggunakan gas $\\ce{UF6}$, faktor pemisahan satu tahap ($\\alpha$) adalah rasio laju efusi:
-  $$\\alpha = \\sqrt{\\frac{M(\\ce{^{238}UF6})}{M(\\ce{^{235}UF6})}} = \\sqrt{\\frac{238 + 6(19)}{235 + 6(19)}} = \\sqrt{\\frac{352}{349}} \\approx 1.00429$$
-  Karena $\\alpha$ sangat dekat dengan 1, proses efusi diulang ribuan kali melalui serangkaian kolom (*kaskade efusi*).
+| Besaran Kimia | Menuju ke Mol ($\\rightarrow n$) | Keluar dari Mol ($n \\rightarrow$) | Keterangan / Tetapan Kunci |
+| :--- | :--- | :--- | :--- |
+| **Massa ($m$)** | $n = \\frac{m}{M_r}$ (Dibagi $M_r$) | $m = n \\times M_r$ (Dikali $M_r$) | Satuan massa wajib dalam **gram** |
+| **Jumlah Partikel ($N$)** | $n = \\frac{N}{N_A}$ (Dibagi $N_A$) | $N = n \\times N_A$ (Dikali $N_A$) | Bilangan Avogadro: $N_A = 6.022 \\times 10^{23}$ |
+| **Volume Gas STP ($V$)** | $n = \\frac{V}{22.4}$ (Dibagi $22.4$) | $V = n \\times 22.4$ (Dikali $22.4$) | Kondisi standar: $0^\\circ\\text{C}, 1\\text{ atm}$ |
+| **Volume Gas RTP ($V$)** | $n = \\frac{V}{24.4}$ (Dibagi $24.4$) | $V = n \\times 24.4$ (Dikali $24.4$) | Kondisi ruang kamar: $25^\\circ\\text{C}, 1\\text{ atm}$ |
+| **Gas Non-Standar** | $n = \\frac{PV}{RT}$ | $V = \\frac{nRT}{P}$ | Persamaan gas ideal: $R = 0.082\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$ |
+| **Molaritas ($M$)** | $n = M \\times V(\\text{L})$ | $M = \\frac{n}{V(\\text{L})}$ | Volume larutan wajib dikonversi ke **Liter** |
 
 ---
 
-### 2. Distribusi Kecepatan Maxwell-Boltzmann
+### 📌 4 Jalur Konversi Utama:
 
-Pada temperatur termodinamika $T$, partikel gas memiliki sebaran kecepatan yang dirumuskan oleh Maxwell-Boltzmann:
-$$f(v) = 4\\pi \\left(\\frac{M}{2\\pi RT}\\right)^{3/2} v^2 \\exp\\left(-\\frac{M v^2}{2RT}\\right)$$
-Dari fungsi distribusi ini diturunkan 3 nilai kecepatan karakteristik:
-1. **Kecepatan Paling Mungkin (*Most Probable Speed*, $v_{\\text{mp}}$):** Titik puncak kurva distribusi:
-   $$v_{\\text{mp}} = \\sqrt{\\frac{2RT}{M}} \\approx 1.414 \\sqrt{\\frac{RT}{M}}$$
-2. **Kecepatan Rata-rata Aritmatik (*Mean Speed*, $v_{\\text{avg}}$):**
-   $$v_{\\text{avg}} = \\sqrt{\\frac{8RT}{\\pi M}} \\approx 1.596 \\sqrt{\\frac{RT}{M}}$$
-3. **Kecepatan Akar Kuadrat Rata-rata (*Root-Mean-Square Speed*, $v_{\\text{rms}}$):**
-   $$v_{\\text{rms}} = \\sqrt{\\frac{3RT}{M}} \\approx 1.732 \\sqrt{\\frac{RT}{M}}$$
-Urutan besaran selalu: **$v_{\\text{mp}} < v_{\\text{avg}} < v_{\\text{rms}}$**.
+#### 1. Jalur Massa $\\leftrightarrow$ Mol:
+$m = n \\times M_r \\iff n = \\frac{m}{M_r}$
 
----
+#### 2. Jalur Jumlah Partikel $\\leftrightarrow$ Mol:
+$N = n \\times N_A = n \\times 6.022 \\times 10^{23} \\iff n = \\frac{N}{6.022 \\times 10^{23}}$
 
-### 3. Fluks Efusi Knudsen
+#### 3. Jalur Volume Gas $\\leftrightarrow$ Mol:
+Tergantung kondisi lingkungan pengukuran:
+- **Kondisi Standar (STP: $0^\\circ\\text{C}, 1\\text{ atm}$):**
+  $V = n \\times 22.4\\text{ Liter/mol} \\iff n = \\frac{V}{22.4}$
+- **Kondisi Kamar (RTP: $25^\\circ\\text{C}, 1\\text{ atm}$):**
+  $V = n \\times 24.4\\text{ Liter/mol} \\iff n = \\frac{V}{24.4}$
+- **Kondisi Sembarang Suhu & Tekanan ($P, T$ Tertentu):**
+  Gunakan **Persamaan Gas Ideal**:
+  $P V = n R T \\implies n = \\frac{P V}{R T}$
+  *(Ingat: $P$ dalam atm, $V$ dalam Liter, $T$ mutlak dalam Kelvin $= ^\\circ\\text{C} + 273$, dan tetapan $R = 0.082\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$).*
+- **Kondisi Membandingkan Dua Gas pada $T, P$ yang Sama:**
+  $\\frac{V_1}{V_2} = \\frac{n_1}{n_2}$
 
-Fluks efusi partikel gas yang menumbuk dan melewati lubang seluas $A$ per satuan waktu dirumuskan oleh persamaan Knudsen:
-$$Z = \\frac{P}{\\sqrt{2\\pi m k_B T}} = \\frac{P N_A}{\\sqrt{2\\pi M R T}}$$
-Laju penurunan tekanan ruang tertutup volume $V$ akibat efusi Knudsen mengikuti kinetika orde pertama:
-$$\\frac{dP}{dt} = -\\left(\\frac{A}{V}\\sqrt{\\frac{RT}{2\\pi M}}\\right) P \\implies P(t) = P_0 e^{-k t}$$
-
----
-
-### 4. Kerapatan Uap Dumas & Derajat Disosiasi Gas
-
-Pada disosiasi gas $\\ce{A(g) <=> n B(g)}$ (misalnya $\\ce{N2O4(g) <=> 2 NO2(g)}$), massa molar teramati ($M_{\\text{semu}}$) lebih kecil dari massa molar teoretis ($M_{\\text{teoretis}}$) karena bertambahnya mol partikel. Derajat disosiasi $\\alpha$ dihitung dari kerapatan uap Dumas ($\\rho$):
-$$\\alpha = \\frac{\\rho_{\\text{teoretis}} - \\rho_{\\text{teramati}}}{(n - 1)\\rho_{\\text{teramati}}} = \\frac{M_{\\text{teoretis}} - M_{\\text{semu}}}{(n - 1)M_{\\text{semu}}}`,
-      keyFormulas: [
-        { name: 'Hukum Efusi Graham', formula: '\\frac{r_1}{r_2} = \\sqrt{\\frac{M_2}{M_1}} = \\frac{t_2}{t_1}' },
-        { name: 'Kecepatan Karakteristik Gas', formula: 'v_{\\text{mp}} = \\sqrt{\\frac{2RT}{M}}, \\quad v_{\\text{avg}} = \\sqrt{\\frac{8RT}{\\pi M}}, \\quad v_{\\text{rms}} = \\sqrt{\\frac{3RT}{M}}' },
-        { name: 'Fluks Efusi Knudsen', formula: 'Z = \\frac{P}{\\sqrt{2\\pi m k_B T}}' },
-        { name: 'Kerapatan Dumas Derajat Disosiasi', formula: '\\alpha = \\frac{\\rho_{\\text{teoretis}} - \\rho_{\\text{teramati}}}{(n - 1)\\rho_{\\text{teramati}}}' }
-      ]
-    },
-    {
-      tag: 'pengayaan-gas-nyata-virial-dan-analisis-kuantitatif-lanjut',
-      tags: [
-        'gas-nyata',
-        'persamaan-virial',
-        'suhu-boyle',
-        'persamaan-clausius-clapeyron',
-        'metode-warder',
-        'titrasi-dua-indikator',
-        'campuran-karbonat',
-        'stoikiometri-superkonduktor',
-        'valensi-campuran',
-        'ybco',
-        'gravimetri-kimia',
-        'faktor-gravimetri'
-      ],
-      title: 'Pengayaan HOTS/OSN: Persamaan Gas Nyata Virial, Suhu Boyle, Clausius-Clapeyron & Titrasi Campuran Warder',
-      summary: 'Formulasi gas nyata dengan persamaan Virial dan penentuan temperatur Boyle TB, termodinamika kesetimbangan fasa Clausius-Clapeyron, metode titrasi dua indikator Warder untuk campuran karbonat, serta analisis stoikiometri superkonduktor YBCO.',
-      content: `Analisis stoikiometri dan keadaan gas pada sistem nyata memerlukan penyesuaian analitis:
-
-### 1. Persamaan Virial & Temperatur Boyle
-
-Penyimpangan faktor kompresibilitas $Z = \\frac{P V_m}{RT}$ dinyatakan dalam deret Virial:
-$$Z = 1 + \\frac{B(T)}{V_m} + \\frac{C(T)}{V_m^2} + \\dots$$
-Jika diturunkan dari persamaan van der Waals $\\left(P + \\frac{a}{V_m^2}\\right)(V_m - b) = RT$:
-$$Z = \\frac{V_m}{V_m - b} - \\frac{a}{RT V_m} \\approx 1 + \\left(b - \\frac{a}{RT}\\right)\\frac{1}{V_m} + \\dots$$
-Sehingga koefisien Virial kedua bernilai $B(T) = b - \\frac{a}{RT}$.
-- **Temperatur Boyle ($T_B$):** Suhu di mana gas nyata berperilaku persis seperti gas ideal pada rentang tekanan sedang ($B(T) = 0$):
-  $$b - \\frac{a}{R T_B} = 0 \\implies T_B = \\frac{a}{R b}$$
+#### 4. Jalur Molaritas Larutan $\\leftrightarrow$ Mol:
+Molaritas ($M$) adalah kepekatan zat terlarut dalam tiap liter larutan:
+$M = \\frac{n}{V(\\text{Liter})} = \\frac{m}{M_r} \\times \\frac{1000}{V(\\text{mL})}$
 
 ---
 
-### 2. Persamaan Clausius-Clapeyron
+> [!TIP]
+> ### 💡 Trik Praktis Menghafal Operasi Jembatan Mol:
+> - **Keluar dari Mol (Mencari besaran lain)**: Selalu **DIKALI** tetapan ($M_r, N_A, 22.4$).
+> - **Menuju ke Mol (Dari data soal ke Mol)**: Selalu **DIBAGI** tetapan ($M_r, N_A, 22.4$).`,
+        keyFormulas: [
+          { name: 'Konversi Mol ke Massa', formula: 'n = \\frac{m}{M_r}' },
+          { name: 'Konversi Mol ke Partikel', formula: 'N = n \\times 6.022 \\times 10^{23}' },
+          { name: 'Volume Gas STP', formula: 'V_{\\text{STP}} = n \\times 22.4\\text{ L}' },
+          { name: 'Persamaan Gas Ideal', formula: 'P V = n R T' },
+          { name: 'Molaritas Larutan', formula: 'M = \\frac{n}{V}' },
+        ],
+      },
+      {
+        tag: 'penentuan-rumus-empiris-dan-rumus-molekul',
+        tags: ['rumus-empiris', 'rumus-molekul', 'analisis-unsur', 'persen-massa'],
+        title: 'Konsep Inti 3: Penentuan Rumus Empiris (RE) & Rumus Molekul (RM)',
+        summary: 'Metode terstruktur menentukan rasio terkecil atom pembentuk senyawa dan menentukan rumus aslinya.',
+        content: `### 🎯 Beda Rumus Empiris (RE) vs Rumus Molekul (RM)
 
-Hubungan antara tekanan uap jenuh cairan ($P$) terhadap temperatur termodinamika ($T$) dan entalpi penguapan molar ($\\Delta H_{\\text{vap}}$):
-$$\\ln\\left(\\frac{P_2}{P_1}\\right) = -\\frac{\\Delta H_{\\text{vap}}}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)$$
-Kurva plot $\\ln P$ vs $\\frac{1}{T}$ menghasilkan garis lurus dengan kemiringan (*slope*) $m = -\\frac{\\Delta H_{\\text{vap}}}{R}$.
+- **Rumus Empiris (RE)**: Formula kimia dengan rasio bilangan bulat paling sederhana dari atom-atom penyusunnya (seperti "resep perbandingan terkecil").
+- **Rumus Molekul (RM)**: Formula kimia nyata yang menyatakan jumlah atom sebenarnya di dalam satu molekul utuh.
 
----
+$\\mathbf{\\text{Rumus Molekul} = (\\text{Rumus Empiris})_n} \\quad \\implies \\quad M_r(\\text{RM}) = n \\times M_r(\\text{RE})$
 
-### 3. Analisis Campuran Karbonat Biner (Metode Warder)
-
-Analisis kuantitatif campuran garam $\\ce{Na2CO3}$ dan $\\ce{NaHCO3}$ dilakukan melalui titrasi asam bertahap dengan dua indikator:
-1. **Titik Akhir 1 (Indikator Fenolftalein, PP, $\\text{pH} \\approx 8.3$):**  
-   Hanya ion karbonat yang bereaksi menjadi bikarbonat:
-   $$\\ce{CO3^2- + H+ -> HCO3^-} \\implies n_{\\ce{CO3^2-}} = n_{\\ce{HCl (PP)}} = V_{\\text{PP}} \\times M_{\\ce{HCl}}$$
-2. **Titik Akhir 2 (Indikator Metil Oranye, MO, $\\text{pH} \\approx 3.8$):**  
-   Seluruh ion bikarbonat (baik dari $\\ce{CO3^2-}$ awal maupun $\\ce{HCO3^-}$ asli) bereaksi menjadi asam karbonat:
-   $$\\ce{HCO3^- + H+ -> H2O + CO2} \\implies n_{\\ce{HCl (total)}} = V_{\\text{MO}} \\times M_{\\ce{HCl}}$$
-   Sehingga kandungan ion bikarbonat awal adalah:
-   $$n_{\\ce{HCO3^- (sampel)}} = (V_{\\text{MO}} - 2 V_{\\text{PP}}) \\times M_{\\ce{HCl}}$$
-
----
-
-### 4. Stoikiometri Cacat Kisi Superkonduktor $\\ce{YBa2Cu3O_{7-\\delta}}$
-
-Superkonduktor suhu tinggi YBCO memiliki rumus kimia $\\ce{YBa2Cu3O_{7-\\delta}}$ dengan valensi campuran tembaga ($\\ce{Cu^2+}$ dan $\\ce{Cu^3+}$):
-- Muatan kation: $\\ce{Y^3+}$, $2 \\times \\ce{Ba^2+}$, dan muatan rata-rata tembaga $q_{\\ce{Cu}}$.
-- Netralitas muatan: $+3 + 2(+2) + 3(q_{\\ce{Cu}}) - 2(7 - \\delta) = 0 \\implies 3(q_{\\ce{Cu}}) = 7 - 2\\delta$.
-- Melalui titrasi iodometri selektif, nilai defek oksigen $\\delta$ ditentukan dari perbandingan mol $\\ce{I2}$ yang dibebaskan.`,
-      keyFormulas: [
-        { name: 'Koefisien Virial Kedua & Suhu Boyle', formula: 'B(T) = b - \\frac{a}{RT}, \\quad T_B = \\frac{a}{Rb}' },
-        { name: 'Persamaan Clausius-Clapeyron', formula: '\\ln\\left(\\frac{P_2}{P_1}\\right) = -\\frac{\\Delta H_{\\text{vap}}}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)' },
-        { name: 'Metode Warder Karbonat', formula: 'n_{\\ce{CO3^2-}} = V_{\\text{PP}} \\cdot M_{\\ce{HCl}}, \\quad n_{\\ce{HCO3^-}} = (V_{\\text{MO}} - 2V_{\\text{PP}}) \\cdot M_{\\ce{HCl}}' }
-      ]
-    },
-  ],
-  worked_examples: [
-    {
-      tag: 'contoh-hukum-dalton-perbandingan-berganda',
-      title: 'Contoh Soal 1: Pembuktian Hukum Perbandingan Berganda Dalton pada Oksida Nitrogen',
-      summary: 'Analisis data analitis massa dua jenis gas nitrogen oksida untuk membuktikan keteraturan rasio bilangan bulat.',
-      content: `### Soal Latihan:
-Dua jenis gas oksida nitrogen (Senyawa I dan Senyawa II) dianalisis di laboratorium dan memberikan data komposisi massa berikut:
-- **Senyawa I:** Mengandung $63.64\\%$ massa Nitrogen dan $36.36\\%$ massa Oksigen.
-- **Senyawa II:** Mengandung $46.67\\%$ massa Nitrogen dan $53.33\\%$ massa Oksigen.
-1. Buktikan apakah data eksperimen tersebut memenuhi Hukum Perbandingan Berganda Dalton!
-2. Jika rumus kimia Senyawa I adalah $\\ce{N2O}$, tentukan rumus kimia Senyawa II!
+**Tabel Contoh Konkret:**
+| Nama Senyawa | Rumus Molekul (RM) | Rumus Empiris (RE) | Faktor Kelipatan ($n$) |
+| :--- | :--- | :--- | :--- |
+| **Air** | $\\ce{H2O}$ | $\\ce{H2O}$ | $n = 1$ |
+| **Hidrogen Peroksida** | $\\ce{H2O2}$ | $\\ce{HO}$ | $n = 2$ |
+| **Glukosa** | $\\ce{C6H12O6}$ | $\\ce{CH2O}$ | $n = 6$ |
+| **Butena** | $\\ce{C4H8}$ | $\\ce{CH2}$ | $n = 4$ |
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### 🧭 Alur 3 Langkah Pasti Mencari Rumus Empiris:
 
-#### 1. Pembuktian Hukum Dalton:
-Buat massa salah satu unsur (misalnya massa Nitrogen) bernilai sama ($1\\text{ gram}$):
-- **Pada Senyawa I:**
-  - Massa $\\ce{N} = 63.64\\text{ g}$, Massa $\\ce{O} = 36.36\\text{ g}$
-  - Massa $\\ce{O}$ per $1\\text{ g } \\ce{N}$:
-    $$\\frac{m_{\\ce{O}}}{m_{\\ce{N}}} = \\frac{36.36}{63.64} = \\mathbf{0.5713\\text{ g Oksigen}}$$
-- **Pada Senyawa II:**
-  - Massa $\\ce{N} = 46.67\\text{ g}$, Massa $\\ce{O} = 53.33\\text{ g}$
-  - Massa $\\ce{O}$ per $1\\text{ g } \\ce{N}$:
-    $$\\frac{m_{\\ce{O}}}{m_{\\ce{N}}} = \\frac{53.33}{46.67} = \\mathbf{1.1427\\text{ g Oksigen}}$$
-
-Bandingkan massa Oksigen pada Senyawa I dan Senyawa II untuk massa Nitrogen yang dibuat tetap ($1\\text{ g}$):
-$$\\frac{m_{\\ce{O}}(\\text{Senyawa I})}{m_{\\ce{O}}(\\text{Senyawa II})} = \\frac{0.5713}{1.1427} = \\frac{1}{1.9999} \\approx \\mathbf{\\frac{1}{2}}$$
-Rasio massa oksigen adalah **$1 : 2$**, yang merupakan **bilangan bulat dan sederhana**. Hal ini membuktikan secara sahih berlakunya **Hukum Perbandingan Berganda Dalton**.
+1. **Langkah 1 (Ubah Persen ke Gram)**:  
+   Jika soal memberikan data dalam persen ($\\%$), asumsikan massa total senyawa $= 100\\text{ gram}$. Dengan demikian, angka persen bisa langsung diubah menjadi gram tanpa repot.
+2. **Langkah 2 (Cari Mol Masing-Masing Unsur)**:  
+   Bagi massa gram masing-masing unsur dengan $A_r$-nya:
+   $n = \\frac{\\text{massa}}{A_r}$
+3. **Langkah 3 (Bagi dengan Mol Terkecil)**:  
+   Bandingkan nilai mol seluruh unsur dan bagi semuanya dengan angka mol terkecil untuk mendapatkan perbandingan bilangan bulat sederhana.
 
 ---
 
-#### 2. Penentuan Rumus Kimia Senyawa II:
-- Senyawa I memiliki rumus $\\ce{N2O}$, di mana $2$ atom $\\ce{N}$ mengikat $1$ atom $\\ce{O}$.
-- Karena untuk jumlah $\\ce{N}$ yang sama, rasio oksigen pada Senyawa II adalah dua kali lipat Senyawa I ($1 : 2$), maka dalam Senyawa II, $2$ atom $\\ce{N}$ mengikat $2$ atom $\\ce{O}$ (rumus $\\ce{N2O2}$ yang ekuivalen dengan rumus empiris **$\\ce{NO}$** - Nitrogen monoksida).`,
-      keyFormulas: [
-        { name: 'Rasio Massa Hukum Dalton', formula: '\\frac{m_{O,1}}{m_{O,2}} = \\text{Bilangan Bulat Sederhana} \\quad (\\text{pada } m_N \\text{ tetap})' },
-      ],
-    },
-    {
-      tag: 'contoh-analisis-pembakaran-dan-rumus-molekul',
-      title: 'Contoh Soal 2: Penentuan Rumus Empiris & Rumus Molekul Senyawa Organik dari Data Pembakaran',
-      summary: 'Analisis massa gas CO2 dan uap air hasil pembakaran untuk menentukan rumus kimia asam askorbat (Vitamin C).',
-      content: `### Soal Olimpiade:
-Pembakaran sempurna $4.40\\text{ gram}$ sampel senyawa organik yang hanya mengandung atom Karbon (C), Hidrogen (H), dan Oksigen (O) menghasilkan $6.60\\text{ gram}$ gas karbon dioksida ($\\ce{CO2}$, $M_r = 44.0$) dan $1.80\\text{ gram}$ uap air ($\\ce{H2O}$, $M_r = 18.0$). Pada percobaan terpisah, pengukuran spektrometri massa menunjukkan bahwa massa molekul relatif ($M_r$) senyawa tersebut adalah $176\\text{ g/mol}$.
-1. Hitung massa masing-masing unsur Karbon, Hidrogen, dan Oksigen dalam sampel!
-2. Tentukan Rumus Empiris (RE) senyawa tersebut!
-3. Tentukan Rumus Molekul (RM) senyawa tersebut!
+> [!WARNING]
+> ### ⚠️ Jebakan Pecahan Koma: Jangan Asal Dibulatkan!
+> Jika rasio mol menghasilkan desimal, **DILARANG** langsung membulatkannya ke atas/bawah jika belum sangat dekat dengan bilangan bulat (misal $\\pm 0.05$):
+> - **Jika berakhiran $.50$**: Kalikan seluruh rasio dengan **$2$** (Contoh: $1 : 1.5 \\rightarrow \\mathbf{2 : 3}$)
+> - **Jika berakhiran $.33$ atau $.67$**: Kalikan seluruh rasio dengan **$3$** (Contoh: $1 : 1.33 \\rightarrow \\mathbf{3 : 4}$)
+> - **Jika berakhiran $.25$ atau $.75$**: Kalikan seluruh rasio dengan **$4$** (Contoh: $1 : 1.25 \\rightarrow \\mathbf{4 : 5}$)`,
+        keyFormulas: [
+          { name: 'Hubungan RM dan RE', formula: 'M_r(\\text{RM}) = n \\cdot M_r(\\text{RE})' },
+          { name: 'Rasio Mol Rumus Empiris', formula: 'n_A : n_B = \\frac{m_A}{A_r(A)} : \\frac{m_B}{A_r(B)}' },
+        ],
+      },
+      {
+        tag: 'stoikiometri-reaksi-dan-pereaksi-pembatas',
+        tags: ['stoikiometri-reaksi', 'tabel-mrs', 'pereaksi-pembatas', 'persen-hasil'],
+        title: 'Konsep Inti 4: Stoikiometri Reaksi, Tabel M-R-S & Mekanisme Pereaksi Pembatas',
+        summary: 'Metode kuantitatif menghitung sisa reaktan, pembentukan produk, dan evaluasi efisiensi persen hasil.',
+        content: `### 🥪 Analogi Sederhana: Merakit Sandwich Keju
+
+Bayangkan Anda ingin membuat sandwich dengan resep baku:
+$\\ce{2 Roti + 1 Keju -> 1 Sandwich}$
+
+Jika di meja dapur Anda tersedia **10 lembar roti** dan **2 lembar keju**, berapa sandwich yang bisa Anda buat?
+- Jawabannya pasti **hanya 2 sandwich**!
+- Mengapa? Karena keju habis tak bersisa, meskipun rotinya masih banyak tersisa (tersisa $6$ lembar roti).
+
+Dalam kimia:
+- **Keju** adalah **Pereaksi Pembatas** (*Limiting Reactant*), yaitu reaktan yang habis terlebih dahulu dan membatasi jumlah maksimal produk yang dapat terbentuk.
+- **Roti** adalah **Pereaksi Berlebih** (*Excess Reactant*), yaitu reaktan yang tidak habis bereaksi.
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### 🧭 Kapan Kita Wajib Mencari Pereaksi Pembatas?
 
-#### 1. Hitung Massa Unsur C, H, dan O:
-- **Massa Karbon (C) dari $\\ce{CO2}$:**
-  $$m_{\\ce{C}} = \\frac{A_r(\\ce{C})}{M_r(\\ce{CO2})} \\times m_{\\ce{CO2}} = \\frac{12.0}{44.0} \\times 6.60\\text{ g} = \\mathbf{1.80\\text{ gram C}}$$
-- **Massa Hidrogen (H) dari $\\ce{H2O}$:**
-  $$m_{\\ce{H}} = \\frac{2 \\times A_r(\\ce{H})}{M_r(\\ce{H2O})} \\times m_{\\ce{H2O}} = \\frac{2.0}{18.0} \\times 1.80\\text{ g} = \\mathbf{0.20\\text{ gram H}}$$
-- **Massa Oksigen (O) dari Hukum Kekekalan Massa:**
-  $$m_{\\ce{O}} = m_{\\text{sampel}} - (m_{\\ce{C}} + m_{\\ce{H}}) = 4.40 - (1.80 + 0.20) = 4.40 - 2.00 = \\mathbf{2.40\\text{ gram O}}$$
-
-#### 2. Hitung Mol Masing-masing Unsur & Rumus Empiris:
-- Mol C: $n_{\\ce{C}} = \\frac{1.80}{12.0} = 0.150\\text{ mol}$
-- Mol H: $n_{\\ce{H}} = \\frac{0.20}{1.0} = 0.200\\text{ mol}$
-- Mol O: $n_{\\ce{O}} = \\frac{2.40}{16.0} = 0.150\\text{ mol}$
-
-Bandingkan mol dengan membaginya dengan mol terkecil ($0.150$):
-$$n_{\\ce{C}} : n_{\\ce{H}} : n_{\\ce{O}} = \\frac{0.150}{0.150} : \\frac{0.200}{0.150} : \\frac{0.150}{0.150} = 1 : 1.333 : 1$$
-Kalikan seluruh perbandingan dengan angka 3 untuk memperoleh bilangan bulat:
-$$n_{\\ce{C}} : n_{\\ce{H}} : n_{\\ce{O}} = 3 : 4 : 3$$
-Maka **Rumus Empiris (RE) = $\\mathbf{\\ce{C3H4O3}}$**.
-
-#### 3. Tentukan Rumus Molekul (RM):
-- Hitung $M_r$ dari Rumus Empiris:
-  $$M_r(\\ce{C3H4O3}) = 3(12.0) + 4(1.0) + 3(16.0) = 36 + 4 + 48 = \\mathbf{88\\text{ g/mol}}$$
-- Tentukan faktor pengali $n$:
-  $$n = \\frac{M_r(\\text{senyawa})}{M_r(\\text{RE})} = \\frac{176}{88} = \\mathbf{2}$$
-- Rumus Molekul:
-  $$\\text{RM} = (\\ce{C3H4O3})_2 = \\mathbf{\\ce{C6H8O6}} \\quad (\\text{Asam Askorbat / Vitamin C})$$`,
-      keyFormulas: [
-        { name: 'Massa Unsur C dari CO2', formula: 'm_{\\ce{C}} = \\frac{12}{44} \\times m_{\\ce{CO2}}' },
-        { name: 'Massa Unsur H dari H2O', formula: 'm_{\\ce{H}} = \\frac{2}{18} \\times m_{\\ce{H2O}}' },
-      ],
-    },
-    {
-      tag: 'contoh-stoikiometri-gas-non-stp-pv-nrt',
-      title: 'Contoh Soal 3: Stoikiometri Gas pada Kondisi Tekanan & Suhu Tertentu (Persamaan PV = nRT)',
-      summary: 'Perhitungan volume gas nitrogen dioksida yang dihasilkan pada suhu 27°C dan tekanan 2 atm.',
-      content: `### Soal Ujian Nasional / UTBK:
-Logam tembaga murni seberat $12.7\\text{ gram}$ ($A_r\\ \\ce{Cu} = 63.5$) dilarutkan secara sempurna ke dalam larutan asam nitrat pekat menurut persamaan reaksi berikut:
-$$\\ce{Cu(s) + 4 HNO3(aq) -> Cu(NO3)2(aq) + 2 NO2(g) + 2 H2O(l)}$$
-Hitung volume gas $\\ce{NO2}$ yang terbentuk jika diukur pada kondisi suhu $27^\\circ\\text{C}$ dan tekanan $2.0\\text{ atm}$! ($R = 0.082\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$).
+> **Tanda Pasti di Soal:**  
+> Jika dalam soal diketahui data kuantitas (mol, massa, atau volume) dari **DUA ATAU LEBIH reaktan yang dicampurkan**, Anda **WAJIB** menentukan siapa pereaksi pembatasnya!
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### ⚡ Trik Cepat Menentukan Pereaksi Pembatas:
 
-#### 1. Hitung Mol Reaktan Tembaga:
-$$n_{\\ce{Cu}} = \\frac{m}{A_r} = \\frac{12.7\\text{ g}}{63.5\\text{ g/mol}} = \\mathbf{0.200\\text{ mol}}$$
-
-#### 2. Hitung Mol Gas $\\ce{NO2}$ yang Terbentuk:
-Berdasarkan perbandingan koefisien reaksi:
-$$n_{\\ce{NO2}} = \\frac{\\text{koef } \\ce{NO2}}{\\text{koef } \\ce{Cu}} \\times n_{\\ce{Cu}} = \\frac{2}{1} \\times 0.200\\text{ mol} = \\mathbf{0.400\\text{ mol}}$$
-
-#### 3. Hitung Volume Gas Menggunakan Hukum Gas Ideal:
-- Suhu mutlak: $T = 27 + 273 = \\mathbf{300\\text{ K}}$
-- Tekanan: $P = \\mathbf{2.0\\text{ atm}}$
-- Tetapan gas: $R = 0.082\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$
-
-Gunakan persamaan gas ideal:
-$$P V = n R T \\implies V = \\frac{n R T}{P}$$
-$$V_{\\ce{NO2}} = \\frac{0.400\\text{ mol} \\times 0.082\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) \\times 300\\text{ K}}{2.0\\text{ atm}}$$
-$$V_{\\ce{NO2}} = \\frac{9.84}{2.0} = \\mathbf{4.92\\text{ Liter}}$$
-
-> **Kesimpulan Evaluator Juri:** Pada suhu $27^\circ\text{C}$ dan tekanan $2\text{ atm}$, $0.400\text{ mol}$ gas $\ce{NO2}$ menempati ruang sebesar $4.92\text{ Liter}$.`,
-      keyFormulas: [
-        { name: 'Persamaan Gas Ideal', formula: 'V = \\frac{n R T}{P}' },
-      ],
-    },
-    {
-      tag: 'contoh-kemurnian-sampel-dan-persen-hasil',
-      title: 'Contoh Soal 4: Perhitungan Kemurnian Sampel Kalsium Karbonat & Persen Hasil Reaksi',
-      summary: 'Analisis dekomposisi termal batu kapur tidak murni dan evaluasi efisiensi sintesis laboratorium.',
-      content: `### Soal Latihan:
-Sebanyak $25.0\\text{ gram}$ sampel batu kapur yang mengandung kalsium karbonat ($\\ce{CaCO3}$, $M_r = 100.0$) dipanaskan kuat hingga terurai sempurna menurut reaksi dekomposisi:
-$$\\ce{CaCO3(s) ->[\\Delta] CaO(s) + CO2(g)}$$
-Gas karbon dioksida yang dihasilkan dialirkan dan ditampung pada kondisi STP, diperoleh volume sebesar $4.48\\text{ Liter}$.
-1. Hitung massa $\\ce{CaCO3}$ murni yang terkandung dalam sampel batu kapur tersebut!
-2. Tentukan kadar persentase kemurnian ($\\ce{\\% CaCO3}$) dalam sampel batu kapur!
-3. Jika massa $\\ce{CaO}$ padat ($M_r = 56.0$) yang secara nyata berhasil diisolasi di laboratorium adalah $10.08\\text{ gram}$, berapakah persen hasil (*percent yield*) reaksi tersebut?
+1. Ubah semua data reaktan mula-mula menjadi satuan **Mol ($n$)**.
+2. Hitung **Nilai Uji** untuk setiap reaktan:
+   $\\text{Nilai Uji} = \\frac{\\text{Mol Awal}}{\\text{Koefisien Reaksi}}$
+3. **Pemenangnya adalah Angka Terkecil**: Reaktan dengan nilai uji terkecil adalah **Pereaksi Pembatas**. Reaktan inilah yang nilainya habis menjadi $0$ pada kondisi akhir reaksi.
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### 📊 Format Standar Tabel M-R-S (Mula-mula, Reaksi, Sisa)
 
-#### 1. Hitung Mol Gas $\\ce{CO2}$ yang Terbentuk pada STP:
-$$n_{\\ce{CO2}} = \\frac{V_{\\text{STP}}}{22.4\\text{ L/mol}} = \\frac{4.48\\text{ L}}{22.4\\text{ L/mol}} = \\mathbf{0.200\\text{ mol}}$$
+| Zat | Reaktan A | Reaktan B | $\\rightarrow$ | Produk C |
+| :--- | :--- | :--- | :--- | :--- |
+| **M** (Mula-mula) | Data mol awal | Data mol awal | | $0$ (belum ada) |
+| **R** (Reaksi) | Berkurang ($-$) | Habis total ($-$) | | Bertambah ($+$) |
+| **S** (Sisa / Akhir) | Tersisa ($M - R$) | **$0$ (Habis)** | | Terbentuk ($0 + R$) |
 
-#### 2. Hitung Massa $\\ce{CaCO3}$ Murni:
+*Aturan Emas Baris R (Reaksi):*  
+Nilai mol pada baris Reaksi **HARUS selalu sebanding dengan koefisien reaksinya**:
+$\\text{Mol Reaksi Zat X} = \\frac{\\text{Koefisien X}}{\\text{Koefisien Pembatas}} \\times \\text{Mol Pembatas}$
+
+---
+
+### 📈 Persen Hasil Reaksi (*Percent Yield*)
+
+Di laboratorium nyata, hasil eksperimen seringkali tidak mencapai $100\\%$ karena adanya zat yang tumpah, menempel di kaca beker, atau penguapan. Efisiensi reaksi dihitung dengan:
+
+$\\% \\text{ Hasil} = \\frac{\\text{Hasil Aktual (Hasil Nyata Lab)}}{\\text{Hasil Teoretis (Hitungan Kertas M-R-S)}} \\times 100\\%$`,
+        keyFormulas: [
+          { name: 'Nilai Uji Pereaksi Pembatas', formula: '\\text{Nilai Uji} = \\frac{n_{\\text{awal}}}{\\text{Koefisien}}' },
+          { name: 'Rumus Persen Hasil', formula: '\\% \\text{ Hasil} = \\frac{\\text{Massa Aktual}}{\\text{Massa Teoretis}} \\times 100\\%' },
+        ],
+      },
+    ],
+    worked_examples: [
+      {
+        tag: 'contoh-hukum-dalton-oksida-nitrogen',
+        title: 'Contoh Soal 1: Pembuktian Hukum Perbandingan Berganda Dalton',
+        summary: 'Metode sistematis mengunci massa satu unsur untuk membuktikan rasio bilangan bulat sederhana pada dua oksida nitrogen.',
+        content: `### 📋 Soal Kasus:
+Unsur Nitrogen ($\\\\ce{N}$) dan Oksigen ($\\\\ce{O}$) dapat bereaksi membentuk dua jenis senyawa oksida:
+- **Senyawa I**: Mengandung $63.64\\\\%$ massa Nitrogen dan $36.36\\\\%$ massa Oksigen.
+- **Senyawa II**: Mengandung $46.67\\\\%$ massa Nitrogen dan $53.33\\\\%$ massa Oksigen.
+
+1. Buktikan bahwa kedua senyawa tersebut mematuhi Hukum Perbandingan Berganda Dalton!
+2. Jika rumus kimia Senyawa I adalah $\\\\ce{N2O}$, tentukan rumus kimia Senyawa II!
+
+---
+
+### 💡 Peta Pikir & Strategi:
+- **Kata Kunci**: Hukum Dalton berlaku jika massa salah satu unsur dibuat bernilai tetap (sama).
+- **Langkah Kita**: Kunci massa Nitrogen pada kedua senyawa agar bernilai sama-sama $1\\\\text{ gram}$, lalu bandingkan massa Oksigennya.
+
+---
+
+### ✍️ Penyelesaian Langkah demi Langkah:
+
+#### Langkah 1: Kunci Massa Nitrogen Senyawa I
+Pada Senyawa I:
+$\\\\frac{\\\\text{massa } \\\\ce{O}}{\\\\text{massa } \\\\ce{N}} = \\\\frac{36.36\\\\text{ g}}{63.64\\\\text{ g}} = \\\\mathbf{0.5714\\\\text{ g Oksigen per 1 g Nitrogen}}$
+
+#### Langkah 2: Kunci Massa Nitrogen Senyawa II
+Pada Senyawa II:
+$\\\\frac{\\\\text{massa } \\\\ce{O}}{\\\\text{massa } \\\\ce{N}} = \\\\frac{53.33\\\\text{ g}}{46.67\\\\text{ g}} = \\\\mathbf{1.1427\\\\text{ g Oksigen per 1 g Nitrogen}}$
+
+#### Langkah 3: Bandingkan Rasio Massa Oksigen
+$\\\\frac{\\\\text{Massa O (Senyawa I)}}{\\\\text{Massa O (Senyawa II)}} = \\\\frac{0.5714}{1.1427} = \\\\frac{1}{2} = \\\\mathbf{1 : 2}$
+
+**Kesimpulan Bagian 1:** Rasio massa oksigen adalah tepat **$1 : 2$** (bilangan bulat dan sederhana). Terbukti sahih mematuhi Hukum Dalton!
+
+#### Langkah 4: Tentukan Rumus Kimia Senyawa II
+- Senyawa I ($\\\\ce{N2O}$): 2 atom $\\\\ce{N}$ mengikat $1$ atom $\\\\ce{O}$.
+- Pada Senyawa II, untuk jumlah $\\\\ce{N}$ yang sama (2 atom $\\\\ce{N}$), jumlah atom oksigennya adalah **dua kali lipat** dari Senyawa I:
+  $1 \\\\times 2 = 2 \\\\text{ atom O} \\\\implies \\\\ce{N2O2} \\\\equiv \\\\mathbf{\\\\ce{NO}}$
+
+**Jawaban:** Rumus kimia Senyawa II adalah **$\\\\ce{NO}$** (Nitrogen Monoksida).`,
+        keyFormulas: [
+          { name: 'Rasio Hukum Dalton', formula: '\\frac{m_{O,1}}{m_{O,2}} = \\text{Rasio Bulat Sederhana}' },
+        ],
+      },
+      {
+        tag: 'contoh-analisis-pembakaran-dan-rumus-molekul',
+        title: 'Contoh Soal 2: Penentuan Rumus Empiris & Molekul Asam Askorbat (Vitamin C)',
+        summary: 'Kalkulasi massa atom dari gas CO2 dan H2O hasil pembakaran untuk menentukan rumus empiris dan rumus molekul.',
+        content: `### 📋 Soal Kasus:
+Pembakaran sempurna $4.40\\\\text{ gram}$ sampel Vitamin C yang hanya tersusun atas atom Karbon (C), Hidrogen (H), dan Oksigen (O) menghasilkan $6.60\\\\text{ gram}$ gas karbon dioksida ($\\\\ce{CO2}$, $M_r = 44.0$) dan $1.80\\\\text{ gram}$ uap air ($\\\\ce{H2O}$, $M_r = 18.0$). 
+
+Pada uji laboratorium terpisah, spektrometri massa menunjukkan bahwa massa molekul relatif ($M_r$) senyawa tersebut adalah $176\\\\text{ g/mol}$.
+1. Tentukan Rumus Empiris (RE) Vitamin C!
+2. Tentukan Rumus Molekul (RM) Vitamin C!
+
+---
+
+### 💡 Peta Pikir & Strategi:
+- Seluruh atom C dari sampel berpindah ke gas $\\\\ce{CO2}$.
+- Seluruh atom H dari sampel berpindah ke uap air $\\\\ce{H2O}$.
+- Atom Oksigen pada sampel dicari dari: $\\\\text{Massa O} = \\\\text{Massa Sampel} - (\\\\text{Massa C} + \\\\text{Massa H})$.
+
+---
+
+### ✍️ Penyelesaian Langkah demi Langkah:
+
+#### Langkah 1: Hitung Massa Masing-masing Unsur
+- **Massa Karbon (C):**
+  $m_{\\\\ce{C}} = \\\\frac{A_r(\\\\ce{C})}{M_r(\\\\ce{CO2})} \\\\times m_{\\\\ce{CO2}} = \\\\frac{12.0}{44.0} \\\\times 6.60\\\\text{ g} = \\\\mathbf{1.80\\\\text{ gram}}$
+- **Massa Hidrogen (H):**
+  $m_{\\\\ce{H}} = \\\\frac{2 \\\\times A_r(\\\\ce{H})}{M_r(\\\\ce{H2O})} \\\\times m_{\\\\ce{H2O}} = \\\\frac{2(1.0)}{18.0} \\\\times 1.80\\\\text{ g} = \\\\mathbf{0.20\\\\text{ gram}}$
+- **Massa Oksigen (O):**
+  $m_{\\\\ce{O}} = 4.40 - (1.80 + 0.20) = 4.40 - 2.00 = \\\\mathbf{2.40\\\\text{ gram}}$
+
+#### Langkah 2: Cari Perbandingan Mol & Rumus Empiris
+Bagi masing-masing massa dengan $A_r$-nya:
+- $n_{\\\\ce{C}} = \\\\frac{1.80}{12.0} = 0.150\\\\text{ mol}$
+- $n_{\\\\ce{H}} = \\\\frac{0.20}{1.0} = 0.200\\\\text{ mol}$
+- $n_{\\\\ce{O}} = \\\\frac{2.40}{16.0} = 0.150\\\\text{ mol}$
+
+Bagi seluruh angka mol dengan mol terkecil ($0.150$):
+$n_{\\\\ce{C}} : n_{\\\\ce{H}} : n_{\\\\ce{O}} = \\\\frac{0.150}{0.150} : \\\\frac{0.200}{0.150} : \\\\frac{0.150}{0.150} = 1 : 1.33 : 1$
+
+*Ingat aturan pecahan!* Kalikan seluruh angka dengan **$3$**:
+$1 \\\\times 3 : 1.33 \\\\times 3 : 1 \\\\times 3 = \\\\mathbf{3 : 4 : 3}$
+
+Maka **Rumus Empiris (RE) = $\\\\mathbf{\\\\ce{C3H4O3}}$**.
+
+#### Langkah 3: Tentukan Rumus Molekul (RM)
+- $M_r(\\\\text{RE}) = 3(12.0) + 4(1.0) + 3(16.0) = 36 + 4 + 48 = 88$
+- Faktor kelipatan $n$:
+  $n = \\\\frac{M_r(\\\\text{RM})}{M_r(\\\\text{RE})} = \\\\frac{176}{88} = \\\\mathbf{2}$
+
+$\\\\text{Rumus Molekul} = (\\\\ce{C3H4O3})_2 = \\\\mathbf{\\\\ce{C6H8O6}}$
+
+**Jawaban:** Rumus Empiris Vitamin C adalah **$\\\\ce{C3H4O3}$** dan Rumus Molekulnya adalah **$\\\\ce{C6H8O6}$** (Asam Askorbat).`,
+        keyFormulas: [
+          { name: 'Massa C dari CO2', formula: 'm_{\\ce{C}} = \\frac{12}{44} \\times m_{\\ce{CO2}}' },
+          { name: 'Massa H dari H2O', formula: 'm_{\\ce{H}} = \\frac{2}{18} \\times m_{\\ce{H2O}}' },
+        ],
+      },
+      {
+        tag: 'contoh-stoikiometri-gas-non-stp-pv-nrt',
+        title: 'Contoh Soal 3: Stoikiometri Reaksi Gas pada Kondisi Suhu & Tekanan Tertentu',
+        summary: 'Penerapan persamaan gas ideal PV = nRT untuk mencari volume gas hasil reaksi pelarutan logam tembaga.',
+        content: `### 📋 Soal Kasus:
+Sebanyak $12.7\\\\text{ gram}$ lempeng tembaga murni ($A_r\\\\ \\\\ce{Cu} = 63.5$) dilarutkan ke dalam larutan asam nitrat pekat berlebih menurut reaksi setara berikut:
+$\\\\ce{Cu(s) + 4 HNO3(aq) -> Cu(NO3)2(aq) + 2 NO2(g) + 2 H2O(l)}$
+
+Berapakah volume gas $\\\\ce{NO2}$ cokelat yang dihasilkan jika diukur pada suhu $27^\\\\circ\\\\text{C}$ dan tekanan $2.0\\\\text{ atm}$? ($R = 0.082\\\\text{ L}\\\\cdot\\\\text{atm}/(\\\\text{mol}\\\\cdot\\\\text{K})$).
+
+---
+
+### 💡 Peta Pikir & Strategi:
+1. Soal menyebutkan asam nitrat **berlebih**, artinya tembaga ($\\\\ce{Cu}$) adalah pereaksi pembatas yang habis total.
+2. Cari mol $\\\\ce{Cu}$ mula-mula.
+3. Gunakan perbandingan koefisien untuk mencari mol gas $\\\\ce{NO2}$.
+4. Karena kondisi bukan $0^\\\\circ\\\\text{C}$ (bukan STP), gunakan rumus gas ideal $PV = nRT$ (suhu diubah ke Kelvin).
+
+---
+
+### ✍️ Penyelesaian Langkah demi Langkah:
+
+#### Langkah 1: Hitung Mol Tembaga ($\\\\ce{Cu}$)
+$n_{\\\\ce{Cu}} = \\\\frac{\\\\text{massa}}{A_r} = \\\\frac{12.7\\\\text{ g}}{63.5\\\\text{ g/mol}} = \\\\mathbf{0.200\\\\text{ mol}}$
+
+#### Langkah 2: Hitung Mol Gas $\\\\ce{NO2}$ yang Terbentuk
+Lihat koefisien reaksi setara:
+$n_{\\\\ce{NO2}} = \\\\frac{\\\\text{koef } \\\\ce{NO2}}{\\\\text{koef } \\\\ce{Cu}} \\\\times n_{\\\\ce{Cu}} = \\\\frac{2}{1} \\\\times 0.200\\\\text{ mol} = \\\\mathbf{0.400\\\\text{ mol}}$
+
+#### Langkah 3: Konversi Satuan ke Standar Gas Ideal
+- Suhu mutlak ($T$): $27^\\\\circ\\\\text{C} + 273 = \\\\mathbf{300\\\\text{ K}}$
+- Tekanan ($P$): $\\\\mathbf{2.0\\\\text{ atm}}$
+- Mol gas ($n$): $\\\\mathbf{0.400\\\\text{ mol}}$
+
+#### Langkah 4: Hitung Volume dengan $PV = nRT$
+$V = \\\\frac{n R T}{P} = \\\\frac{0.400 \\\\times 0.082 \\\\times 300}{2.0} = \\\\frac{9.84}{2.0} = \\\\mathbf{4.92\\\\text{ Liter}}$
+
+**Jawaban:** Volume gas nitrogen dioksida yang terbentuk adalah **$4.92\\\\text{ Liter}$**.`,
+        keyFormulas: [
+          { name: 'Persamaan Gas Ideal', formula: 'V = \\frac{n R T}{P}' },
+        ],
+      },
+      {
+        tag: 'contoh-kemurnian-sampel-dan-persen-hasil',
+        title: 'Contoh Soal 4: Perhitungan Kemurnian Sampel Batu Kapur & Persen Hasil Reaksi',
+        summary: 'Analisis stoikiometri terpadu mencakup kadar zat murni dari data gas STP dan evaluasi efisiensi sintesis padatan.',
+        content: `### 📋 Soal Kasus:
+Sebanyak $25.0\\\\text{ gram}$ batu kapur kotor yang mengandung kalsium karbonat ($\\\\ce{CaCO3}$, $M_r = 100.0$) dipanaskan kuat hingga terurai sempurna:
+$\\\\ce{CaCO3(s) ->[\\\\Delta] CaO(s) + CO2(g)}$
+
+Gas $\\\\ce{CO2}$ yang terbentuk ditampung pada kondisi STP dan diperoleh volume sebesar $4.48\\\\text{ Liter}$.
+1. Berapakah persentase kemurnian kalsium karbonat ($\\\\%\\\\ \\\\ce{CaCO3}$) dalam batu kapur tersebut?
+2. Jika massa kapur tohor ($\\\\ce{CaO}$, $M_r = 56.0$) padat yang berhasil ditimbang di laboratorium adalah $10.08\\\\text{ gram}$, berapakah persen hasil (*percent yield*) reaksi tersebut?
+
+---
+
+### 💡 Peta Pikir & Strategi:
+- Volume $\\\\ce{CO2}$ pada STP ($4.48\\\\text{ L}$) langsung menunjukkan mol $\\\\ce{CO2}$ murni yang dihasilkan.
+- Koefisien $\\\\ce{CaCO3} : \\\\ce{CO2} = 1 : 1$, sehingga mol $\\\\ce{CaCO3}$ murni $=$ mol $\\\\ce{CO2}$.
+- Persen kemurnian $=$ $\\\\frac{\\\\text{massa murni}}{\\\\text{massa sampel kotor}} \\\\times 100\\\\%$.
+- Persen hasil $=$ $\\\\frac{\\\\text{massa nyata di lab}}{\\\\text{massa teoretis}} \\\\times 100\\\\%$.
+
+---
+
+### ✍️ Penyelesaian Langkah demi Langkah:
+
+#### Langkah 1: Hitung Mol Gas $\\\\ce{CO2}$
+Kondisi STP ($0^\\\\circ\\\\text{C}, 1\\\\text{ atm}$):
+$n_{\\\\ce{CO2}} = \\\\frac{V_{\\\\text{STP}}}{22.4} = \\\\frac{4.48\\\\text{ L}}{22.4\\\\text{ L/mol}} = \\\\mathbf{0.200\\\\text{ mol}}$
+
+#### Langkah 2: Hitung Massa $\\\\ce{CaCO3}$ Murni
 Berdasarkan koefisien reaksi setara ($1 : 1$):
-$$n_{\\ce{CaCO3 (murni)}} = n_{\\ce{CO2}} = 0.200\\text{ mol}$$
-$$m_{\\ce{CaCO3 (murni)}} = n \\times M_r = 0.200\\text{ mol} \\times 100.0\\text{ g/mol} = \\mathbf{20.0\\text{ gram}}$$
+$n_{\\\\ce{CaCO3}} = n_{\\\\ce{CO2}} = 0.200\\\\text{ mol}$
+$m_{\\\\ce{CaCO3 (murni)}} = n \\\\times M_r = 0.200 \\\\times 100.0 = \\\\mathbf{20.0\\\\text{ gram}}$
 
-#### 3. Hitung Persen Kemurnian Sampel Batu Kapur:
-$$\\% \\text{ Kemurnian} = \\frac{m_{\\text{murni}}}{m_{\\text{sampel}}} \\times 100\\% = \\frac{20.0\\text{ g}}{25.0\\text{ g}} \\times 100\\% = \\mathbf{80.0\\%}$$
+#### Langkah 3: Hitung Persen Kemurnian Batu Kapur
+$\\\\% \\\\text{ Kemurnian} = \\\\frac{m_{\\\\text{murni}}}{m_{\\\\text{sampel kotor}}} \\\\times 100\\\\% = \\\\frac{20.0\\\\text{ g}}{25.0\\\\text{ g}} \\\\times 100\\\\% = \\\\mathbf{80.0\\\\%}$
 
-#### 4. Hitung Persen Hasil (*Percent Yield*) $\\ce{CaO}$:
-- **Hasil Teoretis $\\ce{CaO}$:**  
-  $$n_{\\ce{CaO (teoretis)}} = n_{\\ce{CaCO3}} = 0.200\\text{ mol}$$
-  $$m_{\\ce{CaO (teoretis)}} = 0.200\\text{ mol} \\times 56.0\\text{ g/mol} = \\mathbf{11.20\\text{ gram}}$$
-- **Persen Hasil:**
-  $$\\% \\text{ Hasil} = \\frac{\\text{Massa Aktual}}{\\text{Massa Teoretis}} \\times 100\\% = \\frac{10.08\\text{ g}}{11.20\\text{ g}} \\times 100\\% = \\mathbf{90.0\\%}$$`,
-      keyFormulas: [
-        { name: 'Rumus Persen Kemurnian Sampel', formula: '\\% \\text{ Kemurnian} = \\frac{m_{\\text{murni}}}{m_{\\text{sampel}}} \\times 100\\%' },
-        { name: 'Rumus Persen Hasil', formula: '\\% \\text{ Hasil} = \\frac{\\text{Massa Aktual}}{\\text{Massa Teoretis}} \\times 100\\%' },
-      ],
-    },
-  ],
-},
+#### Langkah 4: Hitung Persen Hasil Reaksi $\\\\ce{CaO}$
+- **Hasil Teoretis (Hitungan Kertas):**  
+  Koefisien $\\\\ce{CaO} : \\\\ce{CaCO3} = 1 : 1$, sehingga $n_{\\\\ce{CaO}} = 0.200\\\\text{ mol}$.  
+  $\\\\text{Massa Teoretis } \\\\ce{CaO} = 0.200 \\\\times 56.0 = \\\\mathbf{11.20\\\\text{ gram}}$
+- **Hasil Aktual (Di Laboratorium):**  
+  Tercatat sebesar **$10.08\\\\text{ gram}$**.
+- **Kalkulasi Persen Hasil:**  
+  $\\\\% \\\\text{ Hasil} = \\\\frac{\\\\text{Massa Aktual}}{\\\\text{Massa Teoretis}} \\\\times 100\\\\% = \\\\frac{10.08\\\\text{ g}}{11.20\\\\text{ g}} \\\\times 100\\\\% = \\\\mathbf{90.0\\\\%}$
+
+**Jawaban:** Kemurnian batu kapur adalah **$80.0\\\\%$** dan efisiensi persen hasil reaksi adalah **$90.0\\\\%$**.`,
+        keyFormulas: [
+          { name: 'Rumus Persen Kemurnian Sampel', formula: '\\% \\text{ Kemurnian} = \\frac{m_{\\text{murni}}}{m_{\\text{sampel}}} \\times 100\\%' },
+          { name: 'Rumus Persen Hasil', formula: '\\% \\text{ Hasil} = \\frac{\\text{Massa Aktual}}{\\text{Massa Teoretis}} \\times 100\\%' },
+        ],
+      },
+    ],
+  },
+
+
 
   {
   id: 106,
@@ -6368,7 +6198,7 @@ $$2x\\ce{M} + \\ce{O2} \\ce{->} 2\\ce{M_x O} \\implies \\Delta G^\\circ = \\Delt
   2. Garis oksidasi karbon: $\\ce{2 C + O2 -> 2 CO}$ memiliki gradien **negatif** ($\\Delta S^\\circ > 0$, menghasilkan gas lebih banyak). Oleh karena itu, pada temperatur tinggi garis karbon akan memotong garis oksida logam di bawahnya.
   3. **Prinsip Reduksi:** Suatu logam dapat mereduksi oksida logam lain yang garis Ellingham-nya terletak di **atasnya** pada diagram.
 - **Ekstraksi Titanium (Proses Kroll):** $\\ce{TiO2}$ tidak dapat direduksi langsung dengan karbon karena membentuk karbida titanium yang rapuh ($\\ce{TiC}$). Dalam proses Kroll, $\\ce{TiO2}$ diklorinasi menjadi $\\ce{TiCl4}$ lalu direduksi dengan magnesium cair pada $800-850^\\circ\\text{C}$ di bawah atmosfer gas argon:
-  $$\\ce{TiCl4(g) + 2 Mg(l) -> Ti(s) + 2 MgCl2(l)}`,
+  $$\\ce{TiCl4(g) + 2 Mg(l) -> Ti(s) + 2 MgCl2(l)}$$`,
       keyFormulas: [
         { name: 'Temperatur Kritis Gibbs', formula: 'T_{\\text{kritis}} = \\frac{\\Delta H^\\circ}{\\Delta S^\\circ}' },
         { name: 'Persamaan Van t Hoff', formula: '\\ln\\left(\\frac{K_2}{K_1}\\right) = -\\frac{\\Delta H^\\circ}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)' },
@@ -9200,7 +9030,7 @@ Pada asam lemah dengan nilai $K_a$ relatif besar (misal asam dikloroasetat $\\ce
 - Persamaan kesetimbangan:
   $$K_a = \\frac{[\\ce{H+}][\\ce{A-}]}{C_a - [\\ce{H+}]} = \\frac{[\\ce{H+}]^2}{C_a - [\\ce{H+}]}$$
 - Solusi kuadratik eksak:
-  $$[\\ce{H+}]^2 + K_a [\\ce{H+}] - K_a C_a = 0 \\implies [\\ce{H+}] = \\frac{-K_a + \\sqrt{K_a^2 + 4 K_a C_a}}{2}`,
+  $$[\\ce{H+}]^2 + K_a [\\ce{H+}] - K_a C_a = 0 \\implies [\\ce{H+}] = \\frac{-K_a + \\sqrt{K_a^2 + 4 K_a C_a}}{2}$$`,
       keyFormulas: [
         { name: 'Kriteria Leveling Effect Air', formula: '[\\ce{H3O+}]_{\\text{maks}} = [\\text{Asam Kuat}] \\quad (\\text{Spesies terkuat dalam air adalah } \\ce{H3O+})' },
         { name: 'Prinsip Afinitas HSAB', formula: '\\text{Hard-Hard (Elektrostatik Ionik)} \\quad \\text{vs} \\quad \\text{Soft-Soft (Kovalen Polarisabel)}' },

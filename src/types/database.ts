@@ -504,4 +504,51 @@ export interface MaterialOverride {
   updated_at: string;
 }
 
+export type BugSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type BugStatus = 'open' | 'in_progress' | 'resolved' | 'closed';
+export type BugCategory =
+  | 'ui_ux'
+  | 'logic_calculation'
+  | 'katex_formula'
+  | 'content_typo'
+  | 'audio_media'
+  | 'auth_account'
+  | 'performance_crash'
+  | 'other';
+
+export interface BugReportLogItem {
+  type: 'error' | 'warn' | 'unhandledrejection';
+  message: string;
+  stack?: string;
+  timestamp: string;
+}
+
+export interface BugReport {
+  id: string;
+  page_url: string;
+  page_title: string;
+  section: string;
+  category: BugCategory;
+  severity: BugSeverity;
+  title: string;
+  description: string;
+  expected_behavior?: string;
+  steps_to_reproduce?: string;
+  reporter_id?: string;
+  reporter_email?: string;
+  reporter_name?: string;
+  reporter_role?: UserRole | 'guest';
+  user_agent?: string;
+  viewport?: { width: number; height: number };
+  recent_logs?: BugReportLogItem[];
+  screenshot_data?: string;
+  status: BugStatus;
+  admin_notes?: string;
+  resolved_at?: string;
+  resolved_by?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+
 

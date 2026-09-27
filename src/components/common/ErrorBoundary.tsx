@@ -1,5 +1,5 @@
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
-import { AlertTriangle, RefreshCw, X } from 'lucide-react';
+import { AlertTriangle, RefreshCw, X, Bug } from 'lucide-react';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -101,14 +101,34 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <p className="text-xs text-[#708090] max-w-md mb-4 leading-relaxed">
             Halaman mengalami kesalahan render sesaat. Silakan muat ulang atau coba kembali.
           </p>
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2D3748] hover:bg-[#1E293B] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-md cursor-pointer transition"
-          >
-            <RefreshCw className="w-3.5 h-3.5" />
-            <span>Muat Ulang Halaman</span>
-          </button>
+          <div className="flex items-center gap-2.5 flex-wrap justify-center">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2D3748] hover:bg-[#1E293B] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-md cursor-pointer transition"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Muat Ulang Halaman</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(
+                  new CustomEvent('open-bug-report-modal', {
+                    detail: {
+                      section: this.props.modalName || 'ErrorBoundary Crash',
+                      error: `${this.state.error?.message || 'Unknown Crash'}\n${this.state.error?.stack || ''}`,
+                    },
+                  })
+                );
+              }}
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold rounded-xl shadow-xs cursor-pointer transition"
+            >
+              <Bug className="w-3.5 h-3.5 text-amber-700" />
+              <span>Laporkan Bug Ini</span>
+            </button>
+          </div>
         </div>
       );
     }

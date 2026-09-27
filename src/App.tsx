@@ -7,6 +7,7 @@ import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LevelUpModal } from './components/gamification/LevelUpModal';
 import { AchievementUnlockModal } from './components/gamification/AchievementUnlockModal';
+import { FloatingBugReportButton } from './components/common/FloatingBugReportButton';
 
 // Auth & Landing Pages (Lazy Loaded on Demand)
 import { RequireClassroom } from './components/common/RequireClassroom';
@@ -48,6 +49,7 @@ const AdminMaterialEditor = lazy(() => import('./pages/admin/AdminMaterialEditor
 const AdminWorksheetManagement = lazy(() => import('./pages/admin/AdminWorksheetManagement').then((m) => ({ default: m.AdminWorksheetManagement })));
 const AdminQuestionManagement = lazy(() => import('./pages/admin/AdminQuestionManagement').then((m) => ({ default: m.AdminQuestionManagement })));
 const AdminAuditLogs = lazy(() => import('./pages/admin/AdminAuditLogs').then((m) => ({ default: m.AdminAuditLogs })));
+const AdminBugReports = lazy(() => import('./pages/admin/AdminBugReports').then((m) => ({ default: m.AdminBugReports })));
 const AdminAppearanceSettings = lazy(() => import('./pages/admin/AdminAppearanceSettings').then((m) => ({ default: m.AdminAppearanceSettings })));
 
 // Fallback Loader saat chunk modul sedang diunduh
@@ -513,6 +515,14 @@ function AppContent() {
             }
           />
           <Route
+            path="/admin/bugs"
+            element={
+              <AdminOnly>
+                <AdminBugReports />
+              </AdminOnly>
+            }
+          />
+          <Route
             path="/admin/appearance"
             element={
               <AdminOnly>
@@ -529,6 +539,7 @@ function AppContent() {
 
       <LevelUpModal />
       <AchievementUnlockModal />
+      <FloatingBugReportButton />
 
       {!isFullScreenWorkspace && !isAdminPortal && <Footer />}
     </div>

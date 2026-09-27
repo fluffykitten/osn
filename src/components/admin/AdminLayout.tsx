@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ChevronRight,
   Cloud,
+  Bug,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -67,6 +68,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       name: 'Audit Log Sistem',
       href: '/admin/audit-logs',
       icon: ScrollText,
+    },
+    {
+      name: 'Laporan Bug & Masalah',
+      href: '/admin/bugs',
+      icon: Bug,
+      badge: 'New',
     },
     {
       name: 'Pengaturan Tampilan',
