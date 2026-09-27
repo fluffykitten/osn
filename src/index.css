@@ -17,6 +17,17 @@
     --serene-slate-hover: #5D6D7D; /* Hover Slate */
   }
 
+  html {
+    scroll-behavior: smooth;
+    overscroll-behavior-y: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     font-family: var(--font-sans);
     background-color: #F0F8FF; /* Serene Alice Blue Canvas */
@@ -168,5 +179,11 @@
 
 .animate-sheet-fade-in {
   animation: sheetFadeIn 0.2s ease-out forwards;
+}
+
+/* Performance: Skip layout/paint calculations for off-screen concept blocks */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 420px;
 }
 

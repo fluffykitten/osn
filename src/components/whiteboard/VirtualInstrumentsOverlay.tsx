@@ -34,8 +34,8 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
   >(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const rotateStartRef = React.useRef({ startAngle: 0, startRulerAngle: 0 });
-  const [compassPanelOffset, setCompassPanelOffset] = useState({ x: 45, y: -60 });
-  const panelDragStartRef = React.useRef({ startClientX: 0, startClientY: 0, initialX: 45, initialY: -60 });
+  const [compassPanelOffset, setCompassPanelOffset] = useState({ x: 165, y: -90 });
+  const panelDragStartRef = React.useRef({ startClientX: 0, startClientY: 0, initialX: 165, initialY: -90 });
 
   const compassDrawPointsRef = React.useRef<Array<[number, number]>>([]);
   const [liveCompassPoints, setLiveCompassPoints] = useState<Array<[number, number]>>([]);
@@ -399,16 +399,25 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
               overflow: 'visible',
             }}
           >
-            {/* Lingkaran Garis Pandu Luar Bergradasi Halus */}
+            {/* Lingkaran Garis Pandu Luar dengan Halo Magnetik Snap */}
             <circle
               cx={compass.radiusPx + 26}
               cy={compass.radiusPx + 26}
               r={compass.radiusPx}
               fill="none"
-              stroke="#38bdf8"
-              strokeWidth="1.5"
-              strokeDasharray="4,4"
-              opacity="0.85"
+              stroke="#0284c7"
+              strokeWidth="10"
+              opacity="0.08"
+            />
+            <circle
+              cx={compass.radiusPx + 26}
+              cy={compass.radiusPx + 26}
+              r={compass.radiusPx}
+              fill="none"
+              stroke="#0ea5e9"
+              strokeWidth="2"
+              strokeDasharray="5,4"
+              opacity="0.9"
             />
 
             {/* Tanda Garis Ticks & Informasi Angka Derajat (Setiap 30 Derajat: 0°, 30°, 60°, 90°, dst.) */}

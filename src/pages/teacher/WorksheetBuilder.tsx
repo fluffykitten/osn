@@ -8,6 +8,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { isSupabaseConfigured } from '../../lib/supabaseClient';
 import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { QuestionBankBrowser } from '../../components/worksheet/QuestionBankBrowser';
+import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
 import {
   FileText,
   Clock,
@@ -336,8 +337,10 @@ export const WorksheetBuilder: React.FC = () => {
   }, [previewPdfType, selectedQuestions, title, targetLevel, timeLimit, passScore]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Header Bar */}
+    <div className="min-h-screen bg-slate-50/50 pb-16 space-y-6">
+      <TeacherNavigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 space-y-8">
+        {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div className="flex items-center gap-3">
           <button
@@ -957,6 +960,7 @@ export const WorksheetBuilder: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

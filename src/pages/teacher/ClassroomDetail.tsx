@@ -47,6 +47,8 @@ import { classroomService } from '../../services/classroomService';
 import { questionBankService } from '../../services/questionBankService';
 import { worksheetRealtimeService, extractStudentAnswer } from '../../services/worksheetRealtimeService';
 import { calculatePillarMastery, getSubmissionHistory } from '../../services/submissionService';
+import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
+import { StudentMasteryMatrix } from '../../components/teacher/StudentMasteryMatrix';
 import type {
   Classroom,
   ClassroomMember,
@@ -86,6 +88,7 @@ export const ClassroomDetail: React.FC = () => {
 
   // Analytics State
   const [pillarMastery, setPillarMastery] = useState<PillarMasteryScore[]>([]);
+  const [analyticsSubView, setAnalyticsSubView] = useState<'matrix' | 'overview'>('matrix');
 
   // Live Monitor State
   const [liveSessions, setLiveSessions] = useState<WorksheetLiveSession[]>([]);
@@ -142,6 +145,10 @@ export const ClassroomDetail: React.FC = () => {
       if (wsList.length > 0 && !selectedWsId) {
         setSelectedWsId(wsList[0].id);
       }
+
+      // Hitung penguasaan 10 pilar silabus
+      const mastery = calculatePillarMastery();
+      setPillarMastery(mastery);
     } catch (e) {
       console.error('Gagal memuat detail kelas:', e);
     } finally {
@@ -415,8 +422,10 @@ export const ClassroomDetail: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Back Link */}
+    <div className="min-h-screen bg-slate-50/50 pb-16 space-y-6">
+      <TeacherNavigation />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 space-y-8">
+        {/* Back Link */}
       <Link
         to="/teacher/classes"
         className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-indigo-600 transition-colors"
@@ -1689,7 +1698,49 @@ export const ClassroomDetail: React.FC = () => {
       {/* TAB 4: ANALITIK SILABUS 10 TOPIK */}
       {activeTab === 'analytics' && (
         <div className="space-y-6 animate-in fade-in">
-          {/* Header Card */}
+          {/* Sub-view switcher: Heatmap Matriks Siswa vs Ringkasan Agregat Kelas */}
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-1.5 bg-slate-200/80 p-1.5 rounded-2xl">
+              <button
+                type="button"
+                onClick={() => setAnalyticsSubView('matrix')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  analyticsSubView === 'matrix'
+                    ? 'bg-white text-indigo-700 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Layers className="w-4 h-4 text-indigo-600" />
+                <span>Matriks Siswa x 10 Pilar (Heatmap)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setAnalyticsSubView('overview')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  analyticsSubView === 'overview'
+                    ? 'bg-white text-indigo-700 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <TrendingUp className="w-4 h-4 text-indigo-600" />
+                <span>Ringkasan Agregat Kelas</span>
+              </button>
+            </div>
+          </div>
+
+          {analyticsSubView === 'matrix' ? (
+            <StudentMasteryMatrix
+              members={members}
+              classroomId={classroom.id}
+              className={classroom.name}
+              onAssignRemedial={(student, pillarNum) => {
+                navigate(`/teacher/worksheets/new?pillar=${pillarNum}&studentId=${student.student_id || student.id}`);
+              }}
+            />
+          ) : (
+            <div className="space-y-6">
+              {/* Header Card */}
           <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
@@ -1914,6 +1965,8 @@ export const ClassroomDetail: React.FC = () => {
           </div>
         </div>
       )}
+    </div>
+  )}
 
       {/* MODAL / DRAWER LIVE INSPECTION SISWA */}
       {inspectedStudent && (
@@ -2353,6 +2406,7 @@ export const ClassroomDetail: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

@@ -35,29 +35,34 @@ export const ChemistryWatermarkBackground: React.FC<{ className?: string }> = Re
     <div
       aria-hidden="true"
       className={`pointer-events-none select-none absolute inset-0 overflow-hidden z-0 ${className}`}
-      style={{ color: 'var(--theme-text)' }}
+      style={{
+        color: 'var(--theme-text)',
+        contain: 'strict',
+        transform: 'translateZ(0)',
+        willChange: 'transform',
+      }}
     >
       {/* ========================================================================= */}
       {/* 1. AMBIENT GLOW ORBS (Cahaya Halus di Sudut dan Sisi Luar Layar)          */}
       {/* ========================================================================= */}
       <div
-        className="absolute -top-32 -right-32 w-96 sm:w-[520px] h-96 sm:h-[520px] rounded-full blur-3xl opacity-20 sm:opacity-25 transition-all duration-700"
+        className="absolute -top-32 -right-32 w-96 sm:w-[520px] h-96 sm:h-[520px] rounded-full blur-3xl opacity-20 sm:opacity-25"
         style={{ backgroundColor: 'var(--theme-accent)' }}
       />
       <div
-        className="absolute top-1/4 -left-32 w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full blur-3xl opacity-15 sm:opacity-20 transition-all duration-700"
+        className="absolute top-1/4 -left-32 w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full blur-3xl opacity-15 sm:opacity-20"
         style={{ backgroundColor: 'var(--theme-primary)' }}
       />
       <div
-        className="absolute top-1/2 -right-24 w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full blur-3xl opacity-15 sm:opacity-20 transition-all duration-700"
+        className="absolute top-1/2 -right-24 w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full blur-3xl opacity-15 sm:opacity-20"
         style={{ backgroundColor: 'var(--theme-accent)' }}
       />
       <div
-        className="absolute top-3/4 -left-20 w-80 sm:w-[450px] h-80 sm:h-[450px] rounded-full blur-3xl opacity-12 sm:opacity-18 transition-all duration-700"
+        className="absolute top-3/4 -left-20 w-80 sm:w-[450px] h-80 sm:h-[450px] rounded-full blur-3xl opacity-12 sm:opacity-18"
         style={{ backgroundColor: 'var(--theme-primary)' }}
       />
       <div
-        className="absolute -bottom-24 -right-16 w-96 sm:w-[540px] h-96 sm:h-[540px] rounded-full blur-3xl opacity-15 sm:opacity-22 transition-all duration-700"
+        className="absolute -bottom-24 -right-16 w-96 sm:w-[540px] h-96 sm:h-[540px] rounded-full blur-3xl opacity-15 sm:opacity-22"
         style={{ backgroundColor: 'var(--theme-accent)' }}
       />
 
@@ -732,5 +737,6 @@ export const ChemistryWatermarkBackground: React.FC<{ className?: string }> = Re
     </div>
   );
 });
+ChemistryWatermarkBackground.displayName = 'ChemistryWatermarkBackground';
 
 export default ChemistryWatermarkBackground;

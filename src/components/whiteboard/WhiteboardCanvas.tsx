@@ -89,7 +89,7 @@ function snapClientToRuler(
   return { clientX, clientY, isSnapped: false };
 }
 
-// Snapping otomatis saat menggambar di dekat atau di dalam lingkaran jangka (dalam koordinat layar client)
+// Snapping otomatis saat menggambar di dekat garis lingkaran jangka (dalam koordinat layar client)
 function snapClientToCompass(
   clientX: number,
   clientY: number,
@@ -97,25 +97,26 @@ function snapClientToCompass(
   compassClientY: number,
   compass: CompassState,
   isLocked: boolean
-): { clientX: number; clientY: number; isSnapped: boolean } {
+): { clientX: number; clientY: number; angle: number; isSnapped: boolean } {
   const dx = clientX - compassClientX;
   const dy = clientY - compassClientY;
   const dist = Math.hypot(dx, dy);
 
-  // Jika sedang terkunci saat menarik goresan lingkaran ATAU kursor berada di dalam/dekat keliling lingkaran
-  const isNearRadius = Math.abs(dist - compass.radiusPx) <= 45;
-  const isInsideCircle = dist <= compass.radiusPx + 20 && dist >= 20;
+  // Ambang batas snap terukur: 35px saat mendekat, 75px saat sedang mengunci goresan lingkaran
+  const threshold = isLocked ? 75 : 35;
+  const radialDist = Math.abs(dist - compass.radiusPx);
 
-  if (isLocked || isNearRadius || isInsideCircle) {
-    if (dist < 10) return { clientX, clientY, isSnapped: isLocked };
+  if (radialDist <= threshold) {
+    if (dist < 8) return { clientX, clientY, angle: 0, isSnapped: false };
     const angle = Math.atan2(dy, dx);
     return {
       clientX: compassClientX + Math.cos(angle) * compass.radiusPx,
       clientY: compassClientY + Math.sin(angle) * compass.radiusPx,
+      angle,
       isSnapped: true,
     };
   }
-  return { clientX, clientY, isSnapped: false };
+  return { clientX, clientY, angle: 0, isSnapped: false };
 }
 
 export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
@@ -182,6 +183,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   }, []);
   const isRulerSnappedRef = useRef<boolean>(false);
   const isCompassSnappedRef = useRef<boolean>(false);
+  const currentCompassAngleRef = useRef<number | null>(null);
+  const lastCompassAngleRef = useRef<number | null>(null);
 
   // Laser Fading Pen: Goresan pemandu yang memudar dan hilang otomatis dalam ~3.2 detik
   interface FadingStroke {
@@ -480,14 +483,21 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       let targetClientX = e.clientX;
       let targetClientY = e.clientY;
 
-      // Snapping jika instrumen Penggaris atau Jangka aktif dan sedang menggambar dengan pena/highlighter/garis
-      if (
-        (activeTool === 'pen' || activeTool === 'highlighter' || activeTool === 'fading_pen' || activeTool === 'line') &&
-        ruler?.isVisible
-      ) {
+      // Snapping instrumen Penggaris atau Jangka saat menggambar dengan pena/highlighter/fading_pen/garis
+      const isDrawTool =
+        activeTool === 'pen' ||
+        activeTool === 'highlighter' ||
+        activeTool === 'fading_pen' ||
+        activeTool === 'line';
+
+      let isSnappedToAny = false;
+
+      // 1. PRIORITAS UTAMA: PENGGARIS (Ruler Priority)
+      // Jika kursor berada di dekat penggaris (atau penggaris dan jangka bersentuhan), penggaris yang menang snap!
+      if (isDrawTool && ruler?.isVisible) {
         const rulerClientX = containerRect.left + ruler.x;
         const rulerClientY = containerRect.top + ruler.y;
-        const res = snapClientToRuler(
+        const rulerRes = snapClientToRuler(
           e.clientX,
           e.clientY,
           rulerClientX,
@@ -495,22 +505,26 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           ruler,
           isRulerSnappedRef.current
         );
-        if (res.isSnapped) {
-          targetClientX = res.clientX;
-          targetClientY = res.clientY;
-          if (isDrawing) {
-            isRulerSnappedRef.current = true;
-          }
-        } else if (!isDrawing) {
-          isRulerSnappedRef.current = false;
+        if (rulerRes.isSnapped) {
+          targetClientX = rulerRes.clientX;
+          targetClientY = rulerRes.clientY;
+          isRulerSnappedRef.current = true;
+          // Batalkan dan lepas jangka saat snap ke penggaris (penggaris menang prioritas)
+          isCompassSnappedRef.current = false;
+          currentCompassAngleRef.current = null;
+          isSnappedToAny = true;
         }
-      } else if (
+      }
+
+      // 2. PRIORITAS KEDUA: JANGKA (Hanya jika penggaris TIDAK snap)
+      if (
+        !isSnappedToAny &&
         (activeTool === 'pen' || activeTool === 'highlighter' || activeTool === 'fading_pen') &&
         compass?.isVisible
       ) {
         const compassClientX = containerRect.left + compass.centerX;
         const compassClientY = containerRect.top + compass.centerY;
-        const res = snapClientToCompass(
+        const compassRes = snapClientToCompass(
           e.clientX,
           e.clientY,
           compassClientX,
@@ -518,15 +532,23 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           compass,
           isCompassSnappedRef.current
         );
-        if (res.isSnapped) {
-          targetClientX = res.clientX;
-          targetClientY = res.clientY;
-          if (isDrawing) {
-            isCompassSnappedRef.current = true;
-          }
-        } else if (!isDrawing) {
-          isCompassSnappedRef.current = false;
+        if (compassRes.isSnapped) {
+          targetClientX = compassRes.clientX;
+          targetClientY = compassRes.clientY;
+          currentCompassAngleRef.current = compassRes.angle;
+          isCompassSnappedRef.current = true;
+          isRulerSnappedRef.current = false;
+          isSnappedToAny = true;
+        } else {
+          currentCompassAngleRef.current = null;
         }
+      }
+
+      // Jika keduanya tidak snap dan sedang tidak menggambar, pastikan semua ref dilepaskan
+      if (!isSnappedToAny && !isDrawing) {
+        isRulerSnappedRef.current = false;
+        isCompassSnappedRef.current = false;
+        currentCompassAngleRef.current = null;
       }
 
       const scaleX = canvasRef.current.width / canvasRect.width;
@@ -878,6 +900,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   const commitCurrentDrawing = useCallback(() => {
     isRulerSnappedRef.current = false;
     isCompassSnappedRef.current = false;
+    currentCompassAngleRef.current = null;
+    lastCompassAngleRef.current = null;
     autoPanStateRef.current.active = false;
     if (isPanning) {
       setIsPanning(false);
@@ -1148,6 +1172,11 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       const strokeId = `stroke-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
       currentStrokeIdRef.current = strokeId;
       setCurrentPoints([[pt.x, pt.y]]);
+      if (isCompassSnappedRef.current && currentCompassAngleRef.current !== null) {
+        lastCompassAngleRef.current = currentCompassAngleRef.current;
+      } else {
+        lastCompassAngleRef.current = null;
+      }
 
       // Siarkan titik awal goresan ke seluruh peserta
       if (onBroadcastLiveStroke) {
@@ -1260,7 +1289,57 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
 
     if (activeTool === 'pen' || activeTool === 'highlighter' || activeTool === 'fading_pen') {
       setCurrentPoints((prev) => {
-        const next = [...prev, [pt.x, pt.y] as [number, number]];
+        const interpolatedPoints: [number, number][] = [];
+
+        // Interpolasi titik keliling lingkaran jangka jika kursor bergerak cepat saat snap
+        if (
+          isCompassSnappedRef.current &&
+          currentCompassAngleRef.current !== null &&
+          compass?.isVisible &&
+          canvasRef.current &&
+          containerRef.current &&
+          prev.length > 0
+        ) {
+          const containerRect = containerRef.current.getBoundingClientRect();
+          const canvasRect = canvasRef.current.getBoundingClientRect();
+          const compassClientX = containerRect.left + compass.centerX;
+          const compassClientY = containerRect.top + compass.centerY;
+
+          if (lastCompassAngleRef.current !== null) {
+            let diff = currentCompassAngleRef.current - lastCompassAngleRef.current;
+            // Normalisasi selisih sudut ke rentang [-PI, PI]
+            while (diff < -Math.PI) diff += 2 * Math.PI;
+            while (diff > Math.PI) diff -= 2 * Math.PI;
+
+            // Jika pergerakan lebih dari ~5 derajat dan kurang dari 120 derajat per event
+            if (Math.abs(diff) > 0.08 && Math.abs(diff) < 2.1) {
+              const steps = Math.min(12, Math.floor(Math.abs(diff) / 0.05));
+              const scaleX = canvasRef.current.width / canvasRect.width;
+              const scaleY = canvasRef.current.height / canvasRect.height;
+
+              for (let s = 1; s < steps; s++) {
+                const interAngle = lastCompassAngleRef.current + (diff * s) / steps;
+                const interClientX = compassClientX + Math.cos(interAngle) * compass.radiusPx;
+                const interClientY = compassClientY + Math.sin(interAngle) * compass.radiusPx;
+                const interScreenX = (interClientX - canvasRect.left) * scaleX;
+                const interScreenY = (interClientY - canvasRect.top) * scaleY;
+
+                let interRawPt: { x: number; y: number };
+                if (doc.layoutMode === 'infinite') {
+                  interRawPt = screenToWorld(interScreenX, interScreenY, panX, panY, zoom);
+                } else {
+                  interRawPt = { x: interScreenX, y: interScreenY };
+                }
+                interpolatedPoints.push([interRawPt.x, interRawPt.y]);
+              }
+            }
+          }
+          lastCompassAngleRef.current = currentCompassAngleRef.current;
+        } else {
+          lastCompassAngleRef.current = null;
+        }
+
+        const next = [...prev, ...interpolatedPoints, [pt.x, pt.y] as [number, number]];
         const now = Date.now();
         // Siarkan goresan langsung (streaming) setiap ~25ms saat kursor digerakkan
         if (
