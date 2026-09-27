@@ -24,6 +24,7 @@
   - [6. Portofolio Akademik & Radar Diagnostik Siswa](#6-portofolio-akademik--radar-diagnostik-siswa)
   - [7. Dynamic Theme Studio & Appearance Manager](#7-dynamic-theme-studio--appearance-manager)
   - [8. Optimasi Penuh Layar Mobile & Tablet](#8-optimasi-penuh-layar-mobile--tablet)
+- [📘 Rencana Revamp Pedagogis Konten Materi](docs/CONTENT_REVAMP_IMPLEMENTATION_PLAN.md)
 - [Arsitektur & Tech Stack](#-arsitektur--tech-stack)
 - [Struktur Proyek](#-struktur-proyek)
 - [Panduan Instalasi & Menjalankan Lokal](#-panduan-instalasi--menjalankan-lokal)
@@ -65,6 +66,12 @@ Persiapan menuju Olimpiade Sains Nasional (OSN) Kimia hingga jenjang Internation
   8. *Elektrokimia & Sel Volta* (Potensial reduksi standar, persamaan Nernst, elektrolisis Faraday).
   9. *Kimia Anorganik & Logam Transisi* (Teori medan kristal / CFT, warna kompleks d-d, sifat magnetik).
   10. *Kimia Organik & Mekanisme Reaksi* (Stereokimia R/S, reaksi substitusi $S_N1$/$S_N2$, eliminasi $E1$/$E2$, sintesis multi-tahap).
+
+> [!TIP]
+> **📘 Rencana Revamp Pedagogis Konten Materi (Tone Opsi A)**  
+> Kurikulum materi saat ini sedang mengalami perombakan komprehensif mengadopsi **Arsitektur Pedagogis 5 Lapis** (Analogi Mental Model, Alur Langkah Terstruktur, Infografik Vektor Kontras Tinggi, dan Kartu Peringatan Miskonsepsi Aktif).  
+> * Proyek Pilot Selesai: **Topik 5 SMA (Hukum Dasar Kimia & Konsep Mol)** tervalidasi 100%.  
+> * Rencana detail, tabel 16 Topik SMA & 10 Pilar OSN dapat dibaca di: **[docs/CONTENT_REVAMP_IMPLEMENTATION_PLAN.md](docs/CONTENT_REVAMP_IMPLEMENTATION_PLAN.md)**.
 
 ---
 
