@@ -118,13 +118,13 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
       case 'SMA-Mudah':
         return 'bg-emerald-100 text-emerald-800 border-emerald-300';
       case 'SMA-Sedang':
-        return 'bg-sky-100 text-sky-800 border-sky-300';
+        return 'bg-[#F0F8FF] text-[#2D3748] border border-[#B0C4DE]';
       case 'SMA-Sulit':
         return 'bg-purple-100 text-purple-800 border-purple-300';
       case 'SMA':
         return 'bg-teal-100 text-teal-800 border-teal-300';
       case 'OSK':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-[#F0F8FF] text-[#2D3748] border border-[#B0C4DE]';
       case 'OSP':
         return 'bg-amber-100 text-amber-800 border-amber-200';
       case 'OSN':
@@ -502,8 +502,8 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                 {activeModalQuestion.diagram_url && (
                   <div className="space-y-1.5 pt-2">
                     <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
-                      <span className="flex items-center gap-1.5 text-indigo-900">
-                        <ImageIcon className="w-3.5 h-3.5 text-indigo-600" />
+                      <span className="flex items-center gap-1.5 text-[#2D3748]">
+                        <ImageIcon className="w-3.5 h-3.5 text-[#708090]" />
                         <span>Diagram & Visualisasi Soal (Cloudflare R2):</span>
                       </span>
                       <button
@@ -512,7 +512,7 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                           setDiagramViewerUrl(activeModalQuestion.diagram_url!);
                           setDiagramViewerTitle(activeModalQuestion.title);
                         }}
-                        className="text-[11px] text-sky-600 hover:text-sky-800 font-bold hover:underline cursor-pointer"
+                        className="text-[11px] text-[#708090] hover:text-[#2D3748] font-bold hover:underline cursor-pointer"
                       >
                         Perbesar (Zoom)
                       </button>
@@ -522,7 +522,7 @@ export const QuestionBankBrowser: React.FC<QuestionBankBrowserProps> = ({
                         setDiagramViewerUrl(activeModalQuestion.diagram_url!);
                         setDiagramViewerTitle(activeModalQuestion.title);
                       }}
-                      className="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-center cursor-zoom-in hover:border-sky-400 transition-all shadow-2xs"
+                      className="p-3 bg-white border border-slate-200 rounded-xl flex items-center justify-center cursor-zoom-in hover:border-[#708090] transition-all shadow-2xs"
                       title="Klik untuk memperbesar diagram"
                     >
                       <img

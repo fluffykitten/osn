@@ -5,7 +5,7 @@
  * - 10 Pilar Silabus OSN Kimia (Puspresnas / IChO)
  */
 
-import { SMA_MATERIALS, type SmaMaterialItem } from '../data/smaMaterialsData';
+import { SMA_TOPICS_META, type SmaTopicMeta } from '../data/smaTopicsMeta';
 import { PILLARS_DATA } from '../data/syllabusData';
 import type { Question, ModuleItem } from '../types/database';
 
@@ -13,7 +13,7 @@ export interface SmaTopicGroup {
   grade: 'Kelas 10' | 'Kelas 11' | 'Kelas 12';
   phase: 'Fase E' | 'Fase F';
   title: string;
-  topics: SmaMaterialItem[];
+  topics: SmaTopicMeta[];
 }
 
 /**
@@ -24,27 +24,27 @@ export const SMA_TOPIC_GROUPS: SmaTopicGroup[] = [
     grade: 'Kelas 10',
     phase: 'Fase E',
     title: 'Kelas 10 (Fase E) — Fondasi Sains Kimia',
-    topics: SMA_MATERIALS.filter((m) => m.grade === 'Kelas 10'),
+    topics: SMA_TOPICS_META.filter((m) => m.grade === 'Kelas 10'),
   },
   {
     grade: 'Kelas 11',
     phase: 'Fase F',
     title: 'Kelas 11 (Fase F) — Termokimia, Kinetika & Kesetimbangan Larutan',
-    topics: SMA_MATERIALS.filter((m) => m.grade === 'Kelas 11'),
+    topics: SMA_TOPICS_META.filter((m) => m.grade === 'Kelas 11'),
   },
   {
     grade: 'Kelas 12',
     phase: 'Fase F',
     title: 'Kelas 12 (Fase F) — Koligatif, Redoks, Elektrokimia & Karbon',
-    topics: SMA_MATERIALS.filter((m) => m.grade === 'Kelas 12'),
+    topics: SMA_TOPICS_META.filter((m) => m.grade === 'Kelas 12'),
   },
 ];
 
 /**
  * Mendapatkan detail topik SMA berdasarkan topic_number (1-16) atau ID materi (101-116)
  */
-export const getSmaTopic = (topicOrId: number): SmaMaterialItem | undefined => {
-  return SMA_MATERIALS.find((m) => m.topic_number === topicOrId || m.id === topicOrId);
+export const getSmaTopic = (topicOrId: number): SmaTopicMeta | undefined => {
+  return SMA_TOPICS_META.find((m) => m.topic_number === topicOrId || m.id === topicOrId);
 };
 
 /**
@@ -73,7 +73,7 @@ const DEFAULT_OSN_TO_SMA_TOPIC: Record<number, number> = {
 /**
  * Mendapatkan topik materi dasar SMA yang menjadi prasyarat untuk suatu Pilar OSN
  */
-export const getSmaTopicForOsnPillar = (pillarNumber: number): SmaMaterialItem | undefined => {
+export const getSmaTopicForOsnPillar = (pillarNumber: number): SmaTopicMeta | undefined => {
   const smaTopicNum = DEFAULT_OSN_TO_SMA_TOPIC[pillarNumber] || 2;
   return getSmaTopic(smaTopicNum);
 };

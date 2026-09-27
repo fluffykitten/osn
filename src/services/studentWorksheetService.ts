@@ -5,7 +5,6 @@
  */
 
 import { PILLARS_DATA, BENCHMARK_QUESTIONS } from '../data/syllabusData';
-import { ALL_DEFAULT_QUESTIONS } from './questionBankService';
 import { getSupabaseClient, DEFAULT_STUDENT_ID } from '../lib/supabaseClient';
 import type { Worksheet } from '../types/database';
 
@@ -225,10 +224,10 @@ class StudentWorksheetService {
     const submissions = this.getLocalSubmissions();
 
     return PILLARS_DATA.map((pillar) => {
-      // Cari soal default (benchmark + SMA curriculum) yang sesuai dengan pillar ini
-      const pillarQuestions = ALL_DEFAULT_QUESTIONS.filter((q) => q.pillar_number === pillar.pillar_number);
+      // Jumlah butir soal per pilar silabus OSN
+      const pillarCountMap: Record<number, number> = { 1: 52, 2: 27, 3: 102, 4: 52, 5: 77, 6: 27, 7: 27, 8: 27, 9: 2, 10: 27 };
       const fallbackQuestions = BENCHMARK_QUESTIONS.filter((q) => q.pillar_number === pillar.pillar_number);
-      const questionCount = pillarQuestions.length > 0 ? pillarQuestions.length : (fallbackQuestions.length > 0 ? fallbackQuestions.length : 1);
+      const questionCount = pillarCountMap[pillar.pillar_number] || (fallbackQuestions.length > 0 ? fallbackQuestions.length : 1);
 
       // Cari submission siswa untuk pillar ini
       const pillarSubmissions = submissions.filter((s) => s.pillarNumber === pillar.pillar_number);

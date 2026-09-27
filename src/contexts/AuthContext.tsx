@@ -1,8 +1,9 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabaseClient';
 import type { Profile, UserRole } from '../types/database';
 import { getLocalGamificationState, saveLocalGamificationState } from '../lib/gamification';
+import { awardXp } from '../services/gamificationService';
 import { sendStudentRegistrationNotification } from '../services/notificationService';
 
 export interface StudentRegistrationDetails {
@@ -34,6 +35,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
   loginDemo: (type: 'teacher' | 'student' | 'admin') => Promise<{ success: boolean; error?: string }>;
+  awardUserXp: (amount: number, reason?: string) => Promise<any>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -226,6 +228,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, [fetchProfile, restoreLocalSession]);
 
+  // Sinkronisasi Reaktif instan saat XP diberikan di komponen manapun
+  useEffect(() => {
+    const handleXpAwarded = (e: Event) => {
+      const custom = e as CustomEvent;
+      if (custom.detail) {
+        setProfile((prev) => {
+          if (!prev) return prev;
+          const updated: Profile = {
+            ...prev,
+            xp: custom.detail.newXp,
+            level: custom.detail.newLevel,
+          };
+          try {
+            const raw = localStorage.getItem(LOCAL_FALLBACK_USER_KEY);
+            if (raw) {
+              const parsed = JSON.parse(raw);
+              localStorage.setItem(
+                LOCAL_FALLBACK_USER_KEY,
+                JSON.stringify({ ...parsed, profile: updated })
+              );
+            }
+          } catch {}
+          return updated;
+        });
+      }
+    };
+
+    window.addEventListener('osn_xp_awarded', handleXpAwarded);
+    return () => window.removeEventListener('osn_xp_awarded', handleXpAwarded);
+  }, []);
+
   const refreshProfile = async () => {
     if (user) {
       const prof = await fetchProfile(user.id, user.email);
@@ -236,6 +269,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     }
   };
+
+  const awardUserXp = useCallback(
+    async (amount: number, reason?: string) => {
+      if (!user?.id) return null;
+      return await awardXp(user.id, amount, {
+        currentKnownXp: profile?.xp,
+        reason,
+      });
+    },
+    [user?.id, profile?.xp]
+  );
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
     const cleanEmail = email.trim().toLowerCase().replace(/['"]/g, '');
@@ -715,26 +759,47 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     profile?.email?.toLowerCase() === 'ezzarscarlet@gmail.com'
   );
 
+  const contextValue = useMemo<AuthContextType>(
+    () => ({
+      user,
+      session,
+      profile,
+      role: currentRole,
+      isTeacher,
+      isAdmin,
+      loading,
+      isCloudConnected,
+      login,
+      register,
+      resetPassword,
+      updatePassword,
+      logout,
+      refreshProfile,
+      loginDemo,
+      awardUserXp,
+    }),
+    [
+      user,
+      session,
+      profile,
+      currentRole,
+      isTeacher,
+      isAdmin,
+      loading,
+      isCloudConnected,
+      login,
+      register,
+      resetPassword,
+      updatePassword,
+      logout,
+      refreshProfile,
+      loginDemo,
+      awardUserXp,
+    ]
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        session,
-        profile,
-        role: currentRole,
-        isTeacher,
-        isAdmin,
-        loading,
-        isCloudConnected,
-        login,
-        register,
-        resetPassword,
-        updatePassword,
-        logout,
-        refreshProfile,
-        loginDemo,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

@@ -8,7 +8,7 @@ interface KaTeXRendererProps {
   ariaLabel?: string;
 }
 
-export const KaTeXRenderer: React.FC<KaTeXRendererProps> = ({
+export const KaTeXRenderer: React.FC<KaTeXRendererProps> = React.memo(({
   content,
   className = '',
   inlineOnly = false,
@@ -48,5 +48,5 @@ export const KaTeXRenderer: React.FC<KaTeXRendererProps> = ({
       dangerouslySetInnerHTML={{ __html: renderedHtml }}
     />
   );
-};
+});
 

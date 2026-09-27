@@ -360,8 +360,51 @@ export function preprocessFriendlyFormula(rawText: string): {
     return stash(`${base}^{${exp}}`, false);
   });
 
-  // 9. Variables with subscripts: X_A, n_tot, K_c, K_sp, P_total, M_r, E_sel, T_1
+  // 8b. Equations with assignment, math operators, or greek subscripts (e.g. N = 2*theta_S + 6*theta_L, PV = nRT, P_tot = P_A + P_B)
+  const GREEK_NAMES = /^(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega)$/i;
+  t = t.replace(/\b([A-Za-z](?:_[a-zA-Z0-9]+)?)\s*=\s*([0-9a-zA-Z\s_\^\*\/\+\-\(\)]*(?:[0-9a-zA-Z_\)]\s*[\*\/]\s*[0-9a-zA-Z_\(]|[0-9a-zA-Z\)]\s*[\+\-]\s*[0-9a-zA-Z_\(])[0-9a-zA-Z\s_\^\*\/\+\-\(\)]*)\b/g, (whole, lhs, rhs) => {
+    // Avoid false positives on plain sentences with '='
+    const words = rhs.trim().split(/\s+/).filter((w: string) => /^[a-zA-Z]{5,}$/.test(w) && !GREEK_NAMES.test(w));
+    if (words.length > 0) return whole;
+
+    let mathRhs = rhs.replace(/\b([A-Za-z]+)_\{?([a-zA-Z0-9]+)\}?\b/g, (_: string, b: string, s: string) => {
+      if (GREEK_NAMES.test(b)) return `\\${b.toLowerCase()}_{${s}}`;
+      return `${b}_{${s}}`;
+    });
+    mathRhs = mathRhs.replace(/\b(theta|alpha|beta|gamma|lambda|sigma|omega|mu|pi|phi|psi)\b/gi, (g: string) => `\\${g.toLowerCase()}`);
+    mathRhs = mathRhs.replace(/(\d+)\s*\*\s*([a-zA-Z\\])/g, '$1 $2');
+    mathRhs = mathRhs.replace(/\s*\*\s*/g, ' \\cdot ');
+
+    let mathLhs = lhs;
+    if (lhs.includes('_')) {
+      mathLhs = lhs.replace(/\b([A-Za-z]+)_\{?([a-zA-Z0-9]+)\}?\b/, (_: string, b: string, s: string) => {
+        if (GREEK_NAMES.test(b)) return `\\${b.toLowerCase()}_{${s}}`;
+        return `${b}_{${s}}`;
+      });
+    }
+
+    return stash(`${mathLhs} = ${mathRhs.trim()}`, false);
+  });
+
+  // 8c. Shorthand product with asterisk: 2*theta_S or 6*theta_L
+  t = t.replace(/\b(\d+)\s*\*\s*([A-Za-z]+(?:_[a-zA-Z0-9]+)?)\b/g, (_, num, sym) => {
+    let mathSym = sym;
+    if (sym.includes('_')) {
+      mathSym = sym.replace(/\b([A-Za-z]+)_\{?([a-zA-Z0-9]+)\}?\b/, (_: string, b: string, s: string) => {
+        if (GREEK_NAMES.test(b)) return `\\${b.toLowerCase()}_{${s}}`;
+        return `${b}_{${s}}`;
+      });
+    } else if (GREEK_NAMES.test(sym)) {
+      mathSym = `\\${sym.toLowerCase()}`;
+    }
+    return stash(`${num} ${mathSym}`, false);
+  });
+
+  // 9. Variables with subscripts: X_A, n_tot, K_c, K_sp, P_total, M_r, E_sel, T_1, theta_S, theta_L
   t = t.replace(/\b([A-Za-z]+)_\{?([a-zA-Z0-9]+)\}?\b/g, (_, base, sub) => {
+    if (GREEK_NAMES.test(base)) {
+      return stash(`\\${base.toLowerCase()}_{${sub}}`, false);
+    }
     return stash(`${base}_{${sub}}`, false);
   });
 
@@ -389,7 +432,8 @@ export function preprocessFriendlyFormula(rawText: string): {
   t = t.replace(/(?<![a-zA-Z0-9])->(?![a-zA-Z0-9])/g, () => stash('\\rightarrow', false));
 
   // 14. Greek letters and math symbols
-  t = t.replace(/\\(?:alpha|beta|gamma|lambda|pi|sigma|theta|mu|omega|approx|pm)/g, (match) => stash(match, false));
+  t = t.replace(/(?<![a-zA-Z0-9])\\?(theta|lambda|alpha|beta|gamma|omega|sigma|mu|phi|psi)(?![a-zA-Z0-9])/gi, (_, letter) => stash(`\\${letter.toLowerCase()}`, false));
+  t = t.replace(/\\(?:pi|approx|pm|ne|leq|geq|times|cdot)/g, (match) => stash(match, false));
   t = t.replace(/\^\\circ(?:\\text\{C\}|C)?/g, () => stash('^\\circ\\text{C}', false));
 
   return { text: t, protectedMath, protectedSvg };

@@ -1,86 +1,76 @@
-// Gamification helpers for OSN Kimia Mastery
-import confetti from 'canvas-confetti';
+// Gamification helpers for OSN Kimia Mastery (Revamped with Chemistry Figures)
+import {
+  getLevelFromXp,
+  calculateLevelProgress as calcProgressNew,
+  getLevelDefinition,
+  type ChemistryLevelDefinition,
+  type LevelProgressReport,
+} from '../utils/gamificationConstants';
+import {
+  getLocalGamificationState as getLocalState,
+  saveLocalGamificationState as saveLocalState,
+  triggerCelebration as triggerCelebrationFx,
+  awardXp as awardXpService,
+  type UserGamificationState as ServiceGamificationState,
+} from '../services/gamificationService';
 
-export const XP_PER_LEVEL = 250;
+export const XP_PER_LEVEL = 250; // Legacy constant
 
 export function calculateLevel(xp: number): number {
-  return Math.floor(xp / XP_PER_LEVEL) + 1;
+  return getLevelFromXp(xp).level;
 }
 
-export function calculateLevelProgress(xp: number): { currentLevel: number; currentXp: number; nextLevelXp: number; progressPercent: number } {
-  const currentLevel = calculateLevel(xp);
-  const currentLevelBaseXp = (currentLevel - 1) * XP_PER_LEVEL;
-  const currentXpInLevel = xp - currentLevelBaseXp;
-  const progressPercent = Math.min(100, Math.round((currentXpInLevel / XP_PER_LEVEL) * 100));
-
+export function calculateLevelProgress(xp: number): {
+  currentLevel: number;
+  currentXp: number;
+  nextLevelXp: number;
+  progressPercent: number;
+  title: string;
+} {
+  const p = calcProgressNew(xp);
   return {
-    currentLevel,
-    currentXp: currentXpInLevel,
-    nextLevelXp: XP_PER_LEVEL,
-    progressPercent,
+    currentLevel: p.currentLevel,
+    currentXp: p.xpInCurrentLevel,
+    nextLevelXp: p.nextDefinition ? p.nextDefinition.minXp - p.levelMinXp : 0,
+    progressPercent: p.progressPercent,
+    title: p.currentTitle,
   };
 }
 
-/**
- * Triggers subtle elegant celebration confetti
- */
 export function triggerCelebration(): void {
-  try {
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.7 },
-      colors: ['#059669', '#10b981', '#4f46e5', '#f59e0b'],
-      disableForReducedMotion: true,
-    });
-  } catch (err) {
-    console.debug('Confetti disabled or error', err);
-  }
+  triggerCelebrationFx();
 }
 
-export interface UserGamificationState {
-  xp: number;
-  level: number;
-  streak: number;
-  lastActiveDate: string;
-  role: 'siswa' | 'guru';
-}
-
-const STORAGE_KEY = 'osn_gamification_state';
+export type UserGamificationState = ServiceGamificationState;
 
 export function getLocalGamificationState(): UserGamificationState {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      return JSON.parse(raw);
-    }
-  } catch {}
-
-  return {
-    xp: 320,
-    level: 2,
-    streak: 4,
-    lastActiveDate: new Date().toISOString().split('T')[0],
-    role: 'siswa',
-  };
+  return getLocalState();
 }
 
 export function saveLocalGamificationState(state: UserGamificationState): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {}
+  saveLocalState(state);
 }
 
 export function addXpLocally(amount: number): UserGamificationState {
-  const current = getLocalGamificationState();
-  const newXp = current.xp + amount;
+  const current = getLocalState();
+  const newXp = (current.xp || 0) + (amount || 0);
   const newLevel = calculateLevel(newXp);
   const updated: UserGamificationState = {
     ...current,
     xp: newXp,
     level: newLevel,
   };
-  saveLocalGamificationState(updated);
-  triggerCelebration();
+  saveLocalState(updated);
+  if (newLevel > (current.level || 1)) {
+    triggerCelebration();
+  }
   return updated;
 }
+
+export {
+  getLevelDefinition,
+  getLevelFromXp,
+  awardXpService as awardXp,
+  type ChemistryLevelDefinition,
+  type LevelProgressReport,
+};

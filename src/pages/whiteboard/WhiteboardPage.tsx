@@ -40,6 +40,7 @@ import { ChemToolbox } from '../../components/whiteboard/toolboxes/ChemToolbox';
 import { BioToolbox } from '../../components/whiteboard/toolboxes/BioToolbox';
 import { QuestionBankPickerModal } from '../../components/whiteboard/modals/QuestionBankPickerModal';
 import { storageService } from '../../services/storageService';
+import { trackAchievementEvent } from '../../services/achievementService';
 import type { Question } from '../../types/database';
 
 export const WhiteboardPage: React.FC = () => {
@@ -48,6 +49,16 @@ export const WhiteboardPage: React.FC = () => {
   const { user, profile, isTeacher } = useAuth();
 
   const docId = routeId || `wb-${routeRoomCode || 'new'}`;
+
+  // Track Whiteboard usage duration for achievement 'wet_whiteboard'
+  useEffect(() => {
+    let seconds = 0;
+    const interval = setInterval(() => {
+      seconds += 60;
+      trackAchievementEvent(user?.id, 'WHITEBOARD_MINUTES', { minutes: Math.floor(seconds / 60) }).catch(() => {});
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [user?.id]);
 
   // State Dokumen Papan Tulis (Inisialisasi langsung dari cache lokal agar instan dan tidak blank saat refresh)
   const [doc, setDoc] = useState<WhiteboardDocument>(() => {
@@ -403,15 +414,15 @@ export const WhiteboardPage: React.FC = () => {
 
   // 3. Auto-save ke IndexedDB & LocalStorage setiap kali elemen berubah (debounced)
   useEffect(() => {
-    // Simpan ke local storage secara instan
-    try {
-      localStorage.setItem(`wb_active_doc_${doc.id}`, JSON.stringify(doc));
-    } catch {}
-
-    // Jangan timpa IndexedDB jika loadDoc awal belum selesai
+    // Jangan timpa IndexedDB/Local jika loadDoc awal belum selesai
     if (!isLoadedRef.current) return;
 
     const timer = setTimeout(() => {
+      // Simpan ke local storage (debounced untuk menghindari freeze UI karena JSON.stringify yang berat)
+      try {
+        localStorage.setItem(`wb_active_doc_${doc.id}`, JSON.stringify(doc));
+      } catch {}
+      
       saveDocumentLocally(doc);
     }, 1000);
     return () => clearTimeout(timer);

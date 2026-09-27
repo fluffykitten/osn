@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { PERIODIC_TABLE_ELEMENTS } from '../../services/periodicTableService';
 import { getSharedModalPosition, setSharedModalPosition } from '../../services/modalPositionService';
+import { trackAchievementEvent } from '../../services/achievementService';
 import { KaTeXRenderer } from './KaTeXRenderer';
-import { X, Copy, Check, Sparkles, Scale, Move, ArrowRight } from 'lucide-react';
+import { X, Copy, Check, Scale, Move, ArrowRight, AlertCircle } from 'lucide-react';
 
 interface ElementBreakdown {
   sym: string;
@@ -24,110 +25,131 @@ export function parseChemicalFormula(formula: string): { result?: MolarMassResul
   const cleaned = formula.trim().replace(/\s+/g, '');
   if (!cleaned) return null;
 
-  let mainPart = cleaned;
-  let hydrateMultiplier = 0;
-  let hydrateFormula = '';
+  try {
+    let mainPart = cleaned;
+    let hydrateMultiplier = 0;
+    let hydrateFormula = '';
 
-  if (cleaned.includes('.')) {
-    const parts = cleaned.split('.');
-    mainPart = parts[0];
-    const hydratePart = parts.slice(1).join('.');
-    const m = hydratePart.match(/^(\d*)(.*)$/);
-    if (m) {
-      hydrateMultiplier = m[1] ? parseInt(m[1], 10) : 1;
-      hydrateFormula = m[2] || 'H2O';
-    }
-  } else if (cleaned.includes('*')) {
-    const parts = cleaned.split('*');
-    mainPart = parts[0];
-    const hydratePart = parts.slice(1).join('*');
-    const m = hydratePart.match(/^(\d*)(.*)$/);
-    if (m) {
-      hydrateMultiplier = m[1] ? parseInt(m[1], 10) : 1;
-      hydrateFormula = m[2] || 'H2O';
-    }
-  }
-
-  function parsePart(str: string): Record<string, number> {
-    const stack: Record<string, number>[] = [{}];
-    let i = 0;
-
-    while (i < str.length) {
-      if (str[i] === '(' || str[i] === '[') {
-        stack.push({});
-        i++;
-      } else if (str[i] === ')' || str[i] === ']') {
-        const currentGroup = stack.pop() || {};
-        i++;
-        let numStr = '';
-        while (i < str.length && /\d/.test(str[i])) {
-          numStr += str[i];
-          i++;
-        }
-        const multiplier = numStr ? parseInt(numStr, 10) : 1;
-        const target = stack[stack.length - 1];
-        for (const [elem, cnt] of Object.entries(currentGroup)) {
-          target[elem] = (target[elem] || 0) + cnt * multiplier;
-        }
-      } else {
-        const elemMatch = str.slice(i).match(/^([A-Z][a-z]?)(\d*)/);
-        if (elemMatch) {
-          const sym = elemMatch[1];
-          const cnt = elemMatch[2] ? parseInt(elemMatch[2], 10) : 1;
-          const target = stack[stack.length - 1];
-          target[sym] = (target[sym] || 0) + cnt;
-          i += elemMatch[0].length;
-        } else {
-          i++;
-        }
+    if (cleaned.includes('.')) {
+      const parts = cleaned.split('.');
+      mainPart = parts[0];
+      const hydratePart = parts.slice(1).join('.');
+      const m = hydratePart.match(/^(\d*)(.*)$/);
+      if (m) {
+        hydrateMultiplier = m[1] ? parseInt(m[1], 10) : 1;
+        hydrateFormula = m[2] || 'H2O';
+      }
+    } else if (cleaned.includes('*')) {
+      const parts = cleaned.split('*');
+      mainPart = parts[0];
+      const hydratePart = parts.slice(1).join('*');
+      const m = hydratePart.match(/^(\d*)(.*)$/);
+      if (m) {
+        hydrateMultiplier = m[1] ? parseInt(m[1], 10) : 1;
+        hydrateFormula = m[2] || 'H2O';
       }
     }
 
-    return stack[0];
-  }
+    function parsePart(str: string): Record<string, number> {
+      const stack: Record<string, number>[] = [{}];
+      let i = 0;
 
-  const counts = parsePart(mainPart);
+      while (i < str.length) {
+        if (str[i] === '(' || str[i] === '[') {
+          stack.push({});
+          i++;
+        } else if (str[i] === ')' || str[i] === ']') {
+          const currentGroup = stack.pop() || {};
+          i++;
+          let numStr = '';
+          while (i < str.length && /\d/.test(str[i])) {
+            numStr += str[i];
+            i++;
+          }
+          const multiplier = numStr ? parseInt(numStr, 10) : 1;
+          if (stack.length === 0) {
+            stack.push({});
+          }
+          const target = stack[stack.length - 1];
+          for (const [elem, cnt] of Object.entries(currentGroup)) {
+            target[elem] = (target[elem] || 0) + cnt * multiplier;
+          }
+        } else {
+          const elemMatch = str.slice(i).match(/^([A-Z][a-z]?)(\d*)/);
+          if (elemMatch) {
+            const sym = elemMatch[1];
+            const cnt = elemMatch[2] ? parseInt(elemMatch[2], 10) : 1;
+            if (stack.length === 0) {
+              stack.push({});
+            }
+            const target = stack[stack.length - 1];
+            target[sym] = (target[sym] || 0) + cnt;
+            i += elemMatch[0].length;
+          } else {
+            i++;
+          }
+        }
+      }
 
-  if (hydrateMultiplier > 0 && hydrateFormula) {
-    const hCounts = parsePart(hydrateFormula);
-    for (const [elem, cnt] of Object.entries(hCounts)) {
-      counts[elem] = (counts[elem] || 0) + cnt * hydrateMultiplier;
+      // Merge unclosed parentheses if any
+      while (stack.length > 1) {
+        const top = stack.pop() || {};
+        const target = stack[stack.length - 1];
+        for (const [elem, cnt] of Object.entries(top)) {
+          target[elem] = (target[elem] || 0) + cnt;
+        }
+      }
+
+      return stack[0] || {};
     }
-  }
 
-  let totalMass = 0;
-  const breakdown: ElementBreakdown[] = [];
+    const counts = parsePart(mainPart);
 
-  for (const [sym, count] of Object.entries(counts)) {
-    const el = PERIODIC_TABLE_ELEMENTS[sym];
-    if (!el) {
-      return { error: `Simbol unsur "${sym}" tidak dikenali dalam tabel periodik.` };
+    if (hydrateMultiplier > 0 && hydrateFormula) {
+      const hCounts = parsePart(hydrateFormula);
+      for (const [elem, cnt] of Object.entries(hCounts)) {
+        counts[elem] = (counts[elem] || 0) + cnt * hydrateMultiplier;
+      }
     }
-    const subtotal = el.mass * count;
-    totalMass += subtotal;
-    breakdown.push({
-      sym,
-      name: el.nameId || el.name,
-      ar: el.mass,
-      count,
-      subtotal,
-      percent: 0,
-    });
+
+    let totalMass = 0;
+    const breakdown: ElementBreakdown[] = [];
+
+    for (const [sym, count] of Object.entries(counts)) {
+      const el = PERIODIC_TABLE_ELEMENTS[sym];
+      if (!el) {
+        return { error: `Simbol unsur "${sym}" tidak dikenali dalam tabel periodik.` };
+      }
+      const subtotal = el.mass * count;
+      totalMass += subtotal;
+      breakdown.push({
+        sym,
+        name: el.nameId || el.name,
+        ar: el.mass,
+        count,
+        subtotal,
+        percent: 0,
+      });
+    }
+
+    if (breakdown.length === 0) return null;
+
+    if (totalMass > 0) {
+      for (const item of breakdown) {
+        item.percent = (item.subtotal / totalMass) * 100;
+      }
+    }
+
+    return {
+      result: {
+        formula: cleaned,
+        totalMass: parseFloat(totalMass.toFixed(3)),
+        breakdown,
+      },
+    };
+  } catch {
+    return { error: 'Rumus kimia belum valid atau tidak dapat diurai.' };
   }
-
-  if (breakdown.length === 0) return null;
-
-  for (const item of breakdown) {
-    item.percent = (item.subtotal / totalMass) * 100;
-  }
-
-  return {
-    result: {
-      formula: cleaned,
-      totalMass: parseFloat(totalMass.toFixed(3)),
-      breakdown,
-    },
-  };
 }
 
 interface MolarMassCalculatorModalProps {
@@ -177,6 +199,8 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
     typeof window !== 'undefined' ? window.innerWidth < 640 : false
   );
 
+  const lastTrackedFormulaRef = useRef<string>('');
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 640);
     window.addEventListener('resize', handleResize);
@@ -190,6 +214,19 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
       setPosition(synchronizedPos);
     }
   }, [isOpen, initialFormula, size.width, size.height]);
+
+  // Track achievement safely at top level (never after conditional return)
+  useEffect(() => {
+    if (!isOpen) return;
+    const parsed = parseChemicalFormula(formulaInput);
+    if (parsed?.result && parsed.result.formula !== lastTrackedFormulaRef.current) {
+      lastTrackedFormulaRef.current = parsed.result.formula;
+      trackAchievementEvent(undefined, 'MR_CALCULATED', {
+        formula: parsed.result.formula,
+        totalMass: parsed.result.totalMass,
+      }).catch(() => {});
+    }
+  }, [isOpen, formulaInput]);
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (isMobile || (e.target as HTMLElement).closest('button, input')) return;
@@ -286,7 +323,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
     <div
       className={
         isMobile
-          ? 'fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/40 backdrop-blur-xs animate-in fade-in duration-200 pointer-events-auto select-none'
+          ? 'fixed inset-0 z-50 flex flex-col justify-end bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-200 pointer-events-auto select-none'
           : 'fixed inset-0 z-50 pointer-events-none select-none'
       }
     >
@@ -305,33 +342,33 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
         }
         className={
           isMobile
-            ? 'pointer-events-auto bg-white rounded-t-3xl border-t border-slate-300 shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-250 w-full relative'
-            : 'pointer-events-auto bg-white/98 backdrop-blur-md rounded-2xl border border-slate-300 shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-slate-900/10 relative max-w-[95vw] max-h-[90vh]'
+            ? 'pointer-events-auto bg-[#FFFFF0] rounded-t-3xl border-t-2 border-[#B0C4DE] shadow-2xl overflow-hidden flex flex-col animate-in slide-in-from-bottom duration-250 w-full relative'
+            : 'pointer-events-auto bg-[#FFFFF0] backdrop-blur-md rounded-2xl border-2 border-[#B0C4DE] shadow-2xl overflow-hidden flex flex-col transition-shadow animate-in zoom-in-95 duration-150 ring-1 ring-[#2D3748]/10 relative max-w-[95vw] max-h-[90vh]'
         }
       >
         {/* Mobile Grab Pill Bar */}
         {isMobile && (
-          <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 to-blue-600">
-            <div className="w-10 h-1 rounded-full bg-white/40" />
+          <div className="w-full flex justify-center pt-2 pb-1 bg-[#2D3748]">
+            <div className="w-10 h-1 rounded-full bg-white/30" />
           </div>
         )}
 
-        {/* Header (Biru Muda / Sky Gradient) */}
+        {/* Header (Serene Deep Slate & Warm Gold Accent) */}
         <div
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white select-none shadow-xs ${
+          className={`flex items-center justify-between px-4 py-3 bg-[#2D3748] text-[#FFFFF0] select-none shadow-xs border-b border-[#B0C4DE]/30 ${
             isMobile ? '' : 'cursor-grab active:cursor-grabbing'
           }`}
         >
           <div className="flex items-center gap-2">
-            <Scale className="w-4 h-4 text-sky-100" />
-            <span className="font-bold text-xs font-display tracking-wide text-white">
+            <Scale className="w-4 h-4 text-[#D4A359]" />
+            <span className="font-bold text-xs font-display tracking-wide text-[#FFFFF0]">
               Kalkulator Massa Molar (Mr)
             </span>
             {!isMobile && (
-              <span className="px-1.5 py-0.5 text-[9px] bg-white/20 rounded font-mono font-semibold flex items-center gap-1">
+              <span className="px-1.5 py-0.5 text-[9px] bg-white/10 rounded font-mono font-semibold flex items-center gap-1 text-[#B0C4DE]">
                 <Move className="w-2.5 h-2.5" />
                 <span>Geser Window</span>
               </span>
@@ -340,7 +377,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 text-[#B0C4DE] hover:text-[#FFFFF0] hover:bg-white/10 rounded-lg transition-colors cursor-pointer"
             title="Tutup (Esc)"
           >
             <X className="w-4 h-4" />
@@ -348,10 +385,10 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
         </div>
 
         {/* Modal Body */}
-        <div className="p-4 space-y-3.5 flex-1 overflow-y-auto min-h-0">
+        <div className="p-4 space-y-3.5 flex-1 overflow-y-auto min-h-0 bg-[#FFFFF0]">
           {/* Formula Input */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">
+            <label className="block text-[11px] font-bold text-[#2D3748] uppercase tracking-wider mb-1">
               Rumus Kimia Senyawa / Ion:
             </label>
             <div className="flex gap-1.5">
@@ -361,13 +398,13 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
                 value={formulaInput}
                 onChange={(e) => setFormulaInput(e.target.value)}
                 placeholder="Misal: BaCO3, Ca(OH)2, CuSO4.5H2O"
-                className="flex-1 px-3 py-2 text-sm font-mono font-bold text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                className="flex-1 px-3 py-2 text-sm font-mono font-bold text-[#2D3748] bg-[#F0F8FF] border border-[#B0C4DE] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A359]/30 focus:border-[#D4A359] placeholder:text-[#708090]/60 transition-colors"
               />
               {formulaInput && (
                 <button
                   type="button"
                   onClick={() => setFormulaInput('')}
-                  className="px-2.5 py-1 text-xs text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg"
+                  className="px-2.5 py-1 text-xs text-[#708090] hover:text-[#2D3748] hover:bg-[#B0C4DE]/20 rounded-lg transition-colors cursor-pointer"
                   title="Hapus input"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -378,7 +415,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
 
           {/* Preset Buttons for High School OSN */}
           <div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+            <span className="text-[10px] font-bold text-[#708090] uppercase tracking-wider block mb-1">
               Senyawa Populer OSN:
             </span>
             <div className="flex flex-wrap gap-1">
@@ -387,10 +424,10 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
                   key={c}
                   type="button"
                   onClick={() => setFormulaInput(c)}
-                  className={`px-2 py-0.5 text-[11px] font-mono rounded-md border transition-all ${
+                  className={`px-2 py-0.5 text-[11px] font-mono rounded-md border transition-all cursor-pointer ${
                     formulaInput === c
-                      ? 'bg-sky-500 text-white border-sky-500 font-bold shadow-2xs'
-                      : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                      ? 'bg-[#2D3748] text-[#FFFFF0] border-[#2D3748] font-bold shadow-2xs'
+                      : 'bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border-[#B0C4DE]'
                   }`}
                 >
                   {c}
@@ -401,52 +438,53 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
 
           {/* Results Area */}
           {parsed?.error ? (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700">
-              {parsed.error}
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+              <span>{parsed.error}</span>
             </div>
           ) : parsed?.result ? (
             <div className="space-y-3">
-              {/* Primary Mr Card (Biru Muda) */}
-              <div className="p-3.5 bg-gradient-to-br from-sky-50 to-blue-50/70 border border-sky-200 rounded-xl flex items-center justify-between">
+              {/* Primary Mr Card (Serene Alice Blue & Light Steel Blue) */}
+              <div className="p-3.5 bg-[#F0F8FF] border border-[#B0C4DE] rounded-xl flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-[#708090] uppercase tracking-wider block">
                     Massa Molar Relatif (Mr):
                   </span>
                   <div className="flex items-baseline gap-1 mt-0.5">
-                    <span className="text-2xl font-bold font-mono text-sky-950">
+                    <span className="text-2xl font-bold font-mono text-[#2D3748]">
                       {parsed.result.totalMass.toFixed(2)}
                     </span>
-                    <span className="text-xs font-semibold text-sky-700">g/mol</span>
+                    <span className="text-xs font-semibold text-[#708090]">g/mol</span>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-400 font-medium block">Format KaTeX:</span>
-                  <div className="text-xs font-semibold text-slate-800">
-                    <KaTeXRenderer content={`$\\ce{${parsed.result.formula}}$`} inlineOnly />
+                  <span className="text-[10px] text-[#708090] font-medium block">Format KaTeX:</span>
+                  <div className="text-xs font-semibold text-[#2D3748]">
+                    <KaTeXRenderer content={`\\ce{${parsed.result.formula}}`} inlineOnly />
                   </div>
                 </div>
               </div>
 
               {/* Element Composition Breakdown Table */}
-              <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-2xs text-xs">
-                <div className="bg-slate-50 px-3 py-1.5 border-b border-slate-200 font-bold text-[10px] text-slate-500 uppercase tracking-wider flex justify-between">
+              <div className="border border-[#B0C4DE] rounded-xl overflow-hidden bg-[#FFFFF0] shadow-2xs text-xs">
+                <div className="bg-[#F0F8FF] px-3 py-1.5 border-b border-[#B0C4DE] font-bold text-[10px] text-[#708090] uppercase tracking-wider flex justify-between">
                   <span>Rincian Komposisi Unsur (Ar)</span>
                   <span>Kadar Massa (%)</span>
                 </div>
-                <div className="divide-y divide-slate-100 max-h-[160px] overflow-y-auto">
+                <div className="divide-y divide-[#B0C4DE]/40 max-h-[160px] overflow-y-auto">
                   {parsed.result.breakdown.map((item) => (
-                    <div key={item.sym} className="px-3 py-1.5 flex items-center justify-between text-xs">
+                    <div key={item.sym} className="px-3 py-1.5 flex items-center justify-between text-xs hover:bg-[#F0F8FF]/50 transition-colors">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 text-center font-mono font-bold text-sky-800 bg-sky-50 px-1 py-0.5 rounded text-[11px] border border-sky-100">
+                        <span className="w-6 text-center font-mono font-bold text-[#2D3748] bg-[#F0F8FF] px-1 py-0.5 rounded text-[11px] border border-[#B0C4DE]">
                           {item.sym}
                         </span>
-                        <span className="text-slate-700 font-medium">{item.name}</span>
-                        <span className="text-slate-400 text-[11px] font-mono">
+                        <span className="text-[#2D3748] font-medium">{item.name}</span>
+                        <span className="text-[#708090] text-[11px] font-mono">
                           ({item.count} × {item.ar.toFixed(2)})
                         </span>
                       </div>
-                      <div className="text-right font-mono font-semibold text-slate-800">
+                      <div className="text-right font-mono font-semibold text-[#2D3748]">
                         {item.percent.toFixed(1)}%
                       </div>
                     </div>
@@ -455,7 +493,6 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
               </div>
 
               {/* Action Buttons: Copy Value & Insert into Worksheet */}
-              {/* Action Buttons */}
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   type="button"
@@ -463,16 +500,16 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
                     if (!parsed?.result) return;
                     handleCopyText(parsed.result.totalMass.toFixed(2), 'nilai');
                   }}
-                  className="px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-2xs active:scale-95"
+                  className="px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] border border-[#B0C4DE] rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-2xs active:scale-95 cursor-pointer"
                 >
                   {copiedValue === 'nilai' ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-sky-600" />
-                      <span className="text-sky-700 font-bold">Tersalin ({parsed.result.totalMass.toFixed(2)})</span>
+                      <Check className="w-3.5 h-3.5 text-[#2E6930]" />
+                      <span className="text-[#2E6930] font-bold">Tersalin ({parsed.result.totalMass.toFixed(2)})</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-slate-500" />
+                      <Copy className="w-3.5 h-3.5 text-[#708090]" />
                       <span>Salin Nilai Mr</span>
                     </>
                   )}
@@ -482,7 +519,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
                   <button
                     type="button"
                     onClick={handleInsert}
-                    className="px-3 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95"
+                    className="px-3 py-2 bg-[#2E6930] hover:bg-[#255527] text-[#FFFFF0] border border-[#2E6930] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm active:scale-95 cursor-pointer"
                   >
                     <span>✓ Sisipkan ke Lembar</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -491,7 +528,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
               </div>
             </div>
           ) : (
-            <div className="p-6 text-center text-slate-400 text-xs">
+            <div className="p-6 text-center text-[#708090] text-xs">
               Ketik rumus kimia di atas (contoh: BaCO3 atau Ca(OH)2) untuk menghitung massa molar.
             </div>
           )}
@@ -503,7 +540,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
             onPointerDown={handleResizePointerDown}
             onPointerMove={handleResizePointerMove}
             onPointerUp={handleResizePointerUp}
-            className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+            className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-[#708090] hover:text-[#2D3748] active:text-[#2D3748] transition-colors select-none z-20 touch-none"
             title="Tarik untuk mengubah ukuran (Resize)"
           >
             <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">

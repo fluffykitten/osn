@@ -1,3 +1,4 @@
+import { trackAchievementEvent } from '../../services/achievementService';
 import React, { useState, useRef, useEffect } from 'react';
 import {
   PERIODIC_TABLE_ELEMENTS,
@@ -85,6 +86,9 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
   });
 
   const handleCopy = (text: string, id: string) => {
+    if (activeTab === 'constants') {
+      trackAchievementEvent(undefined, 'PHYSICS_CONSTANT_COPIED').catch(() => {});
+    }
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     if (onInsertText) {
@@ -105,10 +109,10 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
             onPointerDown={handleResizePointerDown}
             onPointerMove={handleResizePointerMove}
             onPointerUp={handleResizePointerUp}
-            className="absolute top-0 bottom-0 -left-2 w-4 cursor-ew-resize hover:bg-sky-500/20 active:bg-sky-500/40 transition-colors z-30 touch-none flex items-center justify-center group select-none"
+            className="absolute top-0 bottom-0 -left-2 w-4 cursor-ew-resize hover:bg-[#708090]/20 active:bg-[#708090]/40 transition-colors z-30 touch-none flex items-center justify-center group select-none"
             title="Tarik untuk mengubah lebar panel tabel periodik"
           >
-            <div className="w-1 h-12 rounded-full bg-slate-300 group-hover:bg-sky-500 group-active:bg-sky-600 transition-colors" />
+            <div className="w-1 h-12 rounded-full bg-slate-300 group-hover:bg-[#708090] group-active:bg-[#2D3748] transition-colors" />
           </div>
         )}
         {/* Header */}
@@ -136,7 +140,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
             onClick={() => setActiveTab('elements')}
             className={`flex items-center gap-1.5 py-3 border-b-2 mr-6 transition-all ${
               activeTab === 'elements'
-                ? 'border-sky-500 text-sky-700'
+                ? 'border-[#2D3748] text-[#2D3748]'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
@@ -147,7 +151,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
             onClick={() => setActiveTab('constants')}
             className={`flex items-center gap-1.5 py-3 border-b-2 transition-all ${
               activeTab === 'constants'
-                ? 'border-sky-500 text-sky-700'
+                ? 'border-[#2D3748] text-[#2D3748]'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
           >
@@ -169,7 +173,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Cari simbol, nama unsur (misal: Fe, Besi, 26)..."
-                    className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all placeholder:text-slate-400"
+                    className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090] transition-all placeholder:text-slate-400"
                   />
                 </div>
 
@@ -231,16 +235,16 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                     <div className="flex flex-row sm:flex-col gap-1.5 text-xs">
                       <button
                         onClick={() => handleCopy(`${selectedElement.mass}`, 'ar')}
-                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-2.5 py-1.5 bg-white hover:bg-sky-50 text-sky-800 border border-sky-200 rounded-md font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
+                        className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-2.5 py-1.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] border border-[#B0C4DE] rounded-md font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
                       >
-                        {copiedId === 'ar' ? <Check className="w-3.5 h-3.5 text-sky-600" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedId === 'ar' ? <Check className="w-3.5 h-3.5 text-[#2E6930]" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>Salin Aᵣ ({selectedElement.mass})</span>
                       </button>
                       <button
                         onClick={() => handleCopy(selectedElement.sym, 'sym')}
                         className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-2.5 py-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-md font-medium transition-all shadow-2xs cursor-pointer active:scale-95"
                       >
-                        {copiedId === 'sym' ? <Check className="w-3.5 h-3.5 text-sky-600" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedId === 'sym' ? <Check className="w-3.5 h-3.5 text-[#2E6930]" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>Salin Simbol ({selectedElement.sym})</span>
                       </button>
                     </div>
@@ -258,7 +262,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                     </div>
                     <div className="bg-white p-2 rounded-lg border border-slate-200/80">
                       <div className="text-[10px] text-slate-400">Massa Molar (g/mol)</div>
-                      <div className="font-semibold text-sky-700">{selectedElement.mass}</div>
+                      <div className="font-semibold text-[#2D3748]">{selectedElement.mass}</div>
                     </div>
                   </div>
                 </div>
@@ -279,11 +283,14 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                     return (
                       <button
                         key={el.sym}
-                        onClick={() => setSelectedElement(el)}
+                        onClick={() => {
+                          setSelectedElement(el);
+                          trackAchievementEvent(undefined, 'PERIODIC_ELEMENT_INSPECTED', { symbol: el.sym, category: el.category });
+                        }}
                         className={`p-2 rounded-lg border text-center transition-all flex flex-col items-center justify-center ${
                           catColor.bg
                         } ${catColor.border} ${
-                          isSelected ? 'ring-2 ring-sky-500 shadow-xs' : 'hover:scale-102'
+                          isSelected ? 'ring-2 ring-[#708090] shadow-xs' : 'hover:scale-102'
                         }`}
                       >
                         <span className="text-[10px] text-slate-400 font-mono">{el.num}</span>
@@ -308,7 +315,7 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
                   <div key={c.symbol} className="p-3 hover:bg-slate-50 transition-colors flex items-center justify-between gap-3">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="px-1.5 py-0.5 bg-slate-100 font-mono text-xs font-bold text-sky-800 rounded">
+                        <span className="px-1.5 py-0.5 bg-[#F0F8FF] font-mono text-xs font-bold text-[#2D3748] rounded border border-[#B0C4DE]">
                           {c.symbol}
                         </span>
                         <span className="text-xs font-bold text-slate-900">{c.name}</span>
@@ -321,10 +328,10 @@ export const PeriodicTableDrawer: React.FC<PeriodicTableDrawerProps> = ({
 
                     <button
                       onClick={() => handleCopy(c.value, c.symbol)}
-                      className="inline-flex items-center gap-1 px-2 py-1 text-xs text-slate-700 bg-slate-50 hover:bg-sky-50 hover:text-sky-800 border border-slate-200 hover:border-sky-300 rounded-md font-medium transition-all shrink-0"
+                      className="inline-flex items-center gap-1 px-2 py-1 text-xs text-slate-700 bg-slate-50 hover:bg-[#F0F8FF] hover:text-[#2D3748] border border-slate-200 hover:border-[#B0C4DE] rounded-md font-medium transition-all shrink-0"
                       title="Salin nilai tetapan"
                     >
-                      {copiedId === c.symbol ? <Check className="w-3 h-3 text-sky-600" /> : <Copy className="w-3 h-3" />}
+                      {copiedId === c.symbol ? <Check className="w-3 h-3 text-[#2E6930]" /> : <Copy className="w-3 h-3" />}
                       <span>Salin</span>
                     </button>
                   </div>

@@ -72,7 +72,10 @@ export const StudentWorksheetList: React.FC = () => {
 
   // Pantau sesi worksheet yang sedang aktif dikerjakan siswa
   useEffect(() => {
-    const updateSession = () => {
+    const updateSession = (e?: StorageEvent | Event) => {
+      if (e && 'key' in e && e.key && !e.key.includes('worksheet') && !e.key.includes('session')) {
+        return;
+      }
       const session = studentWorksheetService.getActiveSession(user?.id);
       setActiveSession(session);
     };

@@ -24,6 +24,7 @@ import {
   X,
 } from 'lucide-react';
 import { getLocalGamificationState, type UserGamificationState } from '../../lib/gamification';
+import { UserTitleBadge } from '../gamification/UserTitleBadge';
 import { useAuth } from '../../contexts/AuthContext';
 import { useWhiteboardHeader } from '../../contexts/WhiteboardHeaderContext';
 import {
@@ -31,7 +32,7 @@ import {
   type ActiveWorksheetSession,
 } from '../../services/studentWorksheetService';
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC = React.memo(() => {
   const location = useLocation();
   const { user, profile, isTeacher, isAdmin, logout } = useAuth();
   const { headerState } = useWhiteboardHeader();
@@ -45,7 +46,10 @@ export const Navbar: React.FC = () => {
   );
 
   useEffect(() => {
-    const updateActive = () => {
+    const updateActive = (e?: StorageEvent | Event) => {
+      if (e && 'key' in e && e.key && !e.key.includes('worksheet') && !e.key.includes('session')) {
+        return;
+      }
       setActiveWorksheet(studentWorksheetService.getActiveSession(user?.id));
     };
 
@@ -57,7 +61,12 @@ export const Navbar: React.FC = () => {
       window.removeEventListener('osn_active_worksheet_changed', updateActive);
       window.removeEventListener('storage', updateActive);
     };
-  }, [user?.id, location.pathname]);
+  }, [user?.id]);
+
+  // Perbarui status worksheet aktif saat berganti rute
+  useEffect(() => {
+    setActiveWorksheet(studentWorksheetService.getActiveSession(user?.id));
+  }, [location.pathname, user?.id]);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -65,7 +74,10 @@ export const Navbar: React.FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    const handleStorage = () => setGamification(getLocalGamificationState());
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key && !e.key.includes('gamification')) return;
+      setGamification(getLocalGamificationState());
+    };
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
@@ -411,7 +423,7 @@ export const Navbar: React.FC = () => {
                         {profile?.full_name || 'Pengguna OSN'}
                       </div>
                       <div className="text-[10px] text-[#708090] font-mono truncate">{user.email}</div>
-                      <div className="mt-1">
+                      <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                         <span className={`inline-block px-1.5 py-0.2 rounded text-[9px] font-bold ${
                           isAdmin
                             ? 'bg-[#708090] text-[#FFFFF0]'
@@ -419,6 +431,9 @@ export const Navbar: React.FC = () => {
                         }`}>
                           {isAdmin ? '⚡ Administrator' : isTeacher ? '👨‍🏫 Guru / Pembina' : '🎓 Akun Siswa'}
                         </span>
+                        {!isTeacher && !isAdmin && (
+                          <UserTitleBadge xp={profile?.xp || 0} size="xs" variant="light" />
+                        )}
                       </div>
                     </div>
 
@@ -935,4 +950,4 @@ export const Navbar: React.FC = () => {
       )}
     </>
   );
-};
+});

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Filter, Bookmark, Tag, RotateCcw, Plus, X } from 'lucide-react';
 import { PILLARS_DATA } from '../../data/syllabusData';
-import { SMA_MATERIALS } from '../../data/smaMaterialsData';
+import { SMA_TOPICS_META } from '../../data/smaTopicsMeta';
 import { tagAndBookmarkService } from '../../services/tagAndBookmarkService';
 import type { QuestionFilter, QuestionDifficulty, QuestionStyle, CurriculumTrack, SmaGradeLevel } from '../../types/database';
 
@@ -179,7 +179,7 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
                     ? lvl === 'SMA'
                       ? 'bg-teal-600 text-white shadow-xs'
                       : lvl === 'OSK'
-                      ? 'bg-blue-600 text-white shadow-xs'
+                      ? 'bg-[#708090] text-[#FFFFF0] shadow-xs'
                       : lvl === 'OSP'
                       ? 'bg-amber-600 text-white shadow-xs'
                       : lvl === 'OSN'
@@ -283,7 +283,7 @@ export const QuestionFilters: React.FC<QuestionFiltersProps> = ({
             className="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 text-slate-800"
           >
             <option value="ALL">Semua 16 Topik SMA</option>
-            {SMA_MATERIALS.filter(m => filter.smaGrade && filter.smaGrade !== 'ALL' ? m.grade === filter.smaGrade : true).map((m) => (
+            {SMA_TOPICS_META.filter(m => filter.smaGrade && filter.smaGrade !== 'ALL' ? m.grade === filter.smaGrade : true).map((m) => (
               <option key={m.topic_number} value={m.topic_number}>
                 Topik #{m.topic_number}: {m.title}
               </option>

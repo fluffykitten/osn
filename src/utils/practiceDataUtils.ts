@@ -8,7 +8,7 @@ import type { Question, QuestionDifficulty } from '../types/database';
 import type { SavedSubmissionRecord } from '../services/submissionService';
 import { resolveQuestionTopicMeta } from './topicMapping';
 import { PILLARS_DATA } from '../data/syllabusData';
-import { SMA_MATERIALS } from '../data/smaMaterialsData';
+import { SMA_TOPICS_META } from '../data/smaTopicsMeta';
 
 export interface DifficultyBreakdown {
   easy: number;
@@ -199,7 +199,7 @@ export function calculateOverallPracticeStats(
   const avgAccuracy = submissions.length > 0 ? Math.round(totalScoreSum / submissions.length) : 0;
 
   // Evaluasi topik-topik aktif
-  const topicList = activeDatabase === 'sma' ? SMA_MATERIALS : PILLARS_DATA;
+  const topicList = activeDatabase === 'sma' ? SMA_TOPICS_META : PILLARS_DATA;
   let masteredTopicsCount = 0;
 
   interface TopicEval {
@@ -422,7 +422,7 @@ export function getTopicFocusTags(topicNumber: number, database: 'osn' | 'sma'):
   if (database === 'osn') {
     return OSN_TOPIC_FOCUS_TAGS[topicNumber] || ['Teori Kimia', 'Silabus Olimpiade', 'Problem Solving'];
   }
-  const mat = SMA_MATERIALS.find((m) => m.topic_number === topicNumber);
+  const mat = SMA_TOPICS_META.find((m) => m.topic_number === topicNumber);
   if (mat && Array.isArray(mat.allTags) && mat.allTags.length > 0) {
     // Format tag kebab-case menjadi format judul yang rapi
     return mat.allTags.slice(0, 7).map((t) =>

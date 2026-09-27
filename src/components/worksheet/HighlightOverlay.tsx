@@ -25,9 +25,9 @@ const COLOR_STYLES: Record<HighlightColor, { bg: string; border: string; pill: s
     pill: 'bg-emerald-600 text-white',
   },
   blue: {
-    bg: 'bg-sky-200/55',
-    border: 'border border-sky-300/30',
-    pill: 'bg-sky-500 text-white',
+    bg: 'bg-[#B0C4DE]/45',
+    border: 'border border-[#B0C4DE]/50',
+    pill: 'bg-[#708090] text-white',
   },
 };
 

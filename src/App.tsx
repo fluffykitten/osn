@@ -5,12 +5,14 @@ import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LevelUpModal } from './components/gamification/LevelUpModal';
+import { AchievementUnlockModal } from './components/gamification/AchievementUnlockModal';
 
-// Auth & Landing Pages (Eagerly Loaded for Immediate First Paint)
-import { LoginPage } from './pages/auth/LoginPage';
-import { LandingPage } from './pages/public/LandingPage';
+// Auth & Landing Pages (Lazy Loaded on Demand)
 import { RequireClassroom } from './components/common/RequireClassroom';
-import { StudentLockedGate } from './pages/student/StudentLockedGate';
+const LoginPage = lazy(() => import('./pages/auth/LoginPage').then((m) => ({ default: m.LoginPage })));
+const LandingPage = lazy(() => import('./pages/public/LandingPage').then((m) => ({ default: m.LandingPage })));
+const StudentLockedGate = lazy(() => import('./pages/student/StudentLockedGate').then((m) => ({ default: m.StudentLockedGate })));
 
 // Student Pages (Lazy Loaded on Demand)
 const Roadmap = lazy(() => import('./pages/student/Roadmap').then((m) => ({ default: m.Roadmap })));
@@ -37,7 +39,7 @@ const WhiteboardCatalogPage = lazy(() => import('./pages/whiteboard/WhiteboardCa
 const WhiteboardPage = lazy(() => import('./pages/whiteboard/WhiteboardPage').then((m) => ({ default: m.WhiteboardPage })));
 
 // Admin Portal Pages (Lazy Loaded on Demand)
-import { AdminLayout } from './components/admin/AdminLayout';
+const AdminLayout = lazy(() => import('./components/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })));
 const AdminAnalyticsDashboard = lazy(() => import('./pages/admin/AdminAnalyticsDashboard').then((m) => ({ default: m.AdminAnalyticsDashboard })));
 const AdminUserManagement = lazy(() => import('./pages/admin/AdminUserManagement').then((m) => ({ default: m.AdminUserManagement })));
 const AdminClassroomManagement = lazy(() => import('./pages/admin/AdminClassroomManagement').then((m) => ({ default: m.AdminClassroomManagement })));
@@ -524,6 +526,9 @@ function AppContent() {
         </Routes>
         </Suspense>
       </main>
+
+      <LevelUpModal />
+      <AchievementUnlockModal />
 
       {!isFullScreenWorkspace && !isAdminPortal && <Footer />}
     </div>

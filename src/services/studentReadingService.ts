@@ -5,8 +5,9 @@
  * ke dashboard belajar siswa (Unified Study Loop).
  */
 
-import { OSN_MATERIALS, type MaterialItem } from '../data/materialsData';
-import { SMA_MATERIALS, type SmaMaterialItem } from '../data/smaMaterialsData';
+import { PILLARS_DATA } from '../data/syllabusData';
+import { SMA_TOPICS_META } from '../data/smaTopicsMeta';
+import { OSN_MATERIALS } from '../data/materialsData';
 
 export interface ActiveReadingSession {
   database: 'osn' | 'sma';
@@ -145,7 +146,7 @@ class StudentReadingService {
 
       if (osnTime >= smaTime && latestOsn) {
         const item = latestOsn;
-        const mat = OSN_MATERIALS.find((m) => m.id === item.id || m.topic_number === item.id) || OSN_MATERIALS[0];
+        const mat = PILLARS_DATA.find((m) => m.id === item.id || m.pillar_number === item.id) || PILLARS_DATA[0];
         return {
           database: 'osn',
           materialId: mat.id,
@@ -155,15 +156,15 @@ class StudentReadingService {
           progressPercent: item.progressPercent || 0,
           scrollY: item.scrollY || 0,
           lastReadAt: item.updatedAt,
-          readTimeMinutes: mat.readTimeMinutes,
-          topicNumber: mat.topic_number,
+          readTimeMinutes: 25,
+          topicNumber: mat.pillar_number,
           userId,
         };
       }
 
       if (latestSma) {
         const item = latestSma;
-        const mat = SMA_MATERIALS.find((m) => m.id === item.id || m.topic_number === item.id) || SMA_MATERIALS[0];
+        const mat = SMA_TOPICS_META.find((m) => m.id === item.id || m.topic_number === item.id) || SMA_TOPICS_META[0];
         return {
           database: 'sma',
           materialId: mat.id,
@@ -201,8 +202,8 @@ class StudentReadingService {
 
       const osnCompletedCount = Array.isArray(osnCompleted) ? osnCompleted.length : 0;
       const smaCompletedCount = Array.isArray(smaCompleted) ? smaCompleted.length : 0;
-      const osnTotalCount = OSN_MATERIALS.length;
-      const smaTotalCount = SMA_MATERIALS.length;
+      const osnTotalCount = PILLARS_DATA.length;
+      const smaTotalCount = SMA_TOPICS_META.length;
 
       const totalCompleted = osnCompletedCount + smaCompletedCount;
       const totalAll = osnTotalCount + smaTotalCount;
@@ -221,12 +222,46 @@ class StudentReadingService {
     } catch {
       return {
         osnCompletedCount: 0,
-        osnTotalCount: OSN_MATERIALS.length,
+        osnTotalCount: PILLARS_DATA.length,
         smaCompletedCount: 0,
-        smaTotalCount: SMA_MATERIALS.length,
+        smaTotalCount: SMA_TOPICS_META.length,
         overallPercent: 0,
         latestSession: null,
       };
+    }
+  }
+
+  /**
+   * Mengambil persentase progres membaca untuk suatu materi spesifik (OSN atau SMA)
+   */
+  public getMaterialProgress(database: 'osn' | 'sma', materialId: number): number {
+    try {
+      if (typeof window === 'undefined') return 0;
+
+      // 1. Cek apakah sudah ditandai tuntas (100%)
+      const completedKey = database === 'sma' ? SMA_COMPLETED_KEY : OSN_COMPLETED_KEY;
+      const rawCompleted = localStorage.getItem(completedKey);
+      if (rawCompleted) {
+        const completedList: number[] = JSON.parse(rawCompleted);
+        if (Array.isArray(completedList) && completedList.includes(materialId)) {
+          return 100;
+        }
+      }
+
+      // 2. Cek posisi scroll persentase terakhir
+      const scrollKey = database === 'sma' ? SMA_SCROLL_KEY : OSN_SCROLL_KEY;
+      const rawScroll = localStorage.getItem(scrollKey);
+      if (rawScroll) {
+        const scrollData = JSON.parse(rawScroll);
+        if (scrollData && scrollData[materialId]) {
+          const percent = Number(scrollData[materialId].progressPercent) || 0;
+          return Math.min(100, Math.max(0, percent));
+        }
+      }
+
+      return 0;
+    } catch {
+      return 0;
     }
   }
 }

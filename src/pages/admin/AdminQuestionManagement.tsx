@@ -32,7 +32,7 @@ import { adminService } from '../../services/adminService';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { resolveQuestionTopicMeta } from '../../utils/topicMapping';
 import { PILLARS_DATA } from '../../data/syllabusData';
-import { SMA_MATERIALS } from '../../data/smaMaterialsData';
+import { SMA_TOPICS_META } from '../../data/smaTopicsMeta';
 import {
   getBatchQuestionTelemetry,
   type QuestionAggregatedTelemetry,
@@ -544,7 +544,7 @@ export const AdminQuestionManagement: React.FC = () => {
                 className="w-full sm:w-56 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 font-medium focus:bg-white focus:outline-none focus:border-slate-400 transition cursor-pointer"
               >
                 <option value="ALL">Semua Materi SMA (1-16)</option>
-                {SMA_MATERIALS.map((m) => (
+                {SMA_TOPICS_META.map((m) => (
                   <option key={m.id} value={m.topic_number}>
                     Materi #{m.topic_number}: {m.title.length > 28 ? `${m.title.slice(0, 28)}...` : m.title}
                   </option>

@@ -30,7 +30,7 @@ import React from 'react';
  * 
  * Karakter: Subtle & low-contrast (watermark) dengan pointer-events-none sehingga 100% aman dan nyaman dibaca.
  */
-export const ChemistryWatermarkBackground: React.FC<{ className?: string }> = ({ className = '' }) => {
+export const ChemistryWatermarkBackground: React.FC<{ className?: string }> = React.memo(({ className = '' }) => {
   return (
     <div
       aria-hidden="true"
@@ -731,6 +731,6 @@ export const ChemistryWatermarkBackground: React.FC<{ className?: string }> = ({
       </svg>
     </div>
   );
-};
+});
 
 export default ChemistryWatermarkBackground;

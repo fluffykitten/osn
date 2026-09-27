@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
-import { StudentLockedGate } from '../../pages/student/StudentLockedGate';
+const StudentLockedGate = React.lazy(() =>
+  import('../../pages/student/StudentLockedGate').then((m) => ({ default: m.StudentLockedGate }))
+);
 
 interface RequireClassroomProps {
   children: React.ReactNode;
@@ -83,5 +85,15 @@ export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) 
   }
 
   // Otherwise, lock access and render StudentLockedGate
-  return <StudentLockedGate onClassStatusChanged={checkClassroomStatus} />;
+  return (
+    <React.Suspense
+      fallback={
+        <div className="min-h-[70vh] flex flex-col items-center justify-center gap-3">
+          <div className="w-10 h-10 rounded-full border-4 border-emerald-100 border-t-emerald-600 animate-spin" />
+        </div>
+      }
+    >
+      <StudentLockedGate onClassStatusChanged={checkClassroomStatus} />
+    </React.Suspense>
+  );
 };

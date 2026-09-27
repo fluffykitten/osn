@@ -7,7 +7,9 @@ import { PeriodicTableDrawer } from '../../components/common/PeriodicTableDrawer
 import { MolarMassCalculatorModal } from '../../components/common/MolarMassCalculatorModal';
 import { ScaffoldGuideModal } from '../../components/worksheet/ScaffoldGuideModal';
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
-import { addXpLocally } from '../../lib/gamification';
+import { ErrorBoundary } from '../../components/common/ErrorBoundary';
+import { awardXp } from '../../services/gamificationService';
+import { trackAchievementEvent } from '../../services/achievementService';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
 import { analyzeScaffoldWork } from '../../services/scaffoldService';
 import { saveWorksheetSubmission, getSubmissionHistory, syncSubmissionsFromCloud } from '../../services/submissionService';
@@ -1142,6 +1144,12 @@ export const Worksheet: React.FC = () => {
       setElapsedSeconds((prev) => {
         const next = prev + 1;
         elapsedSecondsRef.current = next;
+        if (next % 60 === 0) {
+          trackAchievementEvent(studentId, 'STUDY_MINUTES', { minutes: Math.floor(next / 60) });
+          if (isZenMode) {
+            trackAchievementEvent(studentId, 'ZEN_MODE_MINUTES', { minutes: 1 });
+          }
+        }
         return next;
       });
     }, 1000);
@@ -1265,6 +1273,7 @@ export const Worksheet: React.FC = () => {
   };
 
   const handleManualSave = () => {
+    trackAchievementEvent(studentId, 'MANUAL_SAVE_CLICKED');
     const ok = saveProgress();
     if (ok) {
       setIsSaveSuccess(true);
@@ -1596,7 +1605,29 @@ export const Worksheet: React.FC = () => {
       };
       setEvaluations(updatedEvaluations);
       evaluationsRef.current = updatedEvaluations;
-      addXpLocally(result.xpAwarded);
+
+      // Sinkronisasi XP ke Supabase Cloud (public.profiles) & Cache Lokal
+      awardXp(studentId, result.xpAwarded, {
+        currentKnownXp: profile?.xp,
+        reason: `Pengerjaan Soal: ${currentQuestion.title || 'OSN Kimia'}`,
+      }).catch((xpErr) => {
+        console.warn('Gagal sinkronisasi XP otomatis:', xpErr);
+      });
+
+      // Lacak Achievement event
+      trackAchievementEvent(studentId, 'SUBMIT_EVALUATION', {
+        score: result.totalScore,
+        timeSeconds: elapsedSeconds,
+        isOsnLevel: currentQuestion.pillar_number >= 5 || currentQuestion.difficulty === 'OSN' || currentQuestion.difficulty === 'IChO',
+        isRedoFromLow: Boolean(evaluationsRef.current[currentQIndex]?.totalScore && evaluationsRef.current[currentQIndex].totalScore < 5),
+        isPerfectNumeric: Boolean(result.status === 'perfect' && result.totalScore >= 10),
+      });
+      if (result.xpAwarded > 0) {
+        trackAchievementEvent(studentId, 'XP_GAINED', { amount: result.xpAwarded });
+      }
+      trackAchievementEvent(studentId, 'KATEX_SYNTAX_USED', {
+        text: (currentStepValue || '') + ' ' + (currentFinalAnswer || ''),
+      });
 
       // Simpan evaluasi dan jawaban terbaru ke draft lokal & realtime
       saveProgress(answersRef.current, currentQIndex);
@@ -1725,22 +1756,22 @@ export const Worksheet: React.FC = () => {
                   }}
                   className={`px-2.5 py-1 rounded-lg font-semibold text-xs transition-all flex items-center gap-1 shrink-0 cursor-pointer ${
                     isCurrent
-                      ? 'bg-[#708090] text-[#FFFFF0] shadow-2xs font-bold ring-2 ring-[#B0C4DE]'
+                      ? 'bg-[#2D3748] text-[#FFFFF0] shadow-xs font-bold ring-2 ring-[#D4A359]'
                       : isGraded
-                      ? 'bg-[#B0C4DE]/35 text-[#708090] border border-[#B0C4DE]/80 hover:bg-[#B0C4DE]/50'
+                      ? 'bg-[#E2F0D9] text-[#2E6930] border border-[#C5E0B4] hover:bg-[#D4E8C8]'
                       : isAnswered
-                      ? 'bg-[#B0C4DE]/20 text-[#708090] border border-[#B0C4DE]/40 hover:bg-[#B0C4DE]/30'
-                      : 'bg-[#FFFFF0] text-[#708090] hover:bg-[#F0F8FF] border border-[#D3D3D3]'
+                      ? 'bg-[#F0F8FF] text-[#2D3748] border border-[#B0C4DE] hover:bg-[#E6F0FA]'
+                      : 'bg-[#FFFFF0] text-[#708090] hover:bg-[#F0F8FF] border border-[#CBD5E1]'
                   }`}
                   title={`Soal #${idx + 1}: ${q.title || q.subtopic || ''}${isGraded ? ` (Dinilai: ${qEval.totalScore}/${qEval.maxScore || 10})` : ''}`}
                 >
                   <span className="text-[10px] opacity-75 font-mono">#{idx + 1}</span>
                   {isGraded ? (
-                    <span className="text-[10px] font-bold text-[#FFFFF0] bg-[#708090] px-1 rounded">
+                    <span className="text-[10px] font-bold text-[#FFFFF0] bg-[#2E6930] px-1 rounded">
                       {qEval.totalScore}p
                     </span>
                   ) : isAnswered ? (
-                    <Check className="w-3 h-3 text-[#708090]" />
+                    <Check className={`w-3 h-3 ${isCurrent ? 'text-white' : 'text-[#2E6930]'}`} />
                   ) : null}
                 </button>
               );
@@ -1749,15 +1780,22 @@ export const Worksheet: React.FC = () => {
         </div>
 
         {/* Row 2: Left: Scale Preset & Stopwatch | Right: Simpan, Mr, Tabel, Mode Layar Penuh */}
-        <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100/80">
+        <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#D3D3D3]/60">
           <div className="flex items-center gap-2">
-            <ScalePresetToggle scale={canvasScale} onChange={setCanvasScale} size="sm" />
+            <ScalePresetToggle
+              scale={canvasScale}
+              onChange={(s) => {
+                setCanvasScale(s);
+                trackAchievementEvent(studentId, 'CANVAS_SCALE_CHANGED');
+              }}
+              size="sm"
+            />
 
             <div
-              className="flex items-center gap-1 px-2 py-1 bg-sky-50 border border-sky-200 rounded-lg text-xs font-mono font-bold text-sky-800 shadow-2xs"
+              className="flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] border border-[#B0C4DE] rounded-lg text-xs font-mono font-bold text-[#2D3748] shadow-2xs"
               title="Stopwatch Waktu Pengerjaan Siswa"
             >
-              <Clock className="w-3.5 h-3.5 text-sky-600 animate-pulse" />
+              <Clock className="w-3.5 h-3.5 text-[#708090]" />
               <span>{formatStopwatch(elapsedSeconds)}</span>
             </div>
 
@@ -1765,14 +1803,14 @@ export const Worksheet: React.FC = () => {
             <div
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border shadow-2xs ${
                 isAllWorksheetCompleted
-                  ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                  ? 'bg-[#E2F0D9] text-[#2E6930] border-[#C5E0B4]'
                   : gradedQuestionsCount > 0
-                  ? 'bg-sky-50 text-sky-800 border-sky-200'
-                  : 'bg-slate-50 text-slate-600 border-slate-200'
+                  ? 'bg-[#F0F8FF] text-[#2D3748] border-[#B0C4DE]'
+                  : 'bg-[#FFFFF0] text-[#708090] border-[#D3D3D3]'
               }`}
               title="Status Penilaian Seluruh Butir Soal"
             >
-              <span className={`w-2 h-2 rounded-full ${isAllWorksheetCompleted ? 'bg-emerald-500' : gradedQuestionsCount > 0 ? 'bg-sky-500' : 'bg-slate-400'}`}></span>
+              <span className={`w-2 h-2 rounded-full ${isAllWorksheetCompleted ? 'bg-[#2E6930]' : gradedQuestionsCount > 0 ? 'bg-[#708090]' : 'bg-[#D3D3D3]'}`}></span>
               <span>
                 {isAllWorksheetCompleted
                   ? 'Selesai Dinilai'
@@ -1791,8 +1829,8 @@ export const Worksheet: React.FC = () => {
               onClick={handleManualSave}
               className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 border cursor-pointer ${
                 isSaveSuccess
-                  ? 'bg-emerald-500 text-white border-emerald-600'
-                  : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-300'
+                  ? 'bg-[#2E6930] text-white border-[#2E6930]'
+                  : 'bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] border-[#B0C4DE]'
               }`}
               title="Simpan Progress Pengerjaan Lembar Kerja Online ke Cloud"
             >
@@ -1803,7 +1841,7 @@ export const Worksheet: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Save className="w-3.5 h-3.5 text-sky-600" />
+                  <Save className="w-3.5 h-3.5 text-[#708090]" />
                   <span className="hidden sm:inline">Simpan</span>
                 </>
               )}
@@ -1812,20 +1850,20 @@ export const Worksheet: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsMolarMassOpen(true)}
-              className="inline-flex items-center gap-1 px-2 py-1 bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-300 rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
               title="Kalkulator Massa Molar Relatif (Mr)"
             >
-              <Scale className="w-3.5 h-3.5 text-sky-600" />
+              <Scale className="w-3.5 h-3.5 text-[#708090]" />
               <span className="hidden lg:inline">Mr</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsPeriodicOpen(true)}
-              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-300 rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
               title="Buka Tabel Periodik & Tetapan Fisika"
             >
-              <Table className="w-3.5 h-3.5 text-blue-600" />
+              <Table className="w-3.5 h-3.5 text-[#708090]" />
               <span className="hidden lg:inline">Tabel</span>
             </button>
 
@@ -1834,8 +1872,8 @@ export const Worksheet: React.FC = () => {
               onClick={() => setIsZenMode(!isZenMode)}
               className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
                 isZenMode
-                  ? 'bg-sky-500 text-white border-sky-500'
-                  : 'text-slate-600 hover:bg-slate-100 border-slate-200'
+                  ? 'bg-[#2D3748] text-[#FFFFF0] border-[#2D3748]'
+                  : 'bg-[#FFFFF0] text-[#708090] hover:bg-[#F0F8FF] border border-[#B0C4DE]'
               }`}
               title={isZenMode ? 'Keluar Zen Mode' : 'Mode Layar Penuh Fokus'}
             >
@@ -1845,17 +1883,17 @@ export const Worksheet: React.FC = () => {
         </div>
 
         {/* Row 3 (Khusus Layar HP & Tablet Portrait: lg:hidden) - Segmented Switch Soal vs Lembar Jawaban */}
-        <div className="lg:hidden flex items-center p-1 bg-slate-100 rounded-xl border border-slate-200">
+        <div className="lg:hidden flex items-center p-1 bg-[#F0F8FF] rounded-xl border border-[#B0C4DE]">
           <button
             type="button"
             onClick={() => setActiveMobilePane('question')}
             className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeMobilePane === 'question'
-                ? 'bg-white text-sky-800 shadow-xs border border-slate-200/80 font-extrabold'
+                ? 'bg-[#FFFFF0] text-[#2D3748] shadow-xs border border-[#B0C4DE] font-extrabold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5 text-sky-600" />
+            <BookOpen className="w-3.5 h-3.5 text-[#708090]" />
             <span>Naskah Soal #{currentQIndex + 1}</span>
           </button>
           <button
@@ -1863,11 +1901,11 @@ export const Worksheet: React.FC = () => {
             onClick={() => setActiveMobilePane('editor')}
             className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeMobilePane === 'editor'
-                ? 'bg-white text-emerald-800 shadow-xs border border-slate-200/80 font-extrabold'
+                ? 'bg-[#FFFFF0] text-[#2E6930] shadow-xs border border-[#B0C4DE] font-extrabold'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Edit3 className="w-3.5 h-3.5 text-emerald-600" />
+            <Edit3 className="w-3.5 h-3.5 text-[#2E6930]" />
             <span>Lembar Jawaban {answers[currentQIndex]?.steps?.trim() ? '✓' : ''}</span>
           </button>
         </div>
@@ -1875,9 +1913,9 @@ export const Worksheet: React.FC = () => {
 
       {/* Restored Draft Notification Banner */}
       {showRestoreNotice && (
-        <div className="bg-sky-50 border-b border-sky-200 px-4 py-2 flex items-center justify-between text-xs text-sky-900 animate-in fade-in shrink-0">
+        <div className="bg-[#F0F8FF] border-b border-[#B0C4DE] px-4 py-2 flex items-center justify-between text-xs text-[#2D3748] animate-in fade-in shrink-0">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-[#2E6930] shrink-0" />
             <span>
               <strong>Draft Dipulihkan:</strong> Progress lembar kerja Anda sebelumnya berhasil dimuat kembali
               {lastSavedTime ? ` (terakhir disimpan pukul ${lastSavedTime})` : ''}.
@@ -1886,7 +1924,7 @@ export const Worksheet: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowRestoreNotice(false)}
-            className="p-1 text-sky-600 hover:text-sky-900 hover:bg-sky-100 rounded transition-colors"
+            className="p-1 text-[#708090] hover:text-[#2D3748] hover:bg-[#E6F0FA] rounded transition-colors"
             title="Tutup pemberitahuan"
           >
             <X className="w-3.5 h-3.5" />
@@ -1968,22 +2006,22 @@ export const Worksheet: React.FC = () => {
               {currentQuestion.diagram_url && (
                 <div className="mt-4 pt-3 border-t border-slate-200/80 space-y-2">
                   <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
-                    <span className="flex items-center gap-1.5 text-indigo-900">
-                      <ImageIcon className="w-3.5 h-3.5 text-indigo-600" />
+                    <span className="flex items-center gap-1.5 text-[#2D3748]">
+                      <ImageIcon className="w-3.5 h-3.5 text-[#708090]" />
                       <span>Diagram & Visualisasi Soal:</span>
                     </span>
                     <button
                       type="button"
-                      onClick={() => setIsDiagramModalOpen(true)}
-                      className="inline-flex items-center gap-1 text-[11px] text-sky-600 hover:text-sky-800 font-bold hover:underline cursor-pointer"
+                      onClick={() => { setIsDiagramModalOpen(true); trackAchievementEvent(studentId, 'DIAGRAM_VIEWED'); }}
+                      className="inline-flex items-center gap-1 text-[11px] text-[#708090] hover:text-[#2D3748] font-bold hover:underline cursor-pointer"
                     >
                       <Maximize2 className="w-3 h-3" />
                       <span>Perbesar Diagram</span>
                     </button>
                   </div>
                   <div
-                    onClick={() => setIsDiagramModalOpen(true)}
-                    className="relative group rounded-xl border border-slate-200 bg-white p-2.5 flex items-center justify-center overflow-hidden cursor-zoom-in hover:border-sky-400 transition-all shadow-xs"
+                    onClick={() => { setIsDiagramModalOpen(true); trackAchievementEvent(studentId, 'DIAGRAM_VIEWED'); }}
+                    className="relative group rounded-xl border border-[#B0C4DE] bg-[#FFFFF0] p-2.5 flex items-center justify-center overflow-hidden cursor-zoom-in hover:border-[#708090] transition-all shadow-2xs"
                     title="Klik untuk memperbesar diagram kimia"
                   >
                     <img
@@ -2016,17 +2054,17 @@ export const Worksheet: React.FC = () => {
 
           {/* Pelajari Konsep Terkait (Database Materi) */}
           {relatedConceptsData && (
-            <div className="p-4 bg-sky-50/60 border border-sky-200/80 rounded-2xl space-y-3 shadow-2xs">
+            <div className="p-4 bg-[#F0F8FF] border border-[#B0C4DE] rounded-2xl space-y-3 shadow-2xs">
               <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-sky-100 border border-sky-200 text-sky-700 flex items-center justify-center shrink-0">
-                    <BookOpen className="w-3.5 h-3.5" />
+                  <div className="w-7 h-7 rounded-lg bg-[#B0C4DE]/30 border border-[#B0C4DE] text-[#2D3748] flex items-center justify-center shrink-0">
+                    <BookOpen className="w-3.5 h-3.5 text-[#708090]" />
                   </div>
                   <div>
-                    <span className="font-bold text-sky-950 text-xs block">
+                    <span className="font-bold text-[#2D3748] text-xs block">
                       Pelajari Konsep Terkait (Database Materi):
                     </span>
-                    <span className="text-[11px] text-slate-500 font-medium">
+                    <span className="text-[11px] text-[#708090] font-medium">
                       {relatedConceptsData.subtopicName || relatedConceptsData.mainModuleTitle}
                     </span>
                   </div>
@@ -2037,19 +2075,19 @@ export const Worksheet: React.FC = () => {
                   href={relatedConceptsData.mainModuleUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-sky-50 text-sky-800 text-xs font-bold border border-sky-200 shadow-2xs transition-all hover:scale-102 shrink-0 group"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] text-xs font-bold border border-[#B0C4DE] shadow-2xs transition-all hover:scale-102 shrink-0 group"
                   title={`Buka modul teori lengkap ${relatedConceptsData.mainModuleTitle} di tab baru`}
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#D4A359]" />
                   <span>Buka {relatedConceptsData.mainBadgeLabel}</span>
-                  <ExternalLink className="w-3 h-3 text-sky-500 transition-transform group-hover:translate-x-0.5" />
+                  <ExternalLink className="w-3 h-3 text-[#708090] transition-transform group-hover:translate-x-0.5" />
                 </a>
               </div>
 
               {/* Daftar Chip Konsep Spesifik */}
               {relatedConceptsData.chips.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-sky-100">
-                  <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider mr-1">
+                <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-[#B0C4DE]/60">
+                  <span className="text-[10px] font-bold text-[#4A5867] uppercase tracking-wider mr-1">
                     Fokus Materi:
                   </span>
                   {relatedConceptsData.chips.map((chip) => (
@@ -2058,12 +2096,12 @@ export const Worksheet: React.FC = () => {
                       href={chip.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-white hover:bg-sky-100 text-sky-900 text-[11px] font-medium rounded-lg border border-sky-200 transition-all shadow-2xs hover:border-sky-400 group"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] text-[11px] font-medium rounded-lg border border-[#B0C4DE] transition-all shadow-2xs hover:border-[#708090] group"
                       title={chip.summary || `Pelajari teori konsep ${chip.label} di tab baru`}
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 group-hover:bg-sky-700" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#708090] group-hover:bg-[#2D3748]" />
                       <span className="font-semibold">{chip.label}</span>
-                      <ExternalLink className="w-2.5 h-2.5 text-sky-400 group-hover:text-sky-600" />
+                      <ExternalLink className="w-2.5 h-2.5 text-[#708090] group-hover:text-[#2D3748]" />
                     </a>
                   ))}
                 </div>
@@ -2077,21 +2115,21 @@ export const Worksheet: React.FC = () => {
           activeMobilePane === 'editor' ? 'flex' : 'hidden lg:flex'
         }`}>
           {/* Sub-Header: Informasi Lembar Kerja Siswa & Status Simpan */}
-          <div className="bg-white border-b border-slate-200 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold shrink-0">
+          <div className="bg-white border-b border-[#D3D3D3]/60 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold shrink-0">
             <div className="flex items-center gap-2">
-              <span className="text-slate-800 font-bold flex items-center gap-1.5">
-                <Edit3 className="w-3.5 h-3.5 text-sky-600" />
+              <span className="text-[#2D3748] font-bold flex items-center gap-1.5">
+                <Edit3 className="w-3.5 h-3.5 text-[#708090]" />
                 <span>Lembar Kerja Siswa</span>
               </span>
-              <span className="text-[10px] text-slate-500 font-medium flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] text-[#708090] font-medium flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2E6930] animate-pulse" />
                 <span>
                   {lastSavedTime
                     ? `Tersimpan Online (${lastSavedTime})`
                     : 'Draft tersimpan otomatis online'}
                 </span>
                 {isCloudSynced && (
-                  <span className="inline-flex items-center gap-0.5 text-emerald-600 font-mono text-[9px] bg-emerald-50 px-1 py-0.2 rounded border border-emerald-200">
+                  <span className="inline-flex items-center gap-0.5 text-[#2E6930] font-mono text-[9px] bg-[#E2F0D9] px-1 py-0.2 rounded border border-[#C5E0B4]">
                     <CloudCheck className="w-2.5 h-2.5" />
                     <span>Cloud Sync</span>
                   </span>
@@ -2114,21 +2152,21 @@ export const Worksheet: React.FC = () => {
           <div className="flex-1 p-4 sm:p-5 space-y-4">
             {/* Live Teacher Sticky Comment / Hint */}
             {liveComment && (
-              <div className="p-3.5 bg-sky-50 border border-sky-200 rounded-2xl text-xs text-sky-900 shadow-2xs flex items-start justify-between gap-3 animate-fadeIn">
+              <div className="p-3.5 bg-[#F0F8FF] border border-[#B0C4DE] rounded-2xl text-xs text-[#2D3748] shadow-2xs flex items-start justify-between gap-3 animate-fadeIn">
                 <div className="flex items-start gap-2.5">
-                  <Sparkles className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                  <Sparkles className="w-4 h-4 text-[#D4A359] shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold text-sky-950 block">
+                    <span className="font-bold text-[#2D3748] block">
                       Catatan Bimbingan ({liveComment.teacher_name || 'Guru Pembina'}):
                     </span>
-                    <p className="text-sky-900 mt-0.5 leading-relaxed font-medium">
+                    <p className="text-[#4A5867] mt-0.5 leading-relaxed font-medium">
                       {liveComment.comment_text}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setLiveComment(null)}
-                  className="text-sky-400 hover:text-sky-700 p-0.5 rounded"
+                  className="text-[#708090] hover:text-[#2D3748] p-0.5 rounded cursor-pointer"
                   title="Tutup Catatan"
                 >
                   <X className="w-4 h-4" />
@@ -2201,7 +2239,7 @@ export const Worksheet: React.FC = () => {
                     onChange={(e) => handleStepsChange(e.target.value)}
                     placeholder="Ketik langkah pembuktian dan perhitungan Anda...&#10;Contoh:&#10;1. Mol gas total:&#10;$n = \frac{PV}{RT} = 1.00\text{ mol}$"
                     rows={workspaceMode === 'split' ? 14 : 16}
-                    className="w-full p-3 text-xs sm:text-sm font-mono text-slate-900 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 leading-relaxed resize-y shadow-2xs"
+                    className="w-full p-3 text-xs sm:text-sm font-mono text-slate-900 bg-white border border-[#D3D3D3] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090] leading-relaxed resize-y shadow-2xs"
                   />
                 </div>
               )}
@@ -2209,9 +2247,9 @@ export const Worksheet: React.FC = () => {
               {/* Live KaTeX Preview with Virtual Laser Pointer Overlay */}
               {(workspaceMode === 'split' || workspaceMode === 'preview') && (
                 <div className="flex flex-col space-y-1.5">
-                  <div className="flex items-center justify-between text-xs font-semibold text-sky-800">
+                  <div className="flex items-center justify-between text-xs font-semibold text-[#2D3748]">
                     <span className="flex items-center gap-1">
-                      <Sparkles className="w-3 h-3 text-sky-600" />
+                      <Sparkles className="w-3 h-3 text-[#D4A359]" />
                       <span>Live Render KaTeX (Hasil Siswa):</span>
                     </span>
                     <span className="text-[10px] text-slate-400">Real-time</span>
@@ -2418,16 +2456,16 @@ export const Worksheet: React.FC = () => {
 
             {/* Rich AI Evaluation Diagnostic Result Panel */}
             {evaluationResult && (
-              <div className="bg-white border border-sky-200 rounded-2xl p-5 sm:p-6 shadow-sm space-y-5 animate-in fade-in">
+              <div className="bg-white border border-[#B0C4DE] rounded-2xl p-5 sm:p-6 shadow-sm space-y-5 animate-in fade-in">
                 {/* Result Header */}
-                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 pb-4">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#D3D3D3]/60 pb-4">
                   <div className="flex items-start gap-3">
                     <div
                       className={`w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-white shadow-xs ${
                         evaluationResult.status === 'perfect'
-                          ? 'bg-emerald-500'
+                          ? 'bg-[#2E6930]'
                           : evaluationResult.status === 'partial_correct'
-                          ? 'bg-amber-500'
+                          ? 'bg-[#D4A359]'
                           : 'bg-rose-500'
                       }`}
                     >
@@ -2441,20 +2479,20 @@ export const Worksheet: React.FC = () => {
                     </div>
                     <div>
                       <div className="flex flex-wrap items-center gap-2">
-                        <h3 className="text-base font-bold text-slate-900 font-display">
+                        <h3 className="text-base font-bold text-[#2D3748] font-display">
                           {evaluationResult.status === 'perfect'
                             ? 'Hasil Evaluasi AI: Sempurna! 🏆'
                             : evaluationResult.status === 'partial_correct'
                             ? 'Hasil Evaluasi AI: Benar Sebagian 🎯'
                             : 'Hasil Evaluasi AI: Perlu Peningkatan 🔄'}
                         </h3>
-                        <span className="px-2.5 py-0.5 bg-sky-100 text-sky-800 text-xs font-bold rounded-lg font-mono">
+                        <span className="px-2.5 py-0.5 bg-[#FFF2CC] text-[#806000] border border-[#FFE599] text-xs font-bold rounded-lg font-mono">
                           {evaluationResult.totalScore} / {evaluationResult.maxScore} Poin (
                           {Math.round((evaluationResult.totalScore / evaluationResult.maxScore) * 100)}%)
                         </span>
                       </div>
-                      <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-slate-500">
-                        <span className="inline-flex items-center gap-1 font-semibold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">
+                      <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-[#708090]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#2D3748] bg-[#F0F8FF] px-2 py-0.5 rounded border border-[#B0C4DE]">
                           {evaluationResult.modelUsed
                             ? `✨ ${evaluationResult.modelUsed} (Live AI)`
                             : '🔬 Mesin Evaluasi Saintifik OSN'}
@@ -2467,24 +2505,24 @@ export const Worksheet: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="px-3 py-1.5 bg-slate-50 border border-slate-200 text-slate-700 font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-2xs">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <div className="px-3 py-1.5 bg-[#F0F8FF] border border-[#B0C4DE] text-[#2D3748] font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-2xs">
+                    <CheckCircle2 className="w-4 h-4 text-[#2E6930]" />
                     <span>Evaluasi Terverifikasi</span>
                   </div>
                 </div>
 
                 {/* Auto-Save & Radar Link Confirmation Banner */}
                 {isSubmissionSaved && (
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs text-emerald-950 animate-in fade-in duration-200">
+                  <div className="p-3 bg-[#E2F0D9] border border-[#C5E0B4] rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs text-[#2E6930] animate-in fade-in duration-200">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#2E6930] shrink-0" />
                       <span className="font-semibold">
                         Lembar pengerjaan berhasil tersimpan ke Portofolio & Radar Kompetensi Siswa.
                       </span>
                     </div>
                     <button
                       onClick={() => navigate('/profile')}
-                      className="inline-flex items-center gap-1 font-bold text-sky-700 hover:text-sky-900 bg-white px-2.5 py-1 rounded-lg border border-sky-200 shadow-2xs hover:bg-sky-50 transition-colors"
+                      className="inline-flex items-center gap-1 font-bold text-[#2D3748] hover:text-black bg-[#FFFFF0] px-2.5 py-1 rounded-lg border border-[#B0C4DE] shadow-2xs hover:bg-[#F0F8FF] transition-colors cursor-pointer"
                     >
                       <span>Lihat Analisis Radar</span>
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -2493,9 +2531,9 @@ export const Worksheet: React.FC = () => {
                 )}
 
                 {/* Overall Feedback with KaTeX Rendering */}
-                <div className="p-4 bg-sky-50/60 border border-sky-200/80 rounded-xl text-xs sm:text-sm text-slate-800 leading-relaxed">
-                  <span className="font-bold text-sky-900 block mb-1.5 flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+                <div className="p-4 bg-[#F0F8FF]/60 border border-[#B0C4DE] rounded-xl text-xs sm:text-sm text-[#2D3748] leading-relaxed">
+                  <span className="font-bold text-[#2D3748] block mb-1.5 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#D4A359]" />
                     <span>Catatan Evaluator Dewan Juri:</span>
                   </span>
                   <KaTeXRenderer content={evaluationResult.overallFeedback} />
@@ -2609,7 +2647,7 @@ export const Worksheet: React.FC = () => {
                 <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
                   {evaluationResult.suggestedReviewTopic && (
                     <div className="flex items-center gap-1.5 text-slate-600">
-                      <BookOpen className="w-3.5 h-3.5 text-sky-600" />
+                      <BookOpen className="w-3.5 h-3.5 text-[#708090]" />
                       <span>
                         Saran Topik Penguatan: <strong>{evaluationResult.suggestedReviewTopic}</strong>
                       </span>
@@ -2629,18 +2667,18 @@ export const Worksheet: React.FC = () => {
                         delete evaluationsRef.current[currentQIndex];
                         if (textareaRef.current) textareaRef.current.focus();
                       }}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] border border-[#CBD5E1] font-semibold rounded-lg transition-colors cursor-pointer"
                     >
-                      <RotateCcw className="w-3.5 h-3.5" />
+                      <RotateCcw className="w-3.5 h-3.5 text-[#708090]" />
                       <span>Perbaiki & Coba Lagi</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => navigate('/profile')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-sky-800 font-semibold rounded-lg border border-sky-200 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] font-semibold rounded-lg border border-[#B0C4DE] transition-colors cursor-pointer"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+                      <Sparkles className="w-3.5 h-3.5 text-[#D4A359]" />
                       <span>Analisis Radar di Profil</span>
                     </button>
 
@@ -2651,7 +2689,7 @@ export const Worksheet: React.FC = () => {
                           hasRestoredQIndexRef.current = true;
                           setCurrentQIndex(currentQIndex + 1);
                         }}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition-colors shadow-2xs cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] font-semibold rounded-lg transition-colors shadow-2xs cursor-pointer"
                       >
                         <span>Lanjut ke Soal Berikutnya</span>
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -2673,18 +2711,26 @@ export const Worksheet: React.FC = () => {
       />
 
       {/* Floating & Draggable Molar Mass Calculator Modal */}
-      <MolarMassCalculatorModal
-        isOpen={isMolarMassOpen}
+      <ErrorBoundary
+        modalName="Kalkulator Massa Molar (Mr)"
         onClose={() => setIsMolarMassOpen(false)}
-        onInsertText={handleInsertFromPeriodic}
-      />
+      >
+        <MolarMassCalculatorModal
+          isOpen={isMolarMassOpen}
+          onClose={() => setIsMolarMassOpen(false)}
+          onInsertText={handleInsertFromPeriodic}
+        />
+      </ErrorBoundary>
 
       {/* Floating & Draggable OSN 4-Step Guide Modal */}
       <ScaffoldGuideModal
         isOpen={isScaffoldGuideOpen}
         onClose={() => setIsScaffoldGuideOpen(false)}
         question={currentQuestion}
-        onInsertToWorksheet={(template) => handleStepsChange(template)}
+        onInsertToWorksheet={(template) => {
+          handleStepsChange(template);
+          trackAchievementEvent(studentId, 'SCAFFOLD_INSERTED');
+        }}
       />
 
       {/* Cloudflare R2 Diagram Viewer Modal (Zoom & Rotation) */}
@@ -2704,7 +2750,7 @@ export const Worksheet: React.FC = () => {
           <button
             type="button"
             onClick={() => setActiveMobilePane('editor')}
-            className="px-4 py-2.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 text-white text-xs font-bold rounded-full shadow-xl shadow-sky-600/30 flex items-center gap-2 active:scale-95 transition cursor-pointer border border-white/20"
+            className="px-4 py-2.5 bg-[#2D3748] hover:bg-[#1E293B] text-[#FFFFF0] text-xs font-bold rounded-full shadow-lg flex items-center gap-2 active:scale-95 transition cursor-pointer border border-[#B0C4DE]/40"
             title="Buka Lembar Jawaban untuk mengetik penyelesaian"
           >
             <Edit3 className="w-4 h-4 text-emerald-300" />
@@ -2717,7 +2763,7 @@ export const Worksheet: React.FC = () => {
             className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-full shadow-xl flex items-center gap-2 active:scale-95 transition cursor-pointer border border-slate-700"
             title="Kembali membaca naskah soal lengkap"
           >
-            <BookOpen className="w-4 h-4 text-sky-400" />
+            <BookOpen className="w-4 h-4 text-[#B0C4DE]" />
             <span>Baca Soal 📄</span>
           </button>
         )}

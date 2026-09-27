@@ -4,6 +4,8 @@ import { getSupabaseClient } from '../../lib/supabaseClient';
 import { classroomService } from '../../services/classroomService';
 import type { Classroom } from '../../types/database';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
+import { LevelProgressBar } from '../../components/gamification/LevelProgressBar';
+import { UserTitleBadge } from '../../components/gamification/UserTitleBadge';
 import {
   User,
   School,
@@ -254,16 +256,19 @@ export const StudentSettings: React.FC = () => {
 
       {/* TAB 1: PROFIL AKADEMIK */}
       {activeTab === 'profile' && (
-        <form onSubmit={handleSaveProfile} className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-            <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600">
-              <User className="w-5 h-5" />
+        <div className="space-y-6">
+          <LevelProgressBar xp={profile?.xp || 0} variant="light" />
+
+          <form onSubmit={handleSaveProfile} className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs space-y-6">
+            <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
+              <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 flex items-center justify-center text-sky-600">
+                <User className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-slate-900">Informasi Pribadi & Akademik</h2>
+                <p className="text-xs text-slate-500">Data ini akan tercantum pada portofolio dan laporan kemajuan Anda</p>
+              </div>
             </div>
-            <div>
-              <h2 className="text-base font-bold text-slate-900">Informasi Pribadi & Akademik</h2>
-              <p className="text-xs text-slate-500">Data ini akan tercantum pada portofolio dan laporan kemajuan Anda</p>
-            </div>
-          </div>
 
           {profileSuccess && (
             <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl flex items-start gap-2.5 text-xs text-emerald-800 animate-in fade-in">
@@ -382,6 +387,7 @@ export const StudentSettings: React.FC = () => {
             </button>
           </div>
         </form>
+        </div>
       )}
 
       {/* TAB 2: KELAS & PEMBINA (Single Classroom Policy) */}

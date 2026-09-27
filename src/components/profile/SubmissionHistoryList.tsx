@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { SavedSubmissionRecord } from '../../types/database';
+import { KaTeXRenderer } from '../common/KaTeXRenderer';
 import {
   Clock,
   CheckCircle2,
@@ -166,7 +167,7 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                   <div className="flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-sky-100 text-sky-800 rounded-lg font-semibold text-xs border border-sky-200">
                       <Sparkles className="w-3.5 h-3.5 text-sky-600" />
-                      {sub.modelUsed ? `Evaluasi: ${sub.modelUsed}` : 'Evaluasi: Juri AI'}
+                      <span>Evaluasi Dewan Juri</span>
                     </span>
                     <span className="text-slate-400">•</span>
                     <span className="text-slate-500 font-mono">
@@ -194,7 +195,7 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                   <div className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                     <span>💬 Catatan Evaluator Juri:</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{sub.overallFeedback}</p>
+                  <KaTeXRenderer content={sub.overallFeedback} className="text-xs text-slate-600 leading-relaxed" />
                 </div>
 
                 {/* Miskonsepsi Alert (Jika Ada) */}
@@ -204,7 +205,7 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                       <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                       <span>Diagnosa Miskonsepsi Kimia:</span>
                     </div>
-                    <p className="text-xs text-rose-700 leading-relaxed">{sub.misconceptionDiagnosis}</p>
+                    <KaTeXRenderer content={sub.misconceptionDiagnosis} className="text-xs text-rose-700 leading-relaxed" />
                   </div>
                 )}
 
@@ -223,18 +224,19 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                             : 'bg-white border-rose-200'
                         }`}
                       >
-                        <div className="flex items-start gap-2">
+                        <div className="flex items-start gap-2 flex-1">
                           {crit.achieved ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                           ) : (
                             <XCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                           )}
-                          <div>
-                            <div className="font-bold text-slate-900">
-                              Langkah #{crit.stepNumber}: {crit.criterionTitle}
+                          <div className="flex-1 min-w-0">
+                            <div className="font-bold text-slate-900 flex flex-wrap items-baseline gap-1">
+                              <span>Langkah #{crit.stepNumber}:</span>
+                              <KaTeXRenderer content={crit.criterionTitle} inlineOnly />
                             </div>
-                            <div className="text-slate-600 mt-0.5 leading-relaxed">
-                              {crit.examinerExplanation}
+                            <div className="text-slate-600 mt-1 leading-relaxed">
+                              <KaTeXRenderer content={crit.examinerExplanation} inlineOnly />
                             </div>
                           </div>
                         </div>
@@ -262,7 +264,9 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                       </span>
                       <ul className="text-xs text-emerald-800 space-y-0.5 list-disc list-inside">
                         {sub.strengths.map((str, sIdx) => (
-                          <li key={sIdx}>{str}</li>
+                          <li key={sIdx}>
+                            <KaTeXRenderer content={str} inlineOnly />
+                          </li>
                         ))}
                       </ul>
                     </div>
@@ -275,7 +279,9 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
                       </span>
                       <ul className="text-xs text-amber-800 space-y-0.5 list-disc list-inside">
                         {sub.missingOrIncorrectPoints.map((mis, mIdx) => (
-                          <li key={mIdx}>{mis}</li>
+                          <li key={mIdx}>
+                            <KaTeXRenderer content={mis} inlineOnly />
+                          </li>
                         ))}
                       </ul>
                     </div>

@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { getSupabaseClient } from '../../lib/supabaseClient';
 import { getLocalGamificationState } from '../../lib/gamification';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
+import { UserTitleBadge } from '../../components/gamification/UserTitleBadge';
 
 interface LeaderboardUser {
   rank: number;
@@ -140,6 +141,9 @@ export const Leaderboard: React.FC = () => {
                     🥈 2
                   </div>
                   <div className="font-bold text-xs text-slate-800 truncate">{top2.name}</div>
+                  <div className="flex justify-center">
+                    <UserTitleBadge xp={top2.xp} size="xs" />
+                  </div>
                   <div className="text-[10px] text-slate-500 truncate">{top2.school}</div>
                   <div className="text-xs font-mono font-bold text-emerald-700">{top2.xp} XP</div>
                 </div>
@@ -154,6 +158,9 @@ export const Leaderboard: React.FC = () => {
                     🥇 1
                   </div>
                   <div className="font-extrabold text-sm text-slate-900 truncate">{top1.name}</div>
+                  <div className="flex justify-center">
+                    <UserTitleBadge xp={top1.xp} size="xs" />
+                  </div>
                   <div className="text-[11px] text-slate-500 truncate">{top1.school}</div>
                   <div className="text-sm font-mono font-bold text-amber-700">{top1.xp} XP</div>
                 </div>
@@ -166,6 +173,9 @@ export const Leaderboard: React.FC = () => {
                     🥉 3
                   </div>
                   <div className="font-bold text-xs text-slate-800 truncate">{top3.name}</div>
+                  <div className="flex justify-center">
+                    <UserTitleBadge xp={top3.xp} size="xs" />
+                  </div>
                   <div className="text-[10px] text-slate-500 truncate">{top3.school}</div>
                   <div className="text-xs font-mono font-bold text-emerald-700">{top3.xp} XP</div>
                 </div>
@@ -200,8 +210,9 @@ export const Leaderboard: React.FC = () => {
                   </span>
 
                   <div>
-                    <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                    <div className="font-bold text-slate-900 flex items-center gap-1.5 flex-wrap">
                       <span>{userItem.name}</span>
+                      <UserTitleBadge xp={userItem.xp} size="xs" />
                       {userItem.isSelf && (
                         <span className="px-1.5 py-0.2 bg-emerald-600 text-white text-[9px] rounded uppercase font-bold">
                           Anda

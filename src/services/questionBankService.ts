@@ -6,11 +6,6 @@
 
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabaseClient';
 import { BENCHMARK_QUESTIONS } from '../data/syllabusData';
-import { SMA_CHEMISTRY_QUESTIONS } from '../data/smaQuestionsData';
-import { OSK_CHEMISTRY_QUESTIONS } from '../data/oskQuestionsData';
-import { OSP_CHEMISTRY_QUESTIONS } from '../data/ospQuestionsData';
-import { OSN_CHEMISTRY_QUESTIONS } from '../data/osnQuestionsData';
-import { ICHO_CHEMISTRY_QUESTIONS } from '../data/ichoQuestionsData';
 import { tagAndBookmarkService } from './tagAndBookmarkService';
 import type { Question, QuestionFilter, QuestionDifficulty, QuestionStyle, SubQuestion, Worksheet } from '../types/database';
 
@@ -72,19 +67,53 @@ const INITIAL_SEEDED_QUESTIONS: Question[] = BENCHMARK_QUESTIONS.map((q) => {
   };
 });
 
-// Gabungkan butir soal benchmark dengan bank soal Kimia SMA, OSK, OSP, OSN Nasional, dan IChO
-export const ALL_DEFAULT_QUESTIONS: Question[] = [
-  ...INITIAL_SEEDED_QUESTIONS,
-  ...SMA_CHEMISTRY_QUESTIONS,
-  ...OSK_CHEMISTRY_QUESTIONS,
-  ...OSP_CHEMISTRY_QUESTIONS,
-  ...OSN_CHEMISTRY_QUESTIONS,
-  ...ICHO_CHEMISTRY_QUESTIONS,
-];
+let fullQuestionsPromise: Promise<Question[]> | null = null;
+let fullQuestionsCache: Question[] | null = null;
+
+/**
+ * Lazy loading modul bank soal (SMA, OSK, OSP, OSN, IChO).
+ * Mengurangi bundle awal lebih dari 1.8MB dengan memuat data hanya saat dibutuhkan.
+ */
+export async function loadAllDefaultQuestions(): Promise<Question[]> {
+  if (fullQuestionsCache) return fullQuestionsCache;
+  if (fullQuestionsPromise) return fullQuestionsPromise;
+
+  fullQuestionsPromise = (async () => {
+    const [
+      { SMA_CHEMISTRY_QUESTIONS },
+      { OSK_CHEMISTRY_QUESTIONS },
+      { OSP_CHEMISTRY_QUESTIONS },
+      { OSN_CHEMISTRY_QUESTIONS },
+      { ICHO_CHEMISTRY_QUESTIONS },
+    ] = await Promise.all([
+      import('../data/smaQuestionsData'),
+      import('../data/oskQuestionsData'),
+      import('../data/ospQuestionsData'),
+      import('../data/osnQuestionsData'),
+      import('../data/ichoQuestionsData'),
+    ]);
+
+    fullQuestionsCache = [
+      ...INITIAL_SEEDED_QUESTIONS,
+      ...SMA_CHEMISTRY_QUESTIONS,
+      ...OSK_CHEMISTRY_QUESTIONS,
+      ...OSP_CHEMISTRY_QUESTIONS,
+      ...OSN_CHEMISTRY_QUESTIONS,
+      ...ICHO_CHEMISTRY_QUESTIONS,
+    ];
+    ALL_DEFAULT_QUESTIONS = fullQuestionsCache;
+    return fullQuestionsCache;
+  })();
+
+  return fullQuestionsPromise;
+}
+
+export let ALL_DEFAULT_QUESTIONS: Question[] = [...INITIAL_SEEDED_QUESTIONS];
 
 class QuestionBankService {
   private localQuestions: Map<number, Question> = new Map();
   private localWorksheets: Worksheet[] = [];
+  private defaultQuestionsLoaded = false;
 
   // SMART IN-MEMORY CACHE & REQUEST DEDUPLICATION
   private cachedCloudQuestions: Question[] | null = null;
@@ -96,9 +125,20 @@ class QuestionBankService {
     this.initLocalStore();
   }
 
+  private async ensureAllQuestionsLoaded(): Promise<void> {
+    if (this.defaultQuestionsLoaded) return;
+    const all = await loadAllDefaultQuestions();
+    all.forEach(q => {
+      if (!this.localQuestions.has(q.id)) {
+        this.localQuestions.set(q.id, { ...q });
+      }
+    });
+    this.defaultQuestionsLoaded = true;
+  }
+
   private initLocalStore(): void {
-    // 1. Seed benchmark & SMA curriculum questions
-    ALL_DEFAULT_QUESTIONS.forEach(q => {
+    // 1. Seed benchmark questions initially (instant 0ms startup, tiny payload)
+    INITIAL_SEEDED_QUESTIONS.forEach(q => {
       this.localQuestions.set(q.id, { ...q });
     });
 
@@ -121,7 +161,9 @@ class QuestionBankService {
 
   private persistLocalStore(): void {
     try {
-      const defaultIds = new Set(ALL_DEFAULT_QUESTIONS.map(q => q.id));
+      const defaultIds = new Set(
+        fullQuestionsCache ? fullQuestionsCache.map(q => q.id) : INITIAL_SEEDED_QUESTIONS.map(q => q.id)
+      );
       const customOnes = Array.from(this.localQuestions.values()).filter(q => !defaultIds.has(q.id));
       localStorage.setItem(LOCAL_QUESTIONS_STORAGE_KEY, JSON.stringify(customOnes));
       localStorage.setItem(LOCAL_WORKSHEETS_STORAGE_KEY, JSON.stringify(this.localWorksheets));
@@ -204,6 +246,8 @@ class QuestionBankService {
   }> {
     const isCloudConnected = Boolean(getSupabaseClient());
     let rawQuestions: Question[] = [];
+
+    await this.ensureAllQuestionsLoaded();
 
     // Jika cache sudah tersedia dan tidak force refresh, gunakan langsung (0ms)
     if (
@@ -340,7 +384,11 @@ class QuestionBankService {
     }
 
     // 2. Cek di localQuestions map (0ms)
-    const localQ = this.localQuestions.get(id);
+    let localQ = this.localQuestions.get(id);
+    if (!localQ && !this.defaultQuestionsLoaded) {
+      await this.ensureAllQuestionsLoaded();
+      localQ = this.localQuestions.get(id);
+    }
     if (localQ) {
       return {
         ...localQ,
@@ -480,8 +528,10 @@ class QuestionBankService {
     }
 
     try {
+      await this.ensureAllQuestionsLoaded();
+      const allQuestions = await loadAllDefaultQuestions();
       // Ekstrak payload lengkap termasuk metadata kurikulum SMA dan modul
-      const payload = ALL_DEFAULT_QUESTIONS.map(q => ({
+      const payload = allQuestions.map(q => ({
         id: q.id,
         pillar_number: q.pillar_number,
         module_id: q.module_id || q.pillar_number,

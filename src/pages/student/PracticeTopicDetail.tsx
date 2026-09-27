@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
   ArrowRight,
@@ -74,9 +74,20 @@ export const PracticeTopicDetail: React.FC = () => {
   const [viewMode, setViewMode] = useState<'map' | 'cards'>('map');
 
   // Filter & Pencarian
+  const [searchParams] = useSearchParams();
+  const urlDiff = searchParams.get('difficulty');
+  const initialDiff: 'all' | 'easy' | 'medium' | 'hard' =
+    urlDiff === 'easy' || urlDiff === 'medium' || urlDiff === 'hard' ? urlDiff : 'all';
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'unattempted' | 'passed' | 'review'>('all');
-  const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'easy' | 'medium' | 'hard'>('all');
+  const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'easy' | 'medium' | 'hard'>(initialDiff);
+
+  useEffect(() => {
+    const d = searchParams.get('difficulty');
+    if (d === 'easy' || d === 'medium' || d === 'hard') {
+      setDifficultyFilter(d);
+    }
+  }, [searchParams]);
 
   // Multi-Selection untuk Latihan Kustom
   const [selectedQuestionIds, setSelectedQuestionIds] = useState<number[]>([]);

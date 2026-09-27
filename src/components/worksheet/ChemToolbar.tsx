@@ -9,6 +9,7 @@ import {
 } from '../../lib/katex-helpers';
 import { getSharedModalPosition, setSharedModalPosition } from '../../services/modalPositionService';
 import { KaTeXRenderer } from '../common/KaTeXRenderer';
+import { trackAchievementEvent } from '../../services/achievementService';
 import { Table, Sparkles, Wand2, FileText, X, Scale, Move, ArrowLeft, Check } from 'lucide-react';
 
 interface ChemToolbarProps {
@@ -578,6 +579,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
     }
 
     // Direct injection for arrows, Greek letters, and simple symbols
+    trackAchievementEvent(undefined, 'KATEX_SYNTAX_USED', { text: action.snippet }).catch(() => {});
     const updatedVal = injectAtCursor(el, action.snippet, { placeholder: 'x' });
     if (onValueChange) {
       onValueChange(updatedVal);
@@ -612,6 +614,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
     }
 
     if (formulaStr) {
+      trackAchievementEvent(undefined, 'KATEX_SYNTAX_USED', { text: formulaStr }).catch(() => {});
       const updated = injectAtCursor(el, formulaStr);
       if (onValueChange) {
         onValueChange(updated);
@@ -666,6 +669,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
     if (!el || !templateFillState) return;
 
     const formula = templateFillState.buildFormula(templateFillState.values);
+    trackAchievementEvent(undefined, 'QUICK_FORMULA_INSERTED').catch(() => {});
+    trackAchievementEvent(undefined, 'KATEX_SYNTAX_USED', { text: formula }).catch(() => {});
     const updated = injectAtCursor(el, '\n' + formula + '\n');
     if (onValueChange) {
       onValueChange(updated);
@@ -677,6 +682,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
     const el = textareaRef.current;
     if (!el || !templateFillState) return;
 
+    trackAchievementEvent(undefined, 'QUICK_FORMULA_INSERTED').catch(() => {});
+    trackAchievementEvent(undefined, 'KATEX_SYNTAX_USED', { text: templateFillState.template.snippet }).catch(() => {});
     const updated = injectAtCursor(el, '\n' + templateFillState.template.snippet + '\n');
     if (onValueChange) {
       onValueChange(updated);
@@ -718,10 +725,10 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
           <button
             type="button"
             onClick={() => setShowTemplatesModal(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200/80 rounded-md transition-all shadow-2xs active:scale-95 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold text-[#2D3748] bg-[#F0F8FF] hover:bg-[#E6F0FA] border border-[#B0C4DE] rounded-md transition-all shadow-2xs active:scale-95 cursor-pointer"
             title="Pilih rumus kimia & matematika siap pakai dengan input variabel ramah siswa"
           >
-            <FileText className="w-3.5 h-3.5 text-sky-600" />
+            <FileText className="w-3.5 h-3.5 text-[#708090]" />
             <span>Rumus Cepat Kimia</span>
           </button>
 
@@ -732,12 +739,12 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onClick={onOpenScaffoldGuide}
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-md transition-all shadow-2xs active:scale-95 cursor-pointer ${
                 isScaffoldGuideOpen
-                  ? 'bg-sky-600 text-white shadow-sm ring-2 ring-sky-300'
-                  : 'bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200/80'
+                  ? 'bg-[#708090] text-[#FFFFF0] shadow-sm ring-2 ring-[#B0C4DE]'
+                  : 'bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE]'
               }`}
               title="Buka pop-up panduan floating kerangka langkah pengerjaan OSN"
             >
-              <Sparkles className={`w-3.5 h-3.5 ${isScaffoldGuideOpen ? 'text-amber-300' : 'text-sky-600'}`} />
+              <Sparkles className={`w-3.5 h-3.5 ${isScaffoldGuideOpen ? 'text-[#FFF2CC]' : 'text-[#D4A359]'}`} />
               <span>Kerangka Langkah Pengerjaan</span>
             </button>
           )}
@@ -746,83 +753,28 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
 
       {/* Category Tabs */}
       <div className="flex items-center gap-1 overflow-x-auto text-[11px] py-0.5 mb-2">
-        <button
-          type="button"
-          onClick={() => setActiveCategory('all')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'all'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Semua
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('format')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'format'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Pecahan & Notasi
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('arrow')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'arrow'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Panah Reaksi
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('phase')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'phase'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Fase
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('thermo')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'thermo'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Termo & K
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('greek')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'greek'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Yunani & Operasi
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveCategory('ion')}
-          className={`px-2 py-0.5 rounded-md font-medium whitespace-nowrap transition-colors ${
-            activeCategory === 'ion'
-              ? 'bg-sky-500 text-white font-bold'
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Ion
-        </button>
+        {[
+          { key: 'all', label: 'Semua' },
+          { key: 'format', label: 'Pecahan & Notasi' },
+          { key: 'arrow', label: 'Panah Reaksi' },
+          { key: 'phase', label: 'Fase' },
+          { key: 'thermo', label: 'Termo & K' },
+          { key: 'greek', label: 'Yunani & Operasi' },
+          { key: 'ion', label: 'Ion' },
+        ].map((cat) => (
+          <button
+            key={cat.key}
+            type="button"
+            onClick={() => setActiveCategory(cat.key as ToolbarCategory)}
+            className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap transition-colors cursor-pointer ${
+              activeCategory === cat.key
+                ? 'bg-[#708090] text-[#FFFFF0] font-bold shadow-2xs'
+                : 'text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF]'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
       </div>
 
       {/* Buttons Grid */}
@@ -835,8 +787,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
             title={action.tooltip}
             className={`min-w-[34px] sm:min-w-[28px] h-8 sm:h-7 px-2.5 sm:px-2 flex items-center justify-center rounded-lg border text-xs font-mono transition-all active:scale-95 cursor-pointer ${
               action.category === 'format'
-                ? 'bg-sky-50 border-sky-200 text-sky-800 font-bold hover:bg-sky-100'
-                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
+                ? 'bg-[#F0F8FF] border-[#B0C4DE] text-[#2D3748] font-bold hover:bg-[#E6F0FA]'
+                : 'bg-[#FFFFF0] border-[#D3D3D3] text-[#2D3748] hover:bg-[#F0F8FF] hover:border-[#B0C4DE]'
             }`}
           >
             {action.displayMath ? (
@@ -863,16 +815,16 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
             className="bg-white rounded-2xl w-full max-w-[95vw] sm:max-w-2xl max-h-[90vh] border border-slate-200 shadow-2xl overflow-hidden flex flex-col relative"
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-sky-50/50">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-[#D3D3D3]/60 bg-[#F0F8FF]">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-sm shadow-2xs">
+                <div className="w-8 h-8 rounded-lg bg-[#708090] text-white flex items-center justify-center font-bold text-sm shadow-2xs">
                   <FileText className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 font-display">
+                  <h3 className="text-sm font-bold text-[#2D3748] font-display">
                     Koleksi Rumus Cepat Kimia
                   </h3>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-[#708090]">
                     Pilih rumus di bawah ini untuk membuka pop-up pengisian variabel dan angka secara interaktif.
                   </p>
                 </div>
@@ -880,74 +832,34 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               <button
                 type="button"
                 onClick={() => setShowTemplatesModal(false)}
-                className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 rounded-lg"
+                className="p-1 text-[#708090] hover:text-[#2D3748] hover:bg-[#B0C4DE]/30 rounded-lg cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Template Category Tabs */}
-            <div className="flex items-center gap-1 px-6 pt-3 pb-2 border-b border-slate-200 overflow-x-auto text-xs font-semibold bg-white">
-              <button
-                onClick={() => setSelectedTemplateTab('all')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'all'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Semua Kategori
-              </button>
-              <button
-                onClick={() => setSelectedTemplateTab('stoikiometri')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'stoikiometri'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Stoikiometri & Gas
-              </button>
-              <button
-                onClick={() => setSelectedTemplateTab('termo')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'termo'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Termodinamika
-              </button>
-              <button
-                onClick={() => setSelectedTemplateTab('larutan')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'larutan'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Kesetimbangan & Larutan
-              </button>
-              <button
-                onClick={() => setSelectedTemplateTab('elektro')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'elektro'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Elektrokimia
-              </button>
-              <button
-                onClick={() => setSelectedTemplateTab('reaksi')}
-                className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedTemplateTab === 'reaksi'
-                    ? 'bg-sky-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Reaksi Kimia
-              </button>
+            <div className="flex items-center gap-1 px-6 pt-3 pb-2 border-b border-[#D3D3D3]/60 overflow-x-auto text-xs font-semibold bg-white">
+              {[
+                { key: 'all', label: 'Semua Kategori' },
+                { key: 'stoikiometri', label: 'Stoikiometri & Gas' },
+                { key: 'termo', label: 'Termodinamika' },
+                { key: 'larutan', label: 'Kesetimbangan & Larutan' },
+                { key: 'elektro', label: 'Elektrokimia' },
+                { key: 'reaksi', label: 'Reaksi Kimia' },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  onClick={() => setSelectedTemplateTab(tab.key as any)}
+                  className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-colors cursor-pointer ${
+                    selectedTemplateTab === tab.key
+                      ? 'bg-[#708090] text-[#FFFFF0] font-bold shadow-2xs'
+                      : 'text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF]'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
 
             {/* Template List Items */}
@@ -955,23 +867,23 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               {filteredTemplates.map((tpl) => (
                 <div
                   key={tpl.id}
-                  className="p-4 rounded-xl border border-slate-200 hover:border-sky-400 hover:bg-sky-50/20 transition-all space-y-2 group shadow-2xs"
+                  className="p-4 rounded-xl border border-[#D3D3D3] hover:border-[#B0C4DE] hover:bg-[#F0F8FF]/40 transition-all space-y-2 group shadow-2xs"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-slate-900 group-hover:text-sky-700">
+                    <span className="font-bold text-xs text-[#2D3748] group-hover:text-black">
                       {tpl.name}
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
+                    <span className="text-[10px] font-mono px-2 py-0.5 bg-[#F0F8FF] border border-[#B0C4DE] text-[#2D3748] rounded">
                       {tpl.category}
                     </span>
                   </div>
 
                   {/* Rendered Preview */}
-                  <div className="p-2.5 bg-white border border-slate-200 rounded-lg text-xs overflow-x-auto">
+                  <div className="p-2.5 bg-white border border-[#D3D3D3] rounded-lg text-xs overflow-x-auto">
                     <KaTeXRenderer content={tpl.snippet} />
                   </div>
 
-                  <p className="text-[11px] text-slate-500">{tpl.description}</p>
+                  <p className="text-[11px] text-[#708090]">{tpl.description}</p>
 
                   <div className="flex items-center justify-end gap-2 pt-1">
                     <button
@@ -983,7 +895,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                         if (onValueChange) onValueChange(updated);
                         setShowTemplatesModal(false);
                       }}
-                      className="px-2.5 py-1 text-[11px] font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors"
+                      className="px-2.5 py-1 text-[11px] font-semibold text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF] rounded-md transition-colors cursor-pointer"
                       title="Langsung sisipkan rumus apa adanya tanpa mengisi variabel"
                     >
                       Sisipkan Cepat
@@ -991,9 +903,9 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                     <button
                       type="button"
                       onClick={() => handleSelectTemplateForFill(tpl)}
-                      className="inline-flex items-center gap-1 px-3 py-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-lg transition-all shadow-2xs active:scale-95"
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-lg transition-all shadow-2xs active:scale-95 cursor-pointer"
                     >
-                      <Sparkles className="w-3 h-3" />
+                      <Sparkles className="w-3 h-3 text-[#FFF2CC]" />
                       <span>Bantu Isi Variabel Rumus</span>
                     </button>
                   </div>
@@ -1017,7 +929,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onPointerDown={handleTemplateSelectorResizePointerDown}
               onPointerMove={handleTemplateSelectorResizePointerMove}
               onPointerUp={handleTemplateSelectorResizePointerUp}
-              className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+              className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-[#708090] active:text-[#2D3748] transition-colors select-none z-20 touch-none"
               title="Tarik untuk mengubah ukuran (Resize)"
             >
               <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
@@ -1062,7 +974,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
           >
             {/* Mobile Grab Pill Bar */}
             {isMobile && (
-              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 to-blue-600">
+              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867]">
                 <div className="w-10 h-1 rounded-full bg-white/40" />
               </div>
             )}
@@ -1072,7 +984,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white select-none shadow-xs ${
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs ${
                 isMobile ? '' : 'cursor-grab active:cursor-grabbing'
               }`}
             >
@@ -1130,7 +1042,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                       })
                     }
                     placeholder={formulaFillState.field1Placeholder}
-                    className="w-full px-3 py-2 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                    className="w-full px-3 py-2 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090]"
                   />
                 </div>
 
@@ -1149,7 +1061,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                         })
                       }
                       placeholder={formulaFillState.field2Placeholder}
-                      className="w-full px-3 py-2 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                      className="w-full px-3 py-2 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090]"
                     />
                   </div>
                 )}
@@ -1157,8 +1069,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
 
               {/* Live Render Preview */}
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-sky-600" />
+                <span className="text-[10px] font-bold text-[#2D3748] uppercase tracking-wider flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-[#D4A359]" />
                   <span>Pratinjau Hasil Formula:</span>
                 </span>
                 <div className="p-2.5 bg-white border border-slate-200 rounded-lg text-center text-sm font-semibold min-h-[44px] flex items-center justify-center">
@@ -1177,7 +1089,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 flex items-center gap-1.5"
+                  className="px-4 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 flex items-center gap-1.5"
                 >
                   <span>✓ Sisipkan ke Lembar (Enter)</span>
                 </button>
@@ -1190,7 +1102,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                 onPointerDown={handleFillResizePointerDown}
                 onPointerMove={handleFillResizePointerMove}
                 onPointerUp={handleFillResizePointerUp}
-                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-[#708090] active:text-[#2D3748] transition-colors select-none z-20 touch-none"
                 title="Tarik untuk mengubah ukuran (Resize)"
               >
                 <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
@@ -1236,7 +1148,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
           >
             {/* Mobile Grab Pill Bar */}
             {isMobile && (
-              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600">
+              <div className="w-full flex justify-center pt-2 pb-1 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867]">
                 <div className="w-10 h-1 rounded-full bg-white/40" />
               </div>
             )}
@@ -1246,7 +1158,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white select-none shadow-xs ${
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs ${
                 isMobile ? '' : 'cursor-grab active:cursor-grabbing'
               }`}
             >
@@ -1314,7 +1226,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                         );
                       }}
                       placeholder={field.placeholder}
-                      className="w-full px-3 py-1.5 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                      className="w-full px-3 py-1.5 text-xs font-mono font-medium text-slate-900 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#B0C4DE]/40 focus:border-[#708090]"
                     />
                   </div>
                 ))}
@@ -1322,8 +1234,8 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
 
               {/* Live Render Preview */}
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
-                <span className="text-[10px] font-bold text-sky-800 uppercase tracking-wider flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-sky-600" />
+                <span className="text-[10px] font-bold text-[#2D3748] uppercase tracking-wider flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-[#D4A359]" />
                   <span>Pratinjau Hasil Perhitungan KaTeX:</span>
                 </span>
                 <div className="p-2.5 bg-white border border-slate-200 rounded-lg text-center text-sm font-semibold min-h-[48px] flex items-center justify-center overflow-x-auto">
@@ -1356,7 +1268,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-1.5 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 flex items-center gap-1.5"
+                    className="px-4 py-1.5 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl transition-all shadow-sm hover:shadow-md active:scale-95 flex items-center gap-1.5"
                   >
                     <span>✓ Sisipkan ke Lembar (Enter)</span>
                   </button>
@@ -1370,7 +1282,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
                 onPointerDown={handleFillResizePointerDown}
                 onPointerMove={handleFillResizePointerMove}
                 onPointerUp={handleFillResizePointerUp}
-                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-sky-600 active:text-sky-700 transition-colors select-none z-20 touch-none"
+                className="absolute bottom-1 right-1 w-5 h-5 cursor-se-resize flex items-center justify-center text-slate-400 hover:text-[#708090] active:text-[#2D3748] transition-colors select-none z-20 touch-none"
                 title="Tarik untuk mengubah ukuran (Resize)"
               >
                 <svg viewBox="0 0 6 6" className="w-2.5 h-2.5 fill-current">
