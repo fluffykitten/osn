@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
+import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
 import type { Classroom } from '../../types/database';
 
 export const ClassroomManager: React.FC = () => {
@@ -144,7 +145,9 @@ export const ClassroomManager: React.FC = () => {
   const totalPending = Object.values(pendingCountMap).reduce((a, b) => a + b, 0);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="min-h-screen bg-slate-50/50 pb-16 space-y-6">
+      <TeacherNavigation pendingApprovalsCount={totalPending} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 space-y-8">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
@@ -543,6 +546,7 @@ export const ClassroomManager: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

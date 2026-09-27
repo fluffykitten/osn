@@ -237,7 +237,16 @@ export function normalizeLatexBackslashes(text: string): string {
 /**
  * Render LaTeX / mhchem formula string cleanly with graceful error recovery
  */
+// In-memory LRU cache for raw KaTeX formula renders to keep scrolling & re-renders instantaneous
+const katexRenderCache = new Map<string, string>();
+const MAX_KATEX_CACHE = 1500;
+
 export function renderKaTeX(formula: string, displayMode: boolean = false): string {
+  const cacheKey = `${displayMode ? 'D' : 'I'}:${formula}`;
+  const cached = katexRenderCache.get(cacheKey);
+  if (cached !== undefined) return cached;
+
+  let result = '';
   try {
     const normalized = normalizeLatexBackslashes(formula);
     // Automatically escape unescaped % (e.g. 50% -> 50\%) so KaTeX never treats % as a comment
@@ -251,10 +260,17 @@ export function renderKaTeX(formula: string, displayMode: boolean = false): stri
     });
     // Add role="math" and aria-label for accessibility (Fase 4)
     const cleanLabel = safeFormula.replace(/[{}\$^_\\]/g, ' ').replace(/"/g, '&quot;').trim().replace(/\s+/g, ' ');
-    return `<span role="math" aria-label="${cleanLabel || 'formula matematika'}">${rendered}</span>`;
+    result = `<span role="math" aria-label="${cleanLabel || 'formula matematika'}">${rendered}</span>`;
   } catch {
-    return `<span role="math" class="font-mono text-xs text-slate-700 bg-slate-100 px-1 py-0.5 rounded">${formula}</span>`;
+    result = `<span role="math" class="font-mono text-xs text-slate-700 bg-slate-100 px-1 py-0.5 rounded">${formula}</span>`;
   }
+
+  if (katexRenderCache.size >= MAX_KATEX_CACHE) {
+    const toDelete = Array.from(katexRenderCache.keys()).slice(0, 400);
+    for (const k of toDelete) katexRenderCache.delete(k);
+  }
+  katexRenderCache.set(cacheKey, result);
+  return result;
 }
 
 interface ProtectedMathItem {
@@ -447,8 +463,14 @@ export function preprocessFriendlyFormula(rawText: string): {
  *  - Markdown bold **text** support
  *  - Seamless real-time KaTeX mhchem rendering
  */
+// In-memory cache for full mixed text blocks (markdown + KaTeX)
+const mixedTextCache = new Map<string, string>();
+const MAX_MIXED_CACHE = 800;
+
 export function parseAndRenderMixedText(rawText: string): string {
   if (!rawText) return '';
+  const cached = mixedTextCache.get(rawText);
+  if (cached !== undefined) return cached;
 
   const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(rawText);
 
@@ -702,14 +724,27 @@ export function parseAndRenderMixedText(rawText: string): string {
     processed = processed.replaceAll(`___PROTECTED_SVG_${idx}___`, rendered);
   });
 
+  if (mixedTextCache.size >= MAX_MIXED_CACHE) {
+    const toDelete = Array.from(mixedTextCache.keys()).slice(0, 200);
+    for (const k of toDelete) mixedTextCache.delete(k);
+  }
+  mixedTextCache.set(rawText, processed);
+
   return processed;
 }
 
 /**
  * Render purely inline text with KaTeX math without paragraph or block wrappers
  */
+// In-memory cache for inline text snippets
+const inlineTextCache = new Map<string, string>();
+const MAX_INLINE_CACHE = 800;
+
 export function renderInlineText(rawText: string): string {
   if (!rawText) return '';
+  const cached = inlineTextCache.get(rawText);
+  if (cached !== undefined) return cached;
+
   const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(normalizeLatexBackslashes(rawText));
 
   let processed = text
@@ -726,6 +761,12 @@ export function renderInlineText(rawText: string): string {
   protectedSvg.forEach((item, idx) => {
     processed = processed.replaceAll(`___PROTECTED_SVG_${idx}___`, item);
   });
+
+  if (inlineTextCache.size >= MAX_INLINE_CACHE) {
+    const toDelete = Array.from(inlineTextCache.keys()).slice(0, 200);
+    for (const k of toDelete) inlineTextCache.delete(k);
+  }
+  inlineTextCache.set(rawText, processed);
 
   return processed;
 }

@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ChevronRight,
   Cloud,
+  Sliders,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -64,6 +65,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       icon: Database,
     },
     {
+      name: 'Manajemen Fitur',
+      href: '/admin/features',
+      icon: Sliders,
+      badge: 'Flags',
+    },
+    {
       name: 'Audit Log Sistem',
       href: '/admin/audit-logs',
       icon: ScrollText,
@@ -83,7 +90,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    window.location.href = '/';
   };
 
   return (

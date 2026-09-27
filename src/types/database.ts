@@ -480,7 +480,9 @@ export interface AuditLog {
     | 'WORKSHEET_CREATED'
     | 'WORKSHEET_UPDATED'
     | 'WORKSHEET_DELETED'
-    | 'ALL_WORKSHEETS_CLEARED';
+    | 'ALL_WORKSHEETS_CLEARED'
+    | 'FEATURE_FLAG_UPDATED'
+    | 'FEATURE_FLAGS_RESET';
   target_resource?: string;
   description: string;
   details?: Record<string, any>;

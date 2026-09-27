@@ -7,7 +7,7 @@ interface TopicSvgArtProps {
   className?: string;
 }
 
-export const TopicSvgArt: React.FC<TopicSvgArtProps> = ({
+export const TopicSvgArt = React.memo<TopicSvgArtProps>(({
   topicNumber,
   database = 'osn',
   className = '',
@@ -812,4 +812,6 @@ export const TopicSvgArt: React.FC<TopicSvgArtProps> = ({
         </svg>
       );
   }
-};
+});
+
+TopicSvgArt.displayName = 'TopicSvgArt';

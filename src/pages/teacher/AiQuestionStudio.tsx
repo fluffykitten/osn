@@ -17,6 +17,7 @@ import {
 import { questionBankService } from '../../services/questionBankService';
 import { CloudflareImageUploader } from '../../components/common/CloudflareImageUploader';
 import { DiagramGalleryModal } from '../../components/teacher/DiagramGalleryModal';
+import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
 import type { QuestionDifficulty, GenerationVariant } from '../../types/database';
 
 export const AiQuestionStudio: React.FC = () => {
@@ -213,7 +214,9 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="min-h-screen bg-slate-50/50 pb-16 space-y-6">
+      <TeacherNavigation onOpenGallery={() => setIsGalleryOpen(true)} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 space-y-8">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
@@ -613,6 +616,7 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
           }
         }}
       />
+      </div>
     </div>
   );
 };

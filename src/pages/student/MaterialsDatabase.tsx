@@ -7,7 +7,7 @@
  * Jalur eskalasi antardatabase, Mobile Bottom Sheet TOC, dan auto-save reading progress.
  */
 
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { OSN_MATERIALS, findConceptByTag, type MaterialItem } from '../../data/materialsData';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
@@ -15,6 +15,11 @@ import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { MobileTableOfContents } from '../../components/common/MobileTableOfContents';
 import { TopicSvgArt } from '../../components/materials/TopicSvgArt';
+import { ConceptCheckpointQuiz } from '../../components/materials/ConceptCheckpointQuiz';
+import { MaterialAiTutorModal } from '../../components/materials/MaterialAiTutorModal';
+import { MaterialNotesDrawer, getStoredNotes } from '../../components/materials/MaterialNotesDrawer';
+import { MaterialFlashcardModal, type FlashcardItem } from '../../components/materials/MaterialFlashcardModal';
+import { useFeatureFlags } from '../../services/featureFlagsService';
 import { useAuth } from '../../contexts/AuthContext';
 import { studentReadingService } from '../../services/studentReadingService';
 import { trackAchievementEvent } from '../../services/achievementService';
@@ -39,6 +44,7 @@ import {
   Sparkles,
   PanelRightClose,
   PanelRightOpen,
+  StickyNote,
 } from 'lucide-react';
 
 export const MaterialsDatabase: React.FC = () => {
@@ -48,6 +54,7 @@ export const MaterialsDatabase: React.FC = () => {
   const dbParam = searchParams.get('db'); // 'osn' | 'sma'
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { flags: featureFlags } = useFeatureFlags();
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -271,14 +278,150 @@ export const MaterialsDatabase: React.FC = () => {
     });
   };
 
+  // ==========================================
+  // INTERACTIVE LEARNING TOOLS STATE (AI Tutor, Notes, Flashcards)
+  // ==========================================
+  const [aiTutorOpen, setAiTutorOpen] = useState(false);
+  const [aiTutorConcept, setAiTutorConcept] = useState<{
+    conceptTag: string;
+    conceptTitle: string;
+    conceptSummary?: string;
+    conceptContent?: string;
+  } | null>(null);
+
+  const [notesDrawerOpen, setNotesDrawerOpen] = useState(false);
+  const [notesInitialTag, setNotesInitialTag] = useState<string | undefined>(undefined);
+  const [notesCount, setNotesCount] = useState<number>(0);
+
+  const [flashcardOpen, setFlashcardOpen] = useState(false);
+
+  // Sync notes count badge for active material
+  useEffect(() => {
+    if (activeMaterial) {
+      setNotesCount(getStoredNotes(String(activeMaterial.id)).length);
+    }
+  }, [activeMaterial?.id, notesDrawerOpen]);
+
+  const handleOpenAiTutor = (block?: { tag: string; title: string; summary: string; content: string }) => {
+    if (block) {
+      setAiTutorConcept({
+        conceptTag: block.tag,
+        conceptTitle: block.title,
+        conceptSummary: block.summary,
+        conceptContent: block.content,
+      });
+    } else if (activeMaterial) {
+      setAiTutorConcept({
+        conceptTag: `topik-${activeMaterial.topic_number}`,
+        conceptTitle: activeMaterial.title,
+        conceptSummary: activeMaterial.summary,
+        conceptContent: activeMaterial.summary,
+      });
+    }
+    setAiTutorOpen(true);
+  };
+
+  const handleOpenNotes = (tag?: string) => {
+    setNotesInitialTag(tag);
+    setNotesDrawerOpen(true);
+  };
+
+  // Pre-generate Flashcards from Material concepts
+  const flashcardDeck = useMemo<FlashcardItem[]>(() => {
+    if (!activeMaterial) return [];
+    const deck: FlashcardItem[] = [];
+
+    activeMaterial.prerequisites.forEach((p, idx) => {
+      deck.push({
+        id: `fc-prereq-${p.tag}-${idx}`,
+        conceptTag: p.tag,
+        conceptTitle: p.title,
+        type: 'prerequisite',
+        front: {
+          badge: 'Prasyarat Dasar',
+          prompt: `Bagaimana prinsip dasar & pemahamanmu mengenai: "${p.title}"?`,
+          hint: p.summary,
+        },
+        back: {
+          summary: p.summary,
+          keyFormulas: p.keyFormulas?.map((f: any) => typeof f === 'string' ? f : (f.name ? `${f.name}: ${f.formula}` : f.formula)),
+          explanation: p.content.slice(0, 320) + (p.content.length > 320 ? '...' : ''),
+        },
+      });
+    });
+
+    activeMaterial.core_concepts.forEach((c, idx) => {
+      deck.push({
+        id: `fc-core-${c.tag}-${idx}`,
+        conceptTag: c.tag,
+        conceptTitle: c.title,
+        type: 'core_concept',
+        front: {
+          badge: 'Konsep Inti',
+          prompt: `Jelaskan esensi ilmiah & formula penting terkait: "${c.title}"!`,
+          hint: c.summary,
+        },
+        back: {
+          summary: c.summary,
+          keyFormulas: c.keyFormulas?.map((f: any) => typeof f === 'string' ? f : (f.name ? `${f.name}: ${f.formula}` : f.formula)),
+          explanation: c.content.slice(0, 320) + (c.content.length > 320 ? '...' : ''),
+        },
+      });
+    });
+
+    activeMaterial.worked_examples.forEach((w, idx) => {
+      deck.push({
+        id: `fc-work-${w.tag}-${idx}`,
+        conceptTag: w.tag,
+        conceptTitle: w.title,
+        type: 'worked_example',
+        front: {
+          badge: 'Analisis Soal',
+          prompt: `Bagaimana alur berpikir dan strategi menyelesaikan soal: "${w.title}"?`,
+          hint: w.summary,
+        },
+        back: {
+          summary: w.summary,
+          keyFormulas: w.keyFormulas?.map((f: any) => typeof f === 'string' ? f : (f.name ? `${f.name}: ${f.formula}` : f.formula)),
+          explanation: w.content.slice(0, 320) + (w.content.length > 320 ? '...' : ''),
+        },
+      });
+    });
+
+    return deck;
+  }, [activeMaterial]);
+
+  // Concept list for sticky notes dropdown selector
+  const allConceptSummaryList = useMemo(() => {
+    if (!activeMaterial) return [];
+    return [
+      ...activeMaterial.prerequisites.map((p) => ({ tag: p.tag, title: p.title })),
+      ...activeMaterial.core_concepts.map((c) => ({ tag: c.tag, title: c.title })),
+      ...activeMaterial.worked_examples.map((w) => ({ tag: w.tag, title: w.title })),
+    ];
+  }, [activeMaterial]);
+
+  // Synchronously reset scroll position to top when topic changes, preventing mid-page flashes
+  useLayoutEffect(() => {
+    if (!activeTag) {
+      window.scrollTo(0, 0);
+    }
+  }, [activeMaterial?.id]);
+
   // Auto-restore previous reading scroll position on topic change or initial load
   useEffect(() => {
     if (!activeMaterial) return;
     if (activeTag) return; // If deep-linking to a specific concept tag, let scrollToConcept handle it
 
-    const savedPos = isCurrentSma
-      ? scrollPositionsSma[activeMaterial.id]
-      : scrollPositionsOsn[activeMaterial.id];
+    const scrollStorageKey = isCurrentSma ? 'sma_material_scroll_positions' : 'osn_material_scroll_positions';
+    let savedPos: { scrollY: number; progressPercent: number } | undefined;
+    try {
+      const raw = localStorage.getItem(scrollStorageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        savedPos = parsed[activeMaterial.id];
+      }
+    } catch {}
 
     // Simpan sesi aktif membaca ke studentReadingService
     studentReadingService.saveActiveReadingSession({
@@ -298,18 +441,16 @@ export const MaterialsDatabase: React.FC = () => {
     let restoreTimer: ReturnType<typeof setTimeout> | null = null;
     let toastTimer: ReturnType<typeof setTimeout> | null = null;
 
-    if (savedPos && savedPos.scrollY > 120) {
+    if (savedPos && savedPos.scrollY > 160) {
       // Delay slightly to let KaTeX formulas and DOM layout settle smoothly
       restoreTimer = setTimeout(() => {
         window.scrollTo({ top: savedPos.scrollY, behavior: 'smooth' });
         setShowResumeToast({ percent: savedPos.progressPercent });
-      }, 250);
+      }, 150);
 
       toastTimer = setTimeout(() => {
         setShowResumeToast(null);
       }, 4500);
-    } else {
-      window.scrollTo(0, 0);
     }
 
     return () => {
@@ -323,16 +464,24 @@ export const MaterialsDatabase: React.FC = () => {
     setShowAllTags(false);
   }, [activeMaterial?.id]);
 
-  // Back-to-Top scroll listener
+  // Back-to-Top scroll listener with RAF throttling to prevent main thread blocking
   useEffect(() => {
+    let ticking = false;
     const handleFabScroll = () => {
-      setShowBackToTop(window.scrollY > 400);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const shouldShow = window.scrollY > 400;
+          setShowBackToTop((prev) => (prev !== shouldShow ? shouldShow : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleFabScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleFabScroll);
   }, []);
 
-  // Auto-save scroll position & calculate read depth percentage continuously
+  // Auto-save scroll position & calculate read depth percentage continuously without forcing full React re-renders
   useEffect(() => {
     if (!activeMaterial) return;
 
@@ -351,13 +500,12 @@ export const MaterialsDatabase: React.FC = () => {
         const currentPercent =
           maxScroll > 0 ? Math.min(100, Math.max(0, Math.round((scrollY / maxScroll) * 100))) : 0;
 
-        const setCompleted = isCurrentSma ? setCompletedSma : setCompletedOsn;
         const compStorageKey = isCurrentSma ? 'sma_completed_materials' : 'osn_completed_materials';
-        const setScroll = isCurrentSma ? setScrollPositionsSma : setScrollPositionsOsn;
         const scrollStorageKey = isCurrentSma ? 'sma_material_scroll_positions' : 'osn_material_scroll_positions';
 
         // Auto-mark as completed when reaching >= 82% depth
         if (currentPercent >= 82) {
+          const setCompleted = isCurrentSma ? setCompletedSma : setCompletedOsn;
           setCompleted((prev) => {
             if (!prev.includes(activeMaterial.id)) {
               const next = [...prev, activeMaterial.id];
@@ -372,24 +520,19 @@ export const MaterialsDatabase: React.FC = () => {
           });
         }
 
-        // Save current scrollY and update highest progressPercent
-        setScroll((prev) => {
-          const prevItem = prev[activeMaterial.id];
+        // Save directly to localStorage without forcing a full React re-render during active reading
+        try {
+          const saved = localStorage.getItem(scrollStorageKey);
+          const current: ScrollProgressMap = saved ? JSON.parse(saved) : {};
+          const prevItem = current[activeMaterial.id];
           const highestPercent = Math.max(currentPercent, prevItem?.progressPercent || 0);
 
-          const next: ScrollProgressMap = {
-            ...prev,
-            [activeMaterial.id]: {
-              scrollY: Math.round(scrollY),
-              progressPercent: highestPercent,
-              updatedAt: Date.now(),
-            },
+          current[activeMaterial.id] = {
+            scrollY: Math.round(scrollY),
+            progressPercent: highestPercent,
+            updatedAt: Date.now(),
           };
-          try {
-            localStorage.setItem(scrollStorageKey, JSON.stringify(next));
-          } catch {
-            // ignore
-          }
+          localStorage.setItem(scrollStorageKey, JSON.stringify(current));
 
           // Sinkronkan ke studentReadingService untuk dashboard siswa
           studentReadingService.saveActiveReadingSession({
@@ -405,15 +548,10 @@ export const MaterialsDatabase: React.FC = () => {
             topicNumber: activeMaterial.topic_number,
             userId: user?.id,
           });
-
-          // Optimisasi performa: hindari re-render jika persentase tidak berubah
-          if (prevItem && prevItem.progressPercent === highestPercent) {
-            return prev;
-          }
-
-          return next;
-        });
-      }, 250);
+        } catch {
+          // ignore
+        }
+      }, 350);
     };
 
     window.addEventListener('scroll', handleScrollProgress, { passive: true });
@@ -605,6 +743,11 @@ export const MaterialsDatabase: React.FC = () => {
   };
 
   // Smart Scroll Spy: Membaca posisi pengguna secara presisi dengan requestAnimationFrame
+  const activeVisibleTagRef = useRef<string | null>(activeVisibleTag);
+  useEffect(() => {
+    activeVisibleTagRef.current = activeVisibleTag;
+  }, [activeVisibleTag]);
+
   useEffect(() => {
     if (!activeMaterial) return;
 
@@ -626,7 +769,8 @@ export const MaterialsDatabase: React.FC = () => {
       // Jika pengguna sudah berada di dekat bagian paling bawah halaman
       if (scrollY + windowHeight >= documentHeight - 100) {
         const lastBlock = allBlocks[allBlocks.length - 1];
-        if (lastBlock && lastBlock.tag !== activeVisibleTag) {
+        if (lastBlock && lastBlock.tag !== activeVisibleTagRef.current) {
+          activeVisibleTagRef.current = lastBlock.tag;
           setActiveVisibleTag(lastBlock.tag);
         }
         return;
@@ -654,7 +798,8 @@ export const MaterialsDatabase: React.FC = () => {
         }
       }
 
-      if (matchedTag && matchedTag !== activeVisibleTag) {
+      if (matchedTag && matchedTag !== activeVisibleTagRef.current) {
+        activeVisibleTagRef.current = matchedTag;
         setActiveVisibleTag(matchedTag);
       }
     };
@@ -674,7 +819,7 @@ export const MaterialsDatabase: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [activeMaterial, activeVisibleTag]);
+  }, [activeMaterial]);
 
   // Otomatis geser sidebar dengan mulus agar item aktif selalu berada di area pandang tengah
   useEffect(() => {
@@ -769,7 +914,8 @@ export const MaterialsDatabase: React.FC = () => {
 
     return (
       <div
-        className="min-h-screen pb-16 transition-colors duration-200 relative"
+        key={activeMaterial.id}
+        className="min-h-screen pb-16 transition-colors duration-200 relative animate-in fade-in duration-200"
         style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
       >
         <ChemistryWatermarkBackground />
@@ -794,7 +940,46 @@ export const MaterialsDatabase: React.FC = () => {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+            {/* Flashcard Kilat Review Button */}
+            {featureFlags.materialFlashcards && (
+              <button
+                type="button"
+                onClick={() => setFlashcardOpen(true)}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer"
+                title="Buka Flashcard Kilat untuk review cepat konsep & rumus"
+              >
+                <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Flashcard ({flashcardDeck.length})</span>
+              </button>
+            )}
+
+            {/* Catatan Belajar Drawer Button */}
+            {featureFlags.materialNotes && (
+              <button
+                type="button"
+                onClick={() => handleOpenNotes()}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50/80 hover:bg-amber-100 text-amber-800 shadow-2xs cursor-pointer"
+                title="Buka Catatan Belajar Pribadi"
+              >
+                <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                <span>Catatan {notesCount > 0 && `(${notesCount})`}</span>
+              </button>
+            )}
+
+            {/* Tanya AI Tutor Button (Dikontrol oleh Feature Flags Admin) */}
+            {featureFlags.materialAiTutor && (
+              <button
+                type="button"
+                onClick={() => handleOpenAiTutor()}
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-purple-200 bg-purple-50/80 hover:bg-purple-100 text-purple-700 shadow-2xs cursor-pointer"
+                title="Konsultasi ke AI Tutor untuk topik ini"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                <span>AI Tutor</span>
+              </button>
+            )}
+
             {/* Status Selesai Belajar Toggle Button */}
             <button
               onClick={() => toggleComplete(activeMaterial.id)}
@@ -1069,7 +1254,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`content-visibility-auto bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-[border-color,box-shadow] duration-200 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-amber-400 ring-2 ring-amber-400/40 bg-amber-50/20 shadow-md'
                           : 'border-slate-200'
@@ -1113,9 +1298,60 @@ export const MaterialsDatabase: React.FC = () => {
                       </div>
 
                       {!isCollapsed ? (
-                        <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
-                          <KaTeXRenderer content={block.content} />
-                        </div>
+                        <>
+                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                            <KaTeXRenderer content={block.content} />
+                          </div>
+
+                          {/* Interactive Action Bar */}
+                          {(featureFlags.materialAiTutor || featureFlags.materialNotes) && (
+                            <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                {featureFlags.materialAiTutor && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenAiTutor(block)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
+                                    title="Tanya AI Tutor tentang konsep ini"
+                                  >
+                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <span>Tanya AI Tutor</span>
+                                  </button>
+                                )}
+
+                                {featureFlags.materialNotes && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenNotes(block.tag)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
+                                    title="Tulis catatan pribadi untuk konsep ini"
+                                  >
+                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <span>Catat</span>
+                                  </button>
+                                )}
+                              </div>
+
+                              <span className="text-[11px] text-slate-400 font-mono">
+                                #{block.tag}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Concept Checkpoint Mini-Quiz */}
+                          {featureFlags.materialQuizCheckpoint && (
+                            <div className="mt-3">
+                              <ConceptCheckpointQuiz
+                                conceptTag={block.tag}
+                                conceptTitle={block.title}
+                                materialTitle={activeMaterial.title}
+                                topicNumber={activeMaterial.topic_number}
+                                conceptSummary={block.summary}
+                                conceptContent={block.content}
+                              />
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div
                           onClick={() => toggleBlock(block.tag)}
@@ -1150,7 +1386,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`content-visibility-auto bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-[border-color,box-shadow] duration-200 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-sky-400 ring-2 ring-sky-400/40 bg-sky-50/20 shadow-md'
                           : 'border-slate-200'
@@ -1194,9 +1430,60 @@ export const MaterialsDatabase: React.FC = () => {
                       </div>
 
                       {!isCollapsed ? (
-                        <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
-                          <KaTeXRenderer content={block.content} />
-                        </div>
+                        <>
+                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                            <KaTeXRenderer content={block.content} />
+                          </div>
+
+                          {/* Interactive Action Bar */}
+                          {(featureFlags.materialAiTutor || featureFlags.materialNotes) && (
+                            <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                {featureFlags.materialAiTutor && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenAiTutor(block)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
+                                    title="Tanya AI Tutor tentang konsep ini"
+                                  >
+                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <span>Tanya AI Tutor</span>
+                                  </button>
+                                )}
+
+                                {featureFlags.materialNotes && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenNotes(block.tag)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
+                                    title="Tulis catatan pribadi untuk konsep ini"
+                                  >
+                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <span>Catat</span>
+                                  </button>
+                                )}
+                              </div>
+
+                              <span className="text-[11px] text-slate-400 font-mono">
+                                #{block.tag}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Concept Checkpoint Mini-Quiz */}
+                          {featureFlags.materialQuizCheckpoint && (
+                            <div className="mt-3">
+                              <ConceptCheckpointQuiz
+                                conceptTag={block.tag}
+                                conceptTitle={block.title}
+                                materialTitle={activeMaterial.title}
+                                topicNumber={activeMaterial.topic_number}
+                                conceptSummary={block.summary}
+                                conceptContent={block.content}
+                              />
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div
                           onClick={() => toggleBlock(block.tag)}
@@ -1231,7 +1518,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div
                       key={block.tag}
                       id={`concept-${block.tag}`}
-                      className={`bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-all duration-500 ease-out ${
+                      className={`content-visibility-auto bg-white border rounded-2xl p-4 sm:p-7 shadow-xs space-y-3 transition-[border-color,box-shadow] duration-200 ease-out ${
                         highlightedTag === block.tag
                           ? 'border-emerald-400 ring-2 ring-emerald-400/40 bg-emerald-50/20 shadow-md'
                           : 'border-emerald-200/80'
@@ -1275,9 +1562,60 @@ export const MaterialsDatabase: React.FC = () => {
                       </div>
 
                       {!isCollapsed ? (
-                        <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
-                          <KaTeXRenderer content={block.content} />
-                        </div>
+                        <>
+                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                            <KaTeXRenderer content={block.content} />
+                          </div>
+
+                          {/* Interactive Action Bar */}
+                          {(featureFlags.materialAiTutor || featureFlags.materialNotes) && (
+                            <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                {featureFlags.materialAiTutor && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenAiTutor(block)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
+                                    title="Tanya AI Tutor tentang tipe soal ini"
+                                  >
+                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <span>Tanya AI Tutor</span>
+                                  </button>
+                                )}
+
+                                {featureFlags.materialNotes && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenNotes(block.tag)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
+                                    title="Tulis catatan pribadi untuk tipe soal ini"
+                                  >
+                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <span>Catat</span>
+                                  </button>
+                                )}
+                              </div>
+
+                              <span className="text-[11px] text-slate-400 font-mono">
+                                #{block.tag}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Concept Checkpoint Mini-Quiz */}
+                          {featureFlags.materialQuizCheckpoint && (
+                            <div className="mt-3">
+                              <ConceptCheckpointQuiz
+                                conceptTag={block.tag}
+                                conceptTitle={block.title}
+                                materialTitle={activeMaterial.title}
+                                topicNumber={activeMaterial.topic_number}
+                                conceptSummary={block.summary}
+                                conceptContent={block.content}
+                              />
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div
                           onClick={() => toggleBlock(block.tag)}
@@ -1579,11 +1917,44 @@ export const MaterialsDatabase: React.FC = () => {
           >
             <ArrowUp className="w-4 h-4" />
           </button>
-          )}
-        </div>
+        )}
+
+        {/* AI Tutor Modal */}
+        {aiTutorConcept && (
+          <MaterialAiTutorModal
+            isOpen={aiTutorOpen}
+            onClose={() => setAiTutorOpen(false)}
+            conceptTag={aiTutorConcept.conceptTag}
+            conceptTitle={aiTutorConcept.conceptTitle}
+            conceptSummary={aiTutorConcept.conceptSummary}
+            conceptContent={aiTutorConcept.conceptContent}
+            materialTitle={activeMaterial.title}
+            topicNumber={activeMaterial.topic_number}
+          />
+        )}
+
+        {/* Personal Notes Drawer */}
+        <MaterialNotesDrawer
+          isOpen={notesDrawerOpen}
+          onClose={() => setNotesDrawerOpen(false)}
+          materialId={String(activeMaterial.id)}
+          materialTitle={activeMaterial.title}
+          concepts={allConceptSummaryList}
+          initialConceptTag={notesInitialTag}
+          onJumpToConcept={scrollToConcept}
+        />
+
+        {/* Flashcard Modal */}
+        <MaterialFlashcardModal
+          isOpen={flashcardOpen}
+          onClose={() => setFlashcardOpen(false)}
+          materialTitle={activeMaterial.title}
+          cards={flashcardDeck}
+        />
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // ==========================================
   // TAMPILAN KATALOG DUAL DATABASE MATERI (/materi)

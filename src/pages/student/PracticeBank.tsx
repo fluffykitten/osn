@@ -7,7 +7,7 @@
  * Stacked Difficulty Bar ala LeetCode, Latihan Kilat AI, dan Drawer Butir Soal.
  */
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PILLARS_DATA } from '../../data/syllabusData';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
@@ -99,7 +99,7 @@ const TopicCardSkeleton: React.FC = () => (
 export const PracticeBank: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { user } = useAuth();
+  const { user, isTeacher } = useAuth();
 
   const dbParam = searchParams.get('db'); // 'osn' | 'sma'
 
@@ -115,8 +115,29 @@ export const PracticeBank: React.FC = () => {
     return 'osn';
   });
 
-  // Tampilan: 'cards' (Default: Kartu Topik Visual) atau 'table' (Mode Eksplorasi Lanjutan / Filter Soal)
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  // Tampilan: 'cards' (Default Siswa: Kartu Visual Topik) atau 'table' (Default Guru: Mode Eksplorasi Lanjutan)
+  const modeParam = searchParams.get('mode');
+  const userSwitchedRef = useRef(false);
+
+  const [viewMode, setViewMode] = useState<'cards' | 'table'>(() => {
+    if (modeParam === 'cards' || modeParam === 'table') return modeParam;
+    return isTeacher ? 'table' : 'cards';
+  });
+
+  // Sinkronisasi viewMode jika parameter mode di URL berubah
+  useEffect(() => {
+    if (modeParam === 'cards' || modeParam === 'table') {
+      setViewMode(modeParam);
+    }
+  }, [modeParam]);
+
+  // Jika URL tidak memiliki parameter mode dan pengguna belum menekan switcher secara manual,
+  // sesuaikan dengan role akun (Guru -> table, Siswa -> cards)
+  useEffect(() => {
+    if (!modeParam && !userSwitchedRef.current) {
+      setViewMode(isTeacher ? 'table' : 'cards');
+    }
+  }, [isTeacher, modeParam]);
 
   // Master Data Soal & Submisi Siswa
   const [allQuestions, setAllQuestions] = useState<Question[]>([]);
@@ -168,7 +189,21 @@ export const PracticeBank: React.FC = () => {
     } catch {
       // ignore
     }
-    setSearchParams({ db: newDb });
+    setSearchParams((prev) => {
+      const updated = new URLSearchParams(prev);
+      updated.set('db', newDb);
+      return updated;
+    }, { replace: true });
+  };
+
+  const handleViewModeSwitch = (newMode: 'cards' | 'table') => {
+    userSwitchedRef.current = true;
+    setViewMode(newMode);
+    setSearchParams((prev) => {
+      const updated = new URLSearchParams(prev);
+      updated.set('mode', newMode);
+      return updated;
+    }, { replace: true });
   };
 
   // Muat Data Soal & Submisi saat pertama kali render
@@ -451,7 +486,7 @@ export const PracticeBank: React.FC = () => {
           <div className="flex items-center bg-[#FFFFF0] p-1 rounded-xl border border-[#D3D3D3]">
             <button
               type="button"
-              onClick={() => setViewMode('cards')}
+              onClick={() => handleViewModeSwitch('cards')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'cards'
                   ? 'bg-[#B0C4DE]/35 text-[#708090] shadow-2xs border border-[#B0C4DE]/60'
@@ -464,7 +499,7 @@ export const PracticeBank: React.FC = () => {
             </button>
             <button
               type="button"
-              onClick={() => setViewMode('table')}
+              onClick={() => handleViewModeSwitch('table')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 viewMode === 'table'
                   ? 'bg-[#B0C4DE]/35 text-[#708090] shadow-2xs border border-[#B0C4DE]/60'

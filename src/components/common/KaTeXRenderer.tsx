@@ -8,7 +8,7 @@ interface KaTeXRendererProps {
   ariaLabel?: string;
 }
 
-export const KaTeXRenderer: React.FC<KaTeXRendererProps> = React.memo(({
+export const KaTeXRenderer = React.memo<KaTeXRendererProps>(({
   content,
   className = '',
   inlineOnly = false,
@@ -43,10 +43,12 @@ export const KaTeXRenderer: React.FC<KaTeXRendererProps> = React.memo(({
 
   return (
     <div
-      className={`leading-relaxed break-words text-slate-800 ${className}`}
+      className={`leading-relaxed break-words ${className.includes('text-') ? className : `text-slate-800 ${className}`.trim()}`}
       aria-label={ariaLabel}
       dangerouslySetInnerHTML={{ __html: renderedHtml }}
     />
   );
 });
+
+KaTeXRenderer.displayName = 'KaTeXRenderer';
 

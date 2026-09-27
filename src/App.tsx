@@ -49,6 +49,7 @@ const AdminWorksheetManagement = lazy(() => import('./pages/admin/AdminWorksheet
 const AdminQuestionManagement = lazy(() => import('./pages/admin/AdminQuestionManagement').then((m) => ({ default: m.AdminQuestionManagement })));
 const AdminAuditLogs = lazy(() => import('./pages/admin/AdminAuditLogs').then((m) => ({ default: m.AdminAuditLogs })));
 const AdminAppearanceSettings = lazy(() => import('./pages/admin/AdminAppearanceSettings').then((m) => ({ default: m.AdminAppearanceSettings })));
+const AdminFeatureManagement = lazy(() => import('./pages/admin/AdminFeatureManagement').then((m) => ({ default: m.AdminFeatureManagement })));
 
 // Fallback Loader saat chunk modul sedang diunduh
 const PageLoadingFallback: React.FC = () => (
@@ -232,17 +233,9 @@ function AppContent() {
           {/* Autentikasi Pengguna */}
           <Route path="/login" element={<LoginPage />} />
 
-          {/* Peta Roadmap 10 Topik Silabus Penguasaan Kimia (Wajib Login & Kelas Aktif) */}
-          <Route
-            path="/roadmap"
-            element={
-              <RequireAuth>
-                <RequireClassroom>
-                  <Roadmap />
-                </RequireClassroom>
-              </RequireAuth>
-            }
-          />
+          {/* Pengalihan Rute Silabus Lama ke Bank Soal */}
+          <Route path="/roadmap" element={<Navigate to="/practice" replace />} />
+          <Route path="/syllabus" element={<Navigate to="/practice" replace />} />
 
           {/* Database Materi OSN Kimia & Materi Dasar SMA (Dapat Diakses Bebas & Pratinjau Admin Langsung) */}
           <Route path="/materi" element={<MaterialsDatabase />} />
@@ -517,6 +510,14 @@ function AppContent() {
             element={
               <AdminOnly>
                 <AdminAppearanceSettings />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/features"
+            element={
+              <AdminOnly>
+                <AdminFeatureManagement />
               </AdminOnly>
             }
           />
