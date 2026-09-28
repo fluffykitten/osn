@@ -99,8 +99,8 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State SSA), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
 | **7** | Elektrokimia & Potensial Sel | Persamaan Nernst multikomponen, diagram Latimer & Frost, overpotensial kinetika elektroda | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
 | **8** | Kimia Anorganik & Senyawa Koordinasi | Teori Medan Kristal (CFT), efek Jahn-Teller, isomerisme koordinasi, deret spektrokimi, Wade-Mingos, katalisis | OSN / IChO | ✅ Selesai (5 Soal, 27 Kuis, 18 Miskonsepsi, 100% Coverage) |
-| **9** | Kimia Analitik & Dasar Spektroskopi | Spektrofotometri UV-Vis (Beer-Lambert), FTIR, $^{1}\text{H}$-NMR interaktif, kurva titrasi presisi | OSN / IChO | ⏳ Sedang Berjalan (Fase 5) |
-| **10** | Kimia Organik & Biokimia | Mekanisme reaksi panah lengkung ($S_N1, S_N2, E1, E2$), stereokimia ($R/S$), siklus biokimia | OSN / IChO | ⏳ Terjadwal (Fase 5) |
+| **9** | Kimia Analitik & Dasar Spektroskopi | Spektrofotometri UV-Vis (Beer-Lambert), FTIR, $^{1}\text{H}$-NMR interaktif, kurva titrasi presisi, MS, kromatografi | OSN / IChO | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
+| **10** | Kimia Organik & Biokimia | Mekanisme reaksi panah lengkung ($S_N1, S_N2, E1, E2$), stereokimia ($R/S$), siklus biokimia | OSN / IChO | ⏳ Sedang Berjalan (Fase 5) |
 
 ---
 
@@ -186,9 +186,12 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Tentakel Gurita Kelat & Ledakan Entropi Translasi, Kamus Tata Bahasa IUPAC & Akuntansi Muatan Logam, Topeng Cetakan Pauling Inner vs Outer Closet, Medan Garpu Tala Bethe Pemisahan $t_{2g}/e_g$, Neraca Kuantum CFSE vs Pajak Pasangan $P$, Goyangan Asimetris Jahn-Teller $z$-Out Tembaga(II), Kompas Magnetik $\mu_{\text{eff}}$ & Warna Terlarang Laporte vs Ledakan LMCT, Papan Catur Stereoisomer $\Delta/\Lambda$ & Pistol Pengarah Efek Trans Sintesis Cisplatin, serta Arsitektur Sangkar Borana Wade-Mingos PSEPT & Mesin 4-Tak Katalisis Wilkinson).
   * Dilengkapi **27 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn08.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn08.ts).
   * 18 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
-* **Target Peningkatan Konten Berikutnya**:
-  * Topik 9 OSN: Kimia Analitik & Dasar Spektroskopi (`osnTopic09.ts`).
-  * Topik 10 OSN: Kimia Organik & Biokimia (`osnTopic10.ts`) + Menutup Celah Konsep 6 (Michaelis-Menten & Lineweaver-Burk).
+* **Topik 9 OSN: Kimia Analitik & Dasar Spektroskopi (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Pertukaran Elektron Pasar Modal Redoks & Kacamata Autoindikator Permanganat, Neraca Presisi Pengendapan Gravimetri & Saringan Statistik Uji-Q Dixon, Lomba Lari Rintangan Kromatografi & Jalan Tol van Deemter, Saringan Cahaya Spektrofotometri Lambert-Beer Multikomponen Cramer Solver, Ayunan Pegas Kuantum FT-IR Hooke & Modulasi Resonansi Karbonil, Gasing Magnetik Inti NMR & Pembacaan Bahasa Tetangga $n+1$, Palu Pemecah Molekul Spektrometri Massa EI-MS & Puncak Kation Tropilium, serta Jangkar Adisi Standar Penakluk Efek Matriks & Kacamata Standar Internal).
+  * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn09.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn09.ts).
+  * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
+* **Target Peningkatan Konten Pamungkas**:
+  * Topik 10 OSN: Kimia Organik & Biokimia (`osnTopic10.ts`) + Menutup Celah Konsep 6 (Michaelis-Menten & Lineweaver-Burk) menuju **100% Zero Concept Gap Platform-Wide**!
 
 ---
 
