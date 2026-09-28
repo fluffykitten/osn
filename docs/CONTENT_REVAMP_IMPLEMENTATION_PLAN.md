@@ -95,10 +95,10 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **2** | Ikatan Kimia & Geometri Molekul | Teori Orbital Molekul (MOT), diagram MO diatomik heteronuklir, hibridisasi kompleks | OSN-P / OSN | ✅ Selesai (6 Soal, 30 Kuis, 15 Miskonsepsi, 100% Coverage) |
 | **3** | Stoikiometri & Wujud Zat | Gas riil Van der Waals, struktur kristal kisi intan/fcc/bcc, perovskite ABO3, XRD Bragg, efusi Graham | OSN-K / OSN-P | ✅ Selesai (6 Soal, 27 Kuis, 18 Miskonsepsi, 100% Coverage) |
 | **4** | Termodinamika Kimia | Siklus Born-Haber, Entropi ($S$), Energi Bebas Gibbs ($\Delta G$), persamaan Van 't Hoff, Kirchhoff | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
-| **5** | Kesetimbangan Kimia & Larutan | Kesetimbangan poliprotik simultan, diagram pecahan alfa ($\alpha$-fraction), kekuatan ionik Debye-Hückel | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
-| **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State SSA), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
-| **7** | Elektrokimia & Potensial Sel | Persamaan Nernst multikomponen, diagram Latimer & Frost, overpotensial kinetika elektroda | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
-| **8** | Kimia Anorganik & Senyawa Koordinasi | Teori Medan Kristal (CFT), efek Jahn-Teller, isomerisme koordinasi, deret spektrokimi | OSN / IChO | ⏳ Terjadwal (Fase 5) |
+| **5** | Kesetimbangan Kimia & Larutan | Kesetimbangan poliprotik simultan, diagram pecahan alfa ($\alpha$-fraction), kekuatan ionik Debye-Hückel | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
+| **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State SSA), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
+| **7** | Elektrokimia & Potensial Sel | Persamaan Nernst multikomponen, diagram Latimer & Frost, overpotensial kinetika elektroda | OSN-P / OSN | ✅ Selesai (5 Soal, 24 Kuis, 16 Miskonsepsi, 100% Coverage) |
+| **8** | Kimia Anorganik & Senyawa Koordinasi | Teori Medan Kristal (CFT), efek Jahn-Teller, isomerisme koordinasi, deret spektrokimi | OSN / IChO | ⏳ Sedang Berjalan (Fase 5) |
 | **9** | Kimia Analitik & Dasar Spektroskopi | Spektrofotometri UV-Vis (Beer-Lambert), FTIR, $^{1}\text{H}$-NMR interaktif, kurva titrasi presisi | OSN / IChO | ⏳ Terjadwal (Fase 5) |
 | **10** | Kimia Organik & Biokimia | Mekanisme reaksi panah lengkung ($S_N1, S_N2, E1, E2$), stereokimia ($R/S$), siklus biokimia | OSN / IChO | ⏳ Terjadwal (Fase 5) |
 
@@ -178,8 +178,11 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Speedometer Mobil Balap F1 Laju Diferensial Stoikiometri, Jam Pasir Radioaktif Orde Nol-Satu-Dua Terintegrasi, Meja Bilyar Molekuler & Tanjakan Roller Coaster Eyring, Termometer Eksponensial Arrhenius Suhu Kamar, Leher Botol Perakitan Pabrik RDS & Pra-Kesetimbangan Cepat, Pipa Bocor Seimbang Bodenstein SSA & Tangga Tekanan Lindemann-Hinshelwood, Efek Domino Kembang Api Reaksi Rantai H2-Br2 & Semenanjung Ledakan, serta Pintu Imigrasi Bandara Michaelis-Menten & Adsorpsi Permukaan Padat Langmuir-Hinshelwood).
   * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn06.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn06.ts).
   * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
+* **Topik 7 OSN: Elektrokimia & Potensial Sel (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Aliran Air Terjun Elektrolisis vs Galvani Spontan, Menara Air Tekanan Persamaan Nernst Non-Standar, Pengadilan Muatan Faraday & Neraca Arus-Massa, Peta Rute Rel Latimer-Frost & Deteksi Disproporsionasi/Komproporsionasi, Tanjakan Hambatan Butler-Volmer & Tafel Overpotensial Kinetika, serta Benteng Perlindungan Anodik & Baterai Litium-Ion Masa Depan).
+  * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn07.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn07.ts).
+  * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
 * **Target Peningkatan Konten Berikutnya**:
-  * Topik 7 OSN: Elektrokimia & Potensial Sel (`osnTopic07.ts`).
   * Topik 8 OSN: Kimia Anorganik & Senyawa Koordinasi (`osnTopic08.ts`).
   * Topik 9 OSN: Kimia Analitik & Dasar Spektroskopi (`osnTopic09.ts`).
   * Topik 10 OSN: Kimia Organik & Biokimia (`osnTopic10.ts`) + Menutup Celah Konsep 6 (Michaelis-Menten & Lineweaver-Burk).
