@@ -2,129 +2,144 @@
  * osnTopic04.ts
  * Topik 4: Termodinamika Kimia & Termokimia
  * Jenjang: OSN / IChO
+ * Standar Pedagogis: Tone Opsi A (Arsitektur 5 Lapis, Mental Model Hook, Scaffolded Logic, GitHub Callouts, & Checkpoint Quizzes)
  */
 
 import type { MaterialItem } from '../../materialsData.ts';
+import { CHECKPOINTS_TOPIC_OSN_04 } from '../../checkpoints/checkpointBankTopicOsn04.ts';
 
-export const OSN_TOPIC_4: MaterialItem = {
+const RAW_OSN_TOPIC_4: MaterialItem = {
   id: 4,
   topic_number: 4,
   title: 'Termodinamika Kimia & Termokimia',
   slug: 'termodinamika-kimia',
   category: 'Kimia Fisik',
   level: 'OSN',
-  readTimeMinutes: 30,
-  summary: 'Hukum I Termodinamika (kalor q, kerja w, energi dalam dU), Hukum Hess, Hukum Kirchhoff, Hukum II & III (entropi mutlak S), energi bebas Gibbs, kespontanan reaksi, persamaan Van \'t Hoff, kerja reversibel vs ireversibel, dan kesetimbangan multi-fasa.',
+  readTimeMinutes: 34,
+  summary: 'Hukum I Termodinamika (kalor q, kerja w, energi dalam dU), Hukum Hess, Hukum Kirchhoff, Hukum II & III (entropi mutlak S, perumusan mikrokeadaan Boltzmann), energi bebas Gibbs, kespontanan reaksi, persamaan Van \'t Hoff, kerja reversibel vs ireversibel, dan kesetimbangan multi-fasa potensial kimia.',
   allTags: [
-      'hukum-pertama-kalorimetri',
-      'entalpi-reaksi-hukum-hess',
-      'hukum-kedua-ketiga-entropi',
-      'energi-bebas-gibbs-kespontanan',
-      'energi-gibbs-tetapan-kesetimbangan',
-      'persamaan-van-t-hoff',
-      'proses-reversibel-ireversibel-kerja-maksimum',
-      'potensial-kimia-termodinamika-larutan',
-      'soal-disosiasi-n2o4',
-      'soal-kirchhoff-amonia',
-      'soal-van-t-hoff-caco3',
-      'soal-ekspansi-gas-termodinamika',
-      'soal-ellingham-metalurgi-kroll',
-      'termodinamika',
-      'entalpi',
-      'entropi',
-      'energi-gibbs',
-      'kesetimbangan-kp',
-      'van-t-hoff',
-      'hukum-pertama',
-      'kalorimetri',
-      'energi-dalam',
-      'kerja-pv',
-      'entalpi-reaksi',
-      'hukum-hess',
-      'hukum-kirchhoff',
-      'hukum-kedua',
-      'hukum-ketiga',
-      'mikrokeadaan-boltzmann',
-      'energi-bebas-gibbs',
-      'kespontanan-reaksi',
-      'temperatur-transisi',
-      'energi-gibbs-standar',
-      'tetapan-kesetimbangan',
-      'kuosien-reaksi',
-      'plot-van-t-hoff',
-      'kesetimbangan-termal',
-      'proses-reversibel',
-      'proses-ireversibel',
-      'kerja-maksimum',
-      'ekspansi-isotermal',
-      'potensial-kimia',
-      'fugositas',
-      'aktivitas-larutan',
-      'kesetimbangan-fasa',
-      'soal-osp',
-      'disosiasi-n2o4',
-      'kesetimbangan-gas',
-      'kapasitas-kalor-cp',
-      'sintesis-amonia',
-      'dekomposisi-caco3',
-      'tekanan-dekomposisi',
-      'soal-osn',
-      'ekspansi-gas',
-      'kerja-reversibel-ireversibel',
-      'entropi-semesta',
-      'diagram-ellingham',
-      'metalurgi-kroll',
-      'ekstraksi-titanium',
-    ],
+    'hukum-pertama-kalorimetri',
+    'entalpi-reaksi-hukum-hess',
+    'hukum-kedua-ketiga-entropi',
+    'energi-bebas-gibbs-kespontanan',
+    'energi-gibbs-tetapan-kesetimbangan',
+    'persamaan-van-t-hoff',
+    'proses-reversibel-ireversibel-kerja-maksimum',
+    'potensial-kimia-termodinamika-larutan',
+    'soal-disosiasi-n2o4',
+    'soal-kirchhoff-amonia',
+    'soal-van-t-hoff-caco3',
+    'soal-ekspansi-gas-termodinamika',
+    'soal-ellingham-metalurgi-kroll',
+    'termodinamika',
+    'entalpi',
+    'entropi',
+    'energi-gibbs',
+    'kesetimbangan-kp',
+    'van-t-hoff',
+    'hukum-pertama',
+    'kalorimetri',
+    'energi-dalam',
+    'kerja-pv',
+    'entalpi-reaksi',
+    'hukum-hess',
+    'hukum-kirchhoff',
+    'hukum-kedua',
+    'hukum-ketiga',
+    'mikrokeadaan-boltzmann',
+    'energi-bebas-gibbs',
+    'kespontanan-reaksi',
+    'temperatur-transisi',
+    'energi-gibbs-standar',
+    'tetapan-kesetimbangan',
+    'kuosien-reaksi',
+    'plot-van-t-hoff',
+    'kesetimbangan-termal',
+    'proses-reversibel',
+    'proses-ireversibel',
+    'kerja-maksimum',
+    'ekspansi-isotermal',
+    'potensial-kimia',
+    'fugositas',
+    'aktivitas-larutan',
+    'kesetimbangan-fasa',
+    'soal-osp',
+    'disosiasi-n2o4',
+    'kesetimbangan-gas',
+    'kapasitas-kalor-cp',
+    'sintesis-amonia',
+    'dekomposisi-caco3',
+    'tekanan-dekomposisi',
+    'soal-osn',
+    'ekspansi-gas',
+    'kerja-reversibel-ireversibel',
+    'entropi-semesta',
+    'diagram-ellingham',
+    'metalurgi-kroll',
+    'ekstraksi-titanium',
+  ],
   prerequisites: [
     {
       tag: 'hukum-pertama-kalorimetri',
-      tags: ["hukum-pertama","kalorimetri","energi-dalam","kerja-pv"],
+      tags: ['hukum-pertama', 'kalorimetri', 'energi-dalam', 'kerja-pv'],
       title: 'Prasyarat 1: Hukum I Termodinamika, Kalor ($q$), Kerja ($w$), & Kalorimetri',
       summary: 'Konservasi energi, fungsi keadaan vs jalur, kerja ekspansi tekanan-volume, dan kalorimetri bom vs tekanan tetap.',
-      content: `Termodinamika kimia mempelajari transformasi energi antara kalor (*heat*), kerja (*work*), dan perubahan keadaan fasa atau reaksi kimia.
+      content: `Pernahkah Anda merenungkan ke mana perginya energi dari bensin yang meledak di dalam silinder mesin mobil? Sebagian energi mendorong piston menghasilkan gerak mekanik (*kerja*), sementara sebagian lainnya terbuang sebagai panas knalpot (*kalor*). Hukum I Termodinamika adalah hukum kekekalan mutlak: alam semesta adalah rekening bank energi raksasa di mana saldo total tidak pernah bertambah atau berkurang sepeser pun! Kalor ($q$) dan kerja ($w$) hanyalah dua cara berbeda bagi sistem kimia untuk mentransfer energi melintasi batas lingkungannya.
+
+---
 
 ### 1. Sistem, Lingkungan, & Fungsi Keadaan:
-- **Sistem:** Bagian dari alam semesta yang menjadi fokus pengamatan spesifik. Terbagi menjadi:
-  - *Sistem Terbuka:* Dapat bertukar materi dan energi dengan lingkungan.
-  - *Sistem Tertutup:* Hanya dapat bertukar energi (kalor/kerja), tanpa pertukaran materi.
-  - *Sistem Terisolasi:* Tidak dapat bertukar materi maupun energi dengan lingkungan.
-- **Fungsi Keadaan (*State Function*):** Besaran termodinamika yang nilainya hanya bergantung pada keadaan awal dan akhir sistem, bukan pada lintasan proses (contoh: energi dalam $U$, entalpi $H$, entropi $S$, energi bebas Gibbs $G$, tekanan $P$, volume $V$, temperatur $T$).
-- **Fungsi Jalur (*Path Function*):** Besaran yang nilainya bergantung pada lintasan spesifik yang ditempuh (contoh: kalor $q$ dan kerja $w$).
+- **Sistem:** Wilayah spesifik alam semesta yang menjadi fokus kajian termodinamika. Terbagi menjadi:
+  - *Sistem Terbuka:* Dapat bertukar materi dan energi dengan lingkungan (misal: reaksi dalam gelas kimia terbuka).
+  - *Sistem Tertutup:* Hanya dapat bertukar energi (kalor/kerja), tanpa pertukaran materi (misal: labu tertutup rapat).
+  - *Sistem Terisolasi:* Tidak dapat bertukar materi maupun energi dengan lingkungan (misal: termos adiabatik ideal).
+- **Fungsi Keadaan (*State Function*):** Besaran termodinamika yang nilainya hanya ditentukan oleh keadaan awal dan keadaan akhir sistem, sepenuhnya independen dari jalur proses yang ditempuh (contoh: energi dalam $U$, entalpi $H$, entropi $S$, energi bebas Gibbs $G$, tekanan $P$, volume $V$, temperatur $T$).
+- **Fungsi Jalur (*Path Function*):** Besaran yang nilainya bergantung secara spesifik pada rute atau mekanisme proses yang dilalui (contoh: kalor $q$ dan kerja $w$).
 
 ---
 
 ### 2. Hukum I Termodinamika (Kekekalan Energi):
-Energi total alam semesta bersifat kekal; energi tidak dapat diciptakan maupun dimusnahkan, hanya dapat ditransformasikan:
+Energi total alam semesta bersifat kekal; energi tidak dapat diciptakan maupun dimusnahkan, hanya dapat ditransformasikan dari satu bentuk ke bentuk lainnya:
 $$\\Delta U = q + w$$
 di mana:
-- $\\Delta U$ = perubahan energi dalam sistem (Joule).
-- $q$ = kalor yang diserap sistem ($q > 0$ jika sistem menyerap kalor/endotermik; $q < 0$ jika sistem melepas kalor/eksotermik).
-- $w$ = kerja yang dilakukan pada sistem ($w > 0$ jika lingkungan melakukan kerja pada sistem/kompresi; $w < 0$ jika sistem melakukan kerja terhadap lingkungan/ekspansi).
+- $\\Delta U$ = perubahan energi dalam internal sistem (Joule).
+- $q$ = kalor yang diserap sistem ($q > 0$ jika endotermik/menyerap kalor; $q < 0$ jika eksotermik/melepas kalor).
+- $w$ = kerja yang dilakukan pada sistem ($w > 0$ jika lingkungan menekan sistem/kompresi; $w < 0$ jika sistem mendesak lingkungan/ekspansi).
 
 **Kerja Ekspansi Tekanan-Volume ($P-V$):**
 $$w = -\\int_{V_1}^{V_2} P_{\\text{ext}} \\, dV$$
 Pada tekanan eksternal konstan ($P_{\\text{ext}}$):
 $$w = -P_{\\text{ext}} \\Delta V = -P_{\\text{ext}} (V_2 - V_1)$$
-*(Konversi Satuan Berguna: $1\\text{ L}\\cdot\\text{atm} = 101.325\\text{ J}$)*.
+*(Faktor Konversi Satuan: $1\\text{ L}\\cdot\\text{atm} = 101.325\\text{ J}$)*.
 
 ---
 
 ### 3. Kalorimetri: Kapasitas Kalor & Kalorimeter Bom vs Cawan Kopi:
 Kalor yang dipindahkan selama perubahan temperatur $\\Delta T$:
 $$q = m \\cdot c \\cdot \\Delta T = C \\cdot \\Delta T$$
-di mana $c$ adalah kalor jenis ($\\text{J}/(\\text{g}\\cdot\\text{K})$) dan $C$ adalah kapasitas kalor ($\\text{J/K}$).
+di mana $c$ adalah kalor jenis ($\\text{J}/(\\text{g}\\cdot\\text{K})$) dan $C$ adalah kapasitas kalor total ($\\text{J/K}$).
 
 1. **Kalorimeter Bom (Volume Tetap, $\\Delta V = 0$):**
-   Karena $\\Delta V = 0$, maka kerja $w = 0$. Kalor reaksi yang diukur persis sama dengan perubahan energi dalam:
+   Karena dinding bejana baja kaku tidak memuai ($\\Delta V = 0$), kerja mekanik bernilai nol ($w = 0$). Maka kalor reaksi yang diukur persis sama dengan perubahan energi dalam:
    $$q_v = \\Delta U$$
 2. **Kalorimeter Cawan Kopi (Tekanan Tetap, $\\Delta P = 0$):**
-   Kalor reaksi pada tekanan konstan didefinisikan sebagai perubahan entalpi:
+   Pada tekanan atmosfer konstan, kalor reaksi didefinisikan sebagai perubahan entalpi:
    $$q_p = \\Delta H$$
 
 **Hubungan Antara $\\Delta H$ dan $\\Delta U$:**
 $$\\Delta H = \\Delta U + \\Delta(PV) = \\Delta U + \\Delta n_g R T$$
-di mana $\\Delta n_g = \\sum n_g(\\text{produk}) - \\sum n_g(\\text{reaktan})$ adalah selisih koefisien mol gas.`,
+di mana $\\Delta n_g = \\sum n_g(\\text{produk gas}) - \\sum n_g(\\text{reaktan gas})$ adalah selisih koefisien mol gas.
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Kalorimeter Bom vs Cawan Kopi & Fasa Air
+> 1. **Jangan Tertukar $q_v$ dan $q_p$:** Kalorimeter bom kaku mengukur perubahan energi dalam $(\\Delta U = q_v)$, BUKAN entalpi! Untuk memperoleh $\\Delta H$, Anda wajib mengoreksi dengan rumus $\\Delta H = \\Delta U + \\Delta n_g RT$.
+> 2. **Waspadai Fasa Air pada $298\\text{ K}$:** Pada pembakaran hidrokarbon di kalorimeter suhu ruang ($25^\\circ\\text{C}$), air yang terbentuk mengembun menjadi **cairan $(\\ce{H2O(l)})$**. Mol cairan air **TIDAK BOLEH dihitung ke dalam $\\Delta n_g$**! Hanya koefisien spesies fasa gas yang diperhitungkan.
+
+> [!TIP]
+> ### 💡 Strategi Kuantitatif: Estimasi Selisih $\\Delta H - \\Delta U$
+> Pada suhu ruang $298.15\\text{ K}$, suku $RT$ bernilai:
+> $$RT = 8.3145\\text{ J}/(\\text{mol}\\cdot\\text{K}) \\times 298.15\\text{ K} \\approx 2.479\\text{ kJ/mol}$$
+> Setiap selisih $1\\text{ mol}$ gas ($\Delta n_g = 1$) menyumbang perbedaan entalpi sekitar $2.48\\text{ kJ/mol}$ dibanding energi dalamnya!`,
       keyFormulas: [
         { name: 'Hukum I Termodinamika', formula: '\\Delta U = q + w' },
         { name: 'Kerja Tekanan-Volume', formula: 'w = -P_{\\text{ext}}\\Delta V' },
@@ -133,19 +148,22 @@ di mana $\\Delta n_g = \\sum n_g(\\text{produk}) - \\sum n_g(\\text{reaktan})$ a
     },
     {
       tag: 'entalpi-reaksi-hukum-hess',
-      tags: ["entalpi-reaksi","hukum-hess","hukum-kirchhoff"],
+      tags: ['entalpi-reaksi', 'hukum-hess', 'hukum-kirchhoff'],
       title: 'Prasyarat 2: Entalpi Reaksi Standar, Hukum Hess, & Hukum Kirchhoff',
       summary: 'Aditivitas entalpi pembentukan, energi ikatan rata-rata, dan ketergantungan entalpi reaksi terhadap temperatur.',
-      content: `Entalpi ($H = U + PV$) merupakan ukuran kandungan kalor sistem pada tekanan tetap.
+      content: `Bayangkan Anda mendaki gunung dari pos pendakian di lembah menuju puncak. Baik Anda memilih jalur setapak curam langsung atau jalur memutar yang landai, perbedaan elevasi ketinggian vertikal antara puncak dan lembah tetap persis sama! Entalpi ($H = U + PV$) adalah fungsi ketinggian energi termal pada tekanan tetap. Germain Henri Hess merumuskan prinsip bahwa perubahan entalpi reaksi kimia murni hanya ditentukan oleh identitas reaktan dan produk akhir, bukan oleh rute jalan berliku yang dilalui molekul. Namun, apa yang terjadi jika temperatur gunung tersebut berubah? Gustav Kirchhoff memberikan lensa diferensial untuk menghitung bagaimana kapasitas kalor mengubah entalpi pada suhu ekstrem.
+
+---
 
 ### 1. Entalpi Pembentukan Standar ($\\Delta H_f^\\circ$):
-Perubahan entalpi pada pembentukan $1\\text{ mol}$ senyawa dari unsur-unsur penyusunnya dalam bentuk alotrop paling stabil pada kondisi standar ($1\\text{ bar}$ atau $1\\text{ atm}$, temperatur tertentu umumnya $298.15\\text{ K}$).
-- Berdasarkan konvensi IUPAC: $\\Delta H_f^\\circ$ untuk seluruh unsur murni stabil bernilai tepat nol (contoh: $\\ce{O2(g)}, \\ce{N2(g)}, \\ce{C(grafit)}, \\ce{Br2(l)}, \\ce{Fe(s)} = 0\\text{ kJ/mol}$).
+Perubahan entalpi pada pembentukan $1\\text{ mol}$ senyawa murni dari unsur-unsur penyusunnya dalam wujud alotrop paling stabil pada keadaan standar ($1\\text{ bar}$, umumnya pada $298.15\\text{ K}$).
+- **Konvensi Nol Baku IUPAC:** $\\Delta H_f^\\circ$ untuk seluruh unsur stabil pada wujud standarnya bernilai tepat nol:
+  $$\\Delta H_f^\\circ(\\ce{O2, g}) = \\Delta H_f^\\circ(\\ce{N2, g}) = \\Delta H_f^\\circ(\\ce{C, grafit}) = \\Delta H_f^\\circ(\\ce{Br2, l}) = \\Delta H_f^\\circ(\\ce{Fe, s}) = 0\\text{ kJ/mol}$$
 
 ---
 
 ### 2. Hukum Hess & Penentuan Entalpi Reaksi:
-Karena entalpi merupakan fungsi keadaan, perubahan entalpi keseluruhan suatu reaksi kimia bersifat aditif dan tidak bergantung pada tahapan reaksi:
+Karena entalpi merupakan fungsi keadaan murni, perubahan entalpi total reaksi kimia bersifat aditif:
 $$\\Delta H^\\circ_{\\text{rxn}} = \\sum n \\Delta H_f^\\circ(\\text{produk}) - \\sum m \\Delta H_f^\\circ(\\text{reaktan})$$
 
 **Estimasi Entalpi Melalui Energi Disosiasi Ikatan Fasa Gas ($D$):**
@@ -154,14 +172,27 @@ $$\\Delta H^\\circ_{\\text{rxn}} \\approx \\sum D(\\text{ikatan putus / reaktan}
 ---
 
 ### 3. Ketergantungan Entalpi terhadap Suhu: Hukum Kirchhoff:
-Bila suatu reaksi berlangsung pada temperatur non-standar ($T_2$) yang berbeda dari suhu acuan ($T_1 = 298.15\\text{ K}$):
+Bila suatu reaksi industri berlangsung pada temperatur tinggi ($T_2$) yang berbeda dari suhu acuan laboratorium ($T_1 = 298.15\\text{ K}$):
 $$\\left(\\frac{\\partial \\Delta H}{\\partial T}\\right)_P = \\Delta C_p$$
+
 Bentuk integral Gustav Kirchhoff:
 $$\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\int_{T_1}^{T_2} \\Delta C_p \\, dT$$
-di mana:
+di mana selisih kapasitas kalor molar reaksi pada tekanan konstan adalah:
 $$\\Delta C_p = \\sum n C_{p,\\text{m}}(\\text{produk}) - \\sum m C_{p,\\text{m}}(\\text{reaktan})$$
-Jika kapasitas kalor molar $C_p$ diasumsikan independen terhadap suhu pada rentang sempit:
-$$\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\Delta C_p (T_2 - T_1)$$`,
+
+Jika kapasitas kalor $C_p$ diasumsikan independen terhadap suhu pada rentang sempit:
+$$\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\Delta C_p (T_2 - T_1)$$
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Entalpi Pembentukan Alotrop & Energi Ikatan
+> 1. **Alotrop Non-Standar Memiliki $\\Delta H_f^\\circ \\ne 0$:** Jangan menganggap semua bentuk unsur bernilai nol! Contoh: karbon intan memiliki $\\Delta H_f^\\circ(\\ce{C, intan}) = +1.90\\text{ kJ/mol}$, gas ozon $\\Delta H_f^\\circ(\\ce{O3, g}) = +142.7\\text{ kJ/mol}$, dan uap bromin $\\Delta H_f^\\circ(\\ce{Br2, g}) = +30.9\\text{ kJ/mol}$!
+> 2. **Keterbatasan Energi Ikatan:** Perhitungan entalpi via energi ikatan $(\\sum D_{\\text{putus}} - \\sum D_{\\text{bentuk}})$ **hanya berlaku untuk spesies fasa gas ideal**. Jika ada reaktan atau produk berbentuk cair atau padat, Anda wajib menambahkan entalpi penguapan atau entalpi peleburan ke dalam siklus Hess!
+
+> [!TIP]
+> ### 💡 Trik Praktis Kirchhoff: Pengaruh Tanda $\\Delta C_p$
+> - Jika $\\Delta C_p > 0$: Reaksi menjadi **semakin endotermik** (atau kurang eksotermik) saat suhu dinaikkan.
+> - Jika $\\Delta C_p < 0$: Reaksi menjadi **semakin eksotermik** (atau kurang endotermik) saat suhu dinaikkan.
+> Selalu cek satuan: $\\Delta H^\circ$ umumnya dalam $\\text{kJ/mol}$, sedangkan $\\Delta C_p$ dalam $\\text{J}/(\\text{mol}\\cdot\\text{K})$. Jangan lupa mengalikan $10^{-3}$ saat menjumlahkan!`,
       keyFormulas: [
         { name: 'Hukum Hess', formula: '\\Delta H^\\circ_{\\text{rxn}} = \\sum n \\Delta H_f^\\circ(\\text{prod}) - \\sum m \\Delta H_f^\\circ(\\text{reak})' },
         { name: 'Estimasi Energi Ikatan', formula: '\\Delta H^\\circ \\approx \\sum D_{\\text{putus}} - \\sum D_{\\text{bentuk}}' },
@@ -170,38 +201,49 @@ $$\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\Delta C_p (T_2 - T_1)$$`,
     },
     {
       tag: 'hukum-kedua-ketiga-entropi',
-      tags: ["hukum-kedua","hukum-ketiga","entropi","mikrokeadaan-boltzmann"],
+      tags: ['hukum-kedua', 'hukum-ketiga', 'entropi', 'mikrokeadaan-boltzmann'],
       title: 'Prasyarat 3: Hukum II & III Termodinamika, Entropi Mutlak, & Mikrokeadaan',
       summary: 'Arah kespontanan alami, konsep ketidakteraturan molekuler Boltzmann, dan entropi mutlak standar.',
-      content: `Entropi ($S$) adalah besaran termodinamika yang mengukur tingkat penyebaran energi termal dan derajat ketidakteraturan mikroskopis suatu sistem.
+      content: `Mengapa setetes tinta yang jatuh ke dalam air menyebar secara spontan hingga merata, namun molekul tinta tersebut tidak pernah secara spontan berkumpul kembali menjadi setetes tinta murni? Mengapa es mencair di atas meja hangat, tetapi air hangat tidak pernah secara spontan membeku sambil membuang panas ke udara? Jawaban dari seluruh misteri arah panah waktu (*arrow of time*) ini adalah **Entropi ($S$)**! Alam semesta memiliki kecenderungan statistik mutlak untuk menyebarkan energi termal ke sebanyak mungkin tingkat energi mikroskopis yang tersedia.
 
-### 1. Definisi Termodinamika Entropi:
-Untuk suatu proses reversibel pada temperatur $T$:
+---
+
+### 1. Definisi Termodinamika Makroskopis Entropi:
+Untuk suatu proses reversibel pada temperatur mutlak $T$:
 $$dS = \\frac{dq_{\\text{rev}}}{T}$$
-Untuk perubahan fasa isothermal (misal peleburan atau penguapan):
+Untuk perubahan fasa isotermal reversibel (misal peleburan atau penguapan):
 $$\\Delta S_{\\text{trans}} = \\frac{\\Delta H_{\\text{trans}}}{T_{\\text{trans}}}$$
 
 ---
 
 ### 2. Formulasi Statistik Ludwig Boltzmann:
-Secara mikroskopis, entropi mencerminkan jumlah konfigurasi mikrokeadaan (*microstates*, $\\Omega$) yang dapat diakses oleh partikel:
+Secara mikroskopis kuantum, entropi mencerminkan kuantitas konfigurasi mikrokeadaan (*microstates*, $\\Omega$) yang dapat diakses oleh partikel:
 $$S = k_B \\ln \\Omega$$
-di mana $k_B = 1.38065 \\times 10^{-23}\\text{ J/K}$ adalah tetapan Boltzmann. Semakin banyak posisi dan tingkat energi yang tersedia bagi molekul (misal saat gas berekspansi atau zat padat mencair), nilai $\\Omega$ melonjak drastis sehingga entropi meningkat.
+di mana $k_B = 1.38065 \\times 10^{-23}\\text{ J/K}$ adalah tetapan Boltzmann. Semakin banyak posisi spasial dan keadaan kuantum yang dapat ditempati partikel (misal saat es mencair atau gas memuai ke volume lebih besar), nilai $\\Omega$ melonjak drastis, meningkatkan entropi secara permanen.
 
 ---
 
 ### 3. Hukum II & Hukum III Termodinamika:
-- **Hukum II Termodinamika:** Pada setiap proses yang berlangsung spontan di alam semesta, entropi total alam semesta selalu meningkat:
+- **Hukum II Termodinamika:** Pada setiap proses yang berlangsung secara spontan di alam semesta, entropi total alam semesta selalu meningkat:
   $$\\Delta S_{\\text{semesta}} = \\Delta S_{\\text{sistem}} + \\Delta S_{\\text{lingkungan}} > 0$$
-  Entropi lingkungan dipengaruhi oleh kalor yang dilepaskan/diserap sistem:
+  Entropi lingkungan dipengaruhi oleh kalor yang dipindahkan oleh sistem ke tandon termal:
   $$\\Delta S_{\\text{lingkungan}} = -\\frac{\\Delta H_{\\text{sistem}}}{T}$$
-- **Hukum III Termodinamika:** Entropi suatu kristal zat murni sempurna pada temperatur nol mutlak ($0\\text{ K} = -273.15^\\circ\\text{C}$) bernilai tepat nol ($S = 0$ karena hanya terdapat satu mikrokeadaan tunggal $\\Omega = 1 \\implies \\ln 1 = 0$).
+- **Hukum III Termodinamika:** Entropi suatu kristal zat murni yang teratur sempurna pada temperatur nol mutlak ($0\\text{ K} = -273.15^\\circ\\text{C}$) bernilai tepat nol ($S = 0$, karena hanya ada 1 konfigurasi unik $\\Omega = 1 \\implies \\ln 1 = 0$).
 
-Hal ini memungkinkan penentuan **Entropi Mutlak Standar ($S^\\circ$)** dari integrasi kapasitas kalor:
+Hal ini memungkinkan penentuan **Entropi Mutlak Standar ($S^\\circ$)** dari integrasi kapasitas kalor dari $0\\text{ K}$:
 $$S_T^\\circ = \\int_0^T \\frac{C_p}{T}\\, dT + \\sum \\frac{\\Delta H_{\\text{trans}}}{T_{\\text{trans}}}$$
 
-Entropi reaksi standar:
-$$\\Delta S^\\circ_{\\text{rxn}} = \\sum n S^\\circ(\\text{produk}) - \\sum m S^\\circ(\\text{reaktan})$$`,
+Perubahan entropi reaksi standar:
+$$\\Delta S^\\circ_{\\text{rxn}} = \\sum n S^\\circ(\\text{produk}) - \\sum m S^\\circ(\\text{reaktan})$$
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Entropi Sistem Menurun Bukan Berarti Tidak Spontan
+> Kriteria kespontanan universal menurut Hukum II adalah **$\\Delta S_{\\text{semesta}} > 0$**, BUKAN $\\Delta S_{\\text{sistem}} > 0$! Suatu proses di mana entropi sistem berkurang ($\Delta S_{\\text{sistem}} < 0$, seperti pembekuan air atau kondensasi uap) **tetap dapat berlangsung spontan**, asalkan proses tersebut melepaskan kalor eksotermik yang sangat besar sehingga kenaikan entropi lingkungan ($\Delta S_{\\text{lingk}} = -q/T > 0$) mengimbangi dan membuat total $\\Delta S_{\\text{semesta}} > 0$.
+
+> [!TIP]
+> ### 💡 Entropi Residu Zat Amorf & Molekul Heteroatomik
+> Hukum III Termodinamika hanya berlaku untuk kristal zat murni sempurna. Zat amorf (kaca) atau molekul dengan momen dipol kecil yang mengkristal dengan orientasi kepala-ekor acak (seperti $\\ce{CO}$ atau $\\ce{N2O}$) memiliki entropi residu pada $0\\text{ K}$:
+> $$S_0 = R \\ln(2) \\approx 5.76\\text{ J}/(\\text{mol}\\cdot\\text{K})$$`,
       keyFormulas: [
         { name: 'Definisi Entropi Reversibel', formula: '\\Delta S = \\frac{q_{\\text{rev}}}{T}' },
         { name: 'Entropi Boltzmann', formula: 'S = k_B \\ln \\Omega' },
@@ -213,18 +255,21 @@ $$\\Delta S^\\circ_{\\text{rxn}} = \\sum n S^\\circ(\\text{produk}) - \\sum m S^
   core_concepts: [
     {
       tag: 'energi-bebas-gibbs-kespontanan',
-      tags: ["energi-bebas-gibbs","kespontanan-reaksi","temperatur-transisi"],
+      tags: ['energi-bebas-gibbs', 'kespontanan-reaksi', 'temperatur-transisi'],
       title: 'Konsep Inti 1: Energi Bebas Gibbs, Kespontanan Reaksi, & Temperatur Transisi',
       summary: 'Kriteria kespontanan termodinamika pada T dan P tetap, analisis tabel 4 skenario tanda dH dan dS, serta crossover temperature.',
-      content: `Kriteria kespontanan universal berdasarkan Hukum II Termodinamika ($\\Delta S_{\\text{semesta}} > 0$) memerlukan perhitungan perubahan entropi lingkungan. Josiah Willard Gibbs memperkenalkan fungsi potensial termodinamika yang beroperasi secara eksklusif pada variabel keadaan sistem internal pada temperatur ($T$) dan tekanan ($P$) konstan.
+      content: `Menghitung perubahan entropi seluruh alam semesta ($\Delta S_{\\text{semesta}}$) setiap kali ingin mengetahui apakah suatu reaksi kimia akan berjalan spontan di laboratorium tentu sangat tidak praktis. Josiah Willard Gibbs memperkenalkan sebuah fungsi termodinamika yang sangat revolusioner: **Energi Bebas Gibbs ($G$)**! Fungsi potensial ini mengalihkan seluruh pengamatan ke dalam variabel keadaan sistem internal saja pada kondisi temperatur ($T$) dan tekanan ($P$) konstan yang lazim dijumpai di muka bumi.
+
+---
 
 ### 1. Penurunan Fungsi Energi Bebas Gibbs:
-Dari hubungan Hukum II Termodinamika:
+Dari kriteria kespontanan Hukum II Termodinamika:
 $$\\Delta S_{\\text{semesta}} = \\Delta S_{\\text{sistem}} + \\Delta S_{\\text{lingkungan}} = \\Delta S_{\\text{sistem}} - \\frac{\\Delta H_{\\text{sistem}}}{T} > 0$$
-Kalikan seluruh ruas dengan $-T$ (ingat bahwa $T > 0\\text{ K}$):
+
+Kalikan seluruh ruas persamaan dengan $-T$ (ingat bahwa $T > 0\\text{ K}$):
 $$-T \\Delta S_{\\text{semesta}} = \\Delta H_{\\text{sistem}} - T \\Delta S_{\\text{sistem}} < 0$$
 
-Didefinisikan **Fungsi Energi Bebas Gibbs ($G$)**:
+Maka didefinisikan **Fungsi Energi Bebas Gibbs ($G$)**:
 $$G = H - TS \\implies \\Delta G = \\Delta H - T\\Delta S$$
 
 **Kriteria Kespontanan Termodinamika (pada $T$ dan $P$ tetap):**
@@ -245,25 +290,39 @@ $$G = H - TS \\implies \\Delta G = \\Delta H - T\\Delta S$$
 
 ---
 
-### 3. Temperatur Transisi (*Crossover Temperature*, $T^*$):
-Pada Kasus 3 dan Kasus 4, terdapat satu temperatur ambang batas kritis di mana sistem beralih dari non-spontan menjadi spontan (kondisi $\\Delta G^\\circ = 0$):
+### 3. Temperatur Ambang Batas Transisi (*Crossover Temperature*, $T^*$):
+Pada Kasus 3 dan Kasus 4, terdapat satu temperatur kritis di mana sistem beralih dari keadaan non-spontan menjadi spontan (kondisi $\\Delta G^\\circ = 0$):
 $$\\Delta H^\\circ - T^* \\Delta S^\\circ = 0 \\implies T^* = \\frac{\\Delta H^\\circ}{\\Delta S^\\circ}$$
 - Untuk Kasus 3 ($\Delta H > 0, \Delta S > 0$): Reaksi menjadi spontan jika $T > T^*$.
-- Untuk Kasus 4 ($\Delta H < 0, \Delta S < 0$): Reaksi menjadi spontan jika $T < T^*$.`,
+- Untuk Kasus 4 ($\Delta H < 0, \Delta S < 0$): Reaksi menjadi spontan jika $T < T^*$.
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Satuan Entalpi vs Entropi saat Menghitung $T^*$
+> Perhatikan dengan sangat teliti: $\\Delta H^\circ$ hampir selalu diberikan dalam satuan **kilojoule per mol ($\\text{kJ/mol}$)**, sedangkan $\\Delta S^\circ$ selalu diberikan dalam satuan **joule per mol kelvin ($\\text{J}/(\\text{mol}\\cdot\\text{K})$)**!
+> Jika Anda langsung membagi tanpa mengubah $\\Delta H^\circ$ ke Joule ($1\\text{ kJ} = 1000\\text{ J}$), hasil temperatur transisi Anda akan salah dengan kelipatan 1000 kali!
+
+> [!TIP]
+> ### 💡 Makna Fisis $\\Delta G$ sebagai Kerja Non-$PV$ Maksimum
+> Pada $T$ dan $P$ tetap, besarnya nilai $-\\Delta G$ menyatakan kerja non-ekspansi maksimum yang dapat diekstrak dari reaksi kimia:
+> $$w_{\\text{non-}PV,\\text{max}} = -\\Delta G$$
+> Inilah dasar termodinamika perancangan baterai lithium-ion dan sel bahan bakar hidrogen: efisiensi konversi energi kimia menjadi listrik dibatasi oleh nilai $\\Delta G$, bukan $\\Delta H$!`,
       keyFormulas: [
         { name: 'Persamaan Gibbs-Helmholtz', formula: '\\Delta G = \\Delta H - T\\Delta S' },
         { name: 'Temperatur Ambang Batas Spontanitas', formula: 'T^* = \\frac{\\Delta H^\\circ}{\\Delta S^\\circ}' },
+        { name: 'Kerja Non-PV Maksimum', formula: 'w_{\\text{non-}PV,\\text{max}} = -\\Delta G' },
       ],
     },
     {
       tag: 'energi-gibbs-tetapan-kesetimbangan',
-      tags: ["energi-gibbs-standar","tetapan-kesetimbangan","kuosien-reaksi"],
+      tags: ['energi-gibbs-standar', 'tetapan-kesetimbangan', 'kuosien-reaksi'],
       title: 'Konsep Inti 2: Hubungan Termodinamika Energi Bebas Gibbs dengan Tetapan Kesetimbangan ($K$)',
       summary: 'Integrasi kuotien reaksi Q, penurunan persamaan fundamental dG° = -RT ln K, dan prediksi arah pergeseran campuran.',
-      content: `Energi bebas Gibbs merupakan jembatan matematis paling fundamental yang menghubungkan data kalorimetri termodinamika murni dengan tetapan kesetimbangan kimia makroskopis ($K$).
+      content: `Bagaimana data kalorimetri yang diukur dari pembakaran zat di laboratorium dapat meramalkan posisi kesetimbangan suatu reaksi kimia? Energi bebas Gibbs adalah jembatan matematis agung yang menghubungkan dunia termokimia murni dengan tetapan kesetimbangan kimia makroskopis ($K$)! Melalui kuotien reaksi ($Q$), kita dapat menentukan apakah suatu campuran reaksi sedang bergerak maju ke arah produk, mundur ke arah reaktan, atau telah diam dalam kedamaian kesetimbangan dinamis.
+
+---
 
 ### 1. Ketergantungan Energi Bebas terhadap Komposisi Campuran Reaksi:
-Untuk suatu gas ideal atau zat terlarut pada kondisi non-standar (tekanan sembarang atau konsentrasi sembarang):
+Untuk suatu gas ideal atau zat terlarut pada kondisi non-standar (tekanan atau konsentrasi sembarang):
 $$G_i = G_i^\\circ + RT \\ln a_i$$
 di mana $a_i$ adalah aktivitas termodinamika ($a_i = \\frac{P_i}{P^\\circ}$ untuk gas dengan $P^\\circ = 1\\text{ bar}$, dan $a_i = \\frac{[C_i]}{C^\\circ}$ untuk larutan dengan $C^\\circ = 1\\text{ M}$).
 
@@ -279,9 +338,9 @@ $$Q = \\frac{(a_{\\ce{C}})^c (a_{\\ce{D}})^d}{(a_{\\ce{A}})^a (a_{\\ce{B}})^b}$$
 ### 2. Penurunan Persamaan Kesetimbangan Termodinamika:
 Ketika reaksi mencapai kesetimbangan kimia sejati:
 1. Perubahan energi bebas aktual sistem bernilai nol: $\\Delta G = 0$.
-2. Komposisi campuran tidak lagi berubah, sehingga kuotien reaksi bernilai persis sama dengan tetapan kesetimbangan: $Q = K$.
+2. Komposisi campuran tidak lagi berubah seiring waktu, sehingga nilai kuotien reaksi tepat sama dengan tetapan kesetimbangan termodinamika: $Q = K$.
 
-Substitusikan kondisi ini ke persamaan komposisi:
+Substitusikan kondisi kesetimbangan ini:
 $$0 = \\Delta G^\\circ + RT \\ln K \\implies \\Delta G^\\circ = -RT \\ln K$$
 
 Bentuk eksponensial eksplisit untuk tetapan kesetimbangan:
@@ -289,11 +348,17 @@ $$K = \\exp\\left( -\\frac{\\Delta G^\\circ}{RT} \\right) = e^{-\\Delta G^\\circ
 
 **Kriteria Arah Kespontanan Berdasarkan Perbandingan $Q$ dan $K$:**
 - Jika $Q < K \\implies \\Delta G < 0$: Reaksi spontan bergeser ke arah kanan (pembentukan produk).
-- Jika $Q = K \\implies \\Delta G = 0$: Sistem berada dalam kesetimbangan dinamis.
-- Jika $Q > K \\implies \\Delta G > 0$: Reaksi spontan bergeser ke arah kiri (pembentukan reaktan kembali).
+- Jika $Q = K \\implies \\Delta G = 0$: Sistem berada dalam kesetimbangan dinamis sejati.
+- Jika $Q > K \\implies \\Delta G > 0$: Reaksi spontan bergeser ke arah kiri (reaktan terbentuk kembali).
 
-> **Peringatan Penting Ujian Olimpiade:**  
-> Pada perhitungan numerik $\\Delta G^\\circ = -RT \\ln K$, nilai $\\Delta G^\\circ$ wajib dinyatakan dalam satuan **Joule per mol ($\text{J/mol}$)**, bukan $\\text{kJ/mol}$, karena tetapan gas universal bernilai $R = 8.31446\\text{ J}/(\\text{mol}\\cdot\\text{K})$.`,
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Perbedaan Mutlak $\\Delta G$ vs $\\Delta G^\\circ$
+> - **$\\Delta G$ (Perubahan Energi Bebas Aktual):** Bergantung pada komposisi campuran setiap saat via $\\Delta G = \\Delta G^\circ + RT \\ln Q$. **Saat kesetimbangan tercapai, $\\Delta G = 0$!**
+> - **$\\Delta G^\\circ$ (Perubahan Energi Bebas Standar):** Nilai tetap pada kondisi standar ($1\\text{ bar}, 1\\text{ M}$). **Pada kesetimbangan, $\\Delta G^\\circ$ TIDAK PERNAH bernilai nol** (kecuali secara kebetulan $K = 1$). Menyamakan $\\Delta G$ dan $\\Delta G^\circ$ adalah kekeliruan nomor satu di soal-soal teori OSN!
+
+> [!TIP]
+> ### 💡 Satuan Joule Wajib pada $\\Delta G^\\circ = -RT \\ln K$
+> Tetapan gas universal bernilai $R = 8.31446\\text{ J}/(\\text{mol}\\cdot\\text{K})$. Oleh karena itu, sebelum menghitung $\\ln K = -\\frac{\\Delta G^\\circ}{RT}$, nilai $\\Delta G^\\circ$ **wajib dikonversi ke satuan Joule per mol ($\\text{J/mol}$)**! Jika menggunakan $\\text{kJ/mol}$, perhitungan $K$ akan menghasilkan angka yang salah secara masif.`,
       keyFormulas: [
         { name: 'Energi Gibbs Kondisi Non-Standar', formula: '\\Delta G = \\Delta G^\\circ + RT \\ln Q' },
         { name: 'Persamaan Fundamental Kesetimbangan', formula: '\\Delta G^\\circ = -RT \\ln K' },
@@ -302,44 +367,52 @@ $$K = \\exp\\left( -\\frac{\\Delta G^\\circ}{RT} \\right) = e^{-\\Delta G^\\circ
     },
     {
       tag: 'persamaan-van-t-hoff',
-      tags: ["persamaan-van-t-hoff","plot-van-t-hoff","kesetimbangan-termal"],
+      tags: ['persamaan-van-t-hoff', 'plot-van-t-hoff', 'kesetimbangan-termal'],
       title: 'Konsep Inti 3: Persamaan Van \'t Hoff & Ketergantungan Suhu terhadap Tetapan Kesetimbangan',
       summary: 'Penurunan kalkulus Van \'t Hoff, kurva linier ln K vs 1/T, dan penentuan kalor reaksi serta perubahan entropi eksperimental.',
-      content: `Bagaimana tetapan kesetimbangan ($K$) merespons perubahan temperatur sistem? Jacobus Henricus van 't Hoff merumuskan persamaan diferensial eksak yang menghubungkan perubahan $K$ dengan entalpi standar reaksi.
+      content: `Bagaimana tetapan kesetimbangan kimia ($K$) merespons kenaikan temperatur? Kita semua tahu Asas Le Chatelier secara kualitatif: "reaksi endotermik bergeser ke produk saat dipanaskan". Namun, seberapa banyak produk baru yang terbentuk secara numerik? Jacobus Henricus van 't Hoff membuktikan bahwa respons temperatur terhadap kesetimbangan diatur secara eksak oleh kalkulus diferensial entalpi reaksi standar!
+
+---
 
 ### 1. Penurunan Matematis Persamaan Van 't Hoff:
-Mulai dari hubungan dasar:
+Mulai dari hubungan fundamental:
 $$\\ln K = -\\frac{\\Delta G^\\circ}{RT} = -\\frac{\\Delta H^\\circ - T\\Delta S^\\circ}{RT} = -\\frac{\\Delta H^\\circ}{RT} + \\frac{\\Delta S^\\circ}{R}$$
 
 Diferensialkan persamaan terhadap temperatur $T$ pada tekanan tetap:
 $$\\frac{d(\\ln K)}{dT} = \\frac{d}{dT}\\left(-\\frac{\\Delta H^\\circ}{RT} + \\frac{\\Delta S^\\circ}{R}\\right)$$
-Berdasarkan hubungan Gibbs-Helmholtz, $\\frac{d(\\Delta G^\\circ / T)}{dT} = -\\frac{\\Delta H^\\circ}{T^2}$, diperoleh:
+
+Dengan menerapkan hubungan termodinamika Gibbs-Helmholtz, diperoleh **Bentuk Diferensial Persamaan Van 't Hoff**:
 $$\\frac{d(\\ln K)}{dT} = \\frac{\\Delta H^\\circ}{R T^2}$$
 
-Ubah variabel diferensial ke dalam bentuk invers temperatur ($d(1/T) = -\\frac{1}{T^2} dT$):
+Ubah variabel diferensial ke bentuk invers temperatur ($d(1/T) = -\\frac{1}{T^2} dT$):
 $$\\frac{d(\\ln K)}{d(1/T)} = -\\frac{\\Delta H^\\circ}{R}$$
 
 ---
 
 ### 2. Bentuk Integral Dua Titik Persamaan Van 't Hoff:
 Dengan mengasumsikan entalpi reaksi $\\Delta H^\\circ$ dan entropi reaksi $\\Delta S^\\circ$ relatif konstan sepanjang rentang temperatur dari $T_1$ ke $T_2$:
-$$\\int_{K_1}^{K_2} d(\\ln K) = -\\frac{\\Delta H^\\circ}{R} \\int_{T_1}^{T_2} \\frac{1}{T^2} \\, dT$$
-
 $$\\ln\\left(\\frac{K_2}{K_1}\\right) = -\\frac{\\Delta H^\\circ}{R} \\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right) = \\frac{\\Delta H^\\circ}{R} \\left(\\frac{T_2 - T_1}{T_1 \\cdot T_2}\\right)$$
 
 ---
 
 ### 3. Analisis Grafik Plot Linier Van 't Hoff:
-Grafik $\\ln K$ terhadap sumbu-x $\\frac{1}{T}$ menghasilkan kurva garis lurus ($y = m x + c$):
+Grafik $\\ln K$ pada sumbu vertikal terhadap $\\frac{1}{T}$ pada sumbu horizontal menghasilkan garis lurus ($y = m x + c$):
 $$\\ln K = \\left(-\\frac{\\Delta H^\\circ}{R}\\right) \\frac{1}{T} + \\left(\\frac{\\Delta S^\\circ}{R}\\right)$$
 - **Kemiringan Gradien (*Slope*, $m$):**
   $$m = -\\frac{\\Delta H^\\circ}{R} \\implies \\Delta H^\\circ = -m \\cdot R$$
 - **Titik Potong Sumbu Vertikal (*Intercept*, $c$):**
   $$c = \\frac{\\Delta S^\\circ}{R} \\implies \\Delta S^\\circ = c \\cdot R$$
 
-**Verifikasi Asas Le Chatelier:**
-1. **Reaksi Endotermik ($\\Delta H^\\circ > 0$):** Slope kurva bernilai negatif ($m < 0$). Saat suhu dinaikkan ($T_2 > T_1 \\implies 1/T_2 < 1/T_1$), nilai $\\ln K$ meningkat ($K_2 > K_1$). Sistem menyerap kalor dan bergeser ke arah produk.
-2. **Reaksi Eksotermik ($\\Delta H^\\circ < 0$):** Slope kurva bernilai positif ($m > 0$). Saat suhu dinaikkan, nilai $\\ln K$ menurun ($K_2 < K_1$). Kesetimbangan terdorong ke arah reaktan.`,
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Tanda Kemiringan Plot Van 't Hoff
+> Perhatikan tanda minus pada gradien: $m = -\\frac{\\Delta H^\\circ}{R}$!
+> - Untuk **Reaksi Eksotermik ($\\Delta H^\\circ < 0$):** Gradien garis bernilai **POSITIF** ($m > 0$). Saat suhu dinaikkan ($T \\uparrow \\implies 1/T \\downarrow$), nilai $\\ln K$ bergerak turun.
+> - Untuk **Reaksi Endotermik ($\\Delta H^\\circ > 0$):** Gradien garis bernilai **NEGATIF** ($m < 0$). Saat suhu dinaikkan, nilai $\\ln K$ bergerak naik.
+> Jangan terkecoh mengira reaksi eksoterm memiliki gradien negatif!
+
+> [!TIP]
+> ### 💡 Ekstraksi Kalor dan Entropi Tanpa Kalorimeter
+> Plot Van 't Hoff adalah metode spektroskopi yang sangat ampuh: cukup dengan mengukur konsentrasi kesetimbangan ($K$) pada dua atau lebih temperatur berbeda, Anda dapat langsung menghitung entalpi reaksi ($\\Delta H^\circ$) dan entropi reaksi ($\\Delta S^\circ$) tanpa memerlukan kalorimeter!`,
       keyFormulas: [
         { name: 'Bentuk Diferensial Van \'t Hoff', formula: '\\frac{d(\\ln K)}{dT} = \\frac{\\Delta H^\\circ}{R T^2}' },
         { name: 'Persamaan Van \'t Hoff Dua Titik', formula: '\\ln\\left(\\frac{K_2}{K_1}\\right) = -\\frac{\\Delta H^\\circ}{R}\\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)' },
@@ -348,15 +421,17 @@ $$\\ln K = \\left(-\\frac{\\Delta H^\\circ}{R}\\right) \\frac{1}{T} + \\left(\\f
     },
     {
       tag: 'proses-reversibel-ireversibel-kerja-maksimum',
-      tags: ["proses-reversibel","proses-ireversibel","kerja-maksimum","ekspansi-isotermal"],
+      tags: ['proses-reversibel', 'proses-ireversibel', 'kerja-maksimum', 'ekspansi-isotermal'],
       title: 'Konsep Inti 4: Termodinamika Gas: Proses Reversibel vs Ireversibel & Kerja Maksimum',
       summary: 'Ekspansi isotermal, isobarik, isokhorik, dan adiabatik gas ideal, komputasi kerja, serta perbandingan entropi semesta.',
-      content: `Dalam termodinamika gas ideal, jalur operasional perubahan keadaan menentukan besarnya kalor ($q$), kerja ($w$), dan perubahan entropi semesta ($\\Delta S_{\\text{semesta}}$).
+      content: `Bayangkan sebuah silinder berisi gas bertekanan tinggi yang ditahan oleh tumpukan pasir halus di atas piston. Jika Anda membuang seluruh butir pasir sekaligus dalam satu sentakan, piston akan melesat liar menghantam pembatas atas, menimbulkan turbulensi dan disipasi energi tak terpulihkan (*ireversibel*). Namun, jika Anda menyingkirkan sebutir pasir demi sebutir pasir secara kuasistatis tak terhingga lambat, tekanan dalam gas selalu seimbang sempurna dengan tekanan luar di setiap infinitesimal langkah (*reversibel*). Teorema kerja maksimum membuktikan bahwa jalur reversibel mengekstrak kerja mekanik terbesar yang dapat dicapai di alam semesta!
+
+---
 
 ### 1. Karakteristik 4 Proses Termodinamika Pokok Gas Ideal:
 
 1. **Proses Isotermal ($T = \\text{konstan}, \\Delta T = 0$):**
-   Karena energi dalam gas ideal hanya bergantung pada temperatur: $\\Delta U = 0$ dan $\\Delta H = 0$. Maka $q = -w$.
+   Karena energi dalam gas ideal hanya bergantung pada temperatur: $\\Delta U = 0$ dan $\\Delta H = 0$. Maka kalor $q = -w$.
    - *Kerja Ekspansi Reversibel (Sistem Selalu Seimbang dengan $P_{\\text{ext}} = P_{\\text{gas}}$):*
      $$w_{\\text{rev}} = -\\int_{V_1}^{V_2} \\frac{nRT}{V} dV = -nRT \\ln\\left(\\frac{V_2}{V_1}\\right) = -nRT \\ln\\left(\\frac{P_1}{P_2}\\right)$$
    - *Kerja Ekspansi Ireversibel 1 Tahap Melawan Tekanan Luar Konstan ($P_{\\text{ext}}$):*
@@ -388,7 +463,19 @@ $$\\ln K = \\left(-\\frac{\\Delta H^\\circ}{R}\\right) \\frac{1}{T} + \\left(\\f
   $$\\Delta S_{\\text{lingkungan}} = -\\Delta S_{\\text{sistem}} \\implies \\Delta S_{\\text{semesta}} = 0$$
 - **Pada Proses Ireversibel (Spontan):**
   Kerja yang hilang terdisipasi sebagai ketidakteraturan tak terpulihkan, menghasilkan entropi semesta positif:
-  $$\\Delta S_{\\text{semesta}} = \\Delta S_{\\text{sistem}} + \\Delta S_{\\text{lingkungan}} > 0$$`,
+  $$\\Delta S_{\\text{semesta}} = \\Delta S_{\\text{sistem}} + \\Delta S_{\\text{lingkungan}} > 0$$
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Ekspansi Bebas ke Ruang Hampa ($P_{\\text{ext}} = 0$)
+> Jika gas ideal berekspansi ke dalam wadah hampa udara (*free expansion / Joule expansion*), tekanan luar penahan adalah nol ($P_{\\text{ext}} = 0$). Akibatnya:
+> $$w = -P_{\\text{ext}}\\Delta V = 0\\text{ J}$$
+> Gas sama sekali **tidak melakukan kerja**, meskipun volumenya bertambah drastis! Karena sistem terisolasi ($q = 0$), maka $\\Delta U = 0$ dan temperatur gas ideal tetap konstan ($\Delta T = 0$).
+
+> [!TIP]
+> ### 💡 Hubungan Mayer untuk Kapasitas Kalor Molar
+> Untuk gas ideal apa pun, kapasitas kalor molar pada tekanan tetap selalu lebih besar dibanding kapasitas kalor pada volume tetap sebesar tetapan gas universal $R$:
+> $$C_{p,\\text{m}} - C_{v,\\text{m}} = R$$
+> Hal ini terjadi karena pada tekanan tetap, sebagian kalor yang masuk harus digunakan untuk melakukan kerja ekspansi $P\\Delta V$ terhadap atmosfer luar!`,
       keyFormulas: [
         { name: 'Kerja Isotermal Reversibel', formula: 'w_{\\text{rev}} = -nRT \\ln\\left(\\frac{V_2}{V_1}\\right)' },
         { name: 'Relasi Kapasitas Kalor Mayer', formula: 'C_{p,\\text{m}} - C_{v,\\text{m}} = R' },
@@ -397,13 +484,15 @@ $$\\ln K = \\left(-\\frac{\\Delta H^\\circ}{R}\\right) \\frac{1}{T} + \\left(\\f
     },
     {
       tag: 'potensial-kimia-termodinamika-larutan',
-      tags: ["potensial-kimia","fugositas","aktivitas-larutan","kesetimbangan-fasa"],
+      tags: ['potensial-kimia', 'fugositas', 'aktivitas-larutan', 'kesetimbangan-fasa'],
       title: 'Konsep Inti 5: Potensial Kimia ($\\mu$), Fugositas, & Kesetimbangan Multi-Fasa',
       summary: 'Besaran molar parsial, arah aliran partikel spontan antar-fasa, aktivitas larutan, dan kestabilan fasa.',
-      content: `Untuk sistem terbuka atau sistem dengan komposisi variabel (seperti reaksi kimia dan kesetimbangan fasa campuran), Gibbs mendefinisikan kuantitas termodinamika fundamental yang dikenal sebagai **Potensial Kimia ($\\mu$)**.
+      content: `Sama halnya dengan air yang selalu mengalir dari tempat tinggi ke tempat rendah akibat perbedaan potensial gravitasi, atau arus listrik yang mengalir dari potensial tinggi ke potensial rendah, apa yang menggerakkan partikel-partikel materi untuk berpindah antar-fasa atau bereaksi membentuk ikatan baru? Jawabannya adalah **Potensial Kimia ($\\mu$)**! Potensial kimia adalah energi bebas Gibbs per mol partikel, besaran penggerak termodinamika tertinggi yang mengatur seluruh kesetimbangan fasa dan reaksi kimia di alam semesta.
+
+---
 
 ### 1. Definisi Matematis Potensial Kimia:
-Potensial kimia komponen ke-$i$ dalam suatu campuran adalah energi bebas Gibbs molar parsial:
+Potensial kimia komponen ke-$i$ dalam suatu campuran didefinisikan sebagai energi bebas Gibbs molar parsial:
 $$\\mu_i = \\left(\\frac{\\partial G}{\\partial n_i}\\right)_{T, P, n_{j \\ne i}}$$
 Energi bebas Gibbs total sistem campuran multi-komponen:
 $$G = \\sum_{i=1}^k n_i \\mu_i$$
@@ -413,13 +502,13 @@ $$dG = -S dT + V dP + \\sum_{i=1}^k \\mu_i \\, dn_i$$
 ---
 
 ### 2. Kriteria Kesetimbangan Fasa & Arah Aliran Materi Spontan:
-Bayangkan suatu zat murni $A$ yang terdistribusi di antara dua fasa, Fasa $\\alpha$ dan Fasa $\\beta$ (misal cair dan uap):
+Bayangkan suatu zat murni $A$ yang terdistribusi di antara dua fasa, Fasa $\\alpha$ dan Fasa $\\beta$ (misal cairan dan uap):
 $$dG = (\\mu_A^\\beta - \\mu_A^\\alpha) dn_A$$
 - Jika $\\mu_A^\\alpha > \\mu_A^\\beta$: Agar $dG < 0$ (spontan), $dn_A$ harus bernilai positif. Materi secara spontan berpindah dari fasa $\\alpha$ menuju fasa $\\beta$.
-- **Kesimpulan Prinsip Termodinamika:** Materi selalu mengalir spontan dari fasa atau daerah dengan **potensial kimia lebih tinggi menuju potensial kimia lebih rendah**.
-- **Kondisi Kesetimbangan Fasa:**
+- **Hukum Aliran Termodinamika:** Materi selalu berpindah secara spontan dari daerah dengan **potensial kimia tinggi menuju potensial kimia rendah**.
+- **Kondisi Kesetimbangan Fasa Sejati:**
   $$\\mu_i^\\alpha = \\mu_i^\\beta = \\mu_i^\\gamma = \\dots$$
-  Ketiadaan gradien potensial kimia menandakan tercapainya kesetimbangan fasa termodinamika makroskopis.
+  Ketiadaan selisih potensial kimia menandakan tercapainya kesetimbangan fasa termodinamika makroskopis.
 
 ---
 
@@ -428,7 +517,19 @@ $$dG = (\\mu_A^\\beta - \\mu_A^\\alpha) dn_A$$
    $$\\mu_i = \\mu_i^\\circ + RT \\ln\\left(\\frac{P_i}{P^\\circ}\\right)$$
 2. **Untuk Larutan Nyata & Larutan Ideal:**
    $$\\mu_i = \\mu_i^\\circ + RT \\ln a_i$$
-   di mana $a_i = \\gamma_i X_i$ ($\gamma_i$ adalah koefisien aktivitas dan $X_i$ adalah fraksi mol). Untuk larutan ideal yang mematuhi Hukum Raoult, $\gamma_i = 1 \\implies a_i = X_i$.`,
+   di mana $a_i = \\gamma_i X_i$ ($\\gamma_i$ adalah koefisien aktivitas dan $X_i$ adalah fraksi mol). Untuk larutan ideal yang mematuhi Hukum Raoult, $\\gamma_i = 1 \\implies a_i = X_i$.
+
+> [!WARNING]
+> ### ⚠️ Jebakan Konseptual OSN: Kesetimbangan Fasa Memerlukan $\\mu_A = \\mu_B$
+> Pada titik didih normal air ($100^\\circ\\text{C}, 1\\text{ atm}$), apakah uap air memiliki energi bebas molar yang lebih besar dibanding air cair? **TIDAK!** Karena berada dalam kesetimbangan dinamis, potensial kimia keduanya bernilai persis sama:
+> $$\\mu_{\\ce{H2O(l)}} = \\mu_{\\ce{H2O(g)}}$$
+> Jangan pernah mengasumsikan fasa gas memiliki potensial kimia lebih tinggi saat sistem berada dalam kesetimbangan sejati!
+
+> [!TIP]
+> ### 💡 Limit Larutan Encer Tak Hingga
+> Ketika konsentrasi zat terlarut mendekati nol ($X_i \\to 0$), interaksi antar-solut menjadi dapat diabaikan dibanding solut-solven. Koefisien aktivitas selalu mendekati satu:
+> $$\\lim_{X_i \\to 0} \\gamma_i = 1 \\implies a_i = X_i$$
+> Inilah mengapa larutan sangat encer selalu mematuhi hukum-hukum ideal termodinamika secara sempurna!`,
       keyFormulas: [
         { name: 'Definisi Potensial Kimia', formula: '\\mu_i = \\left(\\frac{\\partial G}{\\partial n_i}\\right)_{T, P, n_{j \\ne i}}' },
         { name: 'Kriteria Kesetimbangan Fasa', formula: '\\mu_i^\\alpha = \\mu_i^\\beta' },
@@ -439,7 +540,7 @@ $$dG = (\\mu_A^\\beta - \\mu_A^\\alpha) dn_A$$
   worked_examples: [
     {
       tag: 'soal-disosiasi-n2o4',
-      tags: ["soal-osp","disosiasi-n2o4","energi-gibbs","kesetimbangan-gas"],
+      tags: ['soal-osp', 'disosiasi-n2o4', 'energi-gibbs', 'kesetimbangan-gas'],
       title: 'Contoh Soal OSP 1: Disosiasi Termal Gas Dinitrogen Tetroksida & Termodinamika Kesetimbangan Kimia',
       summary: 'Perhitungan kuantitatif perubahan entalpi standar, entropi standar, energi bebas Gibbs standar, tetapan kesetimbangan Kp, dan penentuan temperatur transisi kespontanan.',
       content: `### Masalah Soal:
@@ -508,7 +609,7 @@ Pada $298.15\\text{ K}$, reaksi memiliki $\\Delta H^\\circ = +57.20\\text{ kJ/mo
     },
     {
       tag: 'soal-kirchhoff-amonia',
-      tags: ["soal-osp","hukum-kirchhoff","kapasitas-kalor-cp","sintesis-amonia"],
+      tags: ['soal-osp', 'hukum-kirchhoff', 'kapasitas-kalor-cp', 'sintesis-amonia'],
       title: 'Contoh Soal OSP 2: Aplikasi Hukum Kirchhoff untuk Entalpi Sintesis Industri Amonia pada Temperatur Tinggi',
       summary: 'Perhitungan perubahan kapasitas kalor reaksi (ΔCp) dan integrasi persamaan Kirchhoff untuk menentukan kalor eksotermik sintesis amonia Haber-Bosch pada suhu 450 °C.',
       content: `### Masalah Soal:
@@ -568,17 +669,17 @@ Karena nilai $\\Delta H^\circ$ menjadi **lebih negatif** (pelepasan kalor mening
 
 **Kesimpulan Evaluator Juri:**  
 Perubahan kapasitas kalor reaksi adalah $\\Delta C_p = -45.46\\text{ J}/(\\text{mol}\\cdot\\text{K})$. Pada $450^\\circ\\text{C}$ ($723.15\\text{ K}$), entalpi reaksi menjadi semakin eksotermik mencapai $\\Delta H_{723}^\\circ = -111.54\\text{ kJ/mol}$. Temperatur $450^\\circ\\text{C}$ digunakan di industri untuk mengatasi tingginya energi aktivasi ikatan $\\ce{N#N}$ dengan tekanan tinggi sebagai penyeimbang perolehan produk.`,
-    keyFormulas: [
-      { name: 'Kapasitas Kalor Reaksi', formula: '\\Delta C_p = \\sum n C_p(\\text{prod}) - \\sum m C_p(\\text{reak})' },
-      { name: 'Persamaan Kirchhoff', formula: '\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\Delta C_p (T_2 - T_1)' },
-    ],
-  },
-  {
-    tag: 'soal-van-t-hoff-caco3',
-      tags: ["soal-osp","van-t-hoff","dekomposisi-caco3","tekanan-dekomposisi"],
-    title: 'Contoh Soal OSP 3: Analisis Dekomposisi Kalsium Karbonat via Persamaan Van \'t Hoff & Plot Termodinamika',
-    summary: 'Aplikasi persamaan Van \'t Hoff dua titik untuk mengekstraksi entalpi reaksi kalsinasi, entropi reaksi standar, dan temperatur dekomposisi kapur tohor.',
-    content: `### Masalah Soal:
+      keyFormulas: [
+        { name: 'Kapasitas Kalor Reaksi', formula: '\\Delta C_p = \\sum n C_p(\\text{prod}) - \\sum m C_p(\\text{reak})' },
+        { name: 'Persamaan Kirchhoff', formula: '\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\Delta C_p (T_2 - T_1)' },
+      ],
+    },
+    {
+      tag: 'soal-van-t-hoff-caco3',
+      tags: ['soal-osp', 'van-t-hoff', 'dekomposisi-caco3', 'tekanan-dekomposisi'],
+      title: 'Contoh Soal OSP 3: Analisis Dekomposisi Kalsium Karbonat via Persamaan Van \'t Hoff & Plot Termodinamika',
+      summary: 'Aplikasi persamaan Van \'t Hoff dua titik untuk mengekstraksi entalpi reaksi kalsinasi, entropi reaksi standar, dan temperatur dekomposisi kapur tohor.',
+      content: `### Masalah Soal:
 Kalsinasi termal batu kapur ($\\ce{CaCO3}$) untuk memproduksi kapur tohor ($\\ce{CaO}$) merupakan salah satu proses termokimia tertua dalam industri metalurgi dan semen:
 $$\\ce{CaCO3(s) <=> CaO(s) + CO2(g)}$$
 
@@ -646,7 +747,7 @@ Dekomposisi batu kapur memiliki entalpi reaksi $\\Delta H^\\circ = +178.0\\text{
     },
     {
       tag: 'soal-ekspansi-gas-termodinamika',
-      tags: ["soal-osn","ekspansi-gas","kerja-reversibel-ireversibel","entropi-semesta"],
+      tags: ['soal-osn', 'ekspansi-gas', 'kerja-reversibel-ireversibel', 'entropi-semesta'],
       title: 'Contoh Soal OSN 4: Perbandingan Kerja Reversibel vs Ireversibel & Bukti Termodinamika Kenaikan Entropi Semesta',
       summary: 'Komputasi komparatif kerja maksimum isotermal reversibel vs ekspansi bebas satu tahap, pembuktian teorema dS_semesta = 0 (reversibel) dan dS_semesta > 0 (ireversibel).',
       content: `### Masalah Soal:
@@ -715,19 +816,19 @@ $$\\Delta S_{\\text{lingkungan}} = -\\frac{q_{\\text{aktual}}}{T_{\\text{lingk}}
 
 **Kesimpulan Evaluator Juri:**  
 Kerja ekspansi reversibel ($|w_{\\text{rev}}| = 6.92\\text{ kJ}$) terbukti menghasilkan kerja maksimum dibandingkan ekspansi ireversibel ($|w_{\\text{irrev}}| = 1.52\\text{ kJ}$). Perubahan entropi sistem identik bernilai $+23.05\\text{ J/K}$, namun entropi semesta bernilai nol pada proses reversibel ($\\Delta S_{\\text{univ}} = 0$) dan meningkat drastis pada proses ireversibel ($\\Delta S_{\\text{univ}} = +17.98\\text{ J/K}$).`,
-    keyFormulas: [
-      { name: 'Kerja Isotermal Reversibel Gas Ideal', formula: 'w_{\\text{rev}} = -nRT \\ln\\left(\\frac{V_2}{V_1}\\right)' },
-      { name: 'Kerja Ekspansi Ireversibel', formula: 'w_{\\text{irrev}} = -P_{\\text{ext}}\\Delta V' },
-      { name: 'Entropi Semesta Reversibel', formula: '\\Delta S_{\\text{semesta}} = 0' },
-      { name: 'Entropi Semesta Ireversibel', formula: '\\Delta S_{\\text{semesta}} > 0' },
-    ],
-  },
-  {
-    tag: 'soal-ellingham-metalurgi-kroll',
-      tags: ["soal-osn","diagram-ellingham","metalurgi-kroll","ekstraksi-titanium"],
-    title: 'Contoh Soal OSN 5: Termodinamika Metalurgi Ekstraksi Titanium via Proses Kroll & Kopling Reaksi Ellingham',
-    summary: 'Rasionalisasi termodinamika mengapa reduksi langsung TiO2 oleh karbon tidak fisibel pada temperatur wajar, dan penyelesaiannya melalui kopling karboklorinasi pembentukan TiCl4.',
-    content: `### Masalah Soal:
+      keyFormulas: [
+        { name: 'Kerja Isotermal Reversibel Gas Ideal', formula: 'w_{\\text{rev}} = -nRT \\ln\\left(\\frac{V_2}{V_1}\\right)' },
+        { name: 'Kerja Ekspansi Ireversibel', formula: 'w_{\\text{irrev}} = -P_{\\text{ext}}\\Delta V' },
+        { name: 'Entropi Semesta Reversibel', formula: '\\Delta S_{\\text{semesta}} = 0' },
+        { name: 'Entropi Semesta Ireversibel', formula: '\\Delta S_{\\text{semesta}} > 0' },
+      ],
+    },
+    {
+      tag: 'soal-ellingham-metalurgi-kroll',
+      tags: ['soal-osn', 'diagram-ellingham', 'metalurgi-kroll', 'ekstraksi-titanium'],
+      title: 'Contoh Soal OSN 5: Termodinamika Metalurgi Ekstraksi Titanium via Proses Kroll & Kopling Reaksi Ellingham',
+      summary: 'Rasionalisasi termodinamika mengapa reduksi langsung TiO2 oleh karbon tidak fisibel pada temperatur wajar, dan penyelesaiannya melalui kopling karboklorinasi pembentukan TiCl4.',
+      content: `### Masalah Soal:
 Titanium ($\\ce{Ti}$) adalah logam struktural modern dengan rasio kekuatan terhadap massa yang sangat istimewa. Namun, bijih rutil titanium dioksida ($\\ce{TiO2}$) memiliki energi kisi yang sangat stabil sehingga reduksi langsung dengan reduktor karbon konvensional mengalami rintangan termodinamika berat.
 
 Tabel termodinamika pada temperatur tinggi $T = 1000.0\\text{ K}$ menyajikan data reaksi berikut:
@@ -793,11 +894,27 @@ $$\\Delta G^\\circ_{\\text{tahap 2}} = -483200 - (-135800) = -483200 + 135800 = 
 
 **Kesimpulan Evaluator Juri:**  
 Reduksi langsung $\\ce{TiO2}$ oleh karbon tidak fisibel pada temperatur wajar karena $\\Delta G^\\circ = +356.3\\text{ kJ/mol}$ (memerlukan $T > 3000\\text{ K}$). Proses Kroll memecahkan masalah ini dengan cerdas melalui kopling reaksi karboklorinasi ($\\Delta G^\\circ = -222.9\\text{ kJ/mol}, K_p = 4.39 \\times 10^{11}$) dan reduksi magnesiometrik ($\\Delta G^\\circ = -347.4\\text{ kJ/mol}$).`,
-    keyFormulas: [
-      { name: 'Kespontanan Gibbs Paduan', formula: '\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ' },
-      { name: 'Tetapan Kesetimbangan Karboklorinasi', formula: 'K_p = e^{-\\Delta G^\\circ / RT}' },
-      { name: 'Prinsip Kopling Termodinamika', formula: '\\Delta G_{\\text{netto}}^\\circ = \\sum \\Delta G_i^\\circ < 0' },
-    ],
-  },
-],
+      keyFormulas: [
+        { name: 'Kespontanan Gibbs Paduan', formula: '\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ' },
+        { name: 'Tetapan Kesetimbangan Karboklorinasi', formula: 'K_p = e^{-\\Delta G^\\circ / RT}' },
+        { name: 'Prinsip Kopling Termodinamika', formula: '\\Delta G_{\\text{netto}}^\\circ = \\sum \\Delta G_i^\\circ < 0' },
+      ],
+    },
+  ],
+};
+
+export const OSN_TOPIC_4: MaterialItem = {
+  ...RAW_OSN_TOPIC_4,
+  prerequisites: RAW_OSN_TOPIC_4.prerequisites.map(p => ({
+    ...p,
+    checkpointQuizzes: CHECKPOINTS_TOPIC_OSN_04[p.tag] || undefined,
+  })),
+  core_concepts: RAW_OSN_TOPIC_4.core_concepts.map(c => ({
+    ...c,
+    checkpointQuizzes: CHECKPOINTS_TOPIC_OSN_04[c.tag] || undefined,
+  })),
+  worked_examples: RAW_OSN_TOPIC_4.worked_examples.map(w => ({
+    ...w,
+    checkpointQuizzes: undefined,
+  })),
 };
