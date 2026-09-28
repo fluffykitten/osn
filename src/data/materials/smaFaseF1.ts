@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -1768,7 +1768,11 @@ Di mana:
   $\\Delta n = \\sum \\text{koefisien gas produk} - \\sum \\text{koefisien gas reaktan}$
 
 > **Kaidah Khusus $\\Delta n = 0$:** Jika jumlah koefisien gas di ruas kanan tepat sama dengan ruas kiri ($\\Delta n = 0$), maka $(RT)^0 = 1$, sehingga secara otomatis:
-> $\\mathbf{K_p = K_c}$`,
+> $\\mathbf{K_p = K_c}$
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Laju Sama vs Konsentrasi Sama
+> Jangan pernah mengira bahwa saat kesetimbangan tercapai, konsentrasi reaktan dan produk harus bernilai sama! Yang bernilai **tepat sama besar adalah laju reaksi maju dan laju reaksi balik ($v_{\\text{maju}} = v_{\\text{balik}}$)**. Konsentrasi masing-masing zat konstan tak berubah, tetapi nilainya bisa sangat berbeda tergantung nilai $K_c$ reaksi.`,
         keyFormulas: [
           { name: 'Rumus Kc', formula: 'K_c = \\frac{[\\ce{C}]^c [\\ce{D}]^d}{[\\ce{A}]^a [\\ce{B}]^b}' },
           { name: 'Rumus Kp', formula: 'K_p = \\frac{(P_{\\ce{C}})^c (P_{\\ce{D}})^d}{(P_{\\ce{A}})^a (P_{\\ce{B}})^b}' },
@@ -1848,7 +1852,11 @@ Sangat penting dipahami bahwa **manipulasi aljabar nilai $K$ sangat berbeda deng
 | **Reaksi Dibalik Arahnya** | Tanda dibalik: $\\Delta H' = -\\Delta H$ | Nilai diinverskan: $K' = \\frac{1}{K}$ | Jika $K = 4$, maka reaksi kebalikannya memiliki $K' = \\frac{1}{4} = 0.25$. |
 | **Dikalikan Faktor $n$** | Dikalikan: $\\Delta H' = n \\cdot \\Delta H$ | Dipangkatkan: $K' = K^n$ | Jika reaksi dikalikan 2, $K' = K^2$. |
 | **Dibagi Faktor $n$ (dikali $1/n$)** | Dibagi: $\\Delta H' = \\frac{\\Delta H}{n}$ | Diakarkan: $K' = K^{1/n} = \\sqrt[n]{K}$ | Jika reaksi dibagi 2, $K' = \\sqrt{K}$. |
-| **Penjumlahan Reaksi Bertahap** | Dijumlahkan: $\\Delta H_{\\text{total}} = \\sum \\Delta H_i$ | Dikalikan: $K_{\\text{total}} = K_1 \\times K_2 \\times \\dots$ | Jika tahap 1 $K_1 = 10$ dan tahap 2 $K_2 = 5$, maka $K_{\\text{total}} = 50$. |`,
+| **Penjumlahan Reaksi Bertahap** | Dijumlahkan: $\\Delta H_{\\text{total}} = \\sum \\Delta H_i$ | Dikalikan: $K_{\\text{total}} = K_1 \\times K_2 \\times \\dots$ | Jika tahap 1 $K_1 = 10$ dan tahap 2 $K_2 = 5$, maka $K_{\\text{total}} = 50$. |
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tertukar Rumus Hess vs Aljabar K
+> Miskonsepsi paling fatal di ujian: membalik reaksi dianggap membuat nilai $K$ menjadi negatif (misal $K = -4$) atau mengalikan reaksi dengan 2 dianggap membuat $K$ menjadi $2K$! Ingat: **nilai tetapan $K$ tidak pernah bernilai negatif**. Jika reaksi dibalik arahnya, nilai $K$ menjadi nilai kebalikannya ($1/K$). Jika koefisien dikali $n$, nilai $K$ dipangkatkan ($K^n$)!`,
         keyFormulas: [
           { name: 'Pembalikan Reaksi', formula: 'K_{\\text{balik}} = \\frac{1}{K_{\\text{awal}}}' },
           { name: 'Perkalian Koefisien n', formula: 'K_{\\text{baru}} = (K_{\\text{lama}})^n' },
@@ -1976,7 +1984,11 @@ Prinsip universal ini dirumuskan oleh kimiawan Prancis **Henri Louis Le Chatelie
    - Jika $\\sum \\text{koef gas kiri} = \\sum \\text{koef gas kanan}$, maka perubahan volume atau tekanan total bejana **tidak akan menggeser kesetimbangan sama sekali** (contoh: $\\ce{H2(g) + I2(g) <=> 2 HI(g)}$).
 3. **Penambahan Gas Inert (Gas Mulia):**
    - Jika gas inert (seperti Helium atau Argon) ditambahkan pada **volume tetap**, tekanan parsial gas-gas reaktan dan produk tidak berubah $\\implies$ **kesetimbangan tidak bergeser**.
-   - Jika gas inert ditambahkan pada **tekanan tetap** (sehingga volume wadah mengembang membesar), sistem bergeser ke arah koefisien gas terbesar.`,
+   - Jika gas inert ditambahkan pada **tekanan tetap** (sehingga volume wadah mengembang membesar), sistem bergeser ke arah koefisien gas terbesar.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Katalis vs Posisi Kesetimbangan
+> Jangan pernah menjawab bahwa katalis dapat menggeser posisi kesetimbangan atau menambah persentase rendemen produk! Katalis mempercepat laju reaksi maju dan balik sama besar, sehingga sistem **hanya mencapai keadaan setimbang lebih cepat tanpa pergeseran posisi kesetimbangan**, dan **nilai $K$ tetap tidak berubah**!`,
         keyFormulas: [
           { name: 'Kaidah Suhu Naik', formula: 'T \\uparrow \\implies \\text{Bergeser ke Endoterm } (\\Delta H > 0)' },
           { name: 'Kaidah Suhu Turun', formula: 'T \\downarrow \\implies \\text{Bergeser ke Eksoterm } (\\Delta H < 0)' },
@@ -2050,7 +2062,11 @@ $Q_c = \\frac{[\\ce{C}]_{\\text{sesaat}}^c [\\ce{D}]_{\\text{sesaat}}^d}{[\\ce{A
 3. **Jika $Q > K$:**
    - Konsentrasi produk saat ini terlalu besar melebihi proporsi kesetimbangannya.
    - Untuk mengembalikan kesetimbangan, sebagian produk harus terurai kembali menjadi reaktan.
-   - **Arah Pergeseran:** Reaksi bergeser **ke arah kiri (arah pembentukan reaktan / reaksi balik)** sampai nilai $Q$ turun setara dengan $K$.`,
+   - **Arah Pergeseran:** Reaksi bergeser **ke arah kiri (arah pembentukan reaktan / reaksi balik)** sampai nilai $Q$ turun setara dengan $K$.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tafsir Arah Q vs K
+> Ingat aturan tanda panah garis bilangan: sistem selalu berusaha bergerak menuju nilai $K$! Jika $Q < K$, sistem bergerak maju ke kanan menuju $K$. Jika $Q > K$, sistem bergerak mundur ke kiri menuju $K$. Jangan terbalik mengingat $Q > K$ sebagai pergeseran ke kanan!`,
         keyFormulas: [
           { name: 'Definisi Kuosien Reaksi', formula: 'Q_c = \\frac{[\\ce{C}]^c [\\ce{D}]^d}{[\\ce{A}]^a [\\ce{B}]^b} \\quad (\\text{kondisi sesaat})' },
           { name: 'Kriteria Maju ke Kanan', formula: 'Q < K \\implies \\text{Reaksi Bergeser Maju ke Kanan } (\\longrightarrow)' },
@@ -2212,244 +2228,9 @@ $$x^2 = K_c (a b - (a + b)x + x^2) \\implies (1 - K_c)x^2 + K_c(a + b)x - K_c a 
         { name: 'Solusi Kuadratik Rumus ABC', formula: 'x = \\frac{-B + \\sqrt{B^2 - 4AC}}{2A} \\quad (0 < x < \\min(a,b))' }
       ]
     },
-    ],
-    worked_examples: [
-      {
-        tag: 'contoh-perhitungan-kc-gas-homogen-mbs',
-        tags: ['contoh-kc-mbs', 'kesetimbangan-homogen', 'gas-hi-h2-i2', 'perhitungan-mbs'],
-        title: 'Contoh Soal 1: Perhitungan Nilai Kc Sistem Gas Homogen Sintesis HI via Tabel M-B-S',
-        summary: 'Penerapan tabel Mula-mula, Bereaksi, Setimbang pada reaksi pembentukan hidrogen iodida dalam bejana tertutup.',
-        content: `**Soal:**
-Ke dalam sebuah bejana tertutup yang bervolume $2.0\\text{ Liter}$ pada temperatur $450^\\circ\\text{C}$, dimasukkan $0.50\\text{ mol}$ gas hidrogen ($\\ce{H2}$) dan $0.50\\text{ mol}$ uap iodin ($\\ce{I2}$). Gas-gas tersebut bereaksi membentuk gas hidrogen iodida menurut persamaan:
-$\\ce{H2(g) + I2(g) <=> 2 HI(g)}$
-Setelah sistem mencapai kesetimbangan, teranalisis terbentuk $0.80\\text{ mol}$ gas $\\ce{HI}$.
-
-Tentukan:
-a) Komposisi jumlah mol masing-masing gas pada saat kesetimbangan!
-b) Konsentrasi molar ($[\\text{M}]$) setiap komponen gas pada kesetimbangan!
-c) Nilai tetapan kesetimbangan konsentrasi ($K_c$) reaksi tersebut pada $450^\\circ\\text{C}$!
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Susun Tabel M-B-S (Mula-mula, Bereaksi, Setimbang)**
-Diketahui:
-- Mula-mula: $n(\\ce{H2}) = 0.50\\text{ mol}$, $n(\\ce{I2}) = 0.50\\text{ mol}$, $n(\\ce{HI}) = 0\\text{ mol}$.
-- Setimbang: $n(\\ce{HI}) = 0.80\\text{ mol}$.
-
-Berdasarkan stoikiometri reaksi:
-- Pembentukan $0.80\\text{ mol } \\ce{HI}$ memerlukan reaktan sebesar koefisiennya:
-  - $\\ce{H2}$ yang bereaksi $= \\frac{1}{2} \\times 0.80\\text{ mol} = 0.40\\text{ mol}$.
-  - $\\ce{I2}$ yang bereaksi $= \\frac{1}{2} \\times 0.80\\text{ mol} = 0.40\\text{ mol}$.
-
-Tabel Stoikiometri Mol:
-| Spesi Kimia | $\\ce{H2(g)}$ | $\\ce{I2(g)}$ | $\\ce{2 HI(g)}$ |
-| :--- | :---: | :---: | :---: |
-| **Mula-mula (M)** | $0.50\\text{ mol}$ | $0.50\\text{ mol}$ | $0\\text{ mol}$ |
-| **Bereaksi (B)** | $-0.40\\text{ mol}$ | $-0.40\\text{ mol}$ | $+0.80\\text{ mol}$ |
-| **Setimbang (S)** | $\\mathbf{0.10\\text{ mol}}$ | $\\mathbf{0.10\\text{ mol}}$ | $\\mathbf{0.80\\text{ mol}}$ |
-
----
-
-**Langkah 2: Hitung Konsentrasi Molar Setimbang ($V = 2.0\\text{ L}$)**
-$[\\ce{H2}] = \\frac{n}{V} = \\frac{0.10\\text{ mol}}{2.0\\text{ L}} = \\mathbf{0.050\\text{ M}}$
-$[\\ce{I2}] = \\frac{n}{V} = \\frac{0.10\\text{ mol}}{2.0\\text{ L}} = \\mathbf{0.050\\text{ M}}$
-$[\\ce{HI}] = \\frac{n}{V} = \\frac{0.80\\text{ mol}}{2.0\\text{ L}} = \\mathbf{0.40\\text{ M}}$
-
----
-
-**Langkah 3: Hitung Nilai $K_c$**
-Tuliskan ekspresi hukum aksi massa:
-$K_c = \\frac{[\\ce{HI}]^2}{[\\ce{H2}] [\\ce{I2}]}$
-Substitusikan nilai konsentrasi molar setimbang:
-$K_c = \\frac{(0.40)^2}{(0.050) \\times (0.050)} = \\frac{0.1600}{0.0025} = \\mathbf{64}$
-
-> **Trik Cepat Siswa Berprestasi:** Perhatikan bahwa jumlah koefisien di kedua ruas sama: $\\Delta n = 2 - (1 + 1) = 0$. Pada reaksi dengan $\\Delta n = 0$, volume wadah ($V$) akan saling meniadakan secara aljabar:
-> $K_c = \\frac{\\left(\\frac{n_{\\ce{HI}}}{V}\\right)^2}{\\left(\\frac{n_{\\ce{H2}}}{V}\\right) \\left(\\frac{n_{\\ce{I2}}}{V}\\right)} = \\frac{(n_{\\ce{HI}})^2}{(n_{\\ce{H2}}) (n_{\\ce{I2}})} = \\frac{(0.80)^2}{(0.10)(0.10)} = \\frac{0.64}{0.01} = 64$
-> Sehingga untuk reaksi $\\Delta n = 0$, nilai $K_c$ dapat langsung dihitung menggunakan perbandingan jumlah mol zat tanpa membaginya dengan volume bejana!
->
-> **Kesimpulan Evaluator Juri:** Nilai tetapan kesetimbangan konsentrasi adalah $K_c = 64$. Nilai $K_c > 1$ membuktikan bahwa pada kesetimbangan, pembentukan produk HI jauh lebih dominan dibandingkan reaktan yang tersisa.`,
-      },
-      {
-        tag: 'contoh-kesetimbangan-heterogen-kp-nh4hs',
-        tags: ['contoh-kp-heterogen', 'kesetimbangan-padat-gas', 'tekanan-parsial', 'konversi-kp-kc'],
-        title: 'Contoh Soal 2: Kesetimbangan Heterogen Dekomposisi Padatan NH4HS & Penentuan Nilai Kp',
-        summary: 'Perhitungan tekanan parsial gas amonia dan hidrogen sulfida dari tekanan total sistem serta penentuan nilai tetapan Kp.',
-        content: `**Soal:**
-Padatan amonium hidrogensulfida ($\\ce{NH4HS}$) mengalami dekomposisi termal dalam bejana tertutup menghasilkan gas amonia dan hidrogen sulfida:
-$\\ce{NH4HS(s) <=> NH3(g) + H2S(g)}$
-Pada suhu $25^\\circ\\text{C}$, sejumlah sampel padatan $\\ce{NH4HS}$ murni dimasukkan ke dalam labu hampa udara tertutup. Setelah sistem mencapai kesetimbangan kimia, tekanan total gas di dalam bejana terukur sebesar $0.80\\text{ atm}$.
-
-Tentukan:
-a) Tekanan parsial masing-masing gas ($\\ce{NH3}$ dan $\\ce{H2S}$) pada kesetimbangan!
-b) Nilai tetapan kesetimbangan tekanan ($K_p$) pada suhu $25^\\circ\\text{C}$!
-c) Nilai tetapan kesetimbangan konsentrasi ($K_c$) pada temperatur yang sama ($R = 0.0821\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$)!
-
----
-
-**Pembahasan:**
-
-**Bagian a: Menghitung Tekanan Parsial Gas**
-1. Karena bejana awalnya merupakan labu hampa udara, seluruh gas yang ada di dalam bejana berasal murni dari dekomposisi padatan $\\ce{NH4HS(s)}$.
-2. Dari koefisien reaksi: $1\\text{ mol } \\ce{NH4HS(s)} \\implies 1\\text{ mol } \\ce{NH3(g)} + 1\\text{ mol } \\ce{H2S(g)}$.
-   Maka jumlah mol gas $\\ce{NH3}$ dan $\\ce{H2S}$ yang dihasilkan selalu sama ($n_{\\ce{NH3}} = n_{\\ce{H2S}}$), sehingga fraksi mol keduanya bernilai identik:
-   $X_{\\ce{NH3}} = X_{\\ce{H2S}} = 0.50$
-3. Berdasarkan Hukum Dalton:
-   $P_{\\text{total}} = P_{\\ce{NH3}} + P_{\\ce{H2S}}$
-   $2 P = 0.80\\text{ atm} \\implies P_{\\ce{NH3}} = P_{\\ce{H2S}} = \\frac{0.80\\text{ atm}}{2} = \\mathbf{0.40\\text{ atm}}$
-
----
-
-**Bagian b: Menghitung Nilai $K_p$**
-Karena $\\ce{NH4HS}$ berfasa padat murni ($s$), aktivitasnya konstan ($= 1$) dan tidak disertakan dalam rumus kesetimbangan:
-$K_p = P_{\\ce{NH3}} \\times P_{\\ce{H2S}}$
-$K_p = (0.40) \\times (0.40) = \\mathbf{0.16}$
-
----
-
-**Bagian c: Menghitung Nilai $K_c$**
-Gunakan relasi $K_p = K_c (RT)^{\\Delta n} \\implies K_c = \\frac{K_p}{(RT)^{\\Delta n}}$:
-- Temperatur mutlak: $T = 25 + 273.15 = 298.15\\text{ K}$.
-- Selisih koefisien gas: $\\Delta n = (1 + 1) - 0 = 2$ (padatan reaktan tidak dihitung!).
-- Nilai $RT = 0.0821\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) \\times 298.15\\text{ K} \\approx 24.478\\text{ L}\\cdot\\text{atm/mol}$.
-- $(RT)^2 = (24.478)^2 \\approx 599.18$.
-
-Hitung $K_c$:
-$K_c = \\frac{0.16}{599.18} \\approx \\mathbf{2.67 \\times 10^{-4}}$
-
-> **Kesimpulan Evaluator Juri:** Pada kesetimbangan heterogen ini, tekanan parsial kedua gas terdistribusi simetris masing-masing sebesar $0.40\\text{ atm}$, menghasilkan tetapan $K_p = 0.16$ dan nilai $K_c = 2.67 \\times 10^{-4}$.`,
-      },
-      {
-        tag: 'contoh-kuosien-reaksi-dan-le-chatelier-haber-bosch',
-        tags: ['contoh-le-chatelier', 'kuosien-reaksi-haber-bosch', 'pengaruh-tekanan-suhu', 'gas-amonia-sintesis'],
-        title: 'Contoh Soal 3: Sintesis Amonia Haber-Bosch, Evaluasi Kuosien Reaksi Q, dan Analisis Asas Le Chatelier',
-        summary: 'Penentuan arah pergeseran spontan campuran gas non-setimbang serta prediksi kuantitatif respon sistem terhadap kompresi volume.',
-        content: `**Soal:**
-Reaksi sintesis gas amonia melalui Proses Haber-Bosch memegang peranan krusial dalam pasokan pupuk pertanian global:
-$\\ce{N2(g) + 3 H2(g) <=> 2 NH3(g)} \\quad \\Delta H = -92.4\\text{ kJ}$
-Pada temperatur $400^\\circ\\text{C}$, tetapan kesetimbangan konsentrasi bernilai $K_c = 0.50$.
-Di dalam reaktor bervolume $1.0\\text{ Liter}$, dianalisis sampel campuran gas dengan komposisi:
-- $[\\ce{N2}] = 0.20\\text{ M}$
-- $[\\ce{H2}] = 0.10\\text{ M}$
-- $[\\ce{NH3}] = 0.050\\text{ M}$
-
-Tentukan:
-a) Nilai kuosien reaksi ($Q_c$) dan prediksi apakah sistem sudah setimbang atau ke arah mana reaksi akan bergeser secara spontan!
-b) Berdasarkan Asas Le Chatelier, ramalkan pergeseran kesetimbangan jika:
-   1. Temperatur reaktor dinaikkan dari $400^\\circ\\text{C}$ menjadi $500^\\circ\\text{C}$.
-   2. Tekanan dinaikkan dengan memperkecil volume reaktor menjadi $0.50\\text{ Liter}$.
-   3. Gas argon (gas mulia inert) dipompakan ke dalam wadah pada volume tetap.
-
----
-
-**Pembahasan:**
-
-**Bagian a: Evaluasi Kuosien Reaksi ($Q_c$)**
-Bentuk ekspresi $Q_c$:
-$Q_c = \\frac{[\\ce{NH3}]^2}{[\\ce{N2}] [\\ce{H2}]^3}$
-Masukkan data konsentrasi yang ada:
-$Q_c = \\frac{(0.050)^2}{(0.20) \\times (0.10)^3} = \\frac{0.0025}{0.20 \\times 0.0010} = \\frac{0.0025}{0.00020} = \\mathbf{12.5}$
-
-Bandingkan nilai $Q_c$ dengan $K_c$:
-$Q_c = 12.5 \\quad \\text{dan} \\quad K_c = 0.50 \\implies \\mathbf{Q_c > K_c}$
-- Karena $Q_c > K_c$, jumlah produk amonia ($\\ce{NH3}$) di dalam reaktor saat ini **terlalu berlebih** melampaui proporsi kesetimbangannya.
-- Untuk mengembalikan sistem ke kondisi setimbang, sebagian $\\ce{NH3}$ harus terurai kembali menjadi $\\ce{N2}$ dan $\\ce{H2}$.
-- **Arah Pergeseran:** Reaksi akan bergeser secara spontan **ke arah Kiri (arah reaktan / pembentukan $\\ce{N2}$ dan $\\ce{H2}$)** sampai rasio konsentrasi mencapai nilai $K_c = 0.50$.
-
----
-
-**Bagian b: Prediksi Pengaruh Gangguan Luar (Asas Le Chatelier)**
-1. **Penaikan Temperatur ($T$ naik dari $400^\\circ\\text{C}$ ke $500^\\circ\\text{C}$):**
-   - Reaksi pembentukan $\\ce{NH3}$ ke kanan bersifat **eksotermik** ($\\Delta H = -92.4\\text{ kJ} < 0$).
-   - Kenaikan suhu memaksa sistem menyerap kalor dengan bergeser ke arah **endotermik (ke arah Kiri)**.
-   - Dampak: Hasil produksi amonia berkurang dan **nilai $K_c$ menurun**.
-
-2. **Volume Diperkecil Menjadi $0.50\\text{ L}$ (Tekanan Diperbesar):**
-   - Hitung jumlah koefisien gas:
-     - Ruas Kiri: $1 + 3 = 4\\text{ mol gas}$.
-     - Ruas Kanan: $2\\text{ mol gas}$.
-   - Pengecilan volume menyebabkan kerapatan partikel gas melonjak. Sistem merespon dengan bergeser ke ruas yang memiliki **jumlah mol gas paling sedikit**.
-   - Dampak: Kesetimbangan bergeser **ke arah Kanan (meningkatkan rendemen produksi $\\ce{NH3}$)**. *Nilai $K_c$ tetap!*
-
-3. **Penambahan Gas Argon pada Volume Tetap:**
-   - Karena volume wadah dan jumlah mol gas reaktan/produk tidak berubah, konsentrasi molar ($[n/V]$) maupun tekanan parsial dari $\\ce{N2}$, $\\ce{H2}$, dan $\\ce{NH3}$ **sama sekali tidak berubah**.
-   - Dampak: Penambahan gas inert pada volume tetap **TIDAK MENGGESER kesetimbangan kimia sama sekali**!
-
-> **Kesimpulan Evaluator Juri:** Campuran gas awal belum setimbang dan akan bergeser ke kiri karena $Q_c > K_c$. Untuk memaksimalkan hasil produksi amonia di industri pupuk, pabrik menerapkan tekanan tinggi (menggeser ke kanan) dan suhu optimum moderat dipadukan dengan katalis besi berbasis Asas Le Chatelier.`,
-      },
-      {
-        tag: 'contoh-derajat-disosiasi-dan-kp-pcl5',
-        tags: ['contoh-alfa-disosiasi', 'kp-pcl5', 'tekanan-total-parsial', 'disosiasi-fasa-gas'],
-        title: 'Contoh Soal 4: Perhitungan Derajat Disosiasi (α), Tekanan Parsial, dan Tetapan Kp Gas PCl5',
-        summary: 'Pemodelan aljabar derajat disosiasi gas fosforus pentaklorida dari data tekanan total wadah pada temperatur tinggi.',
-        content: `**Soal:**
-Gas fosforus pentaklorida ($\\ce{PCl5}$) mengalami reaksi penguraian termal dalam wadah tertutup menurut persamaan kesetimbangan:
-$\\ce{PCl5(g) <=> PCl3(g) + Cl2(g)}$
-Sejumlah gas $\\ce{PCl5}$ murni dipanaskan pada suhu $250^\\circ\\text{C}$ hingga tercapai kesetimbangan dengan tekanan total terukur sebesar $P_{\\text{total}} = 2.0\\text{ atm}$. Jika pada kondisi setimbang tersebut derajat disosiasi $\\alpha = 0.50$ ($50\\%$ terurai):
-
-Tentukan:
-a) Fraksi mol masing-masing komponen gas pada keadaan setimbang!
-b) Tekanan parsial masing-masing gas ($P_{\\ce{PCl5}}$, $P_{\\ce{PCl3}}$, dan $P_{\\ce{Cl2}}$)!
-c) Nilai tetapan kesetimbangan tekanan ($K_p$) reaksi disosiasi tersebut pada $250^\\circ\\text{C}$!
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Susun Komposisi Mol Berbasis Derajat Disosiasi ($\\alpha$)**
-Misalkan jumlah mol mula-mula gas $\\ce{PCl5} = a\\text{ mol}$.
-Diketahui derajat disosiasi $\\alpha = 0.50$.
-- Mol $\\ce{PCl5}$ yang terurai (bereaksi) $= a \\times \\alpha = 0.50 a\\text{ mol}$.
-- Sesuai koefisien reaksi $1 : 1 : 1$:
-  - $\\ce{PCl3}$ yang terbentuk $= +0.50 a\\text{ mol}$.
-  - $\\ce{Cl2}$ yang terbentuk $= +0.50 a\\text{ mol}$.
-
-Tabel Stoikiometri Mol:
-| Komponen | $\\ce{PCl5(g)}$ | $\\ce{PCl3(g)}$ | $\\ce{Cl2(g)}$ |
-| :--- | :---: | :---: | :---: |
-| **Mula-mula (M)** | $a\\text{ mol}$ | $0$ | $0$ |
-| **Bereaksi (B)** | $-0.50 a\\text{ mol}$ | $+0.50 a\\text{ mol}$ | $+0.50 a\\text{ mol}$ |
-| **Setimbang (S)** | $\\mathbf{0.50 a\\text{ mol}}$ | $\\mathbf{0.50 a\\text{ mol}}$ | $\\mathbf{0.50 a\\text{ mol}}$ |
-
-Hitung jumlah total mol gas pada kesetimbangan:
-$n_{\\text{total}} = n_{\\ce{PCl5}} + n_{\\ce{PCl3}} + n_{\\ce{Cl2}}$
-$n_{\\text{total}} = 0.50 a + 0.50 a + 0.50 a = \\mathbf{1.50 a\\text{ mol}}$
-
----
-
-**Bagian a: Menghitung Fraksi Mol Masing-Masing Gas ($X_i$)**
-$X_{\\ce{PCl5}} = \\frac{n_{\\ce{PCl5}}}{n_{\\text{total}}} = \\frac{0.50 a}{1.50 a} = \\mathbf{\\frac{1}{3} \\approx 0.333}$
-$X_{\\ce{PCl3}} = \\frac{n_{\\ce{PCl3}}}{n_{\\text{total}}} = \\frac{0.50 a}{1.50 a} = \\mathbf{\\frac{1}{3} \\approx 0.333}$
-$X_{\\ce{Cl2}} = \\frac{n_{\\ce{Cl2}}}{n_{\\text{total}}} = \\frac{0.50 a}{1.50 a} = \\mathbf{\\frac{1}{3} \\approx 0.333}$
-
----
-
-**Bagian b: Menghitung Tekanan Parsial Gas ($P_{\\text{total}} = 2.0\\text{ atm}$)**
-Gunakan Hukum Dalton ($P_i = X_i \\times P_{\\text{total}}$):
-$P_{\\ce{PCl5}} = \\frac{1}{3} \\times 2.0\\text{ atm} = \\mathbf{\\frac{2}{3}\\text{ atm} \\approx 0.667\\text{ atm}}$
-$P_{\\ce{PCl3}} = \\frac{1}{3} \\times 2.0\\text{ atm} = \\mathbf{\\frac{2}{3}\\text{ atm} \\approx 0.667\\text{ atm}}$
-$P_{\\ce{Cl2}} = \\frac{1}{3} \\times 2.0\\text{ atm} = \\mathbf{\\frac{2}{3}\\text{ atm} \\approx 0.667\\text{ atm}}$
-
----
-
-**Bagian c: Menghitung Nilai $K_p$**
-Rumus tetapan kesetimbangan tekanan:
-$K_p = \\frac{P_{\\ce{PCl3}} \\times P_{\\ce{Cl2}}}{P_{\\ce{PCl5}}}$
-Substitusikan nilai tekanan parsial:
-$K_p = \\frac{\\left(\\frac{2}{3}\\right) \\times \\left(\\frac{2}{3}\\right)}{\\left(\\frac{2}{3}\\right)} = \\mathbf{\\frac{2}{3} \\approx 0.667}$
-
-> **Verifikasi Trik Formula Cepat Derajat Disosiasi:**
-> Untuk reaksi disosiasi tipe $\\ce{A <=> B + C}$:
-> $K_p = \\frac{\\alpha^2}{1 - \\alpha^2} \\times P_{\\text{total}}$
-> Substitusikan $\\alpha = 0.50$ dan $P_{\\text{total}} = 2.0\\text{ atm}$:
-> $K_p = \\frac{(0.50)^2}{1 - (0.50)^2} \\times 2.0 = \\frac{0.25}{1 - 0.25} \\times 2.0 = \\frac{0.25}{0.75} \\times 2.0 = \\frac{1}{3} \\times 2.0 = \\frac{2}{3} \\approx 0.667$
-> *Formula cepat terbukti 100% konsisten dan sangat akurat!*
->
-> **Kesimpulan Evaluator Juri:** Pada dekomposisi $\\ce{PCl5}$ dengan $\\alpha = 0.50$ dan tekanan total $2.0\\text{ atm}$, tekanan parsial ketiga gas bernilai setara ($0.667\\text{ atm}$), menghasilkan tetapan kesetimbangan $K_p = 0.667$.`,
-      },
-    ],
-  },
+  ],
+  worked_examples: WORKED_EXAMPLES_TOPIC_108,
+},
   {
     id: 109,
     topic_number: 9,

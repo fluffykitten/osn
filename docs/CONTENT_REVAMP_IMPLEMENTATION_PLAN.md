@@ -74,7 +74,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **105** | **5** | **Hukum Dasar Kimia & Konsep Mol** | **Kelas 10 (Fase E)** | **Sandwich Keju (Pembatas), Jembatan Mol (Ibu Kota Hub)** | **✅ Selesai** | **Coverage 100% (5 Soal, 18 Kuis, 9 Miskonsepsi)** |
 | **106** | **6** | **Termokimia SMA (Entalpi & Hukum Hess)** | **Kelas 11 (Fase F1)** | **Rekening Bank Energi, Naik Tangga / Turun Lift Hess** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 11 Miskonsepsi)** |
 | **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas 11 (Fase F1)** | **Polisi Tidur (Energi Aktivasi), Mobil Tabrakan Sudut Tepat** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 15 Miskonsepsi)** |
-| 108 | 8 | Kesetimbangan Kimia Dasar SMA | Kelas 11 (Fase F1) | Eskalator Berlawanan Arah (Dinamis), Jungkat-Jungkit Le Chatelier | ⏳ Terjadwal | Prioritas Fase 3 |
+| **108** | **8** | **Kesetimbangan Kimia Dasar SMA** | **Kelas 11 (Fase F1)** | **Eskalator Berlawanan Arah (Dinamis), Jungkat-Jungkit Le Chatelier** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
 | 109 | 9 | Larutan Asam-Basa & Titrasi Netralisasi | Kelas 11 (Fase F1) | Perang Donor-Akseptor Proton, Titik Belok Indikator | ⏳ Terjadwal | Prioritas Fase 3 (Gap: 3 Teori Asam Basa) |
 | 110 | 10 | Larutan Penyangga (Buffer) & Hidrolisis | Kelas 11 (Fase F1) | Pasukan Penjaga Kejut pH Darah, Ion Penggoda Air | ⏳ Terjadwal | Prioritas Fase 3 (Gap: Ion Senama & Kurva Titrasi) |
 | 111 | 11 | Kelarutan & Hasil Kali Kelarutan ($K_{sp}$) | Kelas 11 (Fase F1) | Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif | ⏳ Terjadwal | Prioritas Fase 3 |
