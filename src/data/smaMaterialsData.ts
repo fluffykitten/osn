@@ -9,12 +9,12 @@
  * - Fase F2 (Topik 13-16, ID 113-116) -> ./materials/smaFaseF2.ts
  */
 
-import type { ConceptBlock, MaterialItem } from './materialsData';
+import type { ConceptBlock, MaterialItem, CheckpointQuizItem } from './materialsData';
 import { SMA_MATERIALS_FASE_E } from './materials/smaFaseE';
 import { SMA_MATERIALS_FASE_F1 } from './materials/smaFaseF1';
 import { SMA_MATERIALS_FASE_F2 } from './materials/smaFaseF2';
 
-export type { ConceptBlock, MaterialItem };
+export type { ConceptBlock, MaterialItem, CheckpointQuizItem };
 
 export interface SmaMaterialItem extends MaterialItem {
   grade: 'Kelas 10' | 'Kelas 11' | 'Kelas 12';

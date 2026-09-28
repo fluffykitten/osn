@@ -1,6 +1,7 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
+import { CHECKPOINTS_FASE_E } from '../checkpoints/index.ts';
 
-export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
+const BASE_SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
 {
     id: 101,
     topic_number: 1,
@@ -3785,3 +3786,19 @@ $\\\\% \\\\text{ Kemurnian} = \\\\frac{m_{\\\\text{murni}}}{m_{\\\\text{sampel k
     ],
   },
 ];
+
+export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = BASE_SMA_MATERIALS_FASE_E.map((mat) => ({
+  ...mat,
+  prerequisites: mat.prerequisites.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_E[b.tag],
+  })),
+  core_concepts: mat.core_concepts.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_E[b.tag],
+  })),
+  worked_examples: mat.worked_examples.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_E[b.tag],
+  })),
+}));

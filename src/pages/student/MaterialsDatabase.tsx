@@ -1348,6 +1348,7 @@ export const MaterialsDatabase: React.FC = () => {
                                 topicNumber={activeMaterial.topic_number}
                                 conceptSummary={block.summary}
                                 conceptContent={block.content}
+                                checkpointQuizzes={block.checkpointQuizzes}
                               />
                             </div>
                           )}
@@ -1480,6 +1481,7 @@ export const MaterialsDatabase: React.FC = () => {
                                 topicNumber={activeMaterial.topic_number}
                                 conceptSummary={block.summary}
                                 conceptContent={block.content}
+                                checkpointQuizzes={block.checkpointQuizzes}
                               />
                             </div>
                           )}
@@ -1612,6 +1614,7 @@ export const MaterialsDatabase: React.FC = () => {
                                 topicNumber={activeMaterial.topic_number}
                                 conceptSummary={block.summary}
                                 conceptContent={block.content}
+                                checkpointQuizzes={block.checkpointQuizzes}
                               />
                             </div>
                           )}

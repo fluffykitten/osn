@@ -8,6 +8,16 @@
  * Setiap konsep memiliki tag unik yang terhubung dengan soal pada Worksheet
  */
 
+export interface CheckpointQuizItem {
+  id: string; // ID unik per soal, misal: 'chk-101-pre1-q1'
+  type: 'multiple_choice' | 'true_false';
+  question: string; // KaTeX supported
+  options?: string[]; // Array 4 opsi untuk multiple_choice
+  correctAnswer: number | boolean; // Index (0-3) untuk multiple_choice, boolean untuk true_false
+  explanation: string; // KaTeX supported penjelasan konseptual mendalam
+  misconceptionTarget?: string; // Miskonsepsi spesifik yang disasar
+}
+
 export interface ConceptBlock {
   tag: string; // Tag slug unik untuk id DOM ('concept-${block.tag}') dan URL anchor
   tags?: string[]; // Array tag-tag atomik spesifik (misal: ['entalpi-reaksi', 'hukum-hess', 'hukum-kirchhoff'])
@@ -15,6 +25,7 @@ export interface ConceptBlock {
   summary: string;
   content: string; // Penjelasan terperinci berformat KaTeX ($...$ dan $...$) serta mhchem
   keyFormulas?: { name: string; formula: string }[];
+  checkpointQuizzes?: CheckpointQuizItem[]; // Bank kuis uji pemahaman cepat konseptual
 }
 
 export interface MaterialItem {

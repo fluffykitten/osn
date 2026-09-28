@@ -150,6 +150,44 @@ function validateConceptBlock(block, blockType, materialContext) {
       }
     });
   }
+
+  if (block.checkpointQuizzes && Array.isArray(block.checkpointQuizzes)) {
+    block.checkpointQuizzes.forEach((quiz, qIdx) => {
+      const qContext = `${context} -> Quiz[${qIdx}] (${quiz.id || 'tanpa-id'})`;
+      if (!quiz.id) {
+        errors.push({ type: 'Quiz Error', context: qContext, message: 'Quiz tidak memiliki id.' });
+      }
+      if (!quiz.type || !['multiple_choice', 'true_false'].includes(quiz.type)) {
+        errors.push({ type: 'Quiz Error', context: qContext, message: `Type quiz tidak valid: ${quiz.type}` });
+      }
+      if (!quiz.question) {
+        errors.push({ type: 'Quiz Error', context: qContext, message: 'Quiz tidak memiliki question.' });
+      } else {
+        scanMarkdownContent(quiz.question, `${qContext} -> Question`);
+      }
+      if (quiz.type === 'multiple_choice') {
+        if (!Array.isArray(quiz.options) || quiz.options.length < 2) {
+          errors.push({ type: 'Quiz Error', context: qContext, message: 'multiple_choice harus memiliki array options minimal 2.' });
+        } else {
+          quiz.options.forEach((opt, optIdx) => {
+            scanMarkdownContent(opt, `${qContext} -> Option[${optIdx}]`);
+          });
+          if (typeof quiz.correctAnswer !== 'number' || quiz.correctAnswer < 0 || quiz.correctAnswer >= quiz.options.length) {
+            errors.push({ type: 'Quiz Error', context: qContext, message: `correctAnswer (${quiz.correctAnswer}) di luar rentang opsi.` });
+          }
+        }
+      } else if (quiz.type === 'true_false') {
+        if (typeof quiz.correctAnswer !== 'boolean') {
+          errors.push({ type: 'Quiz Error', context: qContext, message: `true_false harus memiliki correctAnswer boolean. Diterima: ${quiz.correctAnswer}` });
+        }
+      }
+      if (!quiz.explanation) {
+        errors.push({ type: 'Quiz Error', context: qContext, message: 'Quiz tidak memiliki explanation.' });
+      } else {
+        scanMarkdownContent(quiz.explanation, `${qContext} -> Explanation`);
+      }
+    });
+  }
 }
 
 function validateMaterial(item, datasetName) {
