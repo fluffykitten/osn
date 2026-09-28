@@ -93,7 +93,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | :---: | :--- | :--- | :--- | :---: |
 | **1** | Struktur Atom & Periodisitas Unsur | Mekanika kuantum, orbital radial/angular, aturan Slater, spektroskopi atom | OSN-K / OSN-P | ✅ Selesai (24 Kuis, 15 Miskonsepsi, 100% Coverage) |
 | **2** | Ikatan Kimia & Geometri Molekul | Teori Orbital Molekul (MOT), diagram MO diatomik heteronuklir, hibridisasi kompleks | OSN-P / OSN | ✅ Selesai (6 Soal, 30 Kuis, 15 Miskonsepsi, 100% Coverage) |
-| **3** | Stoikiometri & Wujud Zat | Gas riil Van der Waals, struktur kristal kisi intan/fcc/bcc, analisis stoikiometri non-stokiometrik | OSN-K / OSN-P | ⏳ Terjadwal (Fase 5) |
+| **3** | Stoikiometri & Wujud Zat | Gas riil Van der Waals, struktur kristal kisi intan/fcc/bcc, perovskite ABO3, XRD Bragg, efusi Graham | OSN-K / OSN-P | ✅ Selesai (6 Soal, 27 Kuis, 18 Miskonsepsi, 100% Coverage) |
 | **4** | Termodinamika Kimia | Siklus Born-Haber, Entropi ($S$), Energi Bebas Gibbs ($\Delta G$), persamaan Van 't Hoff | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **5** | Kesetimbangan Kimia & Larutan | Kesetimbangan poliprotik simultan, diagram pecahan alfa ($\alpha$-fraction), kekuatan ionik Debye-Hückel | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State SSA), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
