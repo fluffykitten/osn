@@ -231,6 +231,19 @@ export function normalizeLatexBackslashes(text: string): string {
   let s = text.replace(/\\\\([a-zA-Z\^_{}~#%[\]()<>,;! ])/g, '\\$1');
   // 2. Double backslash before spaces or another command
   s = s.replace(/\\\\(?=\s*[a-zA-Z])/g, '\\');
+  // 3. Normalisasi karakter escape kontrol JS yang tidak sengaja terinterpretasi
+  s = s
+    .replace(/\x08eta/g, '\\beta')
+    .replace(/\x08ullet/g, '\\bullet')
+    .replace(/\x08/g, '')
+    .replace(/\x0b/g, '\\v')
+    .replace(/\x0c/g, '\\f')
+    .replace(/\\pi\^\*_\{([^}]+)\}\^([0-9]+)/g, '{\\pi^*_{$1}}^{$2}')
+    .replace(/(?<!\\)\bce\{/g, '\\ce{')
+    .replace(/\\text\{([^{}]*?)\\ce\{([^{}]*?)\}([^{}]*?)\}/g, '\\text{$1}\\;\\ce{$2}\\;\\text{$3}')
+    .replace(/\\ce\{([A-Za-z0-9_-]+)-([A-Za-z0-9_-]+)#([A-Za-z0-9_-]+)\}/g, '\\ce{$1-$2}\\equiv\\ce{$3}')
+    .replace(/\\ce\{([A-Za-z0-9_-]+)#([A-Za-z0-9_-]+)\}/g, '\\ce{$1}\\equiv\\ce{$2}')
+    .replace(/#\\ce\{/g, '\\equiv \\ce{');
   return s;
 }
 
