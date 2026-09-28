@@ -1191,508 +1191,543 @@ $$\\begin{aligned}
     ],
   },
 
-  {
-    id: 102,
-    topic_number: 2,
-    grade: 'Kelas 10',
-    semester: 1,
-    curriculumPhase: 'Fase E',
-    relatedOsnTopicId: 1,
-    title: 'Struktur Atom Dasar & Sistem Periodik Unsur',
-    slug: 'struktur-atom-dasar-sistem-periodik',
-    category: 'Struktur Atom & Periodisitas',
-    level: 'SMA',
-    readTimeMinutes: 35,
-    summary: 'Kajian mendalam evolusi model atom dari Dalton hingga mekanika gelombang Schrödinger, karakteristik partikel subatomik dan spektrometri massa untuk kelimpahan isotop, empat bilangan kuantum dan geometri orbital spasial, konfigurasi elektron aturan kuantum (Aufbau, Hund, Pauli) serta anomali kestabilan subkulit d, arsitektur tabel periodik modern blok s/p/d/f, dan rasionalisasi tren sifat keperiodikan unsur berbasis muatan inti efektif (Zeff).',
-    allTags: [
-      'perkembangan-model-atom',
-      'model-dalton-thomson-rutherford',
-      'model-bohr-spektrum-emisi',
-      'mekanika-gelombang-schrodinger',
-      'dualisme-de-broglie-heisenberg',
-      'partikel-subatom-proton-elektron-neutron',
-      'notasi-nuklida-atom-dan-ion',
-      'isotop-isobar-isoton-isoelektron',
-      'kelimpahan-isotop-dan-ar',
-      'empat-bilangan-kuantum',
-      'geometri-orbital-spdf',
-      'konfigurasi-elektron-aufbau',
-      'kaidah-hund-larangan-pauli',
-      'anomali-kestabilan-subkulit-d',
-      'konfigurasi-kation-dan-anion',
-      'paramagnetik-dan-diamagnetik',
-      'sejarah-tabel-periodik',
-      'tabel-periodik-modern-moseley',
-      'penentuan-golongan-dan-periode',
-      'blok-s-p-d-f',
-      'muatan-inti-efektif-zeff',
-      'tren-jari-jari-atom-dan-ion',
-      'deret-isoelektronik',
-      'energi-ionisasi-pertama-dan-anomali',
-      'energi-ionisasi-bertingkat',
-      'afinitas-elektron-dan-anomali',
-      'keelektronegatifan-skala-pauling',
-      'sifat-logam-dan-nonlogam',
-      'soal-kelimpahan-isotop-ar',
-      'soal-konfigurasi-anomali-ion',
-      'soal-bilangan-kuantum-elektron-terakhir',
-      'soal-energi-ionisasi-bertingkat',
-      'partikel-dasar-atom',
-      'notasi-nuklida',
-      'kation-anion',
-      'struktur-atom',
-      'isotop-isobar-isoton',
-      'model-atom-bohr',
-      'konfigurasi-elektron',
-      'elektron-valensi',
-      'sistem-periodik-unsur',
-      'periode-dan-golongan',
-      'aturan-hund',
-      'prinsip-aufbau',
-      'diagram-orbital',
-      'bilangan-kuantum',
-      'subkulit-spdf',
-      'logam-transisi',
-      'golongan-b',
-      'sifat-periodik',
-      'jari-jari-atom',
-      'tren-periodik',
-      'energi-ionisasi',
-      'anomali-energi-ionisasi',
-      'periode-3',
-      'ion-transisi',
-      'kestabilan-setengah-penuh',
-      'halogen',
-      'keelektronegatifan',
-      'daya-oksidator',
-      'jari-jari-ion',
-      'gaya-elektrostatik',
-      'rekonstruksi-unsur',
-      'anomali-konfigurasi',
-      'aturan-aufbau',
-      'kromium-tembaga',
-      'spesi-isoelektronik',
-      'muatan-inti-efektif',
-      'rumus-senyawa',
-      'nitrogen-oksigen',
-      'tolakan-elektron-sekamar',
-      'paramagnetik-diamagnetik',
-      'seng',
-      'magnesium',
-      'energi-pertukaran',
-      'sifat-oksida',
-      'amfoter',
-      'daya-reduktor',
-      'keadaan-dasar-eksitasi',
-      'larangan-pauli',
-    ],
-    prerequisites: [
-      {
-        tag: 'evolusi-model-atom-mekanika-gelombang',
-        tags: [
-          'perkembangan-model-atom',
-          'model-dalton-thomson-rutherford',
-          'model-bohr-spektrum-emisi',
-          'mekanika-gelombang-schrodinger',
-          'dualisme-de-broglie-heisenberg',
-        ],
-        title: 'Prasyarat 1: Evolusi Teori Model Atom dari Bola Pejal hingga Mekanika Kuantum Modern',
-        summary: 'Lintasan historis penemuan struktur atom: model bola pejal Dalton, elektron Thomson, inti masif Rutherford, kuantisasi orbit Bohr, serta dualisme partikel-gelombang mekanika Schrödinger.',
-        content: `Pemahaman manusia tentang struktur fundamental materi berkembang melalui serangkaian eksperimen fisika krusial yang merevisi model-model pendahulunya secara revolusioner:
+{
+  id: 102,
+  topic_number: 2,
+  grade: 'Kelas 10',
+  semester: 1,
+  curriculumPhase: 'Fase E',
+  relatedOsnTopicId: 1,
+  title: 'Struktur Atom Dasar & Sistem Periodik Unsur',
+  slug: 'struktur-atom-dasar-sistem-periodik',
+  category: 'Struktur Atom & Periodisitas',
+  level: 'SMA',
+  readTimeMinutes: 38,
+  summary: 'Panduan pedagogis komprehensif arsitektur atom dan periodisitas kimia: evolusi model atom dari bola pejal hingga mekanika gelombang Schrödinger; spektrometri massa dan rata-rata tertimbang kelimpahan isotop; analogi intuitif Apartemen Hotel Elektron untuk empat bilangan kuantum (n, l, ml, ms); tiga kaidah kuantum pengisian elektron (Aufbau, Hund, Pauli) serta anomali kestabilan orbital d setengah penuh/penuh (Cr & Cu); aturan emas pelepasan elektron 4s pada kation transisi; arsitektur tabel periodik modern Moseley blok s/p/d/f; serta dekonstruksi tren keperiodikan (jari-jari atom/ion, energi ionisasi dan anomalinya, afinitas elektron, keelektronegatifan) melalui teori Tarik Tambang Muatan Inti Efektif (Zeff).',
+  allTags: [
+    'perkembangan-model-atom',
+    'model-dalton-thomson-rutherford',
+    'model-bohr-spektrum-emisi',
+    'mekanika-gelombang-schrodinger',
+    'dualisme-de-broglie-heisenberg',
+    'partikel-subatom-proton-elektron-neutron',
+    'notasi-nuklida-atom-dan-ion',
+    'isotop-isobar-isoton-isoelektron',
+    'kelimpahan-isotop-dan-ar',
+    'spektrometri-massa',
+    'empat-bilangan-kuantum',
+    'geometri-orbital-spdf',
+    'apartemen-hotel-elektron',
+    'konfigurasi-elektron-aufbau',
+    'kaidah-hund-larangan-pauli',
+    'anomali-kestabilan-subkulit-d',
+    'konfigurasi-kation-dan-anion',
+    'pelepasan-elektron-4s-transisi',
+    'paramagnetik-dan-diamagnetik',
+    'momen-magnetik-spin-only',
+    'sejarah-tabel-periodik',
+    'tabel-periodik-modern-moseley',
+    'penentuan-golongan-dan-periode',
+    'blok-s-p-d-f',
+    'muatan-inti-efektif-zeff',
+    'efek-perisai-elektron',
+    'tren-jari-jari-atom-dan-ion',
+    'deret-isoelektronik',
+    'energi-ionisasi-pertama-dan-anomali',
+    'anomali-energi-ionisasi-be-b-n-o',
+    'energi-ionisasi-bertingkat',
+    'afinitas-elektron-dan-anomali',
+    'anomali-afinitas-elektron-f-cl',
+    'keelektronegatifan-skala-pauling',
+    'soal-kelimpahan-isotop-ar',
+    'soal-konfigurasi-elektron-anomali',
+    'soal-bilangan-kuantum-dan-spu',
+    'soal-energi-ionisasi-bertingkat',
+  ],
+  prerequisites: [
+    {
+      tag: 'evolusi-model-atom',
+      tags: [
+        'perkembangan-model-atom',
+        'model-dalton-thomson-rutherford',
+        'model-bohr-spektrum-emisi',
+        'mekanika-gelombang-schrodinger',
+        'dualisme-de-broglie-heisenberg',
+      ],
+      title: 'Prasyarat 1: Evolusi Teori Model Atom dari Bola Pejal hingga Mekanika Kuantum Modern',
+      summary: 'Penelusuran historis dan saintifik pemodelan struktur atom: eksperimen tabung sinar katoda Thomson, hamburan partikel alfa Rutherford, kuantisasi orbit Bohr, hingga mekanika gelombang Schrödinger.',
+      content: `### 🔍 Misteri Kotak Hitam Partikel Subatom (Mental Model)
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 160" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+Bayangkan sebuah kotak hitam tertutup rapat yang tidak boleh dibuka. Bagaimana cara Anda mengetahui apa yang ada di dalamnya? Anda mungkin akan mengguncangnya, melemparkan kelereng ke arahnya, atau mengukur medan listrik yang keluar dari kotak tersebut. 
+
+Begitulah cara fisikawan dan kimiawan membongkar arsitektur atom selama lebih dari satu abad. Dari sebongkah bola pejal tak kasatmata hingga awan probabilitas matematika yang anggun, pemahaman kita tentang atom berevolusi melalui lompatan eksperimental yang revolusioner:
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 170" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <marker id="atomArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7"/>
     </marker>
     <filter id="atomShadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.08"/>
     </filter>
   </defs>
 
-  <!-- Timeline Line -->
-  <line x1="75" y1="80" x2="685" y2="80" stroke="#e2e8f0" stroke-width="3"/>
-
   <!-- 1. Dalton -->
   <g transform="translate(10, 15)">
-    <rect width="130" height="130" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
-    <!-- Graphic: Solid Sphere -->
-    <circle cx="65" cy="40" r="18" fill="#475569"/>
+    <rect width="130" height="140" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
+    <circle cx="65" cy="40" r="16" fill="#475569"/>
     <text x="65" y="76" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f172a">1. Dalton (1803)</text>
-    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Bola Pejal</text>
-    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Partikel terkecil homogen</text>
-    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">tak dapat dibagi lagi</text>
+    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Bola Pejal Masif</text>
+    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Partikel tak terbagi &amp;</text>
+    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">identik tiap unsur</text>
+    <text x="65" y="130" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">Kelemahan: Ada subatom</text>
   </g>
-  <line x1="140" y1="80" x2="155" y2="80" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
+  <line x1="140" y1="85" x2="155" y2="85" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
 
   <!-- 2. Thomson -->
   <g transform="translate(160, 15)">
-    <rect width="130" height="130" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
-    <!-- Graphic: Plum Pudding -->
-    <circle cx="65" cy="40" r="18" fill="#fef08a" stroke="#eab308" stroke-width="1.5"/>
-    <circle cx="58" cy="35" r="3" fill="#dc2626"/><text x="58" y="38" text-anchor="middle" font-size="5" fill="#ffffff">-</text>
-    <circle cx="72" cy="38" r="3" fill="#dc2626"/><text x="72" y="41" text-anchor="middle" font-size="5" fill="#ffffff">-</text>
-    <circle cx="64" cy="48" r="3" fill="#dc2626"/><text x="64" y="51" text-anchor="middle" font-size="5" fill="#ffffff">-</text>
+    <rect width="130" height="140" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
+    <circle cx="65" cy="40" r="16" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="58" cy="35" r="2.5" fill="#2563eb"/>
+    <circle cx="72" cy="36" r="2.5" fill="#2563eb"/>
+    <circle cx="64" cy="46" r="2.5" fill="#2563eb"/>
     <text x="65" y="76" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f172a">2. Thomson (1897)</text>
     <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Roti Kismis</text>
-    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Elektron e⁻ tersebar pada</text>
-    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">bola bermuatan positif</text>
+    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Bola muatan positif +</text>
+    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">elektron tersebar merata</text>
+    <text x="65" y="130" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">Kelemahan: Tak ada inti</text>
   </g>
-  <line x1="290" y1="80" x2="305" y2="80" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
+  <line x1="290" y1="85" x2="305" y2="85" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
 
   <!-- 3. Rutherford -->
   <g transform="translate(310, 15)">
-    <rect width="130" height="130" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
-    <!-- Graphic: Nucleus + Orbit Ellipses -->
-    <circle cx="65" cy="40" r="5" fill="#dc2626"/>
-    <ellipse cx="65" cy="40" rx="20" ry="8" fill="none" stroke="#94a3b8" stroke-width="1" transform="rotate(-30 65 40)"/>
-    <ellipse cx="65" cy="40" rx="20" ry="8" fill="none" stroke="#94a3b8" stroke-width="1" transform="rotate(30 65 40)"/>
+    <rect width="130" height="140" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
+    <circle cx="65" cy="40" r="4.5" fill="#dc2626"/>
+    <ellipse cx="65" cy="40" rx="18" ry="7" fill="none" stroke="#94a3b8" stroke-width="1" transform="rotate(-25 65 40)"/>
+    <circle cx="79" cy="33" r="2" fill="#2563eb"/>
     <text x="65" y="76" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f172a">3. Rutherford (1911)</text>
-    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Inti Atom Masif</text>
+    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Inti Atom &amp; Hampa</text>
     <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Inti positif terpusat &amp;</text>
     <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">elektron di ruang hampa</text>
+    <text x="65" y="130" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">Kelemahan: Teori Maxwell</text>
   </g>
-  <line x1="440" y1="80" x2="455" y2="80" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
+  <line x1="440" y1="85" x2="455" y2="85" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
 
   <!-- 4. Bohr -->
   <g transform="translate(460, 15)">
-    <rect width="130" height="130" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
-    <!-- Graphic: Concentric Circles -->
+    <rect width="130" height="140" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#atomShadow)"/>
     <circle cx="65" cy="40" r="4" fill="#dc2626"/>
-    <circle cx="65" cy="40" r="11" fill="none" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
-    <circle cx="65" cy="40" r="19" fill="none" stroke="#0284c7" stroke-width="1"/>
-    <circle cx="84" cy="40" r="2" fill="#2563eb"/>
+    <circle cx="65" cy="40" r="10" fill="none" stroke="#0284c7" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="65" cy="40" r="18" fill="none" stroke="#0284c7" stroke-width="1"/>
+    <circle cx="83" cy="40" r="2" fill="#2563eb"/>
     <text x="65" y="76" text-anchor="middle" font-size="10.5" font-weight="700" fill="#0f172a">4. Bohr (1913)</text>
-    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Orbit Stasioner</text>
-    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Energi terkuantisasi &amp;</text>
-    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">spektrum emisi foton ΔE</text>
+    <text x="65" y="92" text-anchor="middle" font-size="8.5" font-weight="600" fill="#0284c7">Orbit Kuantum</text>
+    <text x="65" y="106" text-anchor="middle" font-size="7.5" fill="#64748b">Lintasan stasioner &amp;</text>
+    <text x="65" y="118" text-anchor="middle" font-size="7.5" fill="#64748b">transisi foton \\Delta E</text>
+    <text x="65" y="130" text-anchor="middle" font-size="7" font-weight="600" fill="#ef4444">Kelemahan: Hanya 1 elektron</text>
   </g>
-  <line x1="590" y1="80" x2="605" y2="80" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
+  <line x1="590" y1="85" x2="605" y2="85" stroke="#0284c7" stroke-width="2" marker-end="url(#atomArrow)"/>
 
   <!-- 5. Kuantum / Schrödinger -->
   <g transform="translate(610, 15)">
-    <rect width="140" height="130" rx="10" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="2" filter="url(#atomShadow)"/>
-    <!-- Graphic: Probability Cloud -->
+    <rect width="140" height="140" rx="10" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="2" filter="url(#atomShadow)"/>
     <circle cx="70" cy="40" r="18" fill="#38bdf8" opacity="0.25"/>
     <circle cx="70" cy="40" r="11" fill="#0284c7" opacity="0.45"/>
     <circle cx="70" cy="40" r="5" fill="#0369a1"/>
-    <text x="70" y="76" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0369a1">5. Schrödinger (1926)</text>
+    <text x="70" y="76" text-anchor="middle" font-size="10.5" font-weight="800" fill="#0369a1">5. Modern (1926)</text>
     <text x="70" y="92" text-anchor="middle" font-size="8.5" font-weight="700" fill="#0284c7">Mekanika Gelombang</text>
     <text x="70" y="106" text-anchor="middle" font-size="7.5" fill="#0369a1">Orbital: awan peluang</text>
-    <text x="70" y="118" text-anchor="middle" font-size="7.5" fill="#0369a1">kebolehjadian statistik |ψ|²</text>
+    <text x="70" y="118" text-anchor="middle" font-size="7.5" fill="#0369a1">statistik |\\psi|^2</text>
+    <text x="70" y="130" text-anchor="middle" font-size="7" font-weight="700" fill="#16a34a">Solusi eksak modern</text>
   </g>
 </svg>
 
 ---
 
-### 1. Perbandingan Karakteristik dan Limitasi Model Atom
+### 1. Komparasi Karakteristik, Eksperimen & Limitasi Model Atom
 
-| Tokoh & Tahun | Postulat Utama Model | Landasan Eksperimen | Kelemahan / Anomali Teoretis |
+| Model Atom | Tokoh & Tahun | Eksperimen Kunci | Postulat Pokok Arsitektur | Keterbatasan Fatal |
+| :--- | :--- | :--- | :--- | :--- |
+| **Bola Pejal** | John Dalton (1803) | Hukum Kekekalan Massa & Perbandingan Tetap | Atom adalah partikel terkecil materi yang pejal, masif, tak terbagi, dan identik untuk unsur sejenis. | Gagal menjelaskan sifat listrik materi dan adanya partikel subatomik (proton, elektron, neutron). |
+| **Roti Kismis** | J.J. Thomson (1897) | Tabung Sinar Katoda (*Cathode Ray Tube*) | Elektron bermuatan negatif tersebar merata di dalam bola homogen bermuatan positif (menyerupai kismis pada roti). | Tidak dapat menjelaskan adanya konsentrasi massa dan muatan pada bagian pusat atom. |
+| **Nuklir Hampa** | Ernest Rutherford (1911) | Hamburan Sinar Alfa ($\\alpha$) pada Lempeng Tipis Emas | Seluruh muatan positif dan hampir seluruh massa terkonsentrasi pada **inti atom** yang sangat kecil; elektron mengitari inti di ruang hampa luas. | Bertentangan dengan elektrodinamika klasik Maxwell: elektron yang berputar dipercepat harusnya memancarkan energi dan jatuh spiral ke inti. |
+| **Orbit Stasioner** | Niels Bohr (1913) | Spektrum Garis Emisi Gas Hidrogen ($\\ce{H2}$) | Elektron mengorbit pada lintasan stasioner melingkar diskret tertentu dengan momentum sudut terkuantisasi: $L = n \\frac{h}{2\\pi}$. Perpindahan elektron memancarkan/menyerap foton: $\\Delta E = h\\nu$. | Hanya berlaku presisi untuk **spesi berelektron tunggal** ($\\ce{H, He+, Li^2+}$); gagal menjelaskan efek Zeeman (medan magnet) dan efek Stark. |
+| **Awan Peluang** | Schrödinger & Heisenberg (1926) | Efek Difraksi Elektron & Prinsip Ketidakpastian | Elektron bersifat gelombang-partikel (*de Broglie*). Posisi eksak elektron tidak dapat ditentukan serentak dengan momentumnya. Elektron berada dalam **orbital**: ruang 3D dengan kebolehjadian statistik menemukan elektron terbesar ($|\\psi|^2$). | Membutuhkan formalisme matematika komputasi kalkulus diferensial yang sangat kompleks untuk sistem berelektron banyak. |
+
+---
+
+### 2. Spektrum Emisi Kuantum & Transisi Energi Foton Bohr
+
+Ketika atom hidrogen dieksitasi oleh loncatan listrik tegangan tinggi, elektron menyerap energi dan melompat dari tingkat dasar (*ground state*) ke tingkat tereksitasi (*excited state*). Saat kembali ke tingkat lebih rendah, elektron memancarkan foton cahaya dengan panjang gelombang spesifik yang dirumuskan oleh persamaan **Rydberg-Bohr**:
+
+$$\\frac{1}{\\lambda} = R_H \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right) \\quad \\text{dengan } R_H = 1.09737 \\times 10^7\\text{ m}^{-1} \\text{ dan } n_2 > n_1$$
+
+Energi foton yang dipancarkan berkaitan langsung dengan frekuensi ($\\nu$) dan panjang gelombang ($\\lambda$):
+
+$$\\Delta E = |E_{n_2} - E_{n_1}| = h \\nu = \\frac{h c}{\\lambda}$$
+
+> [!NOTE]
+> ### 💡 Deret Spektrum Hidrogen yang Sering Muncul di OSN
+> - **Deret Lyman ($n_1 = 1$):** Transisi dari $n_2 \\ge 2 \\rightarrow 1$, berada pada spektrum **Ultraviolet (UV)** (energi tertinggi).
+> - **Deret Balmer ($n_1 = 2$):** Transisi dari $n_2 \\ge 3 \\rightarrow 2$, berada pada spektrum **Cahaya Tampak (Visible)** (warna merah s.d. ungu yang teramati mata).
+> - **Deret Paschen ($n_1 = 3$), Brackett ($n_1 = 4$), Pfund ($n_1 = 5$):** Berada pada wilayah **Inframerah (IR)**.
+
+---
+
+> [!TIP]
+> ### 🧭 Prinsip Ketidakpastian Heisenberg
+> Dalam mekanika kuantum, lintasan elektron berbentuk orbit melingkar yang pasti ala tata surya Bohr digantikan oleh konsep orbital. Werner Heisenberg membuktikan bahwa:
+> $$\\Delta x \\cdot \\Delta p \\ge \\frac{h}{4\\pi}$$
+> Makin akurat kita mengetahui posisi elektron ($\\Delta x \\to 0$), makin kabur momentumnya ($\\Delta p \\to \\infty$). Oleh karena itu, kita hanya berbicara mengenai awan kerapatan kebolehjadian statistik menemukan elektron ($|\\psi|^2$).`,
+      keyFormulas: [
+        { name: 'Persamaan Rydberg untuk Spektrum Emisi', formula: '\\frac{1}{\\lambda} = R_H \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right)' },
+        { name: 'Energi Foton Planck-Einstein', formula: '\\Delta E = h \\nu = \\frac{h c}{\\lambda}' },
+        { name: 'Prinsip Ketidakpastian Heisenberg', formula: '\\Delta x \\cdot \\Delta p \\ge \\frac{h}{4\\pi}' },
+      ],
+    },
+
+    {
+      tag: 'partikel-subatom-dan-kelimpahan',
+      tags: [
+        'partikel-subatom-proton-elektron-neutron',
+        'notasi-nuklida-atom-dan-ion',
+        'isotop-isobar-isoton-isoelektron',
+        'kelimpahan-isotop-dan-ar',
+        'spektrometri-massa',
+      ],
+      title: 'Prasyarat 2: Partikel Dasar Subatomik, Notasi Nuklida & Penentuan Massa Atom Relatif (Ar)',
+      summary: 'Studi komparatif partikel penyusun atom (p, n, e), pemahaman notasi nuklida atom dan ion, klasifikasi kuartet hubungan nuklida, serta metode spektrometri massa untuk perhitungan massa atom relatif.',
+      content: `### 🏷️ KTP Partikel Subatomik (Mental Model)
+
+Sebagaimana setiap warga negara memiliki Kartu Tanda Penduduk dengan nomor identitas unik, setiap atom di alam semesta memiliki "identitas nuklir" yang tertulis dalam format notasi nuklida standar:
+
+$$\\ce{^{A}_{Z}X^{q}}$$
+
+1. **Nomor Atom ($Z$):** Menunjukkan jumlah **proton** di dalam inti atom. Nilai $Z$ adalah nomor registrasi unik yang menentukan nama unsur (misal semua atom dengan $Z = 6$ mutlak beridentitas Karbon). Pada atom netral:
+   $$\\text{Jumlah Proton} = \\text{Jumlah Elektron} = Z$$
+2. **Nomor Massa ($A$):** Menunjukkan jumlah total partikel nukleon (nukleus) di dalam inti:
+   $$A = \\text{Jumlah Proton} + \\text{Jumlah Neutron}$$
+   $$\\text{Jumlah Neutron} = A - Z$$
+3. **Muatan Listrik ($q$):**
+   - Atom netral: $q = 0$
+   - Kation ($q = +n$): Terjadi akibat **pelepasan elektron** $\\rightarrow$ $\\text{Jumlah Elektron} = Z - n$
+   - Anion ($q = -m$): Terjadi akibat **penangkapan elektron** $\\rightarrow$ $\\text{Jumlah Elektron} = Z + m$
+
+---
+
+### 1. Karakteristik Tiga Partikel Dasar Subatomik
+
+| Partikel | Penemu & Tahun | Muatan Nyata (Coulomb) | Muatan Relatif | Massa Riil (kg) | Massa Riil (sma) | Lokasi dalam Atom |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Proton ($p$)** | Eugen Goldstein (1886) | $+1.602 \\times 10^{-19}\\text{ C}$ | $+1$ | $1.6726 \\times 10^{-27}$ | $1.0073\\text{ sma}$ | Inti atom (nukleus) |
+| **Neutron ($n$)** | James Chadwick (1932) | $0\\text{ C}$ (Netral) | $0$ | $1.6749 \\times 10^{-27}$ | $1.0087\\text{ sma}$ | Inti atom (nukleus) |
+| **Elektron ($e^-$)** | J.J. Thomson (1897) | $-1.602 \\times 10^{-19}\\text{ C}$ | $-1$ | $9.1094 \\times 10^{-31}$ | $0.00055\\text{ sma}$ | Orbital kulit luar inti |
+
+> [!NOTE]
+> ### 💡 Massa Inti vs Awan Elektron
+> Massa proton dan neutron hampir 1.836 kali lebih masif daripada massa elektron. Oleh karena itu, secara praktis **$99.95\\%$ massa atom terkonsentrasi mutlak di dalam inti**, sedangkan volume spasial atom hampir seluruhnya didominasi oleh ruang kosong lintasan elektron!
+
+---
+
+### 2. Kuartet Hubungan Kekerabatan Antar-Nuklida
+
+Dalam soal-soal kompetisi OSN, sering diuji kemampuan mengenali hubungan kekerabatan antar-spesi:
+
+| Istilah | Huruf Pengingat | Definisi Baku | Contoh Konkret Pasangan |
 | :--- | :--- | :--- | :--- |
-| **John Dalton (1803)** | Atom adalah partikel terkecil penyusun materi, berbentuk bola pejal homogen, tidak dapat diciptakan, dimusnahkan, atau dibagi lagi. Unsur yang sama memiliki atom identik. | Hukum Kekekalan Massa (Lavoisier) & Hukum Perbandingan Tetap (Proust). | Tidak dapat menjelaskan sifat kelistrikan materi, eksistensi partikel subatomik, serta adanya isotop. |
-| **J.J. Thomson (1897)** | Atom berbentuk bola pejal bermuatan positif seragam yang di dalamnya tersebar elektron bermuatan negatif bagaikan kismis dalam roti (*Plum Pudding Model*). Secara total atom bersifat netral. | Eksperimen tabung sinar katoda (*Cathode Ray Tube* / CRT); menentukan rasio muatan terhadap massa elektron: $\\frac{e}{m_e} = -1.7588 \\times 10^{11}\\text{ C/kg}$. | Tidak dapat menerangkan susunan muatan positif dan negatif serta jalur gerak elektron di dalam atom. |
-| **Ernest Rutherford (1911)** | Sebagian besar massa dan seluruh muatan positif atom terkonsentrasi pada wilayah terpusat yang amat kecil bernama **inti atom** ($r_{\\text{inti}} \\approx 10^{-15}\\text{ m}$). Elektron mengitari inti pada jarak relatif sangat jauh melintasi ruang hampa ($r_{\\text{atom}} \\approx 10^{-10}\\text{ m}$). | Eksperimen penembakan partikel alfa ($\\alpha = \\ce{^4_2He^2+}$) pada lempeng emas tipis ($0.00004\\text{ cm}$). Sebagian besar partikel tembus lurus, sedikit terbelokkan, dan sekitar $1$ dari $20.000$ dipantulkan kembali. | **Bertentangan dengan Elektrodinamika Klasik Maxwell:** Elektron bermuatan yang berakselerasi sentripetal seharusnya memancarkan radiasi elektromagnetik terus-menerus, kehilangan energi, dan runtuh spiral menabrak inti dalam waktu $\\approx 10^{-11}\\text{ detik}$. Selain itu tidak mampu menjelaskan spektrum garis emisi diskrit. |
-| **Niels Bohr (1913)** | Elektron mengitari inti hanya pada lintasan melingkar tertentu (**orbit stasioner**) tanpa memancarkan energi. Energi elektron terkuantisasi sesuai momentum sudut: $L = m_e v r = \\frac{n h}{2\\pi}$. Elektron hanya menyerap/memancarkan foton saat berpindah (*transisi kuantum*) antarkulit: $\\Delta E = h\\nu = \\frac{hc}{\\lambda}$. | Analisis spektrum garis diskrit emisi gas hidrogen terionisasi (Deret Lyman, Balmer, Paschen, Brackett, Pfund). | Hanya berlaku akurat untuk sistem berelektron tunggal (spesies hidrogenik: $\\ce{H}$, $\\ce{He+}$, $\\ce{Li^2+}$). Gagal menerangkan spektrum atom berelektron banyak, pembelahan garis spektrum akibat medan magnet (**Efek Zeeman**) atau medan listrik (**Efek Stark**), serta menyalahi asas ketidakpastian. |
-| **Erwin Schrödinger & Mekanika Kuantum (1926)** | Elektron tidak bergerak pada lintasan pasti (orbit), melainkan terdistribusi sebagai gelombang materi. Posisi elektron dinyatakan sebagai daerah kebolehjadian terbesar menemukan elektron yang disebut **orbital** (awan elektron). | Hipotesis dualisme gelombang-partikel De Broglie dan Asas Ketidakpastian Heisenberg. Persamaan gelombang Schrödinger: $\\hat{H}\\psi = E\\psi$. | Sangat kompleks secara matematis; solusi analitis eksak hanya tersedia untuk atom hidrogen, sedangkan atom berelektron banyak memerlukan kalkulasi komputasi numerik aproksimasi. |
+| **Isotop** | **p** = Proton sama | Unsur sama ($Z$ sama), jumlah neutron beda ($A$ beda). | $\\ce{^{12}_6C}$ ($6p, 6n$) dan $\\ce{^{14}_6C}$ ($6p, 8n$) |
+| **Isobar** | **a** = Angka massa sama | Unsur berbeda ($Z$ beda), nomor massa $A$ persis sama. | $\\ce{^{14}_6C}$ ($A=14$) dan $\\ce{^{14}_7N}$ ($A=14$) |
+| **Isoton** | **n** = Neutron sama | Unsur beda ($Z$ beda), jumlah neutron ($A-Z$) persis sama. | $\\ce{^{31}_{15}P}$ ($16n$) dan $\\ce{^{32}_{16}S}$ ($16n$) |
+| **Isoelektronik** | **e** = Elektron sama | Spesi atom atau ion berbeda dengan jumlah total elektron identik. | $\\ce{N^3-}, \\ce{O^2-}, \\ce{F-}, \\ce{Ne}, \\ce{Na+}, \\ce{Mg^2+}$ (Semua memiliki $10e^-$) |
 
 ---
 
-### 2. Spektrum Emisi Hidrogen & Kuantisasi Energi
+### 3. Spektrometri Massa & Kalkulasi Massa Atom Relatif ($A_r$)
 
-Niels Bohr merumuskan bahwa energi elektron pada kulit ke-$n$ ($n = 1, 2, 3, \\dots$) pada atom hidrogen mengikuti persamaan terkuantisasi:
-$$E_n = -\\frac{R_H}{n^2} = -\\frac{2.179 \\times 10^{-18}\\text{ J}}{n^2} = -\\frac{13.6\\text{ eV}}{n^2}$$
+Sebagian besar unsur di bumi hadir sebagai campuran beberapa isotop stabil alami. Spektrometer massa (*mass spectrometer*) memisahkan ion-ion isotop berdasarkan rasio massa-terhadap-muatan ($m/z$) dan mendeteksi intensitas relatifnya.
 
-Tanda negatif mengindikasikan bahwa elektron terikat secara elektrostatik oleh inti atom. Keadaan dengan energi terendah ($n = 1$) disebut **keadaan dasar (*ground state*)**, sedangkan kulit yang lebih tinggi ($n > 1$) disebut **keadaan tereksitasi (*excited state*)**.
+Massa atom relatif ($A_r$) standar pada Tabel Periodik bukanlah massa dari satu atom tunggal, melainkan **rata-rata tertimbang (*weighted average*)** dari seluruh isotop stabilnya di alam:
 
-Ketika elektron melompat dari tingkat energi tinggi ($n_2$) ke tingkat energi lebih rendah ($n_1$), dipancarkan foton diskrit dengan panjang gelombang ($\\lambda$) menurut **Persamaan Rydberg**:
-$$\\frac{1}{\\lambda} = R_{\\infty} \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right) \\quad \\text{di mana } R_{\\infty} = 1.097373 \\times 10^7\\text{ m}^{-1}$$
+$$A_r(X) = \\sum_{i=1}^{k} \\left( \\frac{\\%\\text{Kelimpahan}_i}{100} \\times m_i \\right) = \\frac{(\\%_1 \\times m_1) + (\\%_2 \\times m_2) + \\dots + (\\%_k \\times m_k)}{100}$$
 
-- **Deret Lyman ($n_1 = 1, n_2 = 2, 3, 4, \\dots$):** Spektrum pada daerah Ultraviolet (UV).
-- **Deret Balmer ($n_1 = 2, n_2 = 3, 4, 5, \\dots$):** Spektrum pada daerah Sinar Tampak (*Visible Light*), menghasilkan garis warna merah ($656\\text{ nm}$), biru-kehijauan ($486\\text{ nm}$), biru ($434\\text{ nm}$), dan violet ($410\\text{ nm}$).
-- **Deret Paschen ($n_1 = 3$), Brackett ($n_1 = 4$), Pfund ($n_1 = 5$):** Spektrum pada daerah Inframerah (*Infrared* / IR).
+> [!TIP]
+> ### 💡 Analogi Timbangan Belanja Buah
+> Jika Anda membeli jeruk dengan $75\\%$ jeruk besar (bobot $100\\text{ g}$) dan $25\\%$ jeruk kecil (bobot $80\\text{ g}$), maka rata-rata bobot sebuah jeruk adalah:
+> $$\\bar{m} = (0.75 \\times 100) + (0.25 \\times 80) = 75 + 20 = 95\\text{ g}$$
+> Begitulah persisnya cara para kimiawan menentukan bahwa $A_r$ Klorin adalah $35.45\\text{ sma}$ (dari campuran alami $75.77\\% \\ce{^{35}Cl}$ dan $24.23\\% \\ce{^{37}Cl}$).`,
+      keyFormulas: [
+        { name: 'Kuantitas Neutron dalam Inti', formula: 'N = A - Z' },
+        { name: 'Jumlah Elektron Spesi Bermuatan', formula: 'e^- = Z - q' },
+        { name: 'Massa Atom Relatif Rata-rata Tertimbang', formula: 'A_r(X) = \\sum_{i=1}^n \\left( f_i \\times m_i \\right) = \\frac{\\sum (\\%_i \\times m_i)}{100}' },
+      ],
+    },
+  ],
 
----
+  core_concepts: [
+    {
+      tag: 'bilangan-kuantum-dan-orbital',
+      tags: [
+        'empat-bilangan-kuantum',
+        'geometri-orbital-spdf',
+        'apartemen-hotel-elektron',
+      ],
+      title: 'Konsep Inti 1: Empat Bilangan Kuantum & Karakteristik Geometri Spasial Orbital (s, p, d, f)',
+      summary: 'Kajian arsitektur orbital melalui analogi intuitif Apartemen Hotel Elektron: bilangan kuantum utama (n), azimut (l), magnetik (ml), dan spin (ms) sebagai koordinat alamat spasial kebolehjadian elektron.',
+      content: `### 🏨 Alamat Lengkap Apartemen Hotel Elektron (Mental Model)
 
-### 3. Tonggak Transisi Menuju Mekanika Gelombang Modern
+Bagaimana cara kurir paket menemukan Anda di hotel mewah bertingkat? Kurir memerlukan 4 informasi spesifik:
+1. **Nomor Lantai** tempat kamar Anda berada.
+2. **Tipe Kamar** (Standard, Presidential, Deluxe, Family).
+3. **Nomor Ranjang/Arah Pintu** di dalam kamar tersebut.
+4. **Posisi Tidur Anda** di ranjang (kepala menghadap utara atau selatan).
 
-Model kuantum modern bertumpu pada dua postulat fundamental fisika kuantum abad ke-20:
-1. **Hipotesis Dualisme Partikel-Gelombang Louis de Broglie (1924):**  
-   Setiap materi yang bergerak memiliki sifat gelombang materi dengan panjang gelombang yang berbanding terbalik dengan momentumnya:
-   $$\\lambda = \\frac{h}{p} = \\frac{h}{m v}$$
-   Bagi benda makroskopis bermassa besar, $\\lambda$ sangat kecil hingga tak terdeteksi. Namun bagi elektron ($m_e \\approx 9.11 \\times 10^{-31}\\text{ kg}$), panjang gelombang materi memiliki orde nanometer yang sebanding dengan dimensi atomik.
-2. **Asas Ketidakpastian Werner Heisenberg (1927):**  
-   Mustahil menentukan posisi ($x$) dan momentum linear ($p$) suatu partikel subatomik secara simultan dengan ketelitian mutlak. Hubungan ketidakpastian dinyatakan oleh:
-   $$\\Delta x \\cdot \\Delta p \\ge \\frac{h}{4\\pi} = \\frac{\\hbar}{2}$$
-   Oleh karena posisi dan lintasan pasti elektron tidak dapat dilacak tanpa mengubah momentumnya, konsep "lintasan orbit" model Bohr gugur dan digantikan oleh konsep **kebolehjadian statistik (*probability density*, $|\\psi|^2$)** yang mendefinisikan ruang orbital.`,
-        keyFormulas: [
-          { name: 'Energi Kuantisasi Bohr', formula: 'E_n = -\\frac{2.179 \\times 10^{-18}\\text{ J}}{n^2} = -\\frac{13.6\\text{ eV}}{n^2}' },
-          { name: 'Persamaan Rydberg Spektrum Emisi', formula: '\\frac{1}{\\lambda} = R_{\\infty} \\left( \\frac{1}{n_1^2} - \\frac{1}{n_2^2} \\right)' },
-          { name: 'Panjang Gelombang De Broglie', formula: '\\lambda = \\frac{h}{m v}' },
-          { name: 'Asas Ketidakpastian Heisenberg', formula: '\\Delta x \\cdot \\Delta p \\ge \\frac{h}{4\\pi}' },
-        ],
-      },
-      {
-        tag: 'partikel-subatom-nuklida-kelimpahan',
-        tags: [
-          'partikel-subatom-proton-elektron-neutron',
-          'notasi-nuklida-atom-dan-ion',
-          'isotop-isobar-isoton-isoelektron',
-          'kelimpahan-isotop-dan-ar',
-        ],
-        title: 'Prasyarat 2: Partikel Dasar Subatomik, Notasi Nuklida & Penentuan Massa Atom Relatif (Ar)',
-        summary: 'Kajian komparatif massa dan muatan proton, neutron, elektron, formulasi notasi nuklida ionik, taksonomi 4 kelompok nuklida, serta kalkulasi bobot atom relatif terbobot kelimpahan isotop.',
-        content: `Massa sebuah atom terkonsentrasi hampir seluruhnya ($> 99.95\\%$) pada inti atom, sementara volume spasial atom didominasi oleh ruang jelajah awan elektron.
+Dalam mekanika kuantum, setiap elektron di dalam atom memiliki alamat unik berupa **Empat Bilangan Kuantum**:
 
-### 1. Karakteristik Partikel Dasar Penyusun Atom
-
-| Partikel Dasar | Simbol | Penemu & Tahun | Muatan Absolut (Coulomb) | Muatan Relatif | Massa Riil (kg) | Massa Riil (sma) | Lokasi dalam Atom |
-| :--- | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Proton** | $p^+$ atau $\\ce{^1_1p}$ | Eugen Goldstein (1886) & Rutherford (1919) | $+1.6022 \\times 10^{-19}\\text{ C}$ | $+1$ | $1.6726 \\times 10^{-27}$ | $1.00728$ | Inti Atom (*Nukleon*) |
-| **Neutron** | $n^0$ atau $\\ce{^1_0n}$ | James Chadwick (1932) | $0\\text{ C}$ (Netral) | $0$ | $1.6749 \\times 10^{-27}$ | $1.00866$ | Inti Atom (*Nukleon*) |
-| **Elektron** | $e^-$ atau $\\ce{^0_{-1}e}$ | J.J. Thomson (1897) | $-1.6022 \\times 10^{-19}\\text{ C}$ | $-1$ | $9.1094 \\times 10^{-31}$ | $0.00055$ | Kulit Atom / Orbital |
-
-*Catatan Massa:* Massa proton $\\approx$ massa neutron $\\approx 1836 \\times$ massa elektron. Oleh karena massa elektron sangat kecil, kontribusi massa elektron dapat diabaikan dalam penghitungan nomor massa atom.
+| Bilangan Kuantum | Simbol | Analogi Hotel | Nilai yang Diizinkan Secara Fisika | Makna Fisis pada Atom |
+| :--- | :---: | :--- | :--- | :--- |
+| **Utama** (*Principal*) | $n$ | Nomor Lantai | $n = 1, 2, 3, 4, 5, \\dots$ (Bilangan bulat positif) | Menentukan **tingkat energi utama** (kulit atom: K, L, M, N...) dan jarak rata-rata elektron dari inti atom. |
+| **Azimut / Orbital** (*Angular Momentum*) | $l$ | Tipe Kamar | $l = 0, 1, 2, \\dots, (n-1)$ | Menentukan **bentuk geometri spasial orbital** (subkulit): $l=0 (s)$, $l=1 (p)$, $l=2 (d)$, $l=3 (f)$. |
+| **Magnetik** (*Magnetic*) | $m_l$ | Nomor Ranjang / Orientasi Kamar | $m_l = -l, \\dots, 0, \\dots, +l$ (Ada $2l + 1$ nilai) | Menentukan **orientasi spasial 3D orbital** terhadap sumbu kartesius $(x, y, z)$. |
+| **Spin** (*Spin Projection*) | $m_s$ | Posisi Kepala Tamu di Ranjang | $m_s = +\\frac{1}{2}$ ($\\uparrow$, searah jarum jam) atau $-\\frac{1}{2}$ ($\\downarrow$, berlawanan) | Menentukan arah **momentum sudut intrinsik rotasi spin** elektron terhadap porosnya. |
 
 ---
 
-### 2. Notasi Nuklida Standar Lengkap
+### 1. Karakteristik & Geometri Bentuk Orbital
 
-Spesies nuklir tunggal dari suatu unsur dilambangkan secara formal:
-$$\\ce{^{A}_{Z}X^q}$$
-
-Di mana:
-- **$X$**: Lambang kimiawi unsur (misal: $\\ce{C}$, $\\ce{Fe}$, $\\ce{U}$).
-- **$Z$**: **Nomor Atom (*Atomic Number*)** = Jumlah proton dalam inti atom. Nomor atom adalah identitas kimia unik setiap unsur (menentukan posisi unsur dalam tabel periodik).
-- **$A$**: **Nomor Massa (*Mass Number*)** = Jumlah total partikel nukleon (proton + neutron) dalam inti atom:
-  $$A = Z + N \\implies N = A - Z$$
-- **$q$**: **Muatan Bersih (*Net Charge*)** spesifik:
-  - Pada **Atom Netral** ($q = 0$): $\\text{Jumlah Elektron} = \\text{Jumlah Proton} = Z$.
-  - Pada **Kation** (ion positif, $q = +n$): Atom kehilangan $n$ elektron: $\\text{Jumlah Elektron} = Z - n$.
-  - Pada **Anion** (ion negatif, $q = -m$): Atom menangkap $m$ elektron: $\\text{Jumlah Elektron} = Z + m$.
-
----
-
-### 3. Taksonomi 4 Hubungan Antar-Nuklida
-
-| Kelompok | Ciri Khas Pembeda | Syarat Kunci | Contoh Pasangan Nyata |
-| :--- | :--- | :--- | :--- |
-| **Isotop** | Unsur **sama**, sifat kimia identik, sifat fisika (massa, titik didih, kestabilan radioaktif) berbeda. | Nomor atom **$Z$ sama**, nomor massa **$A$ beda**. | $\\ce{^{12}_6C}$, $\\ce{^{13}_6C}$, dan $\\ce{^{14}_6C}$ (radioisotop penanggalan karbon). $\\ce{^1_1H}$ (protium), $\\ce{^2_1H}$ (deuterium), $\\ce{^3_1H}$ (tritium). |
-| **Isobar** | Unsur **berbeda**, sifat kimia berbeda total, namun memiliki massa total nukleon yang hampir setara. | Nomor massa **$A$ sama**, nomor atom **$Z$ beda**. | $\\ce{^{14}_6C}$ dan $\\ce{^{14}_7N}$ (keduanya bernomor massa $14$). $\\ce{^{40}_{19}K}$, $\\ce{^{40}_{20}Ca}$, dan $\\ce{^{40}_{18}Ar}$. |
-| **Isoton** | Unsur berbeda dengan komposisi neutron inti yang identik. | Jumlah neutron **$N = (A - Z)$ sama**, $Z$ dan $A$ beda. | $\\ce{^{31}_{15}P}$ ($N = 31 - 15 = 16$) dan $\\ce{^{32}_{16}S}$ ($N = 32 - 16 = 16$). $\\ce{^{13}_6C}$ ($N = 7$) dan $\\ce{^{14}_7N}$ ($N = 7$). |
-| **Isoelektron** | Spesies atom atau ion berbeda yang memiliki jumlah total elektron dan konfigurasi elektron yang identik. | **Jumlah elektron sama**. | Kation $\\ce{_{11}Na+}$, $\\ce{_{12}Mg^2+}$, $\\ce{_{13}Al^3+}$, atom gas mulia $\\ce{_{10}Ne}$, serta anion $\\ce{_9F-}$, $\\ce{_8O^2-}$, $\\ce{_7N^3-}$. Seluruhnya memiliki tepat **$10$ elektron** ($1s^2 2s^2 2p^6$). |
+1. **Orbital $s$ ($l = 0$):**
+   - Nilai $m_l = 0$ (Hanya ada **1 orbital** per subkulit).
+   - Bentuk: **Bola simetris (*spherical*)**. Peluang menemukan elektron sama ke segala arah tanpa orientasi sumbu tertentu.
+   - Kapasitas: Maksimum menampung **2 elektron**.
+2. **Orbital $p$ ($l = 1$):**
+   - Nilai $m_l = -1, 0, +1$ (Ada **3 orbital**: $p_x, p_y, p_z$).
+   - Bentuk: **Dua cuping balon terpilin (*dumbbell/bilobed*)** yang saling tegak lurus sepanjang sumbu $x, y, z$ dengan sebuah bidang simpul (*nodal plane*) di pusat inti bernilai nol peluang.
+   - Kapasitas: Maksimum menampung $3 \\times 2 = \\mathbf{6\\text{ elektron}}$.
+3. **Orbital $d$ ($l = 2$):**
+   - Nilai $m_l = -2, -1, 0, +1, +2$ (Ada **5 orbital**: $d_{xy}, d_{yz}, d_{xz}, d_{x^2-y^2}, d_{z^2}$).
+   - Bentuk: Semanggi empat daun (*cloverleaf*) untuk 4 orbital, dan sebuah dumbbell dengan cincin donat di pinggangnya untuk orbital $d_{z^2}$.
+   - Kapasitas: Maksimum menampung $5 \\times 2 = \\mathbf{10\\text{ elektron}}$.
+4. **Orbital $f$ ($l = 3$):**
+   - Nilai $m_l = -3, -2, -1, 0, +1, +2, +3$ (Ada **7 orbital** spasial multikubus kompleks).
+   - Kapasitas: Maksimum menampung $7 \\times 2 = \\mathbf{14\\text{ elektron}}$.
 
 ---
 
-### 4. Perhitungan Massa Atom Relatif ($A_r$) dari Kelimpahan Alami
+### 2. Algoritma 4 Langkah Menentukan Bilangan Kuantum Elektron Terakhir
 
-Di alam semesta, sebagian besar unsur hadir sebagai campuran beberapa isotop stabil dengan persentase kelimpahan fraksional tertentu. Massa atom yang tercantum pada tabel periodik bukanlah bilangan bulat nomor massa ($A$), melainkan **Massa Atom Relatif ($A_r$)**, yaitu nilai rata-rata tertimbang (*weighted average*) massa seluruh isotop alami terhadap standar $\\frac{1}{12}$ massa satu atom $\\ce{^{12}_6C}$ murni:
+Untuk menentukan kuartet bilangan kuantum $(n, l, m_l, m_s)$ dari notasi subkulit terakhir (misal $3p^4$):
 
-$$A_r(\\ce{X}) = \\sum_{i=1}^{k} \\left( \\frac{\\% \\text{Kelimpahan}_i}{100\\%} \\times m(\\text{Isotop}_i) \\right)$$
+1. **Langkah 1 (Nilai $n$):** Ambil angka koefisien di depan subkulit $\\rightarrow$ untuk $3p^4$, maka **$n = 3$**.
+2. **Langkah 2 (Nilai $l$):** Konversi huruf subkulit:
+   $$\\text{Huruf } s \\to l=0; \\quad p \\to l=1; \\quad d \\to l=2; \\quad f \\to l=3$$
+   Untuk $3p^4$, subkulitnya $p$, sehingga **$l = 1$**.
+3. **Langkah 3 (Nilai $m_l$):** Buat kotak orbital sebanyak $2l + 1$. Beri label dari $-l$ ke $+l$:
+   $$\\text{Kotak: } [\\quad]_{-1} \\quad [\\quad]_{0} \\quad [\\quad]_{+1}$$
+   Isi elektron satu per satu ke atas (Kaidah Hund):
+   - Elektron 1 di kotak $-1$ ($\\uparrow$)
+   - Elektron 2 di kotak $0$ ($\\uparrow$)
+   - Elektron 3 di kotak $+1$ ($\\uparrow$)
+   - Elektron 4 (elektron terakhir) berpasangan di kotak $-1$ ($\\downarrow$).
+   Maka kotak terakhir yang ditempati adalah kotak $-1$, sehingga **$m_l = -1$**.
+4. **Langkah 4 (Nilai $m_s$):** Perhatikan orientasi panah elektron terakhir:
+   - Panah menghadap ke atas ($\\uparrow$): $m_s = +\\frac{1}{2}$
+   - Panah menghadap ke bawah ($\\downarrow$): $m_s = -\\frac{1}{2}$
+   Karena elektron ke-4 berpanah ke bawah, maka **$m_s = -\\frac{1}{2}$**.
+   *Hasil Akhir:* Kuartet elektron terakhir $3p^4$ adalah **$(3, 1, -1, -\\frac{1}{2})$**.`,
+      keyFormulas: [
+        { name: 'Hubungan Bilangan Kuantum Azimut', formula: 'l \\in \\{0, 1, 2, \\dots, n-1\\}' },
+        { name: 'Jumlah Orbital dalam Subkulit', formula: '\\text{Jumlah Orbital} = 2l + 1' },
+        { name: 'Kapasitas Elektron Maksimum per Kulit', formula: '\\text{Maksimum } e^- = 2n^2' },
+      ],
+    },
 
-Atau jika dituliskan dalam fraksi mol kelimpahan ($f_i$ di mana $\\sum f_i = 1$):
-$$A_r(\\ce{X}) = f_1 \\cdot m_1 + f_2 \\cdot m_2 + \\dots + f_k \\cdot m_k$$
+    {
+      tag: 'kaidah-kuantum-dan-konfigurasi',
+      tags: [
+        'konfigurasi-elektron-aufbau',
+        'kaidah-hund-larangan-pauli',
+        'anomali-kestabilan-subkulit-d',
+        'pelepasan-elektron-4s-transisi',
+        'paramagnetik-dan-diamagnetik',
+      ],
+      title: 'Konsep Inti 2: Tiga Kaidah Kuantum Pengisian Elektron, Notasi Gas Mulia & Anomali Subkulit d',
+      summary: 'Kaidah fundamental penyusunan konfigurasi elektron: Asas Aufbau diagonal (n+l), Kaidah Hund ranjang terpisah, dan Larangan Pauli. Analisis anomali kestabilan d5/d10, aturan urutan pelepasan elektron ion transisi, serta kalkulasi momen magnetik spin.',
+      content: `### 🛎️ Tiga Aturan Emas Pengisian Hotel Elektron (Mental Model)
 
-Instrumen analitis modern yang digunakan untuk memisahkan isotop berdasarkan rasio massa terhadap muatan ($m/z$) dan mengukur persentase kelimpahannya secara presisi tinggi adalah **Spektrometer Massa (*Mass Spectrometer*)**.`,
-        keyFormulas: [
-          { name: 'Nomor Massa', formula: 'A = Z + N' },
-          { name: 'Jumlah Elektron Ion', formula: 'e = Z - q' },
-          { name: 'Massa Atom Relatif Terbobot (Ar)', formula: 'A_r(\\ce{X}) = \\sum \\left( \\frac{\\% \\text{Kelimpahan}_i}{100} \\times m_i \\right)' },
-        ],
-      },
-    ],
-    core_concepts: [
-      {
-        tag: 'empat-bilangan-kuantum-dan-orbital',
-        tags: [
-          'empat-bilangan-kuantum',
-          'geometri-orbital-spdf',
-          'mekanika-gelombang-schrodinger',
-        ],
-        title: 'Konsep Inti 1: Empat Bilangan Kuantum & Karakteristik Geometri Spasial Orbital (s, p, d, f)',
-        summary: 'Pemahaman mendalam fungsi gelombang elektron: bilangan kuantum utama (n), azimut (l), magnetik (ml), spin (ms), bentuk visual awan orbital, serta batas kapasitas elektron.',
-        content: `Dalam mekanika kuantum, keadaan setiap elektron di dalam atom ditentukan secara unik oleh satu set **empat bilangan kuantum** yang diturunkan dari solusi persamaan diferensial gelombang Schrödinger dan mekanika relativistik Dirac:
+Manajemen Hotel Elektron memberlakukan 3 aturan baku bagi seluruh tamu elektron yang mendaftar:
 
-### 1. Rincian Empat Bilangan Kuantum
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
+  <defs>
+    <filter id="hotelShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
 
-1. **Bilangan Kuantum Utama ($n$):**
-   - **Makna Fisik:** Menentukan tingkat energi utama (kulit elektron), jarak rata-rata elektron dari inti atom, dan ukuran spasial orbital.
-   - **Nilai yang Diizinkan:** Bilangan bulat positif: $n = 1, 2, 3, 4, 5, 6, 7, \\dots$
-   - **Notasi Kulit Tradisional:** $n = 1$ (Kulit K), $n = 2$ (Kulit L), $n = 3$ (Kulit M), $n = 4$ (Kulit N), $n = 5$ (Kulit O), dst.
-   - **Kapasitas Maksimal Elektron per Kulit:** Diatur oleh formula:
-     $$\\text{Kapasitas Maksimal Kulit } n = 2n^2$$
-     - Kulit K ($n=1$): maksimal $2(1)^2 = 2$ elektron.
-     - Kulit L ($n=2$): maksimal $2(2)^2 = 8$ elektron.
-     - Kulit M ($n=3$): maksimal $2(3)^2 = 18$ elektron.
-     - Kulit N ($n=4$): maksimal $2(4)^2 = 32$ elektron.
+  <!-- Title Banner -->
+  <g transform="translate(15, 10)">
+    <rect width="730" height="42" rx="8" fill="#1e293b" filter="url(#hotelShadow)"/>
+    <text x="365" y="22" text-anchor="middle" font-size="12.5" font-weight="800" fill="#f8fafc">APARTEMEN HOTEL ELEKTRON &amp; TANGGA TINGKAT ENERGI AUFBAU</text>
+    <text x="365" y="36" text-anchor="middle" font-size="9" font-weight="500" fill="#94a3b8">Lantai = Kulit (n) • Tipe Kamar = Subkulit (s, p, d, f) • Ranjang = Orbital (ml) • Tamu = Elektron Berpasangan Spin (+1/2, -1/2)</text>
+  </g>
 
-2. **Bilangan Kuantum Azimut / Momentum Sudut ($l$):**
-   - **Makna Fisik:** Menentukan subtingkat energi (subkulit) dan **bentuk geometri orbital** dalam ruang 3D.
-   - **Nilai yang Diizinkan:** Seluruh bilangan bulat dari $0$ hingga $(n - 1)$:
-     $$l = 0, 1, 2, \\dots, (n - 1)$$
-   - Jumlah subkulit pada kulit ke-$n$ tepat sama dengan nilai $n$.
-   - **Pelabelan Subkulit Spektroskopi:**
-     - $l = 0 \\to$ **Subkulit $s$** (*sharp*): bentuk simetri bola sferis ($1$ orbital).
-     - $l = 1 \\to$ **Subkulit $p$** (*principal*): bentuk balon terpilin dua cuping (*dumbbell*) ($3$ orbital).
-     - $l = 2 \\to$ **Subkulit $d$** (*diffuse*): bentuk daun semanggi empat cuping (*cloverleaf*) ($5$ orbital).
-     - $l = 3 \\to$ **Subkulit $f$** (*fundamental*): bentuk kompleks multi-cuping berdimensi tinggi ($7$ orbital).
+  <!-- Left: Building Floor Model -->
+  <g transform="translate(15, 62)">
+    <rect width="360" height="255" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
 
-3. **Bilangan Kuantum Magnetik ($m_l$):**
-   - **Makna Fisik:** Menentukan **orientasi spasial** orbital di dalam ruang tiga dimensi ketika dipengaruhi oleh medan magnet eksternal.
-   - **Nilai yang Diizinkan:** Seluruh bilangan bulat dari $-l$ melalui $0$ hingga $+l$:
-     $$m_l = -l, -(l-1), \\dots, 0, \\dots, +(l-1), +l$$
-   - **Jumlah Orbital per Subkulit:** Dihitung dengan rumus:
-     $$\\text{Jumlah Orbital} = 2l + 1$$
-     - Subkulit $s$ ($l=0$): $m_l = 0$ $\\implies 1$ orbital sferis.
-     - Subkulit $p$ ($l=1$): $m_l = -1, 0, +1$ $\\implies 3$ orbital saling tegak lurus ($p_x, p_y, p_z$).
-     - Subkulit $d$ ($l=2$): $m_l = -2, -1, 0, +1, +2$ $\\implies 5$ orbital ($d_{xy}, d_{yz}, d_{xz}, d_{x^2-y^2}, d_{z^2}$).
-     - Subkulit $f$ ($l=3$): $m_l = -3, -2, -1, 0, +1, +2, +3$ $\\implies 7$ orbital.
-   - **Jumlah Total Orbital pada Kulit ke-$n$:** Tepat sama dengan $n^2$.
+    <!-- Floor 4 -->
+    <rect x="15" y="15" width="330" height="48" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="25" y="32" font-size="10" font-weight="800" fill="#991b1b">LANTAI 4 (n=4):</text>
+    <rect x="120" y="24" width="28" height="22" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+    <text x="134" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#dc2626">4s²</text>
+    <rect x="154" y="24" width="58" height="22" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+    <text x="183" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#dc2626">4p⁶ (3k)</text>
+    <rect x="218" y="24" width="62" height="22" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+    <text x="249" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#dc2626">4d¹⁰ (5k)</text>
+    <rect x="286" y="24" width="50" height="22" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+    <text x="311" y="38" text-anchor="middle" font-size="8.5" font-weight="700" fill="#dc2626">4f¹⁴</text>
 
-4. **Bilangan Kuantum Spin ($m_s$):**
-   - **Makna Fisik:** Menentukan orientasi momentum sudut intrinsik perputaran (*spin*) elektron di sekitar porosnya sendiri.
-   - **Nilai yang Diizinkan:** Hanya ada dua nilai terkuantisasi:
-     $$m_s = +\\frac{1}{2} \\quad (\\text{spin up } \\uparrow) \\quad \\text{atau} \\quad m_s = -\\frac{1}{2} \\quad (\\text{spin down } \\downarrow)$$
-   - Akibat dari keberadaan dua nilai spin ini, setiap orbital tunggal dapat dihuni oleh **maksimum 2 elektron** dengan arah spin yang berlawanan.
+    <!-- Floor 3 -->
+    <rect x="15" y="73" width="330" height="48" rx="6" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/>
+    <text x="25" y="90" font-size="10" font-weight="800" fill="#92400e">LANTAI 3 (n=3):</text>
+    <rect x="120" y="82" width="28" height="22" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+    <text x="134" y="96" text-anchor="middle" font-size="8.5" font-weight="700" fill="#d97706">3s²</text>
+    <rect x="154" y="82" width="58" height="22" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+    <text x="183" y="96" text-anchor="middle" font-size="8.5" font-weight="700" fill="#d97706">3p⁶ (3k)</text>
+    <rect x="218" y="82" width="62" height="22" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+    <text x="249" y="96" text-anchor="middle" font-size="8.5" font-weight="700" fill="#d97706">3d¹⁰ (5k)</text>
 
----
+    <!-- Floor 2 -->
+    <rect x="15" y="131" width="330" height="48" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+    <text x="25" y="148" font-size="10" font-weight="800" fill="#1e40af">LANTAI 2 (n=2):</text>
+    <rect x="120" y="140" width="28" height="22" rx="3" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+    <text x="134" y="154" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2563eb">2s²</text>
+    <rect x="154" y="140" width="58" height="22" rx="3" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+    <text x="183" y="154" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2563eb">2p⁶ (3k)</text>
 
-### 2. Ringkasan Kapasitas Elektron Subkulit dan Orbital
+    <!-- Floor 1 -->
+    <rect x="15" y="189" width="330" height="48" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+    <text x="25" y="206" font-size="10" font-weight="800" fill="#166534">LANTAI 1 (n=1):</text>
+    <rect x="120" y="198" width="50" height="22" rx="3" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="145" y="212" text-anchor="middle" font-size="9" font-weight="800" fill="#16a34a">1s² (1k)</text>
+    <text x="200" y="212" font-size="8.5" font-style="italic" fill="#64748b">Tingkat Energi Terendah (Ground State)</text>
+  </g>
 
-| Subkulit | Nilai $l$ | Nilai $m_l$ yang Diizinkan | Jumlah Orbital ($2l+1$) | Kapasitas Elektron Maksimal ($2(2l+1)$) | Bentuk Geometri Orbital |
-| :---: | :---: | :---: | :---: | :---: | :--- |
-| **$s$** | $0$ | $0$ | $1$ | $2$ elektron | Sferis (Bola simetris tanpa simpul bidang) |
-| **$p$** | $1$ | $-1, 0, +1$ | $3$ | $6$ elektron | Balon terpilin dua cuping berporos pada sumbu $x, y, z$ |
-| **$d$** | $2$ | $-2, -1, 0, +1, +2$ | $5$ | $10$ elektron | Daun semanggi 4 cuping ($xy, yz, xz, x^2-y^2$) & cuping ganda berdonat ($z^2$) |
-| **$f$** | $3$ | $-3, -2, -1, 0, +1, +2, +3$ | $7$ | $14$ elektron | Kompleks 8 cuping ruang oktupolar |`,
-        keyFormulas: [
-          { name: 'Kapasitas Maksimal Elektron per Kulit', formula: '\\text{Maksimal Elektron} = 2n^2' },
-          { name: 'Jumlah Orbital per Kulit', formula: '\\text{Jumlah Orbital} = n^2' },
-          { name: 'Jumlah Orbital per Subkulit', formula: '\\text{Jumlah Orbital} = 2l + 1' },
-          { name: 'Kapasitas Maksimal Elektron Subkulit', formula: '\\text{Kapasitas Elektron} = 2(2l + 1)' },
-        ],
-      },
-      {
-        tag: 'kaidah-pengisian-elektron-anomali-dan-ion',
-        tags: [
-          'konfigurasi-elektron-aufbau',
-          'kaidah-hund-larangan-pauli',
-          'anomali-kestabilan-subkulit-d',
-          'konfigurasi-kation-dan-anion',
-          'paramagnetik-dan-diamagnetik',
-        ],
-        title: 'Konsep Inti 2: Tiga Kaidah Kuantum Pengisian Elektron, Notasi Gas Mulia & Anomali Subkulit d',
-        summary: 'Penerapan komprehensif Aturan Aufbau, Kaidah Hund, Prinsip Larangan Pauli, fenomena anomali kestabilan orbital d setengah penuh/penuh pada Cr dan Cu, serta konfigurasi kation/anion dan sifat kemagnetan.',
-        content: `Penyusunan elektron di dalam orbital atom pada keadaan dasar (*ground state*) diatur secara ketat oleh **Tiga Kaidah Kuantum Fundamental**:
+  <!-- Right: 3 Golden Rules Cards -->
+  <g transform="translate(390, 62)">
+    <rect width="355" height="255" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
 
-### 1. Tiga Kaidah Kuantum Konfigurasi Elektron
+    <!-- Rule 1: Aufbau -->
+    <g transform="translate(15, 12)">
+      <rect width="325" height="68" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="12" y="18" font-size="10" font-weight="800" fill="#0f172a">1. Asas Aufbau (Tarif Sewa Termurah)</text>
+      <text x="12" y="32" font-size="8.5" fill="#334155">Elektron wajib menempati orbital berenergi terendah (n + l)</text>
+      <text x="12" y="45" font-size="8.5" fill="#334155">terlebih dahulu sebelum naik ke tingkat lebih tinggi:</text>
+      <text x="12" y="60" font-size="8.5" font-weight="700" fill="#2563eb">1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d</text>
+    </g>
 
-1. **Prinsip Aufbau (*Madelung Energy Ordering Rule*):**
-   - Elektron mengisi orbital-orbital dimulai dari subkulit yang memiliki tingkat energi terendah menuju tingkat energi yang lebih tinggi.
-   - Tingkat energi subkulit ditentukan oleh nilai **$(n + l)$**:
-     - Subkulit dengan nilai $(n + l)$ lebih kecil memiliki energi lebih rendah.
-     - Jika dua subkulit memiliki nilai $(n + l)$ yang sama, subkulit dengan **nilai $n$ lebih kecil** yang terisi lebih dahulu.
-   - Urutan pengisian Aufbau mengikuti diagram diagonal:
-     $$1s \\to 2s \\to 2p \\to 3s \\to 3p \\to 4s \\to 3d \\to 4p \\to 5s \\to 4d \\to 5p \\to 6s \\to 4f \\to 5d \\to 6p \\to 7s \\to 5f \\to 6d \\to 7p$$
-     *(Contoh komparasi energi: Subkulit $4s$ memiliki $(n+l) = 4+0 = 4$, sedangkan subkulit $3d$ memiliki $(n+l) = 3+2 = 5$. Karena $4 < 5$, maka subkulit $4s$ terisi lebih dahulu daripada $3d$!)*
+    <!-- Rule 2: Hund -->
+    <g transform="translate(15, 90)">
+      <rect width="325" height="72" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="12" y="18" font-size="10" font-weight="800" fill="#0f172a">2. Kaidah Hund (Ranjang Sendiri Dulu)</text>
+      <text x="12" y="32" font-size="8.5" fill="#334155">Pada orbital degenerat (energi setara), elektron menempati</text>
+      <text x="12" y="45" font-size="8.5" fill="#334155">satu per satu dengan spin paralel (↑) sebelum berpasangan (↑↓).</text>
+      <text x="12" y="60" font-size="8.5" font-weight="700" fill="#16a34a">✓ [ ↑ ][ ↑ ][ ↑ ] (Stabil)  vs  ✗ [ ↑↓ ][ ↑ ][   ] (Tolak-menolak)</text>
+    </g>
 
-2. **Kaidah Hund (*Hund's Rule of Maximum Multiplicity*):**
-   - Pada orbital-orbital yang setingkat energinya (**orbital degenerat**, seperti ketiga orbital $p$ atau kelima orbital $d$), elektron menempati orbital secara sendiri-sendiri (*singly occupied*) dengan **arah spin sejajar / paralel ($m_s = +\\frac{1}{2}$)** terlebih dahulu sebelum berpasangan (*pairing*).
-   - *Rasionalisasi Termodinamika:* Mengisi orbital yang berbeda meminimalkan gaya tolak elektrostatik antar-elektron (*Coulomb repulsion*), sementara spin paralel memaksimalkan energi pertukaran kuantum (*quantum exchange energy*), menghasilkan konfigurasi yang paling stabil.
+    <!-- Rule 3: Pauli -->
+    <g transform="translate(15, 172)">
+      <rect width="325" height="70" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+      <text x="12" y="18" font-size="10" font-weight="800" fill="#0f172a">3. Larangan Pauli (Spin Berlawanan)</text>
+      <text x="12" y="32" font-size="8.5" fill="#334155">Tidak boleh ada 2 elektron memiliki keempat bilangan kuantum</text>
+      <text x="12" y="45" font-size="8.5" fill="#334155">identik. 1 orbital maksimal 2 elektron dengan spin antiparalel:</text>
+      <text x="12" y="60" font-size="8.5" font-weight="700" fill="#dc2626">ms = +½ (↑) dan ms = -½ (↓) → Maksimal 2e⁻ / orbital</text>
+    </g>
+  </g>
+</svg>
 
-3. **Prinsip Larangan Pauli (*Pauli's Exclusion Principle*):**
-   - Dalam sebuah atom, tidak boleh ada dua elektron yang memiliki keempat bilangan kuantum ($n, l, m_l, m_s$) yang identik.
-   - *Konsekuensi Langsung:* Jika dua elektron berada pada orbital yang sama (artinya nilai $n, l, m_l$ sama persis), maka kedua elektron tersebut wajib memiliki spin yang berlawanan arah ($m_s = +\\frac{1}{2}$ dan $m_s = -\\frac{1}{2}$, dilambangkan $\\uparrow\\downarrow$). Maka sebuah orbital maksimal hanya dapat menampung **2 elektron**.
+1. **Aturan Sewa Termurah (Asas Aufbau):**
+   Tamu selalu memesan kamar dengan harga sewa terendah terlebih dahulu. Dalam atom, elektron mengisi orbital dari tingkat energi terendah menuju tingkat energi tertinggi. Urutan energi ditentukan oleh aturan **$(n + l)$**:
+   - Jika nilai $(n + l)$ berbeda, orbital dengan $(n + l)$ lebih kecil terisi lebih dahulu.
+   - Jika nilai $(n + l)$ sama, orbital dengan nilai $n$ lebih kecil terisi lebih dahulu (misal $3d$ memiliki $n+l = 3+2 = 5$, sedangkan $4p$ memiliki $n+l = 4+1 = 5$; maka $3d$ terisi lebih dahulu).
+   - **Urutan Baku Diagonal:**
+     $$\\mathbf{1s \\to 2s \\to 2p \\to 3s \\to 3p \\to 4s \\to 3d \\to 4p \\to 5s \\to 4d \\to 5p \\to 6s \\to 4f \\to 5d \\to 6p \\to 7s}$$
 
----
+2. **Aturan Ranjang Sendiri Dulu (Kaidah Hund):**
+   Jika tersedia beberapa ranjang kosong dengan kelas kamar dan harga yang persis sama (*orbital degenerat* pada satu subkulit), tamu lebih memilih tidur di ranjang kosong sendiri dengan arah kepala yang sama (spin paralel $\\uparrow$) sebelum dipaksa berbagi ranjang dengan orang asing berpasangan (spin antiparalel $\\uparrow\\downarrow$).
+   *Tujuan fisis:* Meminimalkan energi tolak-menolak elektrostatik Coulomb antarelektron.
 
-### 2. Notasi Penyingkatan Menggunakan Gas Mulia
-
-Untuk efisiensi penulisan atom-atom bernomor atom besar, konfigurasi elektron kulit dalam (*core electrons*) disingkat menggunakan simbol unsur **Gas Mulia (Golongan VIIIA)** terdekat sebelumnya:
-- $[\\ce{He}]$ mewakili $1s^2$ (total 2 elektron)
-- $[\\ce{Ne}]$ mewakili $1s^2 2s^2 2p^6$ (total 10 elektron)
-- $[\\ce{Ar}]$ mewakili $1s^2 2s^2 2p^6 3s^2 3p^6$ (total 18 elektron)
-- $[\\ce{Kr}]$ mewakili $[\\ce{Ar}] 3d^{10} 4s^2 4p^6$ (total 36 elektron)
-- $[\\ce{Xe}]$ mewakili $[\\ce{Kr}] 4d^{10} 5s^2 5p^6$ (total 54 elektron)
-- $[\\ce{Rn}]$ mewakili $[\\ce{Xe}] 4f^{14} 5d^{10} 6s^2 6p^6$ (total 86 elektron)
-
-Contoh: Unsur Kalsium ($\\ce{_{20}Ca}$) dapat dituliskan ringkas: $[\\ce{Ar}]\\ 4s^2$.
-
----
-
-### 3. Fenomena Anomali Kestabilan Subkulit d Setengah Penuh ($d^5$) dan Penuh ($d^{10}$)
-
-Pada logam transisi periode 4, terdapat dua unsur yang menyimpang dari aturan baku Aufbau murni karena faktor kestabilan simetri orbital dan tingginya energi pertukaran (*exchange energy*):
-
-1. **Kromium ($\\ce{_{24}Cr}$):**
-   - *Konfigurasi Aufbau Teoretis:* $[\\ce{Ar}]\\ 4s^2\\ 3d^4$
-   - *Konfigurasi Eksperimen Sebenarnya:* **$[\\ce{Ar}]\\ 4s^1\\ 3d^5$**
-   - *Penjelasan:* Subkulit $3d^5$ adalah konfigurasi **setengah penuh (*half-filled*)** yang memiliki simetri bola seimbang dan jumlah pertukaran spin elektron paralel maksimum ($10$ jalur pertukaran), sehingga energinya lebih rendah (lebih stabil) daripada konfigurasi $4s^2 3d^4$. Satu elektron dari $4s$ dipromosikan ke $3d$.
-2. **Tembaga ($\\ce{_{29}Cu}$):**
-   - *Konfigurasi Aufbau Teoretis:* $[\\ce{Ar}]\\ 4s^2\\ 3d^9$
-   - *Konfigurasi Eksperimen Sebenarnya:* **$[\\ce{Ar}]\\ 4s^1\\ 3d^{10}$**
-   - *Penjelasan:* Subkulit $3d^{10}$ adalah konfigurasi **terisi penuh (*completely filled*)** yang memiliki stabilitas elektrostatik sangat tinggi dan simetri medan muatan sempurna. Satu elektron dari $4s$ berpindah melengkapi orbital $3d$.
-   - *(Anomali serupa juga dijumpai pada Molibdenum $\\ce{_{42}Mo}: [\\ce{Kr}] 5s^1 4d^5$ dan Perak $\\ce{_{47}Ag}: [\\ce{Kr}] 5s^1 4d^{10}$).*
+3. **Larangan Tamu Kembar Identik (Asas Larangan Pauli):**
+   Wolfgang Pauli membuktikan bahwa di alam semesta, **tidak boleh ada dua elektron dalam satu atom yang memiliki keempat bilangan kuantum ($n, l, m_l, m_s$) yang identik**. Karena satu orbital telah memiliki nilai $n, l, m_l$ yang tetap, maka dua elektron yang menempatinya wajib memiliki nilai $m_s$ yang berlawanan:
+   $$\\text{Satu Orbital Maksimum Berisi 2 Elektron dengan Spin Antiparalel } (\\uparrow\\downarrow)$$
 
 ---
 
-### 4. Kaidah Konfigurasi Elektron Pembentukan Ion
+### 1. Penyingkatan Konfigurasi Menggunakan Gas Mulia
 
-> [!IMPORTANT]
-> **Aturan Emas Pembentukan Kation Logam Transisi:**  
-> Ketika atom logam transisi membentuk ion positif (kation), elektron yang dilepaskan **SELALU BERASAL DARI KULIT DENGAN NILAI $n$ TERBESAR TERLEBIH DAHULU (subkulit $4s$), BUKAN dari subkulit yang terakhir diisi ($3d$)!**
+Untuk efisiensi penulisan, elektron kulit dalam yang stabil disingkat menggunakan simbol unsur Gas Mulia (Golongan VIIIA):
+- $\\ce{[He]} = 1s^2$ (2 elektron)
+- $\\ce{[Ne]} = 1s^2 2s^2 2p^6$ (10 elektron)
+- $\\ce{[Ar]} = [Ne] 3s^2 3p^6$ (18 elektron)
+- $\\ce{[Kr]} = [Ar] 3d^{10} 4s^2 4p^6$ (36 elektron)
+- $\\ce{[Xe]} = [Kr] 4d^{10} 5s^2 5p^6$ (54 elektron)
+- $\\ce{[Rn]} = [Xe] 4f^{14} 5d^{10} 6s^2 6p^6$ (86 elektron)
 
-- **Contoh Besi ($\\ce{_{26}Fe}$):**
-  - Atom netral $\\ce{Fe}$: $[\\ce{Ar}]\\ 4s^2\\ 3d^6$
-  - Kation $\\ce{Fe^2+}$ (melepas 2 elektron dari kulit terluar $4s$): **$[\\ce{Ar}]\\ 3d^6$** (bukan $[\\ce{Ar}] 4s^2 3d^4$!)
-  - Kation $\\ce{Fe^3+}$ (melepas 1 elektron lagi dari $3d$): **$[\\ce{Ar}]\\ 3d^5$** (mencapai kestabilan setengah penuh yang mantap).
-
----
-
-### 5. Sifat Kemagnetan Zat: Paramagnetik vs Diamagnetik
-
-- **Paramagnetik:** Atom, ion, atau molekul yang memiliki **minimal satu elektron tidak berpasangan** pada orbitalnya. Zat ini ditarik oleh medan magnet eksternal. Makin banyak jumlah elektron yang tidak berpasangan, makin kuat sifat paramagnetiknya.
-- **Diamagnetik:** Atom atau ion yang **seluruh elektronnya telah berpasangan** dalam orbital ($m_s = +\\frac{1}{2}$ dan $-\\frac{1}{2}$). Zat ini ditolak secara lemah oleh medan magnet luar (contoh: $\\ce{_{30}Zn}: [\\ce{Ar}] 4s^2 3d^{10}$ dan $\\ce{_{10}Ne}$).`,
-        keyFormulas: [
-          { name: 'Kaidah Energi Madelung Aufbau', formula: 'E \\propto (n + l)' },
-          { name: 'Konfigurasi Anomali Kromium', formula: '\\ce{_{24}Cr}: [\\ce{Ar}]\\ 4s^1\\ 3d^5' },
-          { name: 'Konfigurasi Anomali Tembaga', formula: '\\ce{_{29}Cu}: [\\ce{Ar}]\\ 4s^1\\ 3d^{10}' },
-        ],
-      },
-      {
-        tag: 'tabel-periodik-modern-blok-dan-letak',
-        tags: [
-          'sejarah-tabel-periodik',
-          'tabel-periodik-modern-moseley',
-          'penentuan-golongan-dan-periode',
-          'blok-s-p-d-f',
-        ],
-        title: 'Konsep Inti 3: Arsitektur Tabel Periodik Modern, Pembagian Blok s/p/d/f & Algoritma Letak Unsur',
-        summary: 'Evolusi dari Triade Dobereiner, Oktaf Newlands, dan Tabel Mendeleev menuju Hukum Periodik Moseley, klasifikasi 4 blok orbital, serta metode penentuan letak golongan dan periode secara tepat.',
-        content: `Sistem periodik unsur modern merupakan kristalisasi dari penelitian berabad-abad dalam mengelompokkan keteraturan sifat-sifat fisika dan kimiawi unsur alamiah.
-
-### 1. Lintasan Sejarah Perkembangan Sistem Periodik
-
-1. **Triade Johann Döbereiner (1829):**
-   Unsur-unsur dikelompokkan ke dalam kelompok berisi 3 unsur (*triade*) dengan kemiripan sifat kimia, di mana massa atom unsur tengah mendekati rata-rata aritmetika massa atom unsur pertama dan ketiga.
-   - Contoh Triade Klorin-Bromin-Iodin: $A_r(\\ce{Cl}) = 35.5$, $A_r(\\ce{I}) = 126.9$.  
-     Rata-rata: $\\frac{35.5 + 126.9}{2} = 81.2 \\approx A_r(\\ce{Br}) = 79.9$.
-2. **Hukum Oktaf John Newlands (1864):**
-   Jika unsur-unsur disusun berdasarkan kenaikan massa atomnya, maka sifat unsur akan berulang secara periodik pada unsur ke-$8$ (analog dengan tangga nada musik do-re-mi).  
-   *Kelemahan:* Hanya berlaku untuk unsur-unsur ringan ($Z \\le 20$, hingga Kalsium).
-3. **Tabel Periodik Dmitri Mendeleev & Lothar Meyer (1869):**
-   Menyusun unsur berdasarkan **kenaikan massa atom relatif ($A_r$)** dan kemiripan sifat kimia. Mendeleev secara brilian:
-   - Menyediakan celah kosong bagi unsur-unsur yang belum ditemukan saat itu dan meramalkan massa serta sifat kimianya dengan sangat presisi (seperti *Eka-Aluminium* yang terbukti sebagai Galium $\\ce{Ga}$, dan *Eka-Silikon* yang terbukti sebagai Germanium $\\ce{Ge}$).
-   - Membalik urutan beberapa pasang unsur (seperti Telurium $A_r=127.6$ sebelum Iodin $A_r=126.9$) demi mempertahankan keselarasan sifat kelompok golongan.
-4. **Hukum Periodik Modern Henry Moseley (1913):**
-   Melalui eksperimen spektrometri sinar-X frekuensi tinggi yang dipancarkan target logam ($\\sqrt{\\nu} = a(Z - b)$), Moseley membuktikan secara fisik bahwa sifat-sifat dasar unsur **merupakan fungsi periodik dari NOMOR ATOM ($Z$)**, bukan dari massa atom ($A_r$). Penemuan ini meluruskan anomali urutan pasangan Mendeleev.
+*Contoh:* Atom Besi ($\\ce{_{26}Fe}$) disingkat menjadi:
+$$\\ce{_{26}Fe}: \\mathbf{[Ar] 4s^2 3d^6}$$
 
 ---
 
-### 2. Pembagian Blok Tabel Periodik Berdasarkan Subkulit Terakhir
+> [!WARNING]
+> ### ⚠️ Miskonsepsi Fatal 1: Anomali Subkulit d Setengah Penuh ($d^5$) dan Penuh ($d^{10}$)
+> Aturan Aufbau memprediksi konfigurasi Kromium ($\\ce{_{24}Cr}$) adalah $[Ar] 4s^2 3d^4$ dan Tembaga ($\\ce{_{29}Cu}$) adalah $[Ar] 4s^2 3d^9$. **Ini keliru dalam kenyataan eksperimen!**
+> 
+> Karena orbital yang terisi **tepat setengah penuh ($d^5$)** atau **penuh ($d^{10}$)** memiliki simetri bola yang tinggi dan energi pertukaran kuantum (*exchange energy*) maksimal, satu elektron dari subkulit $4s$ dipromosikan ke subkulit $3d$:
+> - **Kromium ($\\ce{_{24}Cr}$):** Bukan $[Ar] 4s^2 3d^4$, melainkan $\\mathbf{[Ar] 4s^1 3d^5}$ *(Setengah penuh stabil)*
+> - **Tembaga ($\\ce{_{29}Cu}$):** Bukan $[Ar] 4s^2 3d^9$, melainkan $\\mathbf{[Ar] 4s^1 3d^{10}}$ *(Penuh stabil)*
+> - Anomali serupa terjadi pada Molibdenum ($\\ce{_{42}Mo}: [Kr] 5s^1 4d^5$) dan Perak ($\\ce{_{47}Ag}: [Kr] 5s^1 4d^{10}$).
 
-Tabel periodik modern terbagi menjadi empat blok utama berdasarkan subkulit orbital yang sedang diisi oleh elektron valensi terakhirnya:
+---
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+> [!WARNING]
+> ### ⚠️ Miskonsepsi Fatal 2: Urutan Pelepasan Elektron pada Kation Transisi
+> "Elektron yang terakhir masuk adalah elektron yang pertama kali keluar." **Pernyataan ini SALAH BESAR untuk logam transisi!**
+> 
+> Saat atom transisi membentuk kation positif, elektron dilepaskan dari **kulit dengan nomor utama ($n$) terbesar terlebih dahulu**, yaitu **subkulit $4s$ lepas SEBELUM $3d$**!
+> - Atom Netral Besi: $\\ce{_{26}Fe} = [Ar] 4s^2 3d^6$
+> - Kation $\\ce{Fe^2+}$: Lepas $2e^-$ dari $4s$ $\\rightarrow$ $\\mathbf{[Ar] 3d^6}$ *(Bukan $[Ar] 4s^2 3d^4$!)*
+> - Kation $\\ce{Fe^3+}$: Lepas $2e^-$ dari $4s$ dan $1e^-$ dari $3d$ $\\rightarrow$ $\\mathbf{[Ar] 3d^5}$
+
+---
+
+### 2. Sifat Kemagnetan Zat: Paramagnetik vs Diamagnetik
+
+Gerakan rotasi spin elektron menghasilkan momen dipol magnet mikroskopis.
+1. **Paramagnetik:** Senyawa/atom memiliki **minimal satu elektron tidak berpasangan** pada orbitalnya. Zat ini ditarik oleh medan magnet luar. Makin banyak elektron tak berpasangan ($n$), makin kuat sifat kemagnetannya.
+2. **Diamagnetik:** Seluruh elektron dalam atom berpasangan sempurna ($\\uparrow\\downarrow$). Momen magnet saling meniadakan sehingga zat ditolak lemah oleh medan magnet luar.
+
+Kekuatan medan magnet dinyatakan oleh rumus momen magnetik spin saja (*spin-only magnetic moment*):
+$$\\mu_{\\text{eff}} = \\sqrt{n(n + 2)} \\quad \\text{Bohr Magneton (BM)}$$
+dengan $n$ adalah jumlah elektron yang tidak berpasangan.`,
+      keyFormulas: [
+        { name: 'Kaidah Tingkat Energi Aufbau', formula: 'E \\propto (n + l)' },
+        { name: 'Momen Magnetik Spin Saja', formula: '\\mu_{\\text{eff}} = \\sqrt{n(n + 2)} \\quad \\text{BM}' },
+      ],
+    },
+
+    {
+      tag: 'arsitektur-tabel-periodik-modern',
+      tags: [
+        'sejarah-tabel-periodik',
+        'tabel-periodik-modern-moseley',
+        'penentuan-golongan-dan-periode',
+        'blok-s-p-d-f',
+      ],
+      title: 'Konsep Inti 3: Arsitektur Tabel Periodik Modern, Pembagian Blok s/p/d/f & Algoritma Letak Unsur',
+      summary: 'Struktur arsitektural sistem periodik modern berbasis hukum keperiodikan Henry Moseley. Pembagian 4 blok kuantum (s, p, d, f) dan algoritma deterministik penentuan posisi periode serta golongan unsur.',
+      content: `### 🗺️ Peta Kota Sistem Periodik Modern (Mental Model)
+
+Jika konfigurasi elektron adalah alamat kamar apartemen atom, maka Tabel Periodik Unsur adalah peta kota metropolitan yang mengelompokkan gedung-gedung apartemen tersebut berdasarkan kesamaan arsitektur dinding luarnya:
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <marker id="trendUp" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9 z" fill="#2563eb"/>
@@ -1710,10 +1745,10 @@ Tabel periodik modern terbagi menjadi empat blok utama berdasarkan subkulit orbi
     <text x="57" y="55" text-anchor="middle" font-size="8" font-family="monospace" fill="#059669">ns¹ – ns²</text>
     <line x1="12" y1="62" x2="103" y2="62" stroke="#a7f3d0" stroke-width="1"/>
     <text x="12" y="76" font-size="7.5" fill="#065f46">• Logam Alkali (IA)</text>
-    <text x="12" y="90" font-size="7.5" fill="#065f46">• Logam Alkali Tanah (IIA)</text>
-    <text x="12" y="104" font-size="7.5" fill="#065f46">• Sangat elektropositif</text>
-    <text x="12" y="118" font-size="7.5" fill="#065f46">• Reduktor kuat</text>
-    <text x="12" y="132" font-size="7.5" fill="#065f46">• Termasuk He (1s²)</text>
+    <text x="12" y="90" font-size="7.5" fill="#065f46">• Alkali Tanah (IIA)</text>
+    <text x="12" y="104" font-size="7.5" fill="#065f46">• Elektropositif tinggi</text>
+    <text x="12" y="118" font-size="7.5" fill="#065f46">• Reduktor terkuat</text>
+    <text x="12" y="132" font-size="7.5" fill="#065f46">• He (1s²) masuk s</text>
   </g>
 
   <!-- Block d (Columns 3-12) -->
@@ -1723,8 +1758,8 @@ Tabel periodik modern terbagi menjadi empat blok utama berdasarkan subkulit orbi
     <text x="160" y="40" text-anchor="middle" font-size="9" font-weight="700" fill="#b45309">Golongan IIIB s.d. IIB (Kolom IUPAC 3 – 12)</text>
     <text x="160" y="55" text-anchor="middle" font-size="8.5" font-family="monospace" fill="#78350f">(n-1)d¹⁻¹⁰ ns¹⁻²</text>
     <line x1="20" y1="62" x2="300" y2="62" stroke="#fde68a" stroke-width="1"/>
-    <text x="25" y="78" font-size="8" fill="#92400e">• Bilangan oksidasi bervariasi</text>
-    <text x="175" y="78" font-size="8" fill="#92400e">• Membentuk ion &amp; senyawa berwarna</text>
+    <text x="25" y="78" font-size="8" fill="#92400e">• Biloks bervariasi (+2, +3, +4...)</text>
+    <text x="175" y="78" font-size="8" fill="#92400e">• Membentuk ion kompleks berwarna</text>
     <text x="25" y="94" font-size="8" fill="#92400e">• Paramagnetik (elektron d tak berpasangan)</text>
     <text x="175" y="94" font-size="8" fill="#92400e">• Logam keras &amp; titik leleh tinggi</text>
   </g>
@@ -1750,7 +1785,7 @@ Tabel periodik modern terbagi menjadi empat blok utama berdasarkan subkulit orbi
     <rect width="480" height="52" rx="8" fill="#faf5ff" stroke="#a855f7" stroke-width="2"/>
     <text x="240" y="20" text-anchor="middle" font-size="11" font-weight="800" fill="#6b21a8">BLOK f (LOGAM TRANSISI DALAM)</text>
     <text x="240" y="34" text-anchor="middle" font-size="8" fill="#7e22ce">• Deret Lantanida (4f¹⁻¹⁴, Ce–Lu) &amp; Deret Aktinida (5f¹⁻¹⁴, Th–Lr)</text>
-    <text x="240" y="46" text-anchor="middle" font-size="8" fill="#9333ea">• Logam tanah jarang (rare earth) &amp; unsur radioaktif berat</text>
+    <text x="240" y="46" text-anchor="middle" font-size="8" fill="#9333ea">• Logam tanah jarang (rare earth) &amp; unsur aktinida radioaktif</text>
   </g>
 
   <!-- Trend Directional Indicators at Bottom -->
@@ -1758,451 +1793,505 @@ Tabel periodik modern terbagi menjadi empat blok utama berdasarkan subkulit orbi
     <rect width="350" height="34" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
     <line x1="330" y1="17" x2="20" y2="17" stroke="#16a34a" stroke-width="2" marker-end="url(#trendDown)"/>
     <text x="175" y="12" text-anchor="middle" font-size="8" font-weight="700" fill="#15803d">← MAKIN BESAR KE KIRI BAWAH:</text>
-    <text x="175" y="24" text-anchor="middle" font-size="7.5" font-weight="600" fill="#16a34a">Jari-Jari Atom • Sifat Logam • Daya Reduksi</text>
+    <text x="175" y="24" text-anchor="middle" font-size="7.5" font-weight="600" fill="#16a34a">Jari-Jari Atom (r) • Sifat Logam • Daya Reduksi (Reduktor)</text>
   </g>
 
   <g transform="translate(395, 226)">
     <rect width="350" height="34" rx="6" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
     <line x1="20" y1="17" x2="330" y2="17" stroke="#2563eb" stroke-width="2" marker-end="url(#trendUp)"/>
     <text x="175" y="12" text-anchor="middle" font-size="8" font-weight="700" fill="#1e40af">MAKIN BESAR KE KANAN ATAS: →</text>
-    <text x="175" y="24" text-anchor="middle" font-size="7.5" font-weight="600" fill="#2563eb">Energi Ionisasi • Afinitas Elektron • Keelektronegatifan</text>
+    <text x="175" y="24" text-anchor="middle" font-size="7.5" font-weight="600" fill="#2563eb">Energi Ionisasi (IE) • Afinitas Elektron (EA) • Keelektronegatifan (EN)</text>
   </g>
 </svg>
 
-- **Blok $s$ (Kolom 1-2):** Logam Alkali (IA, konfigurasi $ns^1$) dan Logam Alkali Tanah (IIA, konfigurasi $ns^2$), ditambah helium ($1s^2$). Bersifat elektropositif dan sangat reaktif.
-- **Blok $p$ (Kolom 13-18):** Mencakup golongan boron (IIIA: $ns^2 np^1$), karbon (IVA: $ns^2 np^2$), nitrogen/pniktogen (VA: $ns^2 np^3$), kalkogen (VIA: $ns^2 np^4$), halogen (VIIA: $ns^2 np^5$), dan gas mulia (VIIIA: $ns^2 np^6$). Mengandung logam miskin, metaloid, dan seluruh nonlogam sejati.
-- **Blok $d$ (Kolom 3-12):** Logam transisi dengan konfigurasi $ns^1-2 (n-1)d^{1-10}$. Memiliki bilangan oksidasi bervariasi dan senyawa berwarna.
-- **Blok $f$ (2 Baris Terpisah di Bawah):** Terdiri atas deret **Lantanida** ($4f$, unsur $57-71$) dan deret **Aktinida** ($5f$, unsur $89-103$). Dikenal sebagai unsur tanah jarang (*rare earth elements*) dan unsur radioaktif aktinida.
+---
+
+### 1. Landasan Hukum Moseley: Nomor Atom vs Massa Atom
+
+Dmitri Mendeleev (1869) menyusun tabel periodik pertama berdasarkan kenaikan massa atom relatif ($A_r$), namun menemukan anomali pembalikan posisi urutan seperti Tellurium ($A_r = 127.6$) yang harus diletakkan sebelum Iodin ($A_r = 126.9$).
+
+Teka-teki ini dipecahkan secara tuntas oleh **Henry Moseley (1913)** melalui eksperimen difraksi sinar-X karakteristik unsur:
+$$\\sqrt{\\nu} = a(Z - b)$$
+
+> [!NOTE]
+> ### 💡 Hukum Keperiodikan Modern Moseley
+> Sifat fisika dan kimia unsur-unsur merupakan fungsi periodik dari **nomor atomnya ($Z$)**, bukan dari massa atomnya. Kenaikan nomor atom mencerminkan penambahan bertahap satu proton di inti dan satu elektron pada konfigurasi kulit.
 
 ---
 
-### 3. Algoritma Baku Penentuan Golongan dan Periode
+### 2. Algoritma Baku Penentuan Periode & Golongan dari Konfigurasi
 
-Untuk menentukan letak suatu unsur pada tabel periodik dari konfigurasi elektronnya:
-1. **Penentuan Periode:**
-   $$\\text{Periode} = n_{\\text{maksimal}} \\quad (\\text{nilai bilangan kuantum utama terbesar pada konfigurasi})$$
-2. **Penentuan Golongan Utama (Golongan A - Blok $s$ dan Blok $p$):**
-   - Jika konfigurasi berakhir pada subkulit $s$:
-     - $ns^1 \\implies$ **Golongan IA** (Alkali)
-     - $ns^2 \\implies$ **Golongan IIA** (Alkali Tanah)
-   - Jika konfigurasi berakhir pada subkulit $p$:
-     $$\\text{Nomor Golongan} = (2 + x)\\text{A} \\quad \\text{dari konfigurasi } ns^2 np^x$$
-     *(Contoh: $3s^2 3p^4 \\implies 2 + 4 = 6 \\implies$ Golongan VIA / IUPAC Grup 16).*
-3. **Penentuan Golongan Transisi (Golongan B - Blok $d$):**
-   - Ditentukan dari jumlah total elektron pada subkulit $ns$ dan $(n-1)d$:
-     $$\\text{Jumlah Elektron } (s + d)$$
-   - Aturan Konvensi Golongan B:
-     - $s + d = 3 \\implies$ **Golongan IIIB** (IUPAC Kolom 3)
-     - $s + d = 4 \\implies$ **Golongan IVB** (IUPAC Kolom 4)
-     - $s + d = 5 \\implies$ **Golongan VB** (IUPAC Kolom 5)
-     - $s + d = 6 \\implies$ **Golongan VIB** (IUPAC Kolom 6)
-     - $s + d = 7 \\implies$ **Golongan VIIB** (IUPAC Kolom 7)
-     - $s + d = 8, 9, 10 \\implies$ **Golongan VIIIB** (IUPAC Kolom 8, 9, 10: mencakup triad $\\ce{Fe-Co-Ni}$)
-     - $s + d = 11 \\implies$ **Golongan IB** (IUPAC Kolom 11: logam uang $\\ce{Cu, Ag, Au}$, konfigurasi $ns^1 (n-1)d^{10}$)
-     - $s + d = 12 \\implies$ **Golongan IIB** (IUPAC Kolom 12: $\\ce{Zn, Cd, Hg}$, konfigurasi $ns^2 (n-1)d^{10}$)`,
-        keyFormulas: [
-          { name: 'Penentuan Periode', formula: '\\text{Periode} = n_{\\text{maksimal}}' },
-          { name: 'Golongan Utama Blok p', formula: '\\text{Golongan} = (2 + x)\\text{A} \\quad (ns^2 np^x)' },
-          { name: 'Golongan Transisi Blok d', formula: '\\text{Golongan} = [\\text{elektron } ns + (n-1)d]\\text{B}' },
-        ],
-      },
-      {
-        tag: 'tren-sifat-keperiodikan-unsur',
-        tags: [
-          'muatan-inti-efektif-zeff',
-          'tren-jari-jari-atom-dan-ion',
-          'deret-isoelektronik',
-          'energi-ionisasi-pertama-dan-anomali',
-          'energi-ionisasi-bertingkat',
-          'afinitas-elektron-dan-anomali',
-          'keelektronegatifan-skala-pauling',
-          'sifat-logam-dan-nonlogam',
-        ],
-        title: 'Konsep Inti 4: Tren Periodik Sifat Fisika-Kimia & Teori Muatan Inti Efektif (Zeff)',
-        summary: 'Rasionalisasi ilmiah tren periodisitas: muatan inti efektif (Zeff), perbandingan ukuran jari-jari atom/ion/deret isoelektronik, energi ionisasi pertama & anomali subkulit stabil, pola lonjakan energi bertingkat, afinitas elektron, keelektronegatifan, dan reaktivitas kimia.',
-        content: `Seluruh variasi sifat periodik unsur bukanlah sekadar pola hafalan, melainkan konsekuensi logis dari dua besaran fundamental: **Jumlah Kulit Elektron ($n$)** dan **Muatan Inti Efektif ($Z_{\\text{eff}}$)**.
+Untuk menentukan letak unsur dalam SPU dari konfigurasi elektron atom netral:
 
-### 1. Konsep Dasar: Muatan Inti Efektif ($Z_{\\text{eff}}$) dan Efek Perisai
+#### A. Penentuan Periode:
+$$\\mathbf{\\text{Periode}} = \\text{Nilai } n \\text{ (bilangan kuantum utama) TERBESAR dalam konfigurasi}$$
 
-Elektron-elektron pada kulit luar tidak merasakan tarikan penuh dari seluruh muatan positif inti ($Z$), karena sebagian medan elektrostatik inti dihalangi / ditangkal oleh awan elektron pada kulit bagian dalam (*core electrons*). Fenomena peredaman ini disebut **Efek Perisai (*Shielding / Screening Effect*, $S$)**:
+#### B. Penentuan Blok & Golongan:
+Lihat subkulit terakhir tempat elektron valensi berada:
+
+1. **Blok $s$ (Subkulit Terakhir $ns^x$):**
+   - $x = 1 \\rightarrow$ **Golongan IA** (Logam Alkali / Kolom 1 IUPAC)
+   - $x = 2 \\rightarrow$ **Golongan IIA** (Logam Alkali Tanah / Kolom 2 IUPAC) *(Kecuali Helium $1s^2$ yang diletakkan di Golongan VIIIA karena sifat gas mulianya)*
+2. **Blok $p$ (Subkulit Terakhir $ns^2 np^x$):**
+   - Jumlah elektron valensi $= 2 + x$
+   - **Golongan $(2 + x)\\text{A}$** atau Kolom $(12 + x)$ IUPAC
+   - *Contoh:* $3s^2 3p^4 \\rightarrow$ Elektron valensi $= 2+4 = 6 \\rightarrow$ **Golongan VIA** (Kolom 16 IUPAC), Periode 3.
+3. **Blok $d$ (Subkulit Terakhir $(n-1)d^x ns^y$):**
+   - Jumlah elektron terluar $= x + y$
+   - Aturan Golongan B (Logam Transisi Luar / Kolom 3–12 IUPAC):
+     - $x + y = 3 \\rightarrow$ **Golongan IIIB** (Kolom 3)
+     - $x + y = 4 \\rightarrow$ **Golongan IVB** (Kolom 4)
+     - $x + y = 5 \\rightarrow$ **Golongan VB** (Kolom 5)
+     - $x + y = 6 \\rightarrow$ **Golongan VIB** (Kolom 6) *(misal $\\ce{Cr}: 3d^5 4s^1$)*
+     - $x + y = 7 \\rightarrow$ **Golongan VIIB** (Kolom 7)
+     - $x + y = 8, 9, 10 \\rightarrow$ **Golongan VIIIB** (Kolom 8, 9, 10 IUPAC, Triad Besi-Kobalt-Nikel)
+     - $x + y = 11 \\rightarrow$ **Golongan IB** (Kolom 11, Logam Mata Uang: Cu, Ag, Au)
+     - $x + y = 12 \\rightarrow$ **Golongan IIB** (Kolom 12: Zn, Cd, Hg)
+4. **Blok $f$ (Subkulit Terakhir $(n-2)f^x$):**
+   - Seluruh unsur blok $f$ secara otomatis berada pada **Golongan IIIB** (Kolom 3 IUPAC).
+   - $4f$ terisi $\\rightarrow$ **Deret Lantanida** (Periode 6, $\\ce{_{57}La}$ s.d. $\\ce{_{71}Lu}$)
+   - $5f$ terisi $\\rightarrow$ **Deret Aktinida** (Periode 7, $\\ce{_{89}Ac}$ s.d. $\\ce{_{103}Lr}$)`,
+      keyFormulas: [
+        { name: 'Hukum Frekuensi Sinar-X Moseley', formula: '\\sqrt{\\nu} = a(Z - b)' },
+        { name: 'Nomor Periode Unsur', formula: '\\text{Periode} = n_{\\text{maks}}' },
+      ],
+    },
+
+    {
+      tag: 'tren-keperiodikan-dan-zeff',
+      tags: [
+        'muatan-inti-efektif-zeff',
+        'efek-perisai-elektron',
+        'tren-jari-jari-atom-dan-ion',
+        'deret-isoelektronik',
+        'energi-ionisasi-pertama-dan-anomali',
+        'anomali-energi-ionisasi-be-b-n-o',
+        'energi-ionisasi-bertingkat',
+        'afinitas-elektron-dan-anomali',
+        'anomali-afinitas-elektron-f-cl',
+        'keelektronegatifan-skala-pauling',
+      ],
+      title: 'Konsep Inti 4: Tren Periodik Sifat Fisika-Kimia & Teori Muatan Inti Efektif (Zeff)',
+      summary: 'Dekomposisi komprehensif sifat periodik menggunakan teori Tarik Tambang Muatan Inti Efektif (Zeff = Z - S). Analisis mendalam anomali energi ionisasi Be-B dan N-O, afinitas elektron F-Cl, serta perbandingan jari-jari deret isoelektronik.',
+      content: `### 🪢 Tarik Tambang Inti vs Perisai Elektron (Mental Model: Teori $Z_{\\text{eff}}$)
+
+Mengapa sifat kimia unsur berulang secara periodik? Kunci rahasianya terletak pada satu konsep fundamental: **Tarik Tambang Muatan Inti Efektif ($Z_{\\text{eff}}$)**.
+
+Bayangkan inti atom bermuatan $+Z$ sedang menarik elektron-elektron valensi di kulit terluar menggunakan tali gaya Coulomb. Namun, di antara inti dan elektron valensi terdapat elektron-elektron kulit dalam (*core electrons*). Elektron kulit dalam ini bertindak sebagai **"kabut perisai" (*shielding constant, $S$*)** bermuatan negatif yang menolak elektron valensi dan meredam tarikan inti:
 
 $$Z_{\\text{eff}} = Z - S$$
 
-- **Dalam Satu Golongan (dari Atas ke Bawah):**  
-  Meskipun nomor atom $Z$ bertambah, penambahan kulit-kulit elektron baru di bagian dalam menghasilkan perisai yang sangat tebal, sehingga $Z_{\\text{eff}}$ yang dirasakan elektron valensi relatif konstan, namun **jarak rata-rata elektron dari inti ($n$) bertambah secara signifikan**.
-- **Dalam Satu Periode (dari Kiri ke Kanan):**  
-  Elektron-elektron baru ditambahkan pada **kulit yang sama** (nilai $n$ konstan). Elektron-elektron pada subkulit yang sama sangat buruk dalam memperisai satu sama lain ($S$ bertambah sangat lambat), sementara muatan inti proton ($Z$) bertambah $+1$ pada setiap langkah. Akibatnya, **$Z_{\\text{eff}}$ melonjak tajam dari kiri ke kanan**.
+- **Dalam Satu Periode (Dari Kiri ke Kanan):**
+  Jumlah proton $Z$ bertambah $+1$ pada setiap langkah, namun elektron baru ditambahkan pada **kulit yang sama**. Elektron pada kulit yang sama sangat buruk dalam memperisai satu sama lain ($S$ hanya naik sedikit). Akibatnya, **$Z_{\\text{eff}}$ MENINGKAT TAJAM**. Inti menarik elektron valensi makin kuat!
+- **Dalam Satu Golongan (Dari Atas ke Bawah):**
+  Jumlah kulit atom ($n$) bertambah. Meskipun $Z$ bertambah besar, pertambahan tersebut diimbangi oleh penambahan lapisan kulit penuh di bagian dalam yang menjadi perisai kuat ($S$ naik sebanding). Yang lebih dominan adalah jarak elektron valensi ke inti makin jauh ($r \\propto n^2$). Akibatnya, **daya tarik inti terhadap elektron valensi MELEMAH**.
 
 ---
 
-### 2. Jari-Jari Atom & Jari-Jari Ion
+### 1. Jari-Jari Atom & Jari-Jari Ion
 
-Jari-jari atom didefinisikan sebagai setengah jarak antara dua inti atom yang berikatan kovalen sejenis (*covalent radius*).
-
-- **Tren dalam Tabel Periodik:**
-  - **Dari Atas ke Bawah dalam Satu Golongan: JARI-JARI ATOM MAKIN BESAR.** (Jumlah kulit elektron bertambah, awan elektron mengembang lebih jauh dari inti).
-  - **Dari Kiri ke Kanan dalam Satu Periode: JARI-JARI ATOM MAKIN KECIL.** (Nilai $Z_{\\text{eff}}$ meningkat kuat, menarik awan elektron valensi lebih rapat mendekat ke inti atom).
-- **Perbandingan Ukuran Atom Netral vs Ionnya:**
-  - **Jari-jari Kation Selalu Lebih Kecil daripada Atom Netralnya ($r_{\\text{Kation}} < r_{\\text{Netral}}$):**  
-    Pelepasan elektron sering kali mengosongkan seluruh kulit terluar. Selain itu, hilangnya elektron mengurangi tolakan antar-elektron, sehingga elektron yang tersisa ditarik jauh lebih kuat oleh inti. Contoh: $r(\\ce{Na}) = 186\\text{ pm}$, sedangkan $r(\\ce{Na+}) = 102\\text{ pm}$.
-  - **Jari-jari Anion Selalu Lebih Besar daripada Atom Netralnya ($r_{\\text{Anion}} > r_{\\text{Netral}}$):**  
-    Penambahan elektron ke dalam kulit valensi meningkatkan tolakan elektrostatik elektron-elektron (*interelectronic repulsion*), menyebabkan awan elektron meregang mengembang ke luar. Contoh: $r(\\ce{Cl}) = 99\\text{ pm}$, sedangkan $r(\\ce{Cl-}) = 181\\text{ pm}$.
-- **Ukuran pada Deret Isoelektronik:**  
-  Untuk kumpulan ion yang memiliki jumlah elektron dan konfigurasi sama (misal $10$ elektron):
-  $$\\ce{O^2-} (Z=8) > \\ce{F-} (Z=9) > \\ce{Ne} (Z=10) > \\ce{Na+} (Z=11) > \\ce{Mg^2+} (Z=12) > \\ce{Al^3+} (Z=13)$$
-  *Rasionalisasi:* Karena jumlah elektronnya sama persis ($10$), ion dengan **jumlah proton ($Z$) paling banyak** akan memiliki gaya tarik inti paling masif terhadap awan elektron, menghasilkan ukuran jari-jari paling mungil ($\ce{Al^3+}$ terkecil, $\ce{O^2-}$ terbesar).
+1. **Jari-Jari Atom Netral:**
+   - **Dari Kiri ke Kanan (Seperiode):** Jari-jari **MAKIN KECIL**, karena $Z_{\\text{eff}}$ meningkat sehingga awan elektron ditarik lebih merapat ke arah inti.
+   - **Dari Atas ke Bawah (Segolongan):** Jari-jari **MAKIN BESAR**, karena jumlah kulit utama ($n$) bertambah.
+2. **Jari-Jari Kation ($r_{\\text{kation}} < r_{\\text{netral}}$):**
+   Ketika atom melepas elektron membentuk kation, jumlah proton melebihi elektron. Tolakan antarelektron berkurang drastis dan terkadang satu kulit terluar hilang seluruhnya (misal $\\ce{Na}: 1s^2 2s^2 2p^6 3s^1 \\rightarrow \\ce{Na+}: [Ne]$). Akibatnya, kation selalu berukuran jauh lebih kecil daripada atom netralnya.
+3. **Jari-Jari Anion ($r_{\\text{anion}} > r_{\\text{netral}}$):**
+   Penambahan elektron ke kulit terluar meningkatkan tolakan elektrostatik antarelektron (*electron-electron repulsion*). Awan elektron mengembang sehingga ukuran anion selalu lebih besar daripada atom netralnya.
+4. **Deret Spesi Isoelektronik:**
+   Pada spesi dengan jumlah elektron persis sama (misal $10e^-$: $\\ce{N^3-}, \\ce{O^2-}, \\ce{F-}, \\ce{Na+}, \\ce{Mg^2+}, \\ce{Al^3+}$), **makin banyak jumlah proton di inti ($Z$), makin kuat tarikan inti dan makin KECIL ukuran radiusnya**:
+   $$\\mathbf{\\ce{N^3-} (Z=7) > \\ce{O^2-} (Z=8) > \\ce{F-} (Z=9) > \\ce{Na+} (Z=11) > \\ce{Mg^2+} (Z=12) > \\ce{Al^3+} (Z=13)}$$
 
 ---
 
-### 3. Energi Ionisasi ($IE$) & Anomali Kestabilan Subkulit
+### 2. Energi Ionisasi Pertama ($IE_1$) & Dua Anomali Terkenal
 
-Energi Ionisasi Pertama ($IE_1$) adalah energi minimum yang dibutuhkan untuk melepaskan satu mol elektron yang terikat paling longgar dari satu mol atom netral dalam wujud gas pada keadaan dasar:
+Energi Ionisasi ($IE$) adalah energi minimum yang dibutuhkan untuk melepaskan satu elektron dari atom netral dalam wujud gas pada keadaan dasar:
 $$\\ce{X(g) -> X+(g) + e-} \\quad \\Delta H = IE_1 > 0$$
 
-- **Tren Umum:**
-  - Dalam satu golongan (atas ke bawah): **$IE_1$ makin kecil** (elektron valensi makin jauh dari inti dan makin longgar terikat).
-  - Dalam satu periode (kiri ke kanan): **$IE_1$ umumnya meningkat** (karena jari-jari makin kecil dan $Z_{\\text{eff}}$ makin perkasa).
-- **Dua Anomali Krusial Periode 2 dan 3:**
-  1. **$IE_1$ Golongan IIA ($\ce{Be}$) $>$ Golongan IIIA ($\ce{B}$):**  
-     Beryllium memiliki konfigurasi subkulit penuh yang mantap ($2s^2$). Barium/Boron ($2s^2 2p^1$) memiliki satu elektron tunggal pada subkulit $2p$ yang memiliki tingkat energi lebih tinggi dan terperisai oleh subkulit $2s^2$, sehingga elektron $2p^1$ pada boron jauh lebih gampang dilepaskan.
-  2. **$IE_1$ Golongan VA ($\ce{N}$) $>$ Golongan VIA ($\ce{O}$):**  
-     Nitrogen memiliki konfigurasi subkulit $2p^3$ **setengah penuh (*half-filled*)** yang simetris dan sangat stabil. Pada oksigen ($2p^4$), elektron keempat terpaksa berpasangan dalam satu orbital $p$, menimbulkan gaya tolak antar-elektron dalam orbital yang mempermudah pelepasan elektron tersebut.
-- **Energi Ionisasi Bertingkat ($IE_1 < IE_2 < IE_3 < \\dots$):**  
-  Melepaskan elektron berikutnya selalu membutuhkan energi lebih besar karena rasio $p/e$ makin tinggi. Lonjakan nilai $IE$ yang sangat ekstrem (faktor $\\approx 4$ hingga $10$ kali lipat) menandai bahwa elektron valensi telah habis terlepas dan elektron berikutnya dicungkil dari **kulit bagian dalam yang mulia**. Pola lonjakan ini digunakan untuk memprediksi jumlah elektron valensi dan nomor golongan unsur.
+- **Tren Umum:** $IE_1$ **makin besar ke kanan atas** tabel periodik (karena jari-jari makin kecil dan $Z_{\\text{eff}}$ makin besar, elektron terikat sangat kuat).
 
 ---
 
-### 4. Afinitas Elektron ($EA$), Keelektronegatifan & Karakter Logam
+> [!IMPORTANT]
+> ### 🚨 Dua Anomali Energi Ionisasi Pertama di Periode 2 & 3
+> Jika Anda mengamati grafik $IE_1$ dari Golongan IA sampai VIIIA, kurvanya tidak naik mulus secara monoton, melainkan mengalami dua penurunan tak terduga:
+> 
+> 1. **Anomali Golongan IIA vs IIIA ($IE_1 \\ce{Be} > IE_1 \\ce{B}$):**
+>    - $\\ce{_4Be} = 1s^2 2s^2$ (Subkulit $2s$ **penuh stabil**, penetrasi dekat ke inti).
+>    - $\\ce{_5B} = 1s^2 2s^2 2p^1$ (Elektron terluar berada pada orbital $2p^1$ yang energinya lebih tinggi dan terperisai oleh elektron $2s$). Melepaskan $2p^1$ jauh lebih mudah daripada membongkar pasangan $2s^2$ yang kompak!
+> 2. **Anomali Golongan VA vs VIA ($IE_1 \\ce{N} > IE_1 \\ce{O}$):**
+>    - $\\ce{_7N} = [He] 2s^2 2p_x^1 2p_y^1 2p_z^1$ (Subkulit $2p$ **tepat setengah penuh**, simetri stabil tanpa tolakan pasangan).
+>    - $\\ce{_8O} = [He] 2s^2 2p_x^2 2p_y^1 2p_z^1$ (Terdapat **sepasang elektron dalam satu orbital $2p_x$**). Gaya tolak-menolak antar dua elektron yang berdesakan di orbital yang sama memudahkan satu elektron terlempar keluar!
 
-- **Afinitas Elektron ($EA$):** Perubahan energi yang menyertai penangkapan satu elektron oleh atom netral dalam wujud gas:
-  $$\\ce{X(g) + e- -> X-(g)}$$
-  Umumnya bertanda negatif (melepaskan kalor/eksotermik). Unsur halogen (Golongan VIIA) memiliki afinitas elektron paling eksotermik karena hanya memerlukan $1$ elektron untuk mencapai oktet gas mulia stabil.  
-  *Anomali Fluorin vs Klorin:* Afinitas elektron Klorin ($-349\\text{ kJ/mol}$) lebih eksotermik daripada Fluorin ($-328\\text{ kJ/mol}$) karena ukuran atom $\\ce{F}$ sangat kecil ($n=2$), mengakibatkan kerapatan elektron tinggi yang memberikan tolakan awal pada elektron yang masuk.
-- **Keelektronegatifan (Skala Linus Pauling):** Kemampuan relatif suatu atom untuk menarik pasangan elektron ikatan ke arah dirinya dalam suatu molekul kovalen.
-  - Fluorin ($\\ce{F}$) merupakan unsur paling elektronegatif dengan skor **$4.0$**.
-  - Francium ($\\ce{Fr}$) dan Sesium ($\\ce{Cs}$) memiliki skor terendah ($\approx 0.7$).
-  - Tren: Meningkat dari **kiri bawah ke kanan atas** tabel periodik.
-- **Sifat Logam vs Nonlogam:**
-  - Sifat kelogaman (daya reduksi / elektropositivitas) meningkat ke arah **kiri bawah**.
-  - Sifat nonlogam (daya oksidasi / keelektronegatifan) meningkat ke arah **kanan atas**.`,
-        keyFormulas: [
-          { name: 'Muatan Inti Efektif (Zeff)', formula: 'Z_{\\text{eff}} = Z - S' },
-          { name: 'Persamaan Energi Ionisasi Pertama', formula: '\\ce{X(g) -> X+(g) + e-} \\quad (\\Delta H = IE_1 > 0)' },
-          { name: 'Persamaan Afinitas Elektron', formula: '\\ce{X(g) + e- -> X-(g)} \\quad (\\Delta H = EA)' },
-        ],
-      },
-    ],
-    worked_examples: [
-      {
-        tag: 'soal-kelimpahan-isotop-dan-spektrometri',
-        tags: [
-          'soal-kelimpahan-isotop-ar',
-          'kelimpahan-isotop-dan-ar',
-          'notasi-nuklida-atom-dan-ion',
-        ],
-        title: 'Contoh Soal 1: Analisis Spektrometri Massa & Penentuan Kelimpahan Fraksional Isotop',
-        summary: 'Perhitungan kuantitatif massa atom relatif (Ar) galium dari data spektrometer massa serta penentuan persentase kelimpahan dua isotop boron dari nilai Ar tabel periodik.',
-        content: `**Bagian A: Menghitung Bobot Atom Relatif ($A_r$) dari Spektrum Massa**  
-Unsur Galium ($\\ce{Ga}$, $Z = 31$) yang digunakan dalam fabrikasi semikonduktor LED dianalisis menggunakan spektrometer massa presisi tinggi. Hasil analisis menunjukkan dua puncak ion isotop stabil:
-1. Puncak 1: Isotop $\\ce{^{69}Ga}$ dengan massa eksak $68.9256\\text{ sma}$ dan kelimpahan $60.11\\%$.
-2. Puncak 2: Isotop $\\ce{^{71}Ga}$ dengan massa eksak $70.9247\\text{ sma}$ dan kelimpahan $39.89\\%$.
+---
+
+### 3. Lonjakan Energi Ionisasi Bertingkat ($IE_1, IE_2, IE_3 \\dots$)
+
+Ketika elektron dilepas berturut-turut, nilainya selalu naik: $IE_1 < IE_2 < IE_3 < IE_4$. Namun, perhatikan lonjakan rasionya:
+$$\\text{Ketika elektron valensi habis, elektron berikutnya harus diambil dari KULIT DALAM (Gas Mulia)}$$
+Pelepasan elektron dari kulit dalam yang jauh lebih dekat ke inti menghasilkan **lonjakan energi ionisasi yang sangat drastis (hingga 4 s.d. 10 kali lipat)**:
+- Unsur Golongan IA (1 elektron valensi): Lonjakan terjadi antara **$IE_1 \\rightarrow IE_2$**
+- Unsur Golongan IIA (2 elektron valensi): Lonjakan terjadi antara **$IE_2 \\rightarrow IE_3$**
+- Unsur Golongan IIIA (3 elektron valensi): Lonjakan terjadi antara **$IE_3 \\rightarrow IE_4$**
+
+---
+
+### 4. Afinitas Elektron ($EA$) & Keelektronegatifan
+
+1. **Afinitas Elektron ($EA$):** Perubahan energi ketika satu elektron ditangkap oleh atom netral dalam wujud gas untuk membentuk anion:
+   $$\\ce{X(g) + e- -> X-(g)}$$
+   - Nilai $EA$ umumnya bernilai eksotermik (melepas energi, bernilai negatif). Makin mudah menangkap elektron, harga mutlak $|EA|$ makin besar.
+   - **Anomali Halogen Periode 2 vs 3 ($EA \\ce{Cl} > EA \\ce{F}$):**  
+     Fluorin (F) memiliki jari-jari $2p$ yang teramat kecil dan kerapatan awan elektron yang sangat padat. Masuknya satu elektron baru ke ruang sempit tersebut menimbulkan gaya tolak-menolak antarelektron yang signifikan, sehingga energi yang dilepaskan Fluorin ($328\\text{ kJ/mol}$) sedikit lebih rendah daripada Klorin ($349\\text{ kJ/mol}$).
+2. **Keelektronegatifan (Skala Linus Pauling):**  
+   Kemampuan relatif suatu atom dalam molekul untuk menarik pasangan elektron ikatan ke arah dirinya.
+   - **Unsur Paling Elektronegatif:** Fluorin ($\\mathbf{\\text{F} = 4.0}$), diikuti Oksigen ($3.5$), Nitrogen ($3.0$), Klorin ($3.0$).
+   - **Unsur Paling Elektropositif (Paling Rendah):** Sesium dan Fransium ($\\approx 0.7$).`,
+      keyFormulas: [
+        { name: 'Muatan Inti Efektif Sederhana', formula: 'Z_{\\text{eff}} = Z - S' },
+        { name: 'Reaksi Energi Ionisasi Pertama', formula: '\\ce{X(g) -> X+(g) + e-} \\quad (\\Delta H = IE_1 > 0)' },
+        { name: 'Reaksi Afinitas Elektron', formula: '\\ce{X(g) + e- -> X-(g)} \\quad (\\Delta H = EA)' },
+      ],
+    },
+  ],
+
+  worked_examples: [
+    {
+      tag: 'soal-kelimpahan-isotop-dan-spektrometri',
+      tags: [
+        'soal-kelimpahan-isotop-ar',
+        'kelimpahan-isotop-dan-ar',
+        'spektrometri-massa',
+      ],
+      title: 'Contoh Soal 1: Analisis Spektrometri Massa & Penentuan Kelimpahan Fraksional Isotop',
+      summary: 'Perhitungan kuantitatif massa atom relatif (Ar) galium dari data spektrometer massa serta penentuan persentase kelimpahan dua isotop boron dari nilai Ar tabel periodik.',
+      content: `**Kasus A: Kalkulasi $A_r$ Eksak dari Spektrum Massa**  
+Unsur Galium ($\\ce{Ga}$, $Z = 31$) yang diaplikasikan pada teknologi semikonduktor laser dianalisis menggunakan spektrometer massa resolusi tinggi. Hasil analisis menunjukkan dua puncak isotop stabil:
+1. Puncak 1: Isotop $\\ce{^{69}Ga}$ dengan massa $68.9256\\text{ sma}$ dan kelimpahan $60.11\\%$.
+2. Puncak 2: Isotop $\\ce{^{71}Ga}$ dengan massa $70.9247\\text{ sma}$ dan kelimpahan $39.89\\%$.
 
 Hitunglah massa atom relatif ($A_r$) rata-rata unsur Galium berdasarkan data tersebut (bulatkan ke 2 desimal)!
 
 ---
 
-**Bagian B: Menentukan Persentase Kelimpahan Alami dari Nilai $A_r$**  
-Di alam bebas, unsur Boron ($\\ce{B}$, $Z = 5$) dengan massa atom relatif $A_r = 10.81$ hanya terdiri atas dua jenis isotop stabil, yaitu isotop $\\ce{^{10}B}$ (massa riil $= 10.01\\text{ sma}$) dan isotop $\\ce{^{11}B}$ (massa riil $= 11.01\\text{ sma}$).  
+**Kasus B: Menentukan Kelimpahan Alami dari Nilai $A_r$ Standar**  
+Di alam bebas, unsur Boron ($\\ce{B}$, $Z = 5$) dengan massa atom relatif standar $A_r = 10.81$ hanya tersusun atas dua isotop stabil, yaitu $\\ce{^{10}B}$ (massa riil $= 10.01\\text{ sma}$) dan $\\ce{^{11}B}$ (massa riil $= 11.01\\text{ sma}$).  
 Tentukan persentase kelimpahan masing-masing isotop boron tersebut di alam!
 
 ---
 
 ### Pembahasan Langkah demi Langkah:
 
-#### Penyelesaian Bagian A (Kalkulasi $A_r$ Galium):
-Gunakan rumus rata-rata tertimbang kelimpahan isotop alami:
-$$A_r(\\ce{Ga}) = \\left( \\frac{\\% \\ce{^{69}Ga}}{100} \\times m(\\ce{^{69}Ga}) \\right) + \\left( \\frac{\\% \\ce{^{71}Ga}}{100} \\times m(\\ce{^{71}Ga}) \\right)$$
+#### 1. Data Diketahui & Target Analisis:
+- **Kasus A:**
+  - Isotop 1: $\\ce{^{69}Ga}$, massa $m_1 = 68.9256\\text{ sma}$, kelimpahan $f_1 = 60.11\\% = 0.6011$.
+  - Isotop 2: $\\ce{^{71}Ga}$, massa $m_2 = 70.9247\\text{ sma}$, kelimpahan $f_2 = 39.89\\% = 0.3989$.
+  - *Target:* Nilai $A_r(\\ce{Ga})$.
+- **Kasus B:**
+  - $A_r(\\ce{B}) = 10.81\\text{ sma}$.
+  - Massa $\\ce{^{10}B} = 10.01\\text{ sma}$; massa $\\ce{^{11}B} = 11.01\\text{ sma}$.
+  - *Target:* Persentase kelimpahan $\\%\\ce{^{10}B}$ dan $\\%\\ce{^{11}B}$.
 
-Substitusikan data massa dan persentase:
+---
+
+#### 2. Rencana Strategi (Formula & Asas Terkait):
+Gunakan rumus rata-rata tertimbang (*weighted average*):
+$$A_r = (f_1 \\times m_1) + (f_2 \\times m_2)$$
+Untuk Kasus B, tetapkan kelimpahan fraksional $\\ce{^{10}B} = x$. Karena jumlah total fraksi adalah $1.00$, maka fraksi $\\ce{^{11}B} = (1 - x)$.
+
+---
+
+#### 3. Eksekusi KaTeX Langkah Demi Langkah:
+
+##### Penyelesaian Kasus A (Galium):
 $$\\begin{aligned}
 A_r(\\ce{Ga}) &= (0.6011 \\times 68.9256\\text{ sma}) + (0.3989 \\times 70.9247\\text{ sma}) \\\\
 &= 41.43118\\dots + 28.29186\\dots \\\\
 &= 69.72304\\dots\\text{ sma}
 \\end{aligned}$$
+Dibulatkan menjadi 2 tempat desimal: **$A_r(\\ce{Ga}) = \\mathbf{69.72}$**.
 
-Pembulatan ke 2 tempat desimal menghasilkan nilai **$A_r(\\ce{Ga}) = \\mathbf{69.72}$**.  
-*(Nilai ini identik persis dengan angka resmi pada Tabel Periodik IUPAC).*
-
----
-
-#### Penyelesaian Bagian B (Penentuan Kelimpahan Isotop Boron):
-Misalkan persentase kelimpahan isotop $\\ce{^{10}B} = x\\%$.  
-Karena total kelimpahan adalah $100\\%$, maka kelimpahan isotop $\\ce{^{11}B} = (100 - x)\\%$.
-
-Susun persamaan matematis massa atom relatif:
-$$A_r(\\ce{B}) = \\frac{x}{100} \\cdot m(\\ce{^{10}B}) + \\frac{100 - x}{100} \\cdot m(\\ce{^{11}B})$$
-
-Substitusikan data yang diketahui ($A_r = 10.81$, $m(\\ce{^{10}B}) = 10.01$, $m(\\ce{^{11}B}) = 11.01$):
-$$10.81 = \\frac{x}{100}(10.01) + \\frac{100 - x}{100}(11.01)$$
-
-Kalikan kedua ruas dengan $100$:
+##### Penyelesaian Kasus B (Boron):
 $$\\begin{aligned}
-1081 &= 10.01x + 11.01(100 - x) \\\\
-1081 &= 10.01x + 1101 - 11.01x \\\\
-1081 - 1101 &= (10.01 - 11.01)x \\\\
--20 &= -1.00x \\\\
-x &= \\mathbf{20.00\\%}
+A_r(\\ce{B}) &= [x \\times 10.01] + [(1 - x) \\times 11.01] \\\\
+10.81 &= 10.01x + 11.01 - 11.01x \\\\
+10.81 - 11.01 &= -1.00x \\\\
+-0.20 &= -1.00x \\\\
+x &= 0.20
 \\end{aligned}$$
 
-Maka kelimpahan masing-masing isotop Boron:
-- Kelimpahan isotop $\\ce{^{10}B} = x = \\mathbf{20.00\\%}$
-- Kelimpahan isotop $\\ce{^{11}B} = 100\\% - 20.00\\% = \\mathbf{80.00\\%}$
+Konversi fraksi ke persentase:
+- Kelimpahan isotop $\\ce{^{10}B} = 0.20 \\times 100\\% = \\mathbf{20.0\\%}$
+- Kelimpahan isotop $\\ce{^{11}B} = (1 - 0.20) \\times 100\\% = \\mathbf{80.0\\%}$
 
-> **Pro-Tip Evaluator Ujian:** Perhatikan bahwa nilai $A_r = 10.81$ jauh lebih condong mendekati $11$ daripada $10$. Ini merupakan petunjuk cepat bahwa kelimpahan $\\ce{^{11}B}$ pasti dominan ($\approx 80\\%$).`,
-        keyFormulas: [
-          { name: 'Persamaan Rata-rata Tertimbang Ar', formula: 'A_r = \\sum (f_i \\cdot m_i)' },
-        ],
-      },
-      {
-        tag: 'soal-konfigurasi-anomali-ion-magnetik',
-        tags: [
-          'soal-konfigurasi-anomali-ion',
-          'anomali-kestabilan-subkulit-d',
-          'konfigurasi-kation-dan-anion',
-          'paramagnetik-dan-diamagnetik',
-        ],
-        title: 'Contoh Soal 2: Konfigurasi Elektron Anomali Subkulit d, Pembentukan Kation & Sifat Magnetik',
-        summary: 'Penyusunan konfigurasi elektron orbital Kromium (Cr) dan Kobalt (Co), pelepasan elektron terluar pada kation Co2+ dan Co3+, serta penentuan jumlah elektron tak berpasangan.',
-        content: `**Teks Permasalahan:**  
-Diberikan dua unsur logam transisi periode 4 dalam sistem periodik:
-1. Unsur Kromium ($\\ce{_{24}Cr}$)
-2. Unsur Kobalt ($\\ce{_{27}Co}$)
+---
 
-**Pertanyaan Uji Kompetensi:**
-1. Tuliskan konfigurasi elektron atom netral $\\ce{_{24}Cr}$ menggunakan notasi gas mulia yang benar! Mengapa konfigurasinya tidak dituliskan sebagai $[\\ce{Ar}]\\ 4s^2\\ 3d^4$?
-2. Tuliskan konfigurasi elektron ion $\\ce{Co^2+}$ dan ion $\\ce{Co^3+}$ yang diturunkan dari atom Kobalt ($\\ce{_{27}Co}$)! Tunjukkan dengan tegas subkulit mana yang mengalami kehilangan elektron terlebih dahulu!
-3. Gambarkan diagram pengisian orbital pada subkulit $d$ untuk ion $\\ce{Co^2+}$ dan ion $\\ce{Co^3+}$!
-4. Tentukan jumlah elektron tidak berpasangan (*unpaired electrons*) pada masing-masing ion Kobalt tersebut, dan tentukan ion manakah yang memiliki sifat paramagnetik lebih kuat!
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Nilai $A_r(\\ce{B}) = 10.81$ secara visual jauh lebih mendekati angka $11$ daripada $10$. Ini adalah verifikasi intuitif cepat di ruang ujian bahwa kelimpahan isotop $\\ce{^{11}B}$ pasti sangat dominan ($\\approx 80\\%$) dibandingkan isotop $\\ce{^{10}B}$ ($\\approx 20\\%$). Jangan pernah membuang waktu menghitung ulang jika hasil Anda memberikan rasio terbalik!`,
+      keyFormulas: [
+        { name: 'Rumus Rata-rata Tertimbang Massa Atom Relatif', formula: 'A_r = \\sum (f_i \\times m_i)' },
+      ],
+    },
+
+    {
+      tag: 'soal-konfigurasi-elektron-anomali',
+      tags: [
+        'anomali-kestabilan-subkulit-d',
+        'pelepasan-elektron-4s-transisi',
+        'paramagnetik-dan-diamagnetik',
+        'momen-magnetik-spin-only',
+      ],
+      title: 'Contoh Soal 2: Konfigurasi Elektron Anomali Subkulit d, Pembentukan Kation & Sifat Magnetik',
+      summary: 'Analisis konfigurasi elektron atom netral Kromium (anomali d5), kation Kobalt Co2+ dan Co3+, penentuan diagram orbital Hund, serta perhitungan kuantitatif momen magnetik spin.',
+      content: `Diberikan dua unsur logam transisi periode 4: Kromium ($\\ce{_{24}Cr}$) dan Kobalt ($\\ce{_{27}Co}$).
+1. Tuliskan konfigurasi elektron lengkap dan notasi singkat gas mulia dari atom netral $\\ce{_{24}Cr}$ pada keadaan dasar (*ground state*), serta jelaskan mengapa konfigurasi tersebut menyimpang dari aturan Aufbau!
+2. Tuliskan konfigurasi elektron dari ion $\\ce{Co^2+}$ dan $\\ce{Co^3+}$!
+3. Gambarkan diagram kotak pengisian orbital subkulit $3d$ untuk ion $\\ce{Co^2+}$ berdasarkan Kaidah Hund!
+4. Tentukan jumlah elektron tidak berpasangan ($n$) pada ion $\\ce{Co^2+}$ dan hitung nilai momen magnetik spin-only ($\\mu_{\\text{eff}}$) dalam satuan Bohr Magneton (BM)!
 
 ---
 
 ### Pembahasan Langkah demi Langkah:
 
-#### 1. Konfigurasi Elektron Atom Netral $\\ce{_{24}Cr}$:
-- Berdasarkan aturan umum Aufbau murni: $\\ce{Cr} = [\\ce{Ar}]\\ 4s^2\\ 3d^4$.
-- Namun konfigurasi eksperimental yang sesungguhnya adalah:
-  $$\\mathbf{\\ce{_{24}Cr}: [\\ce{Ar}]\\ 4s^1\\ 3d^5}$$
-- **Rasionalisasi:**  
-  Subkulit $3d^5$ terisi setengah penuh (*half-filled*). Konfigurasi setengah penuh memiliki derajat simetri bola yang sangat tinggi dan memaksimalkan energi pertukaran kuantum (*quantum exchange energy*, $K$). Pada konfigurasi $3d^5$ terdapat $10$ pasang pertukaran elektron dengan spin paralel yang menstabilkan sistem secara termodinamika, sehingga mempromosikan satu elektron dari subkulit $4s$ ke $3d$ menghasilkan keadaan dengan energi total yang lebih rendah.
+#### 1. Data Diketahui & Target Analisis:
+- Unsur: $\\ce{_{24}Cr}$ ($Z = 24$) dan $\\ce{_{27}Co}$ ($Z = 27$).
+- *Target:*
+  - Konfigurasi atom netral $\\ce{Cr}$ dan rasionalisasi anomalinya.
+  - Konfigurasi kation $\\ce{Co^2+}$ dan $\\ce{Co^3+}$.
+  - Diagram orbital $3d$ $\\ce{Co^2+}$.
+  - Nilai $n$ dan momen magnetik $\\mu_{\\text{eff}}$ ion $\\ce{Co^2+}$.
 
 ---
 
-#### 2. Konfigurasi Elektron Ion $\\ce{Co^2+}$ dan $\\ce{Co^3+}$:
-- Konfigurasi atom netral $\\ce{_{27}Co}$ ($27$ elektron):
-  $$\\ce{_{27}Co}: [\\ce{Ar}]\\ 4s^2\\ 3d^7$$
-- **Pembentukan Ion $\\ce{Co^2+}$ (kehilangan 2 elektron):**  
-  Sesuai aturan pelepasan elektron pada logam transisi, elektron **selalu dilepaskan terlebih dahulu dari kulit dengan bilangan kuantum utama $n$ terbesar**, yaitu subkulit **$4s$**, BUKAN dari subkulit $3d$.
-  $$\\mathbf{\\ce{Co^2+}: [\\ce{Ar}]\\ 3d^7}$$
-- **Pembentukan Ion $\\ce{Co^3+}$ (kehilangan 3 elektron):**  
-  Dua elektron dilepas dari subkulit $4s$, disusul satu elektron dilepas dari subkulit $3d$:
-  $$\\mathbf{\\ce{Co^3+}: [\\ce{Ar}]\\ 3d^6}$$
+#### 2. Rencana Strategi:
+- Untuk $\\ce{Cr}$, terapkan kaidah stabilitas subkulit $d$ setengah penuh ($4s^1 3d^5$).
+- Untuk ion logam transisi, ingat kaidah kritis: elektron pada kulit **$4s$ dilepas terlebih dahulu sebelum $3d$**.
+- Untuk momen magnetik, gunakan formula $\\mu_{\\text{eff}} = \\sqrt{n(n + 2)}\\text{ BM}$.
 
 ---
 
-#### 3. Diagram Pengisian Orbital Subkulit $d$ Berdasarkan Aturan Hund:
-Subkulit $d$ memiliki $5$ orbital degenerat:
-- **Untuk $\\ce{Co^2+} (3d^7)$:**
-  Elektron mengisi satu per satu terlebih dahulu, lalu berpasangan:
-  $$\\begin{array}{|c|c|c|c|c|}
-  \\hline
-  \\uparrow\\downarrow & \\uparrow\\downarrow & \\uparrow & \\uparrow & \\uparrow \\\\
-  \\hline
-  \\end{array}$$
-  Terdapat **$3$ elektron yang tidak berpasangan** (spin tunggal).
-- **Untuk $\\ce{Co^3+} (3d^6)$:**
-  $$\\begin{array}{|c|c|c|c|c|}
-  \\hline
-  \\uparrow\\downarrow & \\uparrow & \\uparrow & \\uparrow & \\uparrow \\\\
-  \\hline
-  \\end{array}$$
-  Terdapat **$4$ elektron yang tidak berpasangan** (spin tunggal).
+#### 3. Eksekusi KaTeX Langkah Demi Langkah:
 
----
+##### 1. Konfigurasi Elektron Kromium ($\\ce{_{24}Cr}$):
+- Prediksi Aufbau: $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^4$
+- **Konfigurasi Riil Eksperimen:**
+  $$\\ce{_{24}Cr}: 1s^2 2s^2 2p^6 3s^2 3p^6 \\mathbf{4s^1 3d^5} \\quad \\text{atau} \\quad \\mathbf{[Ar] 4s^1 3d^5}$$
+- *Rasionalisasi Fisis:* Subkulit $3d^5$ terisi **tepat setengah penuh**, menghasilkan distribusi kerapatan muatan berbentuk bola simetris sempurna dan memaksimalkan energi pertukaran kuantum (*exchange energy*), sehingga energi total atom lebih rendah (lebih stabil) daripada keadaan $4s^2 3d^4$.
 
-#### 4. Penentuan Sifat Kemagnetan:
-- Ion $\\ce{Co^2+}$ memiliki **$3$ elektron tak berpasangan** $\\implies$ bersifat **Paramagnetik**.
-- Ion $\\ce{Co^3+}$ memiliki **$4$ elektron tak berpasangan** $\\implies$ bersifat **Paramagnetik**.
-- Karena momen magnetik spin terhitung menurut formula spin-only: $\\mu_{\\text{eff}} = \\sqrt{n(n + 2)}\\text{ BM}$ (di mana $n$ adalah jumlah elektron tak berpasangan), maka ion **$\\ce{Co^3+}$ ($n=4$, $\\mu \\approx 4.90\\text{ BM}$) memiliki sifat paramagnetik yang lebih kuat** daripada ion $\\ce{Co^2+}$ ($n=3$, $\\mu \\approx 3.87\\text{ BM}$).
+##### 2. Konfigurasi Elektron Ion $\\ce{Co^2+}$ dan $\\ce{Co^3+}$:
+- Atom Netral: $\\ce{_{27}Co} = [Ar] 4s^2 3d^7$
+- Ion $\\ce{Co^2+}$ (kehilangan 2 elektron dari subkulit $4s$):
+  $$\\ce{Co^2+}: \\mathbf{[Ar] 3d^7} \\quad \\text{(Bukan }[Ar] 4s^2 3d^5\\text{)}$$
+- Ion $\\ce{Co^3+}$ (kehilangan 2 elektron dari $4s$ dan 1 elektron dari $3d$):
+  $$\\ce{Co^3+}: \\mathbf{[Ar] 3d^6}$$
 
-> **Peringatan Keras Ujian:** Kesalahan paling sering dilakukan siswa adalah menuliskan konfigurasi $\\ce{Co^2+}$ sebagai $[\\ce{Ar}] 4s^2 3d^5$. Ingat selalu: $4s$ terisi lebih dulu saat pengisian atom netral, tetapi $4s$ juga terlepas lebih dulu saat ionisasi!`,
-        keyFormulas: [
-          { name: 'Momen Magnetik Spin-Only', formula: '\\mu_{\\text{eff}} = \\sqrt{n(n + 2)} \\quad (\\text{Bohr Magneton / BM})' },
-        ],
-      },
-      {
-        tag: 'soal-bilangan-kuantum-dan-letak-periodik',
-        tags: [
-          'soal-bilangan-kuantum-elektron-terakhir',
-          'empat-bilangan-kuantum',
-          'penentuan-golongan-dan-periode',
-          'deret-isoelektronik',
-        ],
-        title: 'Contoh Soal 3: Penentuan Bilangan Kuantum Elektron Valensi Terakhir & Posisi Periodik',
-        summary: 'Penetapan bilangan kuantum (n, l, ml, ms) elektron valensi terakhir atom netral X yang membentuk ion X2- isoelektronik dengan Argon serta lokasi golongan dan periodenya.',
-        content: `**Teks Soal:**  
-Suatu anion monoatomik $X^{2-}$ memiliki konfigurasi elektron yang tepat sama (**isoelektronik**) dengan gas mulia Argon ($\\ce{_{18}Ar}$).
-
-**Instruksi Pengerjaan:**
-1. Berapakah jumlah elektron ion $X^{2-}$ dan berapakah nomor atom ($Z$) unsur netral $X$?
-2. Tuliskan konfigurasi elektron lengkap dan diagram orbital subkulit terluar atom netral $X$ pada keadaan dasar!
-3. Tentukan satu set lengkap dari **keempat bilangan kuantum ($n, l, m_l, m_s$)** yang merepresentasikan elektron valensi terakhir yang masuk pada atom netral $X$!
-4. Tentukan letak unsur $X$ dalam sistem periodik modern:
-   - Nomor Periode
-   - Nomor Golongan (Sistem Tradisional A/B dan Sistem IUPAC 1-18)
-   - Nama famili / kelompok golongannya!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Penentuan Nomor Atom ($Z$):
-- Argon memiliki nomor atom $Z = 18$, sehingga konfigurasi elektron Argon adalah $18$ elektron ($1s^2 2s^2 2p^6 3s^2 3p^6$).
-- Karena ion $X^{2-}$ isoelektronik dengan $\\ce{_{18}Ar}$, maka jumlah elektron ion $X^{2-} = 18$.
-- Muatan $-2$ berarti atom netral $X$ telah menangkap $2$ elektron:
-  $$\\text{Jumlah Elektron Ion } X^{2-} = Z + 2 \\implies 18 = Z + 2 \\implies \\mathbf{Z = 16}$$
-- Unsur bernomor atom $16$ adalah **Belerang / Sulfur ($\\ce{S}$)**.
-
----
-
-#### 2. Konfigurasi Elektron Atom Netral $X$ ($Z = 16$):
-$$X: 1s^2\\ 2s^2\\ 2p^6\\ 3s^2\\ 3p^4 \\quad \\text{atau disingkat } [\\ce{Ne}]\\ 3s^2\\ 3p^4$$
-
-Diagram orbital subkulit terluar ($3p^4$ dengan 3 orbital berharga $m_l = -1, 0, +1$):
-$$\\begin{array}{|c|c|c|}
+##### 3. Diagram Kotak Subkulit $3d^7$ pada $\\ce{Co^2+}$:
+Subkulit $d$ memiliki 5 orbital ($m_l = -2, -1, 0, +1, +2$). Sesuai Kaidah Hund, isi satu per satu dengan spin paralel, lalu pasangkan 2 elektron:
+$$\\begin{array}{|c|c|c|c|c|}
 \\hline
-\\uparrow\\downarrow & \\uparrow & \\uparrow \\\\
+\\uparrow\\downarrow & \\uparrow\\downarrow & \\uparrow & \\uparrow & \\uparrow \\\\
 \\hline
-m_l = -1 & m_l = 0 & m_l = +1
+-2 & -1 & 0 & +1 & +2 \\\\
 \\end{array}$$
 
----
-
-#### 3. Penentuan Keempat Bilangan Kuantum Elektron Terakhir:
-Elektron valensi atom $X$ menempati subkulit **$3p^4$**:
-- Tiga elektron pertama mengisi orbital satu per satu secara paralel sesuai Kaidah Hund:
-  - Elektron ke-1: $n=3, l=1, m_l=-1, m_s=+\\frac{1}{2}$
-  - Elektron ke-2: $n=3, l=1, m_l=0, m_s=+\\frac{1}{2}$
-  - Elektron ke-3: $n=3, l=1, m_l=+1, m_s=+\\frac{1}{2}$
-- **Elektron ke-4 (elektron terakhir yang masuk):** Berpasangan pada orbital pertama ($m_l = -1$) dengan spin antiparalel (menghadap ke bawah):
-  - **$n = 3$** (berada pada kulit ketiga)
-  - **$l = 1$** (berada pada subkulit $p$)
-  - **$m_l = -1$** (menempati kotak orbital pertama)
-  - **$m_s = -\\frac{1}{2}$** (spin berlawanan jarum jam / tanda panah ke bawah $\\downarrow$).
-
-Jadi, empat bilangan kuantum elektron terakhir adalah:
-$$\\mathbf{(n = 3, \\ l = 1, \\ m_l = -1, \\ m_s = -\\frac{1}{2})}$$
+##### 4. Jumlah Elektron Tak Berpasangan & Momen Magnetik:
+Dari diagram kotak di atas, terdapat **$n = 3$ elektron tidak berpasangan** (pada orbital $m_l = 0, +1, +2$). Sifat zat adalah **Paramagnetik kuat**.
+Kalkulasi momen magnetik:
+$$\\begin{aligned}
+\\mu_{\\text{eff}} &= \\sqrt{n(n + 2)} \\\\
+&= \\sqrt{3(3 + 2)} = \\sqrt{3 \\times 5} = \\sqrt{15} \\approx \\mathbf{3.87\\text{ BM}}
+\\end{aligned}$$
 
 ---
 
-#### 4. Penentuan Letak Golongan dan Periode:
-- **Periode:** Kulit kuantum utama terbesar adalah $n = 3$, sehingga unsur $X$ terletak pada **Periode 3**.
-- **Golongan:** Elektron valensi berada pada subkulit $3s^2 3p^4$. Karena berakhir di subkulit $p$, maka termasuk golongan utama (A):
-  $$\\text{Nomor Golongan} = (2 + 4)\\text{A} = \\mathbf{\\text{Golongan VIA}}$$
-  - **Sistem IUPAC:** Golongan $16$.
-  - **Nama Famili:** **Kelompok Kalkogen (*Chalcogens*)**.`,
-        keyFormulas: [
-          { name: 'Kaidah Kuadran Kuantum Terakhir', formula: '(n, l, m_l, m_s)' },
-          { name: 'Golongan VIA Kalkogen', formula: 'ns^2 np^4' },
-        ],
-      },
-      {
-        tag: 'soal-energi-ionisasi-bertingkat-dan-deret-isoelektronik',
-        tags: [
-          'soal-energi-ionisasi-bertingkat',
-          'energi-ionisasi-bertingkat',
-          'tren-jari-jari-atom-dan-ion',
-          'deret-isoelektronik',
-          'muatan-inti-efektif-zeff',
-        ],
-        title: 'Contoh Soal 4: Analisis Kritis Energi Ionisasi Bertingkat & Tren Ukuran Deret Isoelektronik',
-        summary: 'Identifikasi jumlah elektron valensi dan rumus senyawa klorida dari lonjakan drastis energi ionisasi berurutan, serta pengurutan jari-jari ion dalam deret isoelektronik S2-, Cl-, K+, Ca2+ berbasis Zeff.',
-        content: `**Bagian 1: Analisis Kualitatif & Kuantitatif Energi Ionisasi Bertingkat**  
-Suatu unsur logam representatif $M$ yang terletak pada Periode 3 dianalisis energi ionisasinya secara berturut-turut dari pelepasan elektron pertama hingga keenam. Data eksperimen energi ionisasi (dalam $\\text{kJ/mol}$) diperoleh sebagai berikut:
-- $IE_1 = 496\\text{ kJ/mol}$
-- $IE_2 = 4562\\text{ kJ/mol}$
-- $IE_3 = 6912\\text{ kJ/mol}$
-- $IE_4 = 9543\\text{ kJ/mol}$
-- $IE_5 = 13354\\text{ kJ/mol}$
-- $IE_6 = 16613\\text{ kJ/mol}$
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Kesalahan fatal nomor satu peserta OSN adalah menuliskan konfigurasi $\\ce{Co^2+}$ sebagai $[Ar] 4s^2 3d^5$ karena beranggapan subkulit $d^5$ setengah penuh sangat stabil sehingga $3d$ tidak boleh diganggu. Selalu ingat: **saat orbital $3d$ terisi elektron, tingkat energi orbital $4s$ terdorong naik menjadi lebih tinggi daripada $3d$, sehingga $4s$ mutlak terionisasi terlebih dahulu!**`,
+      keyFormulas: [
+        { name: 'Konfigurasi Anomali Kromium', formula: '\\ce{_{24}Cr}: [Ar] 4s^1 3d^5' },
+        { name: 'Formula Momen Magnetik Spin Saja', formula: '\\mu_{\\text{eff}} = \\sqrt{n(n + 2)} \\quad \\text{BM}' },
+      ],
+    },
 
-**Pertanyaan Bagian 1:**
-1. Di antara pelepasan elektron ke berapakah terjadi lonjakan energi ionisasi yang paling dramatis?
-2. Berapakah jumlah elektron valensi dari unsur $M$ dan tentukan letak golongannya!
-3. Ramalkan rumus kimia dan jenis ikatan senyawa stabil yang terbentuk jika unsur $M$ bereaksi dengan gas klorin ($\\ce{Cl_2}$)!
+    {
+      tag: 'soal-bilangan-kuantum-dan-spu',
+      tags: [
+        'empat-bilangan-kuantum',
+        'penentuan-golongan-dan-periode',
+        'blok-s-p-d-f',
+      ],
+      title: 'Contoh Soal 3: Penentuan Bilangan Kuantum Elektron Valensi Terakhir & Posisi Periodik',
+      summary: 'Algoritma deduktif menentukan nomor atom dari data spektroskopi bilangan kuantum, konfigurasi elektron lengkap, serta penentuan letak periode, golongan, dan blok unsur dalam sistem periodik.',
+      content: `Suatu atom netral unsur $X$ memiliki elektron terakhir dengan keempat bilangan kuantum sebagai berikut:
+$$n = 3, \\quad l = 1, \\quad m_l = -1, \\quad m_s = -\\frac{1}{2}$$
 
----
-
-**Bagian 2: Evaluasi Ukuran Spasial pada Deret Isoelektronik**  
-Diberikan empat spesies ionik monoatomik:
-$$\\ce{_{16}S^2-}, \\quad \\ce{_{17}Cl-}, \\quad \\ce{_{19}K+}, \\quad \\ce{_{20}Ca^2+}$$
-
-**Pertanyaan Bagian 2:**
-1. Buktikan bahwa keempat ion tersebut merupakan deret isoelektronik dengan menuliskan jumlah elektron dan konfigurasinya!
-2. Urutkan keempat ion tersebut berdasarkan **jari-jari ionnya dari yang TERBESAR hingga TERKECIL**!
-3. Berikan penjelasan ilmiah yang mendalam mengenai urutan tersebut berbasis konsep muatan inti efektif ($Z_{\\text{eff}}$)!
+Pertanyaan:
+1. Tentukan subkulit terakhir dari atom unsur $X$ dan hitung jumlah elektron yang menempati subkulit tersebut!
+2. Tuliskan konfigurasi elektron lengkap atom unsur $X$ dan tentukan nomor atomnya ($Z$)!
+3. Tentukan letak unsur $X$ dalam Tabel Periodik Modern (Periode, Golongan Utama/IUPAC, dan Blok)!
+4. Jika unsur $Y$ memiliki nomor atom $Z = 26$, tentukan keempat bilangan kuantum elektron terakhir dari atom $Y$!
 
 ---
 
 ### Pembahasan Langkah demi Langkah:
 
-#### Penyelesaian Bagian 1:
-1. **Analisis Rasio Kenaikan Energi Ionisasi:**
-   - $\\frac{IE_2}{IE_1} = \\frac{4562}{496} = \\mathbf{9.19 \\times}$ (Terjadi kenaikan drastis lebih dari **9 kali lipat**!).
-   - $\\frac{IE_3}{IE_2} = \\frac{6912}{4562} = 1.51 \\times$
-   - $\\frac{IE_4}{IE_3} = \\frac{9543}{6912} = 1.38 \\times$
-   - Lonjakan energi paling dramatis terjadi antara **$IE_1$ menuju $IE_2$**.
-
-2. **Penentuan Elektron Valensi dan Golongan:**
-   - Kenaikan raksasa pada $IE_2$ menandakan bahwa melepaskan elektron pertama ($IE_1$) sangat mudah karena berada pada kulit valensi terluar. Namun elektron kedua harus dicungkil dari **kulit bagian dalam yang terisi penuh (*closed shell*)** yang posisinya sangat dekat dengan inti dan memiliki gaya tarik elektrostatik yang luar biasa besar.
-   - Hal ini membuktikan bahwa unsur $M$ hanya memiliki **$1$ elektron valensi**.
-   - Karena memiliki 1 elektron valensi dan berada di Periode 3, maka unsur $M$ terletak pada **Golongan IA (Logam Alkali)**, yaitu unsur **Natrium ($\\ce{_{11}Na}$)** dengan konfigurasi $[\\ce{Ne}]\\ 3s^1$.
-
-3. **Rumus Senyawa dengan Klorin:**
-   - Logam alkali $M$ membentuk kation stabil bermuatan $+1$ ($M^+$).
-   - Klorin (Golongan VIIA) membutuhkan $1$ elektron untuk mencapai oktet dan membentuk anion klorida ($\\ce{Cl-}$).
-   - Melalui gaya tarik elektrostatik kation dan anion, terbentuk senyawa dengan rumus **$M\\ce{Cl}$** (yaitu $\\ce{NaCl}$) dengan jenis **Ikatan Ionik**.
+#### 1. Data Diketahui & Target Analisis:
+- Data elektron terakhir $X$: $n = 3, l = 1, m_l = -1, m_s = -\\frac{1}{2}$.
+- Unsur $Y$: $Z = 26$.
+- *Target:* Subkulit terakhir $X$, nomor atom $Z_X$, posisi periodik $X$, dan bilangan kuantum elektron terakhir $Y$.
 
 ---
 
-#### Penyelesaian Bagian 2:
-1. **Pembuktian Deret Isoelektronik:**
-   - $\\ce{_{16}S^2-}$: Elektron $= 16 - (-2) = \\mathbf{18}$
-   - $\\ce{_{17}Cl-}$: Elektron $= 17 - (-1) = \\mathbf{18}$
-   - $\\ce{_{19}K+}$: Elektron $= 19 - (+1) = \\mathbf{18}$
-   - $\\ce{_{20}Ca^2+}$: Elektron $= 20 - (+2) = \\mathbf{18}$  
-   *Seluruh spesies memiliki tepat $18$ elektron dengan konfigurasi identik: $1s^2 2s^2 2p^6 3s^2 3p^6$ (isoelektronik dengan gas mulia Argon).*
+#### 2. Rencana Strategi:
+- Rekonstruksi subkulit dari $n=3$ dan $l=1$ (subkulit $3p$).
+- Buat 3 kotak orbital ($m_l = -1, 0, +1$). Karena $m_s = -\\frac{1}{2}$, elektron terakhir merupakan pasangan panah ke bawah pada kotak $m_l = -1$.
+- Hitung total elektron dari konfigurasi terisi penuh hingga subkulit terakhir.
+- Tentukan Golongan dari elektron valensi dan Periode dari $n_{\\text{maks}}$.
 
-2. **Urutan Jari-jari Ion dari Terbesar ke Terkecil:**
-   $$\\mathbf{r(\\ce{S^2-}) > r(\\ce{Cl-}) > r(\\ce{K+}) > r(\\ce{Ca^2+})}$$
+---
 
-3. **Rasionalisasi Berdasarkan Muatan Inti Efektif ($Z_{\\text{eff}}$):**
-   - Karena keempat ion memiliki jumlah elektron yang sama persis ($18$ elektron) dan jumlah kulit terisi yang sama ($n = 3$), maka efek perisai awan elektron ($S$) pada keempat spesies praktis setara.
-   - Faktor pembeda utama adalah **jumlah proton dalam inti atom ($Z$)**:
-     - $\\ce{S^2-}$ memiliki $16$ proton menarik $18$ elektron (rasio $p/e = 0.889$).
-     - $\\ce{Cl-}$ memiliki $17$ proton menarik $18$ elektron (rasio $p/e = 0.944$).
-     - $\\ce{K+}$ memiliki $19$ proton menarik $18$ elektron (rasio $p/e = 1.056$).
-     - $\\ce{Ca^2+}$ memiliki $20$ proton menarik $18$ elektron (rasio $p/e = 1.111$).
-   - Muatan inti $Z$ paling besar berada pada kalsium ($Z = 20$). Dengan $Z_{\\text{eff}}$ paling dominan, inti kalsium menarik ke-18 elektron dengan cengkeraman paling kuat, memampatkan awan elektron sehingga $\\ce{Ca^2+}$ memiliki jari-jari paling kecil.
-   - Sebaliknya, sulfur hanya memiliki $16$ proton untuk menahan $18$ elektron. Tarikan inti per elektron paling lemah, dan tolakan antar-elektron valensi merenggangkan awan elektron, sehingga $\\ce{S^2-}$ memiliki ukuran jari-jari paling besar.
+#### 3. Eksekusi KaTeX Langkah Demi Langkah:
 
-> **Kesimpulan Evaluator Juri:** Pada deret isoelektronik, ukuran jari-jari **berbanding terbalik dengan nomor atom ($Z$)**. Makin besar muatan inti positif, makin mungil ukuran ionnya.`,
-        keyFormulas: [
-          { name: 'Rasio Lonjakan Energi Ionisasi', formula: '\\frac{IE_{n+1}}{IE_n} \\gg 1 \\implies \\text{Elektron Valensi} = n' },
-          { name: 'Tren Jari-jari Deret Isoelektronik', formula: 'r \\propto \\frac{1}{Z} \\quad (\\text{pada } e \\text{ konstan})' },
-        ],
-      },
-    ],
-  },
+##### 1. Rekonstruksi Subkulit Terakhir $X$:
+- $n = 3, l = 1 \\rightarrow$ Subkulit **$3p$**.
+- Orbital subkulit $p$ memiliki 3 kamar: $[-1], [0], [+1]$.
+- Sesuai Kaidah Hund, pengisian elektron:
+  1. Kotak $[-1]$ diisi $\\uparrow$ ($e_1$)
+  2. Kotak $[0]$ diisi $\\uparrow$ ($e_2$)
+  3. Kotak $[+1]$ diisi $\\uparrow$ ($e_3$)
+  4. Kotak $[-1]$ diisi $\\downarrow$ ($e_4$, elektron terakhir dengan $m_l = -1, m_s = -\\frac{1}{2}$).
+- Jadi, subkulit terakhir adalah **$3p^4$** (terisi 4 elektron).
+
+##### 2. Konfigurasi Elektron & Nomor Atom $X$:
+Tuliskan konfigurasi berurutan dari $1s$ sampai berakhir di $3p^4$:
+$$1s^2 \\, 2s^2 \\, 2p^6 \\, 3s^2 \\, 3p^4$$
+Jumlah elektron total: $2 + 2 + 6 + 2 + 4 = 16$.  
+Karena atom netral, maka **Nomor Atom $Z = 16$** (Unsur tersebut adalah Belerang / Sulfur, $\\ce{S}$).
+
+##### 3. Posisi dalam Sistem Periodik:
+- **Periode:** Nilai $n$ terbesar adalah $3$ $\\rightarrow$ **Periode 3**.
+- **Blok:** Subkulit terakhir adalah $p$ $\\rightarrow$ **Blok $p$**.
+- **Golongan:** Elektron valensi pada kulit terluar ($n=3$) adalah $3s^2 3p^4$ ($2 + 4 = 6$ elektron valensi).
+  - Sistem Tradisional: **Golongan VIA**
+  - Sistem IUPAC Modern: Kolom $10 + 6 = \\mathbf{\\text{Golongan 16}}$ (Kalkogen).
+
+##### 4. Kuartet Bilangan Kuantum Elektron Terakhir $Y$ ($Z = 26$):
+Konfigurasi Besi ($\\ce{_{26}Fe}$):
+$$1s^2 2s^2 2p^6 3s^2 3p^6 4s^2 3d^6$$
+Elektron terakhir masuk pada subkulit **$3d^6$**:
+- $n = 3$
+- $l = 2$ (subkulit $d$)
+- Orbital subkulit $d$ memiliki 5 kotak: $[-2], [-1], [0], [+1], [+2]$.
+- Isi 5 elektron ke atas: $[-2]\\uparrow, [-1]\\uparrow, [0]\\uparrow, [+1]\\uparrow, [+2]\\uparrow$.
+- Elektron ke-6 berpasangan masuk di kotak $[-2]$ dengan panah ke bawah ($\\downarrow$).
+- Maka: **$m_l = -2$** dan **$m_s = -\\frac{1}{2}$**.
+- *Kuartet Elektron Terakhir $Y$:* **$(3, 2, -2, -\\frac{1}{2})$**.
+
+---
+
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Hati-hati pada penentuan elektron terakhir unsur transisi! Meskipun dalam penulisan susunan kulit orbital $4s$ ditulis sebelum $3d$ atau sesudah $3d$ ($[Ar] 3d^6 4s^2$), secara urutan pengisian energi Aufbau elektron ke-26 masuk ke dalam subkulit $3d$, BUKAN ke dalam $4s$. Oleh karena itu, kuartet bilangan kuantum elektron terakhir selalu dihitung dari subkulit $3d$.`,
+      keyFormulas: [
+        { name: 'Kuantitas Elektron Valensi Blok p', formula: '\\text{Golongan} = ns + np = 2 + x' },
+      ],
+    },
+
+    {
+      tag: 'soal-energi-ionisasi-bertingkat',
+      tags: [
+        'energi-ionisasi-bertingkat',
+        'tren-jari-jari-atom-dan-ion',
+        'deret-isoelektronik',
+        'anomali-energi-ionisasi-be-b-n-o',
+      ],
+      title: 'Contoh Soal 4: Analisis Kritis Energi Ionisasi Bertingkat & Tren Ukuran Deret Isoelektronik',
+      summary: 'Dekonstruksi tabel data energi ionisasi bertingkat IE1 hingga IE6 untuk identifikasi golongan unsur, serta perbandingan urutan jari-jari spesi dalam deret isoelektronik.',
+      content: `**Bagian A: Identifikasi Golongan dari Lonjakan Energi Ionisasi Bertingkat**  
+Tabel berikut menyajikan data energi ionisasi bertingkat ($IE_1$ s.d. $IE_6$) dalam satuan $\\text{kJ/mol}$ untuk tiga unsur periode 3 berturut-turut ($P, Q, R$):
+
+| Unsur | $IE_1$ | $IE_2$ | $IE_3$ | $IE_4$ | $IE_5$ | $IE_6$ |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **$P$** | $496$ | $4.562$ | $6.910$ | $9.543$ | $13.354$ | $16.613$ |
+| **$Q$** | $738$ | $1.451$ | $7.733$ | $10.543$ | $13.630$ | $18.020$ |
+| **$R$** | $578$ | $1.817$ | $2.745$ | $11.577$ | $14.842$ | $18.379$ |
+
+1. Tentukan golongan dalam sistem periodik untuk masing-masing unsur $P, Q,$ dan $R$! Jelaskan dasar penalaran ilmiah Anda!
+2. Mengapa nilai $IE_1$ unsur $Q$ lebih tinggi daripada $IE_1$ unsur $R$, padahal nomor atom $R$ lebih besar daripada $Q$?
+
+---
+
+**Bagian B: Urutan Jari-jari Deret Isoelektronik**  
+Urutkan spesi-spesi ionik dan atom netral berikut berdasarkan kenaikan jari-jarinya (dari yang paling kecil ke paling besar):
+$$\\ce{Mg^2+}, \\quad \\ce{F-}, \\quad \\ce{Na+}, \\quad \\ce{O^2-}, \\quad \\ce{Al^3+}, \\quad \\ce{N^3-}$$
+Berikan penjelasan mendasar berdasarkan konsep Muatan Inti Efektif ($Z_{\\text{eff}}$)!
+
+---
+
+### Pembahasan Langkah demi Langkah:
+
+#### 1. Data Diketahui & Target Analisis:
+- Bagian A: Data $IE_1$ s.d. $IE_6$ untuk unsur periode 3 ($P, Q, R$). Target: Identifikasi golongan dan rasionalisasi anomali $IE_1(Q) > IE_1(R)$.
+- Bagian B: Spesi $\\ce{Mg^2+}, \\ce{F-}, \\ce{Na+}, \\ce{O^2-}, \\ce{Al^3+}, \\ce{N^3-}$. Target: Urutan kenaikan jari-jari dan penjelasan $Z_{\\text{eff}}$.
+
+---
+
+#### 2. Rencana Strategi:
+- Analisis rasio lonjakan: $\\frac{IE_{k+1}}{IE_k}$. Lonjakan ekstrem ($> 3$ s.d. $9$ kali) menandakan elektron ke-$(k+1)$ ditarik dari **kulit dalam yang penuh**, sehingga jumlah elektron valensi sama dengan $k$.
+- Untuk anomali $IE_1$, periksa konfigurasi elektron subkulit valensi $Q$ vs $R$ ($s^2$ penuh vs $p^1$).
+- Untuk deret isoelektronik, hitung jumlah proton ($Z$) masing-masing spesi yang memiliki $10e^-$. Jari-jari berbanding terbalik dengan nomor atom $Z$.
+
+---
+
+#### 3. Eksekusi KaTeX Langkah Demi Langkah:
+
+##### Penyelesaian Bagian A:
+1. **Identifikasi Unsur $P$:**
+   - $IE_1 = 496 \\to IE_2 = 4.562\\text{ kJ/mol}$ (Lonjakan drastis sebesar $\\frac{4562}{496} \\approx 9.2\\text{ kali}$).
+   - Elektron ke-1 sangat mudah dilepas, namun elektron ke-2 membutuhkan energi raksasa karena berasal dari kulit gas mulia yang stabil.
+   - Maka unsur $P$ memiliki **1 elektron valensi** $\\rightarrow$ **Golongan IA** (Kolom 1, yaitu Natrium $\\ce{Na}$).
+2. **Identifikasi Unsur $Q$:**
+   - $IE_1 = 738, IE_2 = 1.451 \\to IE_3 = 7.733\\text{ kJ/mol}$ (Lonjakan drastis sebesar $\\frac{7733}{1451} \\approx 5.3\\text{ kali}$).
+   - Unsur $Q$ memiliki **2 elektron valensi** $\\rightarrow$ **Golongan IIA** (Kolom 2, yaitu Magnesium $\\ce{Mg}$).
+3. **Identifikasi Unsur $R$:**
+   - $IE_1 = 578, IE_2 = 1.817, IE_3 = 2.745 \\to IE_4 = 11.577\\text{ kJ/mol}$ (Lonjakan drastis sebesar $\\frac{11577}{2745} \\approx 4.2\\text{ kali}$).
+   - Unsur $R$ memiliki **3 elektron valensi** $\\rightarrow$ **Golongan IIIA** (Kolom 13, yaitu Aluminium $\\ce{Al}$).
+
+##### 2. Rasionalisasi Anomali $IE_1(Q) > IE_1(R)$:
+- Konfigurasi $Q$ ($\\ce{_{12}Mg}$): $[Ne] \\mathbf{3s^2}$ (Subkulit $3s$ **penuh dan simetris**, elektron penetrasi kuat ke inti).
+- Konfigurasi $R$ ($\\ce{_{13}Al}$): $[Ne] 3s^2 \\mathbf{3p^1}$ (Elektron terluar berada pada subkulit $3p$ dengan tingkat energi lebih tinggi dan terperisai oleh pasangan $3s^2$).
+- Oleh karena itu, melepaskan satu elektron dari $3p^1$ pada Aluminium membutuhkan energi lebih sedikit ($578\\text{ kJ/mol}$) daripada melepaskan elektron dari subkulit $3s^2$ yang stabil pada Magnesium ($738\\text{ kJ/mol}$).
+
+---
+
+##### Penyelesaian Bagian B (Deret Isoelektronik):
+Seluruh spesi memiliki konfigurasi elektron identik dengan gas mulia Neon ($10\\text{ elektron}$):
+- $\\ce{_{13}Al^3+}$: $13\\text{ proton}, 10\\text{ elektron}$
+- $\\ce{_{12}Mg^2+}$: $12\\text{ proton}, 10\\text{ elektron}$
+- $\\ce{_{11}Na+}$: $11\\text{ proton}, 10\\text{ elektron}$
+- $\\ce{_{9}F-}$: $9\\text{ proton}, 10\\text{ elektron}$
+- $\\ce{_{8}O^2-}$: $8\\text{ proton}, 10\\text{ elektron}$
+- $\\ce{_{7}N^3-}$: $7\\text{ proton}, 10\\text{ elektron}$
+
+Karena jumlah elektron dan perisai antar-elektron sama persis, besarnya tarikan inti semata-mata ditentukan oleh **jumlah proton ($Z$)**:
+$$Z_{\\text{eff}}(\\ce{Al^3+}) > Z_{\\text{eff}}(\\ce{Mg^2+}) > Z_{\\text{eff}}(\\ce{Na+}) > Z_{\\text{eff}}(\\ce{F-}) > Z_{\\text{eff}}(\\ce{O^2-}) > Z_{\\text{eff}}(\\ce{N^3-})$$
+
+Makin besar tarikan inti, awan elektron ditarik makin merapat ke pusat sehingga ukuran ion makin kecil. Urutan kenaikan jari-jari (dari yang terkecil ke terbesar):
+$$\\mathbf{\\ce{Al^3+} < \\ce{Mg^2+} < \\ce{Na+} < \\ce{F-} < \\ce{O^2-} < \\ce{N^3-}}$$
+
+---
+
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Soal deret isoelektronik adalah lumbung poin termudah di olimpiade kimia jika Anda memegang satu kaidah emas: **"Jumlah elektron sama, proton paling banyak ukurannya paling kerdil; proton paling sedikit ukurannya paling raksasa."** Ion $\\ce{Al^3+}$ dengan 13 proton mencengkeram 10 elektronnya dengan sangat kuat, sementara 7 proton pada $\\ce{N^3-}$ kewalahan menahan tolakan 10 elektronnya sehingga awan elektron mengembang maksimal.`,
+      keyFormulas: [
+        { name: 'Kaidah Lonjakan Energi Ionisasi', formula: '\\frac{IE_{k+1}}{IE_k} \\gg 1 \\implies \\text{Elektron Valensi} = k' },
+        { name: 'Perbandingan Ukuran Deret Isoelektronik', formula: 'r \\propto \\frac{1}{Z}' },
+      ],
+    },
+  ],
+},
 
   {
   id: 103,
