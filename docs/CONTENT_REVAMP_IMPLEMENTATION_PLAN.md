@@ -77,7 +77,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **108** | **8** | **Kesetimbangan Kimia Dasar SMA** | **Kelas 11 (Fase F1)** | **Eskalator Berlawanan Arah (Dinamis), Jungkat-Jungkit Le Chatelier** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
 | **109** | **9** | **Larutan Asam-Basa & Titrasi Netralisasi** | **Kelas 11 (Fase F1)** | **Perang Donor-Akseptor Proton, Titik Belok Indikator** | **✅ Selesai** | **Coverage 100% (5 Soal, 23 Kuis, 19 Miskonsepsi)** |
 | **110** | **10** | **Larutan Penyangga (Buffer) & Hidrolisis** | **Kelas 11 (Fase F1)** | **Pasukan Penjaga Kejut pH Darah, Ion Penggoda Air** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
-| 111 | 11 | Kelarutan & Hasil Kali Kelarutan ($K_{sp}$) | Kelas 11 (Fase F1) | Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif | ⏳ Terjadwal | Prioritas Fase 3 |
+| **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | 112 | 12 | Sistem Koloid & Kimia Permukaan SMA | Kelas 11 (Fase F1) | Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil) | ⏳ Terjadwal | Prioritas Fase 3 |
 | 113 | 13 | Sifat Koligatif Larutan SMA | Kelas 12 (Fase F2) | Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel | ⏳ Terjadwal | Prioritas Fase 4 |
 | 114 | 14 | Reaksi Redoks & Sel Elektrokimia SMA | Kelas 12 (Fase F2) | Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik | ⏳ Terjadwal | Prioritas Fase 4 (Gap: Korosi & Baterai Komersial) |

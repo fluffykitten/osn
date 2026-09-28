@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109, WORKED_EXAMPLES_TOPIC_110 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109, WORKED_EXAMPLES_TOPIC_110, WORKED_EXAMPLES_TOPIC_111 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -3795,7 +3795,15 @@ Dalam termodinamika kimia:
 - Oleh karena itu, konsentrasi padatan digabungkan bersama tetapan kesetimbangan $K$ menghasilkan tetapan baru yang disebut **Tetapan Hasil Kali Kelarutan ($K_{sp}$ / *Solubility Product Constant*)**:
 $\\mathbf{K_{sp} = [\\ce{A^{y+}}]^x [\\ce{B^{x-}}]^y}$
 
-> **Makna Fisis Nilai $K_{sp}$:** Nilai $K_{sp}$ merupakan batas perkalian konsentrasi ion-ion dalam larutan jenuh pada suhu tertentu. Seperti tetapan kesetimbangan lainnya, nilai $K_{sp}$ **hanya dipengaruhi oleh temperatur**, dan tidak dipengaruhi oleh banyaknya padatan yang ada di dasar wadah.`,
+> **Makna Fisis Nilai $K_{sp}$:** Nilai $K_{sp}$ merupakan batas perkalian konsentrasi ion-ion dalam larutan jenuh pada suhu tertentu. Seperti tetapan kesetimbangan lainnya, nilai $K_{sp}$ **hanya dipengaruhi oleh temperatur**, dan tidak dipengaruhi oleh banyaknya padatan yang ada di dasar wadah.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Mitos Penambahan Padatan Memperbesar Nilai Ksp:**  
+> Banyak siswa beranggapan jika kita menambahkan lebih banyak kristal padat ke dasar wadah, konsentrasi ion terlarut atau nilai $K_{sp}$ akan bertambah.  
+> - **Kenyataan:** Pada larutan tepat jenuh, penambahan zat padat murni sebanyak apa pun TIDAK AKAN mengubah konsentrasi ion terlarut maupun nilai $K_{sp}$. Tetapan $K_{sp}$ adalah konstanta kesetimbangan termodinamika yang **nilainya murni hanya dipengaruhi oleh suhu**, bukan oleh banyaknya padatan di dasar bejana!`,
       },
     ],
     core_concepts: [
@@ -3911,7 +3919,16 @@ $\\mathbf{K_{sp} = [\\ce{A^{y+}}]^x [\\ce{B^{x-}}]^y = (x \\cdot s)^x (y \\cdot 
 ### 3. Konversi Kelarutan Molar ($s$) ke Kelarutan Massa ($S$)
 Di laboratorium praktikum analitik, kelarutan sering diukur dalam satuan gram per liter ($\\text{g/L}$) atau miligram per $100\\text{ mL}$:
 $\\mathbf{S (\\text{g/L}) = s (\\text{mol/L}) \\times M_r (\\text{g/mol})}$
-$\\mathbf{s (\\text{mol/L}) = \\frac{S (\\text{g/L})}{M_r (\\text{g/mol})}}$`,
+$\\mathbf{s (\\text{mol/L}) = \\frac{S (\\text{g/L})}{M_r (\\text{g/mol})}}$
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Jebakan Membandingkan Kelarutan Hanya dari Nilai Ksp:**  
+> Jangan pernah langsung menyimpulkan bahwa garam dengan nilai $K_{sp}$ lebih besar pasti memiliki kelarutan molar ($s$) yang lebih besar!  
+> - **Kenyataan:** Nilai $K_{sp}$ HANYA dapat dibandingkan langsung bila garam memiliki **jumlah ion yang sama** (sama-sama biner $1:1$ atau sama-sama terner $1:2$).  
+> - Jika jumlah ionnya berbeda, garam dengan nilai $K_{sp}$ lebih kecil bisa saja justru lebih mudah larut karena rumus keterhubungannya berderajat akar lebih tinggi ($s = \sqrt[3]{K_{sp}/4}$ vs $s = \sqrt{K_{sp}}$). Selalu hitung nilai kelarutan molar $s$ terlebih dahulu sebelum menyimpulkan urutan kelarutan!`,
         keyFormulas: [
           { name: 'Rumus Ksp Garam Biner 1:1', formula: 'K_{sp} = s^2 \\iff s = \\sqrt{K_{sp}}' },
           { name: 'Rumus Ksp Garam Terner 1:2', formula: 'K_{sp} = 4s^3 \\iff s = \\sqrt[3]{\\frac{K_{sp}}{4}}' },
@@ -4132,7 +4149,15 @@ $[\\ce{A^{y+}}]_{\\text{campuran}} = \\frac{M_1 \\times V_1}{V_1 + V_2}$
    - **Status:** Larutan tepat jenuh $\\implies$ **Belum terbentuk endapan nyata**, namun penambahan satu butir kristal mikro pun akan langsung memicu pengendapan.
 3. **$Q_{sp} > K_{sp}$:**
    - Hasil kali konsentrasi ion melampaui kapasitas kesetimbangan termodinamika.
-   - **Status:** Larutan lewat jenuh $\\implies$ **Terbentuk endapan kristal padatan** yang memisahkan diri dari fasa larutan sampai konsentrasi ion yang tersisa di cairan memenuhi kembali $Q_{sp} = K_{sp}$.`,
+   - **Status:** Larutan lewat jenuh $\\implies$ **Terbentuk endapan kristal padatan** yang memisahkan diri dari fasa larutan sampai konsentrasi ion yang tersisa di cairan memenuhi kembali $Q_{sp} = K_{sp}$.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Jebakan Melupakan Pengenceran Volume Total saat Menghitung Qsp:**  
+> Kesalahan fatal yang paling sering terjadi pada soal pencampuran larutan adalah langsung mengalikan konsentrasi awal larutan tanpa memperhitungkan pengenceran.  
+> - **Kenyataan:** Ketika dua larutan dicampurkan, volume total membesar ($V_{\\text{total}} = V_1 + V_2$). Akibatnya konsentrasi masing-masing ion terencerkan ($M_{\\text{campuran}} = \\frac{M_1 V_1}{V_{\\text{total}}}$). Menghitung $Q_{sp}$ dengan molaritas awal tanpa koreksi volume total akan menghasilkan nilai yang salah fatal (bisa selisih hingga 4 atau 8 kali lipat!).`,
         keyFormulas: [
           { name: 'Rumus Kuosien Ion Qsp', formula: 'Q_{sp} = [\\ce{A^{y+}}]^x [\\ce{B^{x-}}]^y \\quad (\\text{kondisi sesaat})' },
           { name: 'Kriteria Larut (Tidak Mengendap)', formula: 'Q_{sp} < K_{sp} \\implies \\text{Larutan Belum Jenuh (Tidak Mengendap)}' },
@@ -4230,215 +4255,7 @@ Pemisahan selektif dua ion dianggap **sempurna dan tuntas secara kuantitatif** a
         ],
       },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-kalkulasi-kelarutan-dan-ksp-garam-terner',
-        tags: ['contoh-kelarutan-ksp', 'garam-terner-ag2cro4', 'konversi-mg-ke-molaritas', 'perhitungan-ksp'],
-        title: 'Contoh Soal 1: Penentuan Nilai Ksp Perak Kromat Ag2CrO4 dari Data Kelarutan Massa & Konversi Satuan',
-        summary: 'Konversi kelarutan dari mg/100 mL ke molaritas (mol/L) dan kalkulasi nilai tetapan hasil kali kelarutan Ksp tipe garam terner 2:1.',
-        content: `**Soal:**
-Di laboratorium kimia analitik, seorang siswa melarutkan padatan kristal perak kromat, $\\ce{Ag2CrO4}$ ($M_r = 332.0\\text{ g/mol}$), ke dalam air suling pada suhu $25^\\circ\\text{C}$.
-Data laboratorium menunjukkan bahwa tepat sebanyak $4.316\\text{ mg}$ $\\ce{Ag2CrO4}$ dapat melarut dalam $100.0\\text{ mL}$ larutan hingga tercapai kondisi tepat jenuh.
-
-Tentukan:
-a) Kelarutan molar ($s$) dari perak kromat dalam satuan $\\text{mol/Liter}$!
-b) Persamaan reaksi kesetimbangan fasa heterogen dan ekspresi rumus $K_{sp}$!
-c) Nilai tetapan hasil kali kelarutan ($K_{sp}$) $\\ce{Ag2CrO4}$ pada temperatur $25^\\circ\\text{C}$!
-
----
-
-**Pembahasan:**
-
-**Bagian a: Menghitung Kelarutan Molar ($s$)**
-1. Konversi massa zat terlarut ke satuan gram:
-   $\\text{massa } \\ce{Ag2CrO4} = 4.316\\text{ mg} = 4.316 \\times 10^{-3}\\text{ gram}$
-2. Hitung jumlah mol zat terlarut:
-   $n = \\frac{\\text{massa}}{M_r} = \\frac{4.316 \\times 10^{-3}\\text{ g}}{332.0\\text{ g/mol}} = 1.30 \\times 10^{-5}\\text{ mol}$
-3. Hitung kelarutan molar dalam $1\\text{ Liter}$ ($V = 100.0\\text{ mL} = 0.100\\text{ L}$):
-   $s = \\frac{n}{V} = \\frac{1.30 \\times 10^{-5}\\text{ mol}}{0.100\\text{ L}} = \\mathbf{1.30 \\times 10^{-4}\\text{ mol/L (M)}}$
-
----
-
-**Bagian b: Persamaan Kesetimbangan dan Rumus $K_{sp}$**
-Reaksi pelarutan garam perak kromat (tipe terner $2 : 1$):
-$\\ce{Ag2CrO4(s) <=> 2 Ag+(aq) + CrO4^2-(aq)}$
-Hubungan stoikiometri konsentrasi ion dalam larutan jenuh:
-- $[\\ce{Ag+}] = 2s$
-- $[\\ce{CrO4^2-}] = s$
-
-Ekspresi rumus $K_{sp}$:
-$K_{sp} = [\\ce{Ag+}]^2 [\\ce{CrO4^2-}] = (2s)^2 \\times (s) = 4s^3$
-
----
-
-**Bagian c: Menghitung Nilai $K_{sp}$**
-Substitusikan nilai kelarutan $s = 1.30 \\times 10^{-4}\\text{ M}$:
-$K_{sp} = 4s^3 = 4 \\times (1.30 \\times 10^{-4})^3$
-$(1.30 \\times 10^{-4})^3 = 2.197 \\times 10^{-12}$
-$K_{sp} = 4 \\times (2.197 \\times 10^{-12}) = \\mathbf{8.79 \\times 10^{-12}}$
-
-> **Kesimpulan Evaluator Juri:** Perak kromat tergolong garam terner dengan stoikiometri $K_{sp} = 4s^3$. Dari kelarutan $1.30 \\times 10^{-4}\\text{ M}$, diperoleh nilai tetapan hasil kali kelarutan $K_{sp} = 8.79 \\times 10^{-12}$ pada $25^\\circ\\text{C}$.`,
-      },
-      {
-        tag: 'contoh-efek-ion-senama-penurunan-kelarutan-pbi2',
-        tags: ['contoh-ion-senama', 'pbi2-ki', 'penurunan-kelarutan', 'common-ion'],
-        title: 'Contoh Soal 2: Komparasi Kelarutan Timbal(II) Iodida PbI2 dalam Air Murni vs dalam Larutan KI 0.10 M',
-        summary: 'Perhitungan efek ion senama I- terhadap kelarutan garam PbI2 (Ksp = 7.1 x 10^-9) dan rasio penurunannya.',
-        content: `**Soal:**
-Garam timbal(II) iodida ($\\ce{PbI2}$) merupakan senyawa padat berwarna kuning terang yang sukar larut dalam air dengan nilai $K_{sp} = 7.1 \\times 10^{-9}$ pada temperatur $25^\\circ\\text{C}$.
-
-Tentukan:
-a) Kelarutan $\\ce{PbI2}$ di dalam air suling murni!
-b) Kelarutan $\\ce{PbI2}$ di dalam larutan kalium iodida ($\\ce{KI}$) $0.10\\text{ M}$!
-c) Berapa kali lipat penurunan kelarutan $\\ce{PbI2}$ akibat kehadiran ion senama iodida tersebut?
-
----
-
-**Pembahasan:**
-
-**Bagian a: Kelarutan $\\ce{PbI2}$ dalam Air Murni**
-Reaksi pelarutan:
-$\\ce{PbI2(s) <=> Pb^2+(aq) + 2 I-(aq)}$
-- $[\\ce{Pb^2+}] = s$
-- $[\\ce{I-}] = 2s$
-$K_{sp} = [\\ce{Pb^2+}][\\ce{I-}]^2 = (s)(2s)^2 = 4s^3$
-$4s^3 = 7.1 \\times 10^{-9} \\implies s^3 = \\frac{7.1 \\times 10^{-9}}{4} = 1.775 \\times 10^{-9}$
-$s = \\sqrt[3]{1.775 \\times 10^{-9}} \\approx \\mathbf{1.21 \\times 10^{-3}\\text{ mol/L (M)}}$
-
----
-
-**Bagian b: Kelarutan $\\ce{PbI2}$ dalam Larutan $\\ce{KI } 0.10\\text{ M}$ (Ion Senama $\\ce{I-}$)**
-Garam $\\ce{KI}$ terionisasi sempurna:
-$\\ce{KI(aq) -> K+(aq) + I-(aq)} \\implies [\\ce{I-}]_{\\ce{KI}} = 0.10\\text{ M}$
-
-Misalkan kelarutan $\\ce{PbI2}$ dalam larutan ini $= s'\\text{ M}$.
-Konsentrasi ion pada kesetimbangan:
-- $[\\ce{Pb^2+}] = s'$
-- $[\\ce{I-}] = 0.10 + 2s' \\approx 0.10\\text{ M}$ *(karena $2s' \\ll 0.10$, nilai $2s'$ dapat diabaikan)*.
-
-Substitusikan ke rumus $K_{sp}$:
-$K_{sp} = [\\ce{Pb^2+}][\\ce{I-}]^2$
-$7.1 \\times 10^{-9} = (s') \\times (0.10)^2 = s' \\times 1.0 \\times 10^{-2}$
-$s' = \\frac{7.1 \\times 10^{-9}}{1.0 \\times 10^{-2}} = \\mathbf{7.10 \\times 10^{-7}\\text{ mol/L (M)}}$
-
----
-
-**Bagian c: Rasio Penurunan Kelarutan**
-$\\text{Rasio Penurunan} = \\frac{s_{\\text{air}}}{s'_{\\ce{KI}}} = \\frac{1.21 \\times 10^{-3}\\text{ M}}{7.10 \\times 10^{-7}\\text{ M}} \\approx \\mathbf{1704\\text{ kali lipat}}$
-
-> **Kesimpulan Evaluator Juri:** Kehadiran ion senama $\\ce{I-}$ dari $\\ce{KI } 0.10\\text{ M}$ menekan kelarutan timbal(II) iodida hingga lebih dari $1700$ kali lipat lebih sukar larut dibandingkan dalam air murni. Prinsip ini digunakan di industri untuk meminimalkan kehilangan analit endapan saat proses pencucian kristal.`,
-      },
-      {
-        tag: 'contoh-prediksi-pengendapan-qsp-mgoh2-pada-ph',
-        tags: ['contoh-qsp-ksp', 'prediksi-endapan-mgoh2', 'pengaruh-ph-pengendapan', 'kuosien-ion'],
-        title: 'Contoh Soal 3: Prediksi Pembentukan Endapan Mg(OH)2 Berdasarkan Variasi pH Larutan Buffer',
-        summary: 'Evaluasi kondisi pengendapan hidroksida logam dari data konsentrasi kation dan pOH/pH larutan buffer serta penentuan batas pH mulai mengendap.',
-        content: `**Soal:**
-Suatu larutan magnesium klorida ($\\ce{MgCl2}$) memiliki konsentrasi $0.010\\text{ M}$.
-Diketahui tetapan hasil kali kelarutan magnesium hidroksida adalah $K_{sp}(\\ce{Mg(OH)2}) = 1.8 \\times 10^{-11}$ pada $25^\\circ\\text{C}$.
-
-Tentukan:
-a) Nilai pH minimum saat endapan $\\ce{Mg(OH)2}$ tepat mulai terbentuk di dalam larutan tersebut!
-b) Jika ke dalam larutan $\\ce{MgCl2}$ tersebut ditambahkan sistem buffer sehingga nilai pH larutan terjaga pada $\\text{pH} = 9.00$, apakah akan terbentuk endapan $\\ce{Mg(OH)2}$? Buktikan dengan perhitungan nilai $Q_{sp}$!
-c) Jika pH sistem buffer dinaikkan menjadi $\\text{pH} = 10.00$, apakah akan terjadi pengendapan? Buktikan dengan perhitungan nilai $Q_{sp}$!
-
----
-
-**Pembahasan:**
-
-Konsentrasi kation magnesium:
-$[\\ce{Mg^2+}] = 0.010\\text{ M} = 1.0 \\times 10^{-2}\\text{ M}$
-
----
-
-**Bagian a: Menghitung pH Kritis Saat Endapan Mulai Terbentuk**
-Endapan tepat mulai terbentuk pada batas kesetimbangan $Q_{sp} = K_{sp}$:
-$[\\ce{Mg^2+}][\\ce{OH-}]^2 = K_{sp}$
-$(1.0 \\times 10^{-2}) \\times [\\ce{OH-}]^2 = 1.8 \\times 10^{-11}$
-$[\\ce{OH-}]^2 = \\frac{1.8 \\times 10^{-11}}{1.0 \\times 10^{-2}} = 1.8 \\times 10^{-9} = 18 \\times 10^{-10}$
-$[\\ce{OH-}] = \\sqrt{18 \\times 10^{-10}} \\approx 4.24 \\times 10^{-5}\\text{ M}$
-
-Hitung pOH dan pH kritis:
-$\\text{pOH} = -\\log(4.24 \\times 10^{-5}) = 5 - \\log(4.24) = 5 - 0.627 = 4.373$
-$\\mathbf{\\text{pH}_{\\text{kritis}} = 14.00 - 4.373 = 9.627 \\approx 9.63}$
-*(Endapan padat $\\ce{Mg(OH)2}$ tepat mulai terbentuk jika $\\text{pH} \\ge 9.63$).*
-
----
-
-**Bagian b: Evaluasi pada $\\text{pH} = 9.00$**
-- $\\text{pOH} = 14.00 - 9.00 = 5.00 \\implies [\\ce{OH-}] = 1.0 \\times 10^{-5}\\text{ M}$
-- Hitung kuosien ion $Q_{sp}$:
-  $Q_{sp} = [\\ce{Mg^2+}][\\ce{OH-}]^2 = (1.0 \\times 10^{-2}) \\times (1.0 \\times 10^{-5})^2$
-  $Q_{sp} = (1.0 \\times 10^{-2}) \\times (1.0 \\times 10^{-10}) = \\mathbf{1.0 \\times 10^{-12}}$
-- Bandingkan dengan $K_{sp}$:
-  $Q_{sp} = 1.0 \\times 10^{-12} < K_{sp} = 1.8 \\times 10^{-11} \\implies \\mathbf{Q_{sp} < K_{sp}}$
-- **Kesimpulan:** Larutan belum jenuh $\\implies$ **TIDAK TERBENTUK ENDAPAN** (larutan tetap jernih).
-
----
-
-**Bagian c: Evaluasi pada $\\text{pH} = 10.00$**
-- $\\text{pOH} = 14.00 - 10.00 = 4.00 \\implies [\\ce{OH-}] = 1.0 \\times 10^{-4}\\text{ M}$
-- Hitung kuosien ion $Q_{sp}$:
-  $Q_{sp} = [\\ce{Mg^2+}][\\ce{OH-}]^2 = (1.0 \\times 10^{-2}) \\times (1.0 \\times 10^{-4})^2$
-  $Q_{sp} = (1.0 \\times 10^{-2}) \\times (1.0 \\times 10^{-8}) = \\mathbf{1.0 \\times 10^{-10}}$
-- Bandingkan dengan $K_{sp}$:
-  $Q_{sp} = 1.0 \\times 10^{-10} > K_{sp} = 1.8 \\times 10^{-11} \\implies \\mathbf{Q_{sp} > K_{sp}}$
-- **Kesimpulan:** Larutan lewat jenuh $\\implies$ **TERBENTUK ENDAPAN PUTIH $\\ce{Mg(OH)2}$**.
-
-> **Kesimpulan Evaluator Juri:** Ambang batas keasaman pengendapan $\\ce{Mg(OH)2}$ dari larutan $0.010\\text{ M}$ adalah $\\text{pH} = 9.63$. Pada pH 9.00 larutan tetap larut sempurna, sedangkan pada pH 10.00 ion $\\ce{OH-}$ telah melampaui batas $K_{sp}$ sehingga memicu presipitasi.`,
-      },
-      {
-        tag: 'contoh-pengendapan-selektif-pemisahan-klorida-iodida',
-        tags: ['contoh-pengendapan-selektif', 'pemisahan-kualitatif', 'agcl-agi-fraksional', 'efisiensi-pemisahan'],
-        title: 'Contoh Soal 4: Pemisahan Campuran Ion Cl- dan I- Menggunakan Pengendapan Bertingkat Larutan AgNO3',
-        summary: 'Kalkulasi konsentrasi Ag+ yang dibutuhkan untuk mengendapkan ion iodida dan klorida serta persentase ion pertama yang tersisa saat ion kedua mulai mengendap.',
-        content: `**Soal:**
-Suatu larutan mengandung campuran ion klorida ($\\ce{Cl-}$) $0.050\\text{ M}$ dan ion iodida ($\\ce{I-}$) $0.050\\text{ M}$. Ke dalam larutan tersebut diteteskan larutan perak nitrat ($\\ce{AgNO3}$) encer secara perlahan-lahan dengan pengadukan konstan.
-Diketahui data tetapan hasil kali kelarutan pada $25^\\circ\\text{C}$:
-- $K_{sp}(\\ce{AgCl}) = 1.8 \\times 10^{-10}$
-- $K_{sp}(\\ce{AgI}) = 8.5 \\times 10^{-17}$
-
-Tentukan:
-a) Garam perak manakah yang akan mengendap terlebih dahulu? Buktikan dengan menghitung konsentrasi ion $[\\ce{Ag+}]$ minimum yang dibutuhkan untuk memicu pengendapan masing-masing garam!
-b) Berapakah konsentrasi ion iodida ($[\\ce{I-}]$) yang masih tersisa di dalam larutan tepat saat garam kedua ($\\ce{AgCl}$) mulai mengendap?
-c) Berapa persen ($\\%$) ion iodida yang telah berhasil diendapkan sebelum perak klorida mulai terbentuk?
-
----
-
-**Pembahasan:**
-
-Konsentrasi ion mula-mula: $[\\ce{Cl-}] = 0.050\\text{ M}$ dan $[\\ce{I-}] = 0.050\\text{ M}$.
-
-**Bagian a: Menghitung $[\\ce{Ag+}]$ Minimum untuk Pengendapan**
-1. **Untuk mengendapkan $\\ce{AgI}$:**
-   $[\\ce{Ag+}]_{\\ce{AgI}} = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{I-}]} = \\frac{8.5 \\times 10^{-17}}{0.050\\text{ M}} = \\mathbf{1.70 \\times 10^{-15}\\text{ M}}$
-2. **Untuk mengendapkan $\\ce{AgCl}$:**
-   $[\\ce{Ag+}]_{\\ce{AgCl}} = \\frac{K_{sp}(\\ce{AgCl})}{[\\ce{Cl-}]} = \\frac{1.8 \\times 10^{-10}}{0.050\\text{ M}} = \\mathbf{3.60 \\times 10^{-9}\\text{ M}}$
-
-Karena $[\\ce{Ag+}]_{\\ce{AgI}} (1.70 \\times 10^{-15}\\text{ M}) \\ll [\\ce{Ag+}]_{\\ce{AgCl}} (3.60 \\times 10^{-9}\\text{ M})$, maka:
-**Garam $\\ce{AgI}$ (endapan kuning muda) akan mengendap TERLEBIH DAHULU**.
-
----
-
-**Bagian b: Konsentrasi Sisa $[\\ce{I-}]$ Saat $\\ce{AgCl}$ Mulai Mengendap**
-Garam $\\ce{AgCl}$ mulai mengendap tepat saat konsentrasi ion perak mencapai:
-$[\\ce{Ag+}] = 3.60 \\times 10^{-9}\\text{ M}$
-
-Pada saat itu, larutan masih tetap berada dalam kesetimbangan jenuh dengan $\\ce{AgI}$:
-$K_{sp}(\\ce{AgI}) = [\\ce{Ag+}][\\ce{I-}]_{\\text{sisa}} = 8.5 \\times 10^{-17}$
-$[\\ce{I-}]_{\\text{sisa}} = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{Ag+}]} = \\frac{8.5 \\times 10^{-17}}{3.60 \\times 10^{-9}\\text{ M}} \\approx \\mathbf{2.36 \\times 10^{-8}\\text{ M}}$
-
----
-
-**Bagian c: Persentase Ion Iodida yang Berhasil Diendapkan**
-- Persentase ion $\\ce{I-}$ yang masih tertinggal di larutan:
-  $\\% \\text{ sisa} = \\frac{[\\ce{I-}]_{\\text{sisa}}}{[\\ce{I-}]_{\\text{mula-mula}}} \\times 100\\% = \\frac{2.36 \\times 10^{-8}\\text{ M}}{0.050\\text{ M}} \\times 100\\% \\approx 0.000047\\% \\quad (4.72 \\times 10^{-5}\\%)$
-- Persentase ion $\\ce{I-}$ yang telah berhasil diendapkan:
-  $\\% \\text{ terendapkan} = 100\\% - 0.000047\\% = \\mathbf{99.99995\\%}$
-
-> **Kesimpulan Evaluator Juri:** Pemisahan selektif ion $\\ce{I-}$ dan $\\ce{Cl-}$ menggunakan penambahan $\\ce{Ag+}$ berlangsung dengan efisiensi luar biasa tinggi ($> 99.999\\%$ ion iodida telah terendapkan sebelum ion klorida mulai mengendap), membuktikan keandalan teknik pengendapan fraksional dalam kimia analitik kualitatif dan kuantitatif.`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_111,
   },
   {
     id: 112,

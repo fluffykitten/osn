@@ -2205,4 +2205,481 @@ Dalam tubuh manusia sehat pada temperatur fisiologis $37^\\\\circ\\\\text{C}$, n
   },
 ];
 
+// ============================================================================
+// TOPIK 111: Kelarutan & Hasil Kali Kelarutan (Ksp) SMA
+// ============================================================================
+// ============================================================================
+// TOPIK 111: Kelarutan & Hasil Kali Kelarutan (Ksp) SMA
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_111: ConceptBlock[] = [
+  {
+    tag: 'contoh-kalkulasi-kelarutan-dan-ksp-garam-polivalen',
+    tags: ['kelarutan-molar-s', 'hasil-kali-kelarutan-ksp', 'garam-terner-ag2cro4', 'garam-pentamer-ca3po42', 'konversi-kelarutan-massa', 'kimia-sma'],
+    title: 'Contoh Soal 1: Penentuan Nilai Ksp Perak Kromat Ag2CrO4 dari Data Kelarutan Massa & Analisis Garam Pentamer Ca3(PO4)2 (Level: Sedang)',
+    summary: 'Konversi kelarutan massa (mg/100 mL dan g/L) ke kelarutan molar (s), formulasi kesetimbangan heterogen Ksp tipe terner 2:1 dan pentamer 3:2, serta evaluasi perbandingan nilai Ksp.',
+    content: `### 📋 Skenario Masalah & Data Laboratorium:
+Di laboratorium kimia analitik sekolah, siswa melakukan investigasi kuantitatif terhadap dua garam sukar larut: perak kromat ($\\ce{Ag2CrO4}$) dan kalsium fosfat ($\\ce{Ca3(PO4)2}$).
+
+**Data Eksperimen 1 (Perak Kromat, $\\ce{Ag2CrO4}$):**
+- Massa molar ($M_r$) $\\ce{Ag2CrO4} = 332.0\\text{ g/mol}$.
+- Sebanyak $4.316\\text{ mg}$ padatan kristal $\\ce{Ag2CrO4}$ dilarutkan ke dalam air suling murni pada suhu $25^{\\circ}\\text{C}$ hingga diperoleh tepat $100.0\\text{ mL}$ larutan tepat jenuh.
+
+**Data Eksperimen 2 (Kalsium Fosfat, $\\ce{Ca3(PO4)2}$):**
+- Massa molar ($M_r$) $\\ce{Ca3(PO4)2} = 310.0\\text{ g/mol}$.
+- Pada suhu $25^{\\circ}\\text{C}$, nilai kelarutan molar kalsium fosfat dalam air murni adalah $s = 1.00 \\times 10^{-6}\\text{ mol/L}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Untuk $\\ce{Ag2CrO4}$:
+   a) Hitung kelarutan molar ($s$) dalam satuan $\\text{mol/L (M)}$!
+   b) Tuliskan persamaan kesetimbangan fasa heterogen dan turunkan hubungan matematis antara $K_{sp}$ dengan $s$!
+   c) Hitung nilai tetapan hasil kali kelarutan ($K_{sp}$) $\\ce{Ag2CrO4}$ pada suhu $25^{\\circ}\\text{C}$!
+2. Untuk $\\ce{Ca3(PO4)2}$:
+   a) Tuliskan persamaan kesetimbangan ionisasi dan rumusan ekspresi $K_{sp}$ dalam variabel $s$!
+   b) Hitung nilai tetapan $K_{sp}$ kalsium fosfat pada suhu tersebut!
+   c) Hitung massa maksimum kristal $\\ce{Ca3(PO4)2}$ yang dapat larut dalam $2.0\\text{ Liter}$ air murni pada $25^{\\circ}\\text{C}$!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Kuantitatif Perak Kromat ($\\ce{Ag2CrO4}$)
+1. **Menghitung Kelarutan Molar ($s$):**
+   - Konversi massa zat terlarut:
+     $$\\text{massa} = 4.316\\text{ mg} = 4.316 \\times 10^{-3}\\text{ gram}$$
+   - Jumlah mol zat terlarut dalam $100.0\\text{ mL}$ ($0.100\\text{ L}$):
+     $$n = \\frac{\\text{massa}}{M_r} = \\frac{4.316 \\times 10^{-3}\\text{ g}}{332.0\\text{ g/mol}} = 1.30 \\times 10^{-5}\\text{ mol}$$
+   - Kelarutan molar ($s$) per Liter:
+     $$s = \\frac{n}{V} = \\frac{1.30 \\times 10^{-5}\\text{ mol}}{0.100\\text{ L}} = \\mathbf{1.30 \\times 10^{-4}\\text{ mol/L (M)}}$$
+
+2. **Persamaan Kesetimbangan dan Derivasi $K_{sp}$:**
+   $$\\ce{Ag2CrO4(s) <=> 2 Ag+(aq) + CrO4^2-(aq)}$$
+   Jika kelarutan garam adalah $s$, maka pada kondisi larutan tepat jenuh:
+   - $[\\ce{Ag+}] = 2s$
+   - $[\\ce{CrO4^2-}] = s$
+   
+   Ekspresi tetapan hasil kali kelarutan:
+   $$K_{sp} = [\\ce{Ag+}]^2 [\\ce{CrO4^2-}] = (2s)^2 \\times (s) = 4s^2 \\times s = \\mathbf{4s^3}$$
+
+3. **Menghitung Nilai $K_{sp}$:**
+   Substitusikan nilai $s = 1.30 \\times 10^{-4}\\text{ M}$:
+   $$K_{sp} = 4 \\times (1.30 \\times 10^{-4})^3 = 4 \\times (2.197 \\times 10^{-12}) = \\mathbf{8.79 \\times 10^{-12}}$$
+
+---
+
+#### Langkah 2: Analisis Kuantitatif Kalsium Fosfat ($\\ce{Ca3(PO4)2}$)
+1. **Persamaan Kesetimbangan dan Derivasi $K_{sp}$ Garam Pentamer ($n = 5$):**
+   $$\\ce{Ca3(PO4)2(s) <=> 3 Ca^2+(aq) + 2 PO4^3-(aq)}$$
+   Pada kesetimbangan larutan jenuh:
+   - $[\\ce{Ca^2+}] = 3s$
+   - $[\\ce{PO4^3-}] = 2s$
+   
+   Ekspresi $K_{sp}$:
+   $$K_{sp} = [\\ce{Ca^2+}]^3 [\\ce{PO4^3-}]^2 = (3s)^3 \\times (2s)^2 = 27s^3 \\times 4s^2 = \\mathbf{108s^5}$$
+
+2. **Menghitung Nilai $K_{sp}$:**
+   Substitusikan nilai $s = 1.00 \\times 10^{-6}\\text{ M}$:
+   $$K_{sp} = 108 \\times (1.00 \\times 10^{-6})^5 = 108 \\times 1.00 \\times 10^{-30} = \\mathbf{1.08 \\times 10^{-28}}$$
+
+3. **Massa Maksimum yang Dapat Larut dalam $2.0\\text{ Liter}$ Air:**
+   - Jumlah mol maksimum dalam $2.0\\text{ L}$:
+     $$n_{\\text{maks}} = s \\times V = (1.00 \\times 10^{-6}\\text{ mol/L}) \\times 2.0\\text{ L} = 2.00 \\times 10^{-6}\\text{ mol}$$
+   - Massa maksimum terlarut:
+     $$\\text{massa}_{\\text{maks}} = n_{\\text{maks}} \\times M_r = (2.00 \\times 10^{-6}\\text{ mol}) \\times 310.0\\text{ g/mol}$$
+     $$\\text{massa}_{\\text{maks}} = 6.20 \\times 10^{-4}\\text{ gram} = \\mathbf{0.620\\text{ mg}}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Formula Universal Menentukan Hubungan $K_{sp}$ dan $s$:**  
+> Untuk senyawa ionik $\\ce{A_x B_y}$:
+> $$\\mathbf{K_{sp} = x^x \\cdot y^y \\cdot s^{(x+y)}}$$
+> - Garam biner 1:1 ($\\ce{AgCl, BaSO4}$) $\\implies K_{sp} = 1^1 \\cdot 1^1 \\cdot s^2 = \\mathbf{s^2}$
+> - Garam terner 1:2 atau 2:1 ($\\ce{Ag2CrO4, PbI2}$) $\\implies K_{sp} = 2^2 \\cdot 1^1 \\cdot s^3 = \\mathbf{4s^3}$
+> - Garam kuarterner 1:3 ($\\ce{Al(OH)3, Ag3PO4}$) $\\implies K_{sp} = 1^1 \\cdot 3^3 \\cdot s^4 = \\mathbf{27s^4}$
+> - Garam pentamer 2:3 atau 3:2 ($\\ce{Ca3(PO4)2}$) $\\implies K_{sp} = 3^3 \\cdot 2^2 \\cdot s^5 = \\mathbf{108s^5}$  
+> **Jebakan Ujian:** Jangan lupa bahwa volume pada kelarutan molar $s$ wajib dinyatakan dalam satuan **Liter**. Jika data soal memberikan volume $100\\text{ mL}$, ubah terlebih dahulu menjadi $0.100\\text{ L}$!`,
+    keyFormulas: [
+      { name: 'Hubungan Ksp Garam Terner 2:1', formula: 'K_{sp} = 4s^3 \\iff s = \\sqrt[3]{\\frac{K_{sp}}{4}}' },
+      { name: 'Hubungan Ksp Garam Pentamer 3:2', formula: 'K_{sp} = 108s^5 \\iff s = \\sqrt[5]{\\frac{K_{sp}}{108}}' },
+      { name: 'Formula Universal Ksp', formula: 'K_{sp} = x^x \\cdot y^y \\cdot s^{(x+y)}' },
+      { name: 'Kelarutan Massa', formula: 'S (\\text{g/L}) = s (\\text{mol/L}) \\times M_r (\\text{g/mol})' },
+    ],
+  },
+  {
+    tag: 'contoh-efek-ion-senama-penurunan-kelarutan-pbi2-dan-baso4',
+    tags: ['efek-ion-senama', 'common-ion-effect', 'penurunan-kelarutan', 'asas-le-chatelier', 'pbi2-ki', 'baso4-na2so4', 'kimia-sma'],
+    title: 'Contoh Soal 2: Penurunan Kelarutan Akibat Efek Ion Senama pada Garam Biner BaSO4 dan Garam Terner PbI2 (Level: Sedang)',
+    summary: 'Penerapan Asas Le Chatelier pada kesetimbangan kelarutan dalam larutan elektrolit yang mengandung ion senama kation maupun anion serta kalkulasi faktor kelipatan penurunannya.',
+    content: `### 📋 Skenario Masalah:
+Efek ion senama (*common-ion effect*) merupakan fenomena fundamental di mana kelarutan senyawa sukar larut turun drastis jika dilarutkan ke dalam larutan yang telah mengandung ion sejenis. Analisislah dua kasus laboratorium berikut pada temperatur $25^{\\circ}\\text{C}$:
+
+**Kasus 1: Barium Sulfat ($\\ce{BaSO4}$) pada Larutan Natrium Sulfat**  
+Diketahui $K_{sp}(\\ce{BaSO4}) = 1.10 \\times 10^{-10}$. Sebanyak padatan kristal $\\ce{BaSO4}$ dilarutkan ke dalam:
+a) Air murni.
+b) Larutan natrium sulfat ($\\ce{Na2SO4}$) $0.050\\text{ M}$.
+
+**Kasus 2: Timbal(II) Iodida ($\\ce{PbI2}$) pada Dua Jenis Larutan Ion Senama**  
+Diketahui $K_{sp}(\\ce{PbI2}) = 7.10 \\times 10^{-9}$. Garam $\\ce{PbI2}$ dilarutkan ke dalam:
+a) Air murni.
+b) Larutan kalium iodida ($\\ce{KI}$) $0.10\\text{ M}$ (ion senama anion $\\ce{I-}$).
+c) Larutan timbal(II) nitrat ($\\ce{Pb(NO3)2}$) $0.10\\text{ M}$ (ion senama kation $\\ce{Pb^2+}$).
+
+---
+
+### 🎯 Pertanyaan:
+1. Untuk Kasus 1, hitung kelarutan $\\ce{BaSO4}$ di dalam air murni dan di dalam larutan $\\ce{Na2SO4 } 0.050\\text{ M}$, serta tentukan berapa kali lipat kelarutan $\\ce{BaSO4}$ berkurang akibat kehadiran ion sulfat senama!
+2. Untuk Kasus 2:
+   a) Hitung kelarutan molar $\\ce{PbI2}$ di dalam air murni!
+   b) Hitung kelarutan molar $\\ce{PbI2}$ di dalam larutan $\\ce{KI } 0.10\\text{ M}$!
+   c) Hitung kelarutan molar $\\ce{PbI2}$ di dalam larutan $\\ce{Pb(NO3)2 } 0.10\\text{ M}$!
+   d) Bandingkan hasil (b) dan (c), lalu jelaskan mengapa ion senama $\\ce{I-}$ menekan kelarutan $\\ce{PbI2}$ jauh lebih drastis daripada ion senama $\\ce{Pb^2+}$ pada konsentrasi molar yang sama!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Penyelesaian Kasus 1 ($\\ce{BaSO4}$)
+1. **Kelarutan dalam Air Murni:**
+   $$\\ce{BaSO4(s) <=> Ba^2+(aq) + SO4^2-(aq)}$$
+   $$K_{sp} = s^2 \\implies s_{\\text{air}} = \\sqrt{K_{sp}} = \\sqrt{1.10 \\times 10^{-10}} = \\mathbf{1.05 \\times 10^{-5}\\text{ mol/L}}$$
+
+2. **Kelarutan dalam Larutan $\\ce{Na2SO4 } 0.050\\text{ M}$:**
+   Garam $\\ce{Na2SO4}$ terionisasi sempurna:
+   $$\\ce{Na2SO4(aq) -> 2 Na+(aq) + SO4^2-(aq)} \\implies [\\ce{SO4^2-}]_{\\text{senama}} = 0.050\\text{ M}$$
+   Misalkan kelarutan $\\ce{BaSO4}$ yang baru $= s'$.
+   Pada kesetimbangan:
+   - $[\\ce{Ba^2+}] = s'$
+   - $[\\ce{SO4^2-}] = 0.050 + s' \\approx 0.050\\text{ M}$ *(karena $s' \\ll 0.050$)*.
+   
+   Substitusikan ke persamaan $K_{sp}$:
+   $$K_{sp} = [\\ce{Ba^2+}][\\ce{SO4^2-}]$$
+   $$1.10 \\times 10^{-10} = s' \\times 0.050$$
+   $$s' = \\frac{1.10 \\times 10^{-10}}{0.050} = \\mathbf{2.20 \\times 10^{-9}\\text{ mol/L}}$$
+
+3. **Faktor Penurunan Kelarutan:**
+   $$\\text{Faktor Penurunan} = \\frac{s_{\\text{air}}}{s'} = \\frac{1.05 \\times 10^{-5}\\text{ M}}{2.20 \\times 10^{-9}\\text{ M}} \\approx \\mathbf{4772\\text{ kali lipat}}$$
+
+---
+
+#### Langkah 2: Penyelesaian Kasus 2 ($\\ce{PbI2}$)
+1. **Kelarutan dalam Air Murni:**
+   $$\\ce{PbI2(s) <=> Pb^2+(aq) + 2 I-(aq)}$$
+   $$K_{sp} = (s)(2s)^2 = 4s^3$$
+   $$4s^3 = 7.10 \\times 10^{-9} \\implies s^3 = 1.775 \\times 10^{-9}$$
+   $$s_{\\text{air}} = \\sqrt[3]{1.775 \\times 10^{-9}} \\approx \\mathbf{1.21 \\times 10^{-3}\\text{ mol/L}}$$
+
+2. **Kelarutan dalam $\\ce{KI } 0.10\\text{ M}$ (Ion Senama $\\ce{I-}$):**
+   Ion $\\ce{I-}$ berasal dari $\\ce{KI}$: $[\\ce{I-}] = 0.10\\text{ M}$.
+   Pada kesetimbangan: $[\\ce{Pb^2+}] = s_1$ dan $[\\ce{I-}] = 0.10 + 2s_1 \\approx 0.10\\text{ M}$.
+   $$K_{sp} = [\\ce{Pb^2+}][\\ce{I-}]^2$$
+   $$7.10 \\times 10^{-9} = s_1 \\times (0.10)^2 = s_1 \\times 1.0 \\times 10^{-2}$$
+   $$s_1 = \\frac{7.10 \\times 10^{-9}}{1.0 \\times 10^{-2}} = \\mathbf{7.10 \\times 10^{-7}\\text{ mol/L}}$$
+   *(Kelarutan turun $\\frac{1.21 \\times 10^{-3}}{7.10 \\times 10^{-7}} \\approx 1704\\text{ kali lipat}!$)*.
+
+3. **Kelarutan dalam $\\ce{Pb(NO3)2 } 0.10\\text{ M}$ (Ion Senama $\\ce{Pb^2+}$):**
+   Ion $\\ce{Pb^2+}$ berasal dari timbal nitrat: $[\\ce{Pb^2+}] = 0.10\\text{ M}$.
+   Pada kesetimbangan: $[\\ce{Pb^2+}] = 0.10 + s_2 \\approx 0.10\\text{ M}$ dan $[\\ce{I-}] = 2s_2$.
+   $$K_{sp} = [\\ce{Pb^2+}][\\ce{I-}]^2$$
+   $$7.10 \\times 10^{-9} = (0.10) \\times (2s_2)^2 = 0.10 \\times 4s_2^2 = 0.40 s_2^2$$
+   $$s_2^2 = \\frac{7.10 \\times 10^{-9}}{0.40} = 1.775 \\times 10^{-8}$$
+   $$s_2 = \\sqrt{1.775 \\times 10^{-8}} \\approx \\mathbf{1.33 \\times 10^{-4}\\text{ mol/L}}$$
+   *(Kelarutan hanya turun $\\frac{1.21 \\times 10^{-3}}{1.33 \\times 10^{-4}} \\approx 9.1\\text{ kali lipat}$)*.
+
+4. **Analisis Komparasi Pengaruh Posisi Stoikiometri Ion Senama:**
+   - Kelarutan dalam $\\ce{KI}$ ($s_1 = 7.10 \\times 10^{-7}\\text{ M}$) jauh lebih kecil daripada kelarutan dalam $\\ce{Pb(NO3)2}$ ($s_2 = 1.33 \\times 10^{-4}\\text{ M}$).
+   - **Rasionalitas Matematika & Kimia:** Pada ekspresi $K_{sp} = [\\ce{Pb^2+}][\\ce{I-}]^2$, konsentrasi ion iodida dipangkatkan dua ($[\\ce{I-}]^2$), sedangkan ion timbal hanya berpangkat satu ($[\\ce{Pb^2+}]^1$). Kehadiran ion senama yang memiliki koefisien reaksi lebih tinggi memberikan efek penekanan kuadratik yang berlipat ganda jauh lebih kuat terhadap kelarutan!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Aturan Aproksimasi Cepat Ion Senama:**  
+> Ketika menambahkan garam ion senama dengan konsentrasi $C \\ge 10^{-3}\\text{ M}$ ke dalam sistem garam sukar larut ($K_{sp} \\le 10^{-8}$):
+> 1. Abaikan selalu kontribusi ion senama dari disosiasi padatan ($C + x \\approx C$).
+> 2. Jangan pernah mengabaikan pangkat stoikiometri! Jika ion senama adalah anion bervalensi 2 seperti $[\\ce{I-}]^2$, masukkan langsung $(C)^2$.
+> 3. Trik Ujian UTBK: Jika ditanya *"larutan manakah yang kelarutannya paling kecil?"*, cari larutan yang menghasilkan konsentrasi ion senama tertinggi, terutama ion senama yang memiliki pangkat koefisien terbesar!`,
+    keyFormulas: [
+      { name: 'Kelarutan Biner dengan Ion Senama', formula: 's_{\\text{baru}} = \\frac{K_{sp}}{[\\text{Ion Senama}]}' },
+      { name: 'Kelarutan Terner dengan Ion Senama Anion', formula: 's_{\\text{baru}} = \\frac{K_{sp}}{[\\text{Anion Senama}]^2}' },
+      { name: 'Kelarutan Terner dengan Ion Senama Kation', formula: 's_{\\text{baru}} = \\sqrt{\\frac{K_{sp}}{4 \\times [\\text{Kation Senama}]}}' },
+    ],
+  },
+  {
+    tag: 'contoh-prediksi-pengendapan-qsp-dan-pengenceran-larutan',
+    tags: ['kuosien-ion-qsp', 'kriteria-pengendapan', 'pengenceran-larutan', 'baso4', 'ag2cro4', 'kimia-sma'],
+    title: 'Contoh Soal 3: Prediksi Pembentukan Endapan BaSO4 dan Ag2CrO4 Melalui Perhitungan Kuosien Ion Qsp dengan Koreksi Volume Pengenceran Total (Level: Sedang)',
+    summary: 'Perhitungan konsentrasi ion sesaat setelah pencampuran dua larutan elektrolit bervolume berbeda, penentuan kuosien ion Qsp, dan komparasi terhadap Ksp untuk menetapkan status pengendapan.',
+    content: `### 📋 Skenario Masalah:
+Di laboratorium, pencampuran dua larutan elektrolit terlarut dapat memicu pembentukan endapan padat jika perkalian konsentrasi ion sesaatnya melampaui batas kelarutan termodinamika ($Q_{sp} > K_{sp}$). Tinjau dua uji reaksi presipitasi pada suhu $25^{\\circ}\\text{C}$:
+
+**Percobaan A: Pencampuran Barium Klorida dan Kalium Sulfat**
+Sebanyak $200.0\\text{ mL}$ larutan $\\ce{BaCl2 } 4.00 \\times 10^{-5}\\text{ M}$ dicampurkan dengan $300.0\\text{ mL}$ larutan $\\ce{K2SO4 } 6.00 \\times 10^{-5}\\text{ M}$.  
+Diketahui $K_{sp}(\\ce{BaSO4}) = 1.10 \\times 10^{-10}$.
+
+**Percobaan B: Pencampuran Perak Nitrat dan Kalium Kromat**
+Sebanyak $100.0\\text{ mL}$ larutan $\\ce{AgNO3 } 2.00 \\times 10^{-4}\\text{ M}$ dicampurkan dengan $400.0\\text{ mL}$ larutan $\\ce{K2CrO4 } 1.00 \\times 10^{-4}\\text{ M}$.  
+Diketahui $K_{sp}(\\ce{Ag2CrO4}) = 8.80 \\times 10^{-12}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Untuk Percobaan A:
+   a) Hitung volume total campuran dan konsentrasi molar ion $[\\ce{Ba^2+}]$ serta $[\\ce{SO4^2-}]$ tepat saat pencampuran berlangsung!
+   b) Tentukan nilai kuosien ion ($Q_{sp}$) $\\ce{BaSO4}$!
+   c) Prediksikan apakah terbentuk endapan padat $\\ce{BaSO4}$ atau larutan tetap jernih!
+2. Untuk Percobaan B:
+   a) Hitung konsentrasi ion $[\\ce{Ag+}]$ dan $[\\ce{CrO4^2-}]$ sesaat setelah pencampuran!
+   b) Hitung nilai kuosien ion ($Q_{sp}$) $\\ce{Ag2CrO4}$!
+   c) Berdasarkan kriteria $Q_{sp}$ vs $K_{sp}$, apakah pada Percobaan B terbentuk endapan merah bata $\\ce{Ag2CrO4}$?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Evaluasi Percobaan A ($\\ce{BaSO4}$)
+1. **Perhitungan Volume Total dan Konsentrasi Pengenceran:**
+   $$V_{\\text{total}} = V_1 + V_2 = 200.0\\text{ mL} + 300.0\\text{ mL} = \\mathbf{500.0\\text{ mL}}$$
+   Konsentrasi ion barium dalam campuran:
+   $$[\\ce{Ba^2+}] = \\frac{M_1 \\times V_1}{V_{\\text{total}}} = \\frac{(4.00 \\times 10^{-5}\\text{ M}) \\times 200.0\\text{ mL}}{500.0\\text{ mL}} = \\mathbf{1.60 \\times 10^{-5}\\text{ M}}$$
+   Konsentrasi ion sulfat dalam campuran:
+   $$[\\ce{SO4^2-}] = \\frac{M_2 \\times V_2}{V_{\\text{total}}} = \\frac{(6.00 \\times 10^{-5}\\text{ M}) \\times 300.0\\text{ mL}}{500.0\\text{ mL}} = \\mathbf{3.60 \\times 10^{-5}\\text{ M}}$$
+
+2. **Menghitung Kuosien Ion ($Q_{sp}$):**
+   Reaksi pengendapan: $\\ce{Ba^2+(aq) + SO4^2-(aq) <=> BaSO4(s)}$
+   $$Q_{sp} = [\\ce{Ba^2+}][\\ce{SO4^2-}] = (1.60 \\times 10^{-5}) \\times (3.60 \\times 10^{-5}) = \\mathbf{5.76 \\times 10^{-10}}$$
+
+3. **Perbandingan $Q_{sp}$ dengan $K_{sp}$:**
+   $$Q_{sp} = 5.76 \\times 10^{-10} \\quad \\text{vs} \\quad K_{sp} = 1.10 \\times 10^{-10}$$
+   Karena $\\mathbf{Q_{sp} > K_{sp}}$, larutan berada dalam kondisi **lewat jenuh (*supersaturated*)**.
+   **Kesimpulan Percobaan A:** **TERBENTUK ENDAPAN PUTIH $\\ce{BaSO4}$**.
+
+---
+
+#### Langkah 2: Evaluasi Percobaan B ($\\ce{Ag2CrO4}$)
+1. **Perhitungan Volume Total dan Konsentrasi Pengenceran:**
+   $$V_{\\text{total}} = 100.0\\text{ mL} + 400.0\\text{ mL} = \\mathbf{500.0\\text{ mL}}$$
+   Konsentrasi ion perak dalam campuran:
+   $$[\\ce{Ag+}] = \\frac{(2.00 \\times 10^{-4}\\text{ M}) \\times 100.0\\text{ mL}}{500.0\\text{ mL}} = \\mathbf{4.00 \\times 10^{-5}\\text{ M}}$$
+   Konsentrasi ion kromat dalam campuran:
+   $$[\\ce{CrO4^2-}] = \\frac{(1.00 \\times 10^{-4}\\text{ M}) \\times 400.0\\text{ mL}}{500.0\\text{ mL}} = \\mathbf{8.00 \\times 10^{-5}\\text{ M}}$$
+
+2. **Menghitung Kuosien Ion ($Q_{sp}$):**
+   Reaksi pengendapan: $\\ce{2 Ag+(aq) + CrO4^2-(aq) <=> Ag2CrO4(s)}$
+   Perhatikan pangkat stoikiometri ion $\\ce{Ag+}$:
+   $$Q_{sp} = [\\ce{Ag+}]^2 [\\ce{CrO4^2-}]$$
+   $$Q_{sp} = (4.00 \\times 10^{-5})^2 \\times (8.00 \\times 10^{-5})$$
+   $$Q_{sp} = (1.60 \\times 10^{-9}) \\times (8.00 \\times 10^{-5}) = \\mathbf{1.28 \\times 10^{-13}}$$
+
+3. **Perbandingan $Q_{sp}$ dengan $K_{sp}$:**
+   $$Q_{sp} = 1.28 \\times 10^{-13} \\quad \\text{vs} \\quad K_{sp} = 8.80 \\times 10^{-12}$$
+   Karena $\\mathbf{Q_{sp} < K_{sp}}$, larutan berada dalam kondisi **belum jenuh (*unsaturated*)**.
+   **Kesimpulan Percobaan B:** **TIDAK TERBENTUK ENDAPAN** (larutan tetap homogen jernih berwarna kuning kromat).
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Dua Kesalahan Fatal yang Paling Sering Terjadi pada Ujian Nasional & UTBK:**  
+> 1. **Lupa Memperhitungkan Volume Total ($V_1 + V_2$):** Siswa sering langsung mengalikan konsentrasi awal larutan tanpa pengenceran ($4.0 \\times 10^{-5} \\times 6.0 \\times 10^{-5}$), padahal konsentrasi ion menurun begitu dicampurkan!  
+> 2. **Lupa Memangkatkan Koefisien pada $Q_{sp}$:** Pada garam tipe terner seperti $\\ce{Ag2CrO4}$, ion $\\ce{Ag+}$ WAJIB dikuadratkan: $Q_{sp} = [\\ce{Ag+}]^2 [\\ce{CrO4^2-}]$. Jika lupa menguadratkan, nilai $Q_{sp}$ yang diperoleh akan salah total.`,
+    keyFormulas: [
+      { name: 'Rumus Pengenceran Konsentrasi Campuran', formula: 'M_{\\text{campuran}} = \\frac{M_1 V_1}{V_1 + V_2}' },
+      { name: 'Rumus Kuosien Ion Qsp Terner', formula: 'Q_{sp} = [\\ce{A+}]^2 [\\ce{B^2-}]' },
+      { name: 'Kriteria Terbentuk Endapan', formula: 'Q_{sp} > K_{sp} \\implies \\text{Terjadi Presipitasi (Mengendap)}' },
+    ],
+  },
+  {
+    tag: 'contoh-pengaruh-ph-dan-buffer-kelarutan-hidroksida-logam',
+    tags: ['pengaruh-ph-ksp', 'kelarutan-hidroksida', 'ph-kritis-pengendapan', 'mgoh2-feoh3', 'sistem-buffer', 'kimia-sma'],
+    title: 'Contoh Soal 4: Regulasi Derajat Keasaman (pH) dan Sistem Penyangga terhadap Pengendapan Selektif Magnesium Hidroksida Mg(OH)2 & Besi(III) Hidroksida Fe(OH)3 (Level: Sulit / HOTS)',
+    summary: 'Penentuan batas pH kritis pengendapan hidroksida logam divalen dan trivalen, evaluasi kelarutan di dalam sistem larutan penyangga amonia-amonium klorida, serta pencegahan pengendapan menggunakan buffer pH.',
+    content: `### 📋 Skenario Masalah:
+Dalam proses pengolahan air limbah industri dan analisis pemisahan kation kualitatif di laboratorium, pengendalian derajat keasaman ($\\text{pH}$) menggunakan larutan penyangga (*buffer*) dimanfaatkan untuk mengendapkan ion logam berat beracun tanpa mengendapkan ion logam ramah lingkungan.
+
+Tersedia suatu larutan yang mengandung campuran kation:
+- Ion besi(III): $[\\ce{Fe^3+}] = 1.00 \\times 10^{-3}\\text{ M}$
+- Ion magnesium: $[\\ce{Mg^2+}] = 1.00 \\times 10^{-2}\\text{ M}$
+
+Diketahui data tetapan hasil kali kelarutan pada temperatur $25^{\\circ}\\text{C}$:
+- $K_{sp}(\\ce{Fe(OH)3}) = 4.00 \\times 10^{-38}$
+- $K_{sp}(\\ce{Mg(OH)2}) = 1.80 \\times 10^{-11}$
+- $K_w = 1.00 \\times 10^{-14}$
+
+---
+
+### 🎯 Pertanyaan:
+1. Tentukan nilai konsentrasi ion hidroksida minimum ($[\\ce{OH-}]_{\\text{kritis}}$) dan nilai $\\text{pH}$ saat endapan $\\ce{Fe(OH)3}$ tepat mulai terbentuk!
+2. Tentukan nilai $[\\ce{OH-}]_{\\text{kritis}}$ dan nilai $\\text{pH}$ saat endapan $\\ce{Mg(OH)2}$ tepat mulai terbentuk!
+3. Jika ke dalam campuran tersebut ditambahkan larutan penyangga $\\ce{NH3 / NH4Cl}$ sehingga $\\text{pH}$ larutan terkunci stabil pada $\\text{pH} = 8.00$:
+   a) Apakah $\\ce{Fe(OH)3}$ akan mengendap?
+   b) Apakah $\\ce{Mg(OH)2}$ akan mengendap?
+   c) Hitung konsentrasi ion $\\ce{Fe^3+}$ yang masih tersisa di dalam larutan pada $\\text{pH} = 8.00$ tersebut, dan buktikan bahwa pemisahan ion besi dari ion magnesium berlangsung secara tuntas!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Batas pH Kritis Pengendapan $\\ce{Fe(OH)3}$
+Kesetimbangan pengendapan besi(III) hidroksida:
+$$\\ce{Fe(OH)3(s) <=> Fe^3+(aq) + 3 OH-(aq)} \\quad K_{sp} = [\\ce{Fe^3+}][\\ce{OH-}]^3$$
+Endapan tepat mulai terbentuk pada saat $Q_{sp} = K_{sp}$:
+$$(1.00 \\times 10^{-3}) \\times [\\ce{OH-}]^3 = 4.00 \\times 10^{-38}$$
+$$[\\ce{OH-}]^3 = \\frac{4.00 \\times 10^{-38}}{1.00 \\times 10^{-3}} = 4.00 \\times 10^{-35} = 40.0 \\times 10^{-36}$$
+$$[\\ce{OH-}]_{\\text{kritis}} = \\sqrt[3]{40.0 \\times 10^{-36}} \\approx \\mathbf{3.42 \\times 10^{-12}\\text{ M}}$$
+
+Hitung pOH dan pH kritis:
+$$\\text{pOH} = -\\log(3.42 \\times 10^{-12}) = 12 - \\log(3.42) = 12 - 0.534 = 11.466$$
+$$\\mathbf{\\text{pH}_{\\text{kritis}}(\\ce{Fe(OH)3}) = 14.00 - 11.466 = 2.534 \\approx 2.53}$$
+*(Artinya: Bahkan pada suasana asam sekalipun dengan $\\text{pH} \\ge 2.53$, ion $\\ce{Fe^3+}$ sudah mulai mengendap karena nilai $K_{sp}$-nya luar biasa kecil!).*
+
+---
+
+#### Langkah 2: Batas pH Kritis Pengendapan $\\ce{Mg(OH)2}$
+Kesetimbangan pengendapan magnesium hidroksida:
+$$\\ce{Mg(OH)2(s) <=> Mg^2+(aq) + 2 OH-(aq)} \\quad K_{sp} = [\\ce{Mg^2+}][\\ce{OH-}]^2$$
+Endapan tepat mulai terbentuk pada saat $Q_{sp} = K_{sp}$:
+$$(1.00 \\times 10^{-2}) \\times [\\ce{OH-}]^2 = 1.80 \\times 10^{-11}$$
+$$[\\ce{OH-}]^2 = \\frac{1.80 \\times 10^{-11}}{1.00 \\times 10^{-2}} = 1.80 \\times 10^{-9} = 18.0 \\times 10^{-10}$$
+$$[\\ce{OH-}]_{\\text{kritis}} = \\sqrt{18.0 \\times 10^{-10}} \\approx \\mathbf{4.24 \\times 10^{-5}\\text{ M}}$$
+
+Hitung pOH dan pH kritis:
+$$\\text{pOH} = -\\log(4.24 \\times 10^{-5}) = 5 - \\log(4.24) = 5 - 0.627 = 4.373$$
+$$\\mathbf{\\text{pH}_{\\text{kritis}}(\\ce{Mg(OH)2}) = 14.00 - 4.373 = 9.627 \\approx 9.63}$$
+*(Artinya: Endapan padat $\\ce{Mg(OH)2}$ baru dapat terbentuk jika larutan dibuat bersuasana basa cukup kuat dengan $\\text{pH} \\ge 9.63$).*
+
+---
+
+#### Langkah 3: Evaluasi Kondisi pada Sistem Buffer $\\text{pH} = 8.00$
+Pada larutan dengan sistem penyangga $\\text{pH} = 8.00$:
+$$\\text{pOH} = 14.00 - 8.00 = 6.00 \\implies [\\ce{OH-}] = 1.00 \\times 10^{-6}\\text{ M}$$
+
+1. **Status Pengendapan $\\ce{Fe(OH)3}$:**
+   Karena $\\text{pH} (8.00) \\gg \\text{pH}_{\\text{kritis}} (2.53)$, atau:
+   $$Q_{sp} = [\\ce{Fe^3+}][\\ce{OH-}]^3 = (1.00 \\times 10^{-3}) \\times (1.00 \\times 10^{-6})^3 = 1.00 \\times 10^{-21} \\gg 4.00 \\times 10^{-38}$$
+   Maka: **$\\ce{Fe(OH)3}$ MENGENDAP SEMPURNA** sebagai endapan gel cokelat kemerahan.
+
+2. **Status Pengendapan $\\ce{Mg(OH)2}$:**
+   Karena $\\text{pH} (8.00) < \\text{pH}_{\\text{kritis}} (9.63)$, atau:
+   $$Q_{sp} = [\\ce{Mg^2+}][\\ce{OH-}]^2 = (1.00 \\times 10^{-2}) \\times (1.00 \\times 10^{-6})^2 = 1.00 \\times 10^{-14} < 1.80 \\times 10^{-11}$$
+   Maka: **$\\ce{Mg(OH)2}$ TIDAK MENGENDAP** (seluruh ion $\\ce{Mg^2+}$ tetap larut dalam filtrat).
+
+3. **Konsentrasi Sisa Ion $\\ce{Fe^3+}$ di Larutan pada $\\text{pH} = 8.00$:**
+   Dalam filtrat yang berada dalam kesetimbangan dengan endapan $\\ce{Fe(OH)3}$:
+   $$[\\ce{Fe^3+}]_{\\text{sisa}} = \\frac{K_{sp}(\\ce{Fe(OH)3})}{[\\ce{OH-}]^3} = \\frac{4.00 \\times 10^{-38}}{(1.00 \\times 10^{-6})^3} = \\frac{4.00 \\times 10^{-38}}{1.00 \\times 10^{-18}} = \\mathbf{4.00 \\times 10^{-20}\\text{ M}}$$
+   - Persentase ion $\\ce{Fe^3+}$ yang masih tertinggal:
+     $$\\% \\text{ sisa} = \\frac{4.00 \\times 10^{-20}\\text{ M}}{1.00 \\times 10^{-3}\\text{ M}} \\times 100\\% = 4.00 \\times 10^{-15}\\%$$
+   - Persentase ion besi yang berhasil dipisahkan:
+     $$\\% \\text{ terendap} \\approx \\mathbf{99.99999999999996\\%}$$
+   Hal ini membuktikan bahwa penyesuaian pH pada rentang $3.0 - 9.0$ mampu memisahkan ion $\\ce{Fe^3+}$ dari $\\ce{Mg^2+}$ dengan efisiensi kuantitatif yang sempurna!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Strategi Pemisahan Kation Logam Berdasarkan Regulasi pH:**  
+> 1. Logam transisi bervalensi 3 ($\\ce{Fe^3+, Al^3+, Cr^3+}$) memiliki nilai $K_{sp}$ hidroksida yang sangat kecil ($10^{-30} \\text{ s.d. } 10^{-38}$), sehingga mengendap pada suasana asam/sedikit basa ($\\text{pH} \\approx 2.5 - 4.5$).  
+> 2. Logam transisi bervalensi 2 ($\\ce{Fe^2+, Zn^2+, Ni^2+}$) mengendap pada pH netral/sedikit basa ($\\text{pH} \\approx 6.5 - 8.0$).  
+> 3. Logam alkali tanah ($\\ce{Mg^2+, Ca^2+, Ba^2+}$) memiliki hidroksida yang jauh lebih mudah larut ($K_{sp} \\approx 10^{-11} \\text{ s.d. } 10^{-3}$), sehingga membutuhkan lingkungan sangat basa ($\\text{pH} > 9.6 - 12.0$) untuk mengendap.  
+> Oleh karena itu, larutan buffer amonia ($\\ce{NH3 + NH4Cl}$, $\\text{pH} \\approx 8.5 - 9.0$) lazim digunakan pada pemisahan kualitatif kation golongan III dari kation golongan IV dan V!`,
+    keyFormulas: [
+      { name: '[OH-] Kritis Hidroksida Divalen', formula: '[\\ce{OH-}] = \\sqrt{\\frac{K_{sp}}{[\\ce{M^2+}]}}' },
+      { name: '[OH-] Kritis Hidroksida Trivalen', formula: '[\\ce{OH-}] = \\sqrt[3]{\\frac{K_{sp}}{[\\ce{M^3+}]}}' },
+      { name: 'Konsentrasi Sisa Kation pada pH Tertentu', formula: '[\\ce{M^{n+}}]_{\\text{sisa}} = \\frac{K_{sp}}{[\\ce{OH-}]^n}' },
+    ],
+  },
+  {
+    tag: 'contoh-pengendapan-selektif-fraksional-dan-argentometri-mohr',
+    tags: ['pengendapan-selektif', 'fractional-precipitation', 'titrasi-mohr', 'pemisahan-klorida-iodida', 'argentometri', 'efisiensi-analitik', 'kimia-sma'],
+    title: 'Contoh Soal 5: Analisis Pengendapan Fraksional Halida (Cl- vs I-) dengan Titran AgNO3 & Perhitungan Kuantitatif Efisiensi Pemisahan Analitik (Level: Sulit / HOTS)',
+    summary: 'Kalkulasi stoikiometri pengendapan bertahap dua anion halogen oleh kation Ag+, evaluasi konsentrasi ion sisa saat endapan kedua tepat mulai muncul, serta penentuan persentase efisiensi analitik kuantitatif.',
+    content: `### 📋 Skenario Masalah:
+Dalam teknik kimia analitik kuantitatif dan metode titrasi Mohr/argentometri, pengendapan selektif (*fractional precipitation*) digunakan untuk memisahkan campuran anion halida dengan memanfaatkan disparitas nilai tetapan hasil kali kelarutannya yang sangat lebar.
+
+Suatu sampel larutan air tanah analitik bervolume $500.0\\text{ mL}$ mengandung campuran ion:
+- Ion klorida: $[\\ce{Cl-}] = 0.0200\\text{ M}$
+- Ion iodida: $[\\ce{I-}] = 0.0200\\text{ M}$
+
+Ke dalam larutan tersebut diteteskan larutan perak nitrat ($\\ce{AgNO3}$) standar $0.0500\\text{ M}$ setetes demi setetes dengan pengadukan konstan pada suhu $25^{\\circ}\\text{C}$.  
+Diketahui data tetapan hasil kali kelarutan:
+- $K_{sp}(\\ce{AgCl}) = 1.80 \\times 10^{-10}$
+- $K_{sp}(\\ce{AgI}) = 8.50 \\times 10^{-17}$
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung konsentrasi ion perak minimum ($[\\ce{Ag+}]_{\\text{kritis}}$) yang dibutuhkan untuk memicu pembentukan endapan masing-masing garam! Garam perak manakah yang akan mengendap terlebih dahulu sebagai fraksi padat pertama?
+2. Berapakah konsentrasi ion iodida ($[\\ce{I-}]_{\\text{sisa}}$) yang masih tertinggal di dalam larutan tepat saat garam perak kedua ($\\ce{AgCl}$) mulai mengendap?
+3. Hitung persentase ion iodida ($\\%$) yang telah berhasil diendapkan dari larutan sebelum perak klorida mulai terbentuk! Apakah proses pemisahan selektif ini dapat dikategorikan sebagai pemisahan kuantitatif yang tuntas ($> 99.9\\%$)?
+4. Berapakah volume larutan $\\ce{AgNO3 } 0.0500\\text{ M}$ yang harus ditambahkan untuk mengendapkan seluruh ion iodida hingga titik tepat sebelum perak klorida mulai terbentuk?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menentukan Konsentrasi $[\\ce{Ag+}]$ Minimum dan Urutan Pengendapan
+Garam akan mengendap jika $Q_{sp} \\ge K_{sp}$.
+1. **Untuk Memulai Pengendapan Perak Iodida ($\\ce{AgI}$):**
+   $$\\ce{AgI(s) <=> Ag+(aq) + I-(aq)} \\quad K_{sp} = [\\ce{Ag+}][\\ce{I-}]$$
+   $$[\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgI}) = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{I-}]} = \\frac{8.50 \\times 10^{-17}}{0.0200\\text{ M}} = \\mathbf{4.25 \\times 10^{-15}\\text{ M}}$$
+
+2. **Untuk Memulai Pengendapan Perak Klorida ($\\ce{AgCl}$):**
+   $$\\ce{AgCl(s) <=> Ag+(aq) + Cl-(aq)} \\quad K_{sp} = [\\ce{Ag+}][\\ce{Cl-}]$$
+   $$[\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgCl}) = \\frac{K_{sp}(\\ce{AgCl})}{[\\ce{Cl-}]} = \\frac{1.80 \\times 10^{-10}}{0.0200\\text{ M}} = \\mathbf{9.00 \\times 10^{-9}\\text{ M}}$$
+
+**Analisis Urutan:**
+$$[\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgI}) = 4.25 \\times 10^{-15}\\text{ M} \\ll [\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgCl}) = 9.00 \\times 10^{-9}\\text{ M}$$
+Karena ion iodida membutuhkan konsentrasi ion perak yang jauh lebih kecil (sekitar $2$ juta kali lebih sedikit!), maka:
+**Endapan kuning pucat $\\ce{AgI}$ akan MENGENDAP TERLEBIH DAHULU**.
+
+---
+
+#### Langkah 2: Konsentrasi Sisa $[\\ce{I-}]$ Saat $\\ce{AgCl}$ Mulai Mengendap
+Garam perak klorida ($\\ce{AgCl}$) tepat mulai terbentuk saat konsentrasi ion perak di larutan mencapai nilai ambang batasnya:
+$$[\\ce{Ag+}] = 9.00 \\times 10^{-9}\\text{ M}$$
+
+Pada saat titik kritis ini tercapai, kesetimbangan heterogen $\\ce{AgI}$ tetap berlaku di dalam larutan:
+$$K_{sp}(\\ce{AgI}) = [\\ce{Ag+}][\\ce{I-}]_{\\text{sisa}} = 8.50 \\times 10^{-17}$$
+$$[\\ce{I-}]_{\\text{sisa}} = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{Ag+}]} = \\frac{8.50 \\times 10^{-17}}{9.00 \\times 10^{-9}\\text{ M}} \\approx \\mathbf{9.44 \\times 10^{-9}\\text{ mol/L}}$$
+
+---
+
+#### Langkah 3: Evaluasi Persentase Efisiensi Pemisahan Kuantitatif
+- **Fraksi Sisa Ion Iodida:**
+  $$\\% \\text{ sisa } \\ce{I-} = \\frac{[\\ce{I-}]_{\\text{sisa}}}{[\\ce{I-}]_{\\text{mula-mula}}} \\times 100\\% = \\frac{9.44 \\times 10^{-9}\\text{ M}}{0.0200\\text{ M}} \\times 100\\% \\approx 4.72 \\times 10^{-5}\\%$$
+- **Persentase Ion Iodida yang Berhasil Diendapkan:**
+  $$\\% \\text{ terendap} = 100\\% - 4.72 \\times 10^{-5}\\% = \\mathbf{99.99995\\%}$$
+
+**Evaluasi Kuantitatif:**
+Karena persentase ion iodida yang terendapkan ($99.99995\\%$) jauh melampaui batas standar kimia analitik ($> 99.9\\%$), maka pemisahan selektif ion $\\ce{I-}$ dari ion $\\ce{Cl-}$ berlangsung **sangat tuntas dan sempurna secara kuantitatif** tanpa terjadi kontaminasi silang.
+
+---
+
+#### Langkah 4: Menghitung Volume Titran $\\ce{AgNO3}$ yang Dibutuhkan
+Untuk mengendapkan seluruh ion $\\ce{I-}$ dalam $500.0\\text{ mL}$ larutan:
+- Jumlah mol ion $\\ce{I-}$ mula-mula:
+  $$n(\\ce{I-}) = M \\times V = (0.0200\\text{ mmol/mL}) \\times 500.0\\text{ mL} = 10.0\\text{ mmol}$$
+- Berdasarkan reaksi stoikiometri $1 : 1$:
+  $$\\ce{Ag+(aq) + I-(aq) -> AgI(s)}$$
+  Jumlah mol $\\ce{Ag+}$ yang dibutuhkan $= 10.0\\text{ mmol}$.
+- Volume larutan $\\ce{AgNO3 } 0.0500\\text{ M}$ yang harus ditambahkan:
+  $$V(\\ce{AgNO3}) = \\frac{n}{M} = \\frac{10.0\\text{ mmol}}{0.0500\\text{ mmol/mL}} = \\mathbf{200.0\\text{ mL}}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Penerapan Prinsip Pengendapan Selektif pada Titrasi Mohr:**  
+> Pada titrasi argentometri metode Mohr, ion kromat ($\\ce{CrO4^2-}$) ditambahkan sebagai indikator penentu titik akhir:
+> 1. Nilai $K_{sp}(\\ce{AgCl}) = 1.8 \\times 10^{-10}$ dan $K_{sp}(\\ce{Ag2CrO4}) = 8.8 \\times 10^{-12}$. Meskipun nilai numerik $K_{sp}$ perak kromat lebih kecil, $\\ce{Ag2CrO4}$ merupakan garam terner sehingga membutuhkan $[\\ce{Ag+}] \\approx 10^{-5}\\text{ M}$ untuk mengendap, sedangkan $\\ce{AgCl}$ hanya butuh $[\\ce{Ag+}] \\approx 10^{-9}\\text{ M}$.
+> 2. Akibatnya, selama ion klorida masih ada di larutan, hanya endapan putih $\\ce{AgCl}$ yang terbentuk. Tepat saat ion klorida habis, tetes berikutnya dari $\\ce{Ag+}$ langsung memicu pembentukan endapan merah bata $\\ce{Ag2CrO4}$, menandai tercapainya titik akhir titrasi secara visual dan tajam!`,
+    keyFormulas: [
+      { name: 'Konsentrasi Pengendap Minimum', formula: '[\\text{Pengendap}]_{\\text{min}} = \\frac{K_{sp}}{[\\text{Ion Analit}]}' },
+      { name: 'Konsentrasi Sisa Ion Pertama', formula: '[\\text{Ion}_1]_{\\text{sisa}} = \\frac{K_{sp, 1}}{[\\text{Pengendap}]_{\\text{kedua}}}' },
+      { name: 'Persentase Pemisahan Kuantitatif', formula: '\\% \\text{ Terendap} = \\left(1 - \\frac{[\\text{Ion}_1]_{\\text{sisa}}}{[\\text{Ion}_1]_{\\text{awal}}}\\right) \\times 100\\%' },
+    ],
+  },
+];
 
