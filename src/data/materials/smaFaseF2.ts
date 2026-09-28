@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F2 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_113 } from './smaWorkedExamplesFaseF2.ts';
+import { WORKED_EXAMPLES_TOPIC_113, WORKED_EXAMPLES_TOPIC_114 } from './smaWorkedExamplesFaseF2.ts';
 
 const BASE_SMA_MATERIALS_FASE_F2: SmaMaterialItem[] = [
     {
@@ -1063,8 +1063,17 @@ Bilangan oksidasi menyatakan muatan formal suatu atom jika seluruh pasangan elek
   $$\\ce{\\overset{0}{Cl2} + 2OH- -> \\overset{-1}{Cl-} + \\overset{+1}{ClO-} + H2O}$$
   Atom $\\ce{Cl}$ mengalami penurunan biloks ($0 \\to -1$, reduksi) sekaligus kenaikan biloks ($0 \\to +1$, oksidasi).
 - **Reaksi Konproporsionasi:** Kebalikan dari disproporsionasi; dua spesi berbeda yang memiliki tingkat oksidasi berbeda bereaksi menghasilkan satu spesi produk dengan tingkat oksidasi yang sama.
-  Contoh: Reaksi gas $\\ce{H2S}$ dengan gas $\\ce{SO2}$:
-  $$\\ce{2H2\\overset{-2}{S} + \\overset{+4}{S}O2 -> 3\\overset{0}{S} + 2H2O}$$`,
+  Contoh: Reaksi gas $\ce{H2S}$ dengan gas $\ce{SO2}$:
+  $$\ce{2H2\overset{-2}{S} + \overset{+4}{S}O2 -> 3\overset{0}{S} + 2H2O}$$
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Bilangan Oksidasi Bukan Hafalan Statis!
+> **Jebakan Klasik Soal Biloks di Ujian SMA:**
+> 1. **Mitos Oksigen Selalu $-2$:** Atom $\ce{O}$ bernilai $-1$ pada peroksida ($\ce{H2O2, Na2O2}$), $-1/2$ pada superoksida ($\ce{KO2}$), dan $+2$ pada $\ce{OF2}$ (karena $\ce{F}$ lebih elektronegatif).
+> 2. **Mitos Hidrogen Selalu $+1$:** Atom $\ce{H}$ bernilai $-1$ jika berikatan langsung dengan logam elektropositif (senyawa hidrida logam seperti $\ce{NaH, CaH2, LiAlH4}$).
+> 3. **Perbedaan Muatan Ion vs Biloks:** Muatan ion ditulis dengan angka sebelum tanda ($\ce{SO4^2-}$, $\ce{Fe^3+}$), sedangkan biloks ditulis dengan tanda sebelum angka ($+6$, $+3$). Selalu periksa jumlah aljabar biloks terhadap muatan ion poliatomik!`,
       },
       {
         tag: 'penyetaraan-reaksi-redoks-pbo-dan-setengah-reaksi',
@@ -1099,7 +1108,16 @@ Metode ini sangat dianjurkan untuk reaksi dalam fasa larutan elektrolit berair k
    - **Suasana Asam:** Tambahkan ion $\\ce{H+}$ pada sisi yang kekurangan atom hidrogen.
    - **Suasana Basa:** Setelah menambahkan $\\ce{H+}$, netralkan seluruh ion $\\ce{H+}$ dengan menambahkan ion $\\ce{OH-}$ dalam jumlah yang sama pada **kedua sisi reaksi** ($\\ce{H+ + OH- -> H2O}$).
 5. **Setarakan Muatan Listrik:** Tambahkan elektron ($e^-$) pada sisi yang muatannya lebih positif.
-6. **Penyetaraan Elektron & Penggabungan:** Kalikan kedua setengah reaksi dengan bilangan bulat terkecil agar jumlah elektron yang dilepas sama dengan elektron yang diterima, lalu jumlahkan kedua persamaan dan eliminasi spesi yang muncul di kedua sisi ($\\ce{H2O, H+, OH-}$, dan $e^-$).`,
+6. **Penyetaraan Elektron & Penggabungan:** Kalikan kedua setengah reaksi dengan bilangan bulat terkecil agar jumlah elektron yang dilepas sama dengan elektron yang diterima, lalu jumlahkan kedua persamaan dan eliminasi spesi yang muncul di kedua sisi ($\ce{H2O, H+, OH-}$, dan $e^-$).
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Kesetaraan Atom vs Kesetaraan Muatan Listrik
+> **Jebakan Fatal Penyetaraan Redoks:**
+> - Banyak siswa merasa reaksinya sudah setara hanya karena jumlah atom di kiri sama dengan jumlah atom di kanan, namun **lupa memeriksa muatan listrik**!
+> - Contoh salah: $\ce{Ag+ + Cu -> Ag + Cu^2+}$ (atomnya sama-sama 1, tetapi muatan kiri $+1$ dan kanan $+2$ $\implies$ **SALAH BESAR!**). Reaksi yang benar adalah $\ce{2Ag+ + Cu -> 2Ag + Cu^2+}$ (muatan kiri $=$ kanan $= +2$).
+> - Pada suasana basa, selalu tambahkan $\ce{OH-}$ pada **KEDUA RUAS** dalam jumlah yang sama persis dengan ion $\ce{H+}$, lalu gabungkan $\ce{H+ + OH- -> H2O}$. Jangan menambahkan $\ce{OH-}$ hanya di satu ruas!`,
       },
     ],
     core_concepts: [
@@ -1219,7 +1237,17 @@ $$\\mathbf{\\ce{Li - K - Ba - Ca - Na - Mg - Al - Mn - (H2O) - Zn - Cr - Fe - Cd
     <rect x="180" y="255" width="360" height="25" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
     <text x="360" y="271" fill="#1e40af" font-size="9.5" font-weight="bold" text-anchor="middle">Notasi Sel: Zn(s) | Zn²⁺(aq) || Cu²⁺(aq) | Cu(s)</text>
   </g>
-</svg>`,
+</svg>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Trik Hafalan Kutub Elektroda & Mitos Jembatan Garam
+> **Dua Miskonsepsi Paling Sering Terjadi di Sel Volta:**
+> 1. **Mitos Aliran Elektron Menyeberang Jembatan Garam:** Elektron **HANYA** mengalir melalui sirkuit luar (kawat tembaga/voltmeter). Partikel yang bergerak menembus jembatan garam adalah **ion-ion cair ($\ce{K+}$ dan $\ce{NO3-}$)** untuk menjaga kenetralan larutan!
+> 2. **Mnemonic KRAO vs Tanda Kutub:** 
+>    - **KRAO** mutlak: **K**atoda selalu **R**eduksi, **A**noda selalu **O**ksidasi (di sel apa pun!).
+>    - Di Sel Volta: Anoda bermuatan **negatif ($-$)** karena menjadi sumber elektron yang lepas, Katoda bermuatan **positif ($+$)**. Jangan sampai terbalik dengan sel elektrolisis!`,
         keyFormulas: [
           { name: 'Kaidah Katoda & Anoda', formula: '\\text{Katoda} = \\text{Reduksi (Kutub } + \\text{)}, \\quad \\text{Anoda} = \\text{Oksidasi (Kutub } - \\text{)}' },
           { name: 'Notasi Sel Volta IUPAC', formula: '\\text{Anoda} \\mid \\text{Ion Anoda} \\parallel \\text{Ion Katoda} \\mid \\text{Katoda}' },
@@ -1352,7 +1380,16 @@ Prinsip ini menjadi dasar kerja alat **pH meter laboratorium** (mengukur beda po
     <text x="160" y="228" fill="#92400e" font-size="8.5" font-weight="bold" text-anchor="middle">Aplikasi: Pengukuran pH Elektrokimia</text>
     <text x="160" y="246" fill="#b45309" font-size="8" text-anchor="middle">Setiap perubahan 1 unit pH mengubah potensial 59.2 mV!</text>
   </g>
-</svg>`,
+</svg>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengalikan Nilai $E^\circ$ dengan Koefisien Reaksi
+> **Jebakan Maut Soal Potensial Sel di UTBK-SNBT:**
+> - Jika suatu setengah reaksi dikalikan 2 atau 3 untuk menyetarakan jumlah elektron (misal: $\ce{2Ag+ + 2e- -> 2Ag}$), nilai potensial reduksi standarnya **TIDAK BOLEH DIKALIKAN 2** ($E^\circ$ tetap $+0.80\text{ V}$)!
+> - **Alasan Fisis:** Potensial sel ($E^\circ$) merupakan **sifat intensif** (energi per satuan muatan, $\text{Volt} = \text{Joule/Coulomb}$), bukan sifat ekstensif seperti entalpi ($\Delta H^\circ$).
+> - Perhatikan pula rumus $\Delta G^\circ = -nFE^\circ_{\text{sel}}$: tanda minus ($-$) memastikan bahwa jika $E^\circ_{\text{sel}} > 0$ (spontan), maka nilai $\Delta G^\circ < 0$ (spontan).`,
         keyFormulas: [
           { name: 'Potensial Sel Standar', formula: 'E^\\circ_{\\text{sel}} = E^\\circ_{\\text{katoda}} - E^\\circ_{\\text{anoda}}' },
           { name: 'Relasi Energi Bebas Gibbs', formula: '\\Delta G^\\circ = -n \\cdot F \\cdot E^\\circ_{\\text{sel}}' },
@@ -1477,7 +1514,16 @@ Korosi besi pada dasarnya adalah proses elektrokimia di mana permukaan besi bert
     <rect x="20" y="245" width="280" height="24" rx="4" fill="#fee2e2" stroke="#fca5a5"/>
     <text x="160" y="261" fill="#991b1b" font-size="8" font-weight="bold" text-anchor="middle">Mg terkorosi habis melindungi pipa baja tetap utuh!</text>
   </g>
-</svg>`,
+</svg>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Pelapisan Seng ($\ce{Zn}$) vs Timah ($\ce{Sn}$) Bila Tergores
+> **Pembedaan Krusial dalam Ujian Kimia:**
+> 1. **Besi Berlapis Seng (Galvanisasi):** $E^\circ_{\ce{Zn}} (-0.76\text{ V}) < E^\circ_{\ce{Fe}} (-0.44\text{ V})$. Bila tergores, seng yang terkorosi terlebih dahulu melindungi besi (*anoda korban*).
+> 2. **Besi Berlapis Timah (Kaleng):** $E^\circ_{\ce{Sn}} (-0.14\text{ V}) > E^\circ_{\ce{Fe}} (-0.44\text{ V})$. Bila tergores, besi yang lebih reaktif akan bertindak sebagai anoda dan **berkarat berlipat ganda lebih cepat**!
+> 3. **Faktor Korosi:** Besi TIDAK AKAN berkarat di dalam air murni yang bebas oksigen (air mendidih ditutup minyak), dan juga TIDAK AKAN berkarat di udara kering tanpa uap air (tabung berisi kalsium klorida anhidrat $\ce{CaCl2}$). Karat membutuhkan **air DAN oksigen secara bersamaan**.`,
         keyFormulas: [
           { name: 'Reaksi Aki Pengosongan (Discharge)', formula: '\\ce{Pb + PbO2 + 2H2SO4 -> 2PbSO4 + 2H2O}' },
           { name: 'Reaksi Anoda Korosi Besi', formula: '\\ce{Fe(s) -> Fe^2+(aq) + 2e-} \\quad (E^\\circ = -0.44\\text{ V})' },
@@ -1662,7 +1708,15 @@ Elektroda inert tidak ikut bereaksi. Reaksi ditentukan oleh jenis anion terlarut
     <rect x="10" y="235" width="335" height="28" rx="4" fill="#ffffff" stroke="#cbd5e1"/>
     <text x="177" y="253" fill="#1e293b" font-size="8.5" font-weight="bold" text-anchor="middle">Jika anoda TIDAK inert, anoda itu sendiri yang selalu teroksidasi!</text>
   </g>
-</svg>`,
+</svg>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Larutan vs Lelehan & Elektroda Aktif di Anoda
+> **Dua Jebakan Terbesar Sel Elektrolisis:**
+> 1. **Miskonsepsi Fasa Elektrolit:** Logam aktif golongan IA ($\ce{Na, K}$), IIA ($\ce{Mg, Ca}$), serta $\ce{Al}$ dan $\ce{Mn}$ **TIDAK AKAN PERNAH** mengendap dari larutan berair! Karena $E^\circ$ air ($-0.83\text{ V}$) lebih positif, air yang tereduksi menghasilkan gas $\ce{H2}$ dan ion $\ce{OH-}$. Logam tersebut hanya bisa diperoleh dari **LELEHAN murni tanpa air**!
+> 2. **Miskonsepsi Anoda Aktif:** Sebelum melihat jenis anion terlarut, **selalu periksa elektrodanya terlebih dahulu**! Jika anodanya logam aktif ($\ce{Cu, Ag, Ni, Fe}$), maka anoda itu sendiri yang larut teroksidasi, terlepas dari apakah anionnya $\ce{SO4^2-}$ atau $\ce{Cl-}$.`,
         keyFormulas: [
           { name: 'Reduksi Air di Katoda (Larutan Logam Aktif)', formula: '\\ce{2H2O + 2e- -> H2(g) + 2OH-(aq)} \\quad (E^\\circ = -0.83\\text{ V})' },
           { name: 'Oksidasi Air di Anoda (Inert + Asam Oksi)', formula: '\\ce{2H2O -> O2(g) + 4H+(aq) + 4e-} \\quad (E^\\circ = +1.23\\text{ V})' },
@@ -1791,7 +1845,19 @@ Gas yang dihasilkan pada elektroda (seperti $\\ce{H2, O2, Cl2}$) dihitung menggu
     <rect x="180" y="265" width="360" height="25" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
     <text x="360" y="281" fill="#1e40af" font-size="9.5" font-weight="bold" text-anchor="middle">Hukum Faraday II: w₁ / w₂ = e₁ / e₂ = (Ar₁ / n₁) / (Ar₂ / n₂)</text>
   </g>
-</svg>`,
+</svg>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Massa Sama pada Sel Seri & Valensi Logam ($n$)
+> **Jebakan Perhitungan Hukum Faraday:**
+> 1. **Mitos Rangkaian Seri:** Pada sel yang dirangkai seri, yang bernilai **sama persis adalah muatan listrik / mol elektron ($F$)**, BUKAN massa endapan gramnya! Massa yang mengendap berbanding lurus dengan massa ekuivalen masing-masing zat ($w_1 / w_2 = e_1 / e_2$).
+> 2. **Valensi Logam ($n$):** Jangan salah menentukan jumlah elektron yang ditransfer:
+>    - $\ce{Ag+ + e- -> Ag} \implies n = 1$ ($e = 108 / 1 = 108$)
+>    - $\ce{Cu^2+ + 2e- -> Cu} \implies n = 2$ ($e = 63.5 / 2 = 31.75$)
+>    - $\ce{Cr^3+ + 3e- -> Cr} \implies n = 3$ ($e = 52 / 3 = 17.33$)
+> 3. **Volume Gas Oksigen vs Hidrogen:** Untuk jumlah mol elektron yang sama, mol gas $\ce{O2}$ yang dihasilkan di anoda ($\frac{1}{4} F$) adalah **setengah** dari mol gas $\ce{H2}$ di katoda ($\frac{1}{2} F$).`,
         keyFormulas: [
           { name: 'Hukum Faraday I', formula: 'w = \\frac{A_r}{n} \\times \\frac{I \\times t}{96.500} = e \\times F' },
           { name: 'Mol Elektron (Faraday)', formula: 'n_{e^-} = F = \\frac{I \\times t}{96.500} = \\frac{Q}{96.500}' },
@@ -1800,293 +1866,7 @@ Gas yang dihasilkan pada elektroda (seperti $\\ce{H2, O2, Cl2}$) dihitung menggu
         ],
       },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-penyetaraan-redoks-asam-dikromat-besi',
-        tags: ['penyetaraan-redoks', 'metode-setengah-reaksi', 'metode-pbo', 'suasana-asam', 'dikromat-dan-besi'],
-        title: 'Contoh Soal 1: Penyetaraan Reaksi Redoks Kompleks: Metode Setengah Reaksi vs Metode PBO Suasana Asam',
-        summary: 'Penyetaraan reaksi oksidasi ion Fe2+ oleh ion dikromat Cr2O7 2- dalam suasana asam dengan pembuktian kesetaraan muatan dan atom.',
-        content: `### Soal:
-Di laboratorium analisis kimia, ion besi(II) ($\\ce{Fe^2+}$) dititrasi menggunakan larutan kalium dikromat ($\\ce{K2Cr2O7}$) dalam medium asam sulfat encer. Reaksi ion belum setara yang terjadi adalah:
-$$\\ce{Cr2O7^2-(aq) + Fe^2+(aq) -> Cr^3+(aq) + Fe^3+(aq)} \\quad (\\text{suasana asam})$$
-
-**Tugas Anda:**
-Setarakan persamaan reaksi redoks tersebut dengan dua metode:
-a. **Metode Setengah Reaksi (Ion-Elektron)**!
-b. **Metode Perubahan Bilangan Oksidasi (PBO)**!
-c. Buktikan bahwa kedua metode menghasilkan koefisien reaksi yang identik dan setara secara atomik maupun muatan listrik!
-
----
-
-### Pembahasan Terstruktur:
-
-#### Metode A: Setengah Reaksi (Ion-Elektron) Suasana Asam
-
-1. **Pisahkan menjadi dua setengah reaksi:**
-   - Reduksi: $\\ce{Cr2O7^2- -> Cr^3+}$
-   - Oksidasi: $\\ce{Fe^2+ -> Fe^3+}$
-
-2. **Setarakan setengah reaksi reduksi:**
-   - Samakan atom $\\ce{Cr}$: $\\ce{Cr2O7^2- -> 2Cr^3+}$
-   - Samakan atom $\\ce{O}$ (tambah $7\\ce{H2O}$ di kanan): $\\ce{Cr2O7^2- -> 2Cr^3+ + 7H2O}$
-   - Samakan atom $\\ce{H}$ (tambah $14\\ce{H+}$ di kiri): $\\ce{Cr2O7^2- + 14H+ -> 2Cr^3+ + 7H2O}$
-   - Samakan muatan:
-     - Muatan kiri $= (-2) + 14(+1) = +12$
-     - Muatan kanan $= 2(+3) + 0 = +6$
-     - Tambahkan $6e^-$ di kiri:
-       $$\\ce{Cr2O7^2- + 14H+ + 6e- -> 2Cr^3+ + 7H2O} \\quad (\\times 1)$$
-
-3. **Setarakan setengah reaksi oksidasi:**
-   - Atom $\\ce{Fe}$ sudah setara: $\\ce{Fe^2+ -> Fe^3+}$
-   - Samakan muatan (tambah $1e^-$ di kanan):
-     $$\\ce{Fe^2+ -> Fe^3+ + e-} \\quad (\\times 6)$$
-
-4. **Jumlahkan kedua setengah reaksi:**
-   $$\\begin{aligned}
-   \\ce{Cr2O7^2- + 14H+ + 6e-} &\\ce{-> 2Cr^3+ + 7H2O} \\quad &(\\times 1) \\\\
-   \\ce{6Fe^2-} &\\ce{-> 6Fe^3+ + 6e-} \\quad &(\\times 6) \\\\
-   \\hline
-   \\mathbf{\\ce{Cr2O7^2- + 6Fe^2+ + 14H+}} &\\mathbf{\\ce{-> 2Cr^3+ + 6Fe^3+ + 7H2O}}
-   \\end{aligned}$$
-
----
-
-#### Metode B: Perubahan Bilangan Oksidasi (PBO)
-
-1. **Tentukan perubahan biloks:**
-   - $\\ce{Cr}$ dalam $\\ce{Cr2O7^2-}$: $2(\\text{biloks}) + 7(-2) = -2 \\implies \\text{biloks Cr} = +6$.
-   - $\\ce{Cr}$ dalam $\\ce{Cr^3+}$: biloks $= +3$.
-   - Setarakan jumlah atom $\\ce{Cr}$: $\\ce{Cr2O7^2- -> 2Cr^3+}$.
-   - Total penurunan biloks $\\ce{Cr} = 2 \\times (+6 - 3) = \\mathbf{6}$ (Turun 6, Reduksi).
-   - $\\ce{Fe}$ dalam $\\ce{Fe^2+}$ ($+2$) menjadi $\\ce{Fe^3+}$ ($+3$):
-   - Kenaikan biloks $\\ce{Fe} = 1 \\times (+3 - 2) = \\mathbf{1}$ (Naik 1, Oksidasi).
-
-2. **Samakan perubahan biloks:**
-   - Kalikan silang: Reduksi $\\times 1$, Oksidasi $\\times 6$:
-     $$\\ce{1Cr2O7^2- + 6Fe^2+ -> 2Cr^3+ + 6Fe^3+}$$
-
-3. **Setarakan muatan listrik (suasana asam):**
-   - Total muatan kiri $= 1(-2) + 6(+2) = +10$.
-   - Total muatan kanan $= 2(+3) + 6(+3) = +24$.
-   - Tambahkan $14\\ce{H+}$ pada sisi kiri:
-     $$\\ce{Cr2O7^2- + 6Fe^2+ + 14H+ -> 2Cr^3+ + 6Fe^3+}$$
-
-4. **Setarakan atom $\\ce{H}$ dan $\\ce{O}$:**
-   - Tambahkan $7\\ce{H2O}$ pada sisi kanan:
-     $$\\mathbf{\\ce{Cr2O7^2- + 6Fe^2+ + 14H+ -> 2Cr^3+ + 6Fe^3+ + 7H2O}}$$
-
----
-
-#### Bagian c: Verifikasi Kesetaraan Akhir
-- **Atom $\\ce{Cr}$:** Kiri $= 2$, Kanan $= 2$ (Setara)
-- **Atom $\\ce{Fe}$:** Kiri $= 6$, Kanan $= 6$ (Setara)
-- **Atom $\\ce{O}$:** Kiri $= 7$, Kanan $= 7$ (Setara)
-- **Atom $\\ce{H}$:** Kiri $= 14$, Kanan $= 14$ (Setara)
-- **Total Muatan Listrik:**
-  $$\\text{Kiri} = (-2) + 6(+2) + 14(+1) = +24 \\qquad \\text{Kanan} = 2(+3) + 6(+3) + 0 = +24 \\quad (\\text{Setara Mutlak!})$$`,
-      },
-      {
-        tag: 'contoh-sel-volta-dan-energi-bebas-gibbs-mg-ag',
-        tags: ['kalkulasi-e-sel', 'spontanitas-redoks', 'energi-bebas-gibbs', 'sel-volta-mg-ag'],
-        title: 'Contoh Soal 2: Penentuan Notasi Sel Volta, Potensial Sel Standar (E°sel), dan Energi Bebas Gibbs (ΔG°)',
-        summary: 'Perhitungan kuantitatif potensial sel dari elektroda magnesium dan perak, perumusan notasi sel IUPAC, dan verifikasi termodinamika spontanitas.',
-        content: `### Soal:
-Diberikan data potensial reduksi standar ($E^\\circ$) dari dua elektroda logam pada temperatur $25^\\circ\\text{C}$:
-1. $\\ce{Mg^2+(aq) + 2e- -> Mg(s)} \\qquad E^\\circ = -2.37\\text{ Volt}$
-2. $\\ce{Ag+(aq) + e- -> Ag(s)} \\qquad E^\\circ = +0.80\\text{ Volt}$
-
-Kedua setengah sel tersebut dirangkai membentuk sel Volta menggunakan jembatan garam $\\ce{KNO3}$.
-*(Tetapan Faraday $F = 96.485\\text{ C/mol } e^-$)*.
-
-**Tentukan:**
-a. Logam yang bertindak sebagai anoda dan katoda beserta persamaan reaksi pada masing-masing elektroda dan reaksi sel bersihnya!
-b. Notasi diagram sel Volta menurut konvensi baku IUPAC!
-c. Nilai potensial sel standar ($E^\\circ_{\\text{sel}}$) yang terukur pada voltmeter!
-d. Perubahan energi bebas Gibbs standar ($\\Delta G^\\circ$) dari reaksi sel tersebut dalam satuan $\\text{kJ/mol}$, serta simpulkan arah spontanitas reaksinya!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### Bagian a: Identifikasi Katoda, Anoda, dan Reaksi Sel
-- **Prinsip:** Elektroda dengan nilai $E^\\circ$ **lebih positif** bertindak sebagai **Katoda (Reduksi)**. Elektroda dengan nilai $E^\\circ$ **lebih negatif** bertindak sebagai **Anoda (Oksidasi)**.
-  - $E^\\circ(\\ce{Ag+/Ag}) = +0.80\\text{ V}$ (lebih positif) $\\implies$ **Katoda (Reduksi)**.
-  - $E^\\circ(\\ce{Mg^2+/Mg}) = -2.37\\text{ V}$ (lebih negatif) $\\implies$ **Anoda (Oksidasi)**.
-
-**Reaksi Elektroda:**
-- **Anoda (Oksidasi):** $\\ce{Mg(s) -> Mg^2+(aq) + 2e-} \\qquad (\\times 1)$
-- **Katoda (Reduksi):** $\\ce{Ag+(aq) + e- -> Ag(s)} \\qquad (\\times 2)$
-
-**Reaksi Sel Bersih:**
-$$\\mathbf{\\ce{Mg(s) + 2Ag+(aq) -> Mg^2+(aq) + 2Ag(s)}}$$
-Jumlah elektron yang ditransfer: $\\mathbf{n = 2\\text{ mol } e^-}$.
-
----
-
-#### Bagian b: Notasi Diagram Sel IUPAC
-Mengikuti kaidah: $\\text{Anoda} \\mid \\text{Ion Anoda} \\parallel \\text{Ion Katoda} \\mid \\text{Katoda}$
-$$\\mathbf{\\ce{Mg(s) | Mg^2+(aq, 1.0 M) || Ag+(aq, 1.0 M) | Ag(s)}}$$
-
----
-
-#### Bagian c: Menghitung Potensial Sel Standar ($E^\\circ_{\\text{sel}}$)
-$$E^\\circ_{\\text{sel}} = E^\\circ_{\\text{katoda}} - E^\\circ_{\\text{anoda}}$$
-$$E^\\circ_{\\text{sel}} = (+0.80\\text{ V}) - (-2.37\\text{ V}) = +0.80 + 2.37 = \\mathbf{+3.17\\text{ Volt}}$$
-
-*Catatan Penting:* Meskipun reaksi katoda dikalikan 2 koefisiennya, nilai $E^\\circ$ **tidak boleh dikalikan 2** karena potensial elektroda merupakan sifat intensif materi (energi per satuan muatan, $\\text{J/C}$)!
-
----
-
-#### Bagian d: Menghitung Energi Bebas Gibbs Standar ($\\Delta G^\\circ$)
-$$\\Delta G^\\circ = -n \\cdot F \\cdot E^\\circ_{\\text{sel}}$$
-Substitusikan data:
-- $n = 2\\text{ mol } e^-$
-- $F = 96.485\\text{ C/mol } e^-$
-- $E^\\circ_{\\text{sel}} = +3.17\\text{ V} = +3.17\\text{ J/C}$
-
-$$\\Delta G^\\circ = -(2) \\times (96.485\\text{ C/mol}) \\times (3.17\\text{ J/C}) = -611.715\\text{ J/mol} = \\mathbf{-611.72\\text{ kJ/mol}}$$
-
-> **Kesimpulan Termodinamika:**
-> Karena $E^\\circ_{\\text{sel}} = +3.17\\text{ V} > 0$ dan $\\Delta G^\\circ = -611.72\\text{ kJ/mol} < 0$ (bernilai sangat negatif), reaksi redoks antara magnesium dan ion perak berlangsung **sangat spontan**, melepaskan energi bebas yang sangat besar untuk menggerakkan perangkat listrik.`,
-      },
-      {
-        tag: 'contoh-hukum-faraday-1-elektrolisis-cuso4',
-        tags: ['hukum-faraday-1', 'elektrolisis-larutan-cuso4', 'elektroda-grafit-karbon', 'volume-gas-stp', 'perhitungan-ph-elektrolisis'],
-        title: 'Contoh Soal 3: Aspek Kuantitatif Hukum Faraday I: Massa Endapan Logam Cu, Volume Gas O2, dan Perubahan pH Larutan',
-        summary: 'Kalkulasi lengkap stoikiometri elektrolisis larutan tembaga sulfat dengan elektroda inert grafit: massa katoda, volume gas anoda, dan pH akhir larutan.',
-        content: `### Soal:
-Sebanyak $1.00\\text{ Liter}$ larutan tembaga(II) sulfat ($\\ce{CuSO4 } 0.50\\text{ M}$) dielektrolisis menggunakan sepasang **elektroda grafit karbon (C) inert**. Arus listrik searah konstan sebesar $I = 5.00\\text{ Ampere}$ dialirkan ke dalam sel selama waktu $t = 1930\\text{ detik}$.
-
-*(Diketahui $A_r\\text{ Cu} = 63.55\\text{ g/mol}$, $A_r\\text{ O} = 16.00\\text{ g/mol}$, $1\\text{ F} = 96.500\\text{ C/mol } e^-$, volume molar gas pada $STP = 22.4\\text{ L/mol}$)*.
-
-**Tentukan:**
-a. Persamaan reaksi lengkap yang terjadi di katoda, anoda, dan reaksi sel bersih!
-b. Massa endapan logam tembaga ($\\ce{Cu}$) yang terbentuk pada permukaan katoda!
-c. Volume gas yang dihasilkan pada anoda diukur pada keadaan standar ($STP$)!
-d. Nilai $\\text{pH}$ larutan di dalam sel setelah proses elektrolisis selesai (asumsikan volume larutan tetap $1.00\\text{ Liter}$)!
-
----
-
-### Pembahasan Terstruktur:
-
-#### Bagian a: Reaksi di Katoda dan Anoda
-1. **Di Katoda (Kutub Negatif $-$):**
-   Larutan mengandung ion $\\ce{Cu^2+}$. Karena $\\ce{Cu}$ bukan logam aktif golongan IA/IIA ($E^\\circ = +0.34\\text{ V} > -0.83\\text{ V}$), maka kation $\\ce{Cu^2+}$ tereduksi mengendap:
-   $$\\ce{Cu^2+(aq) + 2e- -> Cu(s)}$$
-2. **Di Anoda (Kutub Positif $+$):**
-   Elektroda adalah karbon inert (C) dan anion adalah sulfat ($\\ce{SO4^2-}$, sisa asam oksi). Maka pelarut air yang teroksidasi menghasilkan gas $\\ce{O2}$ dan ion asam $\\ce{H+}$:
-   $$\\ce{2H2O(l) -> O2(g) + 4H+(aq) + 4e-}$$
-3. **Reaksi Bersih Elektrolisis:**
-   Kalikan reaksi katoda dengan 2 lalu jumlahkan:
-   $$\\mathbf{\\ce{2Cu^2+(aq) + 2H2O(l) -> 2Cu(s) + O2(g) + 4H+(aq)}}$$
-
----
-
-#### Bagian b: Massa Endapan Logam Tembaga ($\\ce{Cu}$)
-1. **Hitung jumlah mol elektron ($F$):**
-   $$\\text{mol } e^- = \\frac{I \\times t}{96.500} = \\frac{5.00\\text{ A} \\times 1930\\text{ s}}{96.500\\text{ C/mol}} = \\frac{9650}{96.500} = \\mathbf{0.100\\text{ mol } e^-} \\quad (0.100\\text{ F})$$
-2. **Gunakan Hukum Faraday I:**
-   - Valensi tembaga: $n = 2$ ($\\ce{Cu^2+ + 2e- -> Cu}$).
-   - Massa ekuivalen: $e = \\frac{A_r}{n} = \\frac{63.55}{2} = 31.775\\text{ g/ekuivalen}$.
-   $$w = e \\times F = 31.775 \\times 0.100 = \\mathbf{3.178\\text{ gram } \\ce{Cu}}$$
-
----
-
-#### Bagian c: Volume Gas Oksigen ($\\ce{O2}$) di Anoda pada $STP$
-Berdasarkan koefisien reaksi oksidasi anoda:
-$$\\ce{2H2O -> O2 + 4H+ + 4e-}$$
-Perbandingan mol: $1\\text{ mol } \\ce{O2} \\equiv 4\\text{ mol } e^-$
-$$n_{\\ce{O2}} = \\frac{1}{4} \\times \\text{mol } e^- = \\frac{1}{4} \\times 0.100\\text{ mol} = \\mathbf{0.025\\text{ mol } \\ce{O2}}$$
-Volume gas pada kondisi $STP$:
-$$V_{\\ce{O2}} = n_{\\ce{O2}} \\times 22.4\\text{ L/mol} = 0.025 \\times 22.4 = \\mathbf{0.560\\text{ Liter}} \\quad (560\\text{ mL})$$
-
----
-
-#### Bagian d: Menghitung pH Larutan Akhir
-Dari reaksi anoda, terbentuk ion $\\ce{H+}$:
-$$n_{\\ce{H+}} = \\text{mol } e^- = 0.100\\text{ mol}$$
-Karena volume larutan $V = 1.00\\text{ Liter}$:
-$$[\\ce{H+}] = \\frac{n_{\\ce{H+}}}{V} = \\frac{0.100\\text{ mol}}{1.00\\text{ L}} = 0.100\\text{ M} = 1.0 \\times 10^{-1}\\text{ M}$$
-Nilai $\\text{pH}$:
-$$\\text{pH} = -\\log[\\ce{H+}] = -\\log(1.0 \\times 10^{-1}) = \\mathbf{1.00}$$
-
-> **Evaluasi Analitis:**
-> Elektrolisis larutan $\\ce{CuSO4}$ menghasilkan $3.178\\text{ g}$ endapan logam tembaga di katoda, $560\\text{ mL}$ gas oksigen di anoda, dan mengubah larutan menjadi sangat asam dengan $\\text{pH} = 1.00$ akibat pelepasan ion $\\ce{H+}$.`,
-      },
-      {
-        tag: 'contoh-hukum-faraday-2-sel-seri-dan-nernst-sel-konsentrasi',
-        tags: ['hukum-faraday-2', 'sel-elektrolisis-seri', 'penentuan-massa-molar-ar', 'persamaan-nernst-konsentrasi', 'olimpiade-elektrokimia'],
-        title: 'Contoh Soal 4: Hukum Faraday II Rangkaian Seri & Persamaan Nernst pada Sel Konsentrasi',
-        summary: 'Penentuan massa molar logam misterius via elektrolisis seri dua sel dan kalkulasi potensial sel non-standar seng konsentrasi.',
-        content: `### Soal:
-**Bagian I: Rangkaian Sel Seri (Hukum Faraday II)**
-Dua buah sel elektrolisis disusun secara seri dan dialiri arus listrik yang sama dari sumber tegangan DC:
-- **Sel 1:** Berisi larutan perak nitrat ($\\ce{AgNO3}$), menghasilkan endapan perak sebesar $w_{\\ce{Ag}} = 2.158\\text{ gram}$ pada katoda ($A_r\\text{ Ag} = 107.9\\text{ g/mol}$).
-- **Sel 2:** Berisi larutan garam klorida dari logam misterius $\\ce{X}$ dengan rumus $\\ce{XCl3}$, menghasilkan endapan logam $\\ce{X}$ sebesar $w_{\\ce{X}} = 0.540\\text{ gram}$ pada katodanya.
-
-**Bagian II: Sel Konsentrasi Nernst**
-Di laboratorium dibuat sebuah sel konsentrasi seng ($\\ce{Zn}$) pada temperatur $25.0^\\circ\\text{C}$ ($298.15\\text{ K}$) dengan notasi:
-$$\\ce{Zn(s) | Zn^2+(aq, 0.0010 M) || Zn^2+(aq, 1.00 M) | Zn(s)}$$
-
-**Pertanyaan:**
-a. Tentukan massa molar ($A_r$) dari logam misterius $\\ce{X}$ pada Bagian I dan identifikasi nama unsurnya pada tabel periodik!
-b. Pada Bagian II, tentukan kompartemen mana yang bertindak sebagai anoda dan katoda!
-c. Hitung potensial sel ($E_{\\text{sel}}$) dari sel konsentrasi seng tersebut pada $25.0^\\circ\\text{C}$ menggunakan Persamaan Nernst!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### Bagian a: Menentukan Massa Molar Logam Misterius $\\ce{X}$
-Berdasarkan Hukum Faraday II untuk rangkaian sel seri:
-$$\\frac{w_{\\ce{Ag}}}{w_{\\ce{X}}} = \\frac{e_{\\ce{Ag}}}{e_{\\ce{X}}}$$
-
-1. **Massa ekuivalen perak ($e_{\\ce{Ag}}$):**
-   Reaksi reduksi: $\\ce{Ag+ + e- -> Ag} \\implies n_{\\ce{Ag}} = 1$.
-   $$e_{\\ce{Ag}} = \\frac{A_r(\\ce{Ag})}{n_{\\ce{Ag}}} = \\frac{107.9}{1} = 107.9\\text{ g/ekuivalen}$$
-
-2. **Massa ekuivalen logam $\\ce{X}$ ($e_{\\ce{X}}$):**
-   Garamnya adalah $\\ce{XCl3}$, yang berarti ion logamnya bermuatan $+3$ ($\\ce{X^3+}$):
-   $$\\ce{X^3+ + 3e- -> X} \\implies n_{\\ce{X}} = 3$$
-   $$e_{\\ce{X}} = \\frac{A_r(\\ce{X})}{3}$$
-
-3. **Substitusikan ke persamaan Hukum Faraday II:**
-   $$\\frac{2.158\\text{ g}}{0.540\\text{ g}} = \\frac{107.9}{e_{\\ce{X}}}$$
-   $$3.9963 = \\frac{107.9}{e_{\\ce{X}}} \\implies e_{\\ce{X}} = \\frac{107.9}{3.9963} = 27.00\\text{ g/ekuivalen}$$
-
-4. **Hitung Massa Molar $A_r(\\ce{X})$:**
-   $$A_r(\\ce{X}) = e_{\\ce{X}} \\times 3 = 27.00 \\times 3 = \\mathbf{81.00\\text{ g/mol}}$$
-   *(Logam dengan $A_r \\approx 81.0$ tidak lain adalah unsur golongan IIIA/transisi atau analogi; dalam tabel periodik mendekati massa molar isotop stabil gallium $\\ce{Ga}$ / seng / germanium)*.
-
----
-
-#### Bagian b: Penentuan Anoda dan Katoda Sel Konsentrasi
-Pada sel konsentrasi, sistem spontan berupaya menyamakan konsentrasi kedua kompartemen (menuju kesetimbangan di mana $[\\text{kiri}] = [\\text{kanan}]$):
-- **Kompartemen Encer ($[\\ce{Zn^2+}] = 0.0010\\text{ M}$):**
-  Untuk menaikkan konsentrasinya, atom seng harus larut $\\implies$ mengalami **Oksidasi** $\\implies$ bertindak sebagai **ANODA**.
-- **Kompartemen Pekat ($[\\ce{Zn^2+}] = 1.00\\text{ M}$):**
-  Untuk menurunkan konsentrasinya, ion seng harus mengendap $\\implies$ mengalami **Reduksi** $\\implies$ bertindak sebagai **KATODA**.
-
----
-
-#### Bagian c: Menghitung Potensial Sel Nernst ($E_{\\text{sel}}$)
-Reaksi sel keseluruhan:
-$$\\ce{Zn(s) [anoda] + Zn^2+(aq, pekat) [katoda] -> Zn^2+(aq, encer) [anoda] + Zn(s) [katoda]}$$
-- Jumlah elektron: $n = 2$.
-- Karena elektroda identik ($\\ce{Zn}$ di kedua sisi): $E^\\circ_{\\text{sel}} = E^\\circ_{\\ce{Zn}} - E^\\circ_{\\ce{Zn}} = 0.00\\text{ V}$.
-- Kuosien reaksi:
-  $$Q = \\frac{[\\ce{Zn^2+}]_{\\text{encer}}}{[\\ce{Zn^2+}]_{\\text{pekat}}} = \\frac{0.0010\\text{ M}}{1.00\\text{ M}} = 1.0 \\times 10^{-3}$$
-
-Gunakan Persamaan Nernst pada $25^\\circ\\text{C}$:
-$$E_{\\text{sel}} = E^\\circ_{\\text{sel}} - \\frac{0.0592}{n} \\log Q$$
-$$E_{\\text{sel}} = 0.00 - \\frac{0.0592}{2} \\log(1.0 \\times 10^{-3})$$
-Karena $\\log(1.0 \\times 10^{-3}) = -3$:
-$$E_{\\text{sel}} = 0.00 - (0.0296) \\times (-3) = 0.00 + 0.0888 = \\mathbf{+0.0888\\text{ Volt}} \\quad (+88.8\\text{ mV})$$
-
-> **Kesimpulan Penguji OSN:**
-> Meskipun kedua elektroda terbuat dari logam yang sama persis, perbedaan rasio konsentrasi seribu kali lipat ($10^{-3}$) mampu membangkitkan gaya gerak listrik spontan sebesar $+88.8\\text{ mV}$ semata-mata didorong oleh kenaikan entropi pengenceran alamiah!`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_114,
   },
   {
     id: 115,

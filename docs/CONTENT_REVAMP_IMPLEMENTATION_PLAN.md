@@ -76,7 +76,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas | **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | **112** | **12** | **Sistem Koloid & Kimia Permukaan SMA** | **Kelas 11 (Fase F1)** | **Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil)** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | **113** | **13** | **Sifat Koligatif Larutan SMA** | **Kelas 12 (Fase F2)** | **Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
-| 114 | 14 | Reaksi Redoks & Sel Elektrokimia SMA | Kelas 12 (Fase F2) | Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik | ⏳ Terjadwal | Prioritas Fase 4 (Gap: Korosi & Baterai Komersial) |
+| **114** | **14** | **Reaksi Redoks & Sel Elektrokimia SMA** | **Kelas 12 (Fase F2)** | **Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 14 Miskonsepsi)** |
 | 115 | 15 | Kimia Unsur Golongan Utama & Transisi 4 | Kelas 12 (Fase F2) | Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik | ⏳ Terjadwal | Prioritas Fase 4 |
 | 116 | 16 | Kimia Karbon & Makromolekul | Kelas 12 (Fase F2) | Lego Rantai Karbon, Ritsleting Protein & DNA | ⏳ Terjadwal | Prioritas Fase 4 |
 
@@ -135,22 +135,14 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * **Topik 112 (Sistem Koloid & Kimia Permukaan SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_112`, 21 Kuis Checkpoint, 16 Peringatan Miskonsepsi (100% Coverage).
   * **Total Fase F1**: Tepat 35 contoh soal berjenjang Sedang & HOTS, 145 kuis uji pemahaman cepat, dan 111 peringatan miskonsepsi. Seluruh topik Fase F1 lulus validasi 100% coverage tanpa celah konsep!
 
-### 🔹 Fase 4: Sifat Koligatif, Redoks, Unsur & Kimia Karbon Fase F2 SMA (Topik 113–116)k Fase E mencapai skor 100% pada evaluasi matriks ketercakupan pedagogis.
-
-### 🔹 Fase 3: Termokimia, Kinetika & Larutan Fase F1 SMA (Topik 106–112)
-* **Fokus Eksekusi**:
-  * Mengisi celah materi (*concept gaps*) hasil analisis `validate-coverage.ts`:
-    * Topik 106: Contoh soal variasi perubahan entalpi standar ($\Delta H^\circ$) dan Siklus Hess.
-    * Topik 107: Contoh soal teori tumbukan efektif & energi aktivasi $E_a$.
-    * Topik 109: Contoh soal komparasi 3 teori asam basa (Arrhenius, Brønsted-Lowry, Lewis).
-    * Topik 110: Contoh soal efek ion senama (*common-ion effect*) & kurva titrasi buffer.
-  * Menulis 5 contoh soal lingkup SMA (Sedang & HOTS) per topik (Total 35 contoh soal di `smaWorkedExamplesFaseF1.ts`).
-  * Menyusun kuis uji pemahaman cepat konseptual untuk setiap subtopik Fase F1.
-
 ### 🔹 Fase 4: Sifat Koligatif, Redoks, Unsur & Kimia Karbon Fase F2 SMA (Topik 113–116)
+* **Status Eksekusi**:
+  * **Topik 113 (Sifat Koligatif Larutan SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_113`, 21 Kuis Checkpoint di `checkpointBankTopic113.ts`, 17 Peringatan Miskonsepsi (**100% Coverage ✅**).
+  * **Topik 114 (Reaksi Redoks & Sel Elektrokimia SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_114`, 21 Kuis Checkpoint di `checkpointBankTopic114.ts`, 14 Peringatan Miskonsepsi (**100% Coverage ✅**). Celah materi *Baterai Komersial & Fenomena Korosi Besi* telah tertutup sempurna!
+  * **Topik 115 (Kimia Unsur Golongan Utama & Transisi Periode 4 SMA)**: ⏳ Target berikutnya.
+  * **Topik 116 (Kimia Karbon & Makromolekul SMA)**: ⏳ Target penutup Fase F2.
 * Menulis 5 contoh soal lingkup SMA (Sedang & HOTS) per topik (Total 20 contoh soal).
-* Mengisi concept gap pada Topik 114 (Korosi & Baterai Komersial) dan Topik 116 (Stereokimia & Polimer).
-* Menyusun kuis uji pemahaman cepat untuk seluruh subtopik Fase F2.
+* Menyusun kuis uji pemahaman cepat (21 kuis/topik) untuk seluruh subtopik Fase F2.
 
 ### 🔹 Fase 5: Eskalasi 10 Pilar Tingkat Lanjut OSN / IChO (`materialsData.ts`)
 * Mentransformasi materi 10 Pilar OSN menjadi panduan pemikiran tingkat olimpiade internasional.
