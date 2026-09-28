@@ -1501,16 +1501,20 @@ export const MaterialsDatabase: React.FC = () => {
               </div>
             </div>
 
-            {/* TAHAP 3: CONTOH DAN PENJELASAN SOAL OSN BERKAITAN */}
+            {/* TAHAP 3: CONTOH DAN PENJELASAN SOAL */}
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-2 text-emerald-800 border-b border-emerald-200 pb-2">
                 <FileCheck className="w-5 h-5 text-emerald-600" />
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
-                  Tahap 3: Contoh & Penjelasan Soal OSN Berkaitan
+                  {activeDatabase === 'sma'
+                    ? 'Tahap 3: Pembahasan Contoh Soal Kimia SMA (Sedang & HOTS)'
+                    : 'Tahap 3: Contoh & Penjelasan Soal OSN Berkaitan'}
                 </h2>
               </div>
               <p className="text-xs text-slate-500">
-                Aplikasi langsung konsep pada soal seleksi olimpiade lengkap dengan langkah analitis juri.
+                {activeDatabase === 'sma'
+                  ? 'Latihan pemecahan masalah bertahap standar Kurikulum SMA dan asesmen/UTBK tingkat sedang & sulit (HOTS) dengan analisis konseptual mendalam.'
+                  : 'Aplikasi langsung konsep pada soal seleksi olimpiade lengkap dengan langkah analitis juri.'}
               </p>
 
               <div className="space-y-6">
@@ -1601,21 +1605,6 @@ export const MaterialsDatabase: React.FC = () => {
                               <span className="text-[11px] text-slate-400 font-mono">
                                 #{block.tag}
                               </span>
-                            </div>
-                          )}
-
-                          {/* Concept Checkpoint Mini-Quiz */}
-                          {featureFlags.materialQuizCheckpoint && (
-                            <div className="mt-3">
-                              <ConceptCheckpointQuiz
-                                conceptTag={block.tag}
-                                conceptTitle={block.title}
-                                materialTitle={activeMaterial.title}
-                                topicNumber={activeMaterial.topic_number}
-                                conceptSummary={block.summary}
-                                conceptContent={block.content}
-                                checkpointQuizzes={block.checkpointQuizzes}
-                              />
                             </div>
                           )}
                         </>

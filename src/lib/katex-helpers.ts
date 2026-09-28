@@ -481,10 +481,14 @@ export function parseAndRenderMixedText(rawText: string): string {
   // Normalize markdown headings, steps, and tables so they form isolated blocks and do not bleed into lists or paragraphs
   const normalized = text
     .replace(/([^\n])\n(#{1,5}\s+[^\n]+)/g, (match, p1, p2) => {
-      if (p1.startsWith('>') || /\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(p1)) return match;
+      if (p1.trim().startsWith('>') || p2.trim().startsWith('>')) return match;
+      if (/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(p1)) return match;
       return `${p1}\n\n${p2}`;
     })
-    .replace(/(#{1,5}\s+[^\n]+)\n([^\n#])/g, '$1\n\n$2')
+    .replace(/(#{1,5}\s+[^\n]+)\n([^\n#])/g, (match, p1, p2) => {
+      if (p1.trim().startsWith('>') || p2.trim().startsWith('>')) return match;
+      return `${p1}\n\n${p2}`;
+    })
     .replace(/([^\n])\n(\|[^\n]+\|\s*\n\s*\|[-:\s|]+\|)/g, '$1\n\n$2')
     .replace(/(\|[^\n]+\|)\n([^\n|])/g, '$1\n\n$2')
     .replace(/([^\n])\n(\*\*Kesimpulan(?:\s+Evaluator)?\s+Juri:?\*\*)/gi, '$1\n\n$2');
@@ -713,7 +717,7 @@ export function parseAndRenderMixedText(rawText: string): string {
               bodyText: 'text-emerald-950/95',
               bulletBg: 'bg-emerald-500',
               icon: '💡',
-              label: 'TIPS OSN',
+              label: 'TIPS & ANALISIS',
             },
             IMPORTANT: {
               bg: 'bg-indigo-50/90',
