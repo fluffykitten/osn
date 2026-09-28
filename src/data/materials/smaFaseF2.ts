@@ -1,6 +1,8 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
+import { CHECKPOINTS_FASE_F2 } from '../checkpoints/index.ts';
+import { WORKED_EXAMPLES_TOPIC_113 } from './smaWorkedExamplesFaseF2.ts';
 
-export const SMA_MATERIALS_FASE_F2: SmaMaterialItem[] = [
+const BASE_SMA_MATERIALS_FASE_F2: SmaMaterialItem[] = [
     {
     id: 113,
     topic_number: 13,
@@ -132,7 +134,11 @@ Karena massa zat terlarut dan massa pelarut ($P$) konstan terhadap temperatur, *
 Bila diketahui kadar persentase massa zat terlarut ($\\%$) dengan massa molar $M_r$ di dalam pelarut air:
 $$m = \\frac{\\%}{100 - \\%} \\times \\frac{1000}{M_r}$$
 Sedangkan konversi antara Molaritas ($M$) dan Molalitas ($m$) membutuhkan data massa jenis larutan ($\\rho$ dalam $\\text{g/mL}$):
-$$m = \\frac{1000 \\times M}{(1000 \\times \\rho) - (M \\times M_r)}$$`,
+$m = \\frac{1000 \\times M}{(1000 \\times \\rho) - (M \\times M_r)}$
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Molaritas (M) Gagal pada Suhu Berubah?
+> Banyak siswa SMA terbiasa menghitung konsentrasi dengan rumus molaritas ($M = n/V$). **Ingat: Volume cairan ($V$) memuai saat dipanaskan dan menyusut saat didinginkan!** Akibatnya, nilai molaritas larutan akan berubah-ubah seiring perubahan suhu meskipun jumlah partikel terlarutnya tetap. Oleh sebab itu, perhitungan ebulioskopi dan krioskopi **WAJIB** menggunakan **molalitas ($m$)** atau **fraksi mol ($X$)** yang berbasis massa pelarut (karena massa bersifat kekal dan tidak terpengaruh pemuaian suhu).`,
       },
       {
         tag: 'potensial-kimia-dan-dasar-termodinamika-koligatif',
@@ -164,7 +170,11 @@ Mengapa keberadaan zat terlarut yang tidak mudah menguap (*non-volatile solute*)
 3. **Konsekuensi terhadap Kesetimbangan Fasa:**
    - **Penguapan (Cair $\\to$ Gas):** Karena fasa cair menjadi lebih stabil (potensial kimianya turun), kecenderungan molekul pelarut untuk lepas ke fasa gas berkurang $\\implies$ **Tekanan uap turun ($\\Delta P$)**.
    - **Pendidihan (Cair $\\to$ Gas):** Diperlukan temperatur yang lebih tinggi agar potensial kimia cairan menyamai potensial fasa uap $\\implies$ **Titik didih naik ($\\Delta T_b$)**.
-   - **Pembekuan (Cair $\\to$ Padat):** Diperlukan temperatur yang lebih rendah agar fasa padat murni (es) dapat berada dalam kesetimbangan dengan cairan yang terstabilkan secara entropik tersebut $\\implies$ **Titik beku turun ($\\Delta T_f$)**.`,
+   - **Pembekuan (Cair $\\to$ Padat):** Diperlukan temperatur yang lebih rendah agar fasa padat murni (es) dapat berada dalam kesetimbangan dengan cairan yang terstabilkan secara entropik tersebut $\\implies$ **Titik beku turun ($\\Delta T_f$)**.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jenis Zat vs Jumlah Partikel
+> Sering kali siswa terkecoh mengira larutan sukrosa $0.1\\text{ m}$ akan mendidih lebih lambat atau lebih cepat dibanding larutan glukosa $0.1\\text{ m}$ karena molekul sukrosa ($M_r = 342$) jauh lebih berat dan besar daripada glukosa ($M_r = 180$). **Sifat koligatif TIDAK PERNAH peduli pada ukuran, massa molar, atau jenis zat terlarut!** Selama jumlah partikelnya sama dan keduanya non-elektrolit, efek kenaikan titik didih, penurunan titik beku, dan penurunan tekanan uapnya akan **sama persis**!`,
       },
     ],
     core_concepts: [
@@ -294,7 +304,14 @@ Secara mikroskopis pada antarmuka cairan-gas:
     <rect x="25" y="242" width="260" height="24" rx="4" fill="#eff6ff" stroke="#93c5fd"/>
     <text x="155" y="258" fill="#1e40af" font-size="9" font-weight="bold" text-anchor="middle">P = X_p · P°   |   ΔP = X_t · P°</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tekanan Uap Larutan (P) vs Penurunan Tekanan Uap (ΔP)
+> Kesalahan paling fatal pada soal Hukum Raoult adalah salah memasukkan fraksi mol!
+> - Gunakan $X_p$ (fraksi mol **PELARUT**) untuk mencari **Tekanan Uap Larutan**: $P = X_p \cdot P^\circ$.
+> - Gunakan $X_t$ (fraksi mol **TERLARUT**) untuk mencari **Penurunan Tekanan Uap**: $\\Delta P = X_t \cdot P^\circ$.
+> Jangan tertukar, karena $P$ adalah tekanan uap yang tersisa di atas cairan, sedangkan $\\Delta P$ adalah besar penurunannya ($P = P^\circ - \\Delta P$)!`,
         keyFormulas: [
           { name: 'Hukum Raoult Pelarut', formula: 'P = X_p \\cdot P^\\circ' },
           { name: 'Rumus Penurunan Tekanan Uap Jenuh', formula: '\\Delta P = X_t \\cdot P^\\circ = (P^\\circ - P)' },
@@ -429,7 +446,14 @@ di mana:
     <line x1="430" y1="30" x2="460" y2="30" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4 2"/>
     <text x="468" y="33" fill="#dc2626" font-size="8.5" font-weight="bold">Larutan (ΔP, ΔTb, ΔTf)</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tanda Operasi Titik Didih vs Titik Beku
+> Jangan sampai terbalik dalam mengoperasikan selisih koligatif pada pelarut air:
+> - **Titik didih NAIK (DITAMBAH):** $T_b = 100^\circ\\text{C} + \\Delta T_b$ (selalu $> 100^\circ\\text{C}$).
+> - **Titik beku TURUN (DIKURANG):** $T_f = 0^\circ\\text{C} - \\Delta T_f = -\\Delta T_f$ (selalu bernilai negatif di bawah $0^\circ\\text{C}$).
+> Banyak siswa salah menuliskan titik beku larutan sebagai $+0.74^\circ\\text{C}$, padahal seharusnya $-0.74^\circ\\text{C}$!`,
         keyFormulas: [
           { name: 'Kenaikan Titik Didih Non-Elektrolit', formula: '\\Delta T_b = m \\cdot K_b = \\frac{\\text{massa}}{M_r} \\times \\frac{1000}{P} \\times K_b' },
           { name: 'Titik Didih Larutan', formula: 'T_b = T_b^\\circ + \\Delta T_b' },
@@ -556,7 +580,12 @@ Bila pada fasa larutan pekat (seperti air laut) diberikan tekanan mekanis ekster
     <text x="177" y="233" fill="#166534" font-size="8.5" font-weight="bold" text-anchor="middle">Aplikasi Global Desalinasi:</text>
     <text x="177" y="250" fill="#15803d" font-size="8" text-anchor="middle">Tekanan 50-80 atm menghasilkan air minum dari air laut.</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Arah Aliran Osmosis Alami vs Osmosis Balik (RO)
+> Pada **osmosis alami**, pelarut murni bergerak spontan dari larutan **encer menuju pekat** untuk menyamakan konsentrasi (tanpa energi luar).
+> Sebaliknya pada **Reverse Osmosis (RO)**, arah aliran dipaksa **berbalik**: air murni mengalir dari larutan **pekat (air laut) menuju encer (air tawar)** karena ditekan oleh pompa mekanik bertekanan raksasa yang melampaui tekanan osmotiknya ($P_{\\text{pompa}} > \\Pi$)!`,
         keyFormulas: [
           { name: 'Persamaan Tekanan Osmotik van t Hoff', formula: '\\Pi = M \\cdot R \\cdot T' },
           { name: 'Rumus Tekanan Osmotik dengan Massa Terlarut', formula: '\\Pi = \\frac{\\text{massa}}{M_r} \\times \\frac{1000}{V \\text{ (mL)}} \\times R \\cdot T' },
@@ -719,7 +748,14 @@ Pada larutan elektrolit nyata dengan konsentrasi moderat, nilai $i$ yang terukur
     <text x="140" y="238" fill="#b91c1c" font-size="8" text-anchor="middle">Tarik-menarik elektrostatik membentuk pasangan ion,</text>
     <text x="140" y="253" fill="#b91c1c" font-size="8" text-anchor="middle">mengurangi jumlah partikel kinetik independen!</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jangan Lupa Faktor van 't Hoff (i) pada Elektrolit!
+> Setiap kali membaca soal sifat koligatif, langkah pertama adalah **CEK SIFAT ELEKTROLITNYA**:
+> - Jika zat berupa non-elektrolit (glukosa, sukrosa, urea, alkohol), maka $i = 1$.
+> - Jika zat berupa senyawa ionik atau asam-basa ($\\ce{NaCl, CaCl2, H2SO4, Ba(OH)2}$), **WAJIB kalikan dengan faktor van 't Hoff: $i = 1 + (n - 1)\\alpha$**!
+> Melupakan faktor $i$ pada garam $\\ce{CaCl2}$ akan membuat jawaban Anda salah $3$ kali lipat!`,
         keyFormulas: [
           { name: 'Rumus Faktor van t Hoff', formula: 'i = 1 + (n - 1)\\alpha' },
           { name: 'Kenaikan Titik Didih Elektrolit', formula: '\\Delta T_b = m \\cdot K_b \\cdot i' },
@@ -851,7 +887,11 @@ Dengan mengukur nilai $\\Pi$ pada berbagai variasi konsentrasi encer ($C$), lalu
     <text x="192" y="242" fill="#1e40af" font-size="9" font-weight="bold" text-anchor="middle">Formula Penentuan Massa Molar:</text>
     <text x="192" y="255" fill="#1d4ed8" font-size="8.5" text-anchor="middle">Mn = (R · T) / Intercept   (Bebas Bias Interaksi Polimer)</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Titik Didih/Beku Tidak Bisa untuk Protein?
+> Makromolekul seperti enzim dan antibodi memiliki massa molar raksasa ($M_r > 50.000\\text{ g/mol}$). Akibatnya, pada konsentrasi $1\\text{ gram/L}$, nilai molalitasnya sangat kecil sehingga penurunan titik beku ($\\Delta T_f$) dan kenaikan titik didih ($\\Delta T_b$) hanya sebesar $\\approx 0.0001^\circ\\text{C}$ (tidak terbaca oleh termometer lab biasa). Hanya **tekanan osmotik ($\\Pi$)** yang mampu menghasilkan respon kolom cairan setinggi beberapa sentimeter ($h \\approx 2 - 5\\text{ cm}$), menjadikannya satu-satunya metode koligatif yang presisi untuk makromolekul!`,
         keyFormulas: [
           { name: 'Penentuan Mr via Tekanan Osmotik Sederhana', formula: 'M_r = \\frac{\\text{massa (g)} \\cdot R \\cdot T}{\\Pi \\cdot V \\text{ (L)}}' },
           { name: 'Persamaan Virial Osmometri Membran', formula: '\\frac{\\Pi}{C} = \\frac{R T}{M_n} + B C' },
@@ -859,234 +899,7 @@ Dengan mengukur nilai $\\Pi$ pada berbagai variasi konsentrasi encer ($C$), lalu
         ],
       },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-kenaikan-didih-penurunan-beku-glukosa',
-        tags: ['titik-didih-glukosa', 'titik-beku-air', 'perhitungan-molalitas', 'sifat-koligatif-dasar'],
-        title: 'Contoh Soal 1: Perhitungan Lengkap Kenaikan Titik Didih & Penurunan Titik Beku Non-Elektrolit',
-        summary: 'Perhitungan molalitas larutan glukosa, kenaikan titik didih ebulioskopi dan penurunan titik beku krioskopi.',
-        content: `### Soal:
-Sebanyak $36.0\\text{ gram}$ glukosa ($\\ce{C6H12O6}$, $M_r = 180.16\\text{ g/mol}$) dilarutkan ke dalam $500.0\\text{ gram}$ air murni.
-
-Diketahui data pelarut air murni:
-- Titik beku murni ($T_f^\\circ$) = $0.000^\\circ\\text{C}$
-- Titik didih murni ($T_b^\\circ$) = $100.000^\\circ\\text{C}$
-- Konstanta krioskopi ($K_f$) = $1.86^\\circ\\text{C/m}$
-- Konstanta ebulioskopi ($K_b$) = $0.52^\\circ\\text{C/m}$
-
-**Hitunglah:**
-a. Molalitas ($m$) larutan glukosa tersebut!
-b. Kenaikan titik didih ($\\Delta T_b$) dan titik didih larutan ($T_b$) pada tekanan $1\\text{ atm}$!
-c. Penurunan titik beku ($\\Delta T_f$) dan titik beku larutan ($T_f$) pada tekanan $1\\text{ atm}$!
-
----
-
-### Pembahasan Terstruktur:
-
-#### Bagian a: Menghitung Molalitas ($m$)
-1. Jumlah mol glukosa ($n_t$):
-   $$n_t = \\frac{\\text{massa}}{M_r} = \\frac{36.0\\text{ g}}{180.16\\text{ g/mol}} = 0.1998\\text{ mol} \\approx 0.200\\text{ mol}$$
-2. Massa pelarut dalam kilogram:
-   $$P = 500.0\\text{ g} = 0.500\\text{ kg}$$
-3. Molalitas ($m$):
-   $$m = \\frac{n_t}{P \\text{ (kg)}} = \\frac{0.200\\text{ mol}}{0.500\\text{ kg}} = \\mathbf{0.400\\text{ m}} \\quad (\\text{molal})$$
-
----
-
-#### Bagian b: Menghitung Titik Didih Larutan ($T_b$)
-Karena glukosa merupakan zat non-elektrolit ($i = 1$):
-$$\\Delta T_b = m \\cdot K_b = (0.400\\text{ m}) \\times (0.52^\\circ\\text{C/m}) = \\mathbf{0.208^\\circ\\text{C}}$$
-Titik didih larutan:
-$$T_b = T_b^\\circ + \\Delta T_b = 100.000^\\circ\\text{C} + 0.208^\\circ\\text{C} = \\mathbf{100.208^\\circ\\text{C}}$$
-
----
-
-#### Bagian c: Menghitung Titik Beku Larutan ($T_f$)
-$$\\Delta T_f = m \\cdot K_f = (0.400\\text{ m}) \\times (1.86^\\circ\\text{C/m}) = \\mathbf{0.744^\\circ\\text{C}}$$
-Titik beku larutan:
-$$T_f = T_f^\\circ - \\Delta T_f = 0.000^\\circ\\text{C} - 0.744^\\circ\\text{C} = \\mathbf{-0.744^\\circ\\text{C}}$$
-
-*Evaluasi Konsep:* Penambahan zat terlarut memperluas rentang wujud fasa cair dari air: batas bawah titik beku turun ke $-0.744^\\circ\\text{C}$ dan batas atas titik didih naik ke $100.208^\\circ\\text{C}$.`,
-      },
-      {
-        tag: 'contoh-antibeku-radiator-cacl2-van-t-hoff',
-        tags: ['cairan-antibeku-radiator', 'faktor-van-t-hoff-elektrolit', 'derajat-ionisasi', 'penurunan-titik-beku-cacl2'],
-        title: 'Contoh Soal 2: Formulasi Antibeku Radiator Mobil: Perhitungan Massa Garam Elektrolit Terionisasi Sebagian',
-        summary: 'Penerapan faktor van t Hoff elektrolit terionisasi sebagian pada kalkulasi massa antibeku CaCl2 radiator mobil.',
-        content: `### Soal:
-Di daerah subtropis yang mengalami musim dingin ekstrem dengan suhu lingkungan mencapai $-10.0^\\circ\\text{C}$, sistem pendingin radiator mobil yang berisi $2.50\\text{ kg}$ air murni harus dilindungi agar air tidak membeku dan meretakkan blok mesin.
-
-Seorang teknisi otomotif memutuskan menambahkan garam kalsium klorida anhidrat ($\\ce{CaCl2}$, $M_r = 110.98\\text{ g/mol}$) ke dalam radiator tersebut. Pada konsentrasi tersebut, garam $\\ce{CaCl2}$ terionisasi dengan derajat ionisasi $\\alpha = 0.85$.
-
-*(Diketahui $K_f\\text{ air} = 1.86^\\circ\\text{C/m}$, titik beku air murni $T_f^\\circ = 0.0^\\circ\\text{C}$)*.
-
-**Tentukan:**
-a. Nilai faktor van 't Hoff ($i$) garam $\\ce{CaCl2}$ pada kondisi tersebut!
-b. Molalitas ($m$) larutan yang dibutuhkan agar air radiator baru mulai membeku pada temperatur $-10.0^\\circ\\text{C}$!
-c. Massa minimum $\\ce{CaCl2}$ anhidrat yang harus ditambahkan ke dalam $2.50\\text{ kg}$ air radiator tersebut!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### Langkah 1: Menghitung Faktor van 't Hoff ($i$)
-Reaksi ionisasi kalsium klorida:
-$$\\ce{CaCl2(aq) -> Ca^2+(aq) + 2Cl-(aq)}$$
-- Jumlah ion yang dihasilkan ($n$) = $1 \\text{ ion } \\ce{Ca^2+} + 2 \\text{ ion } \\ce{Cl-} = 3$.
-- Derajat ionisasi: $\\alpha = 0.85$.
-$$i = 1 + (n - 1)\\alpha = 1 + (3 - 1)(0.85) = 1 + 2(0.85) = 1 + 1.70 = \\mathbf{2.70}$$
-
----
-
-#### Langkah 2: Menghitung Molalitas Target ($m$)
-Target titik beku larutan: $T_f = -10.0^\\circ\\text{C}$.
-Penurunan titik beku:
-$$\\Delta T_f = T_f^\\circ - T_f = 0.0^\\circ\\text{C} - (-10.0^\\circ\\text{C}) = 10.0^\\circ\\text{C}$$
-
-Gunakan rumus penurunan titik beku untuk elektrolit:
-$$\\Delta T_f = m \\cdot K_f \\cdot i$$
-$$10.0 = m \\times 1.86 \\times 2.70$$
-$$10.0 = m \\times 5.022$$
-$$m = \\frac{10.0}{5.022} = \\mathbf{1.991\\text{ m}} \\quad (\\text{mol/kg pelarut})$$
-
----
-
-#### Langkah 3: Menghitung Massa $\\ce{CaCl2}$ yang Dibutuhkan
-Massa pelarut air: $P = 2.50\\text{ kg}$.
-1. Jumlah mol $\\ce{CaCl2}$ yang diperlukan:
-   $$n_{\\ce{CaCl2}} = m \\times P = 1.991\\text{ mol/kg} \\times 2.50\\text{ kg} = 4.978\\text{ mol}$$
-2. Massa garam $\\ce{CaCl2}$ anhidrat:
-   $$\\text{massa} = n_{\\ce{CaCl2}} \\times M_r = 4.978\\text{ mol} \\times 110.98\\text{ g/mol} = \\mathbf{552.5\\text{ gram}} \\quad (\\approx 0.552\\text{ kg})$$
-
-> **Wawasan Terapan:**
-> Penambahan $552.5\\text{ gram } \\ce{CaCl2}$ berhasil memproteksi air radiator hingga $-10.0^\\circ\\text{C}$. Jika digunakan zat non-elektrolit (seperti glukosa), dibutuhkan massa hampir $2.7$ kali lebih banyak ($> 1.4\\text{ kg}$), membuktikan efisiensi tinggi zat elektrolit dalam aplikasi penurunan titik beku.`,
-      },
-      {
-        tag: 'contoh-tekanan-osmotik-desalinasi-ro',
-        tags: ['desalinasi-osmosis-balik', 'tekanan-osmotik-air-laut', 'tekanan-minimum-ro', 'salinitas-nacl'],
-        title: 'Contoh Soal 3: Termodinamika Tekanan Osmotik & Desalinasi Osmosis Balik (Reverse Osmosis) Air Laut',
-        summary: 'Kalkulasi tekanan osmotik air laut Teluk Persia, tekanan operasional minimum pompa RO dan konsentrasi brine.',
-        content: `### Soal:
-Sebuah fasilitas desalinasi air laut (*Seawater Reverse Osmosis* / SWRO) di Teluk Persia mengolah air laut dengan kadar salinitas yang setara dengan larutan $\\ce{NaCl } 0.540\\text{ M}$. Temperatur operasional air laut adalah $27.0^\\circ\\text{C}$ ($300.15\\text{ K}$).
-
-Pada konsentrasi tersebut, larutan $\\ce{NaCl}$ memiliki faktor van 't Hoff $i = 1.92$ (karena adanya efek pasangan ion).
-*(Tetapan gas $R = 0.08206\\text{ L}\\cdot\\text{atm/(mol}\\cdot\\text{K)}$, $1\\text{ atm} = 1.01325 \\times 10^5\\text{ Pa} = 0.101325\\text{ MPa}$)*.
-
-**Hitung:**
-a. Tekanan osmotik ($\\Pi$) air laut tersebut dalam satuan $\\text{atm}$ dan $\\text{megapascal (MPa)}$!
-b. Tentukan tekanan mekanis minimum ($P_{\\text{min}}$) yang harus dikerahkan oleh pompa tekanan tinggi membran RO agar pemisahan air tawar murni dapat berlangsung!
-c. Jika dari $1000\\text{ Liter}$ air laut diambil $400\\text{ Liter}$ air tawar murni (angka perolehan / *recovery rate* $40\\%$), konsentrasi sisa limbah pekat (*brine*) meningkat menjadi $0.900\\text{ M}$ ($i = 1.88$). Tentukan tekanan osmotik akhir limbah pekat tersebut!
-
----
-
-### Pembahasan Matematis & Rekayasa Kimia:
-
-#### Bagian a: Menghitung Tekanan Osmotik Awal Air Laut ($\\Pi$)
-Formula van 't Hoff untuk larutan elektrolit:
-$$\\Pi = M \\cdot R \\cdot T \\cdot i$$
-Substitusikan data:
-- $M = 0.540\\text{ mol/L}$
-- $R = 0.08206\\text{ L}\\cdot\\text{atm/(mol}\\cdot\\text{K)}$
-- $T = 27.0 + 273.15 = 300.15\\text{ K}$
-- $i = 1.92$
-
-$$\\Pi = (0.540) \\times (0.08206) \\times (300.15) \\times (1.92)$$
-$$\\Pi = 13.2996 \\times 1.92 = \\mathbf{25.54\\text{ atm}}$$
-
-Konversi ke satuan Megapascal (MPa):
-$$\\Pi = 25.54\\text{ atm} \\times 0.101325\\text{ MPa/atm} = \\mathbf{2.587\\text{ MPa}}$$
-
----
-
-#### Bagian b: Tekanan Minimum Pompa RO ($P_{\\text{min}}$)
-Agar aliran osmosis dapat berbalik arah (air mengalir dari air laut pekat menembus membran semipermeabel menuju fasa air tawar murni), tekanan luar yang diberikan harus **melampaui tekanan osmotik alami air laut**:
-$$P_{\\text{min}} > \\Pi \\implies \\mathbf{P_{\\text{min}} > 25.54\\text{ atm}} \\quad (\\mathbf{> 2.587\\text{ MPa}})$$
-Dalam praktiknya, industri SWRO menggunakan tekanan kerja $5.5 - 7.0\\text{ MPa}$ ($55 - 70\\text{ atm}$) untuk mengatasi hambatan hidrodinamika membran dan mencapai laju fluks air tawar yang tinggi.
-
----
-
-#### Bagian c: Tekanan Osmotik Limbah Pekat (*Brine*)
-Konsentrasi akhir: $M_{\\text{brine}} = 0.900\\text{ M}$ dengan $i = 1.88$.
-$$\\Pi_{\\text{brine}} = M_{\\text{brine}} \\cdot R \\cdot T \\cdot i_{\\text{brine}}$$
-$$\\Pi_{\\text{brine}} = (0.900) \\times (0.08206) \\times (300.15) \\times (1.88)$$
-$$\\Pi_{\\text{brine}} = 22.166 \\times 1.88 = \\mathbf{41.67\\text{ atm}} \\quad (\\mathbf{4.222\\text{ MPa}})$$
-
-> **Evaluasi Rekayasa:**
-> Kenaikan konsentrasi limbah pekat meningkatkan tekanan osmotik dari $25.5\\text{ atm}$ menjadi $41.7\\text{ atm}$, membuktikan mengapa konsumsi energi pompa desalinasi RO meningkat tajam seiring bertambahnya persentase air tawar yang diekstraksi (*recovery rate*).`,
-      },
-      {
-        tag: 'contoh-osmometri-membran-virial-polimer',
-        tags: ['osmometri-virial', 'massa-molar-polimer', 'regresi-linear-pi-c', 'olimpiade-kimia-fisik'],
-        title: 'Contoh Soal 4: Osmometri Membran Virial & Determinasi Massa Molar Rata-rata Polimer Sintetik',
-        summary: 'Regresi linear persamaan virial tekanan osmotik tereduksi untuk penentuan massa molar rata-rata polistiren.',
-        content: `### Soal:
-Sampel polimer sintetis polistiren dilarutkan ke dalam pelarut toluena pada temperatur $T = 298.15\\text{ K}$ ($25.0^\\circ\\text{C}$). Tekanan osmotik ($\\Pi$) larutan diukur pada berbagai variasi konsentrasi massa ($C$ dalam satuan $\\text{g/dm}^3$ atau $\\text{g/L}$) menggunakan osmometer membran presisi.
-
-Data eksperimen yang diperoleh dirangkum dalam tabel berikut:
-
-| Konsentrasi $C$ ($\\text{g/L}$) | Tekanan Osmotik $\\Pi$ ($\\text{atm}$) | Tekanan Tereduksi $\\frac{\\Pi}{C}$ ($10^{-4}\\text{ atm}\\cdot\\text{L/g}$) |
-| :---: | :---: | :---: |
-| **$2.00$** | $3.08 \\times 10^{-4}$ | **$1.54$** |
-| **$4.00$** | $6.96 \\times 10^{-4}$ | **$1.74$** |
-| **$6.00$** | $1.164 \\times 10^{-3}$ | **$1.94$** |
-| **$8.00$** | $1.712 \\times 10^{-3}$ | **$2.14$** |
-
-*(Diketahui tetapan gas universal $R = 0.08206\\text{ L}\\cdot\\text{atm/(mol}\\cdot\\text{K)}$)*.
-
-**Berdasarkan Persamaan Virial Osmometri:**
-$$\\frac{\\Pi}{C} = \\frac{R T}{M_n} + B C$$
-
-**Tentukan:**
-a. Nilai titik potong sumbu-Y (*intercept*) dan kemiringan kurva (*slope*, $B$) dari regresi linear $\\frac{\\Pi}{C}$ terhadap $C$!
-b. Massa molar rata-rata jumlah ($M_n$) dari sampel polistiren tersebut dalam satuan $\\text{g/mol}$!
-c. Derajat polimerisasi rata-rata ($DP_n$) jika monomer penyusunnya adalah stiren ($\\ce{C8H8}$, $M_r = 104.15\\text{ g/mol}$)!
-
----
-
-### Pembahasan Matematis & Analisis Regresi Rigor:
-
-#### Bagian a: Analisis Regresi Linear Plot $\\frac{\\Pi}{C}$ vs $C$
-Persamaan garis: $y = m x + c$
-- $y = \\frac{\\Pi}{C}$ (dalam satuan $10^{-4}\\text{ atm}\\cdot\\text{L/g}$)
-- $x = C$ (dalam satuan $\\text{g/L}$)
-
-Ambil dua titik pengamatan:
-- Titik 1: $(x_1, y_1) = (2.00, 1.54)$
-- Titik 2: $(x_2, y_2) = (8.00, 2.14)$
-
-1. **Kemiringan Kurva (*Slope* / Koefisien Virial Kedua $B$):**
-   $$B = \\frac{y_2 - y_1}{x_2 - x_1} = \\frac{2.14 - 1.54}{8.00 - 2.00} = \\frac{0.60}{6.00} = \\mathbf{0.100 \\times 10^{-4}\\text{ atm}\\cdot\\text{L}^2\\text{/g}^2}$$
-   $$B = 1.00 \\times 10^{-5}\\text{ atm}\\cdot\\text{L}^2\\text{/g}^2$$
-
-2. **Titik Potong Sumbu-Y (*Intercept* saat $C \\to 0$):**
-   $$y = B \\cdot x + \\text{Intercept}$$
-   $$1.54 \\times 10^{-4} = (0.100 \\times 10^{-4})(2.00) + \\text{Intercept}$$
-   $$\\text{Intercept} = 1.54 \\times 10^{-4} - 0.20 \\times 10^{-4} = \\mathbf{1.340 \\times 10^{-4}\\text{ atm}\\cdot\\text{L/g}}$$
-
----
-
-#### Bagian b: Menghitung Massa Molar Rata-rata ($M_n$)
-Menurut persamaan virial:
-$$\\text{Intercept} = \\frac{R T}{M_n} \\implies M_n = \\frac{R T}{\\text{Intercept}}$$
-
-Substitusikan nilai numerik:
-- $R = 0.08206\\text{ L}\\cdot\\text{atm/(mol}\\cdot\\text{K)}$
-- $T = 298.15\\text{ K}$
-- $R T = 0.08206 \\times 298.15 = 24.466\\text{ L}\\cdot\\text{atm/mol}$
-- $\\text{Intercept} = 1.340 \\times 10^{-4}\\text{ L}\\cdot\\text{atm/g}$
-
-$$M_n = \\frac{24.466\\text{ L}\\cdot\\text{atm/mol}}{1.340 \\times 10^{-4}\\text{ L}\\cdot\\text{atm/g}} = \\mathbf{182.582\\text{ g/mol}} \\quad (\\approx \\mathbf{1.83 \\times 10^5\\text{ g/mol}})$$
-
----
-
-#### Bagian c: Menghitung Derajat Polimerisasi ($DP_n$)
-Derajat polimerisasi menyatakan jumlah rata-rata unit monomer stiren yang terangkai membentuk satu rantai makromolekul:
-$$DP_n = \\frac{M_n}{M_{r, \\text{monomer}}} = \\frac{182.582\\text{ g/mol}}{104.15\\text{ g/mol}} = \\mathbf{1753\\text{ unit monomer stiren}}$$
-
-> **Kesimpulan Penguji OSN:**
-> Melalui metode osmometri membran virial, massa molar makromolekul polistiren berhasil ditentukan sebesar $182.582\\text{ g/mol}$ dengan panjang rantai rata-rata $1.753$ unit monomer, bebas dari bias interaksi polimer-pelarut!`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_113,
   },
   {
     id: 114,
@@ -4839,3 +4652,16 @@ $$pI = \\frac{pK_{a1} + pK_{a2}}{2} = \\frac{2.19 + 4.25}{2} = \\frac{6.44}{2} =
     ],
   },
 ];
+
+export const SMA_MATERIALS_FASE_F2: SmaMaterialItem[] = BASE_SMA_MATERIALS_FASE_F2.map((mat) => ({
+  ...mat,
+  prerequisites: mat.prerequisites.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_F2[b.tag],
+  })),
+  core_concepts: mat.core_concepts.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_F2[b.tag],
+  })),
+  worked_examples: mat.worked_examples,
+}));

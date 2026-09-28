@@ -75,10 +75,11 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **106** | **6** | **Termokimia SMA (Entalpi & Hukum Hess)** | **Kelas 11 (Fase F1)** | **Rekening Bank Energi, Naik Tangga / Turun Lift Hess** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 11 Miskonsepsi)** |
 | **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas | **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | **112** | **12** | **Sistem Koloid & Kimia Permukaan SMA** | **Kelas 11 (Fase F1)** | **Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil)** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
-| 113 | 13 | Sifat Koligatif Larutan SMA | Kelas 12 (Fase F2) | Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel | ⏳ Terjadwal | Prioritas Fase 4 |
+| **113** | **13** | **Sifat Koligatif Larutan SMA** | **Kelas 12 (Fase F2)** | **Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
 | 114 | 14 | Reaksi Redoks & Sel Elektrokimia SMA | Kelas 12 (Fase F2) | Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik | ⏳ Terjadwal | Prioritas Fase 4 (Gap: Korosi & Baterai Komersial) |
 | 115 | 15 | Kimia Unsur Golongan Utama & Transisi 4 | Kelas 12 (Fase F2) | Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik | ⏳ Terjadwal | Prioritas Fase 4 |
 | 116 | 16 | Kimia Karbon & Makromolekul | Kelas 12 (Fase F2) | Lego Rantai Karbon, Ritsleting Protein & DNA | ⏳ Terjadwal | Prioritas Fase 4 |
+
 
 ---
 
