@@ -25,6 +25,7 @@ import { CHECKPOINTS_TOPIC_OSN_01 } from './checkpointBankTopicOsn01.ts';
 import { CHECKPOINTS_TOPIC_OSN_02 } from './checkpointBankTopicOsn02.ts';
 import { CHECKPOINTS_TOPIC_OSN_03 } from './checkpointBankTopicOsn03.ts';
 import { CHECKPOINTS_TOPIC_OSN_04 } from './checkpointBankTopicOsn04.ts';
+import { CHECKPOINTS_TOPIC_OSN_05 } from './checkpointBankTopicOsn05.ts';
 
 export {
   CHECKPOINTS_TOPIC_101,
@@ -47,6 +48,7 @@ export {
   CHECKPOINTS_TOPIC_OSN_02,
   CHECKPOINTS_TOPIC_OSN_03,
   CHECKPOINTS_TOPIC_OSN_04,
+  CHECKPOINTS_TOPIC_OSN_05,
 };
 
 export const CHECKPOINTS_FASE_E: Record<string, CheckpointQuizItem[]> = {
@@ -79,6 +81,7 @@ export const CHECKPOINTS_OSN: Record<string, CheckpointQuizItem[]> = {
   ...CHECKPOINTS_TOPIC_OSN_02,
   ...CHECKPOINTS_TOPIC_OSN_03,
   ...CHECKPOINTS_TOPIC_OSN_04,
+  ...CHECKPOINTS_TOPIC_OSN_05,
 };
 
 

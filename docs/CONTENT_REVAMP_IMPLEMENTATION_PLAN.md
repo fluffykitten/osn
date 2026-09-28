@@ -160,10 +160,26 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * Revamp total dengan Arsitektur 5 Lapis: Intuitive Hook (Barter Elektron Lewis & Pengecualian Oktet, Akuntansi Muatan Formal & Resonansi Mule, Tarik Tambang Vektor 3D $\ce{CO2}$ vs $\ce{H2O}$ vs $\ce{NH3/NF3}$, Balon Sterik VSEPR & Aturan Bent, Blender Hibridisasi $sp^n$, Interferensi LCAO & Magnetisme Oksigen, Jejaring Ikatan Hidrogen Simetris 3c-4e, Benteng Kristal Kapustinskii Born-Haber, Rantai Karbon 1D Dimerisasi Peierls & Hamiltonian SSH, serta Teori Grup Schoenflies & SALC).
   * **Celah Konsep Tertutup Sempurna**: Ditambahkan contoh soal ke-6 khusus tingkat internasional: `soal-teori-pita-ssh-peierls` (*Contoh Soal IChO 6: Kuantisasi Model Tight-Binding SSH, Celah Pita Poliasetilena & Transisi Peierls*), sehingga **Coverage melonjak menjadi 100% ✅ (0 Celah Konsep pada Topik 2)**.
   * Dilengkapi **30 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn02.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn02.ts).
-  * 15 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`) & **Ketercakupan Keseluruhan Platform Naik ke 99%**.
+  * 15 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
+* **Topik 3 OSN: Stoikiometri & Wujud Zat (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Partikel Neraca Semesta Avogadro, Tabrakan Bola Bilyar Gas Kinetik, Tarik-Menarik Partikel Real Van der Waals, Kemasan Jeruk di Keranjang Kristalografi Kisi Bravais, Efek Doping F-center Superkonduktor, Peta Petualangan Diagram Fasa Titik Tripel).
+  * **Celah Konsep 5 Tertutup Sempurna**: Ditambahkan contoh soal ke-6: `soal-kristal-perovskite-difraksi-xrd` (*Contoh Soal IChO 6: Kristalografi Perovskite BaTiO3, Difraksi Sinar-X Hukum Bragg, & Cacat Kisi Non-Stoikiometri*), menghasilkan **100% Coverage ✅**.
+  * Dilengkapi **27 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn03.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn03.ts).
+  * 18 titik deteksi miskonsepsi terdaftar.
+* **Topik 4 OSN: Termodinamika Kimia & Termokimia (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Dompet Energi Semesta Hukum I, Jalan Mendaki vs Naik Helikopter Fungsi Keadaan Hess, Panah Waktu Entropi Mikrokeadaan Boltzmann, Hakim Pengadil Kesetimbangan Energi Bebas Gibbs, Termometer Van 't Hoff, Mesin Pembakaran Carnot, dan Pertarungan Reduksi Metalurgi Diagram Ellingham).
+  * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn04.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn04.ts).
+  * 16 titik deteksi miskonsepsi aktif via GitHub Callouts.
+* **Topik 5 OSN: Kesetimbangan Kimia & Larutan (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Jembatan Tol Dua Arah Kesetimbangan Dinamis Guldberg-Waage, Jungkat-Jungkit Termodinamika Le Chatelier, Autoprotolisis Air Suhu Tubuh 37°C Kw, Tangga Air Terjun Spesiasi Alpha Poliprotik H3PO4, Shock Absorber Dapar Terbuka Paru-Paru vs Tertutup Van Slyke, Profil Roller Coaster Titrimetri Presisi, Pintu Putar Kristal vs Hidrasi Ksp, dan Saringan Bertingkat Kompleksasi Logam Kf).
+  * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn05.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn05.ts).
+  * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
 * **Target Peningkatan Konten Berikutnya**:
-  * Menutup 2 celah konsep tersisa (Struktur Kristal di Topik 3, Kinetika Enzim di Topik 10).
-  * Melanjutkan revamping Topik 3 s.d. 10 OSN secara bertahap.
+  * Topik 6 OSN: Kinetika Kimia & Mekanisme Reaksi (`osnTopic06.ts`).
+  * Topik 7 OSN: Elektrokimia & Potensial Sel (`osnTopic07.ts`).
+  * Topik 8 OSN: Kimia Anorganik & Senyawa Koordinasi (`osnTopic08.ts`).
+  * Topik 9 OSN: Kimia Analitik & Dasar Spektroskopi (`osnTopic09.ts`).
+  * Topik 10 OSN: Kimia Organik & Biokimia (`osnTopic10.ts`) + Menutup Celah Konsep 6 (Michaelis-Menten & Lineweaver-Burk).
 
 ---
 
