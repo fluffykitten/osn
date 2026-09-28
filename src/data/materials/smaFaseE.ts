@@ -2688,1058 +2688,325 @@ $$\\mathbf{\\ce{Al^3+} < \\ce{Mg^2+} < \\ce{Na+} < \\ce{F-} < \\ce{O^2-} < \\ce{
 },
 
   {
-  id: 104,
-  topic_number: 4,
-  grade: 'Kelas 10',
-  semester: 2,
-  curriculumPhase: 'Fase E',
-  relatedOsnTopicId: 1,
-  title: 'Tata Nama Senyawa & Persamaan Reaksi Kimia',
-  slug: 'tata-nama-senyawa-persamaan-reaksi',
-  category: 'Bahasa & Notasi Kimia',
-  level: 'SMA',
-  readTimeMinutes: 30,
-  summary: 'Panduan komprehensif sistem tata nama senyawa anorganik biner (ionik dan kovalen menurut IUPAC), tata nama poliatomik, asam, basa, serta hidrat kristal; pengenalan dasar hidrokarbon alkana/alkena/alkuna; anatomi simbolik persamaan reaksi kimia dan hukum kekekalan massa Lavoisier; teknik penyetaraan reaksi metode inspeksi langsung dan aljabar matematis sistematis; serta formulasi persamaan reaksi ionik lengkap dan ionik bersih (net ionic equations).',
-  allTags: [
-      'tata-nama-senyawa',
-      'senyawa-biner-ionik',
-      'senyawa-biner-kovalen',
-      'awalan-yunani-iupac',
-      'bilangan-oksidasi-romawi',
-      'ion-poliatomik',
-      'oksianion-asam-basa',
-      'senyawa-hidrat-kristal',
-      'tata-nama-hidrokarbon',
-      'persamaan-reaksi-kimia',
-      'fase-fase-zat',
-      'hukum-kekekalan-massa-lavoisier',
-      'penyetaraan-reaksi-inspeksi',
-      'penyetaraan-reaksi-aljabar',
-      'reaksi-pengendapan',
-      'persamaan-ionik-bersih',
-      'ion-penonton-spectator-ions',
-      'sistem-stok',
-      'aturan-iupac',
-      'elisi-vokal',
-      'oksida-nitrogen',
-      'koefisien-reaksi',
-      'subskrip-indeks',
-      'kaidah-kaho',
-      'pembakaran-propana',
-      'deret-klorat',
-      'pembakaran-butana',
-      'asam-oksi',
-      'basa-hidroksida',
-      'alkana-alkena-alkuna',
-      'rantai-utama',
-      'logam-transisi',
-      'sistem-persamaan-linier',
-      'reaksi-redoks-asam-nitrat',
-      'timbal-iodida',
-      'sistem-tertutup',
-      'karbonat-asam',
-      'stoikiometri-hidrat',
-      'hukum-lavoisier',
-      'autoredoks-disproporsionasi',
-      'reaksi-redoks',
-      'neraca-muatan',
-      'netralisasi',
-      'tanpa-ion-penonton',
-      'garam-asam',
-      'garam-rangkap',
-      'avogadro-gay-lussac',
-      'gas-hidrogen',
-      'stoikiometri-dasar',
-      'proses-kontak',
-      'reaksi-bertahap',
-      'asam-sulfat',
-      'metalurgi-besi',
-      'elektrolit-lemah',
-      'asam-asetat',
-      'hukum-gay-lussac',
-      'rumus-molekul',
-      'tata-nama-biner-kovalen',
-      'oksianion',
-      'struktur-lewis',
-      'peroksidisulfat',
-      'senyawa-kompleks',
-      'perak-klorida',
-    ],
-  prerequisites: [
-    {
-      tag: 'bilangan-oksidasi-dasar-tatanama',
-      tags: ['bilangan-oksidasi', 'aturan-penentuan-biloks', 'biloks-logam-transisi'],
-      title: 'Prasyarat 1: Konsep Bilangan Oksidasi & Kaidah Penentuan Biloks Unsur',
-      summary: 'Aturan baku penentuan bilangan oksidasi sebagai landasan pemberian angka Romawi pada sistem penamaan Stok.',
-      content: `Bilangan oksidasi (biloks) adalah muatan listrik hipotesis yang dimiliki oleh suatu atom dalam senyawa jika seluruh pasangan elektron ikatan dianggap sepenuhnya berpindah ke atom yang lebih elektronegatif.
-
-### 1. Kaidah Baku Penentuan Bilangan Oksidasi (IUPAC)
-
-1. **Unsur Bebas:** Memiliki biloks $= 0$.  
-   Contoh: atom netral $\\ce{Fe}, \\ce{Na}, \\ce{C}$ serta molekul unsur homointi $\\ce{H2}, \\ce{O2}, \\ce{N2}, \\ce{O3}, \\ce{P4}, \\ce{S8}$.
-2. **Ion Monatomik:** Biloks sama dengan muatan ion fisiknya.  
-   Contoh: $\\ce{Na+} (+1), \\ce{Mg^2+} (+2), \\ce{Al^3+} (+3), \\ce{Cl-} (-1), \\ce{S^2-} (-2), \\ce{N^3-} (-3)$.
-3. **Fluorin:** Unsur paling elektronegatif, selalu memiliki biloks $= -1$ dalam semua senyawanya.
-4. **Hidrogen:**
-   - Umumnya bernilai $+1$ ketika berikatan dengan nonlogam (contoh: $\\ce{H2O}, \\ce{HCl}, \\ce{NH3}, \\ce{CH4}$).
-   - Bernilai $-1$ khusus pada **hidrida logam** di mana $\\ce{H}$ berikatan dengan logam sangat elektropositif (contoh: $\\ce{NaH}, \\ce{CaH2}, \\ce{LiAlH4}$).
-5. **Oksigen:**
-   - Umumnya bernilai $-2$ pada sebagian besar senyawa oksida (contoh: $\\ce{H2O}, \\ce{CO2}, \\ce{CaO}, \\ce{H2SO4}$).
-   - Pengecualian pada:
-     - **Peroksida (mengandung ion $\\ce{O2^2-}$):** biloks $\\ce{O} = -1$ (contoh: $\\ce{H2O2}, \\ce{Na2O2}, \\ce{BaO2}$).
-     - **Superoksida (mengandung ion $\\ce{O2-}$):** biloks $\\ce{O} = -\\frac{1}{2}$ (contoh: $\\ce{KO2}, \\ce{RbO2}$).
-     - **Senyawa dengan Fluorin ($\\ce{OF2}$):** biloks $\\ce{O} = +2$ (karena $\\ce{F}$ lebih elektronegatif).
-6. **Logam Golongan Utama:**
-   - Logam Alkali (Golongan IA: $\\ce{Li, Na, K, Rb, Cs}$) selalu bernilai $+1$.
-   - Logam Alkali Tanah (Golongan IIA: $\\ce{Be, Mg, Ca, Sr, Ba}$) selalu bernilai $+2$.
-   - Aluminium ($\\ce{Al}$) selalu bernilai $+3$, Seng ($\\ce{Zn}$) selalu $+2$, dan Perak ($\\ce{Ag}$) selalu $+1$.
-7. **Jumlah Total Bilangan Oksidasi:**
-   - Dalam molekul netral: $\\sum \\text{Biloks} = 0$.
-   - Dalam ion poliatomik: $\\sum \\text{Biloks} = \\text{Muatan ion tersebut}$.
-
----
-
-### 2. Signifikansi Biloks pada Tata Nama Senyawa
-
-Logam-logam transisi (seperti Besi $\\ce{Fe}$, Tembaga $\\ce{Cu}$, Timbal $\\ce{Pb}$, Timah $\\ce{Sn}$, Mangan $\\ce{Mn}$) dapat memiliki **lebih dari satu bilangan oksidasi**. Angka biloks inilah yang nantinya dituliskan dalam **angka Romawi** di dalam tanda kurung pada nama senyawa (Sistem Stok IUPAC):
-- $\\ce{FeCl2}$: Besi memiliki biloks $+2 \\implies$ **Besi(II) klorida**.
-- $\\ce{FeCl3}$: Besi memiliki biloks $+3 \\implies$ **Besi(III) klorida**.`,
-      keyFormulas: [
-        { name: 'Kaidah Senyawa Netral', formula: '\\sum_{i} n_i \\cdot \\text{Biloks}_i = 0' },
-        { name: 'Kaidah Ion Poliatomik', formula: '\\sum_{i} n_i \\cdot \\text{Biloks}_i = q_{\\text{ion}}' },
-      ],
-    },
-    {
-      tag: 'tabel-kation-anion-poliatomik',
-      tags: ['kation-logam', 'anion-monatomik', 'anion-poliatomik', 'oksianion', 'tata-nama-anion'],
-      title: 'Prasyarat 2: Khazanah Kation dan Anion (Monatomik & Poliatomik Oksianion)',
-      summary: 'Daftar nama dan formula kation logam umum serta deret tatanama anion oksi berakhiran -at dan -it.',
-      content: `Penyusunan rumus dan penamaan senyawa kimia anorganik mensyaratkan penguasaan formula dan muatan ion-ion pembentuknya.
-
-### 1. Daftar Kation Umum (Ion Positif)
-
-| Kation Bervalensi Tunggal | Kation Logam Bervalensi Jamak (Transisi) |
-| :--- | :--- |
-| $\\ce{H+}$ : Ion Hidrogen | $\\ce{Fe^2+}$ : Besi(II) / Fero |
-| $\\ce{Li+}$ : Ion Litium | $\\ce{Fe^3+}$ : Besi(III) / Feri |
-| $\\ce{Na+}$ : Ion Natrium | $\\ce{Cu+}$ : Tembaga(I) / Kupro |
-| $\\ce{K+}$ : Ion Kalium | $\\ce{Cu^2+}$ : Tembaga(II) / Kupri |
-| $\\ce{Ag+}$ : Ion Perak | $\\ce{Sn^2+}$ : Timah(II) / Stano |
-| $\\ce{Mg^2+}$ : Ion Magnesium | $\\ce{Sn^4+}$ : Timah(IV) / Stani |
-| $\\ce{Ca^2+}$ : Ion Kalsium | $\\ce{Pb^2+}$ : Timbal(II) / Plumbo |
-| $\\ce{Ba^2+}$ : Ion Barium | $\\ce{Pb^4+}$ : Timbal(IV) / Plumbi |
-| $\\ce{Zn^2+}$ : Ion Seng | $\\ce{Hg2^2+}$ : Raksa(I) |
-| $\\ce{Al^3+}$ : Ion Aluminium | $\\ce{Hg^2+}$ : Raksa(II) |
-| $\\ce{NH4+}$ : Ion Amonium (Poliatomik) | $\\ce{Cr^3+}$ : Kromium(III) |
-
----
-
-### 2. Daftar Anion Monatomik & Oksianion Poliatomik
-
-Anion monatomik dinamai dengan menambahkan akhiran **-ida** pada akar kata nama unsur nonlogamnya:
-- $\\ce{F-}$ : Fluorida, $\\ce{Cl-}$ : Klorida, $\\ce{Br-}$ : Bromida, $\\ce{I-}$ : Iodida.
-- $\\ce{O^2-}$ : Oksida, $\\ce{S^2-}$ : Sulfida, $\\ce{N^3-}$ : Nitrida, $\\ce{P^3-}$ : Fosfida, $\\ce{C^4-}$ : Karbida.
-
-**Sistem Penamaan Deret Oksianion (Klorin/Bromin/Iodin):**
-Deret oksianion tersusun berdasarkan kenaikan jumlah atom oksigen (kenaikan bilangan oksidasi):
-1. **Hipo-...-it** (Paling sedikit oksigen, biloks $+1$): $\\ce{ClO-}$ = Ion Hipoklorit.
-2. **-it** (Sedikit oksigen, biloks $+3$): $\\ce{ClO2-}$ = Ion Klorit.
-3. **-at** (Banyak oksigen, biloks $+5$): $\\ce{ClO3-}$ = Ion Klorat.
-4. **Per-...-at** (Paling banyak oksigen, biloks $+7$): $\\ce{ClO4-}$ = Ion Perklorat.
-
-**Anion Poliatomik Populer Lainnya:**
-- $\\ce{OH-}$ : Hidroksida
-- $\\ce{NO2-}$ : Nitrit vs $\\ce{NO3-}$ : Nitrat
-- $\\ce{SO3^2-}$ : Sulfit vs $\\ce{SO4^2-}$ : Sulfat
-- $\\ce{CO3^2-}$ : Karbonat vs $\\ce{HCO3-}$ : Hidrogen karbonat (Bikarbonat)
-- $\\ce{PO4^3-}$ : Fosfat vs $\\ce{HPO4^2-}$ : Hidrogen fosfat
-- $\\ce{CH3COO-}$ : Asetat (Etanoat)
-- $\\ce{CrO4^2-}$ : Kromat vs $\\ce{Cr2O7^2-}$ : Dikromat
-- $\\ce{MnO4-}$ : Permanganat
-- $\\ce{CN-}$ : Sianida vs $\\ce{SCN-}$ : Tiosianat`,
-      keyFormulas: [
-        { name: 'Kaidah Penyilangan Muatan Senyawa Netral', formula: 'x \\ce{A^{y+}} + y \\ce{B^{x-}} \\to \\ce{A_x B_y}' },
-      ],
-    },
+  "id": 104,
+  "topic_number": 4,
+  "grade": "Kelas 10",
+  "semester": 2,
+  "curriculumPhase": "Fase E",
+  "relatedOsnTopicId": 1,
+  "title": "Tata Nama Senyawa & Persamaan Reaksi Kimia",
+  "slug": "tata-nama-senyawa-persamaan-reaksi",
+  "category": "Bahasa & Notasi Kimia",
+  "level": "SMA",
+  "readTimeMinutes": 30,
+  "summary": "Panduan pedagogis komprehensif tata bahasa kimia dan persamaan reaksi: analogi intuitif Tata Bahasa Universal IUPAC untuk tata nama senyawa biner ionik (Stock Romawi), biner kovalen (awalan Yunani), asam, basa, ion poliatomik, dan hidrat kristal; dekonstruksi persamaan reaksi kimia melalui analogi Neraca Akuntansi Antoine Lavoisier; teknik penyetaraan reaksi tanpa coba-coba menggunakan Algoritma Aljabar Sistem Persamaan Linier dan metode inspeksi cerdas CHO; serta perumusan persamaan ionik lengkap dan ionik bersih (net ionic equations) untuk reaksi presipitasi larutan air.",
+  "allTags": [
+    "tata-nama-senyawa",
+    "senyawa-biner-ionik",
+    "senyawa-biner-kovalen",
+    "awalan-yunani-iupac",
+    "bilangan-oksidasi-romawi",
+    "ion-poliatomik",
+    "oksianion-asam-basa",
+    "senyawa-hidrat-kristal",
+    "tata-nama-hidrokarbon",
+    "persamaan-reaksi-kimia",
+    "fase-fase-zat",
+    "hukum-kekekalan-massa-lavoisier",
+    "penyetaraan-reaksi-inspeksi",
+    "penyetaraan-reaksi-aljabar",
+    "reaksi-pengendapan",
+    "persamaan-ionik-bersih",
+    "ion-penonton-spectator-ions",
+    "sistem-stok",
+    "aturan-iupac",
+    "elisi-vokal",
+    "oksida-nitrogen",
+    "koefisien-reaksi",
+    "subskrip-indeks",
+    "kaidah-kaho",
+    "pembakaran-propana",
+    "deret-klorat",
+    "pembakaran-butana",
+    "asam-oksi",
+    "basa-hidroksida",
+    "alkana-alkena-alkuna",
+    "rantai-utama",
+    "logam-transisi",
+    "sistem-persamaan-linier",
+    "reaksi-redoks-asam-nitrat",
+    "timbal-iodida",
+    "sistem-tertutup",
+    "karbonat-asam",
+    "stoikiometri-hidrat",
+    "hukum-lavoisier",
+    "autoredoks-disproporsionasi",
+    "reaksi-redoks",
+    "neraca-muatan",
+    "netralisasi",
+    "tanpa-ion-penonton",
+    "garam-asam",
+    "garam-rangkap",
+    "avogadro-gay-lussac",
+    "gas-hidrogen",
+    "stoikiometri-dasar",
+    "proses-kontak",
+    "reaksi-bertahap",
+    "asam-sulfat",
+    "metalurgi-besi",
+    "elektrolit-lemah",
+    "asam-asetat",
+    "hukum-gay-lussac",
+    "rumus-molekul",
+    "tata-nama-biner-kovalen",
+    "oksianion",
+    "struktur-lewis",
+    "peroksidisulfat",
+    "senyawa-kompleks",
+    "perak-klorida"
   ],
-  core_concepts: [
+  "prerequisites": [
     {
-      tag: 'tata-nama-senyawa-biner-ionik-kovalen',
-      tags: ['tata-nama-biner', 'senyawa-ionik-biner', 'sistem-stok', 'senyawa-kovalen-biner', 'awalan-yunani'],
-      title: 'Konsep Inti 1: Tata Nama Senyawa Biner (Ionik Logam-Nonlogam vs Kovalen Nonlogam-Nonlogam)',
-      summary: 'Aturan IUPAC penamaan senyawa dua unsur: sistem angka Romawi untuk logam transisi dan sistem awalan Yunani untuk senyawa kovalen.',
-      content: `Senyawa biner adalah senyawa kimia yang tersusun dari **hanya dua unsur yang berbeda**. Tata nama senyawa biner dibedakan secara tegas berdasarkan jenis ikatan kimianya (apakah senyawa ionik atau senyawa molekuler kovalen).
-
-### 1. Tata Nama Senyawa Biner Ionik (Logam + Nonlogam)
-
-Senyawa ionik terbentuk dari kation logam dan anion nonlogam:
-1. **Logam Bervalensi Tunggal (Golongan IA, IIA, $\\ce{Al, Zn, Ag}$):**
-   Karena kationnya hanya memiliki satu kemungkinan muatan listrik, **tidak perlu mencantumkan angka Romawi maupun awalan angka**:
-   $$\\mathbf{\\text{[Nama Logam]} + \\text{[Nama Nonlogam + akhiran -ida]}}$$
-   - $\\ce{NaCl}$ : Natrium klorida (bukan *mononatrium monoklorida*)
-   - $\\ce{MgBr2}$ : Magnesium bromida (bukan *magnesium dibromida*)
-   - $\\ce{Al2O3}$ : Aluminium oksida (bukan *dialuminium trioksida*)
-   - $\\ce{K2S}$ : Kalium sulfida
-   - $\\ce{Ca3N2}$ : Kalsium nitrida
-2. **Logam Bervalensi Jamak (Logam Transisi / Post-Transisi):**
-   Karena atom logam dapat membentuk lebih dari satu kation stabil, wajib menyertakan **Bilangan Oksidasi Logam dalam Angka Romawi** di dalam kurung tepat setelah nama logam (**Sistem Stok IUPAC**):
-   $$\\mathbf{\\text{[Nama Logam]} + \\mathbf{\\text{(Angka Romawi Biloks)}} + \\text{[Nama Nonlogam + -ida]}}$$
-   - $\\ce{FeO}$ : Biloks $\\ce{Fe} = +2 \\implies$ **Besi(II) oksida** *(nama lama: Fero oksida)*
-   - $\\ce{Fe2O3}$ : Biloks $\\ce{Fe} = +3 \\implies$ **Besi(III) oksida** *(nama lama: Feri oksida)*
-   - $\\ce{Cu2O}$ : Biloks $\\ce{Cu} = +1 \\implies$ **Tembaga(I) oksida** *(Kupro oksida)*
-   - $\\ce{CuO}$ : Biloks $\\ce{Cu} = +2 \\implies$ **Tembaga(II) oksida** *(Kupri oksida)*
-   - $\\ce{SnCl2}$ : **Timah(II) klorida** vs $\\ce{SnCl4}$ : **Timah(IV) klorida**
-   - $\\ce{PbO2}$ : **Timbal(IV) oksida**
-
----
-
-### 2. Tata Nama Senyawa Biner Kovalen (Nonlogam + Nonlogam)
-
-Senyawa kovalen tersusun dari dua unsur nonlogam. Hubungan stoikiometrinya dinyatakan menggunakan **Awalan Angka Yunani**:
-$$\\mathbf{\\text{[Awalan]} + \\text{[Nonlogam 1]} + \\text{[Awalan]} + \\text{[Nonlogam 2 + -ida]}}$$
-
-| Angka | Awalan Yunani | Angka | Awalan Yunani |
-| :---: | :--- | :---: | :--- |
-| **1** | Mono- | **6** | Heksa- |
-| **2** | Di- | **7** | Hepta- |
-| **3** | Tri- | **8** | Okta- |
-| **4** | Tetra- | **9** | Nona- (atau Enea-) |
-| **5** | Penta- | **10** | Deka- |
-
-> [!IMPORTANT]
-> **Dua Kaidah Emas Senyawa Kovalen Biner:**
-> 1. **Aturan Mono- Pertama:** Awalan *mono-* **TIDAK PERNAH digunakan** pada unsur pertama jika jumlahnya hanya satu.  
->    Contoh: $\\ce{CO}$ adalah **Karbon monoksida** (bukan *monokarbon monoksida*); $\\ce{NO2}$ adalah **Nitrogen dioksida**.
-> 2. **Elisi Vokal:** Jika awalan berakhiran huruf vokal *-a* atau *-o* bertemu dengan kata oksida (yang diawali huruf *o-*), huruf vokal terakhir dihilangkan demi kemudahan pelafalan:
->    - *Tetra- + oksida* $\\to$ **Tetroksida** (contoh: $\\ce{N2O4}$ = Dinitrogen tetroksida).
->    - *Penta- + oksida* $\\to$ **Pentoksida** (contoh: $\\ce{N2O5}$ = Dinitrogen pentoksida).
->    - *Mono- + oksida* $\\to$ **Monoksida** (contoh: $\\ce{CO}$ = Karbon monoksida).
-> 3. **Urutan Penulisan Unsur Nonlogam:** Mengikuti urutan elektronegativitas menaik:  
->    $\\ce{B} \\to \\ce{Si} \\to \\ce{C} \\to \\ce{Sb} \\to \\ce{As} \\to \\ce{P} \\to \\ce{N} \\to \\ce{H} \\to \\ce{Te} \\to \\ce{Se} \\to \\ce{S} \\to \\ce{I} \\to \\ce{Br} \\to \\ce{Cl} \\to \\ce{O} \\to \\ce{F}$.`,
-      keyFormulas: [
-        { name: 'Rumus Struktur Nama Kovalen Biner', formula: '\\text{Awalan-Unsur}_1 + \\text{Awalan-Unsur}_2\\text{-ida}' },
-        { name: 'Rumus Struktur Nama Ionik Sistem Stok', formula: '\\text{Nama Logam} + (\\text{Biloks Romawi}) + \\text{Nama Anion}' },
+      "tag": "bilangan-oksidasi-dasar-tatanama",
+      "tags": [
+        "bilangan-oksidasi",
+        "aturan-penentuan-biloks",
+        "biloks-logam-transisi"
       ],
+      "title": "Prasyarat 1: Konsep Bilangan Oksidasi & Kaidah Penentuan Biloks Unsur",
+      "summary": "Aturan baku penentuan bilangan oksidasi sebagai landasan pemberian angka Romawi pada sistem penamaan Stok.",
+      "content": "### 🌐 Tata Bahasa Universal Ilmu Kimia (Mental Model: IUPAC Nomenclature)\n\nBayangkan jika setiap negara memiliki nama yang berbeda-beda untuk senyawa yang sama, atau lebih buruk lagi: menamai $\\ce{FeCl2}$ dan $\\ce{FeCl3}$ dengan nama yang sama persis yaitu \"besi klorida\". Dunia industri farmasi dan rekayasa material akan mengalami bencana fatal karena salah mencampurkan bahan!\n\nUntuk mencegah malapetaka tersebut, badan kimia dunia **IUPAC (*International Union of Pure and Applied Chemistry*)** merancang sistem tata nama universal. Seperti halnya tata bahasa (*grammar*) bahasa manusia yang memiliki aturan subjek, predikat, dan objek, tata nama kimia adalah bahasa internasional yang menjamin bahwa ketika seorang kimiawan di Tokyo, Jakarta, atau Zurich menuliskan nama suatu senyawa, seluruh ilmuwan di dunia membayangkan struktur molekul yang persis sama.\n\n---\n\nBilangan oksidasi (biloks) adalah muatan listrik hipotesis yang dimiliki oleh suatu atom dalam senyawa jika seluruh pasangan elektron ikatan dianggap sepenuhnya berpindah ke atom yang lebih elektronegatif.\n\n### 1. Kaidah Baku Penentuan Bilangan Oksidasi (IUPAC)\n\n1. **Unsur Bebas:** Memiliki biloks $= 0$.  \n   Contoh: atom netral $\\ce{Fe}, \\ce{Na}, \\ce{C}$ serta molekul unsur homointi $\\ce{H2}, \\ce{O2}, \\ce{N2}, \\ce{O3}, \\ce{P4}, \\ce{S8}$.\n2. **Ion Monatomik:** Biloks sama dengan muatan ion fisiknya.  \n   Contoh: $\\ce{Na+} (+1), \\ce{Mg^2+} (+2), \\ce{Al^3+} (+3), \\ce{Cl-} (-1), \\ce{S^2-} (-2), \\ce{N^3-} (-3)$.\n3. **Fluorin:** Unsur paling elektronegatif, selalu memiliki biloks $= -1$ dalam semua senyawanya.\n4. **Hidrogen:**\n   - Umumnya bernilai $+1$ ketika berikatan dengan nonlogam (contoh: $\\ce{H2O}, \\ce{HCl}, \\ce{NH3}, \\ce{CH4}$).\n   - Bernilai $-1$ khusus pada **hidrida logam** di mana $\\ce{H}$ berikatan dengan logam sangat elektropositif (contoh: $\\ce{NaH}, \\ce{CaH2}, \\ce{LiAlH4}$).\n5. **Oksigen:**\n   - Umumnya bernilai $-2$ pada sebagian besar senyawa oksida (contoh: $\\ce{H2O}, \\ce{CO2}, \\ce{CaO}, \\ce{H2SO4}$).\n   - Pengecualian pada:\n     - **Peroksida (mengandung ion $\\ce{O2^2-}$):** biloks $\\ce{O} = -1$ (contoh: $\\ce{H2O2}, \\ce{Na2O2}, \\ce{BaO2}$).\n     - **Superoksida (mengandung ion $\\ce{O2-}$):** biloks $\\ce{O} = -\\frac{1}{2}$ (contoh: $\\ce{KO2}, \\ce{RbO2}$).\n     - **Senyawa dengan Fluorin ($\\ce{OF2}$):** biloks $\\ce{O} = +2$ (karena $\\ce{F}$ lebih elektronegatif).\n6. **Logam Golongan Utama:**\n   - Logam Alkali (Golongan IA: $\\ce{Li, Na, K, Rb, Cs}$) selalu bernilai $+1$.\n   - Logam Alkali Tanah (Golongan IIA: $\\ce{Be, Mg, Ca, Sr, Ba}$) selalu bernilai $+2$.\n   - Aluminium ($\\ce{Al}$) selalu bernilai $+3$, Seng ($\\ce{Zn}$) selalu $+2$, dan Perak ($\\ce{Ag}$) selalu $+1$.\n7. **Jumlah Total Bilangan Oksidasi:**\n   - Dalam molekul netral: $\\sum \\text{Biloks} = 0$.\n   - Dalam ion poliatomik: $\\sum \\text{Biloks} = \\text{Muatan ion tersebut}$.\n\n---\n\n### 2. Signifikansi Biloks pada Tata Nama Senyawa\n\nLogam-logam transisi (seperti Besi $\\ce{Fe}$, Tembaga $\\ce{Cu}$, Timbal $\\ce{Pb}$, Timah $\\ce{Sn}$, Mangan $\\ce{Mn}$) dapat memiliki **lebih dari satu bilangan oksidasi**. Angka biloks inilah yang nantinya dituliskan dalam **angka Romawi** di dalam tanda kurung pada nama senyawa (Sistem Stok IUPAC):\n- $\\ce{FeCl2}$: Besi memiliki biloks $+2 \\implies$ **Besi(II) klorida**.\n- $\\ce{FeCl3}$: Besi memiliki biloks $+3 \\implies$ **Besi(III) klorida**.\n> [!IMPORTANT]\n> ### 💡 Kaidah Emas Penentuan Bilangan Oksidasi Logam Transisi\n> Unsur golongan utama (Golongan IA, IIA, IIIA) selalu memiliki bilangan oksidasi tunggal yang pasti ($+1, +2, +3$). Oleh karena itu, namanya **TIDAK MEMERLUKAN angka Romawi** (misal $\\ce{NaCl}$ adalah natrium klorida, bukan natrium(I) klorida).\n> \n> Sebaliknya, logam transisi (seperti Fe, Cu, Sn, Pb, Co, Cr, Mn) memiliki elektron pada subkulit $d$ sehingga dapat melepaskan jumlah elektron yang berbeda-beda (**biloks bervariasi**). Maka, **ANGKA ROMAWI (Sistem Stock) WAJIB DICANTUMKAN**:\n> - $\\ce{Fe^2+} \\implies$ Besi(II) $\\quad$ vs $\\quad \\ce{Fe^3+} \\implies$ Besi(III)\n> - $\\ce{Cu+} \\implies$ Tembaga(I) $\\quad$ vs $\\quad \\ce{Cu^2+} \\implies$ Tembaga(II)\n> - $\\ce{Sn^2+} \\implies$ Timah(II) $\\quad$ vs $\\quad \\ce{Sn^4+} \\implies$ Timah(IV)\n",
+      "keyFormulas": [
+        {
+          "name": "Kaidah Senyawa Netral",
+          "formula": "\\sum_{i} n_i \\cdot \\text{Biloks}_i = 0"
+        },
+        {
+          "name": "Kaidah Ion Poliatomik",
+          "formula": "\\sum_{i} n_i \\cdot \\text{Biloks}_i = q_{\\text{ion}}"
+        }
+      ]
     },
     {
-      tag: 'tata-nama-poliatomik-asam-basa-hidrat',
-      tags: ['senyawa-poliatomik', 'tata-nama-asam', 'tata-nama-basa', 'senyawa-hidrat', 'pohon-keputusan-tatanama'],
-      title: 'Konsep Inti 2: Tata Nama Senyawa Poliatomik, Asam, Basa & Senyawa Hidrat Kristal',
-      summary: 'Algoritma penamaan senyawa garam poliatomik, senyawa asam biner dan asam oksi, basa hidroksida, serta penamaan hidrat berair kristal.',
-      content: `Pemberian nama untuk senyawa anorganik yang melibatkan ion poliatomik, asam, basa, serta kristal hidrat mengikuti konvensi terstruktur IUPAC.
-
-### 1. Senyawa Poliatomik (Garam Poliatomik)
-
-Senyawa poliatomik terdiri dari kation (logam atau ion amonium $\\ce{NH4+}$) yang berikatan dengan anion poliatomik.
-$$\\mathbf{\\text{[Nama Kation Logam (disertai Romawi jika transisi)]} + \\text{[Nama Anion Poliatomik]}}$$
-- $\\ce{Na2SO4}$ : Natrium sulfat
-- $\\ce{KNO3}$ : Kalium nitrat
-- $\\ce{CaCO3}$ : Kalsium karbonat
-- $\\ce{(NH4)2CO3}$ : Amonium karbonat
-- $\\ce{Fe2(SO4)3}$ : Besi(III) sulfat (karena $\\ce{SO4}$ bermuatan $-2$, $3 \\times (-2) = -6$, maka $2 \\ce{Fe} = +6 \\implies \\ce{Fe} = +3$)
-- $\\ce{CuSO4}$ : Tembaga(II) sulfat
-- $\\ce{KMnO4}$ : Kalium permanganat
-- $\\ce{K2Cr2O7}$ : Kalium dikromat
-
----
-
-### 2. Tata Nama Asam & Basa Arrhenius
-
-1. **Tata Nama Senyawa Asam (Melepas ion $\\ce{H+}$ dalam air):**
-   Nama senyawa asam diawali dengan kata **"Asam"** (mewakili kation $\\ce{H+}$) diikuti oleh nama anion sisa asamnya:
-   - **Asam Biner (Tanpa Oksigen):** $\\ce{HCl}$ = Asam klorida, $\\ce{HBr}$ = Asam bromida, $\\ce{H2S}$ = Asam sulfida, $\\ce{HCN}$ = Asam sianida.
-   - **Asam Oksi (Mengandung Oksigen):**
-     - $\\ce{HNO3}$ : Asam nitrat vs $\\ce{HNO2}$ : Asam nitrit
-     - $\\ce{H2SO4}$ : Asam sulfat vs $\\ce{H2SO3}$ : Asam sulfit
-     - $\\ce{H3PO4}$ : Asam fosfat
-     - $\\ce{H2CO3}$ : Asam karbonat
-     - $\\ce{CH3COOH}$ : Asam asetat (Asam cuka / Asam etanoat)
-2. **Tata Nama Senyawa Basa (Melepas ion $\\ce{OH-}$ dalam air):**
-   Nama kation logam diikuti oleh kata **"Hidroksida"**:
-   - $\\ce{NaOH}$ : Natrium hidroksida
-   - $\\ce{KOH}$ : Kalium hidroksida
-   - $\\ce{Ca(OH)2}$ : Kalsium hidroksida
-   - $\\ce{Ba(OH)2}$ : Barium hidroksida
-   - $\\ce{Al(OH)3}$ : Aluminium hidroksida
-   - $\\ce{Fe(OH)2}$ : Besi(II) hidroksida vs $\\ce{Fe(OH)3}$ : Besi(III) hidroksida
-
----
-
-### 3. Tata Nama Senyawa Hidrat (Air Kristal)
-
-Senyawa hidrat adalah kristal padat yang mengikat sejumlah molekul air ($\\ce{H2O}$) secara teratur dalam struktur kisi kristalnya:
-$$\\mathbf{\\text{[Nama Senyawa Anhidrat]} + \\text{[Awalan Yunani]} + \\mathbf{\\text{hidrat}}}$$
-- $\\ce{CuSO4 . 5H2O}$ : Tembaga(II) sulfat **pentahidrat** *(terusi / vitriol biru)*
-- $\\ce{CaSO4 . 2H2O}$ : Kalsium sulfat **dihidrat** *(gipsum)*
-- $\\ce{MgSO4 . 7H2O}$ : Magnesium sulfat **heptahidrat** *(garam inggris / epsom)*
-- $\\ce{Na2CO3 . 10H2O}$ : Natrium karbonat **dekahidrat** *(soda cuci)*
-- $\\ce{FeSO4 . 7H2O}$ : Besi(II) sulfat **heptahidrat**
-
----
-
-### 4. Peta Pohon Keputusan Algoritma Tata Nama Senyawa Kimia
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 340" width="100%" height="auto" class="max-w-[840px] select-none font-sans">
-  <defs>
-    <linearGradient id="treeRoot" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="treeIonic" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </linearGradient>
-    <linearGradient id="treeCov" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#059669"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </linearGradient>
-    <linearGradient id="treeAcid" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d97706"/>
-      <stop offset="100%" stop-color="#b45309"/>
-    </linearGradient>
-    <marker id="arrowTree" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#64748b"/>
-    </marker>
-  </defs>
-
-  <!-- CONTAINER -->
-  <rect width="840" height="340" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-
-  <!-- ROOT NODE -->
-  <g transform="translate(320, 16)">
-    <rect width="200" height="36" rx="10" fill="url(#treeRoot)"/>
-    <text x="100" y="22" font-size="11.5" font-weight="bold" fill="#ffffff" text-anchor="middle">SENYAWA KIMIA</text>
-  </g>
-
-  <!-- LINES FROM ROOT TO 3 BRANCHES -->
-  <path d="M 360 52 L 150 90" stroke="#64748b" stroke-width="2" marker-end="url(#arrowTree)"/>
-  <path d="M 420 52 L 420 90" stroke="#64748b" stroke-width="2" marker-end="url(#arrowTree)"/>
-  <path d="M 480 52 L 690 90" stroke="#64748b" stroke-width="2" marker-end="url(#arrowTree)"/>
-
-  <!-- CABANG 1: SENYAWA IONIK (KIRI) -->
-  <g transform="translate(30, 95)">
-    <rect width="240" height="42" rx="8" fill="url(#treeIonic)"/>
-    <text x="120" y="18" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">1. SENYAWA IONIK</text>
-    <text x="120" y="32" font-size="9" fill="#bfdbfe" text-anchor="middle">(Ada Logam atau Kation NH₄⁺)</text>
-
-    <!-- Sub-cabang Logam Utama vs Transisi -->
-    <path d="M 80 42 L 50 80" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arrowTree)"/>
-    <path d="M 160 42 L 190 80" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arrowTree)"/>
-
-    <!-- Kotak Logam Gol Utama -->
-    <rect x="-10" y="85" width="125" height="135" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
-    <text x="52" y="102" font-size="9.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Valensi Tunggal</text>
-    <text x="52" y="115" font-size="8" fill="#64748b" text-anchor="middle">(IA, IIA, Al, Zn, Ag)</text>
-    <line x1="0" y1="122" x2="105" y2="122" stroke="#e2e8f0"/>
-    <text x="52" y="138" font-size="8.5" font-weight="bold" fill="#2563eb" text-anchor="middle">Tanpa Angka Romawi</text>
-    <text x="52" y="152" font-size="8.5" fill="#334155" text-anchor="middle">Nama Logam + Anion</text>
-    <text x="52" y="174" font-size="8" font-style="italic" fill="#0284c7" text-anchor="middle">NaCl = Natrium klorida</text>
-    <text x="52" y="190" font-size="8" font-style="italic" fill="#0284c7" text-anchor="middle">Al₂O₃ = Aluminium oksida</text>
-    <text x="52" y="206" font-size="8" font-style="italic" fill="#0284c7" text-anchor="middle">K₂SO₄ = Kalium sulfat</text>
-
-    <!-- Kotak Logam Transisi -->
-    <rect x="125" y="85" width="130" height="135" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
-    <text x="190" y="102" font-size="9.5" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Valensi Jamak</text>
-    <text x="190" y="115" font-size="8" fill="#64748b" text-anchor="middle">(Fe, Cu, Sn, Pb, dll)</text>
-    <line x1="135" y1="122" x2="245" y2="122" stroke="#e2e8f0"/>
-    <text x="190" y="138" font-size="8.5" font-weight="bold" fill="#dc2626" text-anchor="middle">Wajib Angka Romawi!</text>
-    <text x="190" y="152" font-size="8.5" fill="#334155" text-anchor="middle">Logam(Biloks) + Anion</text>
-    <text x="190" y="174" font-size="8" font-style="italic" fill="#991b1b" text-anchor="middle">FeCl₂ = Besi(II) klorida</text>
-    <text x="190" y="190" font-size="8" font-style="italic" fill="#991b1b" text-anchor="middle">FeCl₃ = Besi(III) klorida</text>
-    <text x="190" y="206" font-size="8" font-style="italic" fill="#991b1b" text-anchor="middle">Cu₂O = Tembaga(I) oksida</text>
-  </g>
-
-  <!-- CABANG 2: SENYAWA KOVALEN (TENGAH) -->
-  <g transform="translate(300, 95)">
-    <rect width="240" height="42" rx="8" fill="url(#treeCov)"/>
-    <text x="120" y="18" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">2. SENYAWA KOVALEN</text>
-    <text x="120" y="32" font-size="9" fill="#a7f3d0" text-anchor="middle">(Sesama Atom Nonlogam)</text>
-
-    <!-- Kotak Penjelasan Kovalen -->
-    <rect x="0" y="85" width="240" height="135" rx="8" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.2"/>
-    <text x="120" y="105" font-size="9.5" font-weight="bold" fill="#065f46" text-anchor="middle">Gunakan Awalan Yunani</text>
-    <text x="120" y="120" font-size="8.5" fill="#64748b" text-anchor="middle">(mono, di, tri, tetra, penta...)</text>
-    <line x1="15" y1="128" x2="225" y2="128" stroke="#e2e8f0"/>
-    <text x="120" y="145" font-size="8.5" font-weight="bold" fill="#047857" text-anchor="middle">Kaidah: Mono di depan diabaikan</text>
-    <text x="120" y="165" font-size="8" font-style="italic" fill="#065f46" text-anchor="middle">CO = Karbon monoksida</text>
-    <text x="120" y="181" font-size="8" font-style="italic" fill="#065f46" text-anchor="middle">CO₂ = Karbon dioksida</text>
-    <text x="120" y="197" font-size="8" font-style="italic" fill="#065f46" text-anchor="middle">N₂O₅ = Dinitrogen pentoksida</text>
-    <text x="120" y="211" font-size="8" font-style="italic" fill="#065f46" text-anchor="middle">SF₆ = Belerang heksafluorida</text>
-  </g>
-
-  <!-- CABANG 3: ASAM, BASA & HIDRAT (KANAN) -->
-  <g transform="translate(570, 95)">
-    <rect width="240" height="42" rx="8" fill="url(#treeAcid)"/>
-    <text x="120" y="18" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">3. ASAM, BASA &amp; HIDRAT</text>
-    <text x="120" y="32" font-size="9" fill="#fde68a" text-anchor="middle">(Spesifik Gugus &amp; Air Kristal)</text>
-
-    <rect x="0" y="85" width="240" height="135" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2"/>
-    <text x="120" y="105" font-size="9.5" font-weight="bold" fill="#92400e" text-anchor="middle">Aturan Penamaan Spesifik</text>
-    <line x1="15" y1="115" x2="225" y2="115" stroke="#e2e8f0"/>
-    <text x="20" y="132" font-size="8.5" font-weight="bold" fill="#b45309">Asam (H⁺):</text>
-    <text x="90" y="132" font-size="8" fill="#334155">Kata "Asam" + Anion (HCl, H₂SO₄)</text>
-    <text x="20" y="152" font-size="8.5" font-weight="bold" fill="#b45309">Basa (OH⁻):</text>
-    <text x="90" y="152" font-size="8" fill="#334155">Nama Kation + "Hidroksida"</text>
-    <text x="20" y="172" font-size="8.5" font-weight="bold" fill="#b45309">Hidrat:</text>
-    <text x="90" y="172" font-size="8" fill="#334155">Nama Garam + Awalan + "hidrat"</text>
-    <line x1="15" y1="184" x2="225" y2="184" stroke="#e2e8f0"/>
-    <text x="120" y="200" font-size="8" font-style="italic" fill="#78350f" text-anchor="middle">CuSO₄·5H₂O = Tembaga(II) sulfat pentahidrat</text>
-  </g>
-
-  <!-- BANNER BAWAH -->
-  <g transform="translate(30, 290)">
-    <rect width="780" height="34" rx="8" fill="#0f172a"/>
-    <text x="390" y="21" font-size="10.5" font-weight="bold" fill="#f8fafc" text-anchor="middle">
-      Kunci Sukses: Kenali terlebih dahulu apakah unsur pertama adalah LOGAM (Sistem Stok) atau NONLOGAM (Sistem Awalan Yunani)!
-    </text>
-  </g>
-</svg>`,
-      keyFormulas: [
-        { name: 'Rumus Senyawa Hidrat Kristal', formula: '\\ce{A_x B_y . n H2O} \\implies \\text{Nama Garam} + \\text{Awalan-} + \\text{hidrat}' },
+      "tag": "tabel-kation-anion-poliatomik",
+      "tags": [
+        "kation-logam",
+        "anion-monatomik",
+        "anion-poliatomik",
+        "oksianion",
+        "tata-nama-anion"
       ],
-    },
-    {
-      tag: 'tata-nama-hidrokarbon-dasar',
-      tags: ['hidrokarbon', 'alkana-alkena-alkuna', 'deret-homolog', 'awalan-rantai-karbon'],
-      title: 'Konsep Inti 3: Tata Nama Hidrokarbon Dasar (Alkana, Alkena, Alkuna C1 - C10)',
-      summary: 'Dasar penamaan rantai karbon alifatik jenuh dan tak jenuh menurut aturan IUPAC.',
-      content: `Hidrokarbon adalah senyawa organik paling sederhana yang hanya terdiri dari atom Karbon ($\\ce{C}$) dan Hidrogen ($\\ce{H}$).
-
-### 1. Awalan Jumlah Atom Karbon Rantai Utama (C1 - C10)
-
-| Jumlah C | Awalan IUPAC | Alkana ($\\ce{C_n H_{2n+2}}$) | Alkena ($\\ce{C_n H_{2n}}$) | Alkuna ($\\ce{C_n H_{2n-2}}$) |
-| :---: | :--- | :--- | :--- | :--- |
-| **C1** | Met- | Metana ($\\ce{CH4}$) | *(Tidak ada)* | *(Tidak ada)* |
-| **C2** | Et- | Etana ($\\ce{C2H6}$) | Etena ($\\ce{C2H4}$) | Etuna / Asetilena ($\\ce{C2H2}$) |
-| **C3** | Prop- | Propana ($\\ce{C3H8}$) | Propena ($\\ce{C3H6}$) | Propuna ($\\ce{C3H4}$) |
-| **C4** | But- | Butana ($\\ce{C4H10}$) | Butena ($\\ce{C4H8}$) | Butuna ($\\ce{C4H6}$) |
-| **C5** | Pent- | Pentana ($\\ce{C5H12}$) | Pentena ($\\ce{C5H10}$) | Pentuna ($\\ce{C5H8}$) |
-| **C6** | Heks- | Heksana ($\\ce{C6H14}$) | Heksena ($\\ce{C6H12}$) | Heksuna ($\\ce{C6H10}$) |
-| **C7** | Hept- | Heptana ($\\ce{C7H16}$) | Heptena ($\\ce{C7H14}$) | Heptuna ($\\ce{C7H12}$) |
-| **C8** | Okt- | Oktana ($\\ce{C8H18}$) | Oktena ($\\ce{C8H16}$) | Oktuna ($\\ce{C8H14}$) |
-| **C9** | Non- | Nonana ($\\ce{C9H20}$) | Nonena ($\\ce{C9H18}$) | Nonuna ($\\ce{C9H16}$) |
-| **C10** | Dek- | Dekana ($\\ce{C10H22}$) | Dekena ($\\ce{C10H20}$) | Dekuna ($\\ce{C10H18}$) |
-
----
-
-### 2. Aturan Tatanama Rantai Bercabang Sederhana
-1. Tentukan **rantai karbon terpanjang dan berurutan** sebagai rantai induk.
-2. Beri penomoran atom karbon pada rantai induk dimulai dari ujung yang **paling dekat dengan gugus cabang (alkil) atau ikatan rangkap**.
-3. Gugus cabang alkil (rumus $-\\ce{C_n H_{2n+1}}$) dinamai dengan akhiran **-il**:
-   - $-\\ce{CH3}$ : Metil
-   - $-\\ce{C2H5}$ : Etil
-   - $-\\ce{C3H7}$ : Propil / Isopropil
-4. Format nama lengkap:
-   $$\\mathbf{\\text{[Nomor Cabang]} - \\text{[Nama Alkil]} + \\text{[Nama Rantai Induk]}}$$
-   Contoh: $\\ce{CH3-CH(CH3)-CH2-CH3}$ dinamai **2-metilbutana**.`,
-      keyFormulas: [
-        { name: 'Rumus Umum Alkana', formula: '\\ce{C_n H_{2n+2}}' },
-        { name: 'Rumus Umum Alkena', formula: '\\ce{C_n H_{2n}}' },
-        { name: 'Rumus Umum Alkuna', formula: '\\ce{C_n H_{2n-2}}' },
-      ],
-    },
-    {
-      tag: 'anatomi-persamaan-reaksi-dan-hukum-lavoisier',
-      tags: ['persamaan-reaksi', 'reaktan-produk', 'koefisien-reaksi', 'subskrip-indeks', 'fase-zat', 'hukum-lavoisier'],
-      title: 'Konsep Inti 4: Anatomi Persamaan Reaksi Kimia & Hukum Kekekalan Massa Lavoisier',
-      summary: 'Arti lambang koefisien reaksi vs indeks rumus, simbol fasa zat padat/cair/gas/larutan, dan pemenuhan neraca massa.',
-      content: `Persamaan reaksi kimia adalah pernyataan simbolis menggunakan rumus-rumus kimia yang menggambarkan perubahan zat-zat pereaksi (reaktan) menjadi zat-zat hasil reaksi (produk).
-
-### 1. Anatomi Komponen Persamaan Reaksi
-
-Perhatikan persamaan reaksi pembakaran gas metana berikut:
-$$\\mathbf{1\\ce{CH4(g)} + 2\\ce{O2(g)} \\to 1\\ce{CO2(g)} + 2\\ce{H2O(g)}}$$
-
-1. **Reaktan (Pereaksi):** Zat mula-mula yang bereaksi, terletak di sebelah **kiri tanda panah** ($\\ce{CH4}$ dan $\\ce{O2}$).
-2. **Produk (Hasil Reaksi):** Zat baru yang dihasilkan setelah reaksi kimia berlangsung, terletak di sebelah **kanan tanda panah** ($\\ce{CO2}$ dan $\\ce{H2O}$).
-3. **Koefisien Stoikiometri (Angka di Depan Rumus):**
-   - Angka $1, 2, 1, 2$ di depan rumus kimia.
-   - Menunjukkan **perbandingan jumlah partikel molekul atau rasio mol** yang terlibat secara kuantitatif dalam reaksi.
-   - Koefisien bernilai $1$ umumnya tidak perlu dituliskan.
-   - **Koefisien reaksi adalah SATU-SATUNYA angka yang boleh diubah-ubah ketika menyetarakan persamaan reaksi!**
-4. **Angka Indeks / Subskrip (Angka Kecil di Bawah):**
-   - Menunjukkan jumlah atom unsur yang terikat secara kimiawi di dalam satu unit molekul (misal angka $4$ pada $\\ce{CH4}$, angka $2$ pada $\\ce{O2}$).
-   - **ANGKA INDEKS DILARANG KERAS DIUBAH!** Mengubah angka indeks berarti mengubah identitas zat kimia (misal mengubah $\\ce{CO2}$ menjadi $\\ce{CO}$ akan mengubah karbon dioksida tak beracun menjadi karbon monoksida yang mematikan).
-5. **Fase Wujud Zat (Simbol dalam Kurung):**
-   - **$(s)$ - *Solid* (Padat):** Zat berwujud padatan atau kristal (misal $\\ce{NaCl(s)}, \\ce{Fe(s)}$).
-   - **$(l)$ - *Liquid* (Cair Murni):** Cairan murni tanpa pelarut (misal $\\ce{H2O(l)}, \\ce{Br2(l)}, \\ce{Hg(l)}$).
-   - **$(g)$ - *Gas* (Fasa Gas):** Berwujud gas atau uap (misal $\\ce{O2(g)}, \\ce{CO2(g)}$).
-   - **$(aq)$ - *Aqueous* (Larutan Berair):** Zat terlarut homogen di dalam air (misal $\\ce{NaCl(aq)}, \\ce{HCl(aq)}$).
-   - Endapan padat terkadang diberi simbol tanda panah ke bawah ($\\downarrow$), dan gas yang terbebas diberi tanda panah ke atas ($\\uparrow$).
-
----
-
-### 2. Diagram Anatomi Persamaan Reaksi & Neraca Lavoisier
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 310" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="eqBg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f8fafc"/>
-    </linearGradient>
-    <marker id="arrowRxn" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"/>
-    </marker>
-  </defs>
-
-  <rect width="820" height="310" rx="16" fill="url(#eqBg)" stroke="#cbd5e1" stroke-width="1.5"/>
-
-  <!-- TITLE -->
-  <text x="410" y="26" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">ANATOMI PERSAMAAN REAKSI KIMIA &amp; NERACA LAVOISIER</text>
-
-  <!-- DISPLAY PERSAMAAN REAKSI -->
-  <g transform="translate(110, 60)">
-    <rect width="600" height="75" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
-
-    <!-- Reaktan CH4 + 2 O2 -->
-    <text x="30" y="46" font-size="22" font-family="monospace" font-weight="bold" fill="#0f172a">
-      CH<tspan font-size="15" dy="6">4</tspan><tspan dy="-6" font-size="14" fill="#64748b">(g)</tspan> + 
-      <tspan fill="#2563eb" font-weight="extrabold">2</tspan> O<tspan font-size="15" dy="6">2</tspan><tspan dy="-6" font-size="14" fill="#64748b">(g)</tspan>
-    </text>
-
-    <!-- Panah Reaksi -->
-    <path d="M 285 40 L 335 40" stroke="#2563eb" stroke-width="3" marker-end="url(#arrowRxn)"/>
-
-    <!-- Produk CO2 + 2 H2O -->
-    <text x="355" y="46" font-size="22" font-family="monospace" font-weight="bold" fill="#0f172a">
-      CO<tspan font-size="15" dy="6">2</tspan><tspan dy="-6" font-size="14" fill="#64748b">(g)</tspan> + 
-      <tspan fill="#2563eb" font-weight="extrabold">2</tspan> H<tspan font-size="15" dy="6">2</tspan><tspan dy="-6">O</tspan><tspan font-size="14" fill="#64748b">(g)</tspan>
-    </text>
-  </g>
-
-  <!-- CALLOUT LABELS -->
-  <!-- Koefisien Callout -->
-  <g transform="translate(245, 45)">
-    <line x1="0" y1="0" x2="0" y2="-15" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="-65" y="-36" width="130" height="20" rx="5" fill="#2563eb"/>
-    <text x="0" y="-23" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">Koefisien Reaksi (Boleh Diubah)</text>
-  </g>
-
-  <!-- Indeks Subskrip Callout -->
-  <g transform="translate(175, 145)">
-    <line x1="0" y1="0" x2="0" y2="20" stroke="#dc2626" stroke-width="1.5"/>
-    <rect x="-65" y="20" width="130" height="20" rx="5" fill="#dc2626"/>
-    <text x="0" y="33" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">Angka Indeks (Dilarang Diubah!)</text>
-  </g>
-
-  <!-- TIMBANGAN NERACA LAVOISIER (BAWAH) -->
-  <g transform="translate(40, 195)">
-    <!-- Kotak Kiri: Reaktan -->
-    <rect x="0" y="0" width="340" height="95" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.2"/>
-    <text x="170" y="20" font-size="11" font-weight="bold" fill="#1e40af" text-anchor="middle">TOTAL ATOM RUAS KIRI (REAKTAN)</text>
-    <line x1="15" y1="28" x2="325" y2="28" stroke="#bfdbfe"/>
-    <text x="50" y="50" font-size="10" font-weight="bold" fill="#334155">Atom Karbon (C): 1</text>
-    <text x="50" y="68" font-size="10" font-weight="bold" fill="#334155">Atom Hidrogen (H): 4</text>
-    <text x="50" y="86" font-size="10" font-weight="bold" fill="#334155">Atom Oksigen (O): 2 × 2 = 4</text>
-
-    <!-- Kotak Kanan: Produk -->
-    <rect x="400" y="0" width="340" height="95" rx="10" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.2"/>
-    <text x="570" y="20" font-size="11" font-weight="bold" fill="#166534" text-anchor="middle">TOTAL ATOM RUAS KANAN (PRODUK)</text>
-    <line x1="415" y1="28" x2="725" y2="28" stroke="#bbf7d0"/>
-    <text x="450" y="50" font-size="10" font-weight="bold" fill="#334155">Atom Karbon (C): 1</text>
-    <text x="450" y="68" font-size="10" font-weight="bold" fill="#334155">Atom Hidrogen (H): 2 × 2 = 4</text>
-    <text x="450" y="86" font-size="10" font-weight="bold" fill="#334155">Atom Oksigen (O): 2 + (2 × 1) = 4</text>
-
-    <!-- Simbol Sama Dengan Seimbang di Tengah -->
-    <circle cx="370" cy="48" r="18" fill="#10b981"/>
-    <text x="370" y="54" font-size="18" font-weight="extrabold" fill="#ffffff" text-anchor="middle">=</text>
-  </g>
-</svg>
-
----
-
-### 3. Asas Hukum Kekekalan Massa Antoine Lavoisier (1789)
-
-> *"Massa zat sebelum reaksi kimia selalu sama dengan massa zat sesudah reaksi kimia dalam sistem tertutup."*
-$$\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}$$
-
-Karena atom tidak dapat diciptakan atau dimusnahkan dalam reaksi kimia biasa (hanya terjadi penataan ulang ikatan kimia antar atom), maka konsekuensi mutlak hukum Lavoisier adalah:  
-**Jumlah atom dari setiap unsur di ruas kiri (reaktan) WAJIB SAMA PERSIS dengan jumlah atom unsur tersebut di ruas kanan (produk).** Kondisi inilah yang disebut sebagai **Persamaan Reaksi Setara (*Balanced Equation*)**.`,
-      keyFormulas: [
-        { name: 'Hukum Kekekalan Massa Lavoisier', formula: '\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}' },
-        { name: 'Kriteria Persamaan Reaksi Setara', formula: '\\sum N_{\\text{atom reaktan}} = \\sum N_{\\text{atom produk}} \\quad (\\text{untuk tiap unsur})' },
-      ],
-    },
-    {
-      tag: 'metode-penyetaraan-reaksi-inspeksi-dan-aljabar',
-      tags: ['penyetaraan-reaksi', 'metode-inspeksi-langsung', 'metode-aljabar-matematis', 'sistem-persamaan-linier'],
-      title: 'Konsep Inti 5: Teknik Penyetaraan Reaksi Kimia (Metode Langsung vs Metode Aljabar Matematis)',
-      summary: 'Panduan langkah demi langkah menyetarakan persamaan reaksi sederhana hingga reaksi redoks kompleks.',
-      content: `Dua metode utama digunakan untuk menyetarakan koefisien reaksi kimia:
-
-### 1. Metode Inspeksi Langsung (Coba-Coba Terarah / *Trial by Inspection*)
-
-Metode ini sangat cepat dan efektif untuk reaksi sederhana yang melibatkan $3-4$ senyawa.
-- **Urutan Prioritas Penyetaraan Unsur (Kaidah KAHO):**
-  1. **K (Kation / Logam):** Setarakan atom-atom logam terlebih dahulu (seperti $\\ce{Na, Ca, Fe, Al}$).
-  2. **A (Anion / Nonlogam selain H dan O):** Setarakan atom nonlogam utama (seperti $\\ce{C, N, S, P, Cl, Br}$).
-  3. **H (Hidrogen):** Setarakan jumlah atom Hidrogen.
-  4. **O (Oksigen):** Setarakan atom Oksigen paling terakhir (sering kali otomatis setara sebagai validasi akhir).
-
----
-
-### 2. Metode Aljabar Matematis (Paling Akurat untuk Reaksi Kompleks)
-
-Metode aljabar mengubah persamaan reaksi kimia menjadi sebuah **Sistem Persamaan Linier Homogen**. Metode ini dijamin $100\\%$ selalu menghasilkan jawaban yang benar tanpa bergantung pada coba-coba (*trial and error*).
-
-#### Algoritma 5 Langkah Metode Aljabar:
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 270" width="100%" height="auto" class="max-w-[800px] select-none font-sans">
-  <defs>
-    <linearGradient id="stepGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </linearGradient>
-    <marker id="arrowStep" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2563eb"/>
-    </marker>
-  </defs>
-
-  <rect width="800" height="270" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="400" y="24" font-size="12.5" font-weight="bold" fill="#0f172a" text-anchor="middle">5 LANGKAH SISTEMATIS PENYETARAAN METODE ALJABAR</text>
-
-  <!-- 5 KARTU LANGKAH -->
-  <!-- Langkah 1 -->
-  <g transform="translate(20, 50)">
-    <rect width="135" height="150" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-    <circle cx="24" cy="24" r="14" fill="url(#stepGrad)"/>
-    <text x="24" y="28" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="46" y="28" font-size="10.5" font-weight="bold" fill="#1e3a8a">Variabel</text>
-    <line x1="12" y1="46" x2="123" y2="46" stroke="#e2e8f0"/>
-    <text x="67" y="68" font-size="8.5" fill="#334155" text-anchor="middle">Beri koefisien abjad:</text>
-    <text x="67" y="84" font-size="9" font-family="monospace" font-weight="bold" fill="#2563eb" text-anchor="middle">a, b, c, d, e...</text>
-    <text x="67" y="104" font-size="8" fill="#64748b" text-anchor="middle">di depan setiap</text>
-    <text x="67" y="118" font-size="8" fill="#64748b" text-anchor="middle">rumus senyawa.</text>
-  </g>
-  <path d="M 160 125 L 180 125" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowStep)"/>
-
-  <!-- Langkah 2 -->
-  <g transform="translate(180, 50)">
-    <rect width="135" height="150" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-    <circle cx="24" cy="24" r="14" fill="url(#stepGrad)"/>
-    <text x="24" y="28" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="46" y="28" font-size="10.5" font-weight="bold" fill="#1e3a8a">Tetapkan a=1</text>
-    <line x1="12" y1="46" x2="123" y2="46" stroke="#e2e8f0"/>
-    <text x="67" y="68" font-size="8.5" fill="#334155" text-anchor="middle">Pilih senyawa yang</text>
-    <text x="67" y="82" font-size="8.5" fill="#334155" text-anchor="middle">paling kompleks,</text>
-    <text x="67" y="100" font-size="9" font-family="monospace" font-weight="bold" fill="#059669" text-anchor="middle">tetapkan a = 1</text>
-    <text x="67" y="120" font-size="8" fill="#64748b" text-anchor="middle">sebagai basis awal.</text>
-  </g>
-  <path d="M 320 125 L 340 125" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowStep)"/>
-
-  <!-- Langkah 3 -->
-  <g transform="translate(340, 50)">
-    <rect width="135" height="150" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-    <circle cx="24" cy="24" r="14" fill="url(#stepGrad)"/>
-    <text x="24" y="28" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="46" y="28" font-size="10.5" font-weight="bold" fill="#1e3a8a">Persamaan</text>
-    <line x1="12" y1="46" x2="123" y2="46" stroke="#e2e8f0"/>
-    <text x="67" y="68" font-size="8.5" fill="#334155" text-anchor="middle">Susun neraca atom:</text>
-    <text x="67" y="86" font-size="8.5" font-weight="bold" fill="#b45309" text-anchor="middle">Σ Kiri = Σ Kanan</text>
-    <text x="67" y="104" font-size="8" fill="#64748b" text-anchor="middle">untuk setiap unsur</text>
-    <text x="67" y="118" font-size="8" fill="#64748b" text-anchor="middle">secara terpisah.</text>
-  </g>
-  <path d="M 480 125 L 500 125" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowStep)"/>
-
-  <!-- Langkah 4 -->
-  <g transform="translate(500, 50)">
-    <rect width="135" height="150" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-    <circle cx="24" cy="24" r="14" fill="url(#stepGrad)"/>
-    <text x="24" y="28" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="46" y="28" font-size="10.5" font-weight="bold" fill="#1e3a8a">Substitusi</text>
-    <line x1="12" y1="46" x2="123" y2="46" stroke="#e2e8f0"/>
-    <text x="67" y="68" font-size="8.5" fill="#334155" text-anchor="middle">Selesaikan aljabar</text>
-    <text x="67" y="82" font-size="8.5" fill="#334155" text-anchor="middle">secara substitusi /</text>
-    <text x="67" y="96" font-size="8.5" fill="#334155" text-anchor="middle">eliminasi hingga</text>
-    <text x="67" y="114" font-size="8.5" font-weight="bold" fill="#2563eb" text-anchor="middle">semua nilai ketemu.</text>
-  </g>
-  <path d="M 640 125 L 660 125" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowStep)"/>
-
-  <!-- Langkah 5 -->
-  <g transform="translate(660, 50)">
-    <rect width="125" height="150" rx="10" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
-    <circle cx="24" cy="24" r="14" fill="#10b981"/>
-    <text x="24" y="28" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-    <text x="46" y="28" font-size="10.5" font-weight="bold" fill="#065f46">Bulatkan</text>
-    <line x1="12" y1="46" x2="113" y2="46" stroke="#e2e8f0"/>
-    <text x="62" y="68" font-size="8.5" fill="#334155" text-anchor="middle">Jika ada pecahan,</text>
-    <text x="62" y="84" font-size="8.5" font-weight="bold" fill="#059669" text-anchor="middle">kalikan KPK</text>
-    <text x="62" y="104" font-size="8" fill="#64748b" text-anchor="middle">penyebut agar bulat</text>
-    <text x="62" y="118" font-size="8" fill="#64748b" text-anchor="middle">terkecil (integer).</text>
-  </g>
-
-  <!-- KETERANGAN BAWAH -->
-  <g transform="translate(20, 218)">
-    <rect width="765" height="36" rx="8" fill="#1e293b"/>
-    <text x="382" y="22" font-size="10" font-weight="bold" fill="#f8fafc" text-anchor="middle">
-      Kaidah Emas: Koefisien reaksi final WAJIB merupakan bilangan bulat positif terkecil (tidak boleh berupa pecahan)!
-    </text>
-  </g>
-</svg>
-
-#### Contoh Aplikasi Cepat pada Pembakaran Gas Propana ($\\ce{C3H8}$):
-$$\\ce{a C3H8 + b O2 -> c CO2 + d H2O}$$
-1. Tetapkan senyawa terkompleks $a = 1$.
-2. Neraca Karbon (C): $3 \\times a = 1 \\times c \\implies c = 3(1) = 3$.
-3. Neraca Hidrogen (H): $8 \\times a = 2 \\times d \\implies d = \\frac{8(1)}{2} = 4$.
-4. Neraca Oksigen (O): $2 \\times b = 2c + 1d = 2(3) + 4 = 10 \\implies b = 5$.
-5. Koefisien bulat setara: **$1\\ce{C3H8} + 5\\ce{O2} \\to 3\\ce{CO2} + 4\\ce{H2O}$**.`,
-      keyFormulas: [
-        { name: 'Kaidah Prioritas KAHO', formula: '\\text{Kation (Logam)} \\to \\text{Anion (Nonlogam)} \\to \\text{Hidrogen} \\to \\text{Oksigen}' },
-      ],
-    },
-    {
-      tag: 'persamaan-ionik-bersih-dan-reaksi-pengendapan',
-      tags: ['persamaan-ionik-lengkap', 'persamaan-ionik-bersih', 'net-ionic-equation', 'ion-penonton', 'spectator-ions', 'aturan-kelarutan'],
-      title: 'Konsep Inti 6: Persamaan Reaksi Ionik Lengkap, Persamaan Ionik Bersih & Eliminasi Ion Penonton',
-      summary: 'Menguraikan elektrolit kuat terlarut, mengidentifikasi ion penonton yang tidak berubah, serta menyusun persamaan ionik bersih pada reaksi presipitasi.',
-      content: `Sebagian besar reaksi kimia anorganik di laboratorium dan di dalam tubuh makhluk hidup berlangsung dalam fase larutan air (*aqueous solution*).
-
-### 1. Tiga Bentuk Penulisan Reaksi dalam Larutan Air
-
-1. **Persamaan Molekuler (*Molecular Equation*):**
-   Seluruh reaktan dan produk dituliskan sebagai rumus senyawa molekuler netral lengkap dengan simbol fasanya:
-    $$\ce{AgNO3(aq) + NaCl(aq) -> AgCl(s)\downarrow + NaNO3(aq)}$$
-2. **Persamaan Ionik Lengkap (*Complete Ionic Equation*):**
-   Semua senyawa **elektrolit kuat yang larut sempurna dalam air ($(aq)$)** diuraikan menjadi kation dan anion terpisahnya:
-    $$\ce{Ag+(aq) + NO3-(aq) + Na+(aq) + Cl-(aq) -> AgCl(s)\downarrow + Na+(aq) + NO3-(aq)}$$
-   *(Senyawa padat yang mengendap seperti $\\ce{AgCl(s)}$, cairan murni seperti $\\ce{H2O(l)}$, dan gas seperti $\\ce{CO2(g)}$ TIDAK BOLEH diuraikan menjadi ion!).*
-3. **Persamaan Ionik Bersih (*Net Ionic Equation*):**
-   Persamaan yang diperoleh setelah **mencoret (mengeliminasi) seluruh Ion Penonton (*Spectator Ions*)** yang muncul identik di kedua sisi ruas persamaan:
-    $$\mathbf{\ce{Ag+(aq) + Cl-(aq) -> AgCl(s)\downarrow}}$$
-
----
-
-### 2. Definisi Fisik Ion Penonton (*Spectator Ions*)
-
-Ion penonton adalah ion-ion yang hadir di dalam bejana reaksi larutan tetapi **tidak mengalami perubahan kimiawi apapun** (baik wujud fasa, bilangan oksidasi, maupun lingkungan ikatannya).
-- Pada reaksi di atas, ion $\\ce{Na+(aq)}$ dan ion $\\ce{NO3-(aq)}$ hanya melayang-layang bebas di dalam air dari awal reaksi hingga akhir reaksi tanpa ikut membentuk endapan.
-- **Persamaan ionik bersih fokus hanya pada spesi kimia yang benar-benar bereaksi!**
-
----
-
-### 3. Visualisasi Mikroskopis Reaksi Pengendapan & Eliminasi Ion Penonton
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 310" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="flaskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f0f9ff"/>
-    </linearGradient>
-    <radialGradient id="pbIon" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fbcfe8"/>
-      <stop offset="60%" stop-color="#db2777"/>
-      <stop offset="100%" stop-color="#831843"/>
-    </radialGradient>
-    <radialGradient id="iIon" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="60%" stop-color="#eab308"/>
-      <stop offset="100%" stop-color="#713f12"/>
-    </radialGradient>
-    <radialGradient id="specK" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#e2e8f0"/>
-      <stop offset="60%" stop-color="#94a3b8"/>
-      <stop offset="100%" stop-color="#475569"/>
-    </radialGradient>
-  </defs>
-
-  <rect width="820" height="310" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
-  <text x="410" y="24" font-size="12.5" font-weight="bold" fill="#0f172a" text-anchor="middle">MEKANISME PRESIPITASI IONIK &amp; ELIMINASI ION PENONTON</text>
-
-  <!-- BEAKER GELAS KIMIA REAKSI -->
-  <g transform="translate(40, 50)">
-    <!-- Gelas Beaker -->
-    <rect x="0" y="0" width="220" height="210" rx="8" fill="url(#flaskGrad)" stroke="#64748b" stroke-width="2"/>
-    <!-- Permukaan Larutan Air -->
-    <rect x="2" y="30" width="216" height="178" rx="6" fill="#e0f2fe" opacity="0.6"/>
-    <line x1="2" y1="30" x2="218" y2="30" stroke="#38bdf8" stroke-width="2"/>
-    <text x="110" y="20" font-size="9" font-weight="bold" fill="#0369a1" text-anchor="middle">Campuran Pb(NO₃)₂ + KI</text>
-
-    <!-- Ion Penonton Melayang (K+ dan NO3-) -->
-    <g transform="translate(40, 60)">
-      <circle r="12" fill="url(#specK)"/><text x="0" y="4" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">K⁺</text>
-    </g>
-    <g transform="translate(170, 75)">
-      <circle r="12" fill="url(#specK)"/><text x="0" y="4" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">K⁺</text>
-    </g>
-    <g transform="translate(70, 110)">
-      <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#94a3b8"/><text x="0" y="4" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">NO₃⁻</text>
-    </g>
-    <g transform="translate(160, 125)">
-      <rect x="-14" y="-8" width="28" height="16" rx="4" fill="#94a3b8"/><text x="0" y="4" font-size="8" font-weight="bold" fill="#ffffff" text-anchor="middle">NO₃⁻</text>
-    </g>
-
-    <!-- Endapan Kuning di Dasar Beaker: PbI2(s) -->
-    <path d="M 10 185 Q 110 170 210 185 L 218 208 L 2 208 Z" fill="#facc15" stroke="#eab308" stroke-width="1.5"/>
-    <text x="110" y="198" font-size="10.5" font-weight="extrabold" fill="#713f12" text-anchor="middle">Endapan Kuning PbI₂ (s) ↓</text>
-  </g>
-
-  <!-- PANEL KANAN: TRANSFORMASI 3 PERSAMAAN -->
-  <g transform="translate(290, 50)">
-    <!-- 1. Persamaan Molekuler -->
-    <rect width="490" height="60" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="12" y="18" font-size="9.5" font-weight="bold" fill="#0284c7">1. Persamaan Molekuler:</text>
-    <text x="12" y="40" font-size="11" font-family="monospace" font-weight="bold" fill="#0f172a">
-      Pb(NO₃)₂(aq) + 2 KI(aq) → PbI₂(s)↓ + 2 KNO₃(aq)
-    </text>
-
-    <!-- 2. Persamaan Ionik Lengkap -->
-    <g transform="translate(0, 70)">
-      <rect width="490" height="65" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-      <text x="12" y="18" font-size="9.5" font-weight="bold" fill="#64748b">2. Persamaan Ionik Lengkap (Identifikasi Ion Penonton):</text>
-      <text x="12" y="40" font-size="10" font-family="monospace" fill="#0f172a">
-        Pb²⁺(aq) + <tspan fill="#dc2626" text-decoration="line-through">2 NO₃⁻</tspan> + <tspan fill="#dc2626" text-decoration="line-through">2 K⁺</tspan> + 2 I⁻ → PbI₂(s)↓ + <tspan fill="#dc2626" text-decoration="line-through">2 K⁺</tspan> + <tspan fill="#dc2626" text-decoration="line-through">2 NO₃⁻</tspan>
-      </text>
-      <text x="12" y="56" font-size="8.5" font-weight="bold" fill="#dc2626">Coret K⁺ dan NO₃⁻ (keduanya adalah Ion Penonton yang tidak bereaksi!)</text>
-    </g>
-
-    <!-- 3. Persamaan Ionik Bersih -->
-    <g transform="translate(0, 145)">
-      <rect width="490" height="65" rx="8" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
-      <text x="12" y="18" font-size="10" font-weight="bold" fill="#047857">3. PERSAMAAN IONIK BERSIH (NET IONIC EQUATION):</text>
-      <text x="12" y="44" font-size="13" font-family="monospace" font-weight="extrabold" fill="#065f46">
-        Pb²⁺(aq) + 2 I⁻(aq) → PbI₂(s) ↓
-      </text>
-    </g>
-  </g>
-
-  <!-- FOOTER -->
-  <g transform="translate(40, 275)">
-    <rect width="740" height="26" rx="6" fill="#1e293b"/>
-    <text x="370" y="17" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">
-      Kunci: Hanya ion-ion yang membentuk ikatan baru (endapan, cairan murni, atau gas) yang dituliskan dalam persamaan ionik bersih!
-    </text>
-  </g>
-</svg>`,
-      keyFormulas: [
-        { name: 'Persamaan Ionik Bersih Presipitasi', formula: '\\ce{M^{n+}(aq) + n X^-(aq) -> MX_n(s)\\downarrow}' },
-      ],
-    },
+      "title": "Prasyarat 2: Khazanah Kation dan Anion (Monatomik & Poliatomik Oksianion)",
+      "summary": "Daftar nama dan formula kation logam umum serta deret tatanama anion oksi berakhiran -at dan -it.",
+      "content": "Penyusunan rumus dan penamaan senyawa kimia anorganik mensyaratkan penguasaan formula dan muatan ion-ion pembentuknya.\n\n### 1. Daftar Kation Umum (Ion Positif)\n\n| Kation Bervalensi Tunggal | Kation Logam Bervalensi Jamak (Transisi) |\n| :--- | :--- |\n| $\\ce{H+}$ : Ion Hidrogen | $\\ce{Fe^2+}$ : Besi(II) / Fero |\n| $\\ce{Li+}$ : Ion Litium | $\\ce{Fe^3+}$ : Besi(III) / Feri |\n| $\\ce{Na+}$ : Ion Natrium | $\\ce{Cu+}$ : Tembaga(I) / Kupro |\n| $\\ce{K+}$ : Ion Kalium | $\\ce{Cu^2+}$ : Tembaga(II) / Kupri |\n| $\\ce{Ag+}$ : Ion Perak | $\\ce{Sn^2+}$ : Timah(II) / Stano |\n| $\\ce{Mg^2+}$ : Ion Magnesium | $\\ce{Sn^4+}$ : Timah(IV) / Stani |\n| $\\ce{Ca^2+}$ : Ion Kalsium | $\\ce{Pb^2+}$ : Timbal(II) / Plumbo |\n| $\\ce{Ba^2+}$ : Ion Barium | $\\ce{Pb^4+}$ : Timbal(IV) / Plumbi |\n| $\\ce{Zn^2+}$ : Ion Seng | $\\ce{Hg2^2+}$ : Raksa(I) |\n| $\\ce{Al^3+}$ : Ion Aluminium | $\\ce{Hg^2+}$ : Raksa(II) |\n| $\\ce{NH4+}$ : Ion Amonium (Poliatomik) | $\\ce{Cr^3+}$ : Kromium(III) |\n\n---\n\n### 2. Daftar Anion Monatomik & Oksianion Poliatomik\n\nAnion monatomik dinamai dengan menambahkan akhiran **-ida** pada akar kata nama unsur nonlogamnya:\n- $\\ce{F-}$ : Fluorida, $\\ce{Cl-}$ : Klorida, $\\ce{Br-}$ : Bromida, $\\ce{I-}$ : Iodida.\n- $\\ce{O^2-}$ : Oksida, $\\ce{S^2-}$ : Sulfida, $\\ce{N^3-}$ : Nitrida, $\\ce{P^3-}$ : Fosfida, $\\ce{C^4-}$ : Karbida.\n\n**Sistem Penamaan Deret Oksianion (Klorin/Bromin/Iodin):**\nDeret oksianion tersusun berdasarkan kenaikan jumlah atom oksigen (kenaikan bilangan oksidasi):\n1. **Hipo-...-it** (Paling sedikit oksigen, biloks $+1$): $\\ce{ClO-}$ = Ion Hipoklorit.\n2. **-it** (Sedikit oksigen, biloks $+3$): $\\ce{ClO2-}$ = Ion Klorit.\n3. **-at** (Banyak oksigen, biloks $+5$): $\\ce{ClO3-}$ = Ion Klorat.\n4. **Per-...-at** (Paling banyak oksigen, biloks $+7$): $\\ce{ClO4-}$ = Ion Perklorat.\n\n**Anion Poliatomik Populer Lainnya:**\n- $\\ce{OH-}$ : Hidroksida\n- $\\ce{NO2-}$ : Nitrit vs $\\ce{NO3-}$ : Nitrat\n- $\\ce{SO3^2-}$ : Sulfit vs $\\ce{SO4^2-}$ : Sulfat\n- $\\ce{CO3^2-}$ : Karbonat vs $\\ce{HCO3-}$ : Hidrogen karbonat (Bikarbonat)\n- $\\ce{PO4^3-}$ : Fosfat vs $\\ce{HPO4^2-}$ : Hidrogen fosfat\n- $\\ce{CH3COO-}$ : Asetat (Etanoat)\n- $\\ce{CrO4^2-}$ : Kromat vs $\\ce{Cr2O7^2-}$ : Dikromat\n- $\\ce{MnO4-}$ : Permanganat\n- $\\ce{CN-}$ : Sianida vs $\\ce{SCN-}$ : Tiosianat",
+      "keyFormulas": [
+        {
+          "name": "Kaidah Penyilangan Muatan Senyawa Netral",
+          "formula": "x \\ce{A^{y+}} + y \\ce{B^{x-}} \\to \\ce{A_x B_y}"
+        }
+      ]
+    }
   ],
-  worked_examples: [
+  "core_concepts": [
     {
-      tag: 'contoh-tatanama-komprehensif',
-      tags: ['latihan-tatanama', 'senyawa-ionik-transisi', 'oksianion', 'senyawa-hidrat', 'kovalen-biner'],
-      title: 'Contoh Soal 1: Penamaan IUPAC Komprehensif Senyawa Biner, Poliatomik & Hidrat Kristal',
-      summary: 'Latihan menentukan nama baku IUPAC dari rumus kimia dan menyusun rumus kimia dari nama senyawa.',
-      content: `### Soal Latihan:
-1. Berikan nama baku menurut kaidah IUPAC modern untuk senyawa-senyawa berikut:
-   a. $\\ce{SnO2}$
-   b. $\\ce{N2O3}$
-   c. $\\ce{Fe2(CO3)3}$
-   d. $\\ce{MgSO4 . 7H2O}$
-   e. $\\ce{HClO4}$
-2. Tuliskan rumus kimia yang tepat dari nama senyawa kimia berikut:
-   a. Dinitrogen monoksida
-   b. Tembaga(I) sulfida
-   c. Barium hidroksida oktahidrat
-   d. Asam hipoklorit
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### Penyelesaian Bagian 1:
-a. **$\\ce{SnO2}$:**
-   - Senyawa ionik antara logam timah ($\\ce{Sn}$) dan nonlogam oksigen ($\\ce{O}$).
-   - Anion oksida memiliki muatan $-2$. Dua atom oksigen memberikan total muatan $2 \\times (-2) = -4$.
-   - Agar molekul netral, kation timah bermuatan $+4$ (biloks $+4$).
-   - *Nama Baku IUPAC:* **Timah(IV) oksida** *(bukan timah dioksida!)*.
-b. **$\\ce{N2O3}$:**
-   - Senyawa kovalen murni antara dua nonlogam ($\\ce{N}$ dan $\\ce{O}$).
-   - Gunakan awalan angka Yunani: $2 = di-$, $3 = tri-$.
-   - *Nama Baku IUPAC:* **Dinitrogen trioksida**.
-c. **$\\ce{Fe2(CO3)3}$:**
-   - Senyawa garam poliatomik antara kation besi dan anion karbonat ($\\ce{CO3^2-}$).
-   - Tiga ion karbonat bermuatan total $3 \\times (-2) = -6$.
-   - Dua kation besi mengimbangi dengan muatan $+6 \\implies$ tiap besi bernilai $+3$.
-   - *Nama Baku IUPAC:* **Besi(III) karbonat**.
-d. **$\\ce{MgSO4 . 7H2O}$:**
-   - Senyawa hidrat kristal. Garam anhidratnya adalah $\\ce{MgSO4}$ (Magnesium sulfat, logam alkali tanah tidak memerlukan angka Romawi).
-   - Mengikat 7 molekul air kristal (awalan $7 = hepta-$).
-   - *Nama Baku IUPAC:* **Magnesium sulfat heptahidrat**.
-e. **$\\ce{HClO4}$:**
-   - Asam oksi klorin dengan 4 atom oksigen (biloks klorin $= +7$, deret per-...-at).
-   - *Nama Baku IUPAC:* **Asam perklorat**.
-
----
-
-#### Penyelesaian Bagian 2:
-a. **Dinitrogen monoksida:**
-   - Awalan *di-* pada nitrogen $\\implies \\ce{N2}$.
-   - Awalan *mono-* pada oksida $\\implies \\ce{O1}$.
-   - *Rumus Kimia:* **$\\ce{N2O}$** *(gas gelak)*.
-b. **Tembaga(I) sulfida:**
-   - Angka Romawi (I) menunjukkan kation $\\ce{Cu+}$.
-   - Anion sulfida adalah $\\ce{S^2-}$.
-   - Silangkan muatan untuk netralitas: butuh $2 \\ce{Cu+}$ untuk $1 \\ce{S^2-}$.
-   - *Rumus Kimia:* **$\\ce{Cu2S}$**.
-c. **Barium hidroksida oktahidrat:**
-   - Kation Barium (Golongan IIA): $\\ce{Ba^2+}$.
-   - Anion hidroksida: $\\ce{OH-}$.
-   - Garam anhidrat: $\\ce{Ba(OH)2}$.
-   - Mengikat 8 air kristal (oktahidrat $\\implies \\ce{. 8H2O}$).
-   - *Rumus Kimia:* **$\\ce{Ba(OH)2 . 8H2O}$**.
-d. **Asam hipoklorit:**
-   - Kation $\\ce{H+}$.
-   - Anion hipoklorit (biloks klorin $+1$, deret hipo-...-it): $\\ce{ClO-}$.
-   - *Rumus Kimia:* **$\\ce{HClO}$**.`,
-      keyFormulas: [
-        { name: 'Kaidah Penamaan Senyawa Ionik Transisi', formula: '\\text{Nama Logam} + (\\text{Biloks Romawi}) + \\text{Nama Anion}' },
+      "tag": "tata-nama-senyawa-biner-ionik-kovalen",
+      "tags": [
+        "tata-nama-biner",
+        "senyawa-ionik-biner",
+        "sistem-stok",
+        "senyawa-kovalen-biner",
+        "awalan-yunani"
       ],
+      "title": "Konsep Inti 1: Tata Nama Senyawa Biner (Ionik Logam-Nonlogam vs Kovalen Nonlogam-Nonlogam)",
+      "summary": "Aturan IUPAC penamaan senyawa dua unsur: sistem angka Romawi untuk logam transisi dan sistem awalan Yunani untuk senyawa kovalen.",
+      "content": "Senyawa biner adalah senyawa kimia yang tersusun dari **hanya dua unsur yang berbeda**. Tata nama senyawa biner dibedakan secara tegas berdasarkan jenis ikatan kimianya (apakah senyawa ionik atau senyawa molekuler kovalen).\n\n### 1. Tata Nama Senyawa Biner Ionik (Logam + Nonlogam)\n\nSenyawa ionik terbentuk dari kation logam dan anion nonlogam:\n1. **Logam Bervalensi Tunggal (Golongan IA, IIA, $\\ce{Al, Zn, Ag}$):**\n   Karena kationnya hanya memiliki satu kemungkinan muatan listrik, **tidak perlu mencantumkan angka Romawi maupun awalan angka**:\n   $$\\mathbf{\\text{[Nama Logam]} + \\text{[Nama Nonlogam + akhiran -ida]}}$$\n   - $\\ce{NaCl}$ : Natrium klorida (bukan *mononatrium monoklorida*)\n   - $\\ce{MgBr2}$ : Magnesium bromida (bukan *magnesium dibromida*)\n   - $\\ce{Al2O3}$ : Aluminium oksida (bukan *dialuminium trioksida*)\n   - $\\ce{K2S}$ : Kalium sulfida\n   - $\\ce{Ca3N2}$ : Kalsium nitrida\n2. **Logam Bervalensi Jamak (Logam Transisi / Post-Transisi):**\n   Karena atom logam dapat membentuk lebih dari satu kation stabil, wajib menyertakan **Bilangan Oksidasi Logam dalam Angka Romawi** di dalam kurung tepat setelah nama logam (**Sistem Stok IUPAC**):\n   $$\\mathbf{\\text{[Nama Logam]} + \\mathbf{\\text{(Angka Romawi Biloks)}} + \\text{[Nama Nonlogam + -ida]}}$$\n   - $\\ce{FeO}$ : Biloks $\\ce{Fe} = +2 \\implies$ **Besi(II) oksida** *(nama lama: Fero oksida)*\n   - $\\ce{Fe2O3}$ : Biloks $\\ce{Fe} = +3 \\implies$ **Besi(III) oksida** *(nama lama: Feri oksida)*\n   - $\\ce{Cu2O}$ : Biloks $\\ce{Cu} = +1 \\implies$ **Tembaga(I) oksida** *(Kupro oksida)*\n   - $\\ce{CuO}$ : Biloks $\\ce{Cu} = +2 \\implies$ **Tembaga(II) oksida** *(Kupri oksida)*\n   - $\\ce{SnCl2}$ : **Timah(II) klorida** vs $\\ce{SnCl4}$ : **Timah(IV) klorida**\n   - $\\ce{PbO2}$ : **Timbal(IV) oksida**\n\n---\n\n### 2. Tata Nama Senyawa Biner Kovalen (Nonlogam + Nonlogam)\n\nSenyawa kovalen tersusun dari dua unsur nonlogam. Hubungan stoikiometrinya dinyatakan menggunakan **Awalan Angka Yunani**:\n$$\\mathbf{\\text{[Awalan]} + \\text{[Nonlogam 1]} + \\text{[Awalan]} + \\text{[Nonlogam 2 + -ida]}}$$\n\n| Angka | Awalan Yunani | Angka | Awalan Yunani |\n| :---: | :--- | :---: | :--- |\n| **1** | Mono- | **6** | Heksa- |\n| **2** | Di- | **7** | Hepta- |\n| **3** | Tri- | **8** | Okta- |\n| **4** | Tetra- | **9** | Nona- (atau Enea-) |\n| **5** | Penta- | **10** | Deka- |\n\n> [!IMPORTANT]\n> **Dua Kaidah Emas Senyawa Kovalen Biner:**\n> 1. **Aturan Mono- Pertama:** Awalan *mono-* **TIDAK PERNAH digunakan** pada unsur pertama jika jumlahnya hanya satu.  \n>    Contoh: $\\ce{CO}$ adalah **Karbon monoksida** (bukan *monokarbon monoksida*); $\\ce{NO2}$ adalah **Nitrogen dioksida**.\n> 2. **Elisi Vokal:** Jika awalan berakhiran huruf vokal *-a* atau *-o* bertemu dengan kata oksida (yang diawali huruf *o-*), huruf vokal terakhir dihilangkan demi kemudahan pelafalan:\n>    - *Tetra- + oksida* $\\to$ **Tetroksida** (contoh: $\\ce{N2O4}$ = Dinitrogen tetroksida).\n>    - *Penta- + oksida* $\\to$ **Pentoksida** (contoh: $\\ce{N2O5}$ = Dinitrogen pentoksida).\n>    - *Mono- + oksida* $\\to$ **Monoksida** (contoh: $\\ce{CO}$ = Karbon monoksida).\n> 3. **Urutan Penulisan Unsur Nonlogam:** Mengikuti urutan elektronegativitas menaik:  \n>    $\\ce{B} \\to \\ce{Si} \\to \\ce{C} \\to \\ce{Sb} \\to \\ce{As} \\to \\ce{P} \\to \\ce{N} \\to \\ce{H} \\to \\ce{Te} \\to \\ce{Se} \\to \\ce{S} \\to \\ce{I} \\to \\ce{Br} \\to \\ce{Cl} \\to \\ce{O} \\to \\ce{F}$.\n> [!WARNING]\n> ### ⚠️ Miskonsepsi Fatal 1: Larangan Penggunaan Awalan Yunani pada Senyawa Ionik!\n> Salah satu kesalahan paling lazim peserta ujian adalah menggunakan awalan Yunani (*mono-, di-, tri-, tetra-*) pada senyawa ionik:\n> - Menyebut $\\ce{MgCl2}$ sebagai \"Magnesium diklorida\" adalah **SALAH BESAR!**\n> - Yang benar adalah **Magnesium klorida**, karena senyawa ionik sudah netral secara stoikiometri muatan (ion $\\ce{Mg^2+}$ pasti berpasangan dengan dua ion $\\ce{Cl-}$).\n> - Awalan Yunani **HANYA DIGUNAKAN UNTUK SENYAWA KOVALEN BINER (NONLOGAM + NONLOGAM)** di mana dua atom nonlogam dapat membentuk beragam rasio molekuler (seperti $\\ce{CO}$ Karbon monoksida dan $\\ce{CO2}$ Karbon dioksida; $\\ce{NO}$ Nitrogen monoksida, $\\ce{NO2}$ Nitrogen dioksida, dan $\\ce{N2O5}$ Dinitrogen pentaoksida).\n",
+      "keyFormulas": [
+        {
+          "name": "Rumus Struktur Nama Kovalen Biner",
+          "formula": "\\text{Awalan-Unsur}_1 + \\text{Awalan-Unsur}_2\\text{-ida}"
+        },
+        {
+          "name": "Rumus Struktur Nama Ionik Sistem Stok",
+          "formula": "\\text{Nama Logam} + (\\text{Biloks Romawi}) + \\text{Nama Anion}"
+        }
+      ]
     },
     {
-      tag: 'contoh-penyetaraan-redoks-aljabar-kmno4',
-      title: 'Contoh Soal 2: Penyetaraan Reaksi Redoks Kompleks Metode Aljabar Matematis (KMnO4 + HCl)',
-      summary: 'Aplikasi sistem persamaan linier aljabar untuk menyetarakan reaksi pembuatan gas klorin di laboratorium.',
-      content: `### Soal Ujian Olimpiade:
-Reaksi laboratorium pembuatan gas klorin melibatkan oksidasi asam klorida pekat oleh kalium permanganat padat sesuai persamaan reaksi berikut (belum setara):
-$$\\ce{a KMnO4(s) + b HCl(aq) -> c KCl(aq) + d MnCl2(aq) + e Cl2(g) + f H2O(l)}$$
-Tentukan nilai koefisien stoikiometri bilangan bulat terkecil $a, b, c, d, e,$ dan $f$ menggunakan metode aljabar matematis!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Tetapkan Nilai Basis Awal:
-Tetapkan senyawa paling kompleks $\\ce{KMnO4}$ memiliki koefisien:
-$$\\mathbf{a = 1}$$
-
-#### 2. Susun Persamaan Neraca Atom Tiap Unsur:
-- **Atom Kalium (K):**  
-  Ruas kiri $= 1 \\times a$, Ruas kanan $= 1 \\times c$  
-  $$a = c \\implies \\mathbf{c = 1}$$
-- **Atom Mangan (Mn):**  
-  Ruas kiri $= 1 \\times a$, Ruas kanan $= 1 \\times d$  
-  $$a = d \\implies \\mathbf{d = 1}$$
-- **Atom Oksigen (O):**  
-  Ruas kiri $= 4 \\times a$, Ruas kanan $= 1 \\times f$  
-  $$4a = f \\implies f = 4(1) \\implies \\mathbf{f = 4}$$
-- **Atom Hidrogen (H):**  
-  Ruas kiri $= 1 \\times b$, Ruas kanan $= 2 \\times f$  
-  $$b = 2f \\implies b = 2(4) \\implies \\mathbf{b = 8}$$
-- **Atom Klorin (Cl):**  
-  Ruas kiri $= 1 \\times b$, Ruas kanan $= 1 \\times c + 2 \\times d + 2 \\times e$  
-  $$b = c + 2d + 2e$$
-  Substitusikan nilai $b=8, c=1, d=1$:
-  $$8 = 1 + 2(1) + 2e$$
-  $$8 = 3 + 2e \\implies 2e = 5 \\implies \\mathbf{e = \\frac{5}{2}}$$
-
-#### 3. Eliminasi Koefisien Pecahan:
-Kumpulan nilai sementara:
-$$a = 1, \\quad b = 8, \\quad c = 1, \\quad d = 1, \\quad e = \\frac{5}{2}, \\quad f = 4$$
-Karena nilai $e$ berupa pecahan $\\frac{5}{2}$, **kalikan seluruh koefisien dengan angka 2**:
-$$a = 1 \\times 2 = \\mathbf{2}$$
-$$b = 8 \\times 2 = \\mathbf{16}$$
-$$c = 1 \\times 2 = \\mathbf{2}$$
-$$d = 1 \\times 2 = \\mathbf{2}$$
-$$e = \\frac{5}{2} \\times 2 = \\mathbf{5}$$
-$$f = 4 \\times 2 = \\mathbf{8}$$
-
-#### 4. Persamaan Reaksi Setara Sempurna:
-$$\\mathbf{2\\ce{KMnO4(s)} + 16\\ce{HCl(aq)} \\to 2\\ce{KCl(aq)} + 2\\ce{MnCl2(aq)} + 5\\ce{Cl2(g)} + 8\\ce{H2O(l)}}$$
-
-#### 5. Verifikasi Akhir Jumlah Atom:
-- K: Kiri $2$, Kanan $2$ (Setara)
-- Mn: Kiri $2$, Kanan $2$ (Setara)
-- O: Kiri $2 \\times 4 = 8$, Kanan $8 \\times 1 = 8$ (Setara)
-- H: Kiri $16$, Kanan $8 \\times 2 = 16$ (Setara)
-- Cl: Kiri $16$, Kanan $2 + (2 \\times 2) + (5 \\times 2) = 2 + 4 + 10 = 16$ (Setara)`,
-      keyFormulas: [
-        { name: 'Persamaan Reaksi Setara Laboratorium Gas Klorin', formula: '2\\ce{KMnO4} + 16\\ce{HCl} \\to 2\\ce{KCl} + 2\\ce{MnCl2} + 5\\ce{Cl2} + 8\\ce{H2O}' },
+      "tag": "tata-nama-poliatomik-asam-basa-hidrat",
+      "tags": [
+        "senyawa-poliatomik",
+        "tata-nama-asam",
+        "tata-nama-basa",
+        "senyawa-hidrat",
+        "pohon-keputusan-tatanama"
       ],
+      "title": "Konsep Inti 2: Tata Nama Senyawa Poliatomik, Asam, Basa & Senyawa Hidrat Kristal",
+      "summary": "Algoritma penamaan senyawa garam poliatomik, senyawa asam biner dan asam oksi, basa hidroksida, serta penamaan hidrat berair kristal.",
+      "content": "Pemberian nama untuk senyawa anorganik yang melibatkan ion poliatomik, asam, basa, serta kristal hidrat mengikuti konvensi terstruktur IUPAC.\n\n### 1. Senyawa Poliatomik (Garam Poliatomik)\n\nSenyawa poliatomik terdiri dari kation (logam atau ion amonium $\\ce{NH4+}$) yang berikatan dengan anion poliatomik.\n$$\\mathbf{\\text{[Nama Kation Logam (disertai Romawi jika transisi)]} + \\text{[Nama Anion Poliatomik]}}$$\n- $\\ce{Na2SO4}$ : Natrium sulfat\n- $\\ce{KNO3}$ : Kalium nitrat\n- $\\ce{CaCO3}$ : Kalsium karbonat\n- $\\ce{(NH4)2CO3}$ : Amonium karbonat\n- $\\ce{Fe2(SO4)3}$ : Besi(III) sulfat (karena $\\ce{SO4}$ bermuatan $-2$, $3 \\times (-2) = -6$, maka $2 \\ce{Fe} = +6 \\implies \\ce{Fe} = +3$)\n- $\\ce{CuSO4}$ : Tembaga(II) sulfat\n- $\\ce{KMnO4}$ : Kalium permanganat\n- $\\ce{K2Cr2O7}$ : Kalium dikromat\n\n---\n\n### 2. Tata Nama Asam & Basa Arrhenius\n\n1. **Tata Nama Senyawa Asam (Melepas ion $\\ce{H+}$ dalam air):**\n   Nama senyawa asam diawali dengan kata **\"Asam\"** (mewakili kation $\\ce{H+}$) diikuti oleh nama anion sisa asamnya:\n   - **Asam Biner (Tanpa Oksigen):** $\\ce{HCl}$ = Asam klorida, $\\ce{HBr}$ = Asam bromida, $\\ce{H2S}$ = Asam sulfida, $\\ce{HCN}$ = Asam sianida.\n   - **Asam Oksi (Mengandung Oksigen):**\n     - $\\ce{HNO3}$ : Asam nitrat vs $\\ce{HNO2}$ : Asam nitrit\n     - $\\ce{H2SO4}$ : Asam sulfat vs $\\ce{H2SO3}$ : Asam sulfit\n     - $\\ce{H3PO4}$ : Asam fosfat\n     - $\\ce{H2CO3}$ : Asam karbonat\n     - $\\ce{CH3COOH}$ : Asam asetat (Asam cuka / Asam etanoat)\n2. **Tata Nama Senyawa Basa (Melepas ion $\\ce{OH-}$ dalam air):**\n   Nama kation logam diikuti oleh kata **\"Hidroksida\"**:\n   - $\\ce{NaOH}$ : Natrium hidroksida\n   - $\\ce{KOH}$ : Kalium hidroksida\n   - $\\ce{Ca(OH)2}$ : Kalsium hidroksida\n   - $\\ce{Ba(OH)2}$ : Barium hidroksida\n   - $\\ce{Al(OH)3}$ : Aluminium hidroksida\n   - $\\ce{Fe(OH)2}$ : Besi(II) hidroksida vs $\\ce{Fe(OH)3}$ : Besi(III) hidroksida\n\n---\n\n### 3. Tata Nama Senyawa Hidrat (Air Kristal)\n\nSenyawa hidrat adalah kristal padat yang mengikat sejumlah molekul air ($\\ce{H2O}$) secara teratur dalam struktur kisi kristalnya:\n$$\\mathbf{\\text{[Nama Senyawa Anhidrat]} + \\text{[Awalan Yunani]} + \\mathbf{\\text{hidrat}}}$$\n- $\\ce{CuSO4 . 5H2O}$ : Tembaga(II) sulfat **pentahidrat** *(terusi / vitriol biru)*\n- $\\ce{CaSO4 . 2H2O}$ : Kalsium sulfat **dihidrat** *(gipsum)*\n- $\\ce{MgSO4 . 7H2O}$ : Magnesium sulfat **heptahidrat** *(garam inggris / epsom)*\n- $\\ce{Na2CO3 . 10H2O}$ : Natrium karbonat **dekahidrat** *(soda cuci)*\n- $\\ce{FeSO4 . 7H2O}$ : Besi(II) sulfat **heptahidrat**\n\n---\n\n### 4. Peta Pohon Keputusan Algoritma Tata Nama Senyawa Kimia\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 840 340\" width=\"100%\" height=\"auto\" class=\"max-w-[840px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"treeRoot\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#1e293b\"/>\n      <stop offset=\"100%\" stop-color=\"#0f172a\"/>\n    </linearGradient>\n    <linearGradient id=\"treeIonic\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#2563eb\"/>\n      <stop offset=\"100%\" stop-color=\"#1d4ed8\"/>\n    </linearGradient>\n    <linearGradient id=\"treeCov\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#059669\"/>\n      <stop offset=\"100%\" stop-color=\"#047857\"/>\n    </linearGradient>\n    <linearGradient id=\"treeAcid\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#d97706\"/>\n      <stop offset=\"100%\" stop-color=\"#b45309\"/>\n    </linearGradient>\n    <marker id=\"arrowTree\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 9 5 L 0 9 z\" fill=\"#64748b\"/>\n    </marker>\n  </defs>\n\n  <!-- CONTAINER -->\n  <rect width=\"840\" height=\"340\" rx=\"16\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n  <!-- ROOT NODE -->\n  <g transform=\"translate(320, 16)\">\n    <rect width=\"200\" height=\"36\" rx=\"10\" fill=\"url(#treeRoot)\"/>\n    <text x=\"100\" y=\"22\" font-size=\"11.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">SENYAWA KIMIA</text>\n  </g>\n\n  <!-- LINES FROM ROOT TO 3 BRANCHES -->\n  <path d=\"M 360 52 L 150 90\" stroke=\"#64748b\" stroke-width=\"2\" marker-end=\"url(#arrowTree)\"/>\n  <path d=\"M 420 52 L 420 90\" stroke=\"#64748b\" stroke-width=\"2\" marker-end=\"url(#arrowTree)\"/>\n  <path d=\"M 480 52 L 690 90\" stroke=\"#64748b\" stroke-width=\"2\" marker-end=\"url(#arrowTree)\"/>\n\n  <!-- CABANG 1: SENYAWA IONIK (KIRI) -->\n  <g transform=\"translate(30, 95)\">\n    <rect width=\"240\" height=\"42\" rx=\"8\" fill=\"url(#treeIonic)\"/>\n    <text x=\"120\" y=\"18\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">1. SENYAWA IONIK</text>\n    <text x=\"120\" y=\"32\" font-size=\"9\" fill=\"#bfdbfe\" text-anchor=\"middle\">(Ada Logam atau Kation NH₄⁺)</text>\n\n    <!-- Sub-cabang Logam Utama vs Transisi -->\n    <path d=\"M 80 42 L 50 80\" stroke=\"#93c5fd\" stroke-width=\"1.5\" marker-end=\"url(#arrowTree)\"/>\n    <path d=\"M 160 42 L 190 80\" stroke=\"#93c5fd\" stroke-width=\"1.5\" marker-end=\"url(#arrowTree)\"/>\n\n    <!-- Kotak Logam Gol Utama -->\n    <rect x=\"-10\" y=\"85\" width=\"125\" height=\"135\" rx=\"8\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.2\"/>\n    <text x=\"52\" y=\"102\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#1e3a8a\" text-anchor=\"middle\">Valensi Tunggal</text>\n    <text x=\"52\" y=\"115\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">(IA, IIA, Al, Zn, Ag)</text>\n    <line x1=\"0\" y1=\"122\" x2=\"105\" y2=\"122\" stroke=\"#e2e8f0\"/>\n    <text x=\"52\" y=\"138\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"middle\">Tanpa Angka Romawi</text>\n    <text x=\"52\" y=\"152\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Nama Logam + Anion</text>\n    <text x=\"52\" y=\"174\" font-size=\"8\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">NaCl = Natrium klorida</text>\n    <text x=\"52\" y=\"190\" font-size=\"8\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">Al₂O₃ = Aluminium oksida</text>\n    <text x=\"52\" y=\"206\" font-size=\"8\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">K₂SO₄ = Kalium sulfat</text>\n\n    <!-- Kotak Logam Transisi -->\n    <rect x=\"125\" y=\"85\" width=\"130\" height=\"135\" rx=\"8\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.2\"/>\n    <text x=\"190\" y=\"102\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#1e3a8a\" text-anchor=\"middle\">Valensi Jamak</text>\n    <text x=\"190\" y=\"115\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">(Fe, Cu, Sn, Pb, dll)</text>\n    <line x1=\"135\" y1=\"122\" x2=\"245\" y2=\"122\" stroke=\"#e2e8f0\"/>\n    <text x=\"190\" y=\"138\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">Wajib Angka Romawi!</text>\n    <text x=\"190\" y=\"152\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Logam(Biloks) + Anion</text>\n    <text x=\"190\" y=\"174\" font-size=\"8\" font-style=\"italic\" fill=\"#991b1b\" text-anchor=\"middle\">FeCl₂ = Besi(II) klorida</text>\n    <text x=\"190\" y=\"190\" font-size=\"8\" font-style=\"italic\" fill=\"#991b1b\" text-anchor=\"middle\">FeCl₃ = Besi(III) klorida</text>\n    <text x=\"190\" y=\"206\" font-size=\"8\" font-style=\"italic\" fill=\"#991b1b\" text-anchor=\"middle\">Cu₂O = Tembaga(I) oksida</text>\n  </g>\n\n  <!-- CABANG 2: SENYAWA KOVALEN (TENGAH) -->\n  <g transform=\"translate(300, 95)\">\n    <rect width=\"240\" height=\"42\" rx=\"8\" fill=\"url(#treeCov)\"/>\n    <text x=\"120\" y=\"18\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">2. SENYAWA KOVALEN</text>\n    <text x=\"120\" y=\"32\" font-size=\"9\" fill=\"#a7f3d0\" text-anchor=\"middle\">(Sesama Atom Nonlogam)</text>\n\n    <!-- Kotak Penjelasan Kovalen -->\n    <rect x=\"0\" y=\"85\" width=\"240\" height=\"135\" rx=\"8\" fill=\"#ffffff\" stroke=\"#6ee7b7\" stroke-width=\"1.2\"/>\n    <text x=\"120\" y=\"105\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#065f46\" text-anchor=\"middle\">Gunakan Awalan Yunani</text>\n    <text x=\"120\" y=\"120\" font-size=\"8.5\" fill=\"#64748b\" text-anchor=\"middle\">(mono, di, tri, tetra, penta...)</text>\n    <line x1=\"15\" y1=\"128\" x2=\"225\" y2=\"128\" stroke=\"#e2e8f0\"/>\n    <text x=\"120\" y=\"145\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#047857\" text-anchor=\"middle\">Kaidah: Mono di depan diabaikan</text>\n    <text x=\"120\" y=\"165\" font-size=\"8\" font-style=\"italic\" fill=\"#065f46\" text-anchor=\"middle\">CO = Karbon monoksida</text>\n    <text x=\"120\" y=\"181\" font-size=\"8\" font-style=\"italic\" fill=\"#065f46\" text-anchor=\"middle\">CO₂ = Karbon dioksida</text>\n    <text x=\"120\" y=\"197\" font-size=\"8\" font-style=\"italic\" fill=\"#065f46\" text-anchor=\"middle\">N₂O₅ = Dinitrogen pentoksida</text>\n    <text x=\"120\" y=\"211\" font-size=\"8\" font-style=\"italic\" fill=\"#065f46\" text-anchor=\"middle\">SF₆ = Belerang heksafluorida</text>\n  </g>\n\n  <!-- CABANG 3: ASAM, BASA & HIDRAT (KANAN) -->\n  <g transform=\"translate(570, 95)\">\n    <rect width=\"240\" height=\"42\" rx=\"8\" fill=\"url(#treeAcid)\"/>\n    <text x=\"120\" y=\"18\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">3. ASAM, BASA &amp; HIDRAT</text>\n    <text x=\"120\" y=\"32\" font-size=\"9\" fill=\"#fde68a\" text-anchor=\"middle\">(Spesifik Gugus &amp; Air Kristal)</text>\n\n    <rect x=\"0\" y=\"85\" width=\"240\" height=\"135\" rx=\"8\" fill=\"#ffffff\" stroke=\"#fcd34d\" stroke-width=\"1.2\"/>\n    <text x=\"120\" y=\"105\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#92400e\" text-anchor=\"middle\">Aturan Penamaan Spesifik</text>\n    <line x1=\"15\" y1=\"115\" x2=\"225\" y2=\"115\" stroke=\"#e2e8f0\"/>\n    <text x=\"20\" y=\"132\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#b45309\">Asam (H⁺):</text>\n    <text x=\"90\" y=\"132\" font-size=\"8\" fill=\"#334155\">Kata \"Asam\" + Anion (HCl, H₂SO₄)</text>\n    <text x=\"20\" y=\"152\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#b45309\">Basa (OH⁻):</text>\n    <text x=\"90\" y=\"152\" font-size=\"8\" fill=\"#334155\">Nama Kation + \"Hidroksida\"</text>\n    <text x=\"20\" y=\"172\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#b45309\">Hidrat:</text>\n    <text x=\"90\" y=\"172\" font-size=\"8\" fill=\"#334155\">Nama Garam + Awalan + \"hidrat\"</text>\n    <line x1=\"15\" y1=\"184\" x2=\"225\" y2=\"184\" stroke=\"#e2e8f0\"/>\n    <text x=\"120\" y=\"200\" font-size=\"8\" font-style=\"italic\" fill=\"#78350f\" text-anchor=\"middle\">CuSO₄·5H₂O = Tembaga(II) sulfat pentahidrat</text>\n  </g>\n\n  <!-- BANNER BAWAH -->\n  <g transform=\"translate(30, 290)\">\n    <rect width=\"780\" height=\"34\" rx=\"8\" fill=\"#0f172a\"/>\n    <text x=\"390\" y=\"21\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#f8fafc\" text-anchor=\"middle\">\n      Kunci Sukses: Kenali terlebih dahulu apakah unsur pertama adalah LOGAM (Sistem Stok) atau NONLOGAM (Sistem Awalan Yunani)!\n    </text>\n  </g>\n</svg>",
+      "keyFormulas": [
+        {
+          "name": "Rumus Senyawa Hidrat Kristal",
+          "formula": "\\ce{A_x B_y . n H2O} \\implies \\text{Nama Garam} + \\text{Awalan-} + \\text{hidrat}"
+        }
+      ]
     },
     {
-      tag: 'contoh-persamaan-ionik-bersih-presipitasi',
-      tags: ['persamaan-ionik-bersih', 'reaksi-pengendapan', 'barium-sulfat', 'ion-penonton'],
-      title: 'Contoh Soal 3: Formulasi Persamaan Ionik Lengkap & Bersih pada Reaksi Pengendapan Barium Sulfat',
-      summary: 'Analisis pelarutan elektrolit kuat, pencoretan ion penonton, dan penulisan persamaan ionik bersih.',
-      content: `### Soal Latihan:
-Larutan Barium Klorida ($\\ce{BaCl2}$) dicampurkan dengan larutan Natrium Sulfat ($\\ce{Na2SO4}$), menghasilkan endapan putih Barium Sulfat dan larutan Natrium Klorida.
-1. Tuliskan persamaan reaksi molekuler yang setara lengkap dengan simbol fasanya!
-2. Uraikan menjadi persamaan ionik lengkap!
-3. Identifikasi spesi manakah yang bertindak sebagai ion penonton (*spectator ions*)!
-4. Tuliskan persamaan ionik bersihnya (*net ionic equation*)!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Persamaan Molekuler Setara:
-Reaksi pertukaran kation-anion (metatesis):
-$$\mathbf{\ce{BaCl2(aq) + Na2SO4(aq) -> BaSO4(s)\downarrow + 2 NaCl(aq)}}$$
-
-#### 2. Persamaan Ionik Lengkap:
-Uraikan seluruh senyawa berfasa $(aq)$ (larutan elektrolit kuat) menjadi ion-ion bebasnya:
-$$\mathbf{\ce{Ba^2+(aq) + 2Cl-(aq) + 2Na+(aq) + SO4^2-(aq) -> BaSO4(s)\downarrow + 2Na+(aq) + 2Cl-(aq)}}$$
-*(Catatan: $\\ce{BaSO4}$ berwujud padatan endapan $(s)$, sehingga TIDAK diuraikan menjadi ion).*
-
-#### 3. Identifikasi Ion Penonton:
-Bandingkan ion-ion di ruas kiri dan ruas kanan yang tidak mengalami perubahan kimia maupun fasa:
-- Ion Natrium: $\\ce{2Na+(aq)}$ ada di kiri dan kanan tanpa berubah.
-- Ion Klorida: $\\ce{2Cl-(aq)}$ ada di kiri dan kanan tanpa berubah.
-- **Ion Penonton:** $\\mathbf{\\ce{Na+(aq)}}$ dan $\\mathbf{\\ce{Cl-(aq)}}$.
-
-#### 4. Persamaan Ionik Bersih:
-Coret ion-ion penonton dari kedua ruas, tersisa hanya spesi yang membentuk endapan padat:
-$$\mathbf{\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s)\downarrow}}$$
-
-> **Kesimpulan Evaluator Juri:** Persamaan ionik bersih membuktikan bahwa esensi dari reaksi kimia tersebut hanyalah penggabungan kation barium dengan anion sulfat membentuk kisi kristal yang tidak larut dalam air. Ion natrium dan klorida tidak berkontribusi pada reaksi pembentukan endapan.`,
-      keyFormulas: [
-        { name: 'Persamaan Ionik Bersih Barium Sulfat', formula: '\\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s)\\downarrow}' },
+      "tag": "tata-nama-hidrokarbon-dasar",
+      "tags": [
+        "hidrokarbon",
+        "alkana-alkena-alkuna",
+        "deret-homolog",
+        "awalan-rantai-karbon"
       ],
+      "title": "Konsep Inti 3: Tata Nama Hidrokarbon Dasar (Alkana, Alkena, Alkuna C1 - C10)",
+      "summary": "Dasar penamaan rantai karbon alifatik jenuh dan tak jenuh menurut aturan IUPAC.",
+      "content": "Hidrokarbon adalah senyawa organik paling sederhana yang hanya terdiri dari atom Karbon ($\\ce{C}$) dan Hidrogen ($\\ce{H}$).\n\n### 1. Awalan Jumlah Atom Karbon Rantai Utama (C1 - C10)\n\n| Jumlah C | Awalan IUPAC | Alkana ($\\ce{C_n H_{2n+2}}$) | Alkena ($\\ce{C_n H_{2n}}$) | Alkuna ($\\ce{C_n H_{2n-2}}$) |\n| :---: | :--- | :--- | :--- | :--- |\n| **C1** | Met- | Metana ($\\ce{CH4}$) | *(Tidak ada)* | *(Tidak ada)* |\n| **C2** | Et- | Etana ($\\ce{C2H6}$) | Etena ($\\ce{C2H4}$) | Etuna / Asetilena ($\\ce{C2H2}$) |\n| **C3** | Prop- | Propana ($\\ce{C3H8}$) | Propena ($\\ce{C3H6}$) | Propuna ($\\ce{C3H4}$) |\n| **C4** | But- | Butana ($\\ce{C4H10}$) | Butena ($\\ce{C4H8}$) | Butuna ($\\ce{C4H6}$) |\n| **C5** | Pent- | Pentana ($\\ce{C5H12}$) | Pentena ($\\ce{C5H10}$) | Pentuna ($\\ce{C5H8}$) |\n| **C6** | Heks- | Heksana ($\\ce{C6H14}$) | Heksena ($\\ce{C6H12}$) | Heksuna ($\\ce{C6H10}$) |\n| **C7** | Hept- | Heptana ($\\ce{C7H16}$) | Heptena ($\\ce{C7H14}$) | Heptuna ($\\ce{C7H12}$) |\n| **C8** | Okt- | Oktana ($\\ce{C8H18}$) | Oktena ($\\ce{C8H16}$) | Oktuna ($\\ce{C8H14}$) |\n| **C9** | Non- | Nonana ($\\ce{C9H20}$) | Nonena ($\\ce{C9H18}$) | Nonuna ($\\ce{C9H16}$) |\n| **C10** | Dek- | Dekana ($\\ce{C10H22}$) | Dekena ($\\ce{C10H20}$) | Dekuna ($\\ce{C10H18}$) |\n\n---\n\n### 2. Aturan Tatanama Rantai Bercabang Sederhana\n1. Tentukan **rantai karbon terpanjang dan berurutan** sebagai rantai induk.\n2. Beri penomoran atom karbon pada rantai induk dimulai dari ujung yang **paling dekat dengan gugus cabang (alkil) atau ikatan rangkap**.\n3. Gugus cabang alkil (rumus $-\\ce{C_n H_{2n+1}}$) dinamai dengan akhiran **-il**:\n   - $-\\ce{CH3}$ : Metil\n   - $-\\ce{C2H5}$ : Etil\n   - $-\\ce{C3H7}$ : Propil / Isopropil\n4. Format nama lengkap:\n   $$\\mathbf{\\text{[Nomor Cabang]} - \\text{[Nama Alkil]} + \\text{[Nama Rantai Induk]}}$$\n   Contoh: $\\ce{CH3-CH(CH3)-CH2-CH3}$ dinamai **2-metilbutana**.",
+      "keyFormulas": [
+        {
+          "name": "Rumus Umum Alkana",
+          "formula": "\\ce{C_n H_{2n+2}}"
+        },
+        {
+          "name": "Rumus Umum Alkena",
+          "formula": "\\ce{C_n H_{2n}}"
+        },
+        {
+          "name": "Rumus Umum Alkuna",
+          "formula": "\\ce{C_n H_{2n-2}}"
+        }
+      ]
     },
     {
-      tag: 'contoh-pembakaran-hidrokarbon-dan-analisis-koefisien',
-      tags: ['pembakaran-hidrokarbon', 'aljabar-umum-alkana', 'rumus-koefisien-pembakaran'],
-      title: 'Contoh Soal 4: Formulasi Umum Persamaan Reaksi Pembakaran Sempurna Alkana (CxHy)',
-      summary: 'Menurunkan rumus umum koefisien stoikiometri pembakaran hidrokarbon dengan variabel x dan y.',
-      content: `### Soal Tingkat Lanjut:
-1. Turunkan persamaan reaksi setara umum untuk reaksi pembakaran sempurna hidrokarbon alkana dengan rumus umum $\\ce{C_x H_y}$ yang bereaksi dengan gas oksigen ($\\ce{O2}$) menghasilkan gas $\\ce{CO2}$ dan uap air $\\ce{H2O}$!
-2. Gunakan rumus umum tersebut untuk menyetarakan reaksi pembakaran sempurna gas Oktana ($\\ce{C8H18}$), komponen utama bensin!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Penurunan Rumus Umum Pembakaran:
-Tuliskan persamaan reaksi awal:
-$$\\ce{1 C_x H_y + b O2 -> c CO2 + d H2O}$$
-- **Neraca Atom Karbon (C):**  
-  Ruas kiri $= x$, Ruas kanan $= 1 \\times c \\implies \\mathbf{c = x}$
-- **Neraca Atom Hidrogen (H):**  
-  Ruas kiri $= y$, Ruas kanan $= 2 \\times d \\implies \\mathbf{d = \\frac{y}{2}}$
-- **Neraca Atom Oksigen (O):**  
-  Ruas kiri $= 2 \\times b$  
-  Ruas kanan $= 2c + d = 2(x) + \\frac{y}{2} = 2x + \\frac{y}{2}$  
-  $$b = \\frac{2x + \\frac{y}{2}}{2} \\implies \\mathbf{b = x + \\frac{y}{4}}$$
-
-Maka formula umum reaksi pembakaran sempurna adalah:
-$$\\mathbf{\\ce{C_x H_y + \\left(x + \\frac{y}{4}\\right) O2 -> x CO2 + \\frac{y}{2} H2O}}$$
-
----
-
-#### 2. Aplikasi pada Gas Oktana ($\\ce{C8H18}$):
-Pada oktana, nilai $x = 8$ dan $y = 18$:
-- Koefisien $\\ce{CO2}$: $c = x = \\mathbf{8}$
-- Koefisien $\\ce{H2O}$: $d = \\frac{y}{2} = \\frac{18}{2} = \\mathbf{9}$
-- Koefisien $\\ce{O2}$: $b = x + \\frac{y}{4} = 8 + \\frac{18}{4} = 8 + 4.5 = \\mathbf{\\frac{25}{2}}$
-
-Persamaan reaksi sementara:
-$$\\ce{1 C8H18 + \\frac{25}{2} O2 -> 8 CO2 + 9 H2O}$$
-
-Kalikan seluruh persamaan dengan 2 agar seluruh koefisien berupa bilangan bulat terkecil:
-$$\\mathbf{2\\ce{C8H18(l)} + 25\\ce{O2(g)} \\to 16\\ce{CO2(g)} + 18\\ce{H2O(g)}}$$
-
-#### Verifikasi Jumlah Atom:
-- Atom C: Kiri $2 \\times 8 = 16$, Kanan $16 \\times 1 = 16$ (Setara)
-- Atom H: Kiri $2 \\times 18 = 36$, Kanan $18 \\times 2 = 36$ (Setara)
-- Atom O: Kiri $25 \\times 2 = 50$, Kanan $(16 \\times 2) + (18 \\times 1) = 32 + 18 = 50$ (Setara)`,
-      keyFormulas: [
-        { name: 'Rumus Umum Pembakaran Sempurna Hidrokarbon', formula: '\\ce{C_x H_y + \\left(x + \\frac{y}{4}\\right) O2 -> x CO2 + \\frac{y}{2} H2O}' },
+      "tag": "anatomi-persamaan-reaksi-dan-hukum-lavoisier",
+      "tags": [
+        "persamaan-reaksi",
+        "reaktan-produk",
+        "koefisien-reaksi",
+        "subskrip-indeks",
+        "fase-zat",
+        "hukum-lavoisier"
       ],
+      "title": "Konsep Inti 4: Anatomi Persamaan Reaksi Kimia & Hukum Kekekalan Massa Lavoisier",
+      "summary": "Arti lambang koefisien reaksi vs indeks rumus, simbol fasa zat padat/cair/gas/larutan, dan pemenuhan neraca massa.",
+      "content": "### ⚖️ Neraca Akuntansi Penyetaraan Reaksi (Mental Model: Hukum Lavoisier)\n\nDalam ilmu akuntansi, neraca keuangan (*balance sheet*) memegang prinsip bahwa nilai sisi Aktiva (Debet) harus seimbang sempurna dengan sisi Pasiva (Kredit). \n\nDalam sains kimia, **atom adalah mata uang abadi alam semesta**. Antoine Lavoisier (1789) membuktikan bahwa dalam reaksi kimia biasa, atom-atom tidak dapat diciptakan dari kehampaan dan tidak dapat dimusnahkan menjadi ketiadaan. Reaksi kimia hanyalah **proses bongkar-pasang penataan ulang ikatan antaratom**:\n- **Sisi Kiri (Reaktan):** Modal atom yang masuk ke pabrik reaksi.\n- **Sisi Kanan (Produk):** Hasil atom yang keluar setelah reaksi.\n- **Neraca Wajib Seimbang:** Jumlah setiap jenis atom di sisi reaktan WAJIB SAMA PERSIS dengan jumlah atom di sisi produk!\n\n---\n\nPersamaan reaksi kimia adalah pernyataan simbolis menggunakan rumus-rumus kimia yang menggambarkan perubahan zat-zat pereaksi (reaktan) menjadi zat-zat hasil reaksi (produk).\n\n### 1. Anatomi Komponen Persamaan Reaksi\n\nPerhatikan persamaan reaksi pembakaran gas metana berikut:\n$$\\mathbf{1\\ce{CH4(g)} + 2\\ce{O2(g)} \\to 1\\ce{CO2(g)} + 2\\ce{H2O(g)}}$$\n\n1. **Reaktan (Pereaksi):** Zat mula-mula yang bereaksi, terletak di sebelah **kiri tanda panah** ($\\ce{CH4}$ dan $\\ce{O2}$).\n2. **Produk (Hasil Reaksi):** Zat baru yang dihasilkan setelah reaksi kimia berlangsung, terletak di sebelah **kanan tanda panah** ($\\ce{CO2}$ dan $\\ce{H2O}$).\n3. **Koefisien Stoikiometri (Angka di Depan Rumus):**\n   - Angka $1, 2, 1, 2$ di depan rumus kimia.\n   - Menunjukkan **perbandingan jumlah partikel molekul atau rasio mol** yang terlibat secara kuantitatif dalam reaksi.\n   - Koefisien bernilai $1$ umumnya tidak perlu dituliskan.\n   - **Koefisien reaksi adalah SATU-SATUNYA angka yang boleh diubah-ubah ketika menyetarakan persamaan reaksi!**\n4. **Angka Indeks / Subskrip (Angka Kecil di Bawah):**\n   - Menunjukkan jumlah atom unsur yang terikat secara kimiawi di dalam satu unit molekul (misal angka $4$ pada $\\ce{CH4}$, angka $2$ pada $\\ce{O2}$).\n   - **ANGKA INDEKS DILARANG KERAS DIUBAH!** Mengubah angka indeks berarti mengubah identitas zat kimia (misal mengubah $\\ce{CO2}$ menjadi $\\ce{CO}$ akan mengubah karbon dioksida tak beracun menjadi karbon monoksida yang mematikan).\n5. **Fase Wujud Zat (Simbol dalam Kurung):**\n   - **$(s)$ - *Solid* (Padat):** Zat berwujud padatan atau kristal (misal $\\ce{NaCl(s)}, \\ce{Fe(s)}$).\n   - **$(l)$ - *Liquid* (Cair Murni):** Cairan murni tanpa pelarut (misal $\\ce{H2O(l)}, \\ce{Br2(l)}, \\ce{Hg(l)}$).\n   - **$(g)$ - *Gas* (Fasa Gas):** Berwujud gas atau uap (misal $\\ce{O2(g)}, \\ce{CO2(g)}$).\n   - **$(aq)$ - *Aqueous* (Larutan Berair):** Zat terlarut homogen di dalam air (misal $\\ce{NaCl(aq)}, \\ce{HCl(aq)}$).\n   - Endapan padat terkadang diberi simbol tanda panah ke bawah ($\\downarrow$), dan gas yang terbebas diberi tanda panah ke atas ($\\uparrow$).\n\n---\n\n### 2. Diagram Anatomi Persamaan Reaksi & Neraca Lavoisier\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 820 310\" width=\"100%\" height=\"auto\" class=\"max-w-[820px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"eqBg\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#ffffff\"/>\n      <stop offset=\"100%\" stop-color=\"#f8fafc\"/>\n    </linearGradient>\n    <marker id=\"arrowRxn\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 9 5 L 0 9 z\" fill=\"#2563eb\"/>\n    </marker>\n  </defs>\n\n  <rect width=\"820\" height=\"310\" rx=\"16\" fill=\"url(#eqBg)\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n\n  <!-- TITLE -->\n  <text x=\"410\" y=\"26\" font-size=\"13\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">ANATOMI PERSAMAAN REAKSI KIMIA &amp; NERACA LAVOISIER</text>\n\n  <!-- DISPLAY PERSAMAAN REAKSI -->\n  <g transform=\"translate(110, 60)\">\n    <rect width=\"600\" height=\"75\" rx=\"12\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n\n    <!-- Reaktan CH4 + 2 O2 -->\n    <text x=\"30\" y=\"46\" font-size=\"22\" font-family=\"monospace\" font-weight=\"bold\" fill=\"#0f172a\">\n      CH<tspan font-size=\"15\" dy=\"6\">4</tspan><tspan dy=\"-6\" font-size=\"14\" fill=\"#64748b\">(g)</tspan> + \n      <tspan fill=\"#2563eb\" font-weight=\"extrabold\">2</tspan> O<tspan font-size=\"15\" dy=\"6\">2</tspan><tspan dy=\"-6\" font-size=\"14\" fill=\"#64748b\">(g)</tspan>\n    </text>\n\n    <!-- Panah Reaksi -->\n    <path d=\"M 285 40 L 335 40\" stroke=\"#2563eb\" stroke-width=\"3\" marker-end=\"url(#arrowRxn)\"/>\n\n    <!-- Produk CO2 + 2 H2O -->\n    <text x=\"355\" y=\"46\" font-size=\"22\" font-family=\"monospace\" font-weight=\"bold\" fill=\"#0f172a\">\n      CO<tspan font-size=\"15\" dy=\"6\">2</tspan><tspan dy=\"-6\" font-size=\"14\" fill=\"#64748b\">(g)</tspan> + \n      <tspan fill=\"#2563eb\" font-weight=\"extrabold\">2</tspan> H<tspan font-size=\"15\" dy=\"6\">2</tspan><tspan dy=\"-6\">O</tspan><tspan font-size=\"14\" fill=\"#64748b\">(g)</tspan>\n    </text>\n  </g>\n\n  <!-- CALLOUT LABELS -->\n  <!-- Koefisien Callout -->\n  <g transform=\"translate(245, 45)\">\n    <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-15\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n    <rect x=\"-65\" y=\"-36\" width=\"130\" height=\"20\" rx=\"5\" fill=\"#2563eb\"/>\n    <text x=\"0\" y=\"-23\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Koefisien Reaksi (Boleh Diubah)</text>\n  </g>\n\n  <!-- Indeks Subskrip Callout -->\n  <g transform=\"translate(175, 145)\">\n    <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"20\" stroke=\"#dc2626\" stroke-width=\"1.5\"/>\n    <rect x=\"-65\" y=\"20\" width=\"130\" height=\"20\" rx=\"5\" fill=\"#dc2626\"/>\n    <text x=\"0\" y=\"33\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Angka Indeks (Dilarang Diubah!)</text>\n  </g>\n\n  <!-- TIMBANGAN NERACA LAVOISIER (BAWAH) -->\n  <g transform=\"translate(40, 195)\">\n    <!-- Kotak Kiri: Reaktan -->\n    <rect x=\"0\" y=\"0\" width=\"340\" height=\"95\" rx=\"10\" fill=\"#eff6ff\" stroke=\"#bfdbfe\" stroke-width=\"1.2\"/>\n    <text x=\"170\" y=\"20\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e40af\" text-anchor=\"middle\">TOTAL ATOM RUAS KIRI (REAKTAN)</text>\n    <line x1=\"15\" y1=\"28\" x2=\"325\" y2=\"28\" stroke=\"#bfdbfe\"/>\n    <text x=\"50\" y=\"50\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Karbon (C): 1</text>\n    <text x=\"50\" y=\"68\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Hidrogen (H): 4</text>\n    <text x=\"50\" y=\"86\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Oksigen (O): 2 × 2 = 4</text>\n\n    <!-- Kotak Kanan: Produk -->\n    <rect x=\"400\" y=\"0\" width=\"340\" height=\"95\" rx=\"10\" fill=\"#f0fdf4\" stroke=\"#bbf7d0\" stroke-width=\"1.2\"/>\n    <text x=\"570\" y=\"20\" font-size=\"11\" font-weight=\"bold\" fill=\"#166534\" text-anchor=\"middle\">TOTAL ATOM RUAS KANAN (PRODUK)</text>\n    <line x1=\"415\" y1=\"28\" x2=\"725\" y2=\"28\" stroke=\"#bbf7d0\"/>\n    <text x=\"450\" y=\"50\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Karbon (C): 1</text>\n    <text x=\"450\" y=\"68\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Hidrogen (H): 2 × 2 = 4</text>\n    <text x=\"450\" y=\"86\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\">Atom Oksigen (O): 2 + (2 × 1) = 4</text>\n\n    <!-- Simbol Sama Dengan Seimbang di Tengah -->\n    <circle cx=\"370\" cy=\"48\" r=\"18\" fill=\"#10b981\"/>\n    <text x=\"370\" y=\"54\" font-size=\"18\" font-weight=\"extrabold\" fill=\"#ffffff\" text-anchor=\"middle\">=</text>\n  </g>\n</svg>\n\n---\n\n### 3. Asas Hukum Kekekalan Massa Antoine Lavoisier (1789)\n\n> *\"Massa zat sebelum reaksi kimia selalu sama dengan massa zat sesudah reaksi kimia dalam sistem tertutup.\"*\n$$\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}$$\n\nKarena atom tidak dapat diciptakan atau dimusnahkan dalam reaksi kimia biasa (hanya terjadi penataan ulang ikatan kimia antar atom), maka konsekuensi mutlak hukum Lavoisier adalah:  \n**Jumlah atom dari setiap unsur di ruas kiri (reaktan) WAJIB SAMA PERSIS dengan jumlah atom unsur tersebut di ruas kanan (produk).** Kondisi inilah yang disebut sebagai **Persamaan Reaksi Setara (*Balanced Equation*)**.\n> [!WARNING]\n> ### ⚠️ Aturan Paling Sakral: DILARANG MENGUBAH ANGKA SUBSKRIP!\n> Saat menyetarakan persamaan reaksi kimia, Anda **HANYA DIPERBOLEHKAN MENGUBAH KOEFISIEN REAKSI** (angka besar di depan rumus kimia). \n> \n> **JANGAN PERNAH MENGUBAH ANGKA SUBSKRIP (angka kecil di bawah rumus):**\n> - Mengubah koefisien: $2\\ce{H2O}$ berarti ada **dua molekul air minum yang menyegarkan**.\n> - Mengubah subskrip: Mengubah $\\ce{H2O}$ menjadi $\\ce{H2O2}$ berarti Anda telah **mengubah identitas zat** dari air minum menjadi hidrogen peroksida (cairan pemutih korosif yang mematikan jika diminum!).\n",
+      "keyFormulas": [
+        {
+          "name": "Hukum Kekekalan Massa Lavoisier",
+          "formula": "\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}"
+        },
+        {
+          "name": "Kriteria Persamaan Reaksi Setara",
+          "formula": "\\sum N_{\\text{atom reaktan}} = \\sum N_{\\text{atom produk}} \\quad (\\text{untuk tiap unsur})"
+        }
+      ]
     },
+    {
+      "tag": "metode-penyetaraan-reaksi-inspeksi-dan-aljabar",
+      "tags": [
+        "penyetaraan-reaksi",
+        "metode-inspeksi-langsung",
+        "metode-aljabar-matematis",
+        "sistem-persamaan-linier"
+      ],
+      "title": "Konsep Inti 5: Teknik Penyetaraan Reaksi Kimia (Metode Langsung vs Metode Aljabar Matematis)",
+      "summary": "Panduan langkah demi langkah menyetarakan persamaan reaksi sederhana hingga reaksi redoks kompleks.",
+      "content": "### 🧮 Algoritma Aljabar Penyetaraan Reaksi Tanpa Coba-Coba (Mental Model)\n\nMetode coba-coba (*trial by inspection*) sangat menyenangkan untuk reaksi sederhana seperti $\\ce{H2 + O2 -> H2O}$. Namun ketika Anda berhadapan dengan reaksi oksidasi-reduksi kompleks seperti:\n$$\\ce{KMnO4 + HCl -> KCl + MnCl2 + Cl2 + H2O}$$\nmenebak koefisien secara acak akan membuang waktu 15 menit berharga di ruang ujian olimpiade dan sering kali berujung buntu!\n\nKimiawan profesional menggunakan **Metode Aljabar Matematis**. Dengan menetapkan koefisien sebagai variabel aljabar ($a, b, c, d, e, f$) dan menyusun sistem persamaan linier kekekalan atom tiap unsur, solusi bilangan bulat pasti akan ditemukan secara deterministik dalam waktu kurang dari 60 detik tanpa keraguan!\n\n---\n\nDua metode utama digunakan untuk menyetarakan koefisien reaksi kimia:\n\n### 1. Metode Inspeksi Langsung (Coba-Coba Terarah / *Trial by Inspection*)\n\nMetode ini sangat cepat dan efektif untuk reaksi sederhana yang melibatkan $3-4$ senyawa.\n- **Urutan Prioritas Penyetaraan Unsur (Kaidah KAHO):**\n  1. **K (Kation / Logam):** Setarakan atom-atom logam terlebih dahulu (seperti $\\ce{Na, Ca, Fe, Al}$).\n  2. **A (Anion / Nonlogam selain H dan O):** Setarakan atom nonlogam utama (seperti $\\ce{C, N, S, P, Cl, Br}$).\n  3. **H (Hidrogen):** Setarakan jumlah atom Hidrogen.\n  4. **O (Oksigen):** Setarakan atom Oksigen paling terakhir (sering kali otomatis setara sebagai validasi akhir).\n\n---\n\n### 2. Metode Aljabar Matematis (Paling Akurat untuk Reaksi Kompleks)\n\nMetode aljabar mengubah persamaan reaksi kimia menjadi sebuah **Sistem Persamaan Linier Homogen**. Metode ini dijamin $100\\%$ selalu menghasilkan jawaban yang benar tanpa bergantung pada coba-coba (*trial and error*).\n\n#### Algoritma 5 Langkah Metode Aljabar:\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 270\" width=\"100%\" height=\"auto\" class=\"max-w-[800px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"stepGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#3b82f6\"/>\n      <stop offset=\"100%\" stop-color=\"#1d4ed8\"/>\n    </linearGradient>\n    <marker id=\"arrowStep\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 9 5 L 0 9 z\" fill=\"#2563eb\"/>\n    </marker>\n  </defs>\n\n  <rect width=\"800\" height=\"270\" rx=\"14\" fill=\"#f8fafc\" stroke=\"#e2e8f0\" stroke-width=\"1.5\"/>\n  <text x=\"400\" y=\"24\" font-size=\"12.5\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">5 LANGKAH SISTEMATIS PENYETARAAN METODE ALJABAR</text>\n\n  <!-- 5 KARTU LANGKAH -->\n  <!-- Langkah 1 -->\n  <g transform=\"translate(20, 50)\">\n    <rect width=\"135\" height=\"150\" rx=\"10\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/>\n    <circle cx=\"24\" cy=\"24\" r=\"14\" fill=\"url(#stepGrad)\"/>\n    <text x=\"24\" y=\"28\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">1</text>\n    <text x=\"46\" y=\"28\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1e3a8a\">Variabel</text>\n    <line x1=\"12\" y1=\"46\" x2=\"123\" y2=\"46\" stroke=\"#e2e8f0\"/>\n    <text x=\"67\" y=\"68\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Beri koefisien abjad:</text>\n    <text x=\"67\" y=\"84\" font-size=\"9\" font-family=\"monospace\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"middle\">a, b, c, d, e...</text>\n    <text x=\"67\" y=\"104\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">di depan setiap</text>\n    <text x=\"67\" y=\"118\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">rumus senyawa.</text>\n  </g>\n  <path d=\"M 160 125 L 180 125\" stroke=\"#2563eb\" stroke-width=\"2\" marker-end=\"url(#arrowStep)\"/>\n\n  <!-- Langkah 2 -->\n  <g transform=\"translate(180, 50)\">\n    <rect width=\"135\" height=\"150\" rx=\"10\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/>\n    <circle cx=\"24\" cy=\"24\" r=\"14\" fill=\"url(#stepGrad)\"/>\n    <text x=\"24\" y=\"28\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">2</text>\n    <text x=\"46\" y=\"28\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1e3a8a\">Tetapkan a=1</text>\n    <line x1=\"12\" y1=\"46\" x2=\"123\" y2=\"46\" stroke=\"#e2e8f0\"/>\n    <text x=\"67\" y=\"68\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Pilih senyawa yang</text>\n    <text x=\"67\" y=\"82\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">paling kompleks,</text>\n    <text x=\"67\" y=\"100\" font-size=\"9\" font-family=\"monospace\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">tetapkan a = 1</text>\n    <text x=\"67\" y=\"120\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">sebagai basis awal.</text>\n  </g>\n  <path d=\"M 320 125 L 340 125\" stroke=\"#2563eb\" stroke-width=\"2\" marker-end=\"url(#arrowStep)\"/>\n\n  <!-- Langkah 3 -->\n  <g transform=\"translate(340, 50)\">\n    <rect width=\"135\" height=\"150\" rx=\"10\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/>\n    <circle cx=\"24\" cy=\"24\" r=\"14\" fill=\"url(#stepGrad)\"/>\n    <text x=\"24\" y=\"28\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">3</text>\n    <text x=\"46\" y=\"28\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1e3a8a\">Persamaan</text>\n    <line x1=\"12\" y1=\"46\" x2=\"123\" y2=\"46\" stroke=\"#e2e8f0\"/>\n    <text x=\"67\" y=\"68\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Susun neraca atom:</text>\n    <text x=\"67\" y=\"86\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">Σ Kiri = Σ Kanan</text>\n    <text x=\"67\" y=\"104\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">untuk setiap unsur</text>\n    <text x=\"67\" y=\"118\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">secara terpisah.</text>\n  </g>\n  <path d=\"M 480 125 L 500 125\" stroke=\"#2563eb\" stroke-width=\"2\" marker-end=\"url(#arrowStep)\"/>\n\n  <!-- Langkah 4 -->\n  <g transform=\"translate(500, 50)\">\n    <rect width=\"135\" height=\"150\" rx=\"10\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/>\n    <circle cx=\"24\" cy=\"24\" r=\"14\" fill=\"url(#stepGrad)\"/>\n    <text x=\"24\" y=\"28\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">4</text>\n    <text x=\"46\" y=\"28\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1e3a8a\">Substitusi</text>\n    <line x1=\"12\" y1=\"46\" x2=\"123\" y2=\"46\" stroke=\"#e2e8f0\"/>\n    <text x=\"67\" y=\"68\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Selesaikan aljabar</text>\n    <text x=\"67\" y=\"82\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">secara substitusi /</text>\n    <text x=\"67\" y=\"96\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">eliminasi hingga</text>\n    <text x=\"67\" y=\"114\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"middle\">semua nilai ketemu.</text>\n  </g>\n  <path d=\"M 640 125 L 660 125\" stroke=\"#2563eb\" stroke-width=\"2\" marker-end=\"url(#arrowStep)\"/>\n\n  <!-- Langkah 5 -->\n  <g transform=\"translate(660, 50)\">\n    <rect width=\"125\" height=\"150\" rx=\"10\" fill=\"#ffffff\" stroke=\"#10b981\" stroke-width=\"1.5\"/>\n    <circle cx=\"24\" cy=\"24\" r=\"14\" fill=\"#10b981\"/>\n    <text x=\"24\" y=\"28\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">5</text>\n    <text x=\"46\" y=\"28\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#065f46\">Bulatkan</text>\n    <line x1=\"12\" y1=\"46\" x2=\"113\" y2=\"46\" stroke=\"#e2e8f0\"/>\n    <text x=\"62\" y=\"68\" font-size=\"8.5\" fill=\"#334155\" text-anchor=\"middle\">Jika ada pecahan,</text>\n    <text x=\"62\" y=\"84\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#059669\" text-anchor=\"middle\">kalikan KPK</text>\n    <text x=\"62\" y=\"104\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">penyebut agar bulat</text>\n    <text x=\"62\" y=\"118\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">terkecil (integer).</text>\n  </g>\n\n  <!-- KETERANGAN BAWAH -->\n  <g transform=\"translate(20, 218)\">\n    <rect width=\"765\" height=\"36\" rx=\"8\" fill=\"#1e293b\"/>\n    <text x=\"382\" y=\"22\" font-size=\"10\" font-weight=\"bold\" fill=\"#f8fafc\" text-anchor=\"middle\">\n      Kaidah Emas: Koefisien reaksi final WAJIB merupakan bilangan bulat positif terkecil (tidak boleh berupa pecahan)!\n    </text>\n  </g>\n</svg>\n\n#### Contoh Aplikasi Cepat pada Pembakaran Gas Propana ($\\ce{C3H8}$):\n$$\\ce{a C3H8 + b O2 -> c CO2 + d H2O}$$\n1. Tetapkan senyawa terkompleks $a = 1$.\n2. Neraca Karbon (C): $3 \\times a = 1 \\times c \\implies c = 3(1) = 3$.\n3. Neraca Hidrogen (H): $8 \\times a = 2 \\times d \\implies d = \\frac{8(1)}{2} = 4$.\n4. Neraca Oksigen (O): $2 \\times b = 2c + 1d = 2(3) + 4 = 10 \\implies b = 5$.\n5. Koefisien bulat setara: **$1\\ce{C3H8} + 5\\ce{O2} \\to 3\\ce{CO2} + 4\\ce{H2O}$**.\n> [!TIP]\n> ### 🧭 Urutan Emas Penyetaraan Metode Inspeksi Cerdas (K-A-C-H-O)\n> Jika Anda memilih metode inspeksi cepat, patuhi urutan prioritas penyetaraan berikut agar tidak berputar-putar dalam lingkaran setan:\n> 1. **Kation / Logam:** Setarakan atom logam terlebih dahulu (misal Na, K, Ca, Fe, Al).\n> 2. **Anion / Nonlogam Utama:** Setarakan atom nonlogam selain C, H, dan O (misal Cl, S, N, P).\n> 3. **Atom Karbon (C):** Jika terdapat senyawa organik/hidrokarbon, setarakan atom C.\n> 4. **Atom Hidrogen (H):** Setarakan atom H setelah kerangka logam dan nonlogam rapi.\n> 5. **Atom Oksigen (O) TERAKHIR:** Atom oksigen biasanya hadir di banyak spesi dan dalam bentuk gas bebas ($\\ce{O2}$). Jadikan atom O sebagai **kunci penutup dan verifikator neraca**!\n",
+      "keyFormulas": [
+        {
+          "name": "Kaidah Prioritas KAHO",
+          "formula": "\\text{Kation (Logam)} \\to \\text{Anion (Nonlogam)} \\to \\text{Hidrogen} \\to \\text{Oksigen}"
+        }
+      ]
+    },
+    {
+      "tag": "persamaan-ionik-bersih-dan-reaksi-pengendapan",
+      "tags": [
+        "persamaan-ionik-lengkap",
+        "persamaan-ionik-bersih",
+        "net-ionic-equation",
+        "ion-penonton",
+        "spectator-ions",
+        "aturan-kelarutan"
+      ],
+      "title": "Konsep Inti 6: Persamaan Reaksi Ionik Lengkap, Persamaan Ionik Bersih & Eliminasi Ion Penonton",
+      "summary": "Menguraikan elektrolit kuat terlarut, mengidentifikasi ion penonton yang tidak berubah, serta menyusun persamaan ionik bersih pada reaksi presipitasi.",
+      "content": "Sebagian besar reaksi kimia anorganik di laboratorium dan di dalam tubuh makhluk hidup berlangsung dalam fase larutan air (*aqueous solution*).\n\n### 1. Tiga Bentuk Penulisan Reaksi dalam Larutan Air\n\n1. **Persamaan Molekuler (*Molecular Equation*):**\n   Seluruh reaktan dan produk dituliskan sebagai rumus senyawa molekuler netral lengkap dengan simbol fasanya:\n    $$ce{AgNO3(aq) + NaCl(aq) -> AgCl(s)downarrow + NaNO3(aq)}$$\n2. **Persamaan Ionik Lengkap (*Complete Ionic Equation*):**\n   Semua senyawa **elektrolit kuat yang larut sempurna dalam air ($(aq)$)** diuraikan menjadi kation dan anion terpisahnya:\n    $$ce{Ag+(aq) + NO3-(aq) + Na+(aq) + Cl-(aq) -> AgCl(s)downarrow + Na+(aq) + NO3-(aq)}$$\n   *(Senyawa padat yang mengendap seperti $\\ce{AgCl(s)}$, cairan murni seperti $\\ce{H2O(l)}$, dan gas seperti $\\ce{CO2(g)}$ TIDAK BOLEH diuraikan menjadi ion!).*\n3. **Persamaan Ionik Bersih (*Net Ionic Equation*):**\n   Persamaan yang diperoleh setelah **mencoret (mengeliminasi) seluruh Ion Penonton (*Spectator Ions*)** yang muncul identik di kedua sisi ruas persamaan:\n    $$mathbf{ce{Ag+(aq) + Cl-(aq) -> AgCl(s)downarrow}}$$\n\n---\n\n### 2. Definisi Fisik Ion Penonton (*Spectator Ions*)\n\nIon penonton adalah ion-ion yang hadir di dalam bejana reaksi larutan tetapi **tidak mengalami perubahan kimiawi apapun** (baik wujud fasa, bilangan oksidasi, maupun lingkungan ikatannya).\n- Pada reaksi di atas, ion $\\ce{Na+(aq)}$ dan ion $\\ce{NO3-(aq)}$ hanya melayang-layang bebas di dalam air dari awal reaksi hingga akhir reaksi tanpa ikut membentuk endapan.\n- **Persamaan ionik bersih fokus hanya pada spesi kimia yang benar-benar bereaksi!**\n\n---\n\n### 3. Visualisasi Mikroskopis Reaksi Pengendapan & Eliminasi Ion Penonton\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 820 310\" width=\"100%\" height=\"auto\" class=\"max-w-[820px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"flaskGrad\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#ffffff\"/>\n      <stop offset=\"100%\" stop-color=\"#f0f9ff\"/>\n    </linearGradient>\n    <radialGradient id=\"pbIon\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#fbcfe8\"/>\n      <stop offset=\"60%\" stop-color=\"#db2777\"/>\n      <stop offset=\"100%\" stop-color=\"#831843\"/>\n    </radialGradient>\n    <radialGradient id=\"iIon\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#fef08a\"/>\n      <stop offset=\"60%\" stop-color=\"#eab308\"/>\n      <stop offset=\"100%\" stop-color=\"#713f12\"/>\n    </radialGradient>\n    <radialGradient id=\"specK\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#e2e8f0\"/>\n      <stop offset=\"60%\" stop-color=\"#94a3b8\"/>\n      <stop offset=\"100%\" stop-color=\"#475569\"/>\n    </radialGradient>\n  </defs>\n\n  <rect width=\"820\" height=\"310\" rx=\"16\" fill=\"#f8fafc\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n  <text x=\"410\" y=\"24\" font-size=\"12.5\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">MEKANISME PRESIPITASI IONIK &amp; ELIMINASI ION PENONTON</text>\n\n  <!-- BEAKER GELAS KIMIA REAKSI -->\n  <g transform=\"translate(40, 50)\">\n    <!-- Gelas Beaker -->\n    <rect x=\"0\" y=\"0\" width=\"220\" height=\"210\" rx=\"8\" fill=\"url(#flaskGrad)\" stroke=\"#64748b\" stroke-width=\"2\"/>\n    <!-- Permukaan Larutan Air -->\n    <rect x=\"2\" y=\"30\" width=\"216\" height=\"178\" rx=\"6\" fill=\"#e0f2fe\" opacity=\"0.6\"/>\n    <line x1=\"2\" y1=\"30\" x2=\"218\" y2=\"30\" stroke=\"#38bdf8\" stroke-width=\"2\"/>\n    <text x=\"110\" y=\"20\" font-size=\"9\" font-weight=\"bold\" fill=\"#0369a1\" text-anchor=\"middle\">Campuran Pb(NO₃)₂ + KI</text>\n\n    <!-- Ion Penonton Melayang (K+ dan NO3-) -->\n    <g transform=\"translate(40, 60)\">\n      <circle r=\"12\" fill=\"url(#specK)\"/><text x=\"0\" y=\"4\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">K⁺</text>\n    </g>\n    <g transform=\"translate(170, 75)\">\n      <circle r=\"12\" fill=\"url(#specK)\"/><text x=\"0\" y=\"4\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">K⁺</text>\n    </g>\n    <g transform=\"translate(70, 110)\">\n      <rect x=\"-14\" y=\"-8\" width=\"28\" height=\"16\" rx=\"4\" fill=\"#94a3b8\"/><text x=\"0\" y=\"4\" font-size=\"8\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">NO₃⁻</text>\n    </g>\n    <g transform=\"translate(160, 125)\">\n      <rect x=\"-14\" y=\"-8\" width=\"28\" height=\"16\" rx=\"4\" fill=\"#94a3b8\"/><text x=\"0\" y=\"4\" font-size=\"8\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">NO₃⁻</text>\n    </g>\n\n    <!-- Endapan Kuning di Dasar Beaker: PbI2(s) -->\n    <path d=\"M 10 185 Q 110 170 210 185 L 218 208 L 2 208 Z\" fill=\"#facc15\" stroke=\"#eab308\" stroke-width=\"1.5\"/>\n    <text x=\"110\" y=\"198\" font-size=\"10.5\" font-weight=\"extrabold\" fill=\"#713f12\" text-anchor=\"middle\">Endapan Kuning PbI₂ (s) ↓</text>\n  </g>\n\n  <!-- PANEL KANAN: TRANSFORMASI 3 PERSAMAAN -->\n  <g transform=\"translate(290, 50)\">\n    <!-- 1. Persamaan Molekuler -->\n    <rect width=\"490\" height=\"60\" rx=\"8\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n    <text x=\"12\" y=\"18\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#0284c7\">1. Persamaan Molekuler:</text>\n    <text x=\"12\" y=\"40\" font-size=\"11\" font-family=\"monospace\" font-weight=\"bold\" fill=\"#0f172a\">\n      Pb(NO₃)₂(aq) + 2 KI(aq) → PbI₂(s)↓ + 2 KNO₃(aq)\n    </text>\n\n    <!-- 2. Persamaan Ionik Lengkap -->\n    <g transform=\"translate(0, 70)\">\n      <rect width=\"490\" height=\"65\" rx=\"8\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n      <text x=\"12\" y=\"18\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#64748b\">2. Persamaan Ionik Lengkap (Identifikasi Ion Penonton):</text>\n      <text x=\"12\" y=\"40\" font-size=\"10\" font-family=\"monospace\" fill=\"#0f172a\">\n        Pb²⁺(aq) + <tspan fill=\"#dc2626\" text-decoration=\"line-through\">2 NO₃⁻</tspan> + <tspan fill=\"#dc2626\" text-decoration=\"line-through\">2 K⁺</tspan> + 2 I⁻ → PbI₂(s)↓ + <tspan fill=\"#dc2626\" text-decoration=\"line-through\">2 K⁺</tspan> + <tspan fill=\"#dc2626\" text-decoration=\"line-through\">2 NO₃⁻</tspan>\n      </text>\n      <text x=\"12\" y=\"56\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#dc2626\">Coret K⁺ dan NO₃⁻ (keduanya adalah Ion Penonton yang tidak bereaksi!)</text>\n    </g>\n\n    <!-- 3. Persamaan Ionik Bersih -->\n    <g transform=\"translate(0, 145)\">\n      <rect width=\"490\" height=\"65\" rx=\"8\" fill=\"#ecfdf5\" stroke=\"#10b981\" stroke-width=\"1.5\"/>\n      <text x=\"12\" y=\"18\" font-size=\"10\" font-weight=\"bold\" fill=\"#047857\">3. PERSAMAAN IONIK BERSIH (NET IONIC EQUATION):</text>\n      <text x=\"12\" y=\"44\" font-size=\"13\" font-family=\"monospace\" font-weight=\"extrabold\" fill=\"#065f46\">\n        Pb²⁺(aq) + 2 I⁻(aq) → PbI₂(s) ↓\n      </text>\n    </g>\n  </g>\n\n  <!-- FOOTER -->\n  <g transform=\"translate(40, 275)\">\n    <rect width=\"740\" height=\"26\" rx=\"6\" fill=\"#1e293b\"/>\n    <text x=\"370\" y=\"17\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">\n      Kunci: Hanya ion-ion yang membentuk ikatan baru (endapan, cairan murni, atau gas) yang dituliskan dalam persamaan ionik bersih!\n    </text>\n  </g>\n</svg>",
+      "keyFormulas": [
+        {
+          "name": "Persamaan Ionik Bersih Presipitasi",
+          "formula": "\\ce{M^{n+}(aq) + n X^-(aq) -> MX_n(s)\\downarrow}"
+        }
+      ]
+    }
   ],
+  "worked_examples": [
+    {
+      "tag": "contoh-tatanama-komprehensif",
+      "tags": [
+        "latihan-tatanama",
+        "senyawa-ionik-transisi",
+        "oksianion",
+        "senyawa-hidrat",
+        "kovalen-biner"
+      ],
+      "title": "Contoh Soal 1: Penamaan IUPAC Komprehensif Senyawa Biner, Poliatomik & Hidrat Kristal",
+      "summary": "Latihan menentukan nama baku IUPAC dari rumus kimia dan menyusun rumus kimia dari nama senyawa.",
+      "content": "### Soal Latihan Tata Nama IUPAC:\n1. Berikan nama baku menurut kaidah IUPAC modern untuk senyawa-senyawa anorganik berikut:\n   a. $\\ce{SnO2}$\n   b. $\\ce{N2O3}$\n   c. $\\ce{Fe2(CO3)3}$\n   d. $\\ce{MgSO4 . 7H2O}$\n   e. $\\ce{HClO4}$\n2. Tuliskan rumus kimia yang tepat dari nama senyawa kimia berikut:\n   a. Dinitrogen monoksida\n   b. Tembaga(I) sulfida\n   c. Barium hidroksida oktahidrat\n   d. Asam hipoklorit\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Bagian 1: Senyawa $\\ce{SnO2}, \\ce{N2O3}, \\ce{Fe2(CO3)3}, \\ce{MgSO4 . 7H2O}, \\ce{HClO4}$. Target: Nama IUPAC baku.\n- Bagian 2: Nama dinitrogen monoksida, tembaga(I) sulfida, barium hidroksida oktahidrat, asam hipoklorit. Target: Rumus kimia setara muatan.\n\n---\n\n#### 2. Rencana Strategi:\n- Klasifikasikan jenis senyawa: biner ionik (logam biloks tetap vs variabel/Stock), biner kovalen (awalan Yunani), poliatomik, asam oksi, atau hidrat kristal.\n- Untuk penulisan rumus kimia ionik, silangkan muatan kation dan anion untuk menghasilkan senyawa netral: $A^{m+} + B^{n-} \\implies A_n B_m$.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### Penyelesaian Bagian 1 (Pemberian Nama):\na. **$\\ce{SnO2}$:**\n   - Logam Timah ($\\ce{Sn}$) adalah logam pascatransisi dengan biloks bervariasi ($+2$ atau $+4$).\n   - Oksigen selalu bermuatan $-2$. Ada 2 atom O $\\implies$ total muatan negatif $= 2 \\times (-2) = -4$.\n   - Agar netral, biloks $\\ce{Sn} = +4$.\n   - *Nama IUPAC:* **Timah(IV) oksida** *(Nama tradisional: Timah dioksida / Stano oksida)*.\nb. **$\\ce{N2O3}$:**\n   - Senyawa kovalen biner antara nonlogam N dan nonlogam O.\n   - Gunakan awalan Yunani: 2 nitrogen $\\implies$ *dinitrogen*; 3 oksigen $\\implies$ *trioksida*.\n   - *Nama IUPAC:* **Dinitrogen trioksida**.\nc. **$\\ce{Fe2(CO3)3}$:**\n   - Senyawa ionik poliatomik. Anion karbonat adalah $\\ce{CO3^2-}$.\n   - Tiga ion karbonat menyumbang muatan $3 \\times (-2) = -6$.\n   - Dua atom Besi harus menyumbang muatan $+6 \\implies$ kation Besi bermuatan $+3$ ($\\ce{Fe^3+}$).\n   - *Nama IUPAC:* **Besi(III) karbonat**.\nd. **$\\ce{MgSO4 . 7H2O}$:**\n   - Garam magnesium sulfat mengikat 7 molekul air kristal (hidrat).\n   - Awalan Yunani untuk 7 adalah *hepta-*.\n   - *Nama IUPAC:* **Magnesium sulfat heptahidrat** *(Dikenal sebagai Garam Epsom)*.\ne. **$\\ce{HClO4}$:**\n   - Asam oksi klorin dengan biloks Cl tertinggi ($+7$).\n   - Anionnya adalah perklorat ($\\ce{ClO4-}$).\n   - *Nama IUPAC:* **Asam perklorat**.\n\n##### Penyelesaian Bagian 2 (Penulisan Rumus Kimia):\na. **Dinitrogen monoksida:**  \n   *Di-* $= 2$ Nitrogen; *mono-* $= 1$ Oksigen $\\implies$ **$\\ce{N2O}$** *(Gas gelak / laughing gas)*.\nb. **Tembaga(I) sulfida:**  \n   Kation Tembaga(I) $= \\ce{Cu+}$; Anion Sulfida $= \\ce{S^2-}$.  \n   Penyetaraan muatan: butuh $2\\ce{Cu+}$ untuk $1\\ce{S^2-}$ $\\implies$ **$\\ce{Cu2S}$**.\nc. **Barium hidroksida oktahidrat:**  \n   Kation Barium $= \\ce{Ba^2+}$; Anion Hidroksida $= \\ce{OH-}$; Oktahidrat $= 8\\ce{H2O}$.  \n   Rumus senyawa: **$\\ce{Ba(OH)2 . 8H2O}$**.\nd. **Asam hipoklorit:**  \n   Asam dengan biloks Cl terendah ($+1$), anion hipoklorit $= \\ce{ClO-}$.  \n   Rumus senyawa: **$\\ce{HClO}$**.\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Hati-hati pada penulisan tanda titik hidrat: format baku IUPAC menggunakan titik tengah ($\\cdot$), bukan tanda tambah ($+$), misal $\\ce{MgSO4 . 7H2O}$. Titik tengah menunjukkan bahwa molekul-molekul air tersebut terperangkap secara fisik dalam kisi kristal garam, bukan bereaksi secara kimia!",
+      "keyFormulas": [
+        {
+          "name": "Kaidah Penamaan Senyawa Ionik Transisi",
+          "formula": "\\text{Nama Logam} + (\\text{Biloks Romawi}) + \\text{Nama Anion}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-penyetaraan-redoks-aljabar-kmno4",
+      "title": "Contoh Soal 2: Penyetaraan Reaksi Redoks Kompleks Metode Aljabar Matematis (KMnO4 + HCl)",
+      "summary": "Aplikasi sistem persamaan linier aljabar untuk menyetarakan reaksi pembuatan gas klorin di laboratorium.",
+      "content": "### Soal Ujian Olimpiade Penyetaraan Aljabar:\nReaksi laboratorium pembuatan gas klorin melibatkan oksidasi asam klorida pekat oleh kalium permanganat padat sesuai persamaan reaksi berikut (belum setara):\n$$\\ce{a KMnO4(s) + b HCl(aq) -> c KCl(aq) + d MnCl2(aq) + e Cl2(g) + f H2O(l)}$$\nTentukan nilai koefisien stoikiometri bilangan bulat terkecil $a, b, c, d, e,$ dan $f$ menggunakan metode aljabar matematis!\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Persamaan reaksi belum setara: $\\ce{a KMnO4 + b HCl -> c KCl + d MnCl2 + e Cl2 + f H2O}$.\n- Unsur yang terlibat: $\\ce{K, Mn, O, H, Cl}$ (5 jenis atom).\n- *Target:* Nilai koefisien bulat terkecil $a, b, c, d, e, f$.\n\n---\n\n#### 2. Rencana Strategi:\n- Tetapkan koefisien senyawa paling kompleks sebagai basis perhitungan: misalkan **$a = 1$**.\n- Susun persamaan neraca atom untuk kelima unsur berdasarkan hukum kekekalan atom.\n- Pecahkan nilai variabel lain ($b, c, d, e, f$).\n- Kalikan seluruh variabel dengan faktor pengali persekutuan terkecil untuk menghilangkan nilai pecahan.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. Tetapkan Nilai Basis Awal:\nMisalkan koefisien $\\ce{KMnO4}$: **$a = 1$**.\n\n##### 2. Susun Persamaan Neraca Atom Tiap Unsur:\n- **Atom Kalium ($\\ce{K}$):**\n  $$\\text{Kiri} = \\text{Kanan} \\implies a = c \\implies \\mathbf{c = 1}$$\n- **Atom Mangan ($\\ce{Mn}$):**\n  $$\\text{Kiri} = \\text{Kanan} \\implies a = d \\implies \\mathbf{d = 1}$$\n- **Atom Oksigen ($\\ce{O}$):**\n  $$\\text{Kiri} = \\text{Kanan} \\implies 4a = f \\implies 4(1) = f \\implies \\mathbf{f = 4}$$\n- **Atom Hidrogen ($\\ce{H}$):**\n  $$\\text{Kiri} = \\text{Kanan} \\implies b = 2f \\implies b = 2(4) \\implies \\mathbf{b = 8}$$\n- **Atom Klorin ($\\ce{Cl}$):**\n  Perhatikan bahwa klorin muncul di tiga produk berbeda di sisi kanan:\n  $$\\begin{aligned}\n  \\text{Kiri} &= \\text{Kanan} \\\\\n  b &= c + 2d + 2e \\\\\n  8 &= 1 + 2(1) + 2e \\\\\n  8 &= 3 + 2e \\\\\n  2e &= 5 \\implies \\mathbf{e = \\frac{5}{2}}\n  \\end{aligned}$$\n\n##### 3. Eliminasi Koefisien Pecahan:\nHimpunan solusi awal: $\\{a=1, b=8, c=1, d=1, e=\\frac{5}{2}, f=4\\}$.  \nKalikan seluruh koefisien dengan faktor **$2$**:\n$$\\begin{aligned}\na &= 1 \\times 2 = \\mathbf{2} \\\\\nb &= 8 \\times 2 = \\mathbf{16} \\\\\nc &= 1 \\times 2 = \\mathbf{2} \\\\\nd &= 1 \\times 2 = \\mathbf{2} \\\\\ne &= \\frac{5}{2} \\times 2 = \\mathbf{5} \\\\\nf &= 4 \\times 2 = \\mathbf{8}\n\\end{aligned}$$\n\n##### 4. Persamaan Reaksi Setara Sempurna:\n$$\\mathbf{\\ce{2 KMnO4(s) + 16 HCl(aq) -> 2 KCl(aq) + 2 MnCl2(aq) + 5 Cl2(g) + 8 H2O(l)}}$$\n\n##### 5. Verifikasi Akhir Jumlah Atom (Audit Neraca):\n- Kalium (K): $2 = 2$ (Setara ✓)\n- Mangan (Mn): $2 = 2$ (Setara ✓)\n- Oksigen (O): $2 \\times 4 = 8$ pada reaktan $=$ $8 \\times 1 = 8$ pada produk (Setara ✓)\n- Hidrogen (H): $16 = 8 \\times 2 = 16$ (Setara ✓)\n- Klorin (Cl): $16$ pada reaktan $=$ $2 + 2(2) + 5(2) = 2 + 4 + 10 = 16$ pada produk (Setara ✓)\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Metode aljabar matematis adalah senjata paling andal saat menghadapi soal penyetaraan reaksi redoks yang melibatkan spesi yang terdisproporsionasi atau terbagi ke banyak produk (seperti atom $\\ce{Cl}$ yang terpecah menjadi $\\ce{KCl, MnCl2,}$ dan $\\ce{Cl2}$). Metode inspeksi biasa hampir pasti gagal atau memakan waktu terlalu lama pada kasus ini!",
+      "keyFormulas": [
+        {
+          "name": "Persamaan Reaksi Setara Laboratorium Gas Klorin",
+          "formula": "2\\ce{KMnO4} + 16\\ce{HCl} \\to 2\\ce{KCl} + 2\\ce{MnCl2} + 5\\ce{Cl2} + 8\\ce{H2O}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-persamaan-ionik-bersih-presipitasi",
+      "tags": [
+        "persamaan-ionik-bersih",
+        "reaksi-pengendapan",
+        "barium-sulfat",
+        "ion-penonton"
+      ],
+      "title": "Contoh Soal 3: Formulasi Persamaan Ionik Lengkap & Bersih pada Reaksi Pengendapan Barium Sulfat",
+      "summary": "Analisis pelarutan elektrolit kuat, pencoretan ion penonton, dan penulisan persamaan ionik bersih.",
+      "content": "### Soal Formulasi Persamaan Ionik Bersih:\nLarutan Barium Klorida ($\\ce{BaCl2}$) dicampurkan dengan larutan Natrium Sulfat ($\\ce{Na2SO4}$), menghasilkan endapan putih Barium Sulfat dan larutan Natrium Klorida.\n1. Tuliskan persamaan reaksi molekuler yang setara lengkap dengan simbol fasanya!\n2. Uraikan menjadi persamaan ionik lengkap (*total ionic equation*)!\n3. Identifikasi spesi manakah yang bertindak sebagai ion penonton (*spectator ions*)!\n4. Tuliskan persamaan ionik bersihnya (*net ionic equation*)!\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Reaktan: Larutan $\\ce{BaCl2(aq)}$ dan larutan $\\ce{Na2SO4(aq)}$.\n- Produk: Endapan putih $\\ce{BaSO4(s)}$ dan larutan $\\ce{NaCl(aq)}$.\n- *Target:* Persamaan molekuler, ionik lengkap, identifikasi ion penonton, dan persamaan ionik bersih.\n\n---\n\n#### 2. Rencana Strategi:\n- Aturan Kelarutan Senyawa (*Solubility Rules*):\n  - Seluruh garam natrium ($\\ce{Na+}$) dan klorida ($\\ce{Cl-}$) larut sempurna di air $\\implies$ terionisasi $100\\%$.\n  - Barium sulfat ($\\ce{BaSO4}$) memiliki kelarutan teramat kecil ($K_{sp} = 1.1 \\times 10^{-10}$) $\\implies$ mengendap sebagai padatan kristal $(s)$, tidak diionkan!\n- Eliminasi ion-ion yang muncul identik di kedua ruas (ion penonton).\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. Persamaan Molekuler Setara:\n$$\\mathbf{\\ce{BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2 NaCl(aq)}}$$\n\n##### 2. Persamaan Ionik Lengkap:\nUraikan seluruh elektrolit kuat berfasa akuatik $(aq)$ menjadi ion-ion bebasnya:\n$$\\mathbf{\\ce{Ba^2+(aq) + 2 Cl-(aq) + 2 Na+(aq) + SO4^2-(aq) -> BaSO4(s) + 2 Na+(aq) + 2 Cl-(aq)}}$$\n\n##### 3. Identifikasi Ion Penonton (*Spectator Ions*):\nPerhatikan ion-ion yang berada dalam fasa akuatik terlarut sebelum dan sesudah reaksi tanpa mengalami perubahan kimia sama sekali:\n- Ion Natrium: $\\mathbf{\\ce{Na+(aq)}}$\n- Ion Klorida: $\\mathbf{\\ce{Cl-(aq)}}$\nKedua ion ini hanya melayang-layang pasif di dalam air dan tidak ikut membentuk ikatan endapan.\n\n##### 4. Persamaan Ionik Bersih (*Net Ionic Equation*):\nCoret ion-ion penonton dari kedua ruas persamaan:\n$$\\mathbf{\\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s)}}$$\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Persamaan ionik bersih memperlihatkan esensi sejati dari reaksi kimia: reaksi di atas bukanlah reaksi antara Barium Klorida dan Natrium Sulfat secara molekuler, melainkan reaksi penggabungan elektrostatik antara kation barium bebas dan anion sulfat bebas. Anda bisa mengganti $\\ce{BaCl2}$ dengan $\\ce{Ba(NO3)2}$ dan $\\ce{Na2SO4}$ dengan $\\ce{K2SO4}$, dan reaksi ionik bersih yang terjadi tetap persis identik!",
+      "keyFormulas": [
+        {
+          "name": "Persamaan Ionik Bersih Barium Sulfat",
+          "formula": "\\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s)\\downarrow}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-pembakaran-hidrokarbon-dan-analisis-koefisien",
+      "tags": [
+        "pembakaran-hidrokarbon",
+        "aljabar-umum-alkana",
+        "rumus-koefisien-pembakaran"
+      ],
+      "title": "Contoh Soal 4: Formulasi Umum Persamaan Reaksi Pembakaran Sempurna Alkana (CxHy)",
+      "summary": "Menurunkan rumus umum koefisien stoikiometri pembakaran hidrokarbon dengan variabel x dan y.",
+      "content": "### Soal Formulasi Umum Pembakaran Hidrokarbon:\n1. Turunkan persamaan reaksi setara umum untuk reaksi pembakaran sempurna hidrokarbon alkana dengan rumus umum $\\ce{C_x H_y}$ yang bereaksi dengan gas oksigen ($\\ce{O2}$) menghasilkan gas $\\ce{CO2}$ dan uap air $\\ce{H2O}$!\n2. Gunakan rumus umum tersebut untuk menyetarakan reaksi pembakaran sempurna gas Oktana ($\\ce{C8H18}$), komponen utama bahan bakar bensin!\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Reaksi: $\\ce{C_x H_y + O2 -> CO2 + H2O}$.\n- Kasus spesifik: Oktana ($\\ce{C8H18} \\implies x = 8, y = 18$).\n- *Target:* Rumus turunan umum aljabar koefisien dan persamaan setara oktana.\n\n---\n\n#### 2. Rencana Strategi:\n- Terapkan aturan urutan penyetaraan C-H-O:\n  1. Setarakan C: $x$ atom C di kiri $\\implies x$ molekul $\\ce{CO2}$ di kanan.\n  2. Setarakan H: $y$ atom H di kiri $\\implies \\frac{y}{2}$ molekul $\\ce{H2O}$ di kanan.\n  3. Setarakan O: Hitung total atom O di kanan, lalu bagi 2 untuk koefisien gas $\\ce{O2}$.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. Penurunan Rumus Umum Pembakaran Hidrokarbon:\nPersamaan reaksi awal:\n$$\\ce{1 C_x H_y + ? O2 -> ? CO2 + ? H2O}$$\n\n- **Langkah 1 (Atom Karbon C):**  \n  Terdapat $x$ atom C di sisi kiri. Maka koefisien $\\ce{CO2} = \\mathbf{x}$.\n  $$\\ce{C_x H_y + ? O2 -> x CO2 + ? H2O}$$\n- **Langkah 2 (Atom Hidrogen H):**  \n  Terdapat $y$ atom H di sisi kiri. Karena setiap molekul $\\ce{H2O}$ mengandung 2 atom H, maka koefisien $\\ce{H2O} = \\mathbf{\\frac{y}{2}}$.\n  $$\\ce{C_x H_y + ? O2 -> x CO2 + \\frac{y}{2} H2O}$$\n- **Langkah 3 (Atom Oksigen O):**  \n  Hitung total atom O di sisi kanan:\n  $$\\text{Total O di kanan} = (x \\times 2) + \\left( \\frac{y}{2} \\times 1 \\right) = 2x + \\frac{y}{2}$$\n  Karena molekul reaktan berupa gas diatomik $\\ce{O2}$, bagi total atom O dengan 2:\n  $$\\text{Koefisien } \\ce{O2} = \\frac{2x + \\frac{y}{2}}{2} = \\mathbf{x + \\frac{y}{4}}$$\n\n**Rumus Umum Baku Pembakaran Hidrokarbon:**\n$$\\mathbf{\\ce{C_x H_y + \\left(x + \\frac{y}{4}\\right) O2 -> x CO2 + \\frac{y}{2} H2O}}$$\n\n---\n\n##### 2. Aplikasi pada Gas Oktana ($\\ce{C8H18}$):\nUntuk oktana: $x = 8$ dan $y = 18$.\n- Koefisien $\\ce{CO2} = x = \\mathbf{8}$\n- Koefisien $\\ce{H2O} = \\frac{y}{2} = \\frac{18}{2} = \\mathbf{9}$\n- Koefisien $\\ce{O2} = x + \\frac{y}{4} = 8 + \\frac{18}{4} = 8 + 4.5 = \\mathbf{\\frac{25}{2}}$\n\nPersamaan sementara:\n$$\\ce{1 C8H18 + \\frac{25}{2} O2 -> 8 CO2 + 9 H2O}$$\n\nEliminasi koefisien pecahan dengan mengalikan seluruh persamaan dengan faktor **$2$**:\n$$\\mathbf{\\ce{2 C8H18(l) + 25 O2(g) -> 16 CO2(g) + 18 H2O(g)}}$$\n\n##### Verifikasi Jumlah Atom:\n- Karbon: $2 \\times 8 = 16$ (kiri) $=$ $16 \\times 1 = 16$ (kanan) ✓\n- Hidrogen: $2 \\times 18 = 36$ (kiri) $=$ $18 \\times 2 = 36$ (kanan) ✓\n- Oksigen: $25 \\times 2 = 50$ (kiri) $=$ $(16 \\times 2) + (18 \\times 1) = 32 + 18 = 50$ (kanan) ✓\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Rumus $x + \\frac{y}{4}$ adalah rumus sakti yang wajib dihafal luar kepala oleh setiap peserta OSN. Rumus ini menghemat waktu hingga 3-5 menit pada soal-soal stoikiometri gas dan termokimia entalpi pembakaran hidrokarbon. Untuk senyawa yang telah mengandung oksigen seperti alkohol ($\\ce{C_x H_y O_z}$), rumusnya menjadi $x + \\frac{y}{4} - \\frac{z}{2}$.",
+      "keyFormulas": [
+        {
+          "name": "Rumus Umum Pembakaran Sempurna Hidrokarbon",
+          "formula": "\\ce{C_x H_y + \\left(x + \\frac{y}{4}\\right) O2 -> x CO2 + \\frac{y}{2} H2O}"
+        }
+      ]
+    }
+  ]
 },
 
   {
