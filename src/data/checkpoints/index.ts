@@ -13,6 +13,7 @@ import { CHECKPOINTS_TOPIC_106 } from './checkpointBankTopic106.ts';
 import { CHECKPOINTS_TOPIC_107 } from './checkpointBankTopic107.ts';
 import { CHECKPOINTS_TOPIC_108 } from './checkpointBankTopic108.ts';
 import { CHECKPOINTS_TOPIC_109 } from './checkpointBankTopic109.ts';
+import { CHECKPOINTS_TOPIC_110 } from './checkpointBankTopic110.ts';
 
 export {
   CHECKPOINTS_TOPIC_101,
@@ -24,6 +25,7 @@ export {
   CHECKPOINTS_TOPIC_107,
   CHECKPOINTS_TOPIC_108,
   CHECKPOINTS_TOPIC_109,
+  CHECKPOINTS_TOPIC_110,
 };
 
 export const CHECKPOINTS_FASE_E: Record<string, CheckpointQuizItem[]> = {
@@ -39,5 +41,6 @@ export const CHECKPOINTS_FASE_F1: Record<string, CheckpointQuizItem[]> = {
   ...CHECKPOINTS_TOPIC_107,
   ...CHECKPOINTS_TOPIC_108,
   ...CHECKPOINTS_TOPIC_109,
+  ...CHECKPOINTS_TOPIC_110,
 };
 

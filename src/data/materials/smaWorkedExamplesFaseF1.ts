@@ -1755,3 +1755,454 @@ Ralph Pearson mengklasifikasikan spesies asam dan basa Lewis berdasarkan ukuran 
   },
 ];
 
+// ============================================================================
+// TOPIK 110: LARUTAN PENYANGGA (BUFFER) & HIDROLISIS GARAM SMA
+// 5 CONTOH SOAL TERBIMBING LINGKUP MURNI KURIKULUM SMA (SEDANG & HOTS)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_110: ConceptBlock[] = [
+  {
+    tag: 'contoh-mekanisme-buffer-dan-henderson-hasselbalch',
+    tags: ['larutan-penyangga', 'mekanisme-buffer', 'persamaan-henderson-hasselbalch', 'pertahanan-ph', 'buffer-asam', 'kimia-sma'],
+    title: 'Contoh Soal 1: Mekanisme Pertahanan pH Larutan Penyangga terhadap Penambahan Asam Kuat, Basa Kuat & Pengenceran (Level: Sedang)',
+    summary: 'Analisis kuantitatif aksi penyangga asam format dan natrium format (HCOOH/HCOONa), kalkulasi pergeseran pH akibat penambahan sedikit HCl dan NaOH, serta pembuktian stabilitas pH terhadap pengenceran air.',
+    content: `### 📋 Skenario Masalah & Komposisi Sistem:
+Di laboratorium kimia sekolah, disiapkan $500\\\\text{ mL}$ larutan penyangga (buffer) yang mengandung campuran asam format ($\\\\ce{HCOOH}$) $0.100\\\\text{ M}$ dan garam natrium format ($\\\\ce{HCOONa}$) $0.100\\\\text{ M}$.  
+Diketahui tetapan ionisasi asam format $K_a = 1.80 \\\\times 10^{-4}$ (sehingga $\\\\text{p}K_a = -\\\\log(1.80 \\\\times 10^{-4}) = 3.745 \\\\approx 3.74$).
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung nilai pH larutan penyangga mula-mula sebelum diberikan gangguan!
+2. Jika ke dalam larutan penyangga tersebut ditambahkan $5.00\\\\text{ mL}$ larutan asam klorida ($\\\\ce{HCl}$) pekat $1.00\\\\text{ M}$, tuliskan reaksi penyerapan ion $\\\\ce{H+}$ yang terjadi dan hitung nilai pH akhir larutan!
+3. Jika ke dalam larutan penyangga awal yang sama ditambahkan $5.00\\\\text{ mL}$ larutan natrium hidroksida ($\\\\ce{NaOH}$) $1.00\\\\text{ M}$, tuliskan reaksi penyerapan ion $\\\\ce{OH-}$ yang terjadi dan hitung nilai pH akhir larutan!
+4. Buktikan secara matematis bahwa penambahan $500\\\\text{ mL}$ akuades murni (pengenceran $2\\\\times$) ke dalam larutan penyangga awal sama sekali tidak mengubah nilai pH larutan!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menghitung Mol Komponen Mula-Mula & pH Awal
+Hitung jumlah mol asam format dan ion format dalam $500\\\\text{ mL}$ larutan:
+- Mol $\\\\ce{HCOOH} = V \\\\times M = 500\\\\text{ mL} \\\\times 0.100\\\\text{ mmol/mL} = \\\\mathbf{50.0\\\\text{ mmol}}$.
+- Mol $\\\\ce{HCOO-} = V \\\\times M = 500\\\\text{ mL} \\\\times 0.100\\\\text{ mmol/mL} = \\\\mathbf{50.0\\\\text{ mmol}}$.
+
+Gunakan Persamaan Henderson-Hasselbalch:
+$$\\\\text{pH} = \\\\text{p}K_a + \\\\log\\\\left(\\\\frac{n_{\\\\ce{HCOO-}}}{n_{\\\\ce{HCOOH}}}\\\\right) = 3.745 + \\\\log\\\\left(\\\\frac{50.0}{50.0}\\\\right) = 3.745 + \\\\log(1) = \\\\mathbf{3.745 \\\\approx 3.74}$$
+
+---
+
+#### Langkah 2: Pengaruh Penambahan $5.00\\\\text{ mL } \\\\ce{HCl } 1.00\\\\text{ M}$
+1. **Mol ion $\\\\ce{H+}$ yang masuk:**
+   $$n_{\\\\ce{H+}} = 5.00\\\\text{ mL} \\\\times 1.00\\\\text{ mmol/mL} = \\\\mathbf{5.00\\\\text{ mmol}}$$
+2. **Reaksi Penetralan oleh Komponen Basa Konjugasi:**
+   Ion format bereaksi menangkap proton $\\\\ce{H+}$:
+   $$\\\\ce{HCOO-(aq) + H+(aq) -> HCOOH(aq)}$$
+3. **Tabel Stoikiometri Mol (mmol):**
+   | Komponen | $\\\\ce{HCOO-}$ | $\\\\ce{H+}$ | $\\\\ce{HCOOH}$ |
+   | :--- | :---: | :---: | :---: |
+   | **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
+   | **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
+   | **Sisa** | $\\\\mathbf{45.0}$ | $\\\\mathbf{0.00}$ | $\\\\mathbf{55.0}$ |
+4. **Perhitungan pH Baru:**
+   $$\\\\text{pH} = 3.745 + \\\\log\\\\left(\\\\frac{45.0}{55.0}\\\\right) = 3.745 + \\\\log(0.8182) = 3.745 - 0.087 = \\\\mathbf{3.658 \\\\approx 3.66}$$
+   *(Perubahan pH hanya $\\\\Delta\\\\text{pH} = 3.66 - 3.74 = -0.08$, membuktikan resistensi buffer yang luar biasa! Bandingkan jika $5\\\\text{ mmol } \\\\ce{HCl}$ ditambahkan ke air murni, pH akan anjlok drastis dari $7.00$ ke $2.00$)*.
+
+---
+
+#### Langkah 3: Pengaruh Penambahan $5.00\\\\text{ mL } \\\\ce{NaOH } 1.00\\\\text{ M}$
+1. **Mol ion $\\\\ce{OH-}$ yang masuk:**
+   $$n_{\\\\ce{OH-}} = 5.00\\\\text{ mL} \\\\times 1.00\\\\text{ mmol/mL} = \\\\mathbf{5.00\\\\text{ mmol}}$$
+2. **Reaksi Penetralan oleh Komponen Asam Lemah:**
+   Asam format mendonorkan proton untuk menetralkan ion hidroksida:
+   $$\\\\ce{HCOOH(aq) + OH-(aq) -> HCOO-(aq) + H2O(l)}$$
+3. **Tabel Stoikiometri Mol (mmol):**
+   | Komponen | $\\\\ce{HCOOH}$ | $\\\\ce{OH-}$ | $\\\\ce{HCOO-}$ |
+   | :--- | :---: | :---: | :---: |
+   | **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
+   | **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
+   | **Sisa** | $\\\\mathbf{45.0}$ | $\\\\mathbf{0.00}$ | $\\\\mathbf{55.0}$ |
+4. **Perhitungan pH Baru:**
+   $$\\\\text{pH} = 3.745 + \\\\log\\\\left(\\\\frac{55.0}{45.0}\\\\right) = 3.745 + \\\\log(1.222) = 3.745 + 0.087 = \\\\mathbf{3.832 \\\\approx 3.83}$$
+   *(Perubahan pH hanya $\\\\Delta\\\\text{pH} = +0.09$, sistem buffer berhasil menjaga kestabilan pH)*.
+
+---
+
+#### Langkah 4: Pembuktian Invariansi pH terhadap Pengenceran
+Misalkan larutan diencerkan dengan menambah $500\\\\text{ mL}$ air sehingga volume total menjadi $V_{\\\\text{total}} = 1000\\\\text{ mL} = 1.00\\\\text{ L}$:
+- Konsentrasi baru asam: $[\\\\ce{HCOOH}] = \\\\frac{50.0\\\\text{ mmol}}{1000\\\\text{ mL}} = 0.0500\\\\text{ M}$.
+- Konsentrasi baru basa konjugasi: $[\\\\ce{HCOO-}] = \\\\frac{50.0\\\\text{ mmol}}{1000\\\\text{ mL}} = 0.0500\\\\text{ M}$.
+- Nilai rasio konsentrasi:
+  $$\\\\frac{[\\\\ce{HCOO-}]}{[\\\\ce{HCOOH}]} = \\\\frac{0.0500\\\\text{ M}}{0.0500\\\\text{ M}} = 1.00$$
+- Nilai pH:
+  $$\\\\text{pH} = \\\\text{p}K_a + \\\\log(1.00) = 3.745 + 0 = \\\\mathbf{3.745 \\\\approx 3.74}$$
+Terbukti secara matematis bahwa pengenceran tidak mengubah rasio stoikiometri komponen, sehingga pH larutan penyangga tetap konstan.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Operasi Mol Henderson-Hasselbalch:**  
+> Jangan membuang waktu menghitung molaritas baru setelah penambahan asam/basa!  
+> Karena volume campuran terdapat di pembilang dan penyebut, Anda dapat langsung memasukkan kuantitas **mmol**:  
+> $$\\mathbf{\\\\text{pH} = \\\\text{p}K_a + \\\\log\\\\left(\\\\frac{n_{\\\\text{basa konjugasi}}}{n_{\\\\text{asam lemah}}}\\\\right)}$$  
+> - Jika ditambah asam kuat: kurangi mol basa konjugasi sebesar mol asam yang masuk, dan tambahkan nilai tersebut ke mol asam lemah ($n_{\\\\text{basa}} - x$, $n_{\\\\text{asam}} + x$).  
+> - Jika ditambah basa kuat: kurangi mol asam lemah sebesar mol basa yang masuk, dan tambahkan nilai tersebut ke mol basa konjugasi ($n_{\\\\text{asam}} - y$, $n_{\\\\text{basa}} + y$).`,
+    keyFormulas: [
+      { name: 'Persamaan Henderson-Hasselbalch Asam', formula: '\\text{pH} = \\text{p}K_a + \\log\\frac{[\\ce{A-}]}{[\\ce{HA}]} = \\text{p}K_a + \\log\\frac{n_{\\ce{A-}}}{n_{\\ce{HA}}}' },
+      { name: 'Aksi Penyerapan Asam Kuat', formula: '\\ce{A- + H+ -> HA} \\implies n_{\\ce{A-}} \\downarrow, \\, n_{\\ce{HA}} \\uparrow' },
+      { name: 'Aksi Penyerapan Basa Kuat', formula: '\\ce{HA + OH- -> A- + H2O} \\implies n_{\\ce{HA}} \\downarrow, \\, n_{\\ce{A-}} \\uparrow' },
+    ],
+  },
+  {
+    tag: 'contoh-pembuatan-buffer-basa-stoikiometri-sisa',
+    tags: ['larutan-penyangga', 'contoh-buffer-basa', 'stoikiometri-sisa', 'pembuatan-buffer', 'nh3-hcl', 'kimia-sma'],
+    title: 'Contoh Soal 2: Pembuatan Sistem Penyangga Basa melalui Reaksi Asam Kuat dengan Basa Lemah Berlebih (Level: Sedang)',
+    summary: 'Stoikiometri pencampuran larutan amonia (NH3) dengan larutan asam klorida (HCl) di mana basa lemah bersisa, penyusunan tabel M-B-S, serta kalkulasi pOH dan pH larutan buffer basa yang dihasilkan.',
+    content: `### 📋 Skenario Masalah & Pencampuran Larutan:
+Seorang siswa menyiapkan larutan penyangga basa di laboratorium dengan mencampurkan dua larutan berikut:
+- **Larutan 1:** $200.0\\\\text{ mL}$ larutan amonia ($\\\\ce{NH3}$) $0.150\\\\text{ M}$ ($K_b = 1.80 \\\\times 10^{-5}$, $\\\\text{p}K_b = 4.74$).
+- **Larutan 2:** $100.0\\\\text{ mL}$ larutan asam klorida ($\\\\ce{HCl}$) $0.100\\\\text{ M}$.
+
+Temperatur larutan dipertahankan konstan pada $25^\\\\circ\\\\text{C}$ ($K_w = 1.00 \\\\times 10^{-14}$).
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung jumlah mol (mmol) mula-mula dari amonia dan asam klorida sebelum dicampurkan!
+2. Susunlah tabel stoikiometri reaksi M-B-S (Mula-mula, Bereaksi, Sisa) dan buktikan bahwa campuran akhir menghasilkan sistem larutan penyangga!
+3. Hitung konsentrasi ion hidroksida $[\\\\ce{OH-}]$, nilai pOH, dan nilai pH akhir larutan campuran tersebut!
+4. Berapa gram padatan amonium klorida murni ($\\\\ce{NH4Cl}$, $M_r = 53.5\\\\text{ g/mol}$) yang harus ditambahkan ke dalam campuran tersebut agar pH larutan berubah tepat menjadi $9.00$?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menghitung Mol Mula-Mula Reaktan
+- Mol $\\\\ce{NH3} = V_1 \\\\times M_1 = 200.0\\\\text{ mL} \\\\times 0.150\\\\text{ mmol/mL} = \\\\mathbf{30.0\\\\text{ mmol}}$.
+- Mol $\\\\ce{HCl} = V_2 \\\\times M_2 = 100.0\\\\text{ mL} \\\\times 0.100\\\\text{ mmol/mL} = \\\\mathbf{10.0\\\\text{ mmol}}$.
+
+---
+
+#### Langkah 2: Tabel Stoikiometri M-B-S Reaksi Netralisasi
+Reaksi pembentukan garam amonium klorida:
+$$\\\\ce{NH3(aq) + HCl(aq) -> NH4Cl(aq)}$$
+Atau secara ionik:
+$$\\\\ce{NH3(aq) + H+(aq) -> NH4+(aq)}$$
+
+Tabel Stoikiometri (mmol):
+| Komponen | $\\\\ce{NH3}$ (Basa Lemah) | $\\\\ce{HCl}$ (Asam Kuat) | $\\\\ce{NH4+}$ (Asam Konjugasi) |
+| :--- | :---: | :---: | :---: |
+| **Mula-mula (M)** | $30.0$ | $10.0$ | $0$ |
+| **Bereaksi (B)** | $-10.0$ | $-10.0$ | $+10.0$ |
+| **Sisa (S)** | $\\\\mathbf{20.0}$ | $\\\\mathbf{0.00}$ | $\\\\mathbf{10.0}$ |
+
+**Kesimpulan Sistem:**
+Karena asam kuat $\\\\ce{HCl}$ habis bereaksi sebagai pereaksi pembatas ($0.00\\\\text{ mmol}$), dan di dalam larutan tersisa basa lemah $\\\\ce{NH3}$ ($20.0\\\\text{ mmol}$) bersama asam konjugasinya $\\\\ce{NH4+}$ ($10.0\\\\text{ mmol}$), maka **campuran ini membentuk sistem larutan penyangga basa sejati**.
+
+---
+
+#### Langkah 3: Menghitung Konsentrasi $[\\\\ce{OH-}]$, pOH, dan pH
+Gunakan rumus kesetimbangan larutan penyangga basa:
+$$[\\\\ce{OH-}] = K_b \\\\times \\\\frac{n_{\\\\text{basa lemah}}}{n_{\\\\text{asam konjugasi}}} = (1.80 \\\\times 10^{-5}) \\\\times \\\\frac{20.0\\\\text{ mmol}}{10.0\\\\text{ mmol}} = (1.80 \\\\times 10^{-5}) \\\\times 2.00 = \\\\mathbf{3.60 \\\\times 10^{-5}\\\\text{ M}}$$
+
+Hitung pOH:
+$$\\\\text{pOH} = -\\\\log[\\\\ce{OH-}] = -\\\\log(3.60 \\\\times 10^{-5}) = 5 - \\\\log(3.60) = 5 - 0.556 = \\\\mathbf{4.444}$$
+
+Hitung pH:
+$$\\\\mathbf{\\\\text{pH} = 14.000 - \\\\text{pOH} = 14.000 - 4.444 = \\\\mathbf{9.556 \\\\approx 9.56}}$$
+
+---
+
+#### Langkah 4: Menghitung Massa Padatan $\\\\ce{NH4Cl}$ untuk Menghasilkan $\\\\text{pH} = 9.00$
+1. **Target pOH:**
+   $$\\\\text{pH} = 9.00 \\\\implies \\\\text{pOH} = 14.00 - 9.00 = 5.00 \\\\implies [\\\\ce{OH-}] = 1.00 \\\\times 10^{-5}\\\\text{ M}$$
+2. **Menentukan Rasio Mol Baru:**
+   $$[\\\\ce{OH-}] = K_b \\\\times \\\\frac{n_{\\\\ce{NH3}}}{n_{\\\\ce{NH4+, total}}}$$
+   $$1.00 \\\\times 10^{-5} = (1.80 \\\\times 10^{-5}) \\\\times \\\\frac{20.0}{n_{\\\\ce{NH4+, total}}}$$
+   $$n_{\\\\ce{NH4+, total}} = 1.80 \\\\times 20.0 = \\\\mathbf{36.0\\\\text{ mmol}}$$
+3. **Mol $\\\\ce{NH4Cl}$ yang Harus Ditambahkan:**
+   Dalam larutan sudah ada $10.0\\\\text{ mmol } \\\\ce{NH4+}$, maka:
+   $$n_{\\\\text{tambahan}} = 36.0 - 10.0 = \\\\mathbf{26.0\\\\text{ mmol}} = 0.0260\\\\text{ mol}$$
+4. **Massa Padatan $\\\\ce{NH4Cl}$:**
+   $$m = n \\\\times M_r = 0.0260\\\\text{ mol} \\\\times 53.5\\\\text{ g/mol} = \\\\mathbf{1.391\\\\text{ gram}}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Pohon Keputusan Ujian: Buffer vs Hidrolisis Garam:**  
+> Saat menghadapi soal campuran asam dan basa:  
+> 1. Jika **Asam Lemah + Basa Kuat**:  
+>    - Mol Asam Lemah $>$ Mol Basa Kuat $\\\\implies$ **BUFFER ASAM** ($[\\\\ce{H+}] = K_a \\\\cdot \\\\frac{n_a}{n_g}$).  
+>    - Mol Asam Lemah $=$ Mol Basa Kuat $\\\\implies$ **HIDROLISIS GARAM BASA** ($[\\\\ce{OH-}] = \\\\sqrt{\\\\frac{K_w}{K_a} \\\\cdot M_g}$).  
+>    - Mol Asam Lemah $<$ Mol Basa Kuat $\\\\implies$ **SISA BASA KUAT** ($[\\\\ce{OH-}] = \\\\frac{n_{\\\\text{sisa}}}{V_{\\\\text{total}}}$).  
+> 2. Hal yang sama berlaku simetris untuk Basa Lemah + Asam Kuat!`,
+    keyFormulas: [
+      { name: 'Persamaan Penyangga Basa', formula: '[\\ce{OH-}] = K_b \\times \\frac{n_{\\text{basa}}}{n_{\\text{garam}}}' },
+      { name: 'Henderson-Hasselbalch Basa', formula: '\\text{pOH} = \\text{p}K_b + \\log\\frac{n_{\\text{konjugasi}}}{n_{\\text{basa}}}' },
+      { name: 'Relasi pH dan pOH', formula: '\\text{pH} = 14 - \\text{pOH}' },
+    ],
+  },
+  {
+    tag: 'contoh-hidrolisis-garam-valensi-kation-anion',
+    tags: ['hidrolisis-garam', 'tipe-hidrolisis', 'garam-polivalen', 'kalsium-asetat', 'valensi-anion', 'rumus-ph-hidrolisis', 'tetapan-hidrolisis-kh', 'kimia-sma'],
+    title: 'Contoh Soal 3: Perhitungan pH Garam Terhidrolisis Parsial Polivalen Kalsium Asetat Ca(CH3COO)2 & Derivasi Kh (Level: Sedang)',
+    summary: 'Analisis disosiasi garam polivalen kalsium asetat menghasilkan 2 ekuivalen anion asetat per satuan rumus, penentuan konsentrasi anion terhidrolisis, perumusan tetapan hidrolisis Kh, serta komputasi nilai pH larutan garam basa.',
+    content: `### 📋 Skenario Masalah & Data Kristal Garam:
+Sebanyak $1.58\\\\text{ gram}$ kristal anhidrat kalsium asetat ($\\\\ce{Ca(CH3COO)2}$, $M_r = 158.0\\\\text{ g/mol}$) dilarutkan ke dalam akuades hingga volume larutan tepat mencapai $500.0\\\\text{ mL}$.  
+Diketahui tetapan ionisasi asam asetat $K_a = 2.00 \\\\times 10^{-5}$ dan tetapan ionisasi air $K_w = 1.00 \\\\times 10^{-14}$ pada temperatur $25^\\\\circ\\\\text{C}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Tuliskan persamaan reaksi ionisasi garam kalsium asetat dalam air dan tentukan valensi anion garam tersebut!
+2. Tuliskan reaksi hidrolisis yang terjadi dan turunkan formula tetapan hidrolisis ($K_h$) berbasis nilai $K_w$ dan $K_a$!
+3. Hitung konsentrasi molaritas garam ($M_{\\\\text{garam}}$) dan konsentrasi anion asetat ($[\\\\ce{CH3COO-}]$) di dalam larutan!
+4. Hitung nilai tetapan hidrolisis ($K_h$), konsentrasi ion $[\\\\ce{OH-}]$, pOH, dan nilai pH larutan kalsium asetat tersebut!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Reaksi Ionisasi Garam & Identifikasi Valensi
+Garam kalsium asetat adalah senyawa ionik yang terdisosiasi $100\\\\%$ dalam air:
+$$\\\\ce{Ca(CH3COO)2(s) ->[H2O] Ca^2+(aq) + 2 CH3COO-(aq)}$$
+- Kation $\\\\ce{Ca^2+}$ berasal dari basa kuat $\\\\ce{Ca(OH)2}$ sehingga tidak mengalami hidrolisis (inert).
+- Anion $\\\\ce{CH3COO-}$ berasal dari asam lemah $\\\\ce{CH3COOH}$ sehingga mengalami hidrolisis parsial.
+- **Valensi anion ($x$):** Setiap $1\\\\text{ mol } \\\\ce{Ca(CH3COO)2}$ menghasilkan **$2\\\\text{ mol } \\\\ce{CH3COO-}$** ($x = 2$).
+
+---
+
+#### Langkah 2: Reaksi Hidrolisis & Derivasi Rumus $K_h$
+Reaksi hidrolisis anion asetat:
+$$\\\\ce{CH3COO-(aq) + H2O(l) <=> CH3COOH(aq) + OH-(aq)}$$
+Ekspresi tetapan kesetimbangan hidrolisis ($K_h$):
+$$K_h = \\\\frac{[\\\\ce{CH3COOH}][\\\\ce{OH-}]}{[\\\\ce{CH3COO-}]}$$
+
+Kalikan pembilang dan penyebut dengan $[\\\\ce{H+}]$:
+$$K_h = \\\\frac{[\\\\ce{CH3COOH}]}{[\\\\ce{H+}][\\\\ce{CH3COO-}]} \\\\times [\\\\ce{H+}][\\\\ce{OH-}] = \\\\frac{1}{K_a} \\\\times K_w = \\\\mathbf{\\\\frac{K_w}{K_a}}$$
+
+Substitusikan nilai numerik:
+$$K_h = \\\\frac{1.00 \\\\times 10^{-14}}{2.00 \\\\times 10^{-5}} = \\\\mathbf{5.00 \\\\times 10^{-10}}$$
+
+---
+
+#### Langkah 3: Menghitung Konsentrasi Molaritas Garam & Anion
+1. **Mol garam $\\\\ce{Ca(CH3COO)2}$:**
+   $$n = \\\\frac{\\\\text{massa}}{M_r} = \\\\frac{1.58\\\\text{ g}}{158.0\\\\text{ g/mol}} = 0.0100\\\\text{ mol}$$
+2. **Molaritas garam ($M_g$):**
+   $$M_g = \\\\frac{n}{V} = \\\\frac{0.0100\\\\text{ mol}}{0.500\\\\text{ L}} = \\\\mathbf{0.0200\\\\text{ M}}$$
+3. **Konsentrasi anion asetat $[\\\\ce{CH3COO-}]$:**
+   Karena valensi $x = 2$:
+   $$[\\\\ce{CH3COO-}] = 2 \\\\times M_g = 2 \\\\times 0.0200\\\\text{ M} = \\\\mathbf{0.0400\\\\text{ M}}$$
+
+---
+
+#### Langkah 4: Menghitung Konsentrasi $[\\\\ce{OH-}]$, pOH, dan pH
+Dari stoikiometri hidrolisis, $[\\\\ce{CH3COOH}] = [\\\\ce{OH-}]$:
+$$K_h = \\\\frac{[\\\\ce{OH-}]^2}{[\\\\ce{CH3COO-}]} \\\\implies [\\\\ce{OH-}] = \\\\sqrt{K_h \\\\times [\\\\ce{CH3COO-}]}$$
+$$[\\\\ce{OH-}] = \\\\sqrt{\\\\frac{K_w}{K_a} \\\\times (2 \\\\times M_g)}$$
+
+Substitusikan nilai:
+$$\\\\begin{aligned}
+[\\\\ce{OH-}] &= \\\\sqrt{(5.00 \\\\times 10^{-10}) \\\\times (0.0400)} \\\\\\\\
+&= \\\\sqrt{2.00 \\\\times 10^{-11}} = \\\\sqrt{20.0 \\\\times 10^{-12}} \\\\\\\\
+&= \\\\mathbf{4.472 \\\\times 10^{-6}\\\\text{ M}}
+\\\\end{aligned}$$
+
+Hitung pOH dan pH:
+$$\\\\text{pOH} = -\\\\log(4.472 \\\\times 10^{-6}) = 6 - \\\\log(4.472) = 6 - 0.650 = \\\\mathbf{5.350}$$
+$$\\\\mathbf{\\\\text{pH} = 14.000 - 5.350 = \\\\mathbf{8.650 \\\\approx 8.65}}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Jebakan Maut Valensi Garam Polivalen:**  
+> Kesalahan nomor satu siswa pada soal hidrolisis garam adalah melupakan angka indeks kation/anion!  
+> - Pada $\\\\ce{CH3COONa}$: valensi anion $= 1$, $[\\\\ce{CH3COO-}] = M_g$.  
+> - Pada $\\\\ce{Ca(CH3COO)2}$ atau $\\\\ce{Ba(CH3COO)2}$: valensi anion $= 2$, $[\\\\ce{CH3COO-}] = \\\\mathbf{2 \\\\times M_g}$.  
+> - Pada $\\\\ce{(NH4)2SO4}$: valensi kation $= 2$, $[\\\\ce{NH4+}] = \\\\mathbf{2 \\\\times M_g}$.  
+> Selalu tuliskan reaksi disosiasi garam terlebih dahulu sebelum memasukkan konsentrasi ke rumus akar hidrolisis!`,
+    keyFormulas: [
+      { name: 'Tetapan Hidrolisis Anion', formula: 'K_h = \\frac{K_w}{K_a}' },
+      { name: 'Rumus pH Garam Basa Polivalen', formula: '[\\ce{OH-}] = \\sqrt{\\frac{K_w}{K_a} \\times (x \\cdot M_g)}' },
+      { name: 'Konsentrasi Anion Bervalensi x', formula: '[\\ce{A-}] = x \\times M_{\\text{garam}}' },
+    ],
+  },
+  {
+    tag: 'contoh-efek-ion-senama-dan-kurva-ph-titrasi-buffer',
+    tags: ['efek-ion-senama', 'common-ion-effect', 'wilayah-buffer', 'kurva-titrasi-lemah', 'kapasitas-buffer', 'buffer-maksimum', 'kimia-sma'],
+    title: 'Contoh Soal 4: Analisis Efek Ion Senama (Common-Ion Effect) terhadap Derajat Ionisasi Asam Lemah & Wilayah Kapasitas Buffer Maksimum pada Kurva Titrasi (Level: Sulit / HOTS)',
+    summary: 'Investigasi pergeseran kesetimbangan ionisasi asam asetat akibat penambahan garam natrium asetat (efek ion senama), pembuktian anjloknya derajat ionisasi α, serta identifikasi titik setengah ekuivalen sebagai kapasitas penyangga maksimum pada kurva titrasi.',
+    content: `### 📋 Skenario Masalah & Investigasi Kinetika-Kesetimbangan:
+Di laboratorium sekolah dilakukan eksperimen komparasi kesetimbangan kimia larutan asam asetat ($\\\\ce{CH3COOH}$, $K_a = 1.80 \\\\times 10^{-5}$, $\\\\text{p}K_a = 4.745$) pada temperatur $25^\\\\circ\\\\text{C}$:
+
+**Eksperimen I:**  
+Sebanyak $1.00\\\\text{ Liter}$ larutan murni asam asetat $\\\\ce{CH3COOH } 0.100\\\\text{ M}$.
+
+**Eksperimen II:**  
+Ke dalam larutan Eksperimen I di atas, ditambahkan padatan natrium asetat murni ($\\\\ce{CH3COONa}$) hingga konsentrasi garam mencapai $0.100\\\\text{ M}$ (penambahan volume padatan diabaikan).
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung konsentrasi $[\\\\ce{H+}]$, derajat ionisasi ($\\\\alpha_1$), dan nilai pH larutan pada Eksperimen I!
+2. Hitung konsentrasi $[\\\\ce{H+}]$, derajat ionisasi baru ($\\\\alpha_2$), dan nilai pH larutan pada Eksperimen II! Bandingkan nilai $\\\\alpha_2$ dengan $\\\\alpha_1$ dan jelaskan fenomena penurunan derajat ionisasi tersebut menggunakan Asas Le Chatelier!
+3. Jika $50.0\\\\text{ mL}$ larutan asam asetat $0.100\\\\text{ M}$ dititrasi dengan larutan $\\\\ce{NaOH } 0.100\\\\text{ M}$:
+   a) Pada volume penambahan $\\\\ce{NaOH}$ berapakah tercapai titik setengah ekuivalen (*half-equivalence point*)?
+   b) Jelaskan mengapa pada titik tersebut larutan memiliki kapasitas penyangga maksimum (*maximum buffer capacity*) dan kelandaian kurva titrasi ($d\\\\text{pH}/dV$) berada pada titik paling mendatar!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Eksperimen I (Asam Asetat Murni $0.100\\\\text{ M}$)
+Asam asetat terionisasi sebagian di air:
+$$\\\\ce{CH3COOH <=> H+ + CH3COO-}$$
+1. **Konsentrasi $[\\\\ce{H+}]$:**
+   $$[\\\\ce{H+}]_1 = \\\\sqrt{K_a \\\\times C_a} = \\\\sqrt{(1.80 \\\\times 10^{-5}) \\\\times (0.100)} = \\\\sqrt{1.80 \\\\times 10^{-6}} = \\\\mathbf{1.342 \\\\times 10^{-3}\\\\text{ M}}$$
+2. **Derajat Ionisasi ($\\\\alpha_1$):**
+   $$\\\\alpha_1 = \\\\frac{[\\\\ce{H+}]_1}{C_a} = \\\\frac{1.342 \\\\times 10^{-3}}{0.100} = 0.01342 \\\\quad (1.34\\\\%)$$
+3. **Nilai pH:**
+   $$\\\\text{pH}_1 = -\\\\log(1.342 \\\\times 10^{-3}) = 3 - \\\\log(1.342) = 3 - 0.128 = \\\\mathbf{2.872 \\\\approx 2.87}$$
+
+---
+
+#### Langkah 2: Analisis Eksperimen II (Efek Ion Senama Asetat)
+Penambahan $\\\\ce{CH3COONa } 0.100\\\\text{ M}$ memasukkan ion asetat senama ($[\\\\ce{CH3COO-}] = 0.100\\\\text{ M}$):
+1. **Konsentrasi $[\\\\ce{H+}]$ Baru:**
+   Berdasarkan aksi massa kesetimbangan:
+   $$K_a = \\\\frac{[\\\\ce{H+}][\\\\ce{CH3COO-}]}{[\\\\ce{CH3COOH}]} \\\\implies [\\\\ce{H+}]_2 = K_a \\\\times \\\\frac{[\\\\ce{CH3COOH}]}{[\\\\ce{CH3COO-}]}$$
+   $$[\\\\ce{H+}]_2 = (1.80 \\\\times 10^{-5}) \\\\times \\\\frac{0.100}{0.100} = \\\\mathbf{1.80 \\\\times 10^{-5}\\\\text{ M}}$$
+2. **Derajat Ionisasi Baru ($\\\\alpha_2$):**
+   Molekul asam asetat yang terurai hanya menghasilkan ion $[\\\\ce{H+}] = 1.80 \\\\times 10^{-5}\\\\text{ M}$:
+   $$\\\\alpha_2 = \\\\frac{[\\\\ce{H+}]_2}{C_a} = \\\\frac{1.80 \\\\times 10^{-5}}{0.100} = 1.80 \\\\times 10^{-4} \\\\quad (0.018\\\\%)$$
+3. **Nilai pH Baru:**
+   $$\\\\text{pH}_2 = -\\\\log(1.80 \\\\times 10^{-5}) = 5 - \\\\log(1.80) = 5 - 0.255 = \\\\mathbf{4.745 \\\\approx 4.74}$$
+4. **Rasio Penurunan Derajat Ionisasi:**
+   $$\\\\frac{\\\\alpha_1}{\\\\alpha_2} = \\\\frac{0.01342}{0.000180} \\\\approx \\\\mathbf{74.5\\text{ kali lipat!}}$$
+   *Penjelasan Fisis Asas Le Chatelier:*  
+   Kehadiran ion asetat berlebih dari garam mendesak kesetimbangan penguraian asam asetat ke kiri. Akibatnya, derajat ionisasi asam asetat anjlok drastis $74.5$ kali lipat lebih kecil, dan konsentrasi $[\\\\ce{H+}]$ turun sehingga pH melonjak dari $2.87$ ke $4.74$.
+
+---
+
+#### Langkah 3: Analisis Titik Setengah Ekuivalen pada Kurva Titrasi
+1. **Volume Titik Setengah Ekuivalen:**
+   - Volume titik ekuivalen total: $V_{eq} = \\\\frac{50.0\\\\text{ mL} \\\\times 0.100\\\\text{ M}}{0.100\\\\text{ M}} = 50.0\\\\text{ mL}$.
+   - Titik setengah ekuivalen tercapai tepat pada:
+     $$V_{1/2} = \\\\frac{1}{2} V_{eq} = \\\\frac{50.0\\\\text{ mL}}{2} = \\\\mathbf{25.0\\\\text{ mL}}$$
+2. **Mengapa Kapasitas Buffer Maksimum pada Titik Ini?**
+   - Pada $V_{\\\\ce{NaOH}} = 25.0\\\\text{ mL}$, tepat separuh molekul $\\\\ce{CH3COOH}$ terkonversi menjadi ion $\\\\ce{CH3COO-}$, sehingga $[\\\\ce{CH3COOH}] = [\\\\ce{CH3COO-}]$.
+   - Rasio komponen buffer adalah $1 : 1$. Sesuai persamaan kapasitas penyangga Donald Van Slyke:
+     $$\\\\beta = 2.303 \\\\times C_{\\\\text{total}} \\\\times \\\\frac{[\\\\ce{HA}][\\\\ce{A-}]}{([\\\\ce{HA}] + [\\\\ce{A-}])^2}$$
+     Fungsi ini mencapai nilai maksimum absolut saat $[\\\\ce{HA}] = [\\\\ce{A-}]$.
+   - Pada titik ini, resistensi larutan terhadap penambahan asam maupun penambahan basa berada pada puncaknya. Secara matematis pada kurva titrasi, gradien perubahan kurva $d\\\\text{pH}/dV$ mencapai nilai minimum lokal (kurva tampak paling mendatar).
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Dua Karakteristik Keramat Titik Setengah Ekuivalen:**  
+> Pada titrasi asam lemah dengan basa kuat, saat volume titran tepat $\\\\frac{1}{2} V_{eq}$:  
+> 1. $$\\mathbf{\\\\text{pH} = \\\\text{p}K_a}$$ (karena $\\\\log(1) = 0$). Anda bisa langsung membaca nilai $\\\\text{p}K_a$ asam lemah cukup dengan melihat nilai pH pada setengah volume titik ekuivalen di grafik kurva titrasi!  
+> 2. **Kapasitas Penyangga Tertinggi:** Wilayah efektif buffer terbentang pada rentang $\\\\text{pH} = \\\\text{p}K_a \\\\pm 1$ (rasio komponen antara $1:10$ hingga $10:1$).`,
+    keyFormulas: [
+      { name: 'Derajat Ionisasi Asam Lemah Murni', formula: '\\alpha_1 = \\sqrt{\\frac{K_a}{C_a}}' },
+      { name: 'Derajat Ionisasi Efek Ion Senama', formula: '\\alpha_2 = \\frac{K_a}{[\\ce{A-}]_{\\text{garam}}}' },
+      { name: 'Kondisi Buffer Maksimum Titrasi', formula: 'V = \\frac{1}{2}V_{eq} \\implies [\\ce{HA}] = [\\ce{A-}] \\implies \\text{pH} = \\text{p}K_a' },
+    ],
+  },
+  {
+    tag: 'contoh-hidrolisis-total-dan-sistem-buffer-darah',
+    tags: ['hidrolisis-total', 'nh4cn', 'asam-lemah-basa-lemah', 'sistem-penyangga-darah', 'asidosis-alkalosis', 'kapasitas-buffer', 'kimia-sma'],
+    title: 'Contoh Soal 5: Komparasi Sifat pH Hidrolisis Total Garam NH4CN vs Sistem Penyangga Karbonat H2CO3/HCO3- dalam Mengatur pH Darah Fisiologis (Level: Sulit / HOTS)',
+    summary: 'Kalkulasi pH hidrolisis total garam amonium sianida yang independen terhadap konsentrasi garam (hanya bergantung pada Ka dan Kb), serta aplikasi kuantitatif persamaan Henderson-Hasselbalch pada sistem buffer bikarbonat darah manusia (rasio 20:1) dalam mencegah asidosis dan alkalosis metabolik.',
+    content: `### 📋 Skenario Masalah:
+
+**Bagian A: Keunikan Hidrolisis Total Garam Amonium Sianida**  
+Garam amonium sianida ($\\\\ce{NH4CN}$) terbentuk dari kation basa lemah amonia ($\\\\ce{NH3}$, $K_b = 1.80 \\\\times 10^{-5}$) dan anion asam lemah asam sianida ($\\\\ce{HCN}$, $K_a = 4.90 \\\\times 10^{-10}$). Sebanyak sampel garam $\\\\ce{NH4CN}$ dilarutkan ke dalam air pada temperatur $25^\\\\circ\\\\text{C}$ ($K_w = 1.00 \\\\times 10^{-14}$).
+
+**Bagian B: Keseimbangan Asam-Basa Fisiologis Darah Manusia**  
+Dalam tubuh manusia sehat pada temperatur fisiologis $37^\\\\circ\\\\text{C}$, nilai pH plasma darah dipertahankan secara luar biasa konstan pada angka $\\\\text{pH} = 7.40$. Sistem penyangga utama yang bekerja di dalam plasma darah adalah pasangan asam karbonat dan ion bikarbonat ($\\\\ce{H2CO3 / HCO3-}$), dengan nilai $\\\\text{p}K_{a1} \\\\ce{ H2CO3} = 6.10$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Untuk Bagian A:
+   a) Tuliskan kedua persamaan reaksi hidrolisis kation dan anion yang berlangsung serempak dalam air!
+   b) Hitung nilai tetapan hidrolisis total ($K_h$) garam $\\\\ce{NH4CN}$!
+   c) Tentukan apakah larutan garam $\\\\ce{NH4CN}$ bersifat asam, netral, atau basa, dan hitung nilai pH larutan tersebut!
+   d) Buktikan secara matematis bahwa nilai pH larutan garam $\\\\ce{NH4CN}$ tidak berubah sedikit pun jika larutan diencerkan $100\\\\times$ lipat!
+2. Untuk Bagian B:
+   a) Berdasarkan Persamaan Henderson-Hasselbalch, hitung rasio konsentrasi molaritas $[\\\\ce{HCO3-}] / [\\\\ce{H2CO3}]$ di dalam darah pada kondisi normal ($\\\\text{pH} = 7.40$)!
+   b) Mengapa rasio komponen buffer darah ini tidak dibuat $1 : 1$ (yang secara teoretis memberikan kapasitas buffer maksimum)?
+   c) Jelaskan respon fisiologis sistem pernapasan paru-paru dan sistem ekskresi ginjal ketika tubuh mengalami asidosis metabolik akibat penumpukan asam laktat saat berolahraga berat!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Hidrolisis Total Garam $\\\\ce{NH4CN}$
+1. **Reaksi Hidrolisis Simultan:**
+   - Hidrolisis kation: $\\\\ce{NH4+(aq) + H2O(l) <=> NH3(aq) + H3O+(aq)}$
+   - Hidrolisis anion: $\\\\ce{CN-(aq) + H2O(l) <=> HCN(aq) + OH-(aq)}$
+   - Reaksi hidrolisis total netto:
+     $$\\\\ce{NH4+(aq) + CN-(aq) + H2O(l) <=> NH3(aq) + HCN(aq) + H3O+ + OH-}$$
+     $$\\\\ce{NH4+(aq) + CN-(aq) <=> NH3(aq) + HCN(aq)}$$
+2. **Perhitungan Tetapan Hidrolisis Total ($K_h$):**
+   $$K_h = \\\\frac{K_w}{K_a \\\\times K_b} = \\\\frac{1.00 \\\\times 10^{-14}}{(4.90 \\\\times 10^{-10}) \\\\times (1.80 \\\\times 10^{-5})} = \\\\frac{1.00 \\\\times 10^{-14}}{8.82 \\\\times 10^{-15}} = \\\\mathbf{1.134}$$
+3. **Penentuan Sifat Asam-Basa & Perhitungan pH:**
+   Bandingkan nilai $K_a$ dan $K_b$:
+   - $K_b \\ce{ NH3} = 1.80 \\\\times 10^{-5}$
+   - $K_a \\ce{ HCN} = 4.90 \\\\times 10^{-10}$
+   Karena $K_b > K_a$, anion sianida terhidrolisis lebih kuat menghasilkan ion $\\\\ce{OH-}$ daripada kation amonium menghasilkan ion $\\\\ce{H+}$. Maka:  
+   **Larutan garam $\\\\ce{NH4CN}$ bersifat BASA ($\\\\text{pH} > 7$)**.
+
+   Formula matematis konsentrasi ion $[\\\\ce{H+}]$ hidrolisis total:
+   $$[\\\\ce{H+}] = \\\\sqrt{\\\\frac{K_w \\\\times K_a}{K_b}}$$
+   $$[\\\\ce{H+}] = \\\\sqrt{\\\\frac{(1.00 \\\\times 10^{-14}) \\\\times (4.90 \\\\times 10^{-10})}{1.80 \\\\times 10^{-5}}} = \\\\sqrt{\\\\frac{4.90 \\\\times 10^{-24}}{1.80 \\\\times 10^{-5}}} = \\\\sqrt{2.722 \\\\times 10^{-19}} = \\\\sqrt{27.22 \\\\times 10^{-20}}$$
+   $$[\\\\ce{H+}] = \\\\mathbf{5.217 \\\\times 10^{-10}\\\\text{ M}}$$
+
+   Hitung pH:
+   $$\\\\mathbf{\\\\text{pH} = -\\\\log(5.217 \\\\times 10^{-10}) = 10 - \\\\log(5.217) = 10 - 0.717 = \\\\mathbf{9.283 \\\\approx 9.28}}$$
+4. **Bukti Independensi Konsentrasi:**
+   Perhatikan bahwa variabel konsentrasi garam $M_g$ tidak muncul sama sekali dalam rumus $[\\\\ce{H+}] = \\\\sqrt{\\\\frac{K_w K_a}{K_b}}$. Oleh karena itu, berapapun pengenceran yang dilakukan, rasio disosiasi kation dan anion tetap saling menyeimbangkan sehingga nilai pH tetap tepat $9.28$.
+
+---
+
+#### Langkah 2: Analisis Sistem Penyangga Darah Manusia
+1. **Menghitung Rasio $[\ce{HCO3-}] / [\ce{H2CO3}]$:**
+   Gunakan Persamaan Henderson-Hasselbalch pada $\\\\text{pH} = 7.40$ dan $\\\\text{p}K_a = 6.10$:
+   $$\\\\text{pH} = \\\\text{p}K_a + \\\\log\\\\left(\\\\frac{[\\\\ce{HCO3-}]}{[\\\\ce{H2CO3}]}\\\\right)$$
+   $$7.40 = 6.10 + \\\\log\\\\left(\\\\frac{[\\\\ce{HCO3-}]}{[\\\\ce{H2CO3}]}\\\\right)$$
+   $$\\\\log\\\\left(\\\\frac{[\\\\ce{HCO3-}]}{[\\\\ce{H2CO3}]}\\\\right) = 7.40 - 6.10 = 1.30$$
+   $$\\\\frac{[\\\\ce{HCO3-}]}{[\\\\ce{H2CO3}]} = 10^{1.30} \\\\approx \\\\mathbf{20 : 1}$$
+   *(Konsentrasi ion bikarbonat basa di dalam darah adalah 20 kali lebih pekat daripada asam karbonat!)*.
+
+2. **Rasionalitas Fisiologis Rasio $20 : 1$:**
+   Metabolisme seluler tubuh manusia secara konstan menghasilkan produk buangan yang bersifat asam (asam laktat, asam piruvat, asam keto, dan gas $\\\\ce{CO2}$ yang membentuk asam karbonat). Tubuh hampir tidak pernah memproduksi limbah yang bersifat basa. Oleh karena itu, sistem fisiologis manusia secara cerdas mendesain kapasitas penyerapan terhadap asam $20\\\\times$ lebih besar daripada terhadap basa untuk mencegah kematian akibat asidosis!
+
+3. **Mekanisme Kompensasi Tubuh saat Asidosis Metabolik:**
+   Saat asam laktat melonjak ke dalam darah:
+   - **Kompensasi Paru-paru (Respiratorik Cepat):** Ion $\\\\ce{H+}$ dinetralkan oleh ion $\\\\ce{HCO3-}$ membentuk $\\\\ce{H2CO3} \\\\to \\\\ce{H2O + CO2}$. Kemoreseptor mendeteksi kenaikan $\\\\ce{CO2}$ dan memicu pusat pernapasan untuk bernapas lebih dalam dan cepat (hiperventilasi) demi membuang kelebihan gas $\\\\ce{CO2}$ keluar tubuh dalam hitungan menit.
+   - **Kompensasi Ginjal (Renal Bertahap):** Nefron ginjal meningkatkan sekresi ion $\\\\ce{H+}$ ke dalam urine dan mereabsorpsi ion $\\\\ce{HCO3-}$ kembali ke sirkulasi darah dalam rentang beberapa jam hingga hari untuk memulihkan cadangan buffer bikarbonat.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Tiga Aturan Emas Hidrolisis Total Garam Asam Lemah-Basa Lemah:**  
+> 1. Jika $K_a > K_b \\implies$ Larutan bersifat **ASAM** ($\\text{pH} < 7$).  
+> 2. Jika $K_b > K_a \\implies$ Larutan bersifat **BASA** ($\\text{pH} > 7$).  
+> 3. Jika $K_a = K_b \\implies$ Larutan bersifat **NETRAL** ($\\text{pH} = 7.00$).  
+> Rumus cepat $[\\\\ce{H+}] = \\\\sqrt{\\\\frac{K_w K_a}{K_b}}$ atau $[\\\\ce{OH-}] = \\\\sqrt{\\\\frac{K_w K_b}{K_a}}$ membuktikan bahwa pH hidrolisis total **sama sekali tidak bergantung pada konsentrasi garam**!`,
+    keyFormulas: [
+      { name: 'Tetapan Hidrolisis Total', formula: 'K_h = \\frac{K_w}{K_a \\times K_b}' },
+      { name: 'Rumus Ion H+ Hidrolisis Total', formula: '[\\ce{H+}] = \\sqrt{\\frac{K_w \\times K_a}{K_b}}' },
+      { name: 'Rasio Buffer Bikarbonat Darah', formula: '\\frac{[\\ce{HCO3-}]}{[\\ce{H2CO3}]} = 10^{\\text{pH} - \\text{p}K_a} = 10^{7.40 - 6.10} = 20' },
+    ],
+  },
+];
+
+

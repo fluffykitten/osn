@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109, WORKED_EXAMPLES_TOPIC_110 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -3191,7 +3191,16 @@ $\\mathbf{\\text{p}K_a + \\text{p}K_b = 14.00}$
 3. Periksa spesi yang berada pada baris **Sisa (S)**:
    - Jika tersisa **asam lemah + garamnya** $\\implies$ Gunakan rumus **Buffer Asam**.
    - Jika tersisa **basa lemah + garamnya** $\\implies$ Gunakan rumus **Buffer Basa**.
-   - Jika pereaksi **tepat habis dan hanya tersisa garam** $\\implies$ Gunakan rumus **Hidrolisis Garam**.`,
+   - Jika pereaksi **tepat habis dan hanya tersisa garam** $\\implies$ Gunakan rumus **Hidrolisis Garam**.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Mitos Reaksi Tepat Habis Membentuk Buffer:**  
+> Banyak siswa keliru mengira jika asam lemah dan basa kuat dicampurkan, hasilnya otomatis menjadi larutan penyangga.  
+> - **Kenyataan:** Larutan penyangga HANYA terbentuk bila asam lemah (atau basa lemah) **bersisa** dan basa kuat (atau asam kuat) menjadi pereaksi pembatas yang **habis bereaksi**.  
+> - Jika kedua pereaksi **tepat habis bereaksi**, sistem berubah status menjadi **Hidrolisis Garam**, sehingga rumus penentuan pH harus menggunakan rumus hidrolisis garam ($[\\ce{OH-}] = \\sqrt{\\frac{K_w}{K_a} \\cdot [\\ce{G}] \\cdot v}$), bukan rumus Henderson-Hasselbalch!`,
       },
     ],
     core_concepts: [
@@ -3291,7 +3300,15 @@ Diperoleh **Persamaan Henderson-Hasselbalch**:
 $\\mathbf{\\text{pH} = \\text{p}K_a + \\log\\left(\\frac{[\\ce{A-}]}{[\\ce{HA}]}\\right) = \\text{p}K_a + \\log\\left(\\frac{n_{\\text{basa konjugasi}}}{n_{\\text{asam lemah}}}\\right)}$
 
 Untuk larutan penyangga basa ($\\ce{B} + \\ce{BH+}$):
-$\\mathbf{[\\ce{OH-}] = K_b \\times \\frac{n_{\\text{basa lemah}}}{n_{\\text{asam konjugasi}}}} \\implies \\mathbf{\\text{pOH} = \\text{p}K_b + \\log\\left(\\frac{n_{\\text{asam konjugasi}}}{n_{\\text{basa lemah}}}\\right)}$`,
+$\\mathbf{[\\ce{OH-}] = K_b \\times \\frac{n_{\\text{basa lemah}}}{n_{\\text{asam konjugasi}}}} \\implies \\mathbf{\\text{pOH} = \\text{p}K_b + \\log\\left(\\frac{n_{\\text{asam konjugasi}}}{n_{\\text{basa lemah}}}\\right)}$
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Miskonsepsi Pengaruh Pengenceran terhadap pH Larutan Penyangga:**  
+> Siswa sering mengira bahwa menambahkan air (pengenceran) pada larutan penyangga akan menggeser pH seperti pada larutan asam/basa biasa.  
+> - **Kenyataan:** Berdasarkan persamaan Henderson-Hasselbalch $\\text{pH} = \\text{p}K_a + \\log\\left(\\frac{n_{\\text{basa konjugasi}}}{n_{\\text{asam lemah}}}\\right)$, nilai pH larutan penyangga ditentukan oleh **rasio jumlah mol** kedua spesi. Karena pengenceran dengan air tidak mengubah jumlah mol ($n$) kedua spesi, maka nilai pH larutan penyangga **praktis konstan / tidak berubah**. Namun ingat: pengenceran menurunkan kapasitas penyangga totalnya!`,
         keyFormulas: [
           { name: 'Rumus [H+] Buffer Asam', formula: '[\\ce{H+}] = K_a \\times \\frac{n_{\\text{asam}}}{n_{\\text{basa konjugasi}}}' },
           { name: 'Persamaan Henderson-Hasselbalch Asam', formula: '\\text{pH} = \\text{p}K_a + \\log \\left( \\frac{[\\ce{A-}]}{[\\ce{HA}]} \\right)' },
@@ -3515,7 +3532,15 @@ Perhatikan rumus kimia garam! Simbol $[\\ce{G}]$ menyatakan molaritas garam terl
 - Garam $\\ce{CH3COONa} \\implies v_{\\text{anion}} = 1 \\implies [\\ce{CH3COO-}] = 1 \\times [\\ce{G}]$.
 - Garam $\\ce{Ca(CH3COO)2} \\implies v_{\\text{anion}} = 2 \\implies [\\ce{CH3COO-}] = 2 \\times [\\ce{G}]$ *(wajib dikali 2!)*.
 - Garam $\\ce{NH4Cl} \\implies v_{\\text{kation}} = 1 \\implies [\\ce{NH4+}] = 1 \\times [\\ce{G}]$.
-- Garam $\\ce{(NH4)2SO4} \\implies v_{\\text{kation}} = 2 \\implies [\\ce{NH4+}] = 2 \\times [\\ce{G}]$ *(wajib dikali 2!)*.`,
+- Garam $\\ce{(NH4)2SO4} \\implies v_{\\text{kation}} = 2 \\implies [\\ce{NH4+}] = 2 \\times [\\ce{G}]$ *(wajib dikali 2!)*.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Jebakan Valensi Garam Polivalen & Mitos Konsentrasi pada Hidrolisis Total:**  
+> 1. *Jebakan Valensi Polivalen:* Pada garam kalsium asetat $\\ce{Ca(CH3COO)2}$ atau amonium sulfat $\\ce{(NH4)2SO4}$, konsentrasi ion yang terhidrolisis bernilai $2 \\times [\\ce{G}]$. Jangan pernah memasukkan langsung konsentrasi garam tanpa mengalikan dengan faktor valensi $v = 2$ di dalam rumus $[\\ce{OH-}] = \\sqrt{\\frac{K_w}{K_a} \\cdot [\\ce{G}] \\cdot v}$!  
+> 2. *Mitos Konsentrasi Hidrolisis Total:* Pada garam dari asam lemah + basa lemah ($\\ce{NH4CN}$, $\\ce{CH3COONH4}$), nilai pH sama sekali **TIDAK bergantung pada konsentrasi molar garam maupun volume air**, melainkan murni ditentukan oleh rasio nilai $K_a$ dan $K_b$ ($\\text{pH} = 7 + \\frac{1}{2}\\text{p}K_a - \\frac{1}{2}\\text{p}K_b$).`,
         keyFormulas: [
           { name: 'Kh Garam Basa', formula: 'K_h = \\frac{K_w}{K_a}' },
           { name: '[OH-] Garam Basa', formula: '[\\ce{OH-}] = \\sqrt{\\frac{K_w}{K_a} \\cdot [\\ce{G}] \\cdot v}' },
@@ -3609,227 +3634,7 @@ Pada saat titrasi telah menambahkan basa kuat tepat setengah volume titik ekuiva
         ],
       },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-perhitungan-ph-buffer-asam-dan-penambahan-zat',
-        tags: ['contoh-buffer-asam', 'daya-tahan-ph', 'penambahan-asam-basa', 'henderson-hasselbalch'],
-        title: 'Contoh Soal 1: Perhitungan pH Larutan Penyangga Asam & Pengaruh Penambahan Sedikit Asam Kuat dan Basa Kuat',
-        summary: 'Kalkulasi kuantitatif pH awal buffer CH3COOH + CH3COONa serta perubahan pH setelah ditetesi 1.0 mL HCl 0.1 M dan 1.0 mL NaOH 0.1 M.',
-        content: `**Soal:**
-Suatu larutan penyangga dibuat dengan mencampurkan $100.0\\text{ mL}$ larutan asam asetat ($\\ce{CH3COOH}$) $0.100\\text{ M}$ dengan $100.0\\text{ mL}$ larutan natrium asetat ($\\ce{CH3COONa}$) $0.100\\text{ M}$ pada suhu $25^\\circ\\text{C}$. Diketahui $K_a(\\ce{CH3COOH}) = 1.8 \\times 10^{-5}$ ($\\text{p}K_a = 4.74$).
-
-Tentukan:
-a) Nilai pH mula-mula larutan penyangga tersebut!
-b) Nilai pH larutan jika ke dalam campuran tersebut ditambahkan $1.0\\text{ mL}$ larutan $\\ce{HCl } 1.0\\text{ M}$!
-c) Nilai pH larutan jika ke dalam campuran mula-mula ditambahkan $1.0\\text{ mL}$ larutan $\\ce{NaOH } 1.0\\text{ M}$!
-
----
-
-**Pembahasan:**
-
-**Langkah Awal: Hitung Jumlah Mol Komponen Buffer Awal**
-- $n(\\ce{CH3COOH}) = 100.0\\text{ mL} \\times 0.100\\text{ mmol/mL} = 10.0\\text{ mmol}$
-- $n(\\ce{CH3COO-}) = 100.0\\text{ mL} \\times 0.100\\text{ mmol/mL} = 10.0\\text{ mmol}$
-
----
-
-**Bagian a: Menghitung pH Mula-Mula Buffer**
-Gunakan persamaan Henderson-Hasselbalch:
-$\\text{pH} = \\text{p}K_a + \\log\\left(\\frac{n_{\\ce{CH3COO-}}}{n_{\\ce{CH3COOH}}}\\right) = 4.74 + \\log\\left(\\frac{10.0}{10.0}\\right) = 4.74 + \\log(1) = \\mathbf{4.74}$
-
----
-
-**Bagian b: Pengaruh Penambahan $1.0\\text{ mL } \\ce{HCl } 1.0\\text{ M}$ ($1.0\\text{ mmol } \\ce{H+}$)**
-Ion $\\ce{H+}$ yang masuk akan dinetralkan oleh komponen basa konjugasi ($\\ce{CH3COO-}$):
-$\\ce{CH3COO- + H+ -> CH3COOH}$
-- Mol $\\ce{CH3COO-}$ berkurang: $10.0\\text{ mmol} - 1.0\\text{ mmol} = 9.0\\text{ mmol}$
-- Mol $\\ce{CH3COOH}$ bertambah: $10.0\\text{ mmol} + 1.0\\text{ mmol} = 11.0\\text{ mmol}$
-
-Hitung pH baru:
-$[\\ce{H+}] = K_a \\times \\frac{n_{\\ce{CH3COOH}}}{n_{\\ce{CH3COO-}}} = (1.8 \\times 10^{-5}) \\times \\frac{11.0}{9.0} = 2.20 \\times 10^{-5}\\text{ M}$
-$\\text{pH} = -\\log(2.20 \\times 10^{-5}) = 5 - \\log(2.20) = 5 - 0.342 = \\mathbf{4.66}$
-*(Nilai pH hanya turun sebesar $0.08$ unit!).*
-
----
-
-**Bagian c: Pengaruh Penambahan $1.0\\text{ mL } \\ce{NaOH } 1.0\\text{ M}$ ($1.0\\text{ mmol } \\ce{OH-}$)**
-Ion $\\ce{OH-}$ yang masuk akan dinetralkan oleh komponen asam lemah ($\\ce{CH3COOH}$):
-$\\ce{CH3COOH + OH- -> CH3COO- + H2O}$
-- Mol $\\ce{CH3COOH}$ berkurang: $10.0\\text{ mmol} - 1.0\\text{ mmol} = 9.0\\text{ mmol}$
-- Mol $\\ce{CH3COO-}$ bertambah: $10.0\\text{ mmol} + 1.0\\text{ mmol} = 11.0\\text{ mmol}$
-
-Hitung pH baru:
-$[\\ce{H+}] = K_a \\times \\frac{n_{\\ce{CH3COOH}}}{n_{\\ce{CH3COO-}}} = (1.8 \\times 10^{-5}) \\times \\frac{9.0}{11.0} = 1.47 \\times 10^{-5}\\text{ M}$
-$\\text{pH} = -\\log(1.47 \\times 10^{-5}) = 5 - \\log(1.47) = 5 - 0.167 = \\mathbf{4.83}$
-*(Nilai pH hanya naik sebesar $0.09$ unit!).*
-
-> **Kesimpulan Evaluator Juri:** Penambahan $1.0\\text{ mmol}$ asam kuat maupun basa kuat ke dalam air murni $200\\text{ mL}$ akan menggeser pH secara drastis dari 7 menjadi 2.3 atau 11.7. Namun pada larutan penyangga ini, pH bergeser sangat minim (dari 4.74 menjadi 4.66 atau 4.83), membuktikan efektivitas aksi pertahanan pH sistem buffer.`,
-      },
-      {
-        tag: 'contoh-pembuatan-buffer-basa-stoikiometri-sisa',
-        tags: ['contoh-buffer-basa', 'stoikiometri-sisa', 'pembuatan-buffer', 'nh3-hcl'],
-        title: 'Contoh Soal 2: Pembuatan Larutan Penyangga Basa melalui Reaksi Asam Kuat dan Basa Lemah Berlebih',
-        summary: 'Penerapan tabel M-B-S stoikiometri sisa untuk menentukan volume NH3 0.20 M yang dibutuhkan agar menghasilkan buffer pH 9.00 saat direaksikan dengan HCl.',
-        content: `**Soal:**
-Di laboratorium tersedia larutan amonia ($\\ce{NH3}$) $0.20\\text{ M}$ dengan nilai $K_b = 1.0 \\times 10^{-5}$ dan larutan asam klorida ($\\ce{HCl}$) $0.10\\text{ M}$.
-Berapa mililiter ($V$) larutan $\\ce{NH3 } 0.20\\text{ M}$ yang harus dicampurkan dengan $100.0\\text{ mL}$ larutan $\\ce{HCl } 0.10\\text{ M}$ agar diperoleh larutan penyangga dengan nilai $\\text{pH} = 9.00$?
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Menentukan Target Konsentrasi Ion Hidroksida ($[\\ce{OH-}]$)**
-Target nilai keasaman:
-$\\text{pH} = 9.00 \\implies \\text{pOH} = 14.00 - 9.00 = 5.00$
-$[\\ce{OH-}] = 10^{-\\text{pOH}} = \\mathbf{1.0 \\times 10^{-5}\\text{ M}}$
-
----
-
-**Langkah 2: Susun Stoikiometri Reaksi Campuran (Tabel M-B-S)**
-- Jumlah mol $\\ce{HCl}$ mula-mula $= 100.0\\text{ mL} \\times 0.10\\text{ mmol/mL} = 10.0\\text{ mmol}$
-- Misalkan volume larutan $\\ce{NH3} = V\\text{ mL}$
-- Jumlah mol $\\ce{NH3}$ mula-mula $= V \\times 0.20 = 0.20 V\\text{ mmol}$
-
-Persamaan reaksi netralisasi:
-$\\ce{NH3(aq) + HCl(aq) -> NH4Cl(aq)}$
-
-Agar terbentuk larutan penyangga basa, pereaksi pembatas haruslah $\\ce{HCl}$ (habis bereaksi), sedangkan $\\ce{NH3}$ harus bersisa:
-| Spesi | $\\ce{NH3(aq)}$ | $\\ce{HCl(aq)}$ | $\\ce{NH4Cl(aq)}$ |
-| :--- | :---: | :---: | :---: |
-| **Mula-mula (M)** | $0.20 V\\text{ mmol}$ | $10.0\\text{ mmol}$ | $0$ |
-| **Bereaksi (B)** | $-10.0\\text{ mmol}$ | $-10.0\\text{ mmol}$ | $+10.0\\text{ mmol}$ |
-| **Sisa (S)** | $\\mathbf{(0.20 V - 10.0)\\text{ mmol}}$ | $\\mathbf{0}$ | $\\mathbf{10.0\\text{ mmol}}$ |
-
----
-
-**Langkah 3: Masukkan Data ke Rumus Penyangga Basa**
-$[\\ce{OH-}] = K_b \\times \\frac{n_{\\text{basa lemah sisa}}}{n_{\\text{asam konjugasi}}}$
-$1.0 \\times 10^{-5} = (1.0 \\times 10^{-5}) \\times \\frac{0.20 V - 10.0}{10.0}$
-Bagi kedua ruas dengan $1.0 \\times 10^{-5}$:
-$1 = \\frac{0.20 V - 10.0}{10.0}$
-$0.20 V - 10.0 = 10.0$
-$0.20 V = 20.0 \\implies V = \\frac{20.0}{0.20} = \\mathbf{100.0\\text{ mL}}$
-
-> **Kesimpulan Evaluator Juri:** Diperlukan tepat $100.0\\text{ mL}$ larutan $\\ce{NH3 } 0.20\\text{ M}$ untuk dicampurkan dengan $100.0\\text{ mL } \\ce{HCl } 0.10\\text{ M}$ agar menghasilkan perbandingan stoikiometri mol basa lemah terhadap asam konjugasinya sebesar $1 : 1$, sehingga $\\text{pOH} = \\text{p}K_b = 5.00$ dan nilai $\\text{pH} = 9.00$.`,
-      },
-      {
-        tag: 'contoh-hidrolisis-garam-valensi-kation-anion',
-        tags: ['contoh-hidrolisis-basa', 'garam-polivalen', 'kalsium-asetat', 'valensi-anion'],
-        title: 'Contoh Soal 3: Perhitungan pH Garam Terhidrolisis Basa Polivalen Kalsium Asetat Ca(CH3COO)2',
-        summary: 'Analisis stoikiometri ionisasi garam bervalensi 2 terhadap konsentrasi anion terhidrolisis serta penentuan pH larutan.',
-        content: `**Soal:**
-Sebanyak $7.90\\text{ gram}$ padatan kristal kalsium asetat, $\\ce{Ca(CH3COO)2}$ ($M_r = 158.0\\text{ g/mol}$), dilarutkan ke dalam akuades hingga volume larutan tepat mencapai $500.0\\text{ mL}$ pada temperatur $25^\\circ\\text{C}$.
-Diketahui data tetapan kesetimbangan:
-- $K_a(\\ce{CH3COOH}) = 2.0 \\times 10^{-5}$
-- $K_w = 1.0 \\times 10^{-14}$
-
-Tentukan:
-a) Persamaan reaksi ionisasi garam dan reaksi kesetimbangan hidrolisis yang terjadi!
-b) Nilai tetapan hidrolisis ($K_h$) dari anion garam tersebut!
-c) Konsentrasi ion hidroksida $[\\ce{OH-}]$ dan nilai pH larutan garam tersebut!
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Menghitung Molaritas Garam Terlarut ($[\\ce{G}]$)**
-$n(\\ce{Ca(CH3COO)2}) = \\frac{\\text{massa}}{M_r} = \\frac{7.90\\text{ g}}{158.0\\text{ g/mol}} = 0.050\\text{ mol}$
-$[\\ce{G}] = \\frac{n}{V} = \\frac{0.050\\text{ mol}}{0.500\\text{ L}} = \\mathbf{0.10\\text{ M}}$
-
----
-
-**Bagian a: Reaksi Ionisasi dan Reaksi Hidrolisis**
-1. **Reaksi Ionisasi Garam di Air:**
-   $\\ce{Ca(CH3COO)2(aq) -> Ca^2+(aq) + 2 CH3COO-(aq)}$
-   *Perhatikan faktor valensi anion:* $1\\text{ mol garam} \\implies 2\\text{ mol ion asetat } \\ce{CH3COO-}$.
-   $[\\ce{CH3COO-}] = 2 \\times [\\ce{G}] = 2 \\times 0.10\\text{ M} = \\mathbf{0.20\\text{ M}}$
-2. **Reaksi Hidrolisis:**
-   - Kation $\\ce{Ca^2+}$ berasal dari basa kuat $\\ce{Ca(OH)2}$, sehingga **tidak bereaksi dengan air**.
-   - Anion $\\ce{CH3COO-}$ berasal dari asam lemah $\\ce{CH3COOH}$, sehingga mengalami **hidrolisis parsial**:
-     $\\ce{CH3COO-(aq) + H2O(l) <=> CH3COOH(aq) + OH-(aq)}$
-
----
-
-**Bagian b: Menghitung Nilai Tetapan Hidrolisis ($K_h$)**
-$K_h = \\frac{K_w}{K_a} = \\frac{1.0 \\times 10^{-14}}{2.0 \\times 10^{-5}} = \\mathbf{5.0 \\times 10^{-10}}$
-
----
-
-**Bagian c: Menghitung $[\\ce{OH-}]$ dan pH Larutan**
-Gunakan rumus hidrolisis garam basa dengan valensi anion $v = 2$:
-$[\\ce{OH-}] = \\sqrt{K_h \\times [\\ce{CH3COO-}]} = \\sqrt{(5.0 \\times 10^{-10}) \\times (0.20\\text{ M})}$
-$[\\ce{OH-}] = \\sqrt{1.0 \\times 10^{-10}} = \\mathbf{1.0 \\times 10^{-5}\\text{ M}}$
-
-Hitung pOH dan pH:
-$\\text{pOH} = -\\log[\\ce{OH-}] = -\\log(1.0 \\times 10^{-5}) = 5.00$
-$\\mathbf{\\text{pH} = 14.00 - \\text{pOH} = 14.00 - 5.00 = 9.00}$
-
-> **Peringatan Penting Penentu Nilai Siswa:** Kesalahan umum yang paling sering terjadi adalah lupa memperhitungkan angka indeks $2$ pada garam $\\ce{Ca(CH3COO)2}$. Karena setiap mol garam melepaskan $2\\text{ mol } \\ce{CH3COO-}$, konsentrasi anion terhidrolisis menjadi $0.20\\text{ M}$, bukan $0.10\\text{ M}$!
->
-> **Kesimpulan Evaluator Juri:** Larutan kalsium asetat mengalami hidrolisis parsial menghasilkan lingkungan basa dengan nilai $\\text{pH} = 9.00$.`,
-      },
-      {
-        tag: 'contoh-hidrolisis-total-dan-pengaruh-ka-kb',
-        tags: ['contoh-hidrolisis-total', 'nh4cn', 'asam-lemah-basa-lemah', 'independensi-konsentrasi'],
-        title: 'Contoh Soal 4: Evaluasi Sifat Keasaman & Perhitungan pH Garam Terhidrolisis Total (Amonium Sianida NH4CN)',
-        summary: 'Penentuan nilai pH garam asam lemah-basa lemah berbasis tetapan Ka dan Kb serta pembuktian independensi konsentrasi garam.',
-        content: `**Soal:**
-Garam amonium sianida ($\\ce{NH4CN}$) terbentuk dari reaksi netralisasi asam lemah asam sianida ($\\ce{HCN}$) dengan basa lemah amonia ($\\ce{NH3}$).
-Diketahui data tetapan kesetimbangan pada $25^\\circ\\text{C}$:
-- $K_a(\\ce{HCN}) = 4.9 \\times 10^{-10}$
-- $K_b(\\ce{NH3}) = 1.8 \\times 10^{-5}$
-- $K_w = 1.0 \\times 10^{-14}$
-
-Tentukan:
-a) Tipe hidrolisis yang dialami garam $\\ce{NH4CN}$ di dalam air beserta persamaan reaksi kesetimbangannya!
-b) Prediksi kualitatif sifat larutan (asam, basa, atau netral) beserta alasan ilmiahnya!
-c) Nilai konsentrasi ion hidrogen $[\\ce{H+}]$ dan nilai pH dari larutan $\\ce{NH4CN } 0.050\\text{ M}$!
-
----
-
-**Pembahasan:**
-
-**Bagian a: Reaksi Hidrolisis yang Terjadi**
-Garam terionisasi di dalam air:
-$\\ce{NH4CN(aq) -> NH4+(aq) + CN-(aq)}$
-Karena kation $\\ce{NH4+}$ berasal dari basa lemah dan anion $\\ce{CN-}$ berasal dari asam lemah, **kedua ion sama-sama bereaksi dengan air (Hidrolisis Total / Sempurna)**:
-$\\ce{NH4+(aq) + H2O(l) <=> NH3(aq) + H3O+(aq)}$
-$\\ce{CN-(aq) + H2O(l) <=> HCN(aq) + OH-(aq)}$
-Reaksi kesetimbangan hidrolisis keseluruhan:
-$\\ce{NH4+(aq) + CN-(aq) + H2O(l) <=> NH3(aq) + HCN(aq)}$
-
----
-
-**Bagian b: Prediksi Sifat Larutan Berdasarkan $K_a$ dan $K_b$**
-Bandingkan nilai tetapan kesetimbangan kedua spesi pembentuk:
-- $K_b(\\ce{NH3}) = 1.8 \\times 10^{-5}$
-- $K_a(\\ce{HCN}) = 4.9 \\times 10^{-10}$
-$K_b \\gg K_a \\implies \\mathbf{K_b > K_a}$
-Karena nilai $K_b$ jauh lebih besar daripada $K_a$, anion $\\ce{CN-}$ lebih dominan terhidrolisis melepaskan ion $\\ce{OH-}$ dibandingkan kation $\\ce{NH4+}$ melepaskan ion $\\ce{H+}$.
-Maka, **larutan garam $\\ce{NH4CN}$ bersifat BASA ($\\text{pH} > 7$)**.
-
----
-
-**Bagian c: Menghitung Konsentrasi $[\\ce{H+}]$ dan Nilai pH**
-Gunakan formula universal hidrolisis total:
-$[\\ce{H+}] = \\sqrt{\\frac{K_w \\times K_a}{K_b}}$
-Substitusikan data:
-$[\\ce{H+}] = \\sqrt{\\frac{(1.0 \\times 10^{-14}) \\times (4.9 \\times 10^{-10})}{1.8 \\times 10^{-5}}} = \\sqrt{\\frac{4.9 \\times 10^{-24}}{1.8 \\times 10^{-5}}}$
-$[\\ce{H+}] = \\sqrt{2.722 \\times 10^{-19}} = \\sqrt{27.22 \\times 10^{-20}} \\approx \\mathbf{5.22 \\times 10^{-10}\\text{ M}}$
-
-Hitung nilai pH:
-$\\text{pH} = -\\log[\\ce{H+}] = -\\log(5.22 \\times 10^{-10}) = 10 - \\log(5.22) = 10 - 0.718 = \\mathbf{9.28}$
-
-*(Verifikasi menggunakan rumus logaritmik langsung):*
-$\\text{p}K_a = -\\log(4.9 \\times 10^{-10}) = 9.31$
-$\\text{p}K_b = -\\log(1.8 \\times 10^{-5}) = 4.74$
-$\\text{pH} = 7 + \\frac{1}{2}\\text{p}K_a - \\frac{1}{2}\\text{p}K_b = 7 + \\frac{1}{2}(9.31) - \\frac{1}{2}(4.74) = 7 + 4.655 - 2.37 = \\mathbf{9.28}$
-
-> **Catatan Emas Teoretis:** Perhatikan bahwa konsentrasi garam ($0.050\\text{ M}$) sama sekali tidak diperhitungkan dalam rumus. Hal ini membuktikan bahwa **nilai pH larutan garam yang terhidrolisis total bersifat independen terhadap konsentrasi maupun pengenceran larutan**! Nilai pH murni hanya ditentukan oleh rasio $K_a$ dan $K_b$.
->
-> **Kesimpulan Evaluator Juri:** Garam amonium sianida terhidrolisis total menghasilkan larutan basa kuat-moderat dengan $\\text{pH} = 9.28$ yang tidak terpengaruh oleh penambahan volume pelarut air.`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_110,
   },
     {
     id: 111,
