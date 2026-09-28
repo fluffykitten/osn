@@ -1,6 +1,8 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
+import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
+import { WORKED_EXAMPLES_TOPIC_106 } from './smaWorkedExamplesFaseF1.ts';
 
-export const SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
+const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
   id: 106,
   topic_number: 6,
@@ -813,209 +815,7 @@ $$S = k_B \\ln \\Omega$$
       ]
     },
   ],
-  worked_examples: [
-    {
-      tag: 'contoh-kalorimeter-larutan-sma',
-      title: 'Contoh Soal 1: Eksperimen Penentuan Kalor Netralisasi HCl dan NaOH dengan Kalorimeter Gelas',
-      summary: 'Perhitungan kuantitatif kalor larutan, kalor reaksi, dan perubahan entalpi netralisasi molar (ΔHn).',
-      content: `**Soal:**
-Di dalam kalorimeter gelas styrofoam sederhana, seorang siswa mereaksikan $100\\text{ mL}$ larutan $\\ce{HCl } 1.0\\text{ M}$ dengan $100\\text{ mL}$ larutan $\\ce{NaOH } 1.0\\text{ M}$. Keduanya memiliki suhu awal yang sama yaitu $25.0^\\circ\\text{C}$. Setelah dicampurkan dan diaduk merata, suhu campuran larutan naik hingga mencapai nilai maksimum $31.8^\\circ\\text{C}$.
-
-Asumsikan bahwa:
-- Massa jenis larutan $\\rho = 1.0\\text{ g/mL}$.
-- Kalor jenis larutan $c = 4.184\\text{ J}/(\\text{g}\\cdot^\\circ\\text{C})$.
-- Kapasitas kalor bejana kalorimeter gabus diabaikan ($C_{\\text{kal}} \\approx 0$).
-
-Tentukan:
-a) Kalor yang diserap oleh larutan ($q_{\\text{larutan}}$) dan kalor reaksi ($q_{\\text{reaksi}}$)!
-b) Perubahan entalpi netralisasi standar ($\\Delta H_n^\\circ$) per mol air yang terbentuk!
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Hitung massa total campuran larutan dan perubahan suhu**
-$$V_{\\text{total}} = 100\\text{ mL} + 100\\text{ mL} = 200\\text{ mL}$$
-$$m_{\\text{total}} = \\rho \\times V_{\\text{total}} = 1.0\\text{ g/mL} \\times 200\\text{ mL} = 200\\text{ gram}$$
-$$\\Delta T = T_{\\text{akhir}} - T_{\\text{awal}} = 31.8^\\circ\\text{C} - 25.0^\\circ\\text{C} = +6.8^\\circ\\text{C} = 6.8\\text{ K}$$
-
-**Langkah 2: Hitung kalor yang diserap larutan dan kalor reaksi**
-$$q_{\\text{larutan}} = m_{\\text{total}} \\cdot c \\cdot \\Delta T$$
-$$q_{\\text{larutan}} = 200\\text{ g} \\times 4.184\\text{ J}/(\\text{g}\\cdot^\\circ\\text{C}) \\times 6.8^\\circ\\text{C} = +5690.24\\text{ J} = +5.690\\text{ kJ}$$
-
-Berdasarkan kekekalan energi kalorimeter terisolasi:
-$$q_{\\text{reaksi}} = -q_{\\text{larutan}} = -5690.24\\text{ J} = -5.690\\text{ kJ}$$
-*(Tanda negatif menunjukkan reaksi melepas kalor ke larutan secara eksotermik).*
-
-**Langkah 3: Hitung mol zat yang bereaksi dan air yang dihasilkan**
-Persamaan reaksi netralisasi:
-$$\\ce{HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)}$$
-- $\\text{Mol } \\ce{HCl} = M \\times V = 1.0\\text{ M} \\times 0.100\\text{ L} = 0.100\\text{ mol}$
-- $\\text{Mol } \\ce{NaOH} = M \\times V = 1.0\\text{ M} \\times 0.100\\text{ L} = 0.100\\text{ mol}$
-Kedua pereaksi habis bereaksi (stoikiometris setara), sehingga:
-$$n(\\ce{H2O terbentuk}) = 0.100\\text{ mol}$$
-
-**Langkah 4: Hitung perubahan entalpi molar netralisasi ($\\Delta H_n^\\circ$)**
-$$\\Delta H_n^\\circ = \\frac{q_{\\text{reaksi}}}{n(\\ce{H2O})} = \\frac{-5.690\\text{ kJ}}{0.100\\text{ mol}} = -56.90\\text{ kJ/mol}$$
-
-Persamaan termokimianya:
-$$\\ce{HCl(aq) + NaOH(aq) -> NaCl(aq) + H2O(l)} \\quad \\Delta H_n^\\circ = -56.90\\text{ kJ/mol}$$
-
-> **Kesimpulan Evaluator Juri:** Reaksi bersifat eksotermik kuat dengan pelepasan kalor sebesar 56.90 kJ untuk setiap pembentukan 1 mol air. Nilai ini sangat mendekati nilai teoretis netralisasi asam kuat-basa kuat ($-57.1\\text{ kJ/mol}$), dengan galat eksperimental kecil akibat perambatan kalor minor ke udara.`,
-    },
-    {
-      tag: 'contoh-hukum-hess-aljabar',
-      title: 'Contoh Soal 2: Penentuan ΔH Reaksi Oksidasi SO2 Menjadi SO3 Menggunakan Hukum Hess Aljabar',
-      summary: 'Manipulasi aljabar pembalikan dan penskalaan koefisien reaksi perantara multi-tahap.',
-      content: `**Soal:**
-Gas belerang trioksida ($\\ce{SO3}$) merupakan bahan baku penting dalam pembuatan asam sulfat melalui Proses Kontak. Diketahui data termokimia dua tahap reaksi berikut:
-1. $\\ce{S(s) + O2(g) -> SO2(g)} \\quad \\Delta H_1 = -296.8\\text{ kJ}$
-2. $\\ce{2 S(s) + 3 O2(g) -> 2 SO3(g)} \\quad \\Delta H_2 = -791.4\\text{ kJ}$
-
-Hitunglah perubahan entalpi ($\\Delta H$) untuk reaksi oksidasi belerang dioksida menjadi belerang trioksida:
-$$\\ce{2 SO2(g) + O2(g) -> 2 SO3(g)} \\quad \\Delta H = \\dots ?$$
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Identifikasi posisi zat target pada persamaan yang dicari**
-Reaksi target: $\\ce{2 SO2(g) + O2(g) -> 2 SO3(g)}$
-- Zat $\\ce{SO2(g)}$ berada di **ruas kiri (reaktan)** dengan koefisien **$2$**.
-- Zat $\\ce{SO3(g)}$ berada di **ruas kanan (produk)** dengan koefisien **$2$**.
-
-**Langkah 2: Modifikasi persamaan reaksi yang diketahui**
-- **Reaksi 1:** Mengandung $\\ce{SO2}$ di ruas kanan dengan koefisien $1$.
-  Maka reaksi 1 harus **dibalik** dan **dikalikan $2$**:
-  $$\\ce{2 SO2(g) -> 2 S(s) + 2 O2(g)} \\quad \\Delta H_1' = -(-296.8\\text{ kJ}) \\times 2 = +593.6\\text{ kJ}$$
-
-- **Reaksi 2:** Sudah mengandung $\\ce{2 SO3}$ di ruas kanan dengan koefisien $2$.
-  Maka reaksi 2 **dipertahankan tetap**:
-  $$\\ce{2 S(s) + 3 O2(g) -> 2 SO3(g)} \\quad \\Delta H_2' = -791.4\\text{ kJ}$$
-
-**Langkah 3: Jumlahkan kedua persamaan termokimia**
-$$\\begin{aligned}
-\\ce{2 SO2(g)} &\\to \\cancel{\\ce{2 S(s)}} + \\cancel{\\ce{2 O2(g)}} & \\Delta H_1' &= +593.6\\text{ kJ} \\\\
-\\cancel{\\ce{2 S(s)}} + \\ce{3 O2(g)} &\\to \\ce{2 SO3(g)} & \\Delta H_2' &= -791.4\\text{ kJ}
-\\end{aligned}$$
---------------------------------------------------------------------------------
-$$\\ce{2 SO2(g) + O2(g) -> 2 SO3(g)} \\quad \\Delta H_{\\text{reaksi}} = +593.6 + (-791.4) = -197.8\\text{ kJ}$$
-
-> **Kesimpulan Evaluator Juri:** Reaksi oksidasi $\\ce{2 SO2(g) + O2(g) -> 2 SO3(g)}$ membebaskan kalor sebesar $197.8\\text{ kJ}$ (eksotermik). Untuk pembakaran per mol $\\ce{SO2}$, kalor yang dilepas adalah $\\frac{197.8}{2} = 98.9\\text{ kJ/mol}$.`,
-    },
-    {
-      tag: 'contoh-perhitungan-dhf-propana-dan-aplikasi',
-      title: 'Contoh Soal 3: Pembakaran Gas Propana C3H8 Menggunakan Data ΔHf° & Efisiensi Pemanasan Air',
-      summary: 'Menghitung entalpi pembakaran standar propana dan volume gas STP yang dibutuhkan untuk merebus air dengan efisiensi pemanas 75%.',
-      content: `**Soal:**
-Komponen utama bahan bakar gas elpiji (LPG) adalah gas propana ($\\ce{C3H8}$).
-Diketahui data entalpi pembentukan standar ($\\Delta H_f^\\circ$):
-- $\\Delta H_f^\\circ\\ \\ce{C3H8(g)} = -104.0\\text{ kJ/mol}$
-- $\\Delta H_f^\\circ\\ \\ce{CO2(g)} = -393.5\\text{ kJ/mol}$
-- $\\Delta H_f^\\circ\\ \\ce{H2O(l)} = -285.8\\text{ kJ/mol}$
-
-a) Tentukan perubahan entalpi pembakaran standar ($\\Delta H_c^\\circ$) dari gas propana!
-b) Seorang juru masak ingin memanaskan $2.0\\text{ Liter}$ air ($m = 2000\\text{ g}$, $c = 4.184\\text{ J}/(\\text{g}\\cdot^\\circ\\text{C})$) dari suhu $25^\\circ\\text{C}$ hingga mendidih pada $100^\\circ\\text{C}$. Jika efisiensi transfer panas kompor gas adalah $75\\%$, hitung volume gas propana (kondisi STP: $22.4\\text{ L/mol}$) yang wajib dibakar!
-
----
-
-**Pembahasan:**
-
-**Bagian a: Menghitung $\\Delta H_c^\\circ$ Propana**
-Tuliskan reaksi pembakaran sempurna 1 mol propana:
-$$\\ce{C3H8(g) + 5 O2(g) -> 3 CO2(g) + 4 H2O(l)}$$
-
-Gunakan rumus $\\Delta H^\\circ = \\sum n \\cdot \\Delta H_f^\\circ(\\text{produk}) - \\sum m \\cdot \\Delta H_f^\\circ(\\text{reaktan})$:
-$$\\Delta H_c^\\circ = [3 \\cdot \\Delta H_f^\\circ(\\ce{CO2}) + 4 \\cdot \\Delta H_f^\\circ(\\ce{H2O})] - [1 \\cdot \\Delta H_f^\\circ(\\ce{C3H8}) + 5 \\cdot \\Delta H_f^\\circ(\\ce{O2})]$$
-$$\\Delta H_c^\\circ = [3(-393.5) + 4(-285.8)] - [-104.0 + 5(0)]$$
-$$\\Delta H_c^\\circ = [-1180.5 - 1143.2] - [-104.0] = -2323.7 + 104.0 = -2219.7\\text{ kJ/mol}$$
-*(Setiap 1 mol propana yang terbakar sempurna melepaskan kalor $2219.7\\text{ kJ}$).*
-
----
-
-**Bagian b: Perhitungan Kebutuhan Volume Gas Propana Realistis**
-1. **Hitung kalor netto yang diserap air ($q_{\\text{air}}$):**
-   $$\\Delta T = 100^\\circ\\text{C} - 25^\\circ\\text{C} = 75^\\circ\\text{C}$$
-   $$q_{\\text{air}} = m \\cdot c \\cdot \\Delta T = 2000\\text{ g} \\times 4.184\\text{ J}/(\\text{g}\\cdot^\\circ\\text{C}) \\times 75^\\circ\\text{C} = 627600\\text{ J} = 627.6\\text{ kJ}$$
-
-2. **Hitung total kalor yang wajib dihasilkan kompor (memperhitungkan efisiensi $75\\%$):**
-   $$\\text{Efisiensi } (\\eta) = \\frac{q_{\\text{air}}}{q_{\\text{total}}} \\times 100\\% \\implies q_{\\text{total}} = \\frac{627.6\\text{ kJ}}{0.75} = 836.8\\text{ kJ}$$
-
-3. **Hitung mol propana yang harus dibakar:**
-   $$n(\\ce{C3H8}) = \\frac{q_{\\text{total}}}{|\\Delta H_c^\\circ|} = \\frac{836.8\\text{ kJ}}{2219.7\\text{ kJ/mol}} \\approx 0.3770\\text{ mol}$$
-
-4. **Hitung volume gas propana pada kondisi STP:**
-   $$V(\\ce{C3H8}) = n \\times 22.4\\text{ L/mol} = 0.3770\\text{ mol} \\times 22.4\\text{ L/mol} \\approx 8.44\\text{ Liter}$$
-
-> **Kesimpulan Evaluator Juri:** Kalor pembakaran molar propana bernilai $-2219.7\\text{ kJ/mol}$. Untuk memanaskan 2 Liter air hingga mendidih dengan efisiensi kompor 75%, diperlukan gas propana sebanyak 0.377 mol atau setara dengan 8.44 Liter gas propana pada STP.`,
-    },
-    {
-      tag: 'contoh-energi-ikatan-hidrogenasi-etena',
-      title: 'Contoh Soal 4: Perhitungan ΔH Hidrogenasi Etena Berbasis Energi Ikatan Kovalen',
-      summary: 'Penggunaan struktur Lewis untuk mengidentifikasi ikatan kovalen yang putus dan terbentuk pada reaksi adisi etena.',
-      content: `**Soal:**
-Reaksi hidrogenasi gas etena ($\\ce{C2H4}$) menjadi gas etana ($\\ce{C2H6}$) digunakan secara luas dalam industri pembuatan margarin dan bahan petrokimia:
-$$\\ce{C2H4(g) + H2(g) -> C2H6(g)}$$
-
-Diberikan tabel data energi ikatan rata-rata kovalen:
-| Jenis Ikatan | Energi Ikatan ($D$) dalam $\\text{kJ/mol}$ |
-| :---: | :---: |
-| $\\ce{C=C}$ (rangkap dua) | $614\\text{ kJ/mol}$ |
-| $\\ce{C-C}$ (tunggal) | $348\\text{ kJ/mol}$ |
-| $\\ce{C-H}$ (tunggal) | $413\\text{ kJ/mol}$ |
-| $\\ce{H-H}$ (tunggal) | $436\\text{ kJ/mol}$ |
-
-Tentukan:
-a) Perubahan entalpi ($\\Delta H$) reaksi hidrogenasi tersebut menggunakan metode total seluruh ikatan!
-b) Perubahan entalpi menggunakan trik eliminasi ikatan identik di ruas kiri dan kanan!
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Gambar struktur ikatan Lewis molekul**
-$$\\begin{matrix}
-\\ce{H} & & \\ce{H} \\\\
-& \\ce{C = C} & \\\\
-\\ce{H} & & \\ce{H}
-\\end{matrix} \\ + \\ \\ce{H - H} \\quad \\longrightarrow \\quad
-\\begin{matrix}
-\\ce{H} & \\ce{H} \\\\
-| & | \\\\
-\\ce{H - C - C - H} \\\\
-| & | \\\\
-\\ce{H} & \\ce{H}
-\\end{matrix}$$
-
----
-
-**Bagian a: Metode Komprehensif (Hitung Seluruh Ikatan)**
-- **Ikatan yang putus (Ruas Kiri / Reaktan):**
-  - $1$ ikatan $\\ce{C=C} = 1 \\times 614 = 614\\text{ kJ}$
-  - $4$ ikatan $\\ce{C-H} = 4 \\times 413 = 1652\\text{ kJ}$
-  - $1$ ikatan $\\ce{H-H} = 1 \\times 436 = 436\\text{ kJ}$
-  - $\\sum D_{\\text{kiri}} = 614 + 1652 + 436 = +2702\\text{ kJ}$
-
-- **Ikatan yang terbentuk (Ruas Kanan / Produk):**
-  - $1$ ikatan $\\ce{C-C} = 1 \\times 348 = 348\\text{ kJ}$
-  - $6$ ikatan $\\ce{C-H} = 6 \\times 413 = 2478\\text{ kJ}$
-  - $\\sum D_{\\text{kanan}} = 348 + 2478 = 2826\\text{ kJ}$
-
-- **Hitung $\\Delta H$ Reaksi:**
-  $$\\Delta H = \\sum D_{\\text{kiri}} - \\sum D_{\\text{kanan}} = 2702\\text{ kJ} - 2826\\text{ kJ} = -124\\text{ kJ/mol}$$
-
----
-
-**Bagian b: Metode Trik Cepat (Eliminasi 4 Ikatan C-H yang Sama di Kedua Ruas)**
-Perhatikan bahwa terdapat $4$ ikatan $\\ce{C-H}$ di ruas kiri dan $6$ ikatan $\\ce{C-H}$ di ruas kanan.
-Kita dapat mencoret $4$ ikatan $\\ce{C-H}$ dari kedua ruas, sehingga yang tersisa bersih hanyalah:
-- **Ikatan putus bersih:** $1 \\times \\ce{C=C} + 1 \\times \\ce{H-H} = 614 + 436 = 1050\\text{ kJ}$
-- **Ikatan terbentuk bersih:** $1 \\times \\ce{C-C} + 2 \\times \\ce{C-H} = 348 + 2(413) = 348 + 826 = 1174\\text{ kJ}$
-$$\\Delta H = 1050\\text{ kJ} - 1174\\text{ kJ} = -124\\text{ kJ/mol}$$
-
-> **Kesimpulan Evaluator Juri:** Kedua metode menghasilkan nilai yang konsisten yaitu $\\Delta H = -124\\text{ kJ/mol}$. Reaksi hidrogenasi etena bersifat eksotermik karena pelepasan energi pada pembentukan ikatan tunggal $\\ce{C-C}$ dan dua ikatan $\\ce{C-H}$ baru lebih besar daripada energi yang diserap untuk memecah ikatan rangkap $\\ce{C=C}$ dan $\\ce{H-H}$.`,
-    },
-  ],
+  worked_examples: WORKED_EXAMPLES_TOPIC_106,
 },
 
   {
@@ -6495,3 +6295,16 @@ $$a_0 = \\frac{4.885 \\times 10^{-19}\\text{ m}^2}{10^{-20}\\text{ m}^2/\\text{\
     ],
   },
 ];
+
+export const SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = BASE_SMA_MATERIALS_FASE_F1.map((mat) => ({
+  ...mat,
+  prerequisites: mat.prerequisites.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_F1[b.tag],
+  })),
+  core_concepts: mat.core_concepts.map((b) => ({
+    ...b,
+    checkpointQuizzes: b.checkpointQuizzes || CHECKPOINTS_FASE_F1[b.tag],
+  })),
+  worked_examples: mat.worked_examples,
+}));
