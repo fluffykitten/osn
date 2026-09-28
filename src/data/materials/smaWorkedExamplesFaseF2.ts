@@ -1009,3 +1009,526 @@ Karena Sel 1 dan Sel 2 disusun secara seri, muatan listrik yang mengalir pada ke
     ],
   },
 ];
+
+// ============================================================================
+// TOPIK 115: Kimia Unsur Golongan Utama & Transisi Periode 4 SMA
+// (Alkali, Halogen, Gas Mulia, Periode 3, Unsur Transisi d, dan Metalurgi Industri)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_115: ConceptBlock[] = [
+  {
+    tag: 'contoh-alkali-alkali-tanah-reaktivitas-uji-nyala-ksp-sma',
+    tags: ['logam-alkali-ia', 'alkali-tanah-iia', 'reaktivitas-air', 'uji-nyala-spektroskopi', 'kelarutan-senyawa-iia', 'pengendapan-selektif-ksp', 'kimia-sma'],
+    title: 'Contoh Soal 1: Logam Alkali & Alkali Tanah: Reaktivitas Air, Analisis Spektroskopi Uji Nyala, dan Pemisahan Kation Ksp (Level: Sedang)',
+    summary: 'Identifikasi reaksi logam alkali dengan air, perhitungan energi foton emisi uji nyala natrium, dan teknik pemisahan selektif ion Mg2+ vs Ba2+ berdasarkan Ksp.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam praktikum kimia anorganik, seorang siswa melakukan rangkaian investigasi terhadap unsur-unsur golongan s (Alkali IA dan Alkali Tanah IIA):
+
+#### Eksperimen 1: Reaktivitas Logam Alkali
+Sepotong kecil logam natrium ($\\ce{Na}$) dimasukkan ke dalam gelas beker berisi air yang telah ditetesi indikator fenolftalein (PP). Seketika terjadi letupan gas, logam natrium meleleh menjadi bola yang meluncur cepat di permukaan air, dan cairan berubah warna menjadi merah muda keunguan pekat.
+
+#### Eksperimen 2: Uji Nyala Spektroskopi
+Tiga sampel garam klorida tanpa label (Sampel A, B, dan C) dibakar pada nyala api bunsen bebas warna:
+- **Sampel A:** Menghasilkan nyala api berwarna **kuning emas terang** (panjang gelombang dominan $\\lambda = 589.0\\text{ nm}$).
+- **Sampel B:** Menghasilkan nyala api berwarna **merah bata / jingga**.
+- **Sampel C:** Menghasilkan nyala api berwarna **hijau apel segar**.
+
+#### Eksperimen 3: Pemisahan Ion Campuran Golongan IIA
+Disediakan larutan yang mengandung campuran kation $\\ce{Mg^2+ } 0.010\\text{ M}$ dan kation $\\ce{Ba^2+ } 0.010\\text{ M}$.
+
+*(Diketahui: $h = 6.626 \\times 10^{-34}\\text{ J}\\cdot\\text{s}$, $c = 3.00 \\times 10^8\\text{ m/s}$, $N_A = 6.022 \\times 10^{23}\\text{ foton/mol}$)*.
+
+---
+
+### 🎯 Pertanyaan:
+1. Pada Eksperimen 1: Tuliskan persamaan reaksi redoks setara antara logam natrium dengan air, dan jelaskan mengapa larutan berubah warna menjadi merah muda!
+2. Pada Eksperimen 2:
+   a. Tentukan identitas kation logam pada Sampel A, B, dan C berdasarkan warna nyalanya!
+   b. Hitung besar energi foton ($\Delta E$) yang dipancarkan oleh satu foton emisi natrium ($589.0\\text{ nm}$) dalam satuan Joule!
+   c. Hitung energi foton tersebut untuk skala $1\\text{ mol}$ foton dalam satuan $\\text{kJ/mol}$!
+3. Pada Eksperimen 3:
+   Berdasarkan tren kelarutan senyawa golongan IIA, jelaskan bagaimana cara memisahkan ion $\\ce{Ba^2+}$ dan $\\ce{Mg^2+}$ secara bertingkat menggunakan pereaksi pengendap natrium sulfat ($\\ce{Na2SO4}$) atau natrium hidroksida ($\\ce{NaOH}$)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Reaksi Logam Natrium dengan Air
+Logam natrium merupakan reduktor kuat yang sangat elektropositif ($E^\\circ = -2.71\\text{ V}$). Atom natrium melepaskan elektron mereduksi molekul air menghasilkan gas hidrogen dan larutan basa natrium hidroksida:
+$$\\mathbf{\\ce{2Na(s) + 2H2O(l) -> 2NaOH(aq) + H2(g)}} \\qquad (\\Delta H < 0)$$
+- **Penyebab Perubahan Warna:** Terbentuknya ion hidroksida ($\\ce{OH-}$) membuat larutan bersifat **basa kuat** ($\\text{pH} > 7$). Indikator fenolftalein memiliki trayek $\\text{pH } 8.3 - 10.0$ dan berubah warna dari tak berwarna menjadi **merah muda keunguan**.
+- **Gejala Fisik:** Panas reaksi eksotermik mencairkan logam natrium (titik leleh $\\approx 98^\\circ\\text{C}$), dan semburan gas $\\ce{H2}$ mendorong bola natrium meluncur di atas air.
+
+---
+
+#### Langkah 2: Analisis Spektroskopi Uji Nyala & Kalkulasi Foton
+a. **Identifikasi Kation Berdasarkan Warna Nyala:**
+   - **Sampel A (Kuning Emas Terang):** Kation **Natrium ($\\ce{Na+}$)** (garam $\\ce{NaCl}$).
+   - **Sampel B (Merah Bata / Jingga):** Kation **Kalsium ($\\ce{Ca^2+}$)** (garam $\\ce{CaCl2}$).
+   - **Sampel C (Hijau Apel):** Kation **Barium ($\\ce{Ba^2+}$)** (garam $\\ce{BaCl2}$).
+
+b. **Energi Satu Foton Emisi Natrium ($\Delta E$):**
+   Panjang gelombang: $\\lambda = 589.0\\text{ nm} = 589.0 \\times 10^{-9}\\text{ m} = 5.890 \\times 10^{-7}\\text{ m}$.
+   Gunakan persamaan Planck-Einstein:
+   $$\\Delta E = h \\cdot \\nu = \\frac{h \\cdot c}{\\lambda}$$
+   $$\\Delta E = \\frac{(6.626 \\times 10^{-34}\\text{ J}\\cdot\\text{s}) \\times (3.00 \\times 10^8\\text{ m/s})}{5.890 \\times 10^{-7}\\text{ m}} = \\frac{1.9878 \\times 10^{-25}}{5.890 \\times 10^{-7}} = \\mathbf{3.375 \\times 10^{-19}\\text{ Joule per foton}}$$
+
+c. **Energi Foton per Mol ($1\\text{ mol}$ foton):**
+   $$E_{\\text{mol}} = \\Delta E \\times N_A = (3.375 \\times 10^{-19}\\text{ J/foton}) \\times (6.022 \\times 10^{23}\\text{ foton/mol})$$
+   $$E_{\\text{mol}} = 203.242\\text{ J/mol} = \\mathbf{203.24\\text{ kJ/mol}}$$
+   *Wawasan Spektral:* Celah energi sebesar $203.24\\text{ kJ/mol}$ tepat bersesuaian dengan transisi deeksitasi elektron $3p \\to 3s$ pada atom natrium netral.
+
+---
+
+#### Langkah 3: Pemisahan Ion Campuran Berdasarkan Tren Kelarutan IIA
+Berdasarkan kaidah kelarutan periodik Golongan IIA:
+1. **Pemisahan Ion $\\ce{Ba^2+}$ Menggunakan Pereaksi Sulfat ($\\ce{Na2SO4}$):**
+   - Tren kelarutan sulfat: $\\ce{MgSO4} \\gg \\ce{BaSO4}$ (menurun ke bawah).
+   - $\\ce{MgSO4}$ sangat mudah larut di dalam air ($K_{sp}$ sangat besar).
+   - $\\ce{BaSO4}$ memiliki nilai $K_{sp} = 1.1 \\times 10^{-10}$ (sangat sukar larut).
+   - **Prosedur:** Teteskan larutan $\\ce{Na2SO4}$ encer secara perlahan ke dalam campuran. Ion $\\ce{Ba^2+}$ akan mengendap sempurna sebagai endapan putih pekat barium sulfat:
+     $$\\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s) \\downarrow}$$
+   - Endapan $\\ce{BaSO4}$ dipisahkan melalui penyaringan (filtrasi). Filtrat cair yang tersisa mengandung ion $\\ce{Mg^2+}$ murni.
+
+2. **Pemisahan Alternatif Ion $\\ce{Mg^2+}$ Menggunakan Pereaksi Hidroksida ($\\ce{NaOH}$):**
+   - Tren kelarutan hidroksida: $\\ce{Mg(OH)2} \\ll \\ce{Ba(OH)2}$ (meningkat ke bawah).
+   - $\\ce{Mg(OH)2}$ memiliki $K_{sp} = 1.8 \\times 10^{-11}$ (sukar larut), sedangkan $\\ce{Ba(OH)2}$ adalah basa kuat yang larut sempurna.
+   - Penambahan $\\ce{NaOH}$ akan mengendapkan $\\ce{Mg^2+}$ sebagai endapan putih gelatin $\\ce{Mg(OH)2}$, sementara $\\ce{Ba^2+}$ tetap berada dalam fasa larutan.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Mnemonic Emas Tren Kelarutan Golongan IIA di Ujian:**
+> - **Basa Hidroksida ($\ce{OH-}$):** Semakin ke bawah **SEMAKIN MUDAH LARUT** (basa makin kuat: $\ce{Mg(OH)2}$ obat maag sukar larut, $\ce{Ba(OH)2}$ larut sempurna).
+> - **Garam Sulfat ($\ce{SO4^2-}$) & Karbonat ($\ce{CO3^2-}$):** Semakin ke bawah **SEMAKIN SUKAR LARUT / MENGENDAP** ($\ce{MgSO4}$ garam inggris larut, $\ce{BaSO4}$ rontgen usus mengendap pekat).
+> - Jangan sampai terbalik! Ingat kata kunci: **"Hidroksida Naik, Sulfat Turun"**!`,
+    keyFormulas: [
+      { name: 'Reaksi Logam Alkali dengan Air', formula: '\\ce{2M(s) + 2H2O(l) -> 2MOH(aq) + H2(g)}' },
+      { name: 'Energi Foton Emisi Nyala', formula: '\\Delta E = \\frac{h \\cdot c}{\\lambda}' },
+      { name: 'Tren Kelarutan Sulfat IIA', formula: '\\ce{MgSO4 > CaSO4 > SrSO4 > BaSO4} \\implies \\text{Makin Sukar Larut ke Bawah}' },
+      { name: 'Tren Kelarutan Hidroksida IIA', formula: '\\ce{Mg(OH)2 < Ca(OH)2 < Sr(OH)2 < Ba(OH)2} \\implies \\text{Makin Larut ke Bawah}' },
+    ],
+  },
+  {
+    tag: 'contoh-daya-oksidasi-pendesakan-asam-halogen-sma',
+    tags: ['halogen-viia', 'daya-oksidator-viia', 'reaksi-pendesakan-halogen', 'anomali-hf-ikatan-hidrogen', 'kekuatan-asam-halida', 'kimia-sma'],
+    title: 'Contoh Soal 2: Golongan Halogen: Deret Daya Oksidasi, Spontanitas Reaksi Pendesakan, dan Anomali Asam Halida (Level: Sedang)',
+    summary: 'Evaluasi spontanitas reaksi pendesakan halogen F2 s.d. I2, pembuktian potensial sel redoks, serta analisis anomali titik didih dan kekuatan asam halida.',
+    content: `### 📋 Skenario Masalah & Data Termodinamika:
+Di laboratorium kimia sekolah, guru menyiapkan empat tabung reaksi berisi campuran halogen bebas dan larutan garam halida:
+- **Tabung 1:** Gas klorin ($\\ce{Cl2}$) dialirkan ke dalam larutan natrium bromida ($\\ce{NaBr}$).
+- **Tabung 2:** Cairan bromin ($\\ce{Br2}$) diteteskan ke dalam larutan natrium klorida ($\\ce{NaCl}$).
+- **Tabung 3:** Cairan bromin ($\\ce{Br2}$) diteteskan ke dalam larutan kalium iodida ($\\ce{KI}$).
+- **Tabung 4:** Padatan iodin ($\\ce{I2}$) dicampurkan ke dalam larutan natrium fluorida ($\\ce{NaF}$).
+
+Data potensial reduksi standar ($25^\\circ\\text{C}$):
+- $\\ce{F2(g) + 2e- -> 2F-(aq)} \\qquad E^\\circ = +2.87\\text{ Volt}$
+- $\\ce{Cl2(g) + 2e- -> 2Cl-(aq)} \\qquad E^\\circ = +1.36\\text{ Volt}$
+- $\\ce{Br2(l) + 2e- -> 2Br-(aq)} \\qquad E^\\circ = +1.07\\text{ Volt}$
+- $\\ce{I2(s) + 2e- -> 2I-(aq)} \\qquad E^\\circ = +0.54\\text{ Volt}$
+
+---
+
+### 🎯 Pertanyaan:
+1. Tentukan tabung mana saja yang reaksinya berlangsung secara **spontan** dan tabung mana yang **tidak bereaksi**!
+2. Tuliskan persamaan reaksi ion bersih yang setara untuk reaksi yang berlangsung spontan, serta sebutkan perubahan warna fisik larutannya!
+3. Buktikan secara kuantitatif spontanitas reaksi pada Tabung 1 dan Tabung 3 dengan menghitung nilai potensial sel standarnya ($E^\\circ_{\\text{sel}}$)!
+4. Kajian Asam Halida:
+   a. Mengapa senyawa asam fluorida ($\\ce{HF}$) memiliki titik didih paling tinggi ($20^\\circ\\text{C}$) di antara asam halida lainnya, padahal massa molarnya paling ringan?
+   b. Mengapa di dalam air $\\ce{HF}$ justru tergolong asam paling lemah, sedangkan $\\ce{HI}$ adalah asam paling kuat ($\\ce{HF \\ll HCl < HBr < HI}$)?
+5. Urutkan kekuatan asam dari keluarga asam oksi klorin: $\\ce{HClO, HClO2, HClO3, HClO4}$ dan jelaskan dasar teoretis peningkatan kekuatan asamnya!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Evaluasi Spontanitas Pendesakan Halogen
+Berdasarkan kaidah deret kereaktifan halogen: Halogen bebas ($X_2$) hanya mampu mendesak ion halida ($Y^-$) jika unsur $X$ terletak **lebih atas** pada golongan VIIA daripada unsur $Y$ ($E^\\circ_{X_2} > E^\\circ_{Y_2}$):
+- **Tabung 1 ($\\ce{Cl2 + NaBr}$):** $\\ce{Cl}$ di atas $\\ce{Br}$ ($+1.36\\text{ V} > +1.07\\text{ V}$) $\\implies$ **Spontan Bereaksi**.
+- **Tabung 2 ($\\ce{Br2 + NaCl}$):** $\\ce{Br}$ di bawah $\\ce{Cl}$ ($+1.07\\text{ V} < +1.36\\text{ V}$) $\\implies$ **Tidak Bereaksi (Non-spontan)**.
+- **Tabung 3 ($\\ce{Br2 + KI}$):** $\\ce{Br}$ di atas $\\ce{I}$ ($+1.07\\text{ V} > +0.54\\text{ V}$) $\\implies$ **Spontan Bereaksi**.
+- **Tabung 4 ($\\ce{I2 + NaF}$):** $\\ce{I}$ di bawah $\\ce{F}$ ($+0.54\\text{ V} \\ll +2.87\\text{ V}$) $\\implies$ **Tidak Bereaksi (Non-spontan)**.
+
+---
+
+#### Langkah 2: Persamaan Reaksi Setara & Perubahan Warna
+1. **Tabung 1 (Klorin mendesak Bromida):**
+   $$\\mathbf{\\ce{Cl2(g) + 2Br-(aq) -> 2Cl-(aq) + Br2(aq)}}$$
+   - *Gejala Fisik:* Larutan yang semula jernih tak berwarna berubah menjadi berwarna **kuning-jingga hingga cokelat kemerahan** akibat terbentuknya molekul bromin cair terlarut.
+2. **Tabung 3 (Bromin mendesak Iodida):**
+   $$\\mathbf{\\ce{Br2(l) + 2I-(aq) -> 2Br-(aq) + I2(s)}}$$
+   - *Gejala Fisik:* Terbentuk larutan berwarna **cokelat tua kemerahan** dan endapan serpihan kristal iodin padat berwarna ungu-kehitaman.
+
+---
+
+#### Langkah 3: Pembuktian Matematis Potensial Sel Standar ($E^\\circ_{\\text{sel}}$)
+1. **Untuk Tabung 1:**
+   - Reduksi: $\\ce{Cl2 + 2e- -> 2Cl-} \\qquad E^\\circ = +1.36\\text{ V}$
+   - Oksidasi: $\\ce{2Br- -> Br2 + 2e-} \\qquad E^\\circ = -1.07\\text{ V}$
+   $$E^\\circ_{\\text{sel}} = E^\\circ_{\\text{katoda}} - E^\\circ_{\\text{anoda}} = (+1.36\\text{ V}) - (+1.07\\text{ V}) = \\mathbf{+0.29\\text{ Volt}}$$
+   Karena $E^\\circ_{\\text{sel}} = +0.29\\text{ V} > 0$, reaksi terbukti **berlangsung spontan**.
+
+2. **Untuk Tabung 3:**
+   - Reduksi: $\\ce{Br2 + 2e- -> 2Br-} \\qquad E^\\circ = +1.07\\text{ V}$
+   - Oksidasi: $\\ce{2I- -> I2 + 2e-} \\qquad E^\\circ = -0.54\\text{ V}$
+   $$E^\\circ_{\\text{sel}} = (+1.07\\text{ V}) - (+0.54\\text{ V}) = \\mathbf{+0.53\\text{ Volt}}$$
+   Karena $E^\\circ_{\\text{sel}} = +0.53\\text{ V} > 0$, reaksi terbukti **berlangsung spontan**.
+
+---
+
+#### Langkah 4: Analisis Anomali Asam Halida
+a. **Anomali Titik Didih $\\ce{HF}$:**
+   Molekul $\\ce{HCl, HBr, HI}$ hanya memiliki gaya tarik dipol-dipol dan gaya dispersi London. Sebaliknya, atom fluorin pada $\\ce{HF}$ memiliki elektronegativitas sangat tinggi dan ukuran atom sangat kecil, memungkinkan terbentuknya **ikatan hidrogen antarmolekul** yang sangat kokoh. Akibatnya, titik didih $\\ce{HF}$ ($20^\\circ\\text{C}$) melonjak jauh melampaui asam halida lainnya.
+
+b. **Penyebab $\\ce{HF}$ Asam Lemah dan $\\ce{HI}$ Asam Terkuat:**
+   Kekuatan asam di dalam air ditentukan oleh **kemudahan pelepasan proton $\\ce{H+}$** (energi disosiasi ikatan $\\ce{H-X}$):
+   - Jari-jari atom fluorin sangat mungil, menyebabkan tumpang tindih orbital ikatan $\\ce{H-F}$ sangat rapat dan energi ikatannya teramat kuat ($565\\text{ kJ/mol}$). Ikatan ini sangat sukar putus di air $\\implies$ $\\ce{HF}$ terionisasi sebagian kecil saja (**asam lemah**, $K_a \\approx 6.8 \\times 10^{-4}$).
+   - Dari $\\ce{Cl}$ ke $\\ce{I}$, jari-jari halogen membesar drastis, panjang ikatan bertambah, dan energi ikatan $\\ce{H-I}$ melemah ($295\\text{ kJ/mol}$). Ikatan $\\ce{H-I}$ sangat rapuh dan putus $100\\%$ di air $\\implies$ $\\ce{HI}$ adalah **asam terkuat**.
+
+---
+
+#### Langkah 5: Kekuatan Asam Oksi Klorin
+$$\\mathbf{\\ce{HClO < HClO2 < HClO3 < HClO4}}$$
+- **Penjelasan Efek Induktif:**
+  Bilangan oksidasi atom klorin meningkat: $+1 \\to +3 \\to +5 \\to +7$.
+  Semakin banyak atom oksigen yang sangat elektronegatif terikat pada atom pusat $\\ce{Cl}$, tarikan kerapatan elektron dari ikatan $\\ce{O-H}$ ke arah atom pusat semakin kuat. Polarisasi ini melemahkan ikatan $\\ce{O-H}$ sehingga proton $\\ce{H+}$ terlepas dengan sangat mudah. Oleh sebab itu, **asam perklorat ($\\ce{HClO4}$) adalah asam terkuat**.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Dua Jebakan Paling Berbahaya tentang Halogen di UTBK:**
+> 1. **Daya Oksidator vs Daya Asam:**
+>    - Daya oksidator halogen unsur: $\\ce{F2 > Cl2 > Br2 > I2}$ (makin ke atas makin kuat).
+>    - Kekuatan asam halida: $\\ce{HF \\ll HCl < HBr < HI}$ (makin ke bawah makin kuat asamnya!).
+> 2. **Wujud Fisik $25^\\circ\\text{C}$:** $\\ce{F2}$ (gas kuning pucat), $\\ce{Cl2}$ (gas kuning kehijauan), $\\ce{Br2}$ (cairan merah-cokelat), $\\ce{I2}$ (padatan ungu-kehitaman yang menyublim).`,
+    keyFormulas: [
+      { name: 'Deret Daya Oksidasi Halogen', formula: '\\ce{F2 > Cl2 > Br2 > I2} \\implies E^\\circ \\text{ Makin Positif ke Atas}' },
+      { name: 'Kaidah Pendesakan Halogen', formula: '\\ce{X2 + 2Y- -> 2X- + Y2} \\quad (\\text{Spontan jika } E^\\circ_{X_2} > E^\\circ_{Y_2})' },
+      { name: 'Urutan Kekuatan Asam Halida', formula: '\\ce{HF} \\text{ (lemah)} \\ll \\ce{HCl < HBr < HI} \\text{ (sangat kuat)}' },
+      { name: 'Urutan Kekuatan Asam Oksi Klorin', formula: '\\ce{HClO < HClO2 < HClO3 < HClO4}' },
+    ],
+  },
+  {
+    tag: 'contoh-periode-3-titik-leleh-amfoter-aloh3-sma',
+    tags: ['unsur-periode-3', 'titik-leleh-periode-3', 'kovalen-raksasa-silikon', 'amfoterisme-aluminium-aloh3', 'stoikiometri-larutan', 'kimia-sma'],
+    title: 'Contoh Soal 3: Unsur Periode Ketiga: Struktur Titik Leleh & Stoikiometri Karakter Amfoter Al(OH)3 (Level: Sedang)',
+    summary: 'Analisis ikatan logam, kovalen raksasa intan, dan molekular pada titik leleh periode 3, serta kalkulasi stoikiometri pelarutan amfoter Al(OH)3 dalam asam vs basa.',
+    content: `### 📋 Skenario Masalah:
+Unsur-unsur Periode Ketiga tabel periodik ($\\ce{Na, Mg, Al, Si, P, S, Cl, Ar}$) memperlihatkan variasi struktur ikatan kimia yang sangat dramatis dari logam sejati hingga gas mulia:
+
+#### Data Titik Leleh Unsur Periode 3:
+- Logam: $\\ce{Na} (98^\\circ\\text{C})$, $\\ce{Mg} (650^\\circ\\text{C})$, $\\ce{Al} (660^\\circ\\text{C})$
+- Metaloid: $\\ce{Si} (1410^\\circ\\text{C})$
+- Non-logam Molekular: $\\ce{P4} (44^\\circ\\text{C})$, $\\ce{S8} (115^\\circ\\text{C})$, $\\ce{Cl2} (-101^\\circ\\text{C})$
+- Gas Mulia: $\\ce{Ar} (-186^\\circ\\text{C})$
+
+#### Eksperimen Kimia Amfoter Aluminium:
+Di laboratorium, seorang siswa menyiapkan $7.80\\text{ gram}$ endapan putih gelatin aluminium hidroksida murni ($\\ce{Al(OH)3}$, $M_r = 78.00\\text{ g/mol}$). Endapan tersebut dibagi tepat sama rata ke dalam dua wadah (masing-masing bermassa $3.90\\text{ gram}$):
+- **Wadah 1:** Direaksikan dengan larutan asam klorida ($\\ce{HCl } 1.50\\text{ M}$).
+- **Wadah 2:** Direaksikan dengan larutan natrium hidroksida ($\\ce{NaOH } 1.00\\text{ M}$).
+
+---
+
+### 🎯 Pertanyaan:
+1. Analisis Titik Leleh:
+   a. Mengapa silikon ($\\ce{Si}$) memiliki titik leleh paling tinggi ($1410^\\circ\\text{C}$) di antara seluruh unsur periode ketiga?
+   b. Di antara unsur non-logam molekular sederhana ($\\ce{P4, S8, Cl2}$), jelaskan mengapa belerang ($\\ce{S8}$) memiliki titik leleh paling tinggi!
+2. Sifat Amfoter Aluminium:
+   a. Tuliskan persamaan reaksi molekul dan persamaan reaksi ion bersih yang terjadi pada Wadah 1 dan Wadah 2! Sebutkan nama ion kompleks yang terbentuk pada Wadah 2!
+   b. Hitung volume minimum larutan $\\ce{HCl } 1.50\\text{ M}$ (dalam $\\text{mL}$) yang dibutuhkan untuk melarutkan seluruh endapan $\\ce{Al(OH)3}$ pada Wadah 1!
+   c. Hitung volume minimum larutan $\\ce{NaOH } 1.00\\text{ M}$ (dalam $\\text{mL}$) yang dibutuhkan untuk melarutkan seluruh endapan $\\ce{Al(OH)3}$ pada Wadah 2!
+3. Aplikasi Industri: Jelaskan bagaimana sifat amfoter aluminium dimanfaatkan pada **Proses Bayer** untuk memisahkan aluminium oksida murni dari bijih bauksit yang mengandung pengotor oksida besi ($\\ce{Fe2O3}$)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Struktur & Titik Leleh Periode 3
+a. **Penyebab Tingginya Titik Leleh Silikon ($\ce{Si}$):**
+   Silikon tidak membentuk molekul kecil atau kisi logam biasa, melainkan membentuk **struktur kovalen jejaring raksasa (*giant covalent network*)** tiga dimensi dengan geometri tetrahedral yang identik dengan intan. Setiap atom $\\ce{Si}$ terikat pada 4 atom $\\ce{Si}$ tetangganya melalui ikatan kovalen yang sangat kuat. Untuk melelehkan silikon, ribuan ikatan kovalen kokoh ini harus diputuskan serentak dengan energi termal yang sangat besar ($1410^\\circ\\text{C}$).
+
+b. **Urutan Titik Leleh Non-Logam Molekular ($\ce{S8 > P4 > Cl2 > Ar}$):**
+   Unsur non-logam periode 3 berwujud molekul kovalen sederhana yang terikat oleh **gaya dispersi London**:
+   - Belerang membentuk molekul cincin delapan atom: $\\ce{S8}$ ($M_r = 8 \\times 32 = 256\\text{ g/mol}$).
+   - Fosforus membentuk molekul tetrahedral: $\\ce{P4}$ ($M_r = 4 \\times 31 = 124\\text{ g/mol}$).
+   - Klorin membentuk molekul diatomik: $\\ce{Cl2}$ ($M_r = 2 \\times 35.5 = 71\\text{ g/mol}$).
+   - Argon berupa atom monoatomik: $\\ce{Ar}$ ($M_r = 40\\text{ g/mol}$).
+   Karena kekuatan gaya dispersi London berbanding lurus dengan ukuran awan elektron dan massa molar ($M_r$), molekul $\\ce{S8}$ memiliki gaya London paling kuat, sehingga titik lelehnya tertinggi ($115^\\circ\\text{C}$).
+
+---
+
+#### Langkah 2: Stoikiometri Pelarutan Amfoter $\ce{Al(OH)3}$
+Jumlah mol $\\ce{Al(OH)3}$ pada tiap wadah:
+$$n_{\\ce{Al(OH)3}} = \\frac{\\text{massa}}{M_r} = \\frac{3.90\\text{ g}}{78.00\\text{ g/mol}} = \\mathbf{0.050\\text{ mol}}$$
+
+a. **Persamaan Reaksi:**
+   1. **Wadah 1 (Bertindak Sebagai Basa terhadap Asam Kuat):**
+      $$\\mathbf{\\ce{Al(OH)3(s) + 3HCl(aq) -> AlCl3(aq) + 3H2O(l)}}$$
+      Persamaan ion bersih: $\\ce{Al(OH)3(s) + 3H+(aq) -> Al^3+(aq) + 3H2O(l)}$.
+   2. **Wadah 2 (Bertindak Sebagai Asam terhadap Basa Kuat):**
+      $$\\mathbf{\\ce{Al(OH)3(s) + NaOH(aq) -> Na[Al(OH)4](aq)}}$$
+      Persamaan ion bersih: $\\ce{Al(OH)3(s) + OH-(aq) -> [Al(OH)4]-(aq)}$.
+      Nama ion kompleks produk: **Ion tetrahidroksoaluminat** (larut jernih tanpa endapan).
+
+b. **Volume Minimum Larutan $\ce{HCl } 1.50\text{ M}$:**
+   Perbandingan koefisien reaksi: $1\\text{ mol } \\ce{Al(OH)3} \\equiv 3\\text{ mol } \\ce{HCl}$.
+   $$n_{\\ce{HCl}} = 3 \\times 0.050\\text{ mol} = \\mathbf{0.150\\text{ mol}}$$
+   $$V_{\\ce{HCl}} = \\frac{n}{M} = \\frac{0.150\\text{ mol}}{1.50\\text{ mol/L}} = 0.100\\text{ Liter} = \\mathbf{100.0\\text{ mL}}$$
+
+c. **Volume Minimum Larutan $\ce{NaOH } 1.00\text{ M}$:**
+   Perbandingan koefisien reaksi: $1\\text{ mol } \\ce{Al(OH)3} \\equiv 1\\text{ mol } \\ce{NaOH}$.
+   $$n_{\\ce{NaOH}} = 1 \\times 0.050\\text{ mol} = \\mathbf{0.050\\text{ mol}}$$
+   $$V_{\\ce{NaOH}} = \\frac{n}{M} = \\frac{0.050\\text{ mol}}{1.00\\text{ mol/L}} = 0.050\\text{ Liter} = \\mathbf{50.0\\text{ mL}}$$
+
+---
+
+#### Langkah 3: Prinsip Pemurnian Bauksit pada Proses Bayer
+Bijih bauksit mentah mengandung $\\ce{Al2O3}$ bersama pengotor utama oksida besi(III) ($\\ce{Fe2O3}$) yang berwarna merah (*red mud*):
+- Campuran bijih dilarutkan ke dalam larutan $\\ce{NaOH}$ pekat panas pada tekanan tinggi.
+- Karena aluminium bersifat amfoter, $\\ce{Al2O3}$ larut membentuk ion kompleks aluminat:
+  $$\\ce{Al2O3(s) + 2OH-(aq) + 3H2O(l) -> 2[Al(OH)4]-(aq)}$$
+- Sebaliknya, oksida besi $\\ce{Fe2O3}$ bersifat **basa murni**, sehingga sama sekali tidak bereaksi dan tidak larut dalam $\\ce{NaOH}$. Endapan $\\ce{Fe2O3}$ disaring dan dibuang sebagai lumpur merah, menyisakan larutan aluminium murni yang siap dipresipitasi ulang!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Rasio Mol Kunci Amfoterisme Aluminium:**
+> - Terhadap Asam ($\ce{H+}$): Rasio mol adalah **$1 : 3$** (karena $\ce{Al^3+}$ memiliki muatan $+3$, butuh $3\\ce{H+}$ untuk menetralkan $3\\ce{OH-}$).
+> - Terhadap Basa ($\ce{OH-}$): Rasio mol adalah **$1 : 1$** (hanya menangkap satu ion $\ce{OH-}$ tambahan membentuk kompleks $[\ce{Al(OH)4}]^-$).`,
+    keyFormulas: [
+      { name: 'Reaksi Amfoter Al(OH)3 dalam Asam', formula: '\\ce{Al(OH)3(s) + 3H+(aq) -> Al^3+(aq) + 3H2O(l)}' },
+      { name: 'Reaksi Amfoter Al(OH)3 dalam Basa', formula: '\\ce{Al(OH)3(s) + OH-(aq) -> [Al(OH)4]-(aq)}' },
+      { name: 'Urutan Titik Leleh Nonlogam Periode 3', formula: '\\ce{S8} (M_r=256) > \\ce{P4} (M_r=124) > \\ce{Cl2} (M_r=71) > \\ce{Ar}' },
+    ],
+  },
+  {
+    tag: 'contoh-transisi-periode-4-magnet-warna-d-d-hots-sma',
+    tags: ['logam-transisi-periode-4', 'konfigurasi-elektron-kation', 'momen-magnetik-spin', 'paramagnetik-diamagnetik', 'warna-ion-transisi-cft', 'transisi-d-d', 'hots-sma'],
+    title: 'Contoh Soal 4: Logam Transisi Periode 4: Konfigurasi Kation, Momen Magnetik Spin (BM), & Warna Spektral Transisi d-d (Level: Sulit / HOTS)',
+    summary: 'Penentuan konfigurasi elektron kation transisi, analisis elektron tak berpasangan, kalkulasi momen spin murni Bohr Magneton, dan dasar teori pembelahan d-d.',
+    content: `### 📋 Skenario Masalah & Data Spektroskopi:
+Tiga kation logam transisi periode 4 diuji sifat magnetik dan karakteristik optiknya di laboratorium kimia instrumen:
+1. **Ion Kromium(III) ($\\ce{Cr^3+}$, nomor atom $Z = 24$):** Larutannya dalam air berwarna **hijau-violet**.
+2. **Ion Besi(II) ($\\ce{Fe^2+}$, nomor atom $Z = 26$):** Larutannya dalam air berwarna **hijau muda pucat**.
+3. **Ion Seng(II) ($\\ce{Zn^2+}$, nomor atom $Z = 30$):** Larutannya dalam air **bening tidak berwarna**.
+
+*(Konfigurasi elektron gas mulia Argon: $[\\ce{Ar}] = 1s^2 2s^2 2p^6 3s^2 3p^6$)*.
+
+---
+
+### 🎯 Pertanyaan:
+1. Tuliskan konfigurasi elektron keadaan dasar untuk:
+   a. Atom netral $\\ce{Cr, Fe, Zn}$!
+   b. Kation $\\ce{Cr^3+, Fe^2+, Zn^2+}$! Mengapa elektron pada subkulit $4s$ selalu dilepaskan terlebih dahulu sebelum elektron $3d$?
+2. Gambarkan diagram orbital subkulit $3d$ untuk ketiga kation tersebut, tentukan jumlah elektron yang tidak berpasangan ($n$), dan klasifikasikan sifat kemagnetannya (apakah bersifat **paramagnetik** atau **diamagnetik**)!
+3. Hitung nilai momen magnetik spin murni ($\\mu_s$) dalam satuan Bohr Magneton (BM) dengan ketelitian dua tempat desimal untuk masing-masing kation!
+4. Berdasarkan Teori Medan Kristal (*Crystal Field Theory* / CFT):
+   a. Jelaskan mekanisme transisi elektron $d-d$ yang menyebabkan timbulnya warna pada larutan ion $\\ce{Cr^3+}$ dan $\\ce{Fe^2+}$!
+   b. Mengapa larutan ion $\\ce{Zn^2+}$ dan $\\ce{Sc^3+}$ sama sekali tidak berwarna (bening jernih)?
+5. Pertanyaan Penalaran Tingkat Tinggi: Ion permanganat ($\\ce{MnO4-}$) memiliki atom mangan dengan biloks $+7$ berkonfigurasi $3d^0$, namun memancarkan warna ungu yang sangat pekat dan intensif. Jelaskan secara singkat mengapa hal ini dapat terjadi!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Konfigurasi Elektron Atom Netral & Kation
+a. **Atom Netral:**
+   - $\\ce{Cr}$ ($Z = 24$): $\\mathbf{[\\ce{Ar}]\\, 4s^1 3d^5}$ *(anomali orbital $3d$ setengah penuh yang sangat stabil)*.
+   - $\\ce{Fe}$ ($Z = 26$): $\\mathbf{[\\ce{Ar}]\\, 4s^2 3d^6}$.
+   - $\\ce{Zn}$ ($Z = 30$): $\\mathbf{[\\ce{Ar}]\\, 4s^2 3d^{10}}$ *(subkulit $3d$ terisi penuh)*.
+
+b. **Pembentukan Kation:**
+   Elektron pada kulit terluar ($n = 4$, yaitu orbital $4s$) memiliki jarak rata-rata terjauh dari inti atom, sehingga energi ionisasinya paling rendah dan **selalu dilepaskan terlebih dahulu**:
+   - $\\ce{Cr^3+}$: Melepas 1 elektron $4s$ dan 2 elektron $3d \\implies \\mathbf{[\\ce{Ar}]\\, 3d^3}$.
+   - $\\ce{Fe^2+}$: Melepas 2 elektron $4s \\implies \\mathbf{[\\ce{Ar}]\\, 3d^6}$.
+   - $\\ce{Zn^2+}$: Melepas 2 elektron $4s \\implies \\mathbf{[\\ce{Ar}]\\, 3d^{10}}$.
+
+---
+
+#### Langkah 2: Diagram Orbital 3d, Jumlah Elektron Tak Berpasangan ($n$), dan Kemagnetan
+Berdasarkan Aturan Hund:
+1. **Ion $\\ce{Cr^3+}$ ($3d^3$):**
+   - Diagram: $(\\uparrow) (\\uparrow) (\\uparrow) (\\phantom{\\uparrow}) (\\phantom{\\uparrow})$
+   - Jumlah elektron tak berpasangan: $\\mathbf{n = 3}$.
+   - Sifat: **Paramagnetik** (ditarik oleh medan magnet).
+2. **Ion $\\ce{Fe^2+}$ ($3d^6$):**
+   - Diagram: $(\\uparrow\\downarrow) (\\uparrow) (\\uparrow) (\\uparrow) (\\uparrow)$
+   - Terdapat 1 pasang elektron dan 4 elektron tunggal.
+   - Jumlah elektron tak berpasangan: $\\mathbf{n = 4}$.
+   - Sifat: **Paramagnetik Kuat**.
+3. **Ion $\\ce{Zn^2+}$ ($3d^{10}$):**
+   - Diagram: $(\\uparrow\\downarrow) (\\uparrow\\downarrow) (\\uparrow\\downarrow) (\\uparrow\\downarrow) (\\uparrow\\downarrow)$
+   - Seluruh orbital terisi penuh berpasangan.
+   - Jumlah elektron tak berpasangan: $\\mathbf{n = 0}$.
+   - Sifat: **Diamagnetik** (ditolak lemah oleh medan magnet).
+
+---
+
+#### Langkah 3: Menghitung Momen Magnetik Spin Murni ($\mu_s$)
+Rumus momen spin murni (*spin-only formula*):
+$$\\mu_s = \\sqrt{n(n + 2)} \\quad \\text{Bohr Magneton (BM)}$$
+1. **Untuk $\\ce{Cr^3+}$ ($n = 3$):**
+   $$\\mu_s = \\sqrt{3(3 + 2)} = \\sqrt{15} \\approx \\mathbf{3.87\\text{ BM}}$$
+2. **Untuk $\\ce{Fe^2+}$ ($n = 4$):**
+   $$\\mu_s = \\sqrt{4(4 + 2)} = \\sqrt{24} \\approx \\mathbf{4.90\\text{ BM}}$$
+3. **Untuk $\\ce{Zn^2+}$ ($n = 0$):**
+   $$\\mu_s = \\sqrt{0(0 + 2)} = \\mathbf{0.00\\text{ BM}}$$
+
+---
+
+#### Langkah 4: Mekanisme Spektral Transisi d-d & Asal Warna
+a. **Mekanisme Transisi $d-d$ pada $\\ce{Cr^3+}$ dan $\\ce{Fe^2+}$:**
+   Di dalam larutan air, kation logam dikelilingi oleh 6 molekul air membentuk kompleks oktahedral $[\\ce{M(H2O)6}]^{n+}$. Medan ligan memecah 5 orbital $d$ menjadi dua kelompok energi: orbital bawah ($t_{2g}$) dan orbital atas ($e_g$) dengan celah energi $\\Delta_o$.
+   Elektron pada orbital $t_{2g}$ menyerap sebagian energi foton cahaya tampak ($\Delta E = hc/\\lambda$) untuk melompat (tereksitasi) ke orbital $e_g$. Sisa cahaya tampak yang tidak diserap akan dipantulkan/diteruskan ke mata sebagai **warna komplementer** (misal $\\ce{Cr^3+}$ menyerap warna kuning-merah sehingga larutan tampak hijau-violet).
+
+b. **Penyebab $\\ce{Zn^2+}$ dan $\\ce{Sc^3+}$ Tidak Berwarna:**
+   - **Ion $\\ce{Zn^2+}$ ($3d^{10}$):** Seluruh orbital $d$ penuh sesak ($t_{2g}^6 e_g^4$), sehingga tidak ada orbital kosong yang dapat menjadi tujuan eksitasi elektron.
+   - **Ion $\\ce{Sc^3+}$ ($3d^0$):** Subkulit $d$ kosong total, tidak ada elektron yang dapat bertransisi.
+   *Kesimpulan Baku:* **Warna HANYA muncul jika subkulit $d$ terisi sebagian ($d^1$ sampai $d^9$)!**
+
+---
+
+#### Langkah 5: Warna Ungu Pekat $\\ce{MnO4-}$ (Mekanisme Transfer Muatan / LMCT)
+Meskipun atom $\\ce{Mn(VII)}$ dalam $\\ce{MnO4-}$ berkonfigurasi $3d^0$ (tanpa elektron $d$), warnanya bukan disebabkan oleh transisi $d-d$, melainkan oleh **Transfer Muatan Ligan ke Logam (*Ligand-to-Metal Charge Transfer* / LMCT)**:
+Foton cahaya tampak mengeksitasi elektron dari orbital molekul ligan oksigen ($\\ce{O^2-}$) langsung menuju ke orbital kosong atom pusat mangan. Transisi transfer muatan ini diizinkan penuh oleh hukum kuantum Laporte (*Laporte allowed*), menghasilkan absorbsi cahaya yang jutaan kali lebih intensif daripada transisi $d-d$ biasa!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Kunci Kilat Momen Magnetik & Warna di Ujian:**
+> 1. **Nilai Momen Magnetik Selalu Mendekati $[n + 0.8]$ hingga $[n + 0.9]$:**
+>    - $n = 1 \\implies \\mu_s = \\sqrt{3} \\approx 1.73\\text{ BM}$
+>    - $n = 2 \\implies \\mu_s = \\sqrt{8} \\approx 2.83\\text{ BM}$
+>    - $n = 3 \\implies \\mu_s = \\sqrt{15} \\approx 3.87\\text{ BM}$
+>    - $n = 4 \\implies \\mu_s = \\sqrt{24} \\approx 4.90\\text{ BM}$
+>    - $n = 5 \\implies \\mu_s = \\sqrt{35} \\approx 5.92\\text{ BM}$
+> 2. **Kation Bening Tanpa Warna:** Selalu ingat pasangan **$\\ce{Sc^3+}$ ($d^0$) dan $\\ce{Zn^2+}$ ($d^{10}$)**!`,
+    keyFormulas: [
+      { name: 'Momen Magnetik Spin Murni', formula: '\\mu_s = \\sqrt{n(n + 2)} \\quad \\text{BM}' },
+      { name: 'Syarat Warna Transisi d-d', formula: '\\text{Subkulit } 3d^1 \\text{ s.d. } 3d^9 \\implies \\text{Berwarna}; \\quad 3d^0, 3d^{10} \\implies \\text{Bening}' },
+      { name: 'Konfigurasi Ion Besi', formula: '\\ce{Fe}: [\\ce{Ar}]\\, 4s^2 3d^6 \\implies \\ce{Fe^2+}: [\\ce{Ar}]\\, 3d^6 \\, (n=4), \\quad \\ce{Fe^3+}: [\\ce{Ar}]\\, 3d^5 \\, (n=5)' },
+    ],
+  },
+  {
+    tag: 'contoh-rekayasa-metalurgi-tanur-tiup-hall-heroult-hots-sma',
+    tags: ['proses-metalurgi-ekstraksi-industri-kimia-anorganik', 'tanur-tiup-besi-blast-furnace', 'proses-hall-heroult', 'kriolit-na3alf6', 'terak-casio3', 'kalsinasi-hematit', 'hots-sma'],
+    title: 'Contoh Soal 5: Rekayasa Metalurgi Industri: Reduksi Tanur Tiup Besi Hematit & Elektrolisis Hall-Héroult Aluminium (Level: Sulit / HOTS)',
+    summary: 'Kalkulasi stoikiometri industri peleburan bijih besi hematit tanur tiup, pembentukan terak silika, serta kuantifikasi elektrokimia Faraday pada ekstraksi aluminium Hall-Héroult.',
+    content: `### 📋 Skenario Masalah & Data Industri:
+Dua industri strategis logam nasional mengoperasikan reaktor ekstraksi kimia skala raksasa:
+
+#### Industri 1: Tanur Tiup Besi (*Blast Furnace*)
+Sebuah tanur tiup dimasukkan bahan baku berupa $20.00\\text{ ton}$ bijih hematit mentah. Komposisi hasil analisis mineralogi:
+- **$79.85\\%$** besi(III) oksida murni ($\\ce{Fe2O3}$, $M_r = 159.70\\text{ g/mol}$)
+- **$12.02\\%$** pengotor pasir silika ($\\ce{SiO2}$, $M_r = 60.08\\text{ g/mol}$)
+- **$8.13\\%$** pengotor inert lainnya.
+
+Bahan penolong yang ditambahkan meliputi kokas karbon ($\\ce{C}$) dan batu kapur ($\\ce{CaCO3}$, $M_r = 100.09\\text{ g/mol}$). Gas pereduksi utama yang terbentuk adalah karbon monoksida ($\\ce{CO}$).
+
+#### Industri 2: Ekstraksi Aluminium Hall-Héroult
+Pabrik peleburan aluminium mengelektrolisis lelehan alumina murni ($\\ce{Al2O3}$, $M_r = 101.96\\text{ g/mol}$) yang dilarutkan dalam kriolit cair ($\\ce{Na3AlF6}$) pada suhu $950^\\circ\\text{C}$. Sel dialiri arus searah konstan sebesar $I = 96.500\\text{ Ampere}$ selama durasi $t = 10.0\\text{ jam}$ ($36.000\\text{ detik}$) dengan efisiensi arus industri $\\eta = 90.0\\%$.
+
+*(Diketahui: $A_r\\text{ Fe} = 55.85\\text{ g/mol}$, $A_r\\text{ Al} = 27.00\\text{ g/mol}$, $1\\text{ F} = 96.500\\text{ C/mol } e^-$, volume molar gas pada $RTP = 24.0\\text{ m}^3\\text{/kmol}$)*.
+
+---
+
+### 🎯 Pertanyaan:
+1. **Pada Industri Tanur Tiup Besi:**
+   a. Tuliskan reaksi reduksi bertingkat hematit oleh gas $\\ce{CO}$ hingga terbentuk cairan besi murni!
+   b. Hitung massa logam besi murni ($\\ce{Fe}$) yang dihasilkan secara teoretis dalam satuan **ton**!
+   c. Tuliskan persamaan reaksi pembentukan terak cair (*slag*) kalsium silikat ($\\ce{CaSiO3}$) dan hitung massa minimum batu kapur ($\\ce{CaCO3}$) dalam satuan **ton** yang harus ditambahkan untuk mengikat seluruh pasir silika!
+   d. Mengapa terak cair mengapung di atas cairan besi dan apa fungsi protektifnya?
+2. **Pada Industri Aluminium Hall-Héroult:**
+   a. Tuliskan persamaan reaksi di katoda dan anoda sel elektrolisis! Mengapa batang anoda karbon harus diganti secara berkala?
+   b. Hitung jumlah muatan listrik efektif ($Q_{\\text{efektif}}$) dan mol elektron efektif ($F_{\\text{efektif}}$) yang dialirkan selama $10\\text{ jam}$!
+   c. Hitung massa logam aluminium murni yang berhasil diproduksi dalam satuan **kilogram (kg)**!
+   d. Jelaskan dua peran krusial penambahan kriolit cair ($\\ce{Na3AlF6}$) dalam sel Hall-Héroult!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Kimia Tanur Tiup Besi
+a. **Reaksi Reduksi Bertingkat Hematit:**
+   1. Suhu $400 - 700^\\circ\\text{C}$ (Zona Atas):
+      $$\\ce{3Fe2O3(s) + CO(g) -> 2Fe3O4(s) + CO2(g)}$$
+   2. Suhu $700 - 1000^\\circ\\text{C}$ (Zona Tengah):
+      $$\\ce{Fe3O4(s) + CO(g) -> 3FeO(s) + CO2(g)}$$
+   3. Suhu $> 1000^\\circ\\text{C}$ (Zona Bawah):
+      $$\\ce{FeO(s) + CO(g) -> Fe(l) + CO2(g)}$$
+   $$\\text{Reaksi Bersih Total: } \\mathbf{\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(l) + 3CO2(g)}}$$
+
+b. **Massa Logam Besi yang Dihasilkan:**
+   - Massa $\\ce{Fe2O3}$ murni:
+     $$m_{\\ce{Fe2O3}} = 79.85\\% \\times 20.00\\text{ ton} = \\mathbf{15.97\\text{ ton}} = 15.97 \\times 10^6\\text{ gram}$$
+   - Mol $\\ce{Fe2O3}$:
+     $$n_{\\ce{Fe2O3}} = \\frac{15.97 \\times 10^6\\text{ g}}{159.70\\text{ g/mol}} = 100.000\\text{ mol} = \\mathbf{100.0\\text{ kmol}}$$
+   - Mol $\\ce{Fe}$ yang dihasilkan ($1\\text{ mol } \\ce{Fe2O3} \\implies 2\\text{ mol } \\ce{Fe}$):
+     $$n_{\\ce{Fe}} = 2 \\times 100.0\\text{ kmol} = \\mathbf{200.0\\text{ kmol}}$$
+   - Massa logam besi murni:
+     $$m_{\\ce{Fe}} = 200.0\\text{ kmol} \\times 55.85\\text{ kg/kmol} = 11.170\\text{ kg} = \\mathbf{11.17\\text{ ton Besi}}$$
+
+c. **Massa Batu Kapur Pengikat Terak Silika:**
+   - Massa pengotor silika:
+     $$m_{\\ce{SiO2}} = 12.02\\% \\times 20.00\\text{ ton} = 2.404\\text{ ton} = 2.404 \\times 10^6\\text{ gram}$$
+   - Mol $\\ce{SiO2}$:
+     $$n_{\\ce{SiO2}} = \\frac{2.404 \\times 10^6\\text{ g}}{60.08\\text{ g/mol}} = 40.013\\text{ mol} = \\mathbf{40.013\\text{ kmol}}$$
+   - Reaksi pembentukan terak:
+     $$\\ce{CaCO3(s) -> CaO(s) + CO2(g)}$$
+     $$\\mathbf{\\ce{CaO(s) + SiO2(s) -> CaSiO3(l)} \\quad (\\text{Terak Cair / Slag})}$$
+     Rasio mol: $1\\text{ mol } \\ce{CaCO3} \\equiv 1\\text{ mol } \\ce{CaO} \\equiv 1\\text{ mol } \\ce{SiO2}$.
+     $$n_{\\ce{CaCO3}} = 40.013\\text{ kmol}$$
+   - Massa batu kapur murni:
+     $$m_{\\ce{CaCO3}} = 40.013\\text{ kmol} \\times 100.09\\text{ kg/kmol} = 4004.9\\text{ kg} \\approx \\mathbf{4.00\\text{ ton}}$$
+
+d. **Fungsi Protektif Terak Cair:**
+   Terak kalsium silikat ($\ce{CaSiO3}$) memiliki massa jenis lebih rendah ($\rho \approx 2.5\text{ g/cm}^3$) daripada cairan besi ($\rho \approx 7.0\text{ g/cm}^3$), sehingga terak mengapung di permukaan membentuk lapisan pelindung yang mencegah besi cair teroksidasi kembali oleh hembusan udara panas tanur.
+
+---
+
+#### Langkah 2: Stoikiometri Elektrolisis Aluminium Hall-Héroult
+a. **Reaksi Elektroda:**
+   - **Katoda (Lapisan Karbon Bak):** Ion aluminium direduksi mengendap sebagai cairan logam di dasar sel:
+     $$\\ce{Al^3+ + 3e- -> Al(l)}$$
+   - **Anoda (Batang Karbon Grafit):** Ion oksida teroksidasi menghasilkan gas oksigen:
+     $$\\ce{2O^2- -> O2(g) + 4e-}$$
+   - **Penyebab Terkikisnya Anoda:** Pada temperatur operasional $950^\\circ\\text{C}$, gas oksigen yang terbentuk seketika membakar elektroda karbon membentuk gas karbon dioksida:
+     $$\\mathbf{\\ce{C(s) + O2(g) -> CO2(g)}}$$
+     Oleh karena itu, batang anoda karbon habis terbakar dan wajib diganti secara berkala.
+
+b. **Muatan Listrik & Mol Elektron Efektif:**
+   - Total muatan teoritis:
+     $$Q = I \\times t = 96.500\\text{ A} \\times 36.000\\text{ s} = 3.474 \\times 10^9\\text{ Coulomb}$$
+   - Mol elektron teoritis:
+     $$n_{e^-, \\text{teoritis}} = \\frac{Q}{96.500\\text{ C/mol}} = 36.000\\text{ mol } e^-$$
+   - Memperhitungkan efisiensi arus $\\eta = 90.0\\%$ ($0.90$):
+     $$n_{e^-, \\text{efektif}} = 36.000\\text{ mol} \\times 0.90 = \\mathbf{32.400\\text{ mol } e^-} \\quad (32.40\\text{ kmol } e^-)$$
+
+c. **Massa Logam Aluminium yang Dihasilkan:**
+   Sesuai reaksi katoda: $\\ce{Al^3+ + 3e- -> Al} \\implies 1\\text{ mol } \\ce{Al} \\equiv 3\\text{ mol } e^-$.
+   $$n_{\\ce{Al}} = \\frac{1}{3} \\times n_{e^-, \\text{efektif}} = \\frac{1}{3} \\times 32.400\\text{ mol} = \\mathbf{10.800\\text{ mol } \\ce{Al}}$$
+   Massa aluminium:
+   $$m_{\\ce{Al}} = n_{\\ce{Al}} \\times A_r(\\ce{Al}) = 10.800\\text{ mol} \\times 27.00\\text{ g/mol} = 291.600\\text{ gram} = \\mathbf{291.6\\text{ kg Aluminium}}$$
+
+d. **Dua Peran Utama Kriolit Cair ($\ce{Na3AlF6}$):**
+   1. **Menurunkan Titik Leleh Secara Dramatis:** Titik leleh alumina murni adalah $> 2050^\\circ\\text{C}$. Campuran lelehan kriolit-alumina meleleh pada temperatur $\\sim 950^\\circ\\text{C}$, menghemat konsumsi energi listrik hingga ratusan megawatt.
+   2. **Meningkatkan Konduktivitas Elektrolit:** Kriolit cair bertindak sebagai pelarut ionik unggul yang menghantarkan arus listrik dengan hambatan jenis sangat rendah.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Kaidah Metalurgi Industri di UTBK-SNBT:**
+> 1. **Tanur Tiup Besi:** Gas pereduksi sejati adalah **$\\ce{CO}$** (bukan kokas $\\ce{C}$ padat). Batu kapur berfungsi sebagai **fluks pelebur pengikat silika menjadi terak** (bukan pereduksi besi!).
+> 2. **Sel Hall-Héroult:** Katoda menghasilkan **$\\ce{Al(l)}$**, anoda menghasilkan **$\\ce{CO2(g)}$** karena karbon bereaksi dengan oksigen hasil oksidasi. Pelarutnya adalah **kriolit cair $\\ce{Na3AlF6}$**.`,
+    keyFormulas: [
+      { name: 'Reduksi Bersih Tanur Tiup Besi', formula: '\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(l) + 3CO2(g)}' },
+      { name: 'Pembentukan Terak Silika', formula: '\\ce{CaO(s) + SiO2(s) -> CaSiO3(l)}' },
+      { name: 'Reduksi Katoda Hall-Heroult', formula: '\\ce{Al^3+ + 3e- -> Al(l)}' },
+      { name: 'Hukum Faraday Skala Industri', formula: 'w = \\frac{A_r}{n} \\times \\frac{I \\times t}{96.500} \\times \\eta' },
+    ],
+  },
+];

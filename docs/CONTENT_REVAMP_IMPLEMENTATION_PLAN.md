@@ -73,11 +73,15 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **104** | **4** | **Tata Nama Senyawa & Persamaan Reaksi** | **Kelas 10 (Fase E)** | **Tata Bahasa Kimia IUPAC, Neraca Akuntansi Antoine Lavoisier** | **✅ Selesai** | **Coverage 100% (5 Soal, 24 Kuis, 10 Miskonsepsi)** |
 | **105** | **5** | **Hukum Dasar Kimia & Konsep Mol** | **Kelas 10 (Fase E)** | **Sandwich Keju (Pembatas), Jembatan Mol (Ibu Kota Hub)** | **✅ Selesai** | **Coverage 100% (5 Soal, 18 Kuis, 9 Miskonsepsi)** |
 | **106** | **6** | **Termokimia SMA (Entalpi & Hukum Hess)** | **Kelas 11 (Fase F1)** | **Rekening Bank Energi, Naik Tangga / Turun Lift Hess** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 11 Miskonsepsi)** |
-| **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas | **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
+| **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas 11 (Fase F1)** | **Kemacetan Lalu Lintas Tabrakan Efektif, Jalan Tol Katalis** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
+| **108** | **8** | **Kesetimbangan Kimia SMA & Le Chatelier** | **Kelas 11 (Fase F1)** | **Jungkat-Jungkit Penyeimbang Beban, Tangga Berjalan Dinamis** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
+| **109** | **9** | **Asam-Basa & Titrasi Netralisasi SMA** | **Kelas 11 (Fase F1)** | **Donor-Akseptor Proton, Titik Belok Indikator** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
+| **110** | **10** | **Larutan Penyangga (Buffer) & Hidrolisis Garam** | **Kelas 11 (Fase F1)** | **Shock Absorber pH Darah, Gunting Pemotong Air Hidrolisis** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 20 Miskonsepsi)** |
+| **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | **112** | **12** | **Sistem Koloid & Kimia Permukaan SMA** | **Kelas 11 (Fase F1)** | **Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil)** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | **113** | **13** | **Sifat Koligatif Larutan SMA** | **Kelas 12 (Fase F2)** | **Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
 | **114** | **14** | **Reaksi Redoks & Sel Elektrokimia SMA** | **Kelas 12 (Fase F2)** | **Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 14 Miskonsepsi)** |
-| 115 | 15 | Kimia Unsur Golongan Utama & Transisi 4 | Kelas 12 (Fase F2) | Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik | ⏳ Terjadwal | Prioritas Fase 4 |
+| **115** | **15** | **Kimia Unsur Golongan Utama & Transisi 4** | **Kelas 12 (Fase F2)** | **Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik** | **✅ Selesai** | **Coverage 100% (5 Soal, 24 Kuis, 16 Miskonsepsi)** |
 | 116 | 16 | Kimia Karbon & Makromolekul | Kelas 12 (Fase F2) | Lego Rantai Karbon, Ritsleting Protein & DNA | ⏳ Terjadwal | Prioritas Fase 4 |
 
 
@@ -139,7 +143,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 * **Status Eksekusi**:
   * **Topik 113 (Sifat Koligatif Larutan SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_113`, 21 Kuis Checkpoint di `checkpointBankTopic113.ts`, 17 Peringatan Miskonsepsi (**100% Coverage ✅**).
   * **Topik 114 (Reaksi Redoks & Sel Elektrokimia SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_114`, 21 Kuis Checkpoint di `checkpointBankTopic114.ts`, 14 Peringatan Miskonsepsi (**100% Coverage ✅**). Celah materi *Baterai Komersial & Fenomena Korosi Besi* telah tertutup sempurna!
-  * **Topik 115 (Kimia Unsur Golongan Utama & Transisi Periode 4 SMA)**: ⏳ Target berikutnya.
+  * **Topik 115 (Kimia Unsur Golongan Utama & Transisi Periode 4 SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_115`, 24 Kuis Checkpoint di `checkpointBankTopic115.ts`, 16 Peringatan Miskonsepsi (**100% Coverage ✅**). Kimia Unsur Golongan Utama, Gas Mulia, Halogen, Alkali, Alkali Tanah, serta Logam Transisi Periode 4 (konfigurasi elektron, orbital $d$, bilangan oksidasi bervariasi, warna ion, sifat magnetik, dan ion kompleks) tuntas beres!
   * **Topik 116 (Kimia Karbon & Makromolekul SMA)**: ⏳ Target penutup Fase F2.
 * Menulis 5 contoh soal lingkup SMA (Sedang & HOTS) per topik (Total 20 contoh soal).
 * Menyusun kuis uji pemahaman cepat (21 kuis/topik) untuk seluruh subtopik Fase F2.
