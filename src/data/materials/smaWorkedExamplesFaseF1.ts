@@ -1249,3 +1249,509 @@ $$K_p = \\\\frac{4 \\\\times (0.40)^2}{1 - (0.40)^2} \\\\times 1.50 = \\\\frac{4
     ],
   },
 ];
+
+// ============================================================================
+// TOPIK 109: LARUTAN ASAM-BASA & TITRASI NETRALISASI
+// 5 CONTOH SOAL TERBIMBING LINGKUP MURNI KURIKULUM SMA (SEDANG & HOTS)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_109: ConceptBlock[] = [
+  {
+    tag: 'contoh-tiga-teori-asam-basa-komparasi',
+    tags: ['teori-arrhenius', 'teori-bronsted-lowry', 'teori-lewis', 'pasangan-konjugasi', 'ikatan-kovalen-koordinasi', 'asam-basa-sma'],
+    title: 'Contoh Soal 1: Komparasi Tiga Teori Asam-Basa (Arrhenius, Brønsted-Lowry & Lewis), Identifikasi Pasangan Konjugasi & Aduk Kovalen Koordinasi (Level: Sedang)',
+    summary: 'Klasifikasi mendalam sifat asam-basa pada berbagai medium pelarut dan reaksi fasa gas, penentuan spesi asam, basa, pasangan konjugasi, serta pembentukan ikatan kovalen koordinasi aduk Lewis.',
+    content: `### 📋 Skenario Masalah & Persamaan Reaksi:
+Diberikan empat reaksi kimia berikut yang berlangsung di laboratorium kimia sekolah:
+1. Reaksi I (dalam pelarut air):
+   $$\\\\ce{HNO3(aq) + H2O(l) -> H3O+(aq) + NO3-(aq)}$$
+2. Reaksi II (dalam pelarut air):
+   $$\\\\ce{HCO3-(aq) + NH3(aq) <=> CO3^2-(aq) + NH4+(aq)}$$
+3. Reaksi III (fasa gas tanpa pelarut air):
+   $$\\\\ce{BF3(g) + NH3(g) -> F3B:NH3(s)}$$
+4. Reaksi IV (pembentukan ion kompleks):
+   $$\\\\ce{Cu^2+(aq) + 4 NH3(aq) <=> [Cu(NH3)4]^2+(aq)}$$
+
+---
+
+### 🎯 Pertanyaan:
+1. Tunjukkan reaksi mana yang dapat dijelaskan secara tuntas oleh Teori Arrhenius, dan jelaskan mengapa Teori Arrhenius gagal menerangkan Reaksi II, III, dan IV!
+2. Untuk Reaksi II, tentukan spesi yang bertindak sebagai asam, basa, asam konjugasi, dan basa konjugasi menurut Teori Brønsted-Lowry!
+3. Tunjukkan bahwa ion bikarbonat ($\\\\ce{HCO3-}$) merupakan spesi amfiprotik dengan menuliskan reaksi saat ia bertindak sebagai basa Brønsted-Lowry ketika dilarutkan dalam asam klorida ($\\\\ce{HCl}$)!
+4. Berdasarkan Teori Gilbert N. Lewis, tentukan spesi donor pasangan elektron bebas (basa Lewis) dan spesi akseptor pasangan elektron bebas (asam Lewis) pada Reaksi III dan Reaksi IV, serta jelaskan jenis ikatan yang terbentuk!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Lingkup Teori Arrhenius & Keterbatasannya
+- **Reaksi I:** Dapat dijelaskan oleh Arrhenius karena asam nitrat ($\\\\ce{HNO3}$) dilarutkan dalam pelarut air dan melepaskan ion hidrogen/hidronium ($\\\\ce{H3O+}$ atau $\\\\ce{H+}$).
+- **Keterbatasan Arrhenius:**
+  1. *Pada Reaksi II:* Arrhenius tidak dapat menerangkan mengapa larutan amonia ($\\\\ce{NH3}$) dapat bersifat basa padahal rumus molekulnya tidak mengandung gugus hidroksida ($\\\\ce{OH-}$).
+  2. *Pada Reaksi III:* Berlangsung di fasa gas murni tanpa kehadiran pelarut air ($\\\\ce{H2O}$), sedangkan Arrhenius mewajibkan pelarut air.
+  3. *Pada Reaksi IV:* Melibatkan kation logam transisi ($\\\\ce{Cu^2+}$) yang mengikat molekul netral membentuk ion kompleks tanpa pelepasan ion $\\\\ce{H+}$ maupun $\\\\ce{OH-}$.
+
+---
+
+#### Langkah 2: Identifikasi Pasangan Asam-Basa Konjugasi Brønsted-Lowry (Reaksi II)
+Menurut Brønsted-Lowry:
+- **Asam:** Donor proton ($\\\\ce{H+}$).
+- **Basa:** Akseptor proton ($\\\\ce{H+}$).
+
+Tinjau perpindahan proton pada Reaksi II:
+$$\\\\ce{HCO3-(aq) + NH3(aq) <=> CO3^2-(aq) + NH4+(aq)}$$
+- Ion $\\\\ce{HCO3-}$ melepaskan satu proton ($\\\\ce{H+}$) menjadi $\\\\ce{CO3^2-}$. Maka, $\\\\mathbf{\\\\ce{HCO3-}}$ adalah **Asam**.
+- Molekul $\\\\ce{NH3}$ menerima proton ($\\\\ce{H+}$) tersebut menjadi $\\\\ce{NH4+}$. Maka, $\\\\mathbf{\\\\ce{NH3}}$ adalah **Basa**.
+- Setelah melepaskan proton, $\\\\ce{HCO3-}$ berubah menjadi $\\\\mathbf{\\\\ce{CO3^2-}}$, yang bertindak sebagai **Basa Konjugasi**.
+- Setelah menerima proton, $\\\\ce{NH3}$ berubah menjadi $\\\\mathbf{\\\\ce{NH4+}}$, yang bertindak sebagai **Asam Konjugasi**.
+
+Pasangan konjugasi yang terbentuk (berselisih tepat satu $\\\\ce{H+}$):
+1. **Pasangan 1:** $\\\\ce{HCO3-}$ (asam) dan $\\\\ce{CO3^2-}$ (basa konjugasi).
+2. **Pasangan 2:** $\\\\ce{NH4+}$ (asam konjugasi) dan $\\\\ce{NH3}$ (basa).
+
+---
+
+#### Langkah 3: Sifat Amfiprotik Ion Bikarbonat ($\\\\ce{HCO3-}$)
+Spesi amfiprotik adalah spesi yang dapat bertindak sebagai asam (donor proton) maupun sebagai basa (akseptor proton) bergantung pada pasangannya:
+- Pada Reaksi II di atas, $\\\\ce{HCO3-}$ bertindak sebagai **asam** karena berhadapan dengan basa $\\\\ce{NH3}$.
+- Jika direaksikan dengan asam kuat seperti $\\\\ce{HCl}$, $\\\\ce{HCO3-}$ bertindak sebagai **basa** (akseptor proton):
+  $$\\\\ce{HCO3-(aq) + HCl(aq) -> H2CO3(aq) + Cl-(aq)}$$
+  Asam karbonat yang terbentuk segera terurai menjadi air dan gas karbon dioksida:
+  $$\\\\ce{H2CO3(aq) <=> H2O(l) + CO2(g)}$$
+
+---
+
+#### Langkah 4: Analisis Teori Asam-Basa Lewis & Ikatan Kovalen Koordinasi
+Menurut Gilbert N. Lewis:
+- **Asam Lewis:** Akseptor pasangan elektron bebas (PEB) yang menyediakan orbital kosong.
+- **Basa Lewis:** Donor pasangan elektron bebas (PEB).
+
+1. **Reaksi III ($\\\\ce{BF3 + NH3 -> F3B:NH3}$):**
+   - Atom Boron pada $\\\\ce{BF3}$ hanya memiliki 6 elektron valensi (belum oktet) dan memiliki sebuah orbital kosong $2p$. Maka, $\\\\mathbf{\\\\ce{BF3}}$ adalah **Asam Lewis**.
+   - Atom Nitrogen pada $\\\\ce{NH3}$ memiliki 1 pasang elektron bebas (PEB) pada kulit terluarnya. Maka, $\\\\mathbf{\\\\ce{NH3}}$ adalah **Basa Lewis**.
+   - Pasangan elektron bebas dari atom N didonasikan ke orbital kosong atom B membentuk **ikatan kovalen koordinasi (ikatan datif)** menghasilkan senyawa aduk Lewis $\\\\ce{F3B:NH3}$.
+
+2. **Reaksi IV ($\\\\ce{Cu^2+ + 4 NH3 <=> [Cu(NH3)4]^2+}$):**
+   - Kation $\\\\ce{Cu^2+}$ memiliki orbital $d$ dan $p$ yang kosong untuk menerima pasangan elektron. Maka, $\\\\mathbf{\\\\ce{Cu^2+}}$ adalah **Asam Lewis**.
+   - Setiap molekul $\\\\ce{NH3}$ mendonasikan sepasang elektron bebasnya bertindak sebagai ligan (**Basa Lewis**).
+   - Terbentuk 4 ikatan kovalen koordinasi menghasilkan ion kompleks tetraaminatembaga(II) $[\\\\ce{Cu(NH3)4}]^2+$.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Hierarki 3 Teori Asam-Basa:**  
+> Inklusivitas cakupan: **Arrhenius $\\\\subset$ Brønsted-Lowry $\\\\subset$ Lewis**.  
+> - Semua asam/basa Arrhenius pasti merupakan asam/basa Brønsted-Lowry.  
+> - Semua asam/basa Brønsted-Lowry pasti merupakan asam/basa Lewis.  
+> - Namun sebaliknya, reaksi pembentukan senyawa kompleks ($\\\\ce{Cu^2+ + 4 NH3}$) dan reaksi fasa gas tanpa proton ($\\\\ce{BF3 + NH3}$) **hanya bisa dijelaskan oleh Teori Lewis** karena tidak ada serah-terima proton $\\\\ce{H+}$.  
+> - **Aturan Cepat Pasangan Konjugasi:** Asam konjugasi selalu memiliki $1$ atom H lebih banyak dan muatan $+1$ lebih besar daripada basa asalnya!`,
+    keyFormulas: [
+      { name: 'Definisi Asam-Basa Arrhenius', formula: '\\text{Asam: } \\ce{H+} \\text{ dalam air}, \\quad \\text{Basa: } \\ce{OH-} \\text{ dalam air}' },
+      { name: 'Definisi Brønsted-Lowry', formula: '\\text{Asam: Donor } \\ce{H+}, \\quad \\text{Basa: Akseptor } \\ce{H+}' },
+      { name: 'Definisi Lewis', formula: '\\text{Asam: Akseptor PEB (orbital kosong)}, \\quad \\text{Basa: Donor PEB}' },
+    ],
+  },
+  {
+    tag: 'contoh-analisis-trayek-indikator-sampel',
+    tags: ['trayek-indikator', 'irisan-garis-bilangan', 'btb-pp-mo-mr', 'uji-limbah', 'indikator-asam-basa', 'kimia-sma'],
+    title: 'Contoh Soal 2: Penentuan Rentang pH Sampel Air Limbah Laboratorium via Analisis Multikriteria Irisan 4 Indikator Warna Sintetis (Level: Sedang)',
+    summary: 'Pemodelan matematis irisan garis bilangan dari data uji metil jingga, metil merah, bromtimol biru, dan fenolftalein untuk estimasi presisi derajat keasaman limbah kimia.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam suatu pengujian mutu lingkungan sekolah, seorang analis kimia menguji tingkat keasaman sampel air limbah laboratorium menggunakan empat jenis larutan indikator sintetis. Hasil pengamatan perubahan warna dicatat pada tabel berikut:
+
+| Indikator Asam-Basa | Trayek Rentang pH | Perubahan Warna Trayek | Warna Pengamatan Sampel |
+| :--- | :---: | :---: | :---: |
+| **Metil Jingga (MO)** | $3.1 - 4.4$ | Merah $\\\\to$ Kuning | **Kuning** |
+| **Metil Merah (MR)** | $4.4 - 6.2$ | Merah $\\\\to$ Kuning | **Kuning** |
+| **Bromtimol Biru (BTB)** | $6.0 - 7.6$ | Kuning $\\\\to$ Biru | **Biru** |
+| **Fenolftalein (PP)** | $8.3 - 10.0$ | Tak Berwarna $\\\\to$ Merah Muda | **Tak Berwarna** |
+
+---
+
+### 🎯 Pertanyaan:
+1. Terjemahkan hasil warna pengamatan masing-masing indikator menjadi pertidaksamaan nilai pH matematis!
+2. Tentukan rentang perkiraan nilai pH sampel air limbah tersebut melalui analisis irisan himpunan garis bilangan!
+3. Apakah air limbah tersebut tergolong bersifat asam, netral, atau basa pada temperatur kamar ($25^{\\circ}\\text{C}$)?
+4. Jika air limbah tersebut kemudian diuji dengan indikator Alizarin Kuning (trayek pH $10.1 - 12.0$: kuning $\\\\to$ merah), ramalkan warna yang akan teramati!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menerjemahkan Respon Warna Indikator ke Pertidaksamaan pH
+Suatu indikator memberikan warna batas bawah jika $\\\\text{pH} \\\\le \\\\text{batas bawah}$, warna batas atas jika $\\\\text{pH} \\\\ge \\\\text{batas atas}$, dan warna kombinasi jika berada di dalam rentang trayek.
+1. **Metil Jingga (Trayek $3.1 - 4.4$: Merah - Kuning):**
+   - Menghasilkan warna **Kuning** (warna batas atas basa).
+   - Pertidaksamaan 1: $\\\\mathbf{\\\\text{pH} \\\\ge 4.4}$.
+2. **Metil Merah (Trayek $4.4 - 6.2$: Merah - Kuning):**
+   - Menghasilkan warna **Kuning** (warna batas atas basa).
+   - Pertidaksamaan 2: $\\\\mathbf{\\\\text{pH} \\\\ge 6.2}$.
+3. **Bromtimol Biru (Trayek $6.0 - 7.6$: Kuning - Biru):**
+   - Menghasilkan warna **Biru** (warna batas atas basa).
+   - Pertidaksamaan 3: $\\\\mathbf{\\\\text{pH} \\\\ge 7.6}$.
+4. **Fenolftalein (Trayek $8.3 - 10.0$: Tak Berwarna - Merah Muda):**
+   - Menghasilkan warna **Tak Berwarna** (warna batas bawah asam).
+   - Pertidaksamaan 4: $\\\\mathbf{\\\\text{pH} \\\\le 8.3}$.
+
+---
+
+#### Langkah 2: Analisis Irisan Garis Bilangan
+Gabungkan keempat pertidaksamaan secara simultan pada garis bilangan:
+- Batas bawah yang berlaku: $\\\\max(4.4, 6.2, 7.6) = \\\\mathbf{7.6}$.
+- Batas atas yang berlaku: $\\\\min(8.3) = \\\\mathbf{8.3}$.
+
+Irisan himpunan penyelesaian tunggal yang memenuhi seluruh data pengamatan adalah:
+$$\\\\mathbf{7.6 \\\\le \\\\text{pH} \\\\le 8.3}$$
+
+---
+
+#### Langkah 3: Evaluasi Sifat Kimia Sampel
+Pada temperatur standar $25^{\\circ}\\text{C}$, titik netral berada tepat pada $\\\\text{pH} = 7.00$:
+- Karena interval nilai pH sampel berada pada rentang $7.6 - 8.3$ (seluruh interval berada di atas angka $7.00$), maka:
+- **Air limbah laboratorium tersebut bersifat BASA LEMAH**.
+
+---
+
+#### Langkah 4: Prediksi Hasil Uji dengan Alizarin Kuning
+- Indikator Alizarin Kuning memiliki trayek pH $10.1 - 12.0$ dengan warna kuning pada $\\\\text{pH} \\\\le 10.1$ dan merah pada $\\\\text{pH} \\\\ge 12.0$.
+- Karena sampel limbah memiliki $\\\\text{pH} \\\\le 8.3$, yang berarti nilai pH sampel berada jauh di bawah batas bawah trayek Alizarin Kuning ($8.3 < 10.1$), maka:
+- Indikator Alizarin Kuning akan menunjukkan warna **KUNING**.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Kilat Irisan Garis Bilangan Ujian:**  
+> Untuk menyelesaikan soal trayek indikator dalam waktu kurang dari 60 detik:  
+> 1. Kumpulkan seluruh batas nilai pH.  
+> 2. Cari angka **terbesar** dari syarat bertanda $\\\\ge$ (batas bawah). Pada soal ini: $\\\\max(4.4, 6.2, 7.6) = 7.6$.  
+> 3. Cari angka **terkecil** dari syarat bertanda $\\\\le$ (batas atas). Pada soal ini: $\\\\min(8.3) = 8.3$.  
+> 4. Gabungkan keduanya: $7.6 \\\\le \\\\text{pH} \\\\le 8.3$.  
+> *Peringatan Khusus:* Jika salah satu indikator menunjukkan warna transisi (misalnya BTB berwarna hijau), maka rentang nilai pH langsung terkunci pada interval tengah trayek indikator tersebut ($6.0 < \\\\text{pH} < 7.6$)!`,
+    keyFormulas: [
+      { name: 'Kriteria Batas Atas Indikator', formula: '\\text{Warna Basa} \\implies \\text{pH} \\ge \\text{Batas Atas Trayek}' },
+      { name: 'Kriteria Batas Bawah Indikator', formula: '\\text{Warna Asam} \\implies \\text{pH} \\le \\text{Batas Bawah Trayek}' },
+      { name: 'Irisan Himpunan Multikriteria', formula: '\\max(\\text{Batas Bawah}) \\le \\text{pH} \\le \\min(\\text{Batas Atas})' },
+    ],
+  },
+  {
+    tag: 'contoh-titrasi-alkalimetri-kadar-cuka',
+    tags: ['titrasi-alkalimetri', 'faktor-pengenceran', 'kadar-persen', 'cuka-dapur', 'titrasi-asam-basa', 'kimia-sma'],
+    title: 'Contoh Soal 3: Stoikiometri Volumetri Titrasi Alkalimetri Cuka Dapur Komersial, Analisis Pengenceran Labu Ukur & Penentuan Kadar Persen Massa (% w/w) (Level: Sedang)',
+    summary: 'Kalkulasi stoikiometri netralisasi asam asetat dengan larutan baku NaOH 0.100 M, penerapan faktor pengenceran bertingkat, serta konversi molaritas ke persentase massa berbasis densitas larutan.',
+    content: `### 📋 Skenario Masalah & Prosedur Analisis:
+Untuk memverifikasi label kemasan produk cuka dapur komersial ($M_r\\\\ce{ CH3COOH} = 60.0\\\\text{ g/mol}$), seorang siswa melakukan analisis titrasi volumetri alkalimetri di laboratorium sekolah dengan tahapan berikut:
+1. Sebanyak $10.0\\\\text{ mL}$ sampel cuka dapur pekat dipipet secara kuantitatif ke dalam labu ukur $100.0\\\\text{ mL}$, lalu diencerkan dengan menambahkan akuades hingga tanda batas dan dihomogenkan.
+2. Dari labu ukur tersebut, diambil alikuot sebanyak $25.0\\\\text{ mL}$ larutan cuka encer menggunakan pipet volumetri dan dimasukkan ke dalam labu Erlenmeyer, lalu ditambahkan $3$ tetes indikator fenolftalein (PP).
+3. Larutan dititrasi dengan larutan baku sekunder natrium hidroksida ($\\\\ce{NaOH}$) $0.100\\\\text{ M}$. Titik akhir titrasi tercapai saat larutan tepat berubah warna menjadi merah muda pucat yang stabil selama 30 detik.
+4. Titrasi diulang sebanyak tiga kali (triplo) dengan volume $\\\\ce{NaOH}$ yang terpakai berturut-turut: $29.9\\\\text{ mL}$, $30.1\\\\text{ mL}$, dan $30.0\\\\text{ mL}$.
+
+Diketahui massa jenis sampel cuka dapur pekat semula adalah $\\\\rho = 1.05\\\\text{ g/mL}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Tuliskan persamaan reaksi ionik bersih netralisasi yang terjadi pada Erlenmeyer selama titrasi berlangsung!
+2. Hitung volume rata-rata larutan $\\\\ce{NaOH}$ yang terpakai dan tentukan konsentrasi molaritas asam asetat di dalam larutan cuka encer!
+3. Hitung konsentrasi molaritas asam asetat di dalam sampel cuka dapur pekat awal sebelum pengenceran!
+4. Hitung kadar persentase massa ($\\\\%\\\\text{ b/b}$ atau $\\\\%\\\\text{ w/w}$) asam asetat dalam cuka dapur tersebut dan bandingkan dengan standar regulasi cuka makan SNI ($4\\\\% - 8\\\\%$)!
+5. Jelaskan mengapa indikator fenolftalein (trayek pH $8.3 - 10.0$) dipilih untuk titrasi ini, dan mengapa indikator metil jingga (trayek pH $3.1 - 4.4$) tidak boleh digunakan!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Persamaan Reaksi Stoikiometri Netralisasi
+Asam asetat adalah asam lemah monoprotik ($a = 1$) dan $\\\\ce{NaOH}$ adalah basa kuat monovalen ($b = 1$):
+$$\\\\ce{CH3COOH(aq) + NaOH(aq) -> CH3COONa(aq) + H2O(l)}$$
+Persamaan ionik bersih:
+$$\\\\ce{CH3COOH(aq) + OH-(aq) -> CH3COO-(aq) + H2O(l)}$$
+
+---
+
+#### Langkah 2: Menghitung Molaritas Asam Asetat Encer
+1. **Volume Rata-rata Titran $\\\\ce{NaOH}$:**
+   $$\\\\bar{V}_{\\\\ce{NaOH}} = \\\\frac{29.9 + 30.1 + 30.0}{3} = \\\\mathbf{30.0\\\\text{ mL}}$$
+2. **Mol $\\\\ce{NaOH}$ pada Titik Ekuivalen:**
+   $$n_{\\\\ce{NaOH}} = V_{\\\\ce{NaOH}} \\\\times M_{\\\\ce{NaOH}} = 30.0\\\\text{ mL} \\\\times 0.100\\\\text{ mmol/mL} = \\\\mathbf{3.00\\\\text{ mmol}}$$
+3. **Molaritas Asam Asetat Encer ($M_{\\\\text{encer}}$):**
+   Sesuai rasio reaksi $1 : 1$:
+   $$n_{\\\\ce{CH3COOH, alikuot}} = n_{\\\\ce{NaOH}} = 3.00\\\\text{ mmol}$$
+   $$M_{\\\\text{encer}} = \\\\frac{n}{V_{\\\\text{alikuot}}} = \\\\frac{3.00\\\\text{ mmol}}{25.0\\\\text{ mL}} = \\\\mathbf{0.120\\\\text{ M}}$$
+
+---
+
+#### Langkah 3: Koreksi Faktor Pengenceran ke Sampel Cuka Pekat Asal
+Faktor pengenceran ($f$) pada labu ukur:
+$$f = \\\\frac{V_{\\\\text{labu ukur}}}{V_{\\\\text{sampel dipipet}}} = \\\\frac{100.0\\\\text{ mL}}{10.0\\\\text{ mL}} = \\\\mathbf{10}$$
+
+Maka konsentrasi molaritas asam asetat dalam sampel cuka pekat asal adalah:
+$$M_{\\\\text{pekat}} = M_{\\\\text{encer}} \\\\times f = 0.120\\\\text{ M} \\\\times 10 = \\\\mathbf{1.20\\\\text{ M}}$$
+
+---
+
+#### Langkah 4: Konversi Molaritas ke Persentase Kadar Massa ($\\\\%\\\\text{ w/w}$)
+Tinjau basis volume $1.00\\\\text{ Liter}$ ($1000\\\\text{ mL}$) larutan cuka dapur pekat:
+1. **Massa total $1000\\\\text{ mL}$ larutan:**
+   $$m_{\\\\text{larutan}} = \\\\rho \\\\times V = 1.05\\\\text{ g/mL} \\\\times 1000\\\\text{ mL} = \\\\mathbf{1050\\\\text{ gram}}$$
+2. **Massa zat terlarut $\\\\ce{CH3COOH}$ dalam $1000\\\\text{ mL}$:**
+   $$n_{\\\\ce{CH3COOH}} = M_{\\\\text{pekat}} \\\\times V = 1.20\\\\text{ mol/L} \\\\times 1.00\\\\text{ L} = 1.20\\\\text{ mol}$$
+   $$m_{\\\\ce{CH3COOH}} = n \\\\times M_r = 1.20\\\\text{ mol} \\\\times 60.0\\\\text{ g/mol} = \\\\mathbf{72.0\\\\text{ gram}}$$
+3. **Kadar persentase massa ($\\\\%\\\\text{ w/w}$):**
+   $$\\\\%\\\\text{ massa} = \\\\frac{m_{\\\\ce{CH3COOH}}}{m_{\\\\text{larutan}}} \\\\times 100\\\\% = \\\\frac{72.0\\\\text{ g}}{1050\\\\text{ g}} \\\\times 100\\\\% = \\\\mathbf{6.86\\\\%}$$
+
+*(Verifikasi via Rumus Cepat Praktis):*
+$$\\\\% = \\\\frac{M \\\\times M_r}{10 \\\\times \\\\rho} = \\\\frac{1.20 \\\\times 60.0}{10 \\\\times 1.05} = \\\\frac{72.0}{10.5} = \\\\mathbf{6.86\\\\%}$$
+
+*Kesimpulan Regulasi:* Kadar asam asetat terukur sebesar $6.86\\\\%$, berada di dalam rentang legal baku mutu SNI untuk cuka makan konsumsi ($4\\\\% - 8\\\\%$).
+
+---
+
+#### Langkah 5: Rasionalisasi Pemilihan Indikator Fenolftalein
+- Pada titik ekuivalen titrasi asam lemah ($\\\\ce{CH3COOH}$) dengan basa kuat ($\\\\ce{NaOH}$), seluruh reaktan habis bereaksi menghasilkan garam natrium asetat ($\\\\ce{CH3COONa}$).
+- Anion asetat mengalami hidrolisis parsial menghasilkan ion $\\\\ce{OH-}$:
+  $$\\\\ce{CH3COO-(aq) + H2O(l) <=> CH3COOH(aq) + OH-(aq)}$$
+- Akibatnya, titik ekuivalen bersifat basa dengan $\\\\text{pH} \\\\approx 8.7 - 9.0$.
+- **Indikator Fenolftalein (PP)** memiliki trayek perubahan warna pada rentang $\\\\text{pH } 8.3 - 10.0$, yang mencakup pH titik ekuivalen tersebut secara sempurna sehingga galat titrasi sangat minimal.
+- Sebaliknya, **Metil Jingga (MO)** berubah warna pada $\\\\text{pH } 3.1 - 4.4$ (suasana asam). Jika digunakan, MO akan berubah warna jauh sebelum titik ekuivalen tercapai, menimbulkan galat titrasi negatif yang fatal.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Dua Kunci Emas Perhitungan Volumetri Cuka:**  
+> 1. **Perangkap Faktor Pengenceran:** Banyak siswa langsung mengalikan molaritas encer ($0.120\\\\text{ M}$) ke rumus persen massa. Selalu ingat: *larutan yang dianalisis di Erlenmeyer hanyalah cuplikan encer!* Konsentrasi sampel asli di botol wajib dikalikan faktor labu ukur ($f = 100/10 = 10$).  
+> 2. **Rumus Kilat Kadar Persen Massa:**  
+>    $$\\% = \\\\frac{M \\\\times M_r}{10 \\\\times \\\\rho} \\\\iff M = \\\\frac{10 \\\\times \\% \\\\times \\\\rho}{M_r}$$  
+>    Rumus ini adalah turunan langsung dari definisi massa jenis dan molaritas, menghemat 3 menit waktu berharga Anda pada ujian UTBK!`,
+    keyFormulas: [
+      { name: 'Asas Ekuivalensi Titrasi', formula: 'V_a \\times M_a \\times a = V_b \\times M_b \\times b' },
+      { name: 'Faktor Pengenceran Labu Ukur', formula: 'f = \\frac{V_{\\text{labu ukur}}}{V_{\\text{sampel dipipet}}}' },
+      { name: 'Hubungan Molaritas & Persen Massa', formula: '\\% = \\frac{M \\times M_r}{10 \\times \\rho}' },
+    ],
+  },
+  {
+    tag: 'contoh-perhitungan-titik-titrasi-ph-step',
+    tags: ['kurva-titrasi', 'perhitungan-ph', 'titik-ekuivalen', 'reaksi-netralisasi', 'campuran-asam-basa', 'hcl-naoh', 'kimia-sma'],
+    title: 'Contoh Soal 4: Analisis Profil pH Komprehensif pada Empat Titik Kritis Kurva Titrasi Volumetri Netralisasi Asam-Basa (Level: Sulit / HOTS)',
+    summary: 'Kalkulasi matematis komprehensif nilai pH sebelum titrasi, wilayah sisa asam (sebelum titik ekuivalen), titik ekuivalen sempurna (autoionisasi air), dan wilayah kelebihan basa kuat dengan koreksi volume total.',
+    content: `### 📋 Skenario Masalah & Data Titrasi:
+Di laboratorium kimia analitik, sebanyak $50.0\\\\text{ mL}$ larutan asam klorida ($\\\\ce{HCl}$) $0.100\\\\text{ M}$ dititrasi secara bertahap menggunakan titran larutan baku natrium hidroksida ($\\\\ce{NaOH}$) $0.100\\\\text{ M}$ pada temperatur konstan $25^{\\circ}\\text{C}$ ($K_w = 1.0 \\\\times 10^{-14}$).
+
+---
+
+### 🎯 Pertanyaan:
+Hitunglah nilai pH larutan pada empat tahapan kritis titrasi berikut dengan memperhitungkan efek pengenceran volume total secara cermat:
+1. **Titik 1:** Sebelum penambahan larutan $\\\\ce{NaOH}$ ($V_{\\\\ce{NaOH}} = 0.0\\\\text{ mL}$).
+2. **Titik 2:** Setelah penambahan $40.0\\\\text{ mL}$ larutan $\\\\ce{NaOH}$ (kondisi sebelum titik ekuivalen).
+3. **Titik 3:** Setelah penambahan $50.0\\\\text{ mL}$ larutan $\\\\ce{NaOH}$ (kondisi tepat pada titik ekuivalen).
+4. **Titik 4:** Setelah penambahan $60.0\\\\text{ mL}$ larutan $\\\\ce{NaOH}$ (kondisi setelah titik ekuivalen).
+5. Berdasarkan hasil perhitungan tersebut, jelaskan mengapa kurva titrasi asam kuat dengan basa kuat memperlihatkan lonjakan pH vertikal yang sangat terjal di sekitar titik ekuivalen!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+Jumlah mol asam klorida mula-mula di Erlenmeyer:
+$$n_{\\\\ce{HCl, awal}} = V_a \\\\times M_a = 50.0\\\\text{ mL} \\\\times 0.100\\\\text{ mmol/mL} = \\\\mathbf{5.00\\\\text{ mmol}}$$
+
+---
+
+#### Langkah 1: Titik 1 — Sebelum Penambahan Basa ($V_{\\\\ce{NaOH}} = 0.0\\\\text{ mL}$)
+Larutan hanya mengandung asam kuat monoprotik $\\\\ce{HCl } 0.100\\\\text{ M}$:
+$$[\\\\ce{H+}] = a \\\\times M_a = 1 \\\\times 0.100\\\\text{ M} = 1.00 \\\\times 10^{-1}\\\\text{ M}$$
+$$\\\\mathbf{\\\\text{pH} = -\\\\log[\\\\ce{H+}] = -\\\\log(1.00 \\\\times 10^{-1}) = \\\\mathbf{1.00}}$$
+
+---
+
+#### Langkah 2: Titik 2 — Penambahan $40.0\\\\text{ mL } \\\\ce{NaOH}$ (Sisa Asam Kuat)
+1. **Mol $\\\\ce{NaOH}$ yang masuk:**
+   $$n_{\\\\ce{NaOH}} = 40.0\\\\text{ mL} \\\\times 0.100\\\\text{ M} = 4.00\\\\text{ mmol}$$
+2. **Tabel Stoikiometri Reaksi Netralisasi (mmol):**
+   | Spesi | $\\\\ce{HCl(aq)}$ | $\\\\ce{NaOH(aq)}$ | $\\\\ce{NaCl(aq)}$ | $\\\\ce{H2O(l)}$ |
+   | :--- | :---: | :---: | :---: | :---: |
+   | **Mula-mula** | $5.00$ | $4.00$ | $0$ | $-$ |
+   | **Bereaksi** | $-4.00$ | $-4.00$ | $+4.00$ | $+4.00$ |
+   | **Sisa** | $\\\\mathbf{1.00}$ | $\\\\mathbf{0.00}$ | $4.00$ | $-$ |
+3. **Volume Total Campuran Baru:**
+   $$V_{\\\\text{total}} = 50.0\\\\text{ mL} + 40.0\\\\text{ mL} = \\\\mathbf{90.0\\\\text{ mL}}$$
+4. **Konsentrasi Sisa Ion $[\\\\ce{H+}]$ dalam Larutan:**
+   $$[\\\\ce{H+}] = \\\\frac{n_{\\\\ce{HCl, sisa}}}{V_{\\\\text{total}}} = \\\\frac{1.00\\\\text{ mmol}}{90.0\\\\text{ mL}} = 1.11 \\\\times 10^{-2}\\\\text{ M}$$
+5. **Perhitungan pH:**
+   $$\\\\text{pH} = -\\\\log(1.11 \\\\times 10^{-2}) = 2 - \\\\log(1.11) = 2 - 0.045 = \\\\mathbf{1.955 \\\\approx 1.96}$$
+
+---
+
+#### Langkah 3: Titik 3 — Penambahan $50.0\\\\text{ mL } \\\\ce{NaOH}$ (Titik Ekuivalen)
+1. **Mol $\\\\ce{NaOH}$ yang masuk:**
+   $$n_{\\\\ce{NaOH}} = 50.0\\\\text{ mL} \\\\times 0.100\\\\text{ M} = 5.00\\\\text{ mmol}$$
+2. **Stoikiometri Reaksi:**
+   Karena $n_{\\\\ce{HCl}} = n_{\\\\ce{NaOH}} = 5.00\\\\text{ mmol}$, kedua pereaksi tepat habis bereaksi membentuk $5.00\\\\text{ mmol } \\\\ce{NaCl(aq)}$.
+3. **Karakteristik Garam $\\\\ce{NaCl}$:**
+   - Kation $\\\\ce{Na+}$ berasal dari basa kuat $\\\\ce{NaOH}$ (tidak terhidrolisis).
+   - Anion $\\\\ce{Cl-}$ berasal dari asam kuat $\\\\ce{HCl}$ (tidak terhidrolisis).
+   - Larutan bersifat netral murni.
+4. **Konsentrasi Ion $[\\\\ce{H+}]$:**
+   Konsentrasi ion hidrogen murni bersumber dari kesetimbangan autoprotolisis air:
+   $$[\\\\ce{H+}] = [\\\\ce{OH-}] = \\\\sqrt{K_w} = \\\\sqrt{1.00 \\\\times 10^{-14}} = 1.00 \\\\times 10^{-7}\\\\text{ M}$$
+   $$\\\\mathbf{\\\\text{pH} = -\\\\log(1.00 \\\\times 10^{-7}) = \\\\mathbf{7.00}}$$
+
+---
+
+#### Langkah 4: Titik 4 — Penambahan $60.0\\\\text{ mL } \\\\ce{NaOH}$ (Kelebihan Basa Kuat)
+1. **Mol $\\\\ce{NaOH}$ yang masuk:**
+   $$n_{\\\\ce{NaOH}} = 60.0\\\\text{ mL} \\\\times 0.100\\\\text{ M} = 6.00\\\\text{ mmol}$$
+2. **Stoikiometri Reaksi (mmol):**
+   - Asam $\\\\ce{HCl}$ habis bereaksi ($5.00\\\\text{ mmol}$).
+   - Kelebihan $\\\\ce{NaOH} = 6.00 - 5.00 = \\\\mathbf{1.00\\\\text{ mmol}}$.
+3. **Volume Total Campuran Baru:**
+   $$V_{\\\\text{total}} = 50.0\\\\text{ mL} + 60.0\\\\text{ mL} = \\\\mathbf{110.0\\\\text{ mL}}$$
+4. **Konsentrasi Ion $[\\\\ce{OH-}]$ Kelebihan:**
+   $$[\\\\ce{OH-}] = \\\\frac{n_{\\\\ce{NaOH, lebih}}}{V_{\\\\text{total}}} = \\\\frac{1.00\\\\text{ mmol}}{110.0\\\\text{ mL}} = 9.09 \\\\times 10^{-3}\\\\text{ M}$$
+5. **Perhitungan pOH dan pH:**
+   $$\\\\text{pOH} = -\\\\log(9.09 \\\\times 10^{-3}) = 3 - \\\\log(9.09) = 3 - 0.959 = 2.041$$
+   $$\\\\mathbf{\\\\text{pH} = 14.000 - \\\\text{pOH} = 14.000 - 2.041 = \\\\mathbf{11.959 \\\\approx 11.96}}$$
+
+---
+
+#### Langkah 5: Mengapa Terjadi Lonjakan Vertikal Terjal?
+Bandingkan perubahan nilai pH pada setiap tahapan:
+- Penambahan $0\\\\text{ mL} \\\\to 40\\\\text{ mL } (\\\\Delta V = 40\\\\text{ mL})$: pH hanya naik dari $1.00$ ke $1.96$ ($\\\\Delta \\\\text{pH} = +0.96$).
+- Penambahan $40\\\\text{ mL} \\\\to 50\\\\text{ mL } (\\\\Delta V = 10\\\\text{ mL})$: pH melompat dari $1.96$ ke $7.00$ ($\\\\Delta \\\\text{pH} = +5.04$).
+- Penambahan $50\\\\text{ mL} \\\\to 60\\\\text{ mL } (\\\\Delta V = 10\\\\text{ mL})$: pH melonjak lagi dari $7.00$ ke $11.96$ ($\\\\Delta \\\\text{pH} = +4.96$).
+
+**Penyebab Fisis-Matematis:**
+Skala pH adalah fungsi logaritmik ($-\\\\log[\\\\ce{H+}]$). Ketika mendekati titik ekuivalen, konsentrasi sisa ion hidrogen anjlok dari orde $10^{-2}\\\\text{ M}$ menuju $10^{-7}\\\\text{ M}$ (penurunan 5 orde magnitudo / 100.000 kali lipat) hanya karena penambahan beberapa tetes basa penitrasi. Penurunan konsentrasi eksponensial inilah yang menghasilkan lonjakan kurva vertikal sigmoid yang sangat terjal!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Strategi Menghindari Jebakan Volume Total:**  
+> Kesalahan paling umum siswa dalam menghitung pH titrasi adalah membagi sisa mol asam/basa dengan volume asam mula-mula ($50\\\\text{ mL}$), padahal volume larutan terus bertambah!  
+> - Pada $V_{\\\\ce{NaOH}} = 40\\\\text{ mL}$, pembagi adalah $V_{\\\\text{total}} = 50 + 40 = 90\\\\text{ mL}$.  
+> - Pada $V_{\\\\ce{NaOH}} = 60\\\\text{ mL}$, pembagi adalah $V_{\\\\text{total}} = 50 + 60 = 110\\\\text{ mL}$.  
+> **Konsekuensi Pemilihan Indikator:**  
+> Karena lonjakan pH melintasi rentang yang sangat lebar (dari $\\\\approx 4$ hingga $\\\\approx 10$), maka indikator dengan trayek pH asam-netral (seperti Metil Merah $4.4 - 6.2$, Bromtimol Biru $6.0 - 7.6$) maupun basa (seperti Fenolftalein $8.3 - 10.0$) **sama-sama valid dan presisi** untuk titrasi asam kuat dengan basa kuat!`,
+    keyFormulas: [
+      { name: 'pH Sisa Asam Kuat', formula: '[\\ce{H+}] = \\frac{n_{\\text{asam awal}} - n_{\\text{basa masuk}}}{V_{\\text{asam}} + V_{\\text{basa}}}' },
+      { name: 'pH Titik Ekuivalen Asam Kuat-Basa Kuat', formula: '[\\ce{H+}] = \\sqrt{K_w} = 10^{-7}\\text{ M} \\implies \\text{pH} = 7.00' },
+      { name: 'pOH Kelebihan Basa Kuat', formula: '[\\ce{OH-}] = \\frac{n_{\\text{basa masuk}} - n_{\\text{asam awal}}}{V_{\\text{asam}} + V_{\\text{basa}}}' },
+    ],
+  },
+  {
+    tag: 'contoh-kuadratik-eksak-hsab-dan-leveling-effect',
+    tags: ['leveling-effect', 'teori-hsab', 'persamaan-kuadrat', 'kegagalan-aproksimasi', 'asam-dikloroasetat', 'asam-basa-pearson', 'kimia-sma'],
+    title: 'Contoh Soal 5: Analisis Kegagalan Aturan Aproksimasi 5%, Solusi Kuadratik Eksak pH Asam Lemah, serta Analisis Asas HSAB & Leveling Effect Pelarut (Level: Sulit / HOTS)',
+    summary: 'Penyelesaian eksak kesetimbangan asam lemah saat rumus aproksimasi cepat gagal total, analisis termodinamika efek perataan pelarut air vs pelarut pembeda, serta prediksi afinitas ikatan koordinasi Asas HSAB Pearson.',
+    content: `### 📋 Skenario Masalah:
+Di kelas pengayaan olimpiade dan asesmen lanjut SMA, disajikan tiga fenomena kimia fisik larutan asam-basa yang menuntut ketelitian analisis konsep:
+
+**Kasus A: Batas Keberlakuan Rumus Cepat Asam Lemah**  
+Suatu asam dikloroasetat ($\\\\ce{CHCl2COOH}$) memiliki tetapan ionisasi asam yang cukup tinggi untuk ukuran asam lemah, yaitu $K_a = 5.50 \\\\times 10^{-2}$. Sebanyak sampel asam ini dilarutkan dalam air hingga diperoleh larutan dengan konsentrasi $C_a = 0.0200\\\\text{ M}$.
+
+**Kasus B: Efek Perataan Pelarut (*Leveling Effect*)**  
+Di dalam pelarut air murni, asam perklorat ($\\\\ce{HClO4}$) dan asam klorida ($\\\\ce{HCl}$) pada konsentrasi yang sama menunjukkan nilai pH yang persis identik seolah memiliki kekuatan asam setara. Namun, ketika keduanya dilarutkan ke dalam pelarut asam asetat glasial murni ($\\\\ce{CH3COOH}$), terbukti secara eksperimental bahwa $\\\\ce{HClO4}$ bersifat jauh lebih asam daripada $\\\\ce{HCl}$.
+
+**Kasus C: Asas Asam-Basa Keras-Lunak (HSAB) Pearson**  
+Larutan perak nitrat ($\\\\ce{AgNO3}$) bereaksi dengan berbagai halida membentuk endapan perak halida. Diketahui tetapan hasil kali kelarutan ($K_{sp}$) perak halida pada $25^{\\circ}\\text{C}$ adalah:
+- $\\\\ce{AgF}$ : Sangat mudah larut dalam air (tidak mengendap)
+- $\\\\ce{AgCl}$ : $K_{sp} = 1.8 \\\\times 10^{-10}$
+- $\\\\ce{AgI}$ : $K_{sp} = 8.5 \\\\times 10^{-17}$
+
+---
+
+### 🎯 Pertanyaan:
+1. Untuk Kasus A, hitung konsentrasi $[\\\\ce{H+}]$ jika menggunakan rumus aproksimasi cepat $[\\\\ce{H+}] = \\\\sqrt{K_a \\\\times C_a}$. Jelaskan mengapa hasil perhitungan tersebut menghasilkan anomali fisis yang mustahil secara kimia!
+2. Selesaikan nilai $[\\\\ce{H+}]$, derajat ionisasi $\\\\alpha$, dan pH eksak larutan asam dikloroasetat tersebut menggunakan persamaan kuadrat rumus ABC! Berapa persen galat yang dihasilkan oleh rumus aproksimasi cepat?
+3. Untuk Kasus B, jelaskan mekanisme kimia mengapa pelarut air memperlihatkan efek perataan (*leveling effect*) terhadap asam-asam kuat, dan mengapa asam asetat glasial mampu bertindak sebagai pelarut pembeda (*differentiating solvent*)!
+4. Untuk Kasus C, gunakan Teori Asam-Basa Keras-Lunak (HSAB) Pearson untuk menjelaskan mengapa ikatan antara kation $\\\\ce{Ag+}$ dengan anion iodida ($\\\\ce{I-}$) jauh lebih stabil dan sukar larut dibandingkan ikatannya dengan anion fluorida ($\\\\ce{F-}$)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Demonstrasi Kegagalan Rumus Cepat pada Kasus A
+Gunakan rumus aproksimasi umum SMA:
+$$[\\\\ce{H+}]_{\\\\text{aprok}} = \\\\sqrt{K_a \\\\times C_a} = \\\\sqrt{(5.50 \\\\times 10^{-2}) \\\\times (0.0200)} = \\\\sqrt{1.10 \\\\times 10^{-3}} = \\\\sqrt{11.0 \\\\times 10^{-4}} \\\\approx \\\\mathbf{3.32 \\\\times 10^{-2}\\\\text{ M}}$$
+
+**Analisis Anomali Fisis:**
+Perhatikan bahwa konsentrasi asam mula-mula yang dilarutkan adalah $C_a = 0.0200\\\\text{ M} = 2.00 \\\\times 10^{-2}\\\\text{ M}$.  
+Hasil rumus aproksimasi menghasilkan $[\\\\ce{H+}] = 3.32 \\\\times 10^{-2}\\\\text{ M} > C_a$.  
+Hal ini secara fisis **MUSTAHIL KARENA MELANGGAR HUKUM KEKEKALAN MASSA** (jumlah ion hidrogen yang terlepas tidak mungkin melampaui jumlah molekul asam yang dimasukkan semula, derajat ionisasi mustahil $\\\\alpha > 100\\\\%$)!
+
+---
+
+#### Langkah 2: Solusi Kuadratik Eksak Rumus ABC
+Kesetimbangan disosiasi asam:
+$$\\\\ce{CHCl2COOH <=> H+ + CHCl2COO-}$$
+Persamaan aksi massa tanpa aproksimasi penyebut:
+$$K_a = \\\\frac{[\\\\ce{H+}][\\\\ce{A-}]}{C_a - [\\\\ce{H+}]} = \\\\frac{x^2}{C_a - x}$$
+$$x^2 + K_a x - K_a C_a = 0$$
+
+Substitusikan nilai numerik $K_a = 0.0550$ dan $C_a = 0.0200$:
+$$x^2 + 0.0550 x - (0.0550 \\\\times 0.0200) = 0$$
+$$x^2 + 0.0550 x - 0.00110 = 0$$
+
+Gunakan rumus ABC ($A = 1, B = 0.0550, C = -0.00110$):
+$$\\\\begin{aligned}
+x &= \\\\frac{-B + \\\\sqrt{B^2 - 4AC}}{2A} \\\\\\\\
+&= \\\\frac{-0.0550 + \\\\sqrt{(0.0550)^2 - 4(1)(-0.00110)}}{2} \\\\\\\\
+&= \\\\frac{-0.0550 + \\\\sqrt{0.003025 + 0.004400}}{2} \\\\\\\\
+&= \\\\frac{-0.0550 + \\\\sqrt{0.007425}}{2} \\\\\\\\
+&= \\\\frac{-0.0550 + 0.08617}{2} = \\\\frac{0.03117}{2} = \\\\mathbf{0.01558\\\\text{ M}}
+\\\\end{aligned}$$
+
+Didapatkan:
+- Konsentrasi ion hidrogen eksak: $[\\\\ce{H+}] = \\\\mathbf{1.56 \\\\times 10^{-2}\\\\text{ M}}$.
+- Derajat ionisasi eksak: $\\\\alpha = \\\\frac{[\\\\ce{H+}]}{C_a} = \\\\frac{0.01558}{0.0200} = \\\\mathbf{0.779} \\\\quad (77.9\\\\%)$.
+- Nilai pH eksak: $\\\\text{pH} = -\\\\log(0.01558) = 2 - \\\\log(1.558) = 2 - 0.193 = \\\\mathbf{1.81}$.
+- **Galat Rumus Aproksimasi:**
+  $$\\\\text{Galat} = \\\\left|\\\\frac{0.0332 - 0.0156}{0.0156}\\\\right| \\\\times 100\\\\% = \\\\mathbf{112.8\\\\%} \\\\quad \\\\text{(Sangat Menyesatkan!)}$$
+
+---
+
+#### Langkah 3: Analisis Efek Perataan Pelarut (*Leveling Effect*) Kasus B
+1. **Peran Air sebagai Pelarut Perata:**
+   - Air memiliki sifat kebasaan yang cukup kuat untuk mendeprotonasi seluruh molekul asam mineral kuat ($\\\\ce{HClO4, HI, HBr, HCl, HNO3}$) secara kuantitatif ($100\\\\%$).
+   - Reaksi: $\\\\ce{HA + H2O -> H3O+ + A-}$
+   - Akibatnya, spesies asam terkuat yang dapat eksis secara termodinamika di dalam pelarut air hanyalah ion **hidronium ($\\\\ce{H3O+}$)**. Oleh karena itu, seluruh asam kuat "diratakan" kekuatannya hingga sama persis dengan kekuatan ion $\\\\ce{H3O+}$.
+2. **Peran Asam Asetat Glasial sebagai Pelarut Pembeda (*Differentiating Solvent*):**
+   - Asam asetat murni merupakan basa yang jauh lebih lemah daripada air, sehingga tidak mudah menerima proton.
+   - Hanya asam yang benar-benar memiliki afinitas proton ekstrim ($\\\\ce{HClO4}$) yang mampu mendeprotonasi asam asetat secara optimal:
+     $$\\\\ce{HClO4 + CH3COOH <=> CH3COOH2+ + ClO4-}$$
+   - Karena protonasi asam asetat oleh $\\\\ce{HCl}$ berlangsung jauh lebih sedikit dibandingkan oleh $\\\\ce{HClO4}$, maka perbedaan kekuatan intrinsik kedua asam tersebut dapat terukur jelas.
+
+---
+
+#### Langkah 4: Analisis Teori Asam-Basa Keras-Lunak (HSAB) Pearson Kasus C
+Ralph Pearson mengklasifikasikan spesies asam dan basa Lewis berdasarkan ukuran radius atom, kerapatan muatan, dan polarisabilitas:
+1. **Klasifikasi Spesies:**
+   - Kation $\\\\ce{Ag+}$: Memiliki radius ion relatif besar, muatan rendah ($+1$), dan kulit valensi elektron $d^{10}$ yang sangat mudah dideformasi awan elektronnya (polarisabilitas tinggi) $\\\\implies$ **Asam Lunak (*Soft Acid*)**.
+   - Anion $\\\\ce{F-}$: Memiliki radius sangat kecil, kerapatan muatan elektron sangat tinggi, sukar terpolarisasi $\\\\implies$ **Basa Keras (*Hard Base*)**.
+   - Anion $\\\\ce{I-}$: Memiliki radius ion sangat besar dengan awan elektron difus yang sangat mudah terpolarisasi $\\\\implies$ **Basa Lunak (*Soft Base*)**.
+2. **Prinsip Utama HSAB (*Like Prefers Like*):**
+   - **Interaksi Keras-Keras (Hard-Hard):** Didominasi oleh gaya elektrostatik ionik polar.
+   - **Interaksi Lunak-Lunak (Soft-Soft):** Didominasi oleh tumpang-tindih orbital kovalen yang sangat kuat dan memiliki karakter kovalen tinggi.
+3. **Kesimpulan Afinitas:**
+   - Kation $\\\\ce{Ag+}$ (asam lunak) berinteraksi sangat kuat secara kovalen dengan $\\\\ce{I-}$ (basa lunak) membentuk ikatan $\\\\ce{Ag-I}$ yang sangat stabil di dalam kisi kristal, sehingga kelarutan $\\\\ce{AgI}$ luar biasa kecil ($K_{sp} \\\\approx 8.5 \\\\times 10^{-17}$).
+   - Sebaliknya, interaksi antara $\\\\ce{Ag+}$ (asam lunak) dengan $\\\\ce{F-}$ (basa keras) tidak disukai secara energi kisi kovalen, sehingga garam $\\\\ce{AgF}$ sangat mudah larut di dalam air.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Kapan Aturan 5% Gagal pada Soal Ujian Kimia?**  
+> Rumus cepat $[\\\\ce{H+}] = \\\\sqrt{K_a \\\\times C_a}$ hanya valid jika derajat ionisasi $\\\\alpha \\\\le 0.05$ ($5\\\\%$) atau rasio $C_a / K_a \\\\ge 400$.  
+> - Jika $C_a / K_a < 100$ (konsentrasi sangat encer atau nilai $K_a > 10^{-3}$), **penyederhanaan $C_a - x \\\\approx C_a$ haram digunakan** dan wajib diselesaikan via rumus kuadrat ABC.  
+> **Mnemonic Asas HSAB Pearson:**  
+> *"Yang Keras Suka yang Keras (Ionik), Yang Lunak Suka yang Lunak (Kovalen)."*  
+> Logam-logam berat beracun (seperti $\\\\ce{Hg^2+, Pb^2+, Cd^2+, Ag+}$) adalah **Asam Lunak**, itulah sebabnya mereka sangat gemar mengikat gugus tiol/sulfhidril ($-SH$, **Basa Lunak**) pada enzim dan protein dalam tubuh manusia!`,
+    keyFormulas: [
+      { name: 'Kriteria Batas Aproksimasi 5%', formula: '\\alpha = \\frac{[\\ce{H+}]}{C_a} \\le 0.05 \\iff \\frac{C_a}{K_a} \\ge 400' },
+      { name: 'Solusi Kuadratik Eksak Asam Lemah', formula: '[\\ce{H+}]^2 + K_a [\\ce{H+}] - K_a C_a = 0 \\implies [\\ce{H+}] = \\frac{-K_a + \\sqrt{K_a^2 + 4K_a C_a}}{2}' },
+      { name: 'Prinsip Afinitas HSAB Pearson', formula: '\\text{Soft-Soft (Kovalen Polarisabel)} \\quad \\gg \\quad \\text{Soft-Hard (Mismatched)}' },
+    ],
+  },
+];
+

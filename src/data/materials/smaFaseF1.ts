@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -2381,7 +2381,14 @@ $\\mathbf{\\text{pH} + \\text{pOH} = 14.00}$
 ### 3. Kriteria Sifat Larutan pada $25^\\circ\\text{C}$:
 - **Larutan Asam:** $[\\ce{H+}] > 10^{-7}\\text{ M} \\implies \\mathbf{\\text{pH} < 7}$ (dan $\\text{pOH} > 7$).
 - **Larutan Netral:** $[\\ce{H+}] = [\\ce{OH-}] = 10^{-7}\\text{ M} \\implies \\mathbf{\\text{pH} = 7}$ (dan $\\text{pOH} = 7$).
-- **Larutan Basa:** $[\\ce{H+}] < 10^{-7}\\text{ M} \\implies [\\ce{OH-}] > 10^{-7}\\text{ M} \\implies \\mathbf{\\text{pH} > 7}$ (dan $\\text{pOH} < 7$).`,
+- **Larutan Basa:** $[\\ce{H+}] < 10^{-7}\\text{ M} \\implies [\\ce{OH-}] > 10^{-7}\\text{ M} \\implies \\mathbf{\\text{pH} > 7}$ (dan $\\text{pOH} < 7$).
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Mitos Angka Keramat "pH 7 Netral":**  
+> Definisi mutlak larutan netral bukanlah $\\text{pH} = 7$, melainkan **$[\\ce{H+}] = [\\ce{OH-}]$**. Karena disosiasi autoprotolisis air bersifat endotermik ($\\Delta H > 0$), kenaikan temperatur memperbesar nilai $K_w$. Pada suhu tubuh manusia ($37^\\circ\\text{C}$), $K_w \\approx 2.4 \\times 10^{-14}$ sehingga air murni netral memiliki $\\text{pH} \\approx 6.81$. Pada suhu $60^\\circ\\text{C}$, air murni memiliki $\\text{pH} \\approx 6.50$ dan tetap netral sempurna!`,
       },
       {
         tag: 'prasyarat-stoikiometri-volumetri-dan-molaritas-ekuivalen',
@@ -2516,7 +2523,15 @@ Spesi kimia yang dapat bertindak sebagai asam (mendonorkan proton) sekaligus dap
 - Molekul air ($\\ce{H2O}$):
   - Bereaksi dengan $\\ce{HCl}$: $\\ce{HCl + H2O -> H3O+ + Cl-}$ ($\\ce{H2O}$ bertindak sebagai **Basa**).
   - Bereaksi dengan $\\ce{NH3}$: $\\ce{NH3 + H2O <=> NH4+ + OH-}$ ($\\ce{H2O}$ bertindak sebagai **Asam**).
-- Ion hidrogen karbonat ($\\ce{HCO3-}$), ion hidrogen sulfat ($\\ce{HSO4-}$), dan ion dihidrogen fosfat ($\\ce{H2PO4-}$).`,
+- Ion hidrogen karbonat ($\\ce{HCO3-}$), ion hidrogen sulfat ($\\ce{HSO4-}$), dan ion dihidrogen fosfat ($\\ce{H2PO4-}$).
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Mitos Pasangan Asam-Basa Konjugasi & Kekuatan Konjugat:**  
+> 1. *Selisih Lebih dari 1 Proton:* $\\ce{H2SO4}$ dan $\\ce{SO4^2-}$ **BUKAN** pasangan asam-basa konjugasi karena berselisih $2$ proton! Pasangan konjugasi dari $\\ce{H2SO4}$ adalah $\\ce{HSO4-}$, sedangkan pasangan konjugasi dari $\\ce{HSO4-}$ adalah $\\ce{SO4^2-}$.  
+> 2. *Kekuatan Pasangan Konjugasi:* Banyak siswa keliru mengira basa konjugasi dari asam kuat adalah basa kuat. Faktanya berkebalikan: semakin kuat suatu asam, basa konjugasinya semakin luar biasa lemah (inert). Ion $\\ce{Cl-}$ dari $\\ce{HCl}$ sama sekali tidak menarik proton dalam air.`,
         keyFormulas: [
           { name: 'Definisi Arrhenius', formula: '\ce{HA -> H+ + A-} \quad \text{dan} \quad \ce{BOH -> B+ + OH-}' },
           { name: 'Konsep Brønsted-Lowry', formula: '\text{Asam } (\text{Donor } \ce{H+}) \rightleftharpoons \text{Basa Konjugasi} + \ce{H+}' },
@@ -2602,7 +2617,15 @@ Asam poliprotik (seperti $\\ce{H3PO4}$ atau $\\ce{H2CO3}$) melepaskan proton sec
 - Contoh ionisasi $\\ce{H2CO3}$:
   1. $\\ce{H2CO3(aq) <=> H+(aq) + HCO3-(aq)} \\quad K_{a1} = 4.3 \\times 10^{-7}$
   2. $\\ce{HCO3-(aq) <=> H+(aq) + CO3^2-(aq)} \\quad K_{a2} = 5.6 \\times 10^{-11}$
-- **Prinsip Evaluator:** Karena $K_{a1}$ bernilai ribuan hingga jutaan kali lebih besar daripada $K_{a2}$, maka konsentrasi $[\\ce{H+}]$ dan nilai pH larutan asam poliprotik **ditentukan secara dominan hanya oleh ionisasi tahap pertama ($K_{a1}$)**.`,
+- **Prinsip Evaluator:** Karena $K_{a1}$ bernilai ribuan hingga jutaan kali lebih besar daripada $K_{a2}$, maka konsentrasi $[\\ce{H+}]$ dan nilai pH larutan asam poliprotik **ditentukan secara dominan hanya oleh ionisasi tahap pertama ($K_{a1}$)**.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Miskonsepsi Pengenceran Ekstrem & Derajat Ionisasi Ostwald:**  
+> 1. *Asam Super Encer:* Menghitung pH larutan $\\ce{HCl } 1.0 \\times 10^{-8}\\text{ M}$ dengan rumus $-\\log(10^{-8}) = 8.00$ adalah **SALAH FATAL**. Larutan asam tidak mungkin ber-pH di atas 7 karena autoionisasi air menyumbang $[\\ce{H+}] \\approx 10^{-7}\\text{ M}$. Nilai eksak melalui neraca muatan adalah $\\text{pH} \\approx 6.98$ (tetap asam).  
+> 2. *Pengenceran Asam Lemah:* Saat larutan asam asetat diencerkan, konsentrasi $[\\ce{H+}]$ berkurang (pH naik), TETAPI derajat ionisasinya ($\\alpha$) **meningkat** sesuai Hukum Ostwald $\\alpha = \\sqrt{K_a / C_a}$.`,
         keyFormulas: [
           { name: 'Ion H+ Asam Kuat', formula: '[\\ce{H+}] = a \\times M_a' },
           { name: 'Ion H+ Asam Lemah', formula: '[\\ce{H+}] = \\sqrt{K_a \\cdot M_a} = \\alpha \\cdot M_a' },
@@ -2859,7 +2882,15 @@ Di soal ujian, sering disajikan hasil uji sampel air/larutan dengan beberapa ind
   - **Indikator Wajib:** **Fenolftalein (PP)** (trayek 8.3 - 10.0). *Jangan gunakan Metil Merah karena akan berubah warna jauh sebelum titik ekuivalen tercapai!*
 - **Titrasi Basa Lemah + Asam Kuat:**
   - Garam yang dihasilkan terhidrolisis parsial menghasilkan ion $\\ce{H+}$ $\\implies$ Titik ekuivalen berada di wilayah asam ($\\mathbf{\\text{pH} < 7}$, biasanya $\\text{pH } 5 - 6$).
-  - **Indikator Wajib:** **Metil Merah (MR)** (trayek 4.4 - 6.2). *Jangan gunakan PP karena PP sudah menjadi tak berwarna jauh sebelum titik ekuivalen tercapai!*`,
+  - **Indikator Wajib:** **Metil Merah (MR)** (trayek 4.4 - 6.2). *Jangan gunakan PP karena PP sudah menjadi tak berwarna jauh sebelum titik ekuivalen tercapai!*
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA
+> **Mitos Titik Ekuivalen vs Titik Akhir Titrasi:**  
+> 1. *Titik Ekuivalen ≠ Titik Akhir Titrasi:* Titik ekuivalen adalah kondisi stoikiometri teoretis saat mol $\\ce{H+}$ tepat bereaksi habis dengan mol $\\ce{OH-}$. Titik akhir titrasi adalah saat warna indikator berubah di mata pengamat. Pemilihan indikator yang tepat bertujuan agar titik akhir sedekat mungkin dengan titik ekuivalen.  
+> 2. *Mitos pH 7 Titik Ekuivalen:* Anggapan bahwa titik ekuivalen titrasi selalu bernilai $\\text{pH} = 7$ adalah **SALAH BESAR**. Pada titrasi asam lemah dengan basa kuat, titik ekuivalen berada di wilayah basa ($\\text{pH} > 7$, biasanya $\\text{pH } 8.7 - 9.0$) akibat hidrolisis garam asetat!`,
         keyFormulas: [
           { name: 'Rumus Titrasi Netralisasi', formula: 'V_a \\times M_a \\times a = V_b \\times M_b \\times b' },
           { name: 'Kadar Molaritas Analit', formula: 'M_a = \\frac{V_b \\times M_b \\times b}{V_a \\times a}' },
@@ -3001,229 +3032,7 @@ Pada asam lemah dengan nilai $K_a$ relatif besar (misal asam dikloroasetat $\\ce
       ]
     },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-ph-asam-kuat-dan-lemah-komparasi',
-        tags: ['contoh-ph-komparasi', 'asam-kuat-lemah', 'derajat-ionisasi-alfa', 'hcl-ch3cooh'],
-        title: 'Contoh Soal 1: Komparasi Derajat Ionisasi dan pH Larutan Asam Kuat vs Asam Lemah Monoprotik',
-        summary: 'Perhitungan konsentrasi ion H+, derajat disosiasi α, dan pH larutan HCl 0.01 M dibandingkan dengan CH3COOH 0.01 M (Ka = 1.8 x 10^-5).',
-        content: `**Soal:**
-Di laboratorium kimia sekolah, disiapkan dua botol larutan asam monoprotik dengan konsentrasi molaritas yang persis sama:
-- **Botol A:** Larutan asam klorida ($\\ce{HCl}$) $0.010\\text{ M}$.
-- **Botol B:** Larutan asam asetat ($\\ce{CH3COOH}$) $0.010\\text{ M}$ dengan nilai $K_a = 1.8 \\times 10^{-5}$.
-
-Tentukan:
-a) Derajat ionisasi ($\\alpha$) dan nilai pH larutan $\\ce{HCl}$ pada Botol A!
-b) Derajat ionisasi ($\\alpha$) dan nilai pH larutan $\\ce{CH3COOH}$ pada Botol B!
-c) Berapa kali lipat konsentrasi ion hidrogen $[\\ce{H+}]$ pada Botol A dibandingkan dengan Botol B?
-
----
-
-**Pembahasan:**
-
-**Bagian a: Analisis Larutan $\\ce{HCl}$ $0.010\\text{ M}$ (Asam Kuat)**
-Asam klorida adalah asam kuat monoprotik ($a = 1$) yang terionisasi sempurna di dalam air:
-$\\ce{HCl(aq) -> H+(aq) + Cl-(aq)}$
-- Derajat ionisasi: $\\mathbf{\\alpha = 1.0}$ ($100\\%$ terionisasi).
-- Konsentrasi ion $\\ce{H+}$:
-  $[\\ce{H+}] = a \\times M_a = 1 \\times 0.010\\text{ M} = 1.0 \\times 10^{-2}\\text{ M}$
-- Nilai pH:
-  $\\text{pH} = -\\log[\\ce{H+}] = -\\log(1.0 \\times 10^{-2}) = \\mathbf{2.00}$
-
----
-
-**Bagian b: Analisis Larutan $\\ce{CH3COOH}$ $0.010\\text{ M}$ (Asam Lemah)**
-Asam asetat adalah asam lemah yang terionisasi sebagian dan membentuk kesetimbangan:
-$\\ce{CH3COOH(aq) <=> CH3COO-(aq) + H+(aq)}$
-- Derajat ionisasi ($\\alpha$):
-  $\\alpha = \\sqrt{\\frac{K_a}{M_a}} = \\sqrt{\\frac{1.8 \\times 10^{-5}}{1.0 \\times 10^{-2}}} = \\sqrt{1.8 \\times 10^{-3}} = \\sqrt{18 \\times 10^{-4}} \\approx \\mathbf{0.0424 \\quad (4.24\\%)}$
-- Konsentrasi ion $\\ce{H+}$:
-  $[\\ce{H+}] = \\sqrt{K_a \\times M_a} = \\sqrt{1.8 \\times 10^{-5} \\times 1.0 \\times 10^{-2}} = \\sqrt{1.8 \\times 10^{-7}} = \\sqrt{18 \\times 10^{-8}} \\approx 4.24 \\times 10^{-4}\\text{ M}$
-- Nilai pH:
-  $\\text{pH} = -\\log(4.24 \\times 10^{-4}) = 4 - \\log(4.24) = 4 - 0.63 = \\mathbf{3.37}$
-
----
-
-**Bagian c: Rasio Perbandingan Konsentrasi $[\\ce{H+}]$**
-$\\text{Rasio} = \\frac{[\\ce{H+}]_{\\ce{HCl}}}{[\\ce{H+}]_{\\ce{CH3COOH}}} = \\frac{1.0 \\times 10^{-2}\\text{ M}}{4.24 \\times 10^{-4}\\text{ M}} \\approx \\mathbf{23.6\\text{ kali lipat}}$
-
-> **Kesimpulan Evaluator Juri:** Meskipun konsentrasi molar kedua asam persis sama ($0.010\\text{ M}$), konsentrasi ion hidrogen bebas pada asam kuat $\\ce{HCl}$ hampir 24 kali lipat lebih pekat daripada asam asetat karena $\\ce{CH3COOH}$ hanya terurai $4.24\\%$. Perbedaan $[\\ce{H+}]$ ini menyebabkan pH $\\ce{HCl}$ (pH 2.00) jauh lebih asam daripada pH asam asetat (pH 3.37).`,
-      },
-      {
-        tag: 'contoh-analisis-trayek-indikator-sampel',
-        tags: ['contoh-trayek-indikator', 'irisan-garis-bilangan', 'analisis-ph-limbah', 'indikator-asam-basa'],
-        title: 'Contoh Soal 2: Penentuan Rentang pH Sampel Air Limbah Laboratorium Berdasarkan Data 4 Indikator',
-        summary: 'Analisis irisan himpunan logika trayek warna indikator metil jingga, metil merah, bromtimol biru, dan fenolftalein.',
-        content: `**Soal:**
-Suatu sampel air limbah industri diuji tingkat keasamannya di laboratorium menggunakan empat jenis indikator asam-basa sintetis. Data pengamatan warna yang tercatat adalah sebagai berikut:
-
-| Indikator Asam-Basa | Trayek pH Indikator | Perubahan Warna Indikator | Warna Hasil Uji Sampel |
-| :--- | :---: | :---: | :---: |
-| **Metil Jingga (MO)** | $3.1 - 4.4$ | Merah - Kuning | **Kuning** |
-| **Metil Merah (MR)** | $4.4 - 6.2$ | Merah - Kuning | **Kuning** |
-| **Bromtimol Biru (BTB)** | $6.0 - 7.6$ | Kuning - Biru | **Biru** |
-| **Fenolftalein (PP)** | $8.3 - 10.0$ | Tak Berwarna - Merah Muda | **Tak Berwarna** |
-
-Tentukan:
-a) Rentang perkiraan nilai pH yang memenuhi masing-masing hasil uji indikator!
-b) Rentang nilai pH air limbah tersebut berdasarkan analisis irisan garis bilangan!
-c) Apakah air limbah tersebut bersifat asam, netral, atau basa?
-
----
-
-**Pembahasan:**
-
-**Langkah 1: Analisis Respon Masing-Masing Indikator**
-1. **Uji Metil Jingga (Trayek $3.1 - 4.4$):**
-   - Menghasilkan warna **Kuning** (warna pada batas atas basa indikator).
-   - Kesimpulan 1: $\\mathbf{\\text{pH} \\ge 4.4}$.
-2. **Uji Metil Merah (Trayek $4.4 - 6.2$):**
-   - Menghasilkan warna **Kuning** (warna pada batas atas basa indikator).
-   - Kesimpulan 2: $\\mathbf{\\text{pH} \\ge 6.2}$.
-3. **Uji Bromtimol Biru (Trayek $6.0 - 7.6$):**
-   - Menghasilkan warna **Biru** (warna pada batas atas basa indikator).
-   - Kesimpulan 3: $\\mathbf{\\text{pH} \\ge 7.6}$.
-4. **Uji Fenolftalein (Trayek $8.3 - 10.0$):**
-   - Menghasilkan warna **Tak Berwarna** (warna pada batas bawah asam indikator).
-   - Kesimpulan 4: $\\mathbf{\\text{pH} \\le 8.3}$.
-
----
-
-**Langkah 2: Menentukan Irisan Bersama Garis Bilangan**
-Kita cari daerah pH yang memenuhi keempat syarat secara serempak:
-- Syarat 1: $\\text{pH} \\ge 4.4$
-- Syarat 2: $\\text{pH} \\ge 6.2$
-- Syarat 3: $\\text{pH} \\ge 7.6$ (Batas bawah paling ketat)
-- Syarat 4: $\\text{pH} \\le 8.3$ (Batas atas paling ketat)
-
-Irisan himpunan penyelesaiannya adalah:
-$\\mathbf{7.6 \\le \\text{pH} \\le 8.3}$
-
----
-
-**Langkah 3: Menentukan Sifat Larutan**
-Pada suhu kamar ($25^\\circ\\text{C}$), netral berada pada $\\text{pH} = 7.00$. Karena rentang pH limbah berada pada interval $7.6 - 8.3$ (di atas 7), maka:
-**Air limbah tersebut bersifat Basa Lemah**.
-
-> **Kesimpulan Evaluator Juri:** Dengan menggabungkan data keempat indikator, rentang pH air limbah terkunci secara presisi pada interval $7.6 \\le \\text{pH} \\le 8.3$ yang mengindikasikan sifat larutan basa lemah.`,
-      },
-      {
-        tag: 'contoh-titrasi-alkalimetri-kadar-cuka',
-        tags: ['contoh-titrasi-cuka', 'persen-kadar-asam-asetat', 'alkalimetri-naoh', 'stoikiometri-titrasi'],
-        title: 'Contoh Soal 3: Penentuan Kadar Persen Massa Asam Asetat dalam Cuka Dapur Komersial via Titrasi Alkalimetri',
-        summary: 'Aplikasi stoikiometri titrasi asam lemah dengan larutan standar NaOH 0.100 M serta konversi molaritas ke persentase massa (% w/w).',
-        content: `**Soal:**
-Untuk mengetahui kadar asam asetat ($\\ce{CH3COOH}$, $M_r = 60.0\\text{ g/mol}$) di dalam produk cuka dapur komersial bermerek, seorang siswa melakukan titrasi alkalimetri:
-1. Sebanyak $10.0\\text{ mL}$ sampel cuka dapur dipipet ke dalam labu ukur $100.0\\text{ mL}$, lalu ditambahkan akuades hingga tanda batas (pengenceran $10\\times$).
-2. Sebanyak $25.0\\text{ mL}$ larutan cuka encer tersebut dipipet ke dalam labu erlenmeyer, diberi $3$ tetes indikator fenolftalein (PP).
-3. Larutan dititrasi dengan larutan standar $\\ce{NaOH } 0.100\\text{ M}$. Titik akhir titrasi tercapai saat warna larutan tepat berubah menjadi merah muda stabil dengan volume $\\ce{NaOH}$ yang terpakai rata-rata sebesar $30.0\\text{ mL}$.
-
-Jika massa jenis cuka dapur semula adalah $\\rho = 1.05\\text{ g/mL}$, tentukan:
-a) Molaritas asam asetat di dalam larutan cuka encer!
-b) Molaritas asam asetat di dalam sampel cuka dapur pekat asal!
-c) Kadar persentase massa ($\\%\\text{ b/b}$) asam asetat dalam cuka dapur tersebut!
-
----
-
-**Pembahasan:**
-
-Reaksi netralisasi titrasi:
-$\\ce{CH3COOH(aq) + NaOH(aq) -> CH3COONa(aq) + H2O(l)}$
-Valensi asam $a = 1$, valensi basa $b = 1$.
-
-**Bagian a: Molaritas Asam Asetat Encer**
-Gunakan persamaan ekuivalensi titrasi:
-$V_{\\text{asam}} \\times M_{\\text{asam, encer}} \\times a = V_{\\text{basa}} \\times M_{\\text{basa}} \\times b$
-$(25.0\\text{ mL}) \\times M_{\\text{asam, encer}} \\times 1 = (30.0\\text{ mL}) \\times (0.100\\text{ M}) \\times 1$
-$M_{\\text{asam, encer}} = \\frac{30.0 \\times 0.100}{25.0} = \\frac{3.00}{25.0} = \\mathbf{0.120\\text{ M}}$
-
----
-
-**Bagian b: Molaritas Asam Asetat Pekat Mula-Mula**
-Gunakan faktor pengenceran labu ukur:
-$\\text{Faktor Pengenceran } (f) = \\frac{V_{\\text{labu ukur}}}{V_{\\text{sampel dipipet}}} = \\frac{100.0\\text{ mL}}{10.0\\text{ mL}} = 10$
-$M_{\\text{pekat}} = M_{\\text{encer}} \\times f = 0.120\\text{ M} \\times 10 = \\mathbf{1.20\\text{ M}}$
-
----
-
-**Bagian c: Menghitung Kadar Persen Massa ($\\%\\text{ w/w}$)**
-Tinjau $1.0\\text{ Liter}$ ($1000\\text{ mL}$) sampel cuka dapur pekat:
-1. Massa total $1000\\text{ mL}$ larutan:
-   $m_{\\text{larutan}} = \\rho \\times V = 1.05\\text{ g/mL} \\times 1000\\text{ mL} = 1050\\text{ gram}$
-2. Massa zat terlarut $\\ce{CH3COOH}$ dalam $1000\\text{ mL}$:
-   $n_{\\ce{CH3COOH}} = M \\times V = 1.20\\text{ mol/L} \\times 1.0\\text{ L} = 1.20\\text{ mol}$
-   $m_{\\ce{CH3COOH}} = n \\times M_r = 1.20\\text{ mol} \\times 60.0\\text{ g/mol} = 72.0\\text{ gram}$
-3. Hitung persentase massa:
-   $\\% \\text{ massa} = \\frac{m_{\\ce{CH3COOH}}}{m_{\\text{larutan}}} \\times 100\\% = \\frac{72.0\\text{ g}}{1050\\text{ g}} \\times 100\\% \\approx \\mathbf{6.86\\%}$
-
-*(Atau via rumus kilat: $\\% = \\frac{M \\times M_r}{10 \\times \\rho} = \\frac{1.20 \\times 60}{10 \\times 1.05} = \\frac{72}{10.5} \\approx 6.86\\%$)*.
-
-> **Kesimpulan Evaluator Juri:** Konsentrasi asam asetat dalam cuka dapur komersial tersebut adalah $1.20\\text{ M}$ yang setara dengan kadar $6.86\\% \\text{ w/w}$, sesuai dengan standar regulasi pangan cuka konsumsi ($4\\% - 8\\%$).`,
-      },
-      {
-        tag: 'contoh-perhitungan-titik-titrasi-ph-step',
-        tags: ['contoh-kurva-titrasi', 'perhitungan-ph-step-by-step', 'titik-ekuivalen-hcl-naoh', 'stoikiometri-ionik'],
-        title: 'Contoh Soal 4: Perhitungan pH Komprehensif pada Empat Titik Kritis Titrasi Asam Kuat dengan Basa Kuat',
-        summary: 'Kalkulasi matematis nilai pH sebelum titrasi, sebelum titik ekuivalen (kelebihan asam), pada titik ekuivalen, dan setelah titik ekuivalen (kelebihan basa).',
-        content: `**Soal:**
-Sebanyak $50.0\\text{ mL}$ larutan $\\ce{HCl } 0.100\\text{ M}$ dititrasi dengan larutan $\\ce{NaOH } 0.100\\text{ M}$ pada suhu $25^\\circ\\text{C}$.
-Hitunglah pH larutan pada empat tahapan titrasi berikut:
-a) Sebelum penambahan $\\ce{NaOH}$ ($V_{\\ce{NaOH}} = 0.0\\text{ mL}$).
-b) Setelah penambahan $40.0\\text{ mL}$ larutan $\\ce{NaOH}$ (sebelum titik ekuivalen).
-c) Setelah penambahan $50.0\\text{ mL}$ larutan $\\ce{NaOH}$ (tepat pada titik ekuivalen).
-d) Setelah penambahan $60.0\\text{ mL}$ larutan $\\ce{NaOH}$ (setelah titik ekuivalen).
-
----
-
-**Pembahasan:**
-
-Jumlah mol awal asam klorida:
-$n(\\ce{HCl})_{\\text{awal}} = 50.0\\text{ mL} \\times 0.100\\text{ mmol/mL} = 5.00\\text{ mmol}$
-
----
-
-**Bagian a: Sebelum Penambahan $\\ce{NaOH}$ ($V = 0.0\\text{ mL}$)**
-Larutan murni $\\ce{HCl } 0.100\\text{ M}$:
-$[\\ce{H+}] = 0.100\\text{ M} = 1.00 \\times 10^{-1}\\text{ M}$
-$\\mathbf{\\text{pH} = -\\log(10^{-1}) = 1.00}$
-
----
-
-**Bagian b: Setelah Penambahan $40.0\\text{ mL } \\ce{NaOH}$**
-- Mol $\\ce{NaOH}$ ditambahkan $= 40.0\\text{ mL} \\times 0.100\\text{ M} = 4.00\\text{ mmol}$.
-- Reaksi: $\\ce{HCl + NaOH -> NaCl + H2O}$
-- Mol $\\ce{HCl}$ bersisa $= 5.00 - 4.00 = 1.00\\text{ mmol}$.
-- Volume total campuran $= 50.0\\text{ mL} + 40.0\\text{ mL} = 90.0\\text{ mL}$.
-- Konsentrasi ion $\\ce{H+}$ sisa:
-  $[\\ce{H+}] = \\frac{n_{\\text{sisa}}}{V_{\\text{total}}} = \\frac{1.00\\text{ mmol}}{90.0\\text{ mL}} = 1.11 \\times 10^{-2}\\text{ M}$
-- Nilai pH:
-  $\\text{pH} = -\\log(1.11 \\times 10^{-2}) = 2 - \\log(1.11) = 2 - 0.045 = \\mathbf{1.955 \\approx 1.96}$
-
----
-
-**Bagian c: Setelah Penambahan $50.0\\text{ mL } \\ce{NaOH}$ (Titik Ekuivalen)**
-- Mol $\\ce{NaOH}$ ditambahkan $= 50.0\\text{ mL} \\times 0.100\\text{ M} = 5.00\\text{ mmol}$.
-- Kedua pereaksi tepat habis bereaksi membentuk garam $\\ce{NaCl(aq)}$.
-- Karena $\\ce{NaCl}$ berasal dari kation basa kuat ($\\ce{Na+}$) dan anion asam kuat ($\\ce{Cl-}$), keduanya tidak mengalami hidrolisis sama sekali dalam air.
-- Konsentrasi ion $\\ce{H+}$ murni berasal dari autoionisasi air:
-  $[\\ce{H+}] = \\sqrt{K_w} = 1.00 \\times 10^{-7}\\text{ M}$
-  $\\mathbf{\\text{pH} = 7.00}$
-
----
-
-**Bagian d: Setelah Penambahan $60.0\\text{ mL } \\ce{NaOH}$ (Kelebihan Basa)**
-- Mol $\\ce{NaOH}$ ditambahkan $= 60.0\\text{ mL} \\times 0.100\\text{ M} = 6.00\\text{ mmol}$.
-- Kelebihan mol $\\ce{NaOH} = 6.00 - 5.00 = 1.00\\text{ mmol}$.
-- Volume total campuran $= 50.0\\text{ mL} + 60.0\\text{ mL} = 110.0\\text{ mL}$.
-- Konsentrasi ion $\\ce{OH-}$ berlebih:
-  $[\\ce{OH-}] = \\frac{n_{\\text{kelebihan}}}{V_{\\text{total}}} = \\frac{1.00\\text{ mmol}}{110.0\\text{ mL}} = 9.09 \\times 10^{-3}\\text{ M}$
-- Hitung pOH dan pH:
-  $\\text{pOH} = -\\log(9.09 \\times 10^{-3}) = 3 - \\log(9.09) = 3 - 0.959 = 2.041$
-  $\\mathbf{\\text{pH} = 14.00 - \\text{pOH} = 14.00 - 2.041 = 11.959 \\approx 11.96}$
-
-> **Kesimpulan Evaluator Juri:** Perhitungan ini memvalidasi bentuk khas kurva titrasi asam kuat-basa kuat: pH berubah perlahan dari 1.00 ke 1.96, kemudian mengalami lonjakan vertikal terjal melewati titik ekuivalen pH 7.00 hingga mencapai pH 11.96 hanya dengan penambahan beberapa mililiter basa kuat.`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_109,
   },
   {
     id: 110,
