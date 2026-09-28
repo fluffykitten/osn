@@ -91,8 +91,8 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 
 | No | Pilar Silabus OSN | Target Peningkatan Pedagogis | Level Target | Status |
 | :---: | :--- | :--- | :--- | :---: |
-| **1** | Struktur Atom & Periodisitas Unsur | Mekanika kuantum, orbital radial/angular, aturan Slater, spektroskopi atom | OSN-K / OSN-P | ⏳ Terjadwal (Fase 5) |
-| **2** | Ikatan Kimia & Geometri Molekul | Teori Orbital Molekul (MOT), diagram MO diatomik heteronuklir, hibridisasi kompleks | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
+| **1** | Struktur Atom & Periodisitas Unsur | Mekanika kuantum, orbital radial/angular, aturan Slater, spektroskopi atom | OSN-K / OSN-P | ✅ Selesai (24 Kuis, 15 Miskonsepsi, 100% Coverage) |
+| **2** | Ikatan Kimia & Geometri Molekul | Teori Orbital Molekul (MOT), diagram MO diatomik heteronuklir, hibridisasi kompleks | OSN-P / OSN | ✅ Selesai (6 Soal, 30 Kuis, 15 Miskonsepsi, 100% Coverage) |
 | **3** | Stoikiometri & Wujud Zat | Gas riil Van der Waals, struktur kristal kisi intan/fcc/bcc, analisis stoikiometri non-stokiometrik | OSN-K / OSN-P | ⏳ Terjadwal (Fase 5) |
 | **4** | Termodinamika Kimia | Siklus Born-Haber, Entropi ($S$), Energi Bebas Gibbs ($\Delta G$), persamaan Van 't Hoff | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **5** | Kesetimbangan Kimia & Larutan | Kesetimbangan poliprotik simultan, diagram pecahan alfa ($\alpha$-fraction), kekuatan ionik Debye-Hückel | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
@@ -148,9 +148,22 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * **Pencapaian Tonggak Fase F2 (Kelas 12 SMA)**: Tepat 20 contoh soal berjenjang Sedang & HOTS, 90 kuis uji pemahaman cepat, dan 63 peringatan miskonsepsi (**100% Coverage Seluruh Topik 113–116**).
   * **🏆 REKAPITULASI KURIKULUM KIMIA SMA (FASE E, F1, F2 - 16 TOPIK)**: **100% SELESAI & TUNTAS** (80 contoh soal terbimbing Sedang & HOTS, 337 kuis checkpoint, 222 peringatan miskonsepsi, 0 concept gaps, 0 errors)!
 
-### 🔹 Fase 5: Eskalasi 10 Pilar Tingkat Lanjut OSN / IChO (`materialsData.ts`)
-* Mentransformasi materi 10 Pilar OSN menjadi panduan pemikiran tingkat olimpiade internasional.
-* Integrasi diagram Orbital Molekul (MOT), perhitungan termodinamika non-standar, pendekatan kinetika kompleks, dan mekanisme organik panah lengkung (*arrow-pushing*).
+### 🔹 Fase 5: Eskalasi 10 Pilar Tingkat Lanjut OSN / IChO (`src/data/materials/osn/` & `materialsData.ts`)
+* **Arsitektur Modularisasi Berkas (SELESAI ✅)**:
+  * Berkas induk monolitik `materialsData.ts` (7.944 baris) telah dipecah menjadi 10 modul independen di [`src/data/materials/osn/`](file:///e:/VibeCoding/osn/src/data/materials/osn/) (`osnTopic01.ts` s.d. `osnTopic10.ts` serta `index.ts`).
+  * `materialsData.ts` kini bertindak sebagai barrel index & type definition murni (~140 baris) dengan kompatibilitas mundur 100%.
+  * Lolos uji build (`npm run build`) dan seluruh test suite (`npm run test:all`) dengan 0 error.
+* **Topik 1 OSN: Struktur Atom & Periodisitas Unsur (SELESAI ✅)**:
+  * Revamp total dengan Arsitektur 5 Lapis: Intuitive Hook (Tangga Energi Bohr, Riak Partikel De Broglie, Hotel Kuantum Hund & Exchange Energy, Harmoni 3D Schrödinger, Topologi Simpul Radial vs Sudut, Tarik Tambang Inti $Z_{\text{eff}}$ Slater, Gravitasi Rasio $Z/e$, dan Paradoks Afinitas Halogen Fluorin vs Klorin).
+  * Terintegrasi dengan **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn01.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn01.ts).
+* **Topik 2 OSN: Ikatan Kimia & Geometri Molekul (SELESAI ✅)**:
+  * Revamp total dengan Arsitektur 5 Lapis: Intuitive Hook (Barter Elektron Lewis & Pengecualian Oktet, Akuntansi Muatan Formal & Resonansi Mule, Tarik Tambang Vektor 3D $\ce{CO2}$ vs $\ce{H2O}$ vs $\ce{NH3/NF3}$, Balon Sterik VSEPR & Aturan Bent, Blender Hibridisasi $sp^n$, Interferensi LCAO & Magnetisme Oksigen, Jejaring Ikatan Hidrogen Simetris 3c-4e, Benteng Kristal Kapustinskii Born-Haber, Rantai Karbon 1D Dimerisasi Peierls & Hamiltonian SSH, serta Teori Grup Schoenflies & SALC).
+  * **Celah Konsep Tertutup Sempurna**: Ditambahkan contoh soal ke-6 khusus tingkat internasional: `soal-teori-pita-ssh-peierls` (*Contoh Soal IChO 6: Kuantisasi Model Tight-Binding SSH, Celah Pita Poliasetilena & Transisi Peierls*), sehingga **Coverage melonjak menjadi 100% ✅ (0 Celah Konsep pada Topik 2)**.
+  * Dilengkapi **30 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn02.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn02.ts).
+  * 15 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`) & **Ketercakupan Keseluruhan Platform Naik ke 99%**.
+* **Target Peningkatan Konten Berikutnya**:
+  * Menutup 2 celah konsep tersisa (Struktur Kristal di Topik 3, Kinetika Enzim di Topik 10).
+  * Melanjutkan revamping Topik 3 s.d. 10 OSN secara bertahap.
 
 ---
 
@@ -262,7 +275,7 @@ Perintah di atas mengeksekusi 3 suite pengujian mandiri:
   * Modul SMA Fase F2 (Topik 113–116): [`src/data/materials/smaFaseF2.ts`](file:///c:/osn/src/data/materials/smaFaseF2.ts)
   * Bank Contoh Soal SMA Fase E: [`src/data/materials/smaWorkedExamplesFaseE.ts`](file:///c:/osn/src/data/materials/smaWorkedExamplesFaseE.ts)
   * Pusat Bank Kuis Checkpoint: [`src/data/checkpoints/index.ts`](file:///c:/osn/src/data/checkpoints/index.ts)
-  * Modul Silabus 10 Pilar OSN: [`src/data/materialsData.ts`](file:///c:/osn/src/data/materialsData.ts)
+  * Modul Silabus 10 Pilar OSN: [`src/data/materialsData.ts`](file:///e:/VibeCoding/osn/src/data/materialsData.ts) & [`src/data/materials/osn/`](file:///e:/VibeCoding/osn/src/data/materials/osn/) (`osnTopic01.ts` s.d. `osnTopic10.ts`)
   * Helper KaTeX & Parser Callout: [`src/lib/katex-helpers.ts`](file:///c:/osn/src/lib/katex-helpers.ts)
   * Skrip QA Materi: [`scripts/validate-materials.js`](file:///c:/osn/scripts/validate-materials.js)
   * Skrip QA Bank Soal: [`scripts/validate-questions.ts`](file:///c:/osn/scripts/validate-questions.ts)
