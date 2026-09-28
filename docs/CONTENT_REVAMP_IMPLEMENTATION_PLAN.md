@@ -73,12 +73,8 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **104** | **4** | **Tata Nama Senyawa & Persamaan Reaksi** | **Kelas 10 (Fase E)** | **Tata Bahasa Kimia IUPAC, Neraca Akuntansi Antoine Lavoisier** | **✅ Selesai** | **Coverage 100% (5 Soal, 24 Kuis, 10 Miskonsepsi)** |
 | **105** | **5** | **Hukum Dasar Kimia & Konsep Mol** | **Kelas 10 (Fase E)** | **Sandwich Keju (Pembatas), Jembatan Mol (Ibu Kota Hub)** | **✅ Selesai** | **Coverage 100% (5 Soal, 18 Kuis, 9 Miskonsepsi)** |
 | **106** | **6** | **Termokimia SMA (Entalpi & Hukum Hess)** | **Kelas 11 (Fase F1)** | **Rekening Bank Energi, Naik Tangga / Turun Lift Hess** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 11 Miskonsepsi)** |
-| **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas 11 (Fase F1)** | **Polisi Tidur (Energi Aktivasi), Mobil Tabrakan Sudut Tepat** | **✅ Selesai** | **Coverage 100% (5 Soal, 19 Kuis, 15 Miskonsepsi)** |
-| **108** | **8** | **Kesetimbangan Kimia Dasar SMA** | **Kelas 11 (Fase F1)** | **Eskalator Berlawanan Arah (Dinamis), Jungkat-Jungkit Le Chatelier** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
-| **109** | **9** | **Larutan Asam-Basa & Titrasi Netralisasi** | **Kelas 11 (Fase F1)** | **Perang Donor-Akseptor Proton, Titik Belok Indikator** | **✅ Selesai** | **Coverage 100% (5 Soal, 23 Kuis, 19 Miskonsepsi)** |
-| **110** | **10** | **Larutan Penyangga (Buffer) & Hidrolisis** | **Kelas 11 (Fase F1)** | **Pasukan Penjaga Kejut pH Darah, Ion Penggoda Air** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
-| **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
-| 112 | 12 | Sistem Koloid & Kimia Permukaan SMA | Kelas 11 (Fase F1) | Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil) | ⏳ Terjadwal | Prioritas Fase 3 |
+| **107** | **7** | **Laju Reaksi & Teori Tumbukan SMA** | **Kelas | **111** | **11** | **Kelarutan & Hasil Kali Kelarutan ($K_{sp}$)** | **Kelas 11 (Fase F1)** | **Pesta Kolam Penuh Sesak (Saturasi), Pengendapan Selektif** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
+| **112** | **12** | **Sistem Koloid & Kimia Permukaan SMA** | **Kelas 11 (Fase F1)** | **Efek Lampu Kabut (Tyndall), Rompi Pelampung Sabun (Misil)** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 16 Miskonsepsi)** |
 | 113 | 13 | Sifat Koligatif Larutan SMA | Kelas 12 (Fase F2) | Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel | ⏳ Terjadwal | Prioritas Fase 4 |
 | 114 | 14 | Reaksi Redoks & Sel Elektrokimia SMA | Kelas 12 (Fase F2) | Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik | ⏳ Terjadwal | Prioritas Fase 4 (Gap: Korosi & Baterai Komersial) |
 | 115 | 15 | Kimia Unsur Golongan Utama & Transisi 4 | Kelas 12 (Fase F2) | Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik | ⏳ Terjadwal | Prioritas Fase 4 |
@@ -89,17 +85,17 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 ### 3.2. Kurikulum Tingkat Lanjut: 10 Pilar Silabus OSN/IChO (`src/data/materialsData.ts`)
 
 | No | Pilar Silabus OSN | Target Peningkatan Pedagogis | Level Target | Status |
-| :---: | :--- | :--- | :---: | :---: |
+| :---: | :--- | :--- | :--- | :---: |
 | **1** | Struktur Atom & Periodisitas Unsur | Mekanika kuantum, orbital radial/angular, aturan Slater, spektroskopi atom | OSN-K / OSN-P | ⏳ Terjadwal (Fase 5) |
 | **2** | Ikatan Kimia & Geometri Molekul | Teori Orbital Molekul (MOT), diagram MO diatomik heteronuklir, hibridisasi kompleks | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **3** | Stoikiometri & Wujud Zat | Gas riil Van der Waals, struktur kristal kisi intan/fcc/bcc, analisis stoikiometri non-stokiometrik | OSN-K / OSN-P | ⏳ Terjadwal (Fase 5) |
 | **4** | Termodinamika Kimia | Siklus Born-Haber, Entropi ($S$), Energi Bebas Gibbs ($\Delta G$), persamaan Van 't Hoff | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **5** | Kesetimbangan Kimia & Larutan | Kesetimbangan poliprotik simultan, diagram pecahan alfa ($\alpha$-fraction), kekuatan ionik Debye-Hückel | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
-| **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State Approximation), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
+| **6** | Kinetika Kimia & Mekanisme Reaksi | Pendekatan keadaan tunak (Steady-State SSA), kinetika reaksi berantai, Arrhenius lanjut | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **7** | Elektrokimia & Potensial Sel | Persamaan Nernst multikomponen, diagram Latimer & Frost, overpotensial kinetika elektroda | OSN-P / OSN | ⏳ Terjadwal (Fase 5) |
 | **8** | Kimia Anorganik & Senyawa Koordinasi | Teori Medan Kristal (CFT), efek Jahn-Teller, isomerisme koordinasi, deret spektrokimi | OSN / IChO | ⏳ Terjadwal (Fase 5) |
 | **9** | Kimia Analitik & Dasar Spektroskopi | Spektrofotometri UV-Vis (Beer-Lambert), FTIR, $^{1}\text{H}$-NMR interaktif, kurva titrasi presisi | OSN / IChO | ⏳ Terjadwal (Fase 5) |
-| **10** | Kimia Organik & Biokimia | Mekanisme reaksi panah lengkung ($S_N1, S_N2, E1, E2$, elektrofilik aromatik), stereokimia ($R/S$), siklus biokimia | OSN / IChO | ⏳ Terjadwal (Fase 5) |
+| **10** | Kimia Organik & Biokimia | Mekanisme reaksi panah lengkung ($S_N1, S_N2, E1, E2$), stereokimia ($R/S$), siklus biokimia | OSN / IChO | ⏳ Terjadwal (Fase 5) |
 
 ---
 
@@ -107,7 +103,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 
 ```
 [FASE 1: Pilot Topik 105] ──► [FASE 2: Fase E Topik 101-105] ──► [FASE 3: Fase F1 SMA 106-112]
-        (SELESAI ✅)                  (SELESAI ✅)                        (In Progress)
+        (SELESAI ✅)                  (SELESAI ✅)                        (SELESAI ✅)
                                                                                 │
 [DEPLOY & VERIFIKASI] ◄─── [FASE 5: 10 Pilar OSN] ◄─── [FASE 4: Fase F2 SMA 113-116]
      (Rilis Final)                 (Tahap Akhir)                       (Tahap Lanjutan)
@@ -126,6 +122,19 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * **Pemisahan Kuis**: Kuis checkpoint dihilangkan dari bagian contoh soal agar tidak ada distraksi saat membaca pembahasan mendalam.
   * **Penyempurnaan Styling Callout**: Memperbaiki pemisahan blok kutipan markdown dan menerapkan color palette hijau zamrud (*emerald*) yang serasi dengan card container Tahap 3.
   * **100% Coverage Lolos**: Seluruh topik Fase E mencapai skor 100% pada evaluasi matriks ketercakupan pedagogis.
+
+### 🔹 Fase 3: Termokimia, Kinetika & Larutan Fase F1 SMA (Topik 106–112) (STATUS: SELESAI ✅)
+* **Pencapaian Menyeluruh Seluruh Kelas 11 SMA (Topik 106 - 112)**:
+  * **Topik 106 (Termokimia SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_106`, 19 Kuis Checkpoint, 11 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 107 (Laju Reaksi & Teori Tumbukan SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_107`, 19 Kuis Checkpoint, 15 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 108 (Kesetimbangan Kimia Dasar SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_108`, 21 Kuis Checkpoint, 17 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 109 (Larutan Asam-Basa & Titrasi Netralisasi SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_109`, 23 Kuis Checkpoint, 19 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 110 (Larutan Penyangga & Hidrolisis Garam SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_110`, 21 Kuis Checkpoint, 17 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 111 (Kelarutan & Hasil Kali Kelarutan Ksp SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_111`, 21 Kuis Checkpoint, 16 Peringatan Miskonsepsi (100% Coverage).
+  * **Topik 112 (Sistem Koloid & Kimia Permukaan SMA)**: 5 Soal HOTS di `WORKED_EXAMPLES_TOPIC_112`, 21 Kuis Checkpoint, 16 Peringatan Miskonsepsi (100% Coverage).
+  * **Total Fase F1**: Tepat 35 contoh soal berjenjang Sedang & HOTS, 145 kuis uji pemahaman cepat, dan 111 peringatan miskonsepsi. Seluruh topik Fase F1 lulus validasi 100% coverage tanpa celah konsep!
+
+### 🔹 Fase 4: Sifat Koligatif, Redoks, Unsur & Kimia Karbon Fase F2 SMA (Topik 113–116)k Fase E mencapai skor 100% pada evaluasi matriks ketercakupan pedagogis.
 
 ### 🔹 Fase 3: Termokimia, Kinetika & Larutan Fase F1 SMA (Topik 106–112)
 * **Fokus Eksekusi**:

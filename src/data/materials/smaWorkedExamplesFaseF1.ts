@@ -2683,3 +2683,497 @@ Untuk mengendapkan seluruh ion $\\ce{I-}$ dalam $500.0\\text{ mL}$ larutan:
   },
 ];
 
+// ============================================================================
+// TOPIK 112: Sistem Koloid & Kimia Permukaan SMA
+// (Klasifikasi, Sifat Optik-Kinetik, Sifat Listrik, Koagulasi & Sintesis)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_112: ConceptBlock[] = [
+  {
+    tag: 'contoh-klasifikasi-koloid-dan-emulgator-sma',
+    tags: ['klasifikasi-koloid', 'fase-terdispersi', 'medium-pendispersi', 'emulgator', 'lesitin', 'kimia-sma'],
+    title: 'Contoh Soal 1: Identifikasi Matriks 8 Jenis Koloid & Analisis Mekanisme Aksi Emulgator (Level: Sedang)',
+    summary: 'Klasifikasi sistem dispersi berdasarkan wujud fase terdispersi dan medium pendispersi, penjelasan mengapa gas dalam gas bukan koloid, serta mekanisme molekular aksi emulgator amfifilik.',
+    content: `### 📋 Skenario Masalah & Data Produk Sehari-hari:
+Dalam kehidupan sehari-hari dan industri manufaktur, kita sering berinteraksi dengan berbagai produk komersial yang memanfaatkan teknologi sistem koloid:
+1. **Cat Dinding Lateks**
+2. **Saus Mayones & Santan Kelapa**
+3. **Busa Sabun & Batu Apung (*Pumice*)**
+4. **Kabut di Pagi Hari & Asap Knalpot Kendaraan**
+5. **Keju Olahan & Gel Agar-agar**
+
+---
+
+### 🎯 Pertanyaan:
+1. Tentukan fase terdispersi, medium pendispersi, dan nama jenis koloid untuk masing-masing dari kelima kelompok produk di atas!
+2. Di alam semesta terdapat 3 wujud utama materi (padat, cair, gas), yang secara matematis menghasilkan $3 \\times 3 = 9$ kemungkinan kombinasi campuran. Mengapa hanya dikenal **8 jenis sistem koloid**? Jelaskan mengapa campuran gas dalam gas tidak pernah membentuk sistem koloid!
+3. Minyak nabati dan air murni tidak dapat saling bercampur dan akan memisah menjadi dua lapisan (*immiscible*). Namun, ketika minyak dikocok bersama air dengan penambahan sedikit kuning telur, terbentuk saus mayones yang kental, homogen, dan stabil bertahun-tahun. Jelaskan struktur molekular zat penstabil di dalam kuning telur (lesitin) dan bagaimana mekanisme aksinya mencegah pemisahan tetesan minyak (*koalesensi*)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Klasifikasi Fase dan Nama Sistem Koloid
+Berdasarkan wujud fasa terdispersi (zat yang terbagi halus) dan medium pendispersi (fasa kontinu pelarut):
+
+1. **Cat Dinding Lateks:**
+   - **Fase Terdispersi:** Padat (pigmen warna seperti $\\ce{TiO2}$ dan partikel polimer).
+   - **Medium Pendispersi:** Cair (air atau pelarut organik).
+   - **Nama Koloid:** **Sol (Sol Cair)**.
+2. **Saus Mayones & Santan Kelapa:**
+   - **Fase Terdispersi:** Cair (tetesan minyak nabati pada mayones / minyak kelapa pada santan).
+   - **Medium Pendispersi:** Cair (air cuka pada mayones / air pada santan).
+   - **Nama Koloid:** **Emulsi (Emulsi Cair / Minyak dalam Air, O/W)**.
+3. **Busa Sabun & Batu Apung:**
+   - *Busa Sabun:* Fase terdispersi **Gas** di dalam medium pendispersi **Cair** $\\implies$ **Buih / Busa Cair**.
+   - *Batu Apung:* Fase terdispersi **Gas** di dalam medium pendispersi **Padat** (batuan silikat lava) $\\implies$ **Busa Padat**.
+4. **Kabut & Asap Knalpot:**
+   - *Kabut:* Fase terdispersi **Cair** (butiran air) di dalam medium pendispersi **Gas** (udara) $\\implies$ **Aerosol Cair**.
+   - *Asap Knalpot:* Fase terdispersi **Padat** (partikel jelaga karbon) di dalam medium pendispersi **Gas** (udara pembakaran) $\\implies$ **Aerosol Padat**.
+5. **Keju Olahan & Gel Agar-agar:**
+   - **Fase Terdispersi:** Cair (air/minyak terperangkap).
+   - **Medium Pendispersi:** Padat (jejaring protein kasein pada keju / rantai polisakarida pada agar-agar).
+   - **Nama Koloid:** **Emulsi Padat (Gel)**.
+
+---
+
+#### Langkah 2: Mengapa Campuran Gas dalam Gas Bukan Koloid?
+Campuran antara gas dengan gas **selalu menghasilkan Larutan Sejati (Campuran Homogen Satu Fasa)**, bukan koloid:
+- Molekul-molekul gas memiliki ukuran yang sangat kecil ($< 1\\text{ nm}$, skala angstrom).
+- Jarak antarmolekul gas sangat renggang dan gaya tarik antarmolekulnya sangat lemah, sehingga molekul-molekul gas selalu berdifusi secara spontan dan saling bercampur sempurna pada tingkat molekular (*fully miscible*) didorong oleh peningkatan entropi pencampuran yang sangat besar ($\\Delta S_{\\text{mix}} > 0$).
+- Karena tidak pernah terbentuk agregat partikel berdimensi $1 - 100\\text{ nm}$ dan tidak terdapat batas antarmuka fasa (*phase boundary*), maka gas dalam gas selalu berupa satu fasa gas tunggal yang serba sama.
+
+---
+
+#### Langkah 3: Mekanisme Aksi Emulgator Lesitin pada Mayones
+Minyak bersifat non-polar (hidrofobik/lipofilik), sedangkan air bersifat polar (hidrofilik). Keduanya memiliki tegangan antarmuka yang sangat tinggi sehingga secara termodinamika tetesan minyak cenderung menyatu kembali (*koalesensi*) membentuk lapisan terpisah.
+
+**Mekanisme Penstabilan oleh Lesitin:**
+1. **Struktur Amfifilik Lesitin:**
+   Lesitin (fosfatidilkolina) memiliki dua kutub dengan sifat berlawanan dalam satu molekul:
+   - **Kepala Polar (Hidrofilik):** Gugus fosfat dan kolina bermuatan listrik yang sangat menyukai air dan membentuk interaksi dipol-dipol kuat dengan molekul air.
+   - **Ekor Non-polar (Lipofilik/Hidrofobik):** Dua rantai asam lemak panjang hidrokarbon yang larut dan menancap kuat ke dalam tetesan minyak.
+2. **Pembentukan Lapisan Antarmuka Pelindung:**
+   Molekul-molekul lesitin mengorientasikan diri tepat di batas antarmuka antara tetesan minyak dan air. Ekor lipofilik menancap ke bagian dalam tetesan minyak, sedangkan kepala polar mencuat ke arah medium air di sekitarnya.
+3. **Pencegahan Koalesensi:**
+   Lapisan kepala polar yang mengelilingi seluruh permukaan tetesan minyak menciptakan rintangan sterik (*steric hindrance*) dan tolakan elektrostatik. Ketika dua tetesan minyak saling mendekat, gaya tolak ini mencegah tetesan saling bersentuhan dan bergabung, sehingga emulsi mayones tetap homogen dan stabil.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Cepat Menghafal Matriks 8 Sistem Koloid di Soal Ujian SMA:**  
+> Kunci utama menentukan nama koloid adalah melihat **Medium Pendispersinya (wadah/fase pembawa)** terlebih dahulu:
+> 1. Jika mediumnya **Gas** $\\implies$ Namanya selalu **Aerosol** (Aerosol Cair jika zat terdispersinya cair; Aerosol Padat jika zat terdispersinya padat). *Ingat: Gas dalam Gas tidak ada!*
+> 2. Jika zat terdispersinya **Gas** $\\implies$ Namanya selalu **Buih / Busa** (Buih jika mediumnya cair; Busa Padat jika mediumnya padat).
+> 3. Jika pertemuannya **Cair dalam Cair** $\\implies$ Namanya **Emulsi**.
+> 4. Jika pertemuannya **Padat dalam Cair** $\\implies$ Namanya **Sol**.
+> 5. Jika pertemuannya **Cair dalam Padat** $\\implies$ Namanya **Emulsi Padat (Gel)**.`,
+    keyFormulas: [
+      { name: 'Kaidah Gas dalam Gas', formula: '\\text{Gas} + \\text{Gas} \\implies \\text{Larutan Sejati (Satu Fasa, Bukan Koloid)}' },
+      { name: 'Definisi Emulsi', formula: '\\text{Cair (terdispersi)} + \\text{Cair (pendispersi)} + \\text{Emulgator} \\implies \\text{Emulsi Stabil}' },
+      { name: 'Struktur Molekul Surfaktan/Emulgator', formula: '\\text{Molekul Amfifilik} = \\text{Kepala Polar (Hidrofilik)} + \\text{Ekor Non-polar (Lipofilik)}' },
+    ],
+  },
+  {
+    tag: 'contoh-efek-tyndall-dan-gerak-brown-sma',
+    tags: ['efek-tyndall', 'gerak-brown', 'sifat-optik', 'sifat-kinetik', 'hamburan-rayleigh', 'kimia-sma'],
+    title: 'Contoh Soal 2: Fenomena Hamburan Sinar Efek Tyndall & Gerak Brown Kinetik (Level: Sedang)',
+    summary: 'Analisis optik pembeda larutan sejati vs koloid melalui Efek Tyndall, penjelasan fisika Gerak Brown dari benturan molekular pelarut, dan penerapan Hukum Hamburan Rayleigh pada fenomena langit biru.',
+    content: `### 📋 Skenario Eksperimen Laboratorium:
+Di laboratorium kimia sekolah, guru menyiapkan tiga bejana kaca transparan tak bertanda yang masing-masing berisi cairan jernih/keruh:
+- **Bejana X:** Larutan garam dapur ($\\ce{NaCl}$) murni dalam air.
+- **Bejana Y:** Larutan tepung kanji / pati encer yang telah dipanaskan dan didinginkan.
+- **Bejana Z:** Campuran serbuk kapur tulis ($\\ce{CaCO3}$) dalam air yang baru diaduk.
+
+Guru kemudian mengarahkan seberkas sinar laser pointer berwarna merah ($\\lambda = 650\\text{ nm}$) melintasi ketiga bejana tersebut di ruangan yang gelap, lalu meminta siswa mengamati lintasan cahaya dari samping serta mengamati setetes sampel di bawah mikroskop ultra.
+
+---
+
+### 🎯 Pertanyaan:
+1. Deskripsikan penampakan berkas sinar laser saat melintasi Bejana X, Bejana Y, dan Bejana Z! Bejana manakah yang menunjukkan fenomena **Efek Tyndall**?
+2. Mengapa partikel pada Bejana X sama sekali tidak menghamburkan sinar laser, sedangkan partikel pada Bejana Y menghamburkannya dengan sangat nyata? Jelaskan berdasarkan perbandingan ukuran partikel terhadap panjang gelombang sinar tampak!
+3. Ketika setetes cairan dari Bejana Y diamati di bawah mikroskop ultra, tampak titik-titik cahaya yang terus-menerus bergerak lincah membentuk lintasan zig-zag tak beraturan.
+   a. Apa nama fenomena kinetik tersebut?
+   b. Apa penyebab mikroskopis terjadinya gerakan zig-zag tersebut?
+   c. Mengapa fenomena ini menjadi faktor kunci kestabilan sistem koloid terhadap gaya gravitasi bumi?
+4. Berdasarkan Hukum Hamburan Rayleigh ($I_{\\text{hambur}} \\propto \\frac{1}{\\lambda^4}$), jelaskan mengapa langit pada siang hari yang cerah tampak berwarna biru, sedangkan lampu kabut pada mobil dirancang memancarkan warna kuning!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Observasi Berkas Sinar Laser & Identifikasi Efek Tyndall
+- **Bejana X (Larutan $\\ce{NaCl}$):** Berkas sinar laser **tidak terlihat sama sekali** di dalam cairan saat dilihat dari samping; cairan tetap tampak gelap dan cahaya hanya tampak berupa titik merah di dinding keluar bejana.
+- **Bejana Y (Sol Kanji / Pati):** Berkas sinar laser **tampak sangat jelas dan berpendar membentuk kerucut cahaya merah terang** di sepanjang lintasan cairan di dalam bejana. Bejana Y menunjukkan fenomena **Efek Tyndall** (sifat optik khas koloid).
+- **Bejana Z (Suspensi $\\ce{CaCO3}$):** Berkas sinar laser tertahan atau terhambur secara kasar membaur, dan setelah didiamkan beberapa menit, partikel kapur segera mengendap ke dasar bejana meninggalkan cairan bening di atasnya.
+
+---
+
+#### Langkah 2: Rasional Ukuran Partikel vs Panjang Gelombang Cahaya
+Syarat terjadinya hamburan cahaya optik yang efektif bergantung pada dimensi ukuran partikel penghambur:
+1. **Pada Larutan Sejati (Bejana X):**
+   - Partikel terdispersi berupa ion $\\ce{Na+}$ dan $\\ce{Cl-}$ bebas terhidrasi dengan diameter $< 1\\text{ nm}$ ($0.1 - 0.3\\text{ nm}$).
+   - Ukuran ini ribuan kali lebih kecil daripada panjang gelombang cahaya tampak ($\\lambda = 400 - 700\\text{ nm}$). Akibatnya, gelombang foton cahaya melintasi partikel tanpa mengalami hamburan yang terdeteksi (*transmitted directly*).
+2. **Pada Koloid (Bejana Y):**
+   - Partikel amilosa/amilopektin teragregasi membentuk partikel koloid dengan dimensi $1 - 100\\text{ nm}$.
+   - Ukuran ini sebanding dengan panjang gelombang cahaya tampak, sehingga partikel koloid mampu bertindak sebagai **pusat hamburan sekunder (*secondary scattering centers*)** yang memancarkan foton cahaya ke segala arah. Berkas sinar yang dihamburkan ke arah samping inilah yang ditangkap oleh mata pengamat sebagai Efek Tyndall.
+
+---
+
+#### Langkah 3: Analisis Sifat Kinetik Gerak Brown
+a. Fenomena kinetik lintasan patah-patah zig-zag tak beraturan tersebut dinamakan **Gerak Brown (*Brownian Motion*)**.  
+b. **Penyebab Mikroskopis:**  
+   Partikel koloid berukuran sangat kecil ($1 - 100\\text{ nm}$) sehingga pada setiap saat, jumlah molekul pelarut air ($\\ce{H2O}$) yang menumbuk sisi kiri, kanan, atas, dan bawah partikel tidaklah persis sama. Adanya **ketidakseimbangan impuls tumbukan kinetik termal molekul pelarut dari berbagai arah** menghasilkan resultan gaya sesaat yang melempar partikel koloid ke arah acak secara terus-menerus.  
+c. **Peran terhadap Kestabilan Koloid:**  
+   Gaya gravitasi bumi ($F_g = m \\cdot g$) terus-menerus menarik partikel ke bawah. Namun, energi kinetik tumbukan termal yang memicu Gerak Brown memiliki magnitudo yang cukup untuk melawan gaya berat partikel koloid yang sangat ringan tersebut. Selama partikel terus bergerak acak tak beraturan, partikel **tidak akan pernah mengendap ke dasar wadah (*menangkal sedimentasi*)**, sehingga koloid tetap stabil secara kinetik.
+
+---
+
+#### Langkah 4: Aplikasi Hukum Hamburan Rayleigh
+Menurut Hukum Rayleigh:
+$$I_{\\text{hambur}} \\propto \\frac{1}{\\lambda^4}$$
+Intensitas hamburan berbanding terbalik dengan pangkat empat panjang gelombang sinar cahaya:
+1. **Langit Biru di Siang Hari:**
+   Cahaya matahari tersusun atas spektrum polikromatik (merah, jingga, kuning, hijau, biru, nila, ungu). Cahaya biru memiliki panjang gelombang pendek ($\\lambda \\approx 450\\text{ nm}$), sedangkan cahaya merah memiliki panjang gelombang panjang ($\\lambda \\approx 700\\text{ nm}$).
+   $$\\frac{I_{\\text{biru}}}{I_{\\text{merah}}} \\approx \\left(\\frac{700}{450}\\right)^4 \\approx (1.556)^4 \\approx \\mathbf{5.86}$$
+   Cahaya biru dihamburkan oleh molekul gas dan partikel aerosol koloid di atmosfer bumi hampir **6 kali lipat lebih intens** daripada cahaya merah, sehingga langit siang hari didominasi warna biru cemerlang yang dihamburkan ke seluruh penjuru langit.
+2. **Lampu Kabut Mobil Berwarna Kuning:**
+   Partikel tetesan air pada kabut (aerosol cair) menghamburkan cahaya dengan kuat. Jika menggunakan lampu putih atau biru ($\\lambda$ pendek), cahaya akan dihamburkan hebat ke segala arah menghasilkan silau (*glare*) yang membutakan pengemudi. Lampu kuning memiliki $\\lambda$ yang lebih panjang ($\\sim 580\\text{ nm}$) sehingga intensitas hamburannya jauh lebih kecil, memungkinkan berkas sinar **menembus kabut lebih jauh tanpa dihamburkan balik ke mata pengemudi**.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Pembedaan Cepat Efek Tyndall vs Gerak Brown di Soal UTBK & Ujian Sekolah:**
+> - **Efek Tyndall:** Sifat **OPTIK** (berhubungan dengan cahaya, hamburan foton, sorot lampu bioskop, berkas sinar matahari di celah pohon, langit biru).
+> - **Gerak Brown:** Sifat **KINETIK** (berhubungan dengan gerak, tumbukan molekul pelarut tak seimbang, lintasan zig-zag, mikroskop ultra, pencegahan pengendapan gravitasi).
+> - *Ingat:* Gerak Brown **TIDAK BISA** dilihat dengan mata telanjang atau mikroskop cahaya biasa di lab sekolah; harus menggunakan **mikroskop ultra**!`,
+    keyFormulas: [
+      { name: 'Hukum Hamburan Rayleigh', formula: 'I_{\\text{hambur}} \\propto \\frac{1}{\\lambda^4}' },
+      { name: 'Kriteria Ukuran Koloid Efek Tyndall', formula: '1\\text{ nm} \\le d_{\\text{partikel}} \\le 100\\text{ nm} \\approx \\lambda_{\\text{cahaya}}' },
+      { name: 'Keseimbangan Kinetik Gerak Brown', formula: 'E_{\\text{kinetik tumbukan}} > F_{\\text{gravitasi}} \\implies \\text{Partikel Tidak Mengendap}' },
+    ],
+  },
+  {
+    tag: 'contoh-muatan-koloid-dan-elektroforesis-sma',
+    tags: ['muatan-koloid', 'adsorpsi-ion', 'elektroforesis', 'sol-fe-oh-3', 'sol-as-2-s-3', 'alat-cottrell', 'kimia-sma'],
+    title: 'Contoh Soal 3: Penentuan Muatan Koloid melalui Adsorpsi Selektif & Perilaku Elektroforesis (Level: Sedang)',
+    summary: 'Mekanisme adsorpsi selektif ion pembentuk muatan sol positif vs sol negatif, pergerakan partikel dalam medan listrik elektroforesis, serta aplikasi industri pengendap Cottrell.',
+    content: `### 📋 Skenario Sintesis & Pengujian Laboratorium:
+Di laboratorium kimia, seorang siswa membuat dua bejana sol koloid yang berbeda:
+- **Sol 1:** Dibuat dengan menambahkan larutan $\\ce{FeCl3}$ encer berlebih ke dalam air suling yang sedang mendidih, menghasilkan cairan sol berwarna cokelat kemerahan (sol besi(III) hidroksida, $\\ce{Fe(OH)3}$).
+- **Sol 2:** Dibuat dengan mengalirkan gas $\\ce{H2S}$ berlebih ke dalam larutan asam arsenit ($\\ce{H3AsO3}$) encer, menghasilkan cairan sol berwarna kuning cerah (sol arsen(III) sulfida, $\\ce{As2S3}$).
+
+Masing-masing sol kemudian dimasukkan ke dalam tabung kaca berbentuk pipa U yang dilengkapi dengan sepasang elektroda platina dan dihubungkan ke sumber tegangan listrik searah (DC) $50\\text{ Volt}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Tuliskan persamaan reaksi pembentukan sol $\\ce{Fe(OH)3}$ dan sol $\\ce{As2S3}$!
+2. Jelaskan mekanisme bagaimana partikel $\\ce{Fe(OH)3}$ dan partikel $\\ce{As2S3}$ memperoleh muatan listrik pada permukaannya (proses adsorpsi selektif ion), serta tentukan tanda muatan listrik masing-masing sol tersebut!
+3. Ketika arus listrik searah dinyalakan pada pipa U:
+   a. Ke arah elektroda manakah (katoda atau anoda) partikel sol $\\ce{Fe(OH)3}$ akan bergerak? Jelaskan!
+   b. Ke arah elektroda manakah partikel sol $\\ce{As2S3}$ akan bergerak? Jelaskan!
+   c. Apa nama fenomena perpindahan partikel koloid bermuatan di bawah pengaruh medan listrik ini?
+4. Mengapa istilah **adsorpsi** tidak boleh disamakan dengan **absorpsi**? Jelaskan perbedaan mendasarnya dan berikan contoh nyata masing-masing peristiwa dalam kehidupan sehari-hari!
+5. Pada cerobong asap pabrik peleburan logam dan PLTU batu bara, dipasang instalasi elektroda tegangan tinggi yang dinamakan **Alat Pengendap Debu Cottrell (*Cottrell Precipitator*)**. Jelaskan prinsip kerja alat Cottrell dalam membersihkan asap gas buang pabrik berdasarkan konsep muatan koloid dan elektroforesis!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Persamaan Reaksi Pembuatan Sol
+1. **Sol $\\ce{Fe(OH)3}$ (Reaksi Hidrolisis Garam Besi):**
+   $$\\ce{FeCl3(aq) + 3H2O(l) -> Fe(OH)3(koloid) + 3HCl(aq)}$$
+2. **Sol $\\ce{As2S3}$ (Reaksi Dekomposisi Ganda):**
+   $$\\ce{2H3AsO3(aq) + 3H2S(g) -> As2S3(koloid) + 6H2O(l)}$$
+
+---
+
+#### Langkah 2: Mekanisme Adsorpsi Selektif Ion & Muatan Permukaan
+Partikel koloid padatan memiliki kemampuan mengadsorpsi (menempelkan pada permukaan) ion-ion tertentu yang terdapat di dalam medium pendispersi:
+- **Kaidah Adsorpsi Paneth-Fajans:** Suatu partikel kristal koloid cenderung mengadsorpsi ion yang sejenis dengan kisi kristalnya (*lattice-forming ions*) yang tersedia dalam konsentrasi berlebih di larutan.
+- **Pada Sol $\\ce{Fe(OH)3}$:**
+  Dalam larutan masih terdapat kelebihan kation $\\ce{Fe^3+}$ (dari $\\ce{FeCl3}$). Partikel padatan $\\ce{Fe(OH)3}$ secara selektif menyerap kation $\\ce{Fe^3+}$ pada permukaan luarnya.  
+  Formula agregat koloid: $[\\ce{Fe(OH)3}]_m \\cdot n\\ce{Fe^3+} \\implies$ **Sol $\\ce{Fe(OH)3}$ Bermuatan POSITIF $(+)$**.
+- **Pada Sol $\\ce{As2S3}$:**
+  Dalam larutan terdapat kelebihan gas $\\ce{H2S}$ yang terionisasi sebagian menjadi ion sulfida $\\ce{S^2-}$ (dan $\\ce{HS-}$). Partikel padatan $\\ce{As2S3}$ secara selektif menyerap ion sulfida $\\ce{S^2-}$ pada permukaan luarnya.  
+  Formula agregat koloid: $[\\ce{As2S3}]_m \\cdot n\\ce{S^2-} \\implies$ **Sol $\\ce{As2S3}$ Bermuatan NEGATIF $(-)$**.
+
+---
+
+#### Langkah 3: Perilaku Migrasi pada Elektroforesis
+Fenomena pergerakan partikel koloid bermuatan di dalam medium fluida akibat pengaruh medan listrik luar dinamakan **Elektroforesis**.
+- Dalam sistem elektrokimia arus searah (DC):
+  - **Katoda:** Elektroda bermuatan **negatif $(-)$**.
+  - **Anoda:** Elektroda bermuatan **positif $(+)$**.
+- **Arah Pergerakan Sol 1 ($\\ce{Fe(OH)3}$):**
+  Karena partikel sol $\\ce{Fe(OH)3}$ bermuatan **positif $(+)$**, partikel akan ditarik oleh gaya elektrostatik dan **bermigrasi menuju KATODA (kutub negatif)**. Di sekitar katoda, warna cairan cokelat kemerahan akan semakin pekat.
+- **Arah Pergerakan Sol 2 ($\\ce{As2S3}$):**
+  Karena partikel sol $\\ce{As2S3}$ bermuatan **negatif $(-)$**, partikel akan ditarik dan **bermigrasi menuju ANODA (kutub positif)**. Di sekitar anoda, cairan berwarna kuning cerah akan berkumpul pekat.
+
+---
+
+#### Langkah 4: Perbedaan Fundamental Adsorpsi vs Absorpsi
+Sering terjadi kerancuan antara adsorpsi dengan absorpsi:
+
+| Aspek Pembeda | Adsorpsi (*Adsorption*) | Absorpsi (*Absorption*) |
+| :--- | :--- | :--- |
+| **Lokasi Penyerapan** | **Hanya pada permukaan / antarmuka fasa** (*surface phenomenon*) | **Meresap masuk ke seluruh bagian dalam fasa** (*bulk phenomenon*) |
+| **Laju Proses** | Mula-mula sangat cepat lalu melambat saat permukaan jenuh | Berlangsung dengan laju yang relatif seragam menembus volume |
+| **Konsentrasi Zat** | Terkonsentrasi pekat di lapisan terluar | Terdistribusi merata di seluruh volume penyerap |
+| **Contoh Nyata** | - Penyerapan racun di saluran pencernaan oleh norit (karbon aktif)<br>- Penyerapan zat warna pada industri gula oleh arang tulang<br>- Penempelan ion $\\ce{Fe^3+}$ pada sol $\\ce{Fe(OH)3}$ | - Busa spons menyerap air cucian<br>- Biskuit menyerap teh celup hangat<br>- Gas $\\ce{NH3}$ diserap masuk melarut ke dalam air |
+
+---
+
+#### Langkah 5: Prinsip Kerja Alat Pengendap Cottrell
+Asap pabrik dan jelaga pembakaran merupakan sistem koloid jenis **Aerosol Padat** (partikel karbon, debu timbal, dan silika yang melayang di dalam gas buang udara).
+1. Akibat gesekan di cerobong pabrik, partikel jelaga debu mengadsorpsi muatan listrik (umumnya bermuatan negatif).
+2. Di dalam cerobong asap dipasang instalasi **Alat Cottrell**, yang terdiri atas silinder logam yang dihubungkan ke kutub positif (anoda) dan kawat elektroda tipis bertegangan sangat tinggi ($20.000 - 100.000\\text{ Volt}$) bermuatan negatif (katoda).
+3. Medan listrik raksasa memicu ionisasi udara di sekitarnya. Ketika partikel jelaga asap melintasi alat ini:
+   - Partikel debu yang bermuatan akan tertarik ke elektroda yang berlawanan muatan via prinsip **elektroforesis**.
+   - Saat partikel debu menabrak dinding silinder elektroda, **muatannya dinetralkan seketika**.
+   - Tanpa adanya muatan listrik penolak, partikel jelaga karbon kehilangan kestabilan, mengalami **koagulasi**, lalu jatuh ke dasar cerobong sebagai abu padat penampungan.
+4. Gas yang keluar dari cerobong ke atmosfer menjadi bersih dan bebas dari polutan partikulat padat berbahaya.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Daftar Pasangan Muatan Koloid Klasik yang Selalu Keluar di Ujian SMA:**
+> - **Koloid Bermuatan POSITIF $(+)$:**
+>   - Sol $\\ce{Fe(OH)3}$, Sol $\\ce{Al(OH)3}$, dan sol hidroksida/oksida basa logam lainnya.
+>   - Hemoglobin darah pada pH fisiologis tubuh.
+>   - Partikel kotoran yang telah dilapisi kation koagulan tawas.
+> - **Koloid Bermuatan NEGATIF $(-):$**
+>   - Sol $\\ce{As2S3}$, sol sulfida logam ($\\ce{CdS, Sb2S3}$).
+>   - Sol logam murni (sol emas $\\ce{Au}$, perak $\\ce{Ag}$, platina $\\ce{Pt}$).
+>   - Sol belerang, sol kanji/pati, sol silika gel, tanah liat/lumpur air keruh.
+>   - Partikel jelaga asap knalpot dan cerobong pabrik.
+> *Kunci Ingat Elektroforesis:* **K**atoda menarik kation/sol **positif**; **A**noda menarik anion/sol **negatif**!`,
+    keyFormulas: [
+      { name: 'Kaidah Muatan Sol Besi Hidroksida', formula: '\\ce{Fe(OH)3} + \\ce{Fe^3+(berlebih)} \\implies \\text{Sol Bermuatan Positif } (+)' },
+      { name: 'Kaidah Muatan Sol Arsen Sulfida', formula: '\\ce{As2S3} + \\ce{S^2-(berlebih)} \\implies \\text{Sol Bermuatan Negatif } (-)' },
+      { name: 'Arah Migrasi Elektroforesis', formula: '\\text{Sol } (+) \\to \\text{Katoda } (-); \\quad \\text{Sol } (-) \\to \\text{Anoda } (+)' },
+    ],
+  },
+  {
+    tag: 'contoh-aturan-schulze-hardy-dan-koagulasi-sma',
+    tags: ['koagulasi-koloid', 'aturan-schulze-hardy', 'tawas', 'flokulasi', 'pdam', 'kimia-sma', 'hots-sma'],
+    title: 'Contoh Soal 4: Evaluasi Daya Koagulasi Elektrolit Berdasarkan Aturan Schulze-Hardy & Penjernihan Air PDAM (Level: HOTS SMA)',
+    summary: 'Analisis teoritis dan perhitungan rasio daya koagulasi ion elektrolit lawan berdasar Aturan Schulze-Hardy, serta mekanisme komprehensif penjernihan air oleh tawas.',
+    content: `### 📋 Skenario Masalah di Instalasi Pengolahan Air Limbah:
+Suatu laboratorium pengolahan limbah industri menguji metode koagulasi terhadap dua jenis sampel air limbah keruh:
+- **Sampel A:** Air keruh sungai yang mengandung partikel koloid tanah liat/lumpur bermuatan **negatif $(-)$**.
+- **Sampel B:** Limbah cair pewarna kain industri tekstil yang mengandung partikel koloid pewarna kationik bermuatan **positif $(+)$**.
+
+Untuk mengendapkan partikel koloid tersebut, laboratorium menyediakan empat larutan garam elektrolit dengan konsentrasi yang sama, yaitu masing-masing $0.050\\text{ M}$:
+1. **Natrium klorida ($\\ce{NaCl}$)**
+2. **Kalsium klorida ($\\ce{CaCl2}$)**
+3. **Aluminium sulfat / tawas ($\\ce{Al2(SO4)3}$)**
+4. **Natrium fosfat ($\\ce{Na3PO4}$)**
+
+---
+
+### 🎯 Pertanyaan:
+1. Berdasarkan **Aturan Schulze-Hardy**:
+   a. Jenis ion manakah (kation atau anion) yang bertindak sebagai agen koagulan utama untuk mengendapkan partikel pada **Sampel A**? Tentukan ion aktif tersebut dari masing-masing keempat garam!
+   b. Urutkan keempat larutan elektrolit tersebut dari yang paling efektif (membutuhkan volume paling sedikit) hingga yang paling tidak efektif dalam mengkoagulasikan **Sampel A**!
+2. Untuk mengendapkan partikel koloid pada **Sampel B**:
+   a. Jenis ion manakah yang bertindak sebagai agen koagulan aktif? Tentukan ion aktif tersebut dari masing-masing garam!
+   b. Urutkan keempat larutan elektrolit dari yang paling efektif dalam mengkoagulasikan **Sampel B**!
+3. Teori modern kestabilan koloid DLVO (*Deryagin-Landau-Verwey-Overbeek*) menyatakan bahwa konsentrasi koagulasi kritis (*Critical Coagulation Concentration* / CCC) berbanding terbalik dengan valensi ion lawan berpangkat enam:
+   $$\\text{CCC} \\propto \\frac{1}{z^6} \\iff \\text{Daya Koagulasi} \\propto z^6$$
+   Hitung perbandingan teoretis daya koagulasi antara kation $\\ce{Al^3+}$, kation $\\ce{Ca^2+}$, dan kation $\\ce{Na^+}$ terhadap Sampel A! Berapa kali lipat kation $\\ce{Al^3+}$ lebih kuat dibanding ion $\\ce{Na^+}$?
+4. Perusahaan Daerah Air Minum (PDAM) secara universal menggunakan tawas ($\\ce{Al2(SO4)3 \\cdot 18H2O}$) sebagai zat penjernih utama air sungai keruh. Mengapa tawas memiliki efektivitas penjernihan yang jauh lebih superior dibandingkan garam dapur ($\\ce{NaCl}$)? Jelaskan dua mekanisme kerja tawas sekaligus (netralisasi muatan dan pembentukan flok gelatin)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Evaluasi Koagulasi Sampel A (Sol Bermuatan Negatif)
+Partikel koloid tanah liat/lumpur membawa muatan **negatif $(-)$**.
+- Sesuai **Aturan Schulze-Hardy Bagian 1**: Partikel koloid bermuatan negatif akan dikoagulasikan secara efektif oleh ion lawan yang bertanda muatan berlawanan, yaitu **KATION BERMUATAN POSITIF $(+)$**.
+- Identifikasi kation dan valensinya ($z$) pada keempat elektrolit:
+  1. $\\ce{NaCl} \\implies$ kation $\\ce{Na+}$ dengan valensi $z = 1$.
+  2. $\\ce{CaCl2} \\implies$ kation $\\ce{Ca^2+}$ dengan valensi $z = 2$.
+  3. $\\ce{Al2(SO4)3} \\implies$ kation $\\ce{Al^3+}$ dengan valensi $z = 3$.
+  4. $\\ce{Na3PO4} \\implies$ kation $\\ce{Na+}$ dengan valensi $z = 1$.
+- Sesuai **Aturan Schulze-Hardy Bagian 2**: Semakin besar valensi muatan kation lawan, semakin kuat daya koagulasinya dan semakin sedikit konsentrasi/volume elektrolit yang dibutuhkan untuk memicu pengendapan:
+  $$z(\\ce{Al^3+}) = 3 > z(\\ce{Ca^2+}) = 2 > z(\\ce{Na+}) = 1$$
+- **Urutan Efektivitas Elektrolit terhadap Sampel A:**
+  $$\\mathbf{\\ce{Al2(SO4)3} \\gg \\ce{CaCl2} \\gg \\ce{Na3PO4} \\approx \\ce{NaCl}}$$
+  *Catatan:* Garam $\\ce{Al2(SO4)3}$ adalah yang paling efektif karena menghasilkan kation bervalensi tiga $\\ce{Al^3+}$.
+
+---
+
+#### Langkah 2: Evaluasi Koagulasi Sampel B (Sol Bermuatan Positif)
+Partikel koloid pewarna kationik membawa muatan **positif $(+)$**.
+- Ion lawan yang efektif menetralkan muatan sol positif adalah **ANION BERMUATAN NEGATIF $(-)$**.
+- Identifikasi anion dan valensinya ($z$) pada keempat garam:
+  1. $\\ce{Na3PO4} \\implies$ anion fosfat $\\ce{PO4^3-}$ dengan valensi $z = 3$.
+  2. $\\ce{Al2(SO4)3} \\implies$ anion sulfat $\\ce{SO4^2-}$ dengan valensi $z = 2$.
+  3. $\\ce{CaCl2} \\implies$ anion klorida $\\ce{Cl-}$ dengan valensi $z = 1$.
+  4. $\\ce{NaCl} \\implies$ anion klorida $\\ce{Cl-}$ dengan valensi $z = 1$.
+- Berdasarkan aturan valensi anion ($z = 3 > z = 2 > z = 1$):
+- **Urutan Efektivitas Elektrolit terhadap Sampel B:**
+  $$\\mathbf{\\ce{Na3PO4} \\gg \\ce{Al2(SO4)3} \\gg \\ce{CaCl2} \\approx \\ce{NaCl}}$$
+  *Catatan:* Garam $\\ce{Na3PO4}$ adalah yang paling efektif karena menghasilkan anion bervalensi tiga $\\ce{PO4^3-}$.
+
+---
+
+#### Langkah 3: Kalkulasi Rasio Daya Koagulasi DLVO
+Berdasarkan relasi $\\text{Daya Koagulasi} \\propto z^6$:
+- Untuk kation $\\ce{Na+} (z = 1)$:
+  $$\\text{Daya}(\\ce{Na+}) \\propto 1^6 = \\mathbf{1}$$
+- Untuk kation $\\ce{Ca^2+} (z = 2)$:
+  $$\\text{Daya}(\\ce{Ca^2+}) \\propto 2^6 = \\mathbf{64}$$
+- Untuk kation $\\ce{Al^3+} (z = 3)$:
+  $$\\text{Daya}(\\ce{Al^3+}) \\propto 3^6 = \\mathbf{729}$$
+
+**Rasio Perbandingan Daya Koagulasi Teoretis:**
+$$\\text{Daya}(\\ce{Al^3+}) : \\text{Daya}(\\ce{Ca^2+}) : \\text{Daya}(\\ce{Na+}) = \\mathbf{729 : 64 : 1}$$
+
+**Kesimpulan Kuantitatif:**  
+Kation $\\ce{Al^3+}$ memiliki kemampuan mengendapkan koloid negatif sekitar **$729$ kali lipat lebih kuat** dibandingkan ion $\\ce{Na+}$, dan lebih dari **$11$ kali lipat lebih kuat** dibanding ion $\\ce{Ca^2+}$. Inilah landasan matematis mengapa penambahan sedikit garam $\\ce{Al^3+}$ sudah sanggup menggumpalkan lumpur secara instan.
+
+---
+
+#### Langkah 4: Keunggulan Ganda Tawas pada Penjernihan Air PDAM
+Tawas ($\\ce{Al2(SO4)3}$) bekerja melalui dua mekanisme sinergis sekaligus:
+1. **Mekanisme Netralisasi Elektrostatik (Aturan Schulze-Hardy):**
+   Partikel koloid lumpur air sungai bermuatan negatif. Kation $\\ce{Al^3+}$ yang bervalensi tiga menembus lapisan lapis ganda listrik partikel lumpur dan menetralkan muatan negatifnya secara drastis ($|\\zeta| \\to 0$). Tanpa adanya gaya tolak elektrostatik, partikel lumpur dapat saling bertumbukan dan bergabung.
+2. **Mekanisme Penjeratan Flok Gelatin (Reaksi Hidrolisis):**
+   Di dalam air, ion $\\ce{Al^3+}$ mengalami reaksi hidrolisis menghasilkan endapan koloid gelatin yang bermassa jenis besar:
+   $$\\ce{Al^3+(aq) + 3H2O(l) <=> Al(OH)3(s) + 3H+(aq)}$$
+   Endapan $\\ce{Al(OH)3}$ yang terbentuk berupa gumpalan-gumpalan seperti agar-agar (*flok*). Flok-flok gelatin ini bertindak sebagai jaring perangkap raksasa yang menyapu dan menjerat partikel debu, lumpur, dan mikroorganisme tersuspensi saat mengendap ke dasar tangki sedimentasi, menghasilkan air jernih di bagian atas.
+   *(Sebaliknya, $\\ce{NaCl}$ selain daya koagulasinya $700$ kali lebih lemah, juga tidak dapat terhidrolisis membentuk endapan penjerap!)*
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Kaidah Emas Menghadapi Soal Koagulasi Schulze-Hardy di UTBK-SNBT:**
+> 1. **Langkah 1: Identifikasi tanda muatan koloid yang mau diendapkan.**
+>    - Koloid negatif? Fokus cari **KATION** dengan muatan positif terbesar! (Abaikan anionnya).
+>    - Koloid positif? Fokus cari **ANION** dengan muatan negatif terbesar! (Abaikan kationnya).
+> 2. **Langkah 2: Cek valensi muatan ion lawan.**
+>    - Kation: $\\ce{Al^3+, Fe^3+} (z=3) > \\ce{Ba^2+, Ca^2+, Mg^2+} (z=2) > \\ce{K+, Na+, NH4+} (z=1)$.
+>    - Anion: $\\ce{PO4^3-} (z=3) > \\ce{SO4^2-, CO3^2-} (z=2) > \\ce{Cl-, NO3-} (z=1)$.
+> 3. **Perhatikan Jebakan Konsentrasi Elektrolit vs Volume:**
+>    Elektrolit yang paling efektif adalah yang membutuhkan **VOLUME / KONSENTRASI PALING SEDIKIT (PALING KECIL)** untuk mengendapkan koloid!`,
+    keyFormulas: [
+      { name: 'Kaidah Schulze-Hardy Kation (Sol Negatif)', formula: '\\ce{Al^3+} \\gg \\ce{Ca^2+} \\gg \\ce{Na+} \\quad (\\text{Daya Koagulasi} \\propto z^6)' },
+      { name: 'Kaidah Schulze-Hardy Anion (Sol Positif)', formula: '\\ce{PO4^3-} \\gg \\ce{SO4^2-} \\gg \\ce{Cl-} \\quad (\\text{Daya Koagulasi} \\propto z^6)' },
+      { name: 'Reaksi Hidrolisis Flok Tawas', formula: '\\ce{Al^3+ + 3H2O <=> Al(OH)3(s) + 3H+}' },
+    ],
+  },
+  {
+    tag: 'contoh-sintesis-dialisis-dan-misil-koloid-sma',
+    tags: ['sintesis-koloid', 'kondensasi', 'dispersi', 'peptisasi', 'dialisis', 'hemodialisis', 'misil-sabun', 'cmc', 'kimia-sma', 'hots-sma'],
+    title: 'Contoh Soal 5: Komparasi Sintesis Koloid (Kondensasi vs Dispersi), Pemurnian Dialisis & Mekanisme Misil Sabun (Level: HOTS SMA)',
+    summary: 'Klasifikasi metode pembuatan koloid kondensasi kimiawi vs dispersi fisik, analisis selektivitas pori membran pada dialisis dan cuci darah, serta fenomena miselisasi surfaktan sabun dalam air.',
+    content: `### 📋 Skenario Prosedur Percobaan & Teknologi:
+Di laboratorium kimia sekolah dan aplikasi industri medis, terdapat serangkaian prosedur yang melibatkan pembuatan dan pemurnian koloid:
+- **Prosedur 1:** Reduksi larutan asam tetrakloroaurat ($\\ce{HAuCl4}$) encer menggunakan larutan formalin (formaldehida, $\\ce{HCHO}$) menghasilkan sol emas berwarna merah rubi.
+- **Prosedur 2:** Pengaliran gas hidrogen sulfida ($\\ce{H2S}$) ke dalam larutan asam arsenit ($\\ce{H3AsO3}$) menghasilkan sol $\\ce{As2S3}$.
+- **Prosedur 3:** Larutan jenuh belerang di dalam etanol dituangkan setetes demi setetes ke dalam beker berisi air murni, seketika cairan menjadi keruh seperti susu membentuk sol belerang.
+- **Prosedur 4:** Endapan segar perak klorida ($\\ce{AgCl}$) yang baru disaring diaduk bersama sedikit larutan $\\ce{FeCl3}$ encer hingga kembali berubah menjadi suspensi koloid jernih.
+- **Prosedur 5:** Pemurnian sol $\\ce{Fe(OH)3}$ yang masih bercampur asam klorida ($\\ce{HCl}$) menggunakan kantung membran selofan semipermeabel yang dicelupkan ke dalam air mengalir.
+- **Prosedur 6:** Penambahan sabun cuci natrium palmitat ($\\ce{C15H31COONa}$) ke dalam air hingga mencapai Konsentrasi Misil Kritis (*CMC*).
+
+---
+
+### 🎯 Pertanyaan:
+1. Kelompokkan Prosedur 1, 2, 3, dan 4 ke dalam metode **Kondensasi** atau **Dispersi**, serta sebutkan nama mekanisme reaksi/fisik spesifiknya (reaksi redoks, dekomposisi ganda, penggantian pelarut, atau peptisasi)!
+2. Pada Prosedur 5 (proses dialisis):
+   a. Partikel zat apakah yang dapat menembus pori-pori kantung membran selofan menuju air mengalir? Jelaskan alasannya berdasarkan ukuran partikel!
+   b. Partikel zat apakah yang tertahan di dalam kantung membran?
+   c. Bagaimana cara menguji bahwa ion pengotor klorida telah berhasil keluar dari kantung membran menuju cairan luar?
+3. Prosedur dialisis menjadi prinsip operasional dari mesin **hemodialisis (cuci darah)** bagi pasien gagal ginjal kronis. Jelaskan secara analogis komponen darah apa yang tertahan di dalam tubuh dan limbah apa yang dikeluarkan menembus membran dialyzer!
+4. Pada Prosedur 6:
+   a. Apa yang dimaksud dengan **Konsentrasi Misil Kritis (*Critical Micelle Concentration* / CMC)**?
+   b. Bagaimana perubahan wujud molekul sabun sebelum dan sesudah CMC tercapai?
+   c. Jelaskan bagaimana bola misil sabun mampu melarutkan dan mengangkat noda lemak/minyak membandel dari serat pakaian saat mencuci dengan air!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Klasifikasi Metode Pembuatan Koloid
+Dua pendekatan dasar pembuatan koloid:
+- **Cara Kondensasi:** Menggabungkan partikel kecil berukuran molekul/ion ($< 1\\text{ nm}$) menjadi partikel berukuran koloid ($1 - 100\\text{ nm}$), biasanya melalui reaksi kimia larutan.
+- **Cara Dispersi:** Memecah partikel kasar makroskopis ($> 100\\text{ nm}$) menjadi partikel berukuran koloid ($1 - 100\\text{ nm}$), baik secara mekanik, peptisasi, maupun listrik.
+
+**Analisis Masing-Masing Prosedur:**
+1. **Prosedur 1 (Sol Emas via Reduksi Formalin):**  
+   Ion $\\ce{Au^3+}$ tereduksi menjadi atom-atom netral $\\ce{Au}$ yang kemudian berkumpul membentuk partikel nano koloid emas.  
+   $\\implies$ **Cara Kondensasi via Reaksi Redoks**.
+2. **Prosedur 2 (Sol $\\ce{As2S3}$ dari $\\ce{H3AsO3}$ dan $\\ce{H2S}$):**  
+   Molekul asam arsenit dan gas $\\ce{H2S}$ saling bertukar pasangan ion membentuk molekul sukar larut $\\ce{As2S3}$ yang beragregasi menjadi partikel koloid.  
+   $\\implies$ **Cara Kondensasi via Reaksi Dekomposisi Ganda**.
+3. **Prosedur 3 (Sol Belerang dari Larutan Etanol ke Air):**  
+   Belerang larut baik dalam etanol (larutan sejati). Ketika dituangkan ke dalam air, kelarutan belerang anjlok seketika karena air bersifat polar dan belerang non-polar, memicu penggumpalan molekul belerang menjadi koloid tanpa reaksi kimia.  
+   $\\implies$ **Cara Kondensasi via Penggantian Pelarut (*Solvent Exchange*)**.
+4. **Prosedur 4 (Dispersi Endapan $\\ce{AgCl}$ dengan Elektrolit):**  
+   Endapan kasar padat $\\ce{AgCl}$ dipecah kembali menjadi partikel koloid tersuspensi dengan bantuan adsorpsi ion elektrolit pemecah.  
+   $\\implies$ **Cara Dispersi via Peptisasi**.
+
+---
+
+#### Langkah 2: Analisis Pemurnian Dialisis (Prosedur 5)
+Kantung selofan bertindak sebagai **membran semipermeabel** dengan diameter pori sekitar $1 - 2\\text{ nm}$:
+a. **Partikel yang Menembus Membran:**
+   Ion-ion elektrolit pengotor hasil samping reaksi, yaitu ion hidrogen $\\ce{H+}$ (atau ion $\\ce{H3O+}$) dan ion klorida $\\ce{Cl-}$, serta molekul pelarut air. Partikel ion ini memiliki ukuran diameter $< 1\\text{ nm}$ (skala angstrom, $0.1 - 0.3\\text{ nm}$), jauh lebih kecil dari pori membran sehingga dengan mudah berdifusi keluar menuju air yang terus mengalir.
+b. **Partikel yang Tertahan di Dalam Kantung:**
+   Partikel sol $\\ce{Fe(OH)3}$ yang telah beragregasi mencapai ukuran koloid ($1 - 100\\text{ nm}$). Karena diameter partikel koloid lebih besar daripada diameter pori membran semipermeabel, partikel koloid tertahan sempurna di dalam kantung, menghasilkan sol koloid murni yang bebas elektrolit pengotor.
+c. **Uji Pengotor Ion Klorida:**
+   Air bilasan yang mengalir keluar diuji dengan mengambil beberapa tetes lalu ditambahkan larutan perak nitrat ($\\ce{AgNO3}$). Jika terbentuk endapan putih perak klorida:
+   $$\\ce{Ag+(aq) + Cl-(aq) -> AgCl(s) v (putih)}$$
+   maka proses dialisis masih berlangsung. Dialisis selesai jika air bilasan luar sudah tidak lagi membentuk kekeruhan saat ditetesi $\\ce{AgNO3}$.
+
+---
+
+#### Langkah 3: Analogi Medis Dialisis pada Hemodialisis (Cuci Darah)
+Pada pasien gagal ginjal, ginjal tidak mampu lagi menyaring zat sisa metabolisme dari aliran darah:
+- **Darah Pasien Dialirkan Melalui Tabung Dialyzer:** Di dalam dialyzer, darah dipisahkan oleh membran semipermeabel buatan dari cairan dialisat yang terus mengalir.
+- **Zat yang Berdifusi Keluar (Dibuang):** Racun metabolit kecil berukuran molekular ($< 1\\text{ nm}$), seperti urea ($\\ce{CO(NH2)2}$), kreatinin, asam urat, kelebihan ion kalium ($\\ce{K+}$), dan natrium ($\\ce{Na+}$).
+- **Zat yang Tertahan Aman di Darah:** Komponen penting tubuh yang berukuran koloid dan makromolekul ($> 1\\text{ nm}$), seperti sel darah merah (eritrosit), sel darah putih (leukosit), keping darah (trombosit), serta protein darah esensial (seperti albumin dan imunoglobulin).
+
+---
+
+#### Langkah 4: Termodinamika Misil Sabun & Aksi Pembersihan
+a. **Konsentrasi Misil Kritis (*CMC*):**  
+   Konsentrasi batas minimum suatu surfaktan di mana molekul-molekul monomer surfaktan mulai berasosiasi secara spontan membentuk agregat partikel berukuran koloid yang dinamakan **misil (*micelles*)**.
+b. **Perubahan Keadaan Sebelum vs Sesudah CMC:**
+   - **Di Bawah CMC ($C < \\text{CMC}$):** Molekul sabun berada dalam bentuk ion/monomer bebas tunggal (rantai ion palmitat $\\ce{C15H31COO-}$ dan ion $\\ce{Na+}$) yang terlarut sempurna membentuk **Larutan Sejati**.
+   - **Di Atas CMC ($C \\ge \\text{CMC}$):** Larutan telah jenuh dengan monomer pada permukaan. Molekul-molekul sabun kemudian berkumpul secara spontan membentuk bola misil yang terdiri atas $50 - 100$ molekul. Sistem bertransformasi menjadi **Koloid Asosiasi**.
+c. **Mekanisme Pengangkatan Noda Lemak oleh Misil:**
+   1. Struktur bola misil memiliki konfigurasi radial: ekor hidrokarbon non-polar menghadap ke bagian dalam membentuk **inti hidrofobik**, sedangkan kepala karboksilat bermuatan negatif ($-\\ce{COO-}$) mencuat keluar bersentuhan dengan pelarut air membentuk **kulit hidrofilik**.
+   2. Noda minyak/lemak kotoran yang bersifat hidrofobik akan ditarik dan **terperangkap larut di dalam inti non-polar bola misil**.
+   3. Karena bagian luar bola misil dipenuhi muatan negatif kepala polar, bola-bola misil saling tolak-menolak dan terdispersi stabil di dalam air. Ketika dibilas dengan air mengalir, noda minyak yang telah terkurung di dalam misil akan hanyut terbawa bersama air cucian!
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Peta Konsep Lengkap Cara Pembuatan Koloid (HOTS SMA):**
+> 
+> **A. CARA KONDENSASI (Partikel Larutan/Ion/Molekul ➜ Partikel Koloid):**
+> 1. **Reaksi Hidrolisis:** $\\ce{FeCl3(aq) + 3H2O(l) -> Fe(OH)3(koloid) + 3HCl(aq)}$ (penetesan garam besi ke dalam air mendidih).
+> 2. **Reaksi Redoks:** $\\ce{2HAuCl4 + 3HCHO + 3H2O -> 2Au(koloid) + 3HCOOH + 8HCl}$ (reduksi sol emas) atau $\\ce{2H2S + SO2 -> 3S(koloid) + 2H2O}$.
+> 3. **Dekomposisi Ganda:** $\\ce{2H3AsO3 + 3H2S -> As2S3(koloid) + 6H2O}$.
+> 4. **Penggantian Pelarut:** Belerang dilarutkan dalam etanol lalu dituangkan ke dalam air murni.
+> 
+> **B. CARA DISPERSI (Partikel Kasar/Makro/Endapan ➜ Partikel Koloid):**
+> 1. **Cara Mekanik:** Penggilingan partikel padat kasar menggunakan *colloid mill* (pembuatan cat tembok, semir sepatu).
+> 2. **Cara Peptisasi:** Endapan kasar dipecah kembali menjadi koloid dengan menambahkan elektrolit pemecah (contoh: endapan $\\ce{Fe(OH)3}$ dipeptisasi oleh $\\ce{FeCl3}$, endapan $\\ce{AgCl}$ dipeptisasi oleh elektrolit).
+> 3. **Cara Busur Bredig:** Loncatan bunga api listrik tegangan tinggi menguapkan elektroda logam (emas/platina) dalam air es, yang seketika terkondensasi membentuk sol logam.`,
+    keyFormulas: [
+      { name: 'Kaidah Kondensasi Hidrolisis Besi(III)', formula: '\\ce{FeCl3(aq) + 3H2O(l) -> Fe(OH)3(koloid) + 3HCl(aq)}' },
+      { name: 'Kaidah Kondensasi Redoks Belerang', formula: '\\ce{2H2S(g) + SO2(aq) -> 3S(koloid) + 2H2O(l)}' },
+      { name: 'Prinsip Selektivitas Pori Dialisis', formula: 'd_{\\text{ion}} < d_{\\text{pori membran}} < d_{\\text{partikel koloid}}' },
+      { name: 'Ambang Batas Pembentukan Misil', formula: 'C \\ge \\text{CMC} \\implies \\text{Terbentuk Koloid Asosiasi (Bola Misil)}' },
+    ],
+  },
+];

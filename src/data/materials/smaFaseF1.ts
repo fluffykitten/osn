@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109, WORKED_EXAMPLES_TOPIC_110, WORKED_EXAMPLES_TOPIC_111 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107, WORKED_EXAMPLES_TOPIC_108, WORKED_EXAMPLES_TOPIC_109, WORKED_EXAMPLES_TOPIC_110, WORKED_EXAMPLES_TOPIC_111, WORKED_EXAMPLES_TOPIC_112 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -4392,7 +4392,11 @@ Berdasarkan dimensi diameter partikel fase terdispersi, sistem dispersi diklasif
 ### 2. Zona Transisi Skala Koloid
 Dimensi $1 - 100\\text{ nm}$ merupakan batas kritis dalam fisika-kimia materi. Pada rentang nanometer ini:
 - Partikel telah tersusun atas ribuan hingga jutaan atom/molekul yang berkumpul (agregat), sehingga tidak lagi berperilaku sebagai ion bebas terisolasi.
-- Namun ukuran tersebut masih cukup kecil sehingga partikel terus-menerus terlempar dan melayang akibat benturan termal molekul pelarut, mencegah sedimentasi instan oleh medan gravitasi bumi.`,
+- Namun ukuran tersebut masih cukup kecil sehingga partikel terus-menerus terlempar dan melayang akibat benturan termal molekul pelarut, mencegah sedimentasi instan oleh medan gravitasi bumi.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Homogenitas Koloid (Makro vs Mikro)
+> Banyak siswa SMA mengira sistem koloid (seperti air susu atau cat tembok) adalah larutan sejati karena tampak homogen dan tidak memisah saat dilihat kasat mata. Secara **makroskopis** koloid memang tampak seragam, namun secara **mikroskopis** koloid adalah sistem **heterogen dua fasa**. Partikel koloid ($1 - 100\\text{ nm}$) terpisah nyata dari molekul medium pendispersinya, dan dapat dibuktikan melalui hamburan cahaya Efek Tyndall serta pemisahan menggunakan membran semipermeabel.`,
       },
       {
         tag: 'antarmuka-fasa-dan-fenomena-permukaan',
@@ -4418,7 +4422,11 @@ Bila suatu kubus padatan bermassa $1\\text{ gram}$ dengan rusuk $L_0 = 1\\text{ 
 ### 2. Energi Bebas Antarmuka & Kebutuhan Stabilisasi
 Atom-atom di bagian dalam kristal (*bulk*) dikelilingi secara simetris oleh tetangganya, sehingga resultan gaya tarik antarmolekul bernilai nol. Sebaliknya, atom-atom di permukaan antarmuka mengalami ketidakseimbangan gaya tarik (gaya kohesi ke dalam pelarut lebih kecil daripada ke fasa padat), menghasilkan **tegangan permukaan (*surface tension*)** dan energi bebas antarmuka ($\\Delta G_{\\text{surface}} = \\gamma \\Delta A$).
 
-Karena $\\Delta A$ sangat besar, koloid secara termodinamika cenderung tidak stabil dan berupaya menurunkan energinya dengan cara saling bergabung (koagulasi/agregasi). Oleh sebab itu, suatu sistem koloid membutuhkan **mekanisme stabilisasi kinetik**, baik melalui muatan elektrostatik sejenis maupun penyelubungan molekular oleh surfaktan pelindung.`,
+Karena $\\Delta A$ sangat besar, koloid secara termodinamika cenderung tidak stabil dan berupaya menurunkan energinya dengan cara saling bergabung (koagulasi/agregasi). Oleh sebab itu, suatu sistem koloid membutuhkan **mekanisme stabilisasi kinetik**, baik melalui muatan elektrostatik sejenis maupun penyelubungan molekular oleh surfaktan pelindung.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Kestabilan Koloid (Termodinamika vs Kinetik)
+> Koloid **TIDAK PERNAH stabil secara termodinamika** murni! Karena luas permukaan kontak ($A$) melonjak drastis pada skala nanometer, energi bebas antarmuka ($\\Delta G = \\gamma \\Delta A$) bernilai positif sangat besar. Sistem koloid secara alami selalu memiliki kecenderungan spontan untuk bergabung (koagulasi) guna memperkecil luas permukaannya. Koloid hanya bertahan berbulan-bulan berkat **kestabilan kinetik** yang dihasilkan oleh tolakan muatan elektrostatik sejenis atau rintangan sterik lapisan molekul pelindung.`,
       },
     ],
     core_concepts: [
@@ -4578,7 +4586,11 @@ Agar emulsi dapat bertahan stabil dalam waktu yang lama, diperlukan penambahan z
     <text x="42" y="252" fill="#1e293b" font-size="8.5" font-weight="bold">Ekor Lipofilik (Non-polar):</text>
     <text x="155" y="252" fill="#64748b" font-size="8">larut di minyak</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Gas dalam Gas Bukan Koloid?
+> Sering kali dalam soal ujian siswa terkecoh memilih 'gas dalam gas' sebagai jenis koloid aerosol. **Gas dalam gas TIDAK PERNAH membentuk koloid!** Molekul-molekul gas berukuran angstrom ($< 1\\text{ nm}$), memiliki gaya tarik antarmolekul yang teramat lemah, dan berdifusi bebas ke segala arah dengan kenaikan entropi pencampuran yang sangat besar. Akibatnya, dua gas apa pun selalu saling melarutkan secara sempurna pada skala molekular membentuk **larutan sejati homogen satu fasa** (seperti udara bersih). Di alam semesta, **hanya ada 8 sistem koloid**, bukan 9!`,
         keyFormulas: [
           { name: 'Kaidah Gas dalam Gas', formula: '\\text{Gas} + \\text{Gas} \\implies \\text{Larutan Sejati (Bukan Koloid)}' },
           { name: 'Definisi Emulsi', formula: '\\text{Cair (terdispersi)} + \\text{Cair (pendispersi)} + \\text{Emulgator} \\implies \\text{Emulsi Stabil}' },
@@ -4698,7 +4710,11 @@ Bila sistem koloid diamati di bawah mikroskop ultra (*ultramicroscope*), partike
     <text x="137" y="228" fill="#1e293b" font-size="8.5" font-weight="bold" text-anchor="middle">Tumbukan Molekul Pelarut Tak Seimbang</text>
     <text x="137" y="246" fill="#64748b" font-size="8" text-anchor="middle">Menangkal gaya gravitasi: partikel koloid tidak mengendap!</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Pengamatan Gerak Brown
+> Siswa sering salah mengira bahwa debu yang melayang-layang terlihat di udara saat ada berkas sinar matahari adalah contoh Gerak Brown. Butiran debu tersebut berukuran makroskopis ($> 1000\\text{ nm}$) dan gerakannya didorong oleh hembusan arus konveksi udara, bukan Gerak Brown! Partikel koloid sesungguhnya ($1 - 100\\text{ nm}$) **tidak dapat dilihat oleh mata telanjang**. Gerak zig-zag Brown hanya dapat diamati secara optik menggunakan **mikroskop ultra (*ultramicroscope*)** dengan melihat kerlipan pantulan cahaya dari partikel yang terus-menerus ditumbuk molekul pelarut secara acak.`,
         keyFormulas: [
           { name: 'Hukum Hamburan Rayleigh', formula: 'I_{\\text{hambur}} \\propto \\frac{1}{\\lambda^4}' },
           { name: 'Persamaan Einstein Gerak Brown', formula: '\\overline{x^2} = \\frac{2 k_B T}{6 \\pi \\eta r} t' },
@@ -4835,7 +4851,13 @@ Berdasarkan model modern Stern-Gouy-Chapman, muatan permukaan partikel koloid di
     <rect x="45" y="248" width="285" height="22" rx="4" fill="#ecfdf5" stroke="#10b981"/>
     <text x="187" y="263" fill="#047857" font-size="8.5" font-weight="bold" text-anchor="middle">Ambang Stabil: |ζ| > 30 mV (Tolak-Menolak Kuat)</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Perbedaan Adsorpsi vs Absorpsi
+> Jangan tertukar antara huruf 'D' dan 'B'!
+> - **Adsorpsi (dengan D):** Penyerapan yang **HANYA TERJADI DI PERMUKAAN / ANTARMUKA** partikel, seperti penempelan kation $\\ce{Fe^3+}$ pada permukaan sol $\\ce{Fe(OH)3}$, penjeratan zat warna oleh arang aktif, atau penyerapan racun oleh norit.
+> - **Absorpsi (dengan B):** Penyerapan yang **MERESAP HINGGA KE BAGIAN DALAM (VOLUME MATRIX)** zat, seperti busa spons menyerap air atau biskuit menyerap teh panas.`,
         keyFormulas: [
           { name: 'Kriteria Potensial Zeta Stabil', formula: '|\\zeta| > 30\\text{ mV} \\implies \\text{Koloid Sangat Stabil (Saling Tolak)}' },
           { name: 'Kriteria Potensial Zeta Koagulasi', formula: '|\\zeta| < 15\\text{ mV} \\implies \\text{Koloid Mengalami Koagulasi / Pengendapan}' },
@@ -4963,7 +4985,13 @@ Untuk melindungi koloid liofob yang rentan dari koagulasi elektrolit, sering dit
     <text x="155" y="228" fill="#991b1b" font-size="9" font-weight="bold" text-anchor="middle">Teori DLVO (Daya Koagulasi ∝ z⁶):</text>
     <text x="155" y="247" fill="#b91c1c" font-size="8.5" text-anchor="middle">Al³⁺ (z=3) butuh konsentrasi 700× lebih encer!</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Aturan Muatan Lawan Schulze-Hardy
+> Kesalahan paling fatal pada soal koagulasi adalah fokus pada ion yang salah!
+> - Jika yang dikoagulasikan adalah **sol bermuatan POSITIF** (seperti $\\ce{Fe(OH)3}$), yang menentukan daya koagulasi adalah **besar muatan ANION (negatif)**: $\\ce{PO4^3-} > \\ce{SO4^2-} > \\ce{Cl-}$. Jenis kationnya sama sekali tidak berpengaruh!
+> - Jika yang dikoagulasikan adalah **sol bermuatan NEGATIF** (seperti $\\ce{As2S3}$ atau lumpur air keruh), yang menentukan adalah **besar muatan KATION (positif)**: $\\ce{Al^3+} > \\ce{Ca^2+} > \\ce{Na+}$. Jenis anionnya tidak berpengaruh!`,
         keyFormulas: [
           { name: 'Rasio Schulze-Hardy DLVO', formula: '\\text{Daya Koagulasi} \\propto z^6 \\iff \\text{CCC} \\propto \\frac{1}{z^6}' },
           { name: 'Urutan Kation terhadap Sol Negatif', formula: '\\ce{Al^3+} \\gg \\ce{Ca^2+} \\gg \\ce{Na+}' },
@@ -5083,7 +5111,11 @@ Namun, bila konsentrasi surfaktan dinaikkan hingga melampaui ambang batas terten
     <text x="170" y="235" fill="#1e293b" font-size="8.5" font-weight="bold" text-anchor="middle">Inti Hidrofobik melarutkan kotoran non-polar;</text>
     <text x="170" y="252" fill="#2563eb" font-size="8.5" font-weight="bold" text-anchor="middle">Permukaan Hidrofilik berikatan dengan pelarut air.</text>
   </g>
-</svg>`,
+</svg>
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mitos Sabun Selalu Berbentuk Koloid
+> Larutan sabun atau detergen **TIDAK SELALU berbentuk koloid**! Pada konsentrasi yang sangat encer di bawah Konsentrasi Misil Kritis ($C < \\text{CMC}$), molekul sabun terurai sebagai monomer bebas ionik terlarut sempurna membentuk **larutan sejati**. Sabun baru berubah menjadi sistem koloid (**koloid asosiasi / bola misil**) TEPAT saat konsentrasi surfaktan mencapai atau melampaui nilai ambang batas CMC ($C \\ge \\text{CMC}$).`,
         keyFormulas: [
           { name: 'Kondensasi Hidrolisis Besi(III)', formula: '\\ce{FeCl3 + 3H2O -> Fe(OH)3(koloid) + 3HCl}' },
           { name: 'Kondensasi Redoks Emas', formula: '\\ce{2HAuCl4 + 3HCHO + 3H2O -> 2Au(koloid) + 3HCOOH + 8HCl}' },
@@ -5092,249 +5124,7 @@ Namun, bila konsentrasi surfaktan dinaikkan hingga melampaui ambang batas terten
         ],
       },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-klasifikasi-koloid-sehari-hari',
-        tags: ['identifikasi-koloid', 'fase-terdispersi', 'medium-pendispersi', 'emulgator-sehari-hari'],
-        title: 'Contoh Soal 1: Analisis Karakteristik Komparatif & Klasifikasi Jenis Koloid Sehari-hari',
-        summary: 'Klasifikasi sistem dispersi fase terdispersi vs medium pendispersi dan analisis molekular emulgator penstabil.',
-        content: `### Soal:
-Diberikan lima jenis produk rumah tangga dan material lingkungan berikut:
-1. **Susu sapi segar**
-2. **Mentega / Margarin**
-3. **Cat dinding lateks**
-4. **Asap cerobong pabrik**
-5. **Batu apung (*pumice*)**
-
-**Tentukan untuk masing-masing sistem:**
-a. Fase terdispersi dan medium pendispersinya!
-b. Nama klasifikasi sistem koloidnya!
-c. Mekanisme penstabil atau zat emulgator yang menjaga sistem tersebut tetap homogen!
-
----
-
-### Pembahasan Terstruktur:
-
-#### 1. Susu Sapi Segar
-- **Fase Terdispersi:** Butiran lemak cair (trigliserida).
-- **Medium Pendispersi:** Air ($\\ce{H2O}$).
-- **Nama Koloid:** **Emulsi Cair (Minyak dalam Air / O/W)**.
-- **Zat Penstabil:** Protein fosfat **kasein** bertindak sebagai emulgator alami yang membungkus tetesan lemak susu sehingga tidak menyatu (*koalesen*).
-
-#### 2. Mentega / Margarin
-- **Fase Terdispersi:** Tetesan air renik ($\\ce{H2O}$).
-- **Medium Pendispersi:** Lemak padat / minyak terhidrogenasi.
-- **Nama Koloid:** **Emulsi Padat (Air dalam Minyak / W/O) atau Gel**.
-- **Zat Penstabil:** Monogliserida dan digliserida asam lemak serta struktur jejaring kristal trigliserida padat yang memerangkap tetesan air di dalamnya.
-
-#### 3. Cat Dinding Lateks
-- **Fase Terdispersi:** Partikel pigmen padatan anorganik ($\\ce{TiO2}$ untuk warna putih) dan polimer akrilik.
-- **Medium Pendispersi:** Pelarut cair (air).
-- **Nama Koloid:** **Sol Cair**.
-- **Zat Penstabil:** Surfaktan anionik/non-ionik dan polimer hidrofilik (seperti hidroksietil selulosa) yang memberikan tolakan sterik dan elektrostatik antarpartikel pigmen.
-
-#### 4. Asap Cerobong Pabrik
-- **Fase Terdispersi:** Partikel padat karbon / jelaga dan abu terbang (*fly ash*).
-- **Medium Pendispersi:** Udara / gas pembakaran ($\\ce{N2, CO2, O2}$).
-- **Nama Koloid:** **Aerosol Padat**.
-- **Kestabilan:** Bersifat metastabil; partikel karbon membawa muatan elektrostatik yang sejenis saat gesekan di cerobong sehingga tolak-menolak di udara sebelum mengalami koagulasi perlahan.
-
-#### 5. Batu Apung (*Pumice*)
-- **Fase Terdispersi:** Gelembung gas vulkanik ($\\ce{H2O, CO2, SO2}$).
-- **Medium Pendispersi:** Silikat batuan lava padat.
-- **Nama Koloid:** **Busa Padat**.
-- **Kestabilan:** Sangat stabil permanen karena medium pendispersi batuan silikat membeku dan mengeras seketika saat erupsi vulkanik menjebak gelembung gas di dalamnya.`,
-      },
-      {
-        tag: 'contoh-aturan-schulze-hardy-koagulasi',
-        tags: ['aturan-schulze-hardy', 'nilai-flokulasi', 'koagulasi-elektrolit', 'sol-positif-negatif'],
-        title: 'Contoh Soal 2: Evaluasi Kuantitatif Daya Koagulasi & Penerapan Aturan Schulze-Hardy',
-        summary: 'Penentuan efektivitas elektrolit koagulasi kation vs anion serta kalkulasi rasio konsentrasi kritis DLVO.',
-        content: `### Soal:
-Di suatu laboratorium kimia fisik disiapkan dua bejana berisi sistem koloid:
-- **Bejana I:** Sol besi(III) hidroksida ($\\ce{Fe(OH)3}$), dibuat dengan meneteskan $\\ce{FeCl3}$ ke air mendidih.
-- **Bejana II:** Sol arsen(III) sulfida ($\\ce{As2S3}$), dibuat dengan mereaksikan $\\ce{H3AsO3}$ dan $\\ce{H2S}$.
-
-Tersedia tiga larutan elektrolit dengan konsentrasi masing-masing $0.10\\text{ M}$:
-1. **Natrium klorida ($\\ce{NaCl}$)**
-2. **Magnesium sulfat ($\\ce{MgSO4}$)**
-3. **Aluminium nitrat ($\\ce{Al(NO3)3}$)**
-4. **Natrium fosfat ($\\ce{Na3PO4}$)**
-
-**Pertanyaan:**
-a. Tentukan muatan permukaan partikel koloid pada Bejana I dan Bejana II beserta alasannya!
-b. Untuk mengkoagulasikan sol pada **Bejana I**, urutkan elektrolit yang paling efektif (membutuhkan volume paling sedikit) berdasarkan Aturan Schulze-Hardy!
-c. Untuk mengkoagulasikan sol pada **Bejana II**, urutkan kation yang paling efektif dan hitung perbandingan teoretis konsentrasi koagulasi kritis (CCC) kation $\\ce{Al^3+}$, $\\ce{Mg^2+}$, dan $\\ce{Na^+}$ berdasarkan teori DLVO!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### Langkah 1: Identifikasi Muatan Sol
-- **Bejana I ($\\ce{Fe(OH)3}$):** Partikel $\\ce{Fe(OH)3}$ menyerap ion kation $\\ce{Fe^3+}$ yang berlebih pada permukaannya $\\implies$ **Sol Bermuatan Positif $(+)$**.
-- **Bejana II ($\\ce{As2S3}$):** Partikel $\\ce{As2S3}$ menyerap ion anion sulfida $\\ce{S^2-}$ pada permukaannya $\\implies$ **Sol Bermuatan Negatif $(-)$**.
-
----
-
-#### Langkah 2: Evaluasi Koagulasi Bejana I (Sol Bermuatan Positif)
-Berdasarkan Aturan Schulze-Hardy, partikel koloid bermuatan positif $(+)$ dikoagulasikan secara efektif oleh **anion bermuatan negatif $(-)$**. Semakin besar valensi muatan anion, semakin tinggi daya koagulasinya:
-- Anion pada $\\ce{Na3PO4}$: ion fosfat $\\ce{PO4^3-}$ (valensi $z = 3$).
-- Anion pada $\\ce{MgSO4}$: ion sulfat $\\ce{SO4^2-}$ (valensi $z = 2$).
-- Anion pada $\\ce{NaCl}$: ion klorida $\\ce{Cl-}$ (valensi $z = 1$).
-- Anion pada $\\ce{Al(NO3)3}$: ion nitrat $\\ce{NO3-}$ (valensi $z = 1$).
-
-**Urutan Daya Koagulasi terhadap Bejana I:**
-$$\\mathbf{\\ce{Na3PO4} (\\ce{PO4^3-}) \\gg \\ce{MgSO4} (\\ce{SO4^2-}) \\gg \\ce{NaCl} (\\ce{Cl-}) \\approx \\ce{Al(NO3)3} (\\ce{NO3-})}$$
-Elektrolit paling efektif adalah **$\\ce{Na3PO4}$**, karena membutuhkan konsentrasi terkecil untuk menetralkan muatan positif sol $\\ce{Fe(OH)3}$.
-
----
-
-#### Langkah 3: Evaluasi Koagulasi Bejana II (Sol Bermuatan Negatif)
-Sol bermuatan negatif $(-)$ dikoagulasikan oleh **kation bermuatan positif $(+)$**:
-- Kation pada $\\ce{Al(NO3)3}$: $\\ce{Al^3+}$ (valensi $z = 3$).
-- Kation pada $\\ce{MgSO4}$: $\\ce{Mg^2+}$ (valensi $z = 2$).
-- Kation pada $\\ce{NaCl}$ dan $\\ce{Na3PO4}$: $\\ce{Na+}$ (valensi $z = 1$).
-
-**Perhitungan Rasio Konsentrasi Koagulasi Kritis (CCC) DLVO:**
-Berdasarkan teori DLVO, $\\text{CCC} \\propto \\frac{1}{z^6}$:
-- Untuk $\\ce{Na+} (z = 1): \\text{CCC}_1 \\propto \\frac{1}{1^6} = 1$
-- Untuk $\\ce{Mg^2+} (z = 2): \\text{CCC}_2 \\propto \\frac{1}{2^6} = \\frac{1}{64} \\approx 0.0156$
-- Untuk $\\ce{Al^3+} (z = 3): \\text{CCC}_3 \\propto \\frac{1}{3^6} = \\frac{1}{729} \\approx 0.00137$
-
-**Rasio Konsentrasi Elektrolit Minimum yang Dibutuhkan:**
-$$\\text{CCC}(\\ce{Al^3+}) : \\text{CCC}(\\ce{Mg^2+}) : \\text{CCC}(\\ce{Na+}) \\approx \\mathbf{1 : 11.4 : 729}$$
-Kation $\\ce{Al^3+}$ membutuhkan konsentrasi sekitar **$729$ kali lebih encer** dibandingkan kation $\\ce{Na+}$ untuk memicu pengendapan sol arsen sulfida!`,
-      },
-      {
-        tag: 'contoh-luas-spesifik-nanokoloid-adsorpsi',
-        tags: ['luas-permukaan-spesifik', 'nanopartikel-emas', 'adsorpsi-langmuir', 'energi-antarmuka'],
-        title: 'Contoh Soal 3: Kimia Permukaan Nanokoloid: Perhitungan Luas Permukaan Spesifik & Kapasitas Adsorpsi',
-        summary: 'Kalkulasi matematis ledakan luas permukaan partikel nanometer dan kapasitas adsorpsi molekular monolayer.',
-        content: `### Soal:
-Sebuah kubus emas padat ($\\ce{Au}$) murni dengan massa $m = 19.3\\text{ gram}$ memiliki massa jenis $\\rho = 19.3\\text{ g/cm}^3$. Kubus tersebut mula-mula memiliki panjang rusuk $L_0 = 1.0\\text{ cm}$.
-
-Kubus emas tersebut kemudian diproses menggunakan teknologi Busur Bredig sehingga terdispersi sempurna menjadi partikel-partikel koloid emas berbentuk kubus nanometer yang seragam dengan panjang rusuk $L = 10.0\\text{ nm}$ ($10.0 \\times 10^{-9}\\text{ m}$).
-
-**Hitung:**
-a. Luas permukaan awal ($A_0$) kubus emas makro dalam satuan $\\text{m}^2$!
-b. Jumlah total partikel koloid emas ($N$) yang terbentuk!
-c. Luas permukaan total baru ($A_{\\text{total}}$) setelah menjadi koloid, serta rasio peningkatannya ($A_{\\text{total}} / A_0$)!
-d. Jika permukaan koloid emas tersebut mampu mengadsorpsi molekul protein sitokrom c dengan luas tapak per molekul $\\sigma = 2.50 \\times 10^{-17}\\text{ m}^2$, tentukan jumlah mol maksimum protein yang dapat diadsorpsi pada lapisan tunggal (*monolayer*) koloid emas tersebut ($N_A = 6.022 \\times 10^{23}\\text{ partikel/mol}$)!
-
----
-
-### Pembahasan Matematis & Konseptual:
-
-#### Bagian a: Luas Permukaan Awal ($A_0$)
-- Rusuk awal: $L_0 = 1.0\\text{ cm} = 1.0 \\times 10^{-2}\\text{ m}$.
-- Luas permukaan 6 sisi kubus:
-  $$A_0 = 6 \\times L_0^2 = 6 \\times (1.0 \\times 10^{-2}\\text{ m})^2 = \\mathbf{6.0 \\times 10^{-4}\\text{ m}^2} \\quad (6.0\\text{ cm}^2)$$
-
----
-
-#### Bagian b: Jumlah Partikel Koloid Emas ($N$)
-- Volume total emas:
-  $$V_{\\text{total}} = \\frac{m}{\\rho} = \\frac{19.3\\text{ g}}{19.3\\text{ g/cm}^3} = 1.0\\text{ cm}^3 = 1.0 \\times 10^{-6}\\text{ m}^3$$
-- Volume satu partikel koloid kubus berusuk $L = 10.0\\text{ nm} = 1.0 \\times 10^{-8}\\text{ m}$:
-  $$V_{\\text{partikel}} = L^3 = (1.0 \\times 10^{-8}\\text{ m})^3 = 1.0 \\times 10^{-24}\\text{ m}^3$$
-- Jumlah partikel koloid $N$:
-  $$N = \\frac{V_{\\text{total}}}{V_{\\text{partikel}}} = \\frac{1.0 \\times 10^{-6}\\text{ m}^3}{1.0 \\times 10^{-24}\\text{ m}^3} = \\mathbf{1.0 \\times 10^{18}\\text{ partikel}}$$
-
----
-
-#### Bagian c: Luas Permukaan Total Koloid ($A_{\\text{total}}$) & Rasio Peningkatan
-- Luas permukaan satu partikel koloid:
-  $$A_{\\text{partikel}} = 6 \\times L^2 = 6 \\times (1.0 \\times 10^{-8}\\text{ m})^2 = 6.0 \\times 10^{-16}\\text{ m}^2$$
-- Luas permukaan total seluruh partikel:
-  $$A_{\\text{total}} = N \\times A_{\\text{partikel}} = (1.0 \\times 10^{18}) \\times (6.0 \\times 10^{-16}\\text{ m}^2) = \\mathbf{600\\text{ m}^2}$$
-- Rasio peningkatan luas permukaan:
-  $$\\frac{A_{\\text{total}}}{A_0} = \\frac{600\\text{ m}^2}{6.0 \\times 10^{-4}\\text{ m}^2} = \\mathbf{1.0 \\times 10^6 \\text{ kali}} \\quad (\\text{Satu Juta Kali Lipat!})$$
-
----
-
-#### Bagian d: Kapasitas Adsorpsi Maksimum Protein Monolayer
-- Luas tapak satu molekul protein: $\\sigma = 2.50 \\times 10^{-17}\\text{ m}^2$.
-- Jumlah maksimum molekul protein yang dapat menempel pada permukaan koloid:
-  $$N_{\\text{molekul}} = \\frac{A_{\\text{total}}}{\\sigma} = \\frac{600\\text{ m}^2}{2.50 \\times 10^{-17}\\text{ m}^2} = 2.40 \\times 10^{19}\\text{ molekul}$$
-- Konversi ke satuan mol protein:
-  $$n_{\\text{protein}} = \\frac{N_{\\text{molekul}}}{N_A} = \\frac{2.40 \\times 10^{19}}{6.022 \\times 10^{23}\\text{ mol}^{-1}} = \\mathbf{3.985 \\times 10^{-5}\\text{ mol}} \\quad (\\approx 39.85\\text{ }\\mu\\text{mol})$$
-
-> **Wawasan Konseptual:**
-> Dari padatan masif yang hanya mampu mengadsorpsi pecahan pikomol, dispersi ke skala koloidal meningkatkan kapasitas adsorpsi menjadi puluhan mikromol! Inilah sebabnya material koloid dan nanopartikel menjadi katalis heterogen dan pengangkut obat (*drug delivery*) yang luar biasa efektif.`,
-      },
-      {
-        tag: 'contoh-termodinamika-cmc-misil-surfaktan',
-        tags: ['termodinamika-koloid', 'cmc-surfaktan', 'tegangan-permukaan', 'energi-bebas-gibbs-misil', 'osn-level'],
-        title: 'Contoh Soal 4: Termodinamika Koloid Asosiasi: Penentuan CMC & Energi Bebas Pembentukan Misil Surfaktan',
-        summary: 'Analisis kurva tegangan permukaan, penentuan kelebihan permukaan Gibbs, luas molekul dan energi bebas Gibbs misil.',
-        content: `### Soal:
-Tegangan permukaan ($\\gamma$) larutan berair dari suatu surfaktan anionik natrium dodesil sulfat (SDS, $M_r = 288.38\\text{ g/mol}$) diukur pada temperatur $T = 298.15\\text{ K}$ ($25^\\circ\\text{C}$) sebagai fungsi dari logaritma konsentrasi molar ($\\log C$).
-
-Diperoleh data eksperimen sebagai berikut:
-1. Pada konsentrasi di bawah $C = 8.12 \\times 10^{-3}\\text{ M}$, nilai $\\gamma$ menurun tajam secara linear terhadap $\\log C$ dengan kemiringan:
-   $$\\frac{d\\gamma}{d(\\ln C)} = -16.85\\text{ mN/m} = -16.85 \\times 10^{-3}\\text{ N/m}$$
-2. Pada konsentrasi di atas $C = 8.12 \\times 10^{-3}\\text{ M}$, nilai tegangan permukaan mendatar konstan pada $\\gamma \\approx 39.5\\text{ mN/m}$.
-3. Dari pengukuran hamburan cahaya dinamis (DLS), diketahui bilangan agregasi misil rata-rata adalah $N_{\\text{agg}} = 62$ molekul SDS per butir misil.
-
-*(Diketahui: $R = 8.314\\text{ J/(mol}\\cdot\\text{K)}$, kerapatan air murni $\\rho = 1.00\\text{ g/cm}^3$, massa molar air $M_w = 18.015\\text{ g/mol}$)*.
-
-**Tentukan:**
-a. Nilai Konsentrasi Misil Kritis (CMC) surfaktan SDS tersebut dalam satuan $\\text{mM}$!
-b. Kelebihan permukaan Gibbs ($\\Gamma_{\\text{max}}$) surfaktan pada antarmuka udara-air sesaat sebelum CMC tercapai berdasarkan **Isoterm Adsorpsi Gibbs** untuk surfaktan ionik $1:1$:
-   $$\\Gamma_{\\text{max}} = -\\frac{1}{2 R T} \\left(\\frac{d\\gamma}{d\\ln C}\\right)$$
-c. Luas area penampang efektif ($a_0$) per molekul surfaktan pada antarmuka jenuh tersebut dalam satuan $\\text{\\AA}^2$ ($1\\text{ \\AA}^2 = 10^{-20}\\text{ m}^2$)!
-d. Perubahan energi bebas Gibbs standar pembentukan misil per mol surfaktan ($\\Delta G^\\circ_{\\text{mic}}$) pada $298.15\\text{ K}$ dengan menggunakan model pemisahan fasa semu (*pseudophase separation model*):
-   $$\\Delta G^\\circ_{\\text{mic}} = R T \\ln X_{\\text{CMC}}$$
-   di mana $X_{\\text{CMC}}$ adalah fraksi mol surfaktan pada titik CMC!
-
----
-
-### Pembahasan Matematis & Termodinamika Rigor:
-
-#### Bagian a: Penentuan Titik CMC
-Titik belok tajam di mana kurva tegangan permukaan berhenti menurun dan mulai mendatar menandai terbentuknya misil koloidal di dalam larutan (karena antarmuka air-udara telah jenuh penuh oleh molekul surfaktan monomer):
-$$C_{\\text{CMC}} = 8.12 \\times 10^{-3}\\text{ M} = \\mathbf{8.12\\text{ mM}}$$
-
----
-
-#### Bagian b: Kelebihan Permukaan Gibbs ($\\Gamma_{\\text{max}}$)
-Karena SDS merupakan surfaktan ionik biner $1:1$ ($\\ce{Na+ + DS-}$), faktor $n = 2$ disertakan dalam persamaan isoterm Gibbs:
-$$\\Gamma_{\\text{max}} = -\\frac{1}{2 R T} \\left(\\frac{d\\gamma}{d\\ln C}\\right)$$
-Substitusikan data:
-- $\\frac{d\\gamma}{d\\ln C} = -16.85 \\times 10^{-3}\\text{ N/m}$
-- $R = 8.314\\text{ J/(mol}\\cdot\\text{K)}$
-- $T = 298.15\\text{ K} \\implies 2 R T = 2 \\times 8.314 \\times 298.15 = 4957.6\\text{ J/mol}$
-
-$$\\Gamma_{\\text{max}} = -\\frac{-16.85 \\times 10^{-3}}{4957.6} = \\mathbf{3.40 \\times 10^{-6}\\text{ mol/m}^2}$$
-
----
-
-#### Bagian c: Luas Penampang Efektif per Molekul Surfaktan ($a_0$)
-Luas area yang ditempati oleh satu molekul surfaktan pada antarmuka jenuh dihitung dari:
-$$a_0 = \\frac{1}{N_A \\cdot \\Gamma_{\\text{max}}}$$
-Substitusikan nilai:
-$$a_0 = \\frac{1}{(6.022 \\times 10^{23}\\text{ mol}^{-1}) \\times (3.40 \\times 10^{-6}\\text{ mol/m}^2)} = \\frac{1}{2.047 \\times 10^{18}\\text{ m}^{-2}} = 4.885 \\times 10^{-19}\\text{ m}^2$$
-Konversi ke $\\text{\\AA}^2$:
-$$a_0 = \\frac{4.885 \\times 10^{-19}\\text{ m}^2}{10^{-20}\\text{ m}^2/\\text{\\AA}^2} = \\mathbf{48.85\\text{ \\AA}^2}$$
-*Catatan:* Nilai $48.85\\text{ \\AA}^2$ ini mencerminkan luas kepala polar gugus sulfat ($-\\ce{SO4-}$), yang sangat cocok dengan data difraksi sinar-X literatur.
-
----
-
-#### Bagian d: Perubahan Energi Bebas Gibbs Pembentukan Misil ($\\Delta G^\\circ_{\\text{mic}}$)
-1. **Hitung Konsentrasi Molal Pelarut Air:**
-   Dalam $1\\text{ Liter}$ larutan encer ($1000\\text{ gram}$ air):
-   $$n_{\\ce{H2O}} = \\frac{1000\\text{ g}}{18.015\\text{ g/mol}} = 55.51\\text{ mol}$$
-2. **Fraksi Mol Surfaktan pada CMC ($X_{\\text{CMC}}$):**
-   $$X_{\\text{CMC}} = \\frac{C_{\\text{CMC}}}{C_{\\text{CMC}} + n_{\\ce{H2O}}} \\approx \\frac{8.12 \\times 10^{-3}}{55.51} = 1.463 \\times 10^{-4}$$
-3. **Kalkulasi $\\Delta G^\\circ_{\\text{mic}}$:**
-   $$\\Delta G^\\circ_{\\text{mic}} = R T \\ln X_{\\text{CMC}}$$
-   $$\\ln(1.463 \\times 10^{-4}) = -8.830$$
-   $$\\Delta G^\\circ_{\\text{mic}} = (8.314\\text{ J/(mol}\\cdot\\text{K)}) \\times (298.15\\text{ K}) \\times (-8.830) = -21889\\text{ J/mol} = \\mathbf{-21.89\\text{ kJ/mol}}$$
-
-> **Analisis Termodinamika:**
-> Nilai $\\Delta G^\\circ_{\\text{mic}} = -21.89\\text{ kJ/mol} < 0$ (spontan). Pembentukan misil didorong secara termodinamika oleh **Efek Hidrofobik (*Hydrophobic Effect*)**: ketika ekor hidrokarbon berkumpul di bagian dalam misil, molekul-molekul air yang tadinya membentuk sangkar kaku teratur di sekeliling rantai non-polar menjadi bebas kembali, menghasilkan **lonjakan entropi pelarut ($\\Delta S > 0$)** yang sangat positif!`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_112,
   },
 ];
 
