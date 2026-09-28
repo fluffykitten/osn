@@ -174,8 +174,11 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Jembatan Tol Dua Arah Kesetimbangan Dinamis Guldberg-Waage, Jungkat-Jungkit Termodinamika Le Chatelier, Autoprotolisis Air Suhu Tubuh 37°C Kw, Tangga Air Terjun Spesiasi Alpha Poliprotik H3PO4, Shock Absorber Dapar Terbuka Paru-Paru vs Tertutup Van Slyke, Profil Roller Coaster Titrimetri Presisi, Pintu Putar Kristal vs Hidrasi Ksp, dan Saringan Bertingkat Kompleksasi Logam Kf).
   * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn05.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn05.ts).
   * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
+* **Topik 6 OSN: Kinetika Kimia & Mekanisme Reaksi (SELESAI ✅)**:
+  * Revamp total Arsitektur 5 Lapis: Intuitive Hook (Speedometer Mobil Balap F1 Laju Diferensial Stoikiometri, Jam Pasir Radioaktif Orde Nol-Satu-Dua Terintegrasi, Meja Bilyar Molekuler & Tanjakan Roller Coaster Eyring, Termometer Eksponensial Arrhenius Suhu Kamar, Leher Botol Perakitan Pabrik RDS & Pra-Kesetimbangan Cepat, Pipa Bocor Seimbang Bodenstein SSA & Tangga Tekanan Lindemann-Hinshelwood, Efek Domino Kembang Api Reaksi Rantai H2-Br2 & Semenanjung Ledakan, serta Pintu Imigrasi Bandara Michaelis-Menten & Adsorpsi Permukaan Padat Langmuir-Hinshelwood).
+  * Dilengkapi **24 Butir Kuis Checkpoint Olimpiade** di [`src/data/checkpoints/checkpointBankTopicOsn06.ts`](file:///e:/VibeCoding/osn/src/data/checkpoints/checkpointBankTopicOsn06.ts).
+  * 16 titik deteksi miskonsepsi aktif via GitHub Callouts (`[!WARNING]`, `[!TIP]`).
 * **Target Peningkatan Konten Berikutnya**:
-  * Topik 6 OSN: Kinetika Kimia & Mekanisme Reaksi (`osnTopic06.ts`).
   * Topik 7 OSN: Elektrokimia & Potensial Sel (`osnTopic07.ts`).
   * Topik 8 OSN: Kimia Anorganik & Senyawa Koordinasi (`osnTopic08.ts`).
   * Topik 9 OSN: Kimia Analitik & Dasar Spektroskopi (`osnTopic09.ts`).
