@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F2 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_113, WORKED_EXAMPLES_TOPIC_114, WORKED_EXAMPLES_TOPIC_115 } from './smaWorkedExamplesFaseF2.ts';
+import { WORKED_EXAMPLES_TOPIC_113, WORKED_EXAMPLES_TOPIC_114, WORKED_EXAMPLES_TOPIC_115, WORKED_EXAMPLES_TOPIC_116 } from './smaWorkedExamplesFaseF2.ts';
 
 const BASE_SMA_MATERIALS_FASE_F2: SmaMaterialItem[] = [
     {
@@ -3112,7 +3112,14 @@ Untuk menurunkan energi total sistem, kompleks mengalami pemanjangan ikatan pada
    - Membentuk 2 orbital hibrida $sp$ (ikatan $\\sigma$, sudut $180^\\circ$) sepanjang sumbu molekul dan 2 pasangan orbital $p$ murni membentuk 2 ikatan $\\pi$.
    - Panjang ikatan rangkap tiga ($\\ce{C\\equiv C}$) sangat pendek ($\\approx 1.20\\text{ \\AA}$) dengan kerapatan awan elektron silindris yang tinggi.
 
-Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai gugus fungsi heteroatom ($\\ce{-O-}, \\ce{-N-}, \\ce{-X-}, \\ce{-S-}$), yang mengubah drastis sifat fisika dan reaktivitas kimia molekul.`,
+Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai gugus fungsi heteroatom ($\\ce{-O-}, \\ce{-N-}, \\ce{-X-}, \\ce{-S-}$), yang mengubah drastis sifat fisika dan reaktivitas kimia molekul.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Konformasi vs Hibridisasi & Klasifikasi Karbon
+> 1. **Miskonsepsi Rantai Alkana "Lurus":** Rantai karbon alkana yang sering digambar sebagai garis mendatar pada kertas sebenarnya berkonformasi **zigzag tetrahedral $109.5^\circ$**, bukan garis lurus $180^\circ$! Sudut $180^\circ$ hanya dimiliki oleh atom karbon berhibridisasi $sp$ pada alkuna ($\ce{-C\equiv C-}$).
+> 2. **Klasifikasi Derajat Karbon:** Atom karbon primer ($1^\circ$), sekunder ($2^\circ$), tersier ($3^\circ$), dan kuartener ($4^\circ$) dihitung murni berdasarkan **jumlah atom karbon lain** yang terikat langsung. Jangan menghitung jumlah atom hidrogen atau gugus non-karbon! Karbon pada ikatan rangkap dua ($\ce{=CH2}$) pada alkena adalah karbon primer ($1^\circ$) jika hanya mengikat satu karbon lain, bukan sekunder karena ikatan rangkapnya.`,
       },
       {
         tag: 'keisomeran-struktur-dan-stereoisomerisme',
@@ -3142,7 +3149,14 @@ Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai
    - Enansiomer memiliki sifat fisika identik (titik didih, titik leleh, massa jenis), namun memutar bidang cahaya terpolarisasi dengan sudut yang sama besar tetapi arah yang berlawanan (+ d-dekstrorotatori vs - l-levorotatori).
    - Jumlah maksimum stereoisomer optis dihitung dengan kaidah van 't Hoff:
      $$N_{\\text{maks}} = 2^n$$
-     dengan $n$ adalah jumlah atom karbon kiral ($C^*$) yang tidak ekuivalen.`,
+     dengan $n$ adalah jumlah atom karbon kiral ($C^*$) yang tidak ekuivalen.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jebakan Isomer Geometri Cis-Trans & Kiralitas
+> 1. **Syarat Isomer Cis-Trans:** Adanya ikatan rangkap dua ($\ce{C=C}$) saja **TIDAK CUKUP** untuk menghasilkan isomer cis-trans! Jika salah satu atom C pada ikatan rangkap mengikat dua gugus yang identik (misal $\ce{=CH2}$ pada 1-butena atau $\ce{=C(CH3)2}$ pada 2-metil-2-butena), senyawa tersebut **TIDAK BISA** memiliki bentuk cis-trans.
+> 2. **Senyawa Meso & Karbon Kiral:** Senyawa yang memiliki atom karbon kiral tidak selalu bersifat optis aktif. Jika molekul memiliki bidang simetri internal (seperti asam meso-tartrat), putaran optik dari kedua pusat kiral saling meniadakan secara internal sehingga molekul bersifat **akiral (optis inaktif)**.`,
       },
     ],
     core_concepts: [
@@ -3292,7 +3306,14 @@ Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai
    - Keduanya memiliki gugus karbonil polar ($\\ce{>C^{\\delta+}=O^{\\delta-}}$) dengan gaya tarik dipol-dipol antarmolekul yang cukup signifikan, namun tidak dapat membentuk ikatan hidrogen antar sesama molekulnya sendiri. Titik didihnya berada di antara alkana dan alkohol dengan massa molekul sebanding.
 3. **Asam Karboksilat vs Ester ($\\ce{C_n H_{2n} O2}$):**
    - Asam karboksilat membentuk struktur **dimer siklik** yang sangat stabil melalui dua ikatan hidrogen timbal-balik antarmolekul. Hal ini menyebabkan asam karboksilat memiliki titik didih tertinggi di antara seluruh turunan hidrokarbon dengan massa sebanding.
-   - Ester memiliki gugus karbonil teresterifikasi tanpa atom H asam, memiliki aroma buah yang khas dan wangi (*fruity odor*), serta digunakan secara luas sebagai esens aroma buatan dan pelarut organik non-polar.`,
+   - Ester memiliki gugus karbonil teresterifikasi tanpa atom H asam, memiliki aroma buah yang khas dan wangi (*fruity odor*), serta digunakan secara luas sebagai esens aroma buatan dan pelarut organik non-polar.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tata Nama Ester & Titik Didih Isomer
+> 1. **Tata Nama Ester Terbalik:** Pada senyawa ester $\ce{R-COO-R'}$, gugus $\ce{R'}$ yang terikat langsung pada atom oksigen disebut sebagai gugus **alkil**, sedangkan rantai $\ce{R-COO-}$ yang mengandung karbonil disebut **alkanoat**. Siswa sering terbalik menamai $\ce{CH3-COOCH2CH3}$ menjadi "metil propanoat" (SALAH!), padahal nama yang benar adalah **etil etanoat (etil asetat)**!
+> 2. **Perbedaan Titik Didih Isomer Fungsi:** Walaupun memiliki rumus molekul yang persis sama, alkohol memiliki titik didih jauh lebih tinggi dari eter, dan asam karboksilat jauh lebih tinggi dari ester! Hal ini karena alkohol dan asam karboksilat memiliki atom $\ce{H}$ polar yang membentuk **ikatan hidrogen antarmolekul**, sedangkan eter dan ester tidak dapat membentuk ikatan hidrogen sesamanya.`,
         keyFormulas: [
           {
             name: 'Rumus Deret Homolog Alkohol & Eter',
@@ -3461,7 +3482,14 @@ Reaktivitas alkohol terhadap oksidator kuat seperti kalium permanganat ($\\ce{KM
 
 ### 4. Reaksi Esterifikasi Fischer
 Reaksi reversibel antara asam karboksilat dengan alkohol dengan katalis asam sulfat pekat ($\\ce{H2SO4}$ pekat) sebagai agen dehidrasi menghasilkan ester dan air:
-$$\\ce{R-COOH + R'-OH <=>[H2SO4\\text{ pekat}][\\Delta] R-COO-R' + H2O}$$`,
+$$\\ce{R-COOH + R'-OH <=>[H2SO4\\text{ pekat}][\\Delta] R-COO-R' + H2O}$$
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Oksidasi Alkohol Tersier & Uji Fehling/Tollens
+> 1. **Alkohol Tersier Tidak Bisa Dioksidasi:** Siswa sering beranggapan bahwa semua alkohol dapat dioksidasi oleh $\ce{KMnO4}$ atau $\ce{K2Cr2O7}$. Ingat kaidah mutlak: **alkohol tersier ($3^\circ$) TIDAK MEMILIKI hidrogen karbinol** (atom H yang menempel pada karbon pembawa gugus $-\ce{OH}$), sehingga alkohol tersier resisten terhadap oksidasi dalam suasana netral maupun asam normal!
+> 2. **Keton Tidak Bereaksi dengan Fehling / Tollens:** Pereaksi Fehling (endapan merah bata $\ce{Cu2O}$) dan Tollens (cermin perak $\ce{Ag}$) adalah oksidator lemah yang hanya mampu mengoksidasi **aldehid** (karena memiliki $\ce{H}$ karbonil), dan **TIDAK BISA** mengoksidasi keton alifatik! Fruktosa positif Benedict/Fehling hanya karena mengalami penataan ulang enadiol dalam suasana basa menjadi glukosa.`,
         keyFormulas: [
           {
             name: 'Reaksi Cermin Perak Tollens',
@@ -3639,7 +3667,14 @@ Jika cincin benzena telah mengikat suatu gugus fungsi, gugus tersebut akan menge
    Elektrofil aktif: karbokation $\\ce{R+}$.
 5. **Asilasi Friedel-Crafts:**
    $$\\ce{C6H6 + R-COCl ->[AlCl3\\text{ anhidrat}] C6H5-CO-R + HCl}$$
-   Elektrofil aktif: ion asilium berstabilkan resonansi $\\ce{R-C#O+}$.`,
+   Elektrofil aktif: ion asilium berstabilkan resonansi $\\ce{R-C\equiv O+}$.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Reaksi Benzena & Efek Pengarah Halogen
+> 1. **Benzena vs Alkena (Adisi vs Substitusi):** Walaupun struktur Kekulé benzena digambar memiliki 3 ikatan rangkap dua, benzena **TIDAK MENGALAMI reaksi adisi** pada kondisi normal seperti alkena! Reaksi adisi akan merusak sistem resonansi aromatik ($4n+2$ elektron $\pi$) yang sangat stabil. Reaksi khas benzena adalah **Substitusi Elektrofilik Aromatik (SEAr)** di mana atom $\ce{H}$ digantikan oleh elektrofil tanpa merusak aromatisitas cincin.
+> 2. **Pengecualian Unik Halogen ($-\ce{Cl}, -\ce{Br}$):** Halogen adalah satu-satunya kelompok substituen yang bersifat **PENDEAKTIVASI (karena keelektronegatifan tinggi / efek induksi $-I$)**, namun bertindak sebagai **PENGARAH ORTO / PARA (karena pasangan elektron bebasnya beresonansi $+M$ saat keadaan transisi)**! Jangan salah mengelompokkan halogen sebagai pengarah meta.`,
         keyFormulas: [
           {
             name: 'Kaidah Aromatisitas Hückel',
@@ -3788,7 +3823,14 @@ Jika cincin benzena telah mengikat suatu gugus fungsi, gugus tersebut akan menge
    - **Melunak bila dipanaskan** dan mengeras kembali saat didinginkan, sehingga **dapat didaur ulang** dan dicetak ulang berulang kali (contoh: PE, PP, PVC, PS, PET).
 2. **Termoset (Plastik Tahan Panas / Jaringan Silang):**
    - Memiliki ikatan kovalen silang tiga dimensi (*cross-linked network*) yang sangat kaku dan rapat antar rantai utamanya.
-   - Bila dipanaskan, termoset tidak melunak melainkan langsung mengalami dekomposisi / terurai hangus terbakar. Oleh karena itu, termoset **tidak dapat dicetak ulang** (contoh: Bakelit, resin epoksi, melamin).`,
+   - Bila dipanaskan, termoset tidak melunak melainkan langsung mengalami dekomposisi / terurai hangus terbakar. Oleh karena itu, termoset **tidak dapat dicetak ulang** (contoh: Bakelit, resin epoksi, melamin).
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Polimerisasi Adisi vs Kondensasi & Daur Ulang
+> 1. **Miskonsepsi Syarat Monomer:** Polimer adisi terbentuk dari monomer yang memiliki **ikatan rangkap dua ($\ce{C=C}$)** yang membuka tanpa melepaskan molekul kecil (misal polietilena, PVC, teflon). Sebaliknya, polimer kondensasi memerlukan monomer yang memiliki **minimal 2 gugus fungsi reaktif** (misal $-\ce{COOH}$ dan $-\ce{NH2}$ atau $-\ce{OH}$) dan selalu melepaskan molekul kecil seperti $\ce{H2O}$ atau $\ce{HCl}$!
+> 2. **Termoplas vs Termoset:** Plastik yang dapat didaur ulang dan dilelehkan kembali adalah **termoplas** (karena tidak memiliki ikatan silang kovalen antar-rantai). Plastik **termoset** (seperti saklar listrik bakelit) memiliki jaringan ikatan silang tiga dimensi (*cross-link*) yang permanen; memanaskannya tidak akan melelehkannya melainkan langsung merusak dan menghanguskannya!`,
         keyFormulas: [
           {
             name: 'Derajat Polimerisasi Rata-Rata Jumlah (DPn)',
@@ -3940,7 +3982,14 @@ Lemak dan minyak alami merupakan senyawa triester dari gliserol (1,2,3-propanatr
 - **Angka Penyabunan (Saponification Value, SV):**
   Jumlah miligram kalium hidroksida ($\\ce{KOH}$, $M_r = 56.1\\text{ g/mol}$) yang dibutuhkan untuk menyabunkan secara sempurna tepat 1.000 gram lemak atau minyak:
   $$\\text{Angka Penyabunan (SV)} = \\frac{3 \\times M_{r,\\ce{KOH}} \\times 1000}{M_{r,\\text{lemak}}} = \\frac{168300}{M_{r,\\text{lemak}}}\\text{ mg KOH/g lemak}$$
-  Semakin kecil massa molekul relatif trigliserida ($M_r$), semakin besar nilai angka penyabunannya (panjang rantai asam lemak lebih pendek).`,
+  Semakin kecil massa molekul relatif trigliserida ($M_r$), semakin besar nilai angka penyabunannya (panjang rantai asam lemak lebih pendek).
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Uji Biuret & Lemak vs Minyak
+> 1. **Uji Biuret Bukan untuk Asam Amino Tunggal:** Larutan Biuret ($\ce{CuSO4 + NaOH}$) menghasilkan warna ungu karena mendeteksi **ikatan peptida ($\ce{-CO-NH-}$) minimal dua ikatan**! Asam amino bebas (seperti glisin atau alanin tunggal) **TIDAK memberikan warna ungu** pada uji Biuret.
+> 2. **Lemak Jenuh vs Minyak Tak Jenuh:** Lemak hewani berwujud padat pada suhu kamar karena tersusun atas asam lemak jenuh tanpa ikatan rangkap, sehingga molekulnya tertata rapat. Minyak nabati berwujud cair karena kaya akan asam lemak tak jenuh dengan ikatan rangkap berkonfigurasi *cis* yang menyebabkan rantai karbon menekuk dan sulit memadat.`,
         keyFormulas: [
           {
             name: 'Titik Isolistrik Asam Amino Netral (pI)',
@@ -3994,7 +4043,14 @@ Penentuan urutan asam amino pada fragmen peptida melibatkan kombinasi pemotongan
 2. **Pemotongan Enzimatik Selektif:**
    - **Enzim Tripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu asam amino basa bermuatan positif: **Lisin ($\\ce{Lys}$) dan Arginin ($\\ce{Arg}$)** (asalkan tidak diikuti oleh Prolin).
    - **Enzim Kimotripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu asam amino yang memiliki rantai samping aromatik hidrofobik besar: **Fenilalanin ($\\ce{Phe}$), Tirosin ($\\ce{Tyr}$), dan Triptofan ($\\ce{Trp}$)**.
-3. **Rekonstruksi Fragmen Tumpang-Tindih (*Overlap Reconstruction*):** Urutan lengkap protein disusun kembali dengan mencari tumpang-tindih urutan fragmen hasil pemotongan tripsin dan kimotripsin.`,
+3. **Rekonstruksi Fragmen Tumpang-Tindih (*Overlap Reconstruction*):** Urutan lengkap protein disusun kembali dengan mencari tumpang-tindih urutan fragmen hasil pemotongan tripsin dan kimotripsin.
+
+---
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Penentuan Prioritas CIP & Gugus Prioritas Terendah
+> 1. **Prioritas CIP Didasarkan pada Nomor Atom, Bukan Massa Gugus:** Kesalahan paling sering adalah menganggap gugus $-\ce{COOH}$ (massa 45) lebih berprioritas daripada $-\ce{OH}$ (massa 17). Sesuai aturan CIP, yang dibandingkan pertama kali adalah **atom yang terikat langsung pada karbon kiral**: atom $\ce{O}$ pada $-\ce{OH}$ ($Z = 8$) menang atas atom $\ce{C}$ pada $-\ce{COOH}$ ($Z = 6$)!
+> 2. **Posisi Gugus Terendah (Prioritas 4):** Arah putaran $1 \to 2 \to 3$ searah jarum jam menghasilkan konfigurasi $(R)$ **HANYA JIKA gugus prioritas 4 berada di belakang** (garis putus-putus). Jika gugus 4 mengarah ke depan (garis baji tebal), hasil putaran harus dibalik: searah jarum jam menjadi $(S)$!`,
       keyFormulas: [
         { name: 'Kaidah Prioritas CIP', formula: '\\text{Nomor Atom Tinggi} > \\text{Nomor Atom Rendah} \\quad (1 > 2 > 3 > 4)' },
         { name: 'Deskriptor Kiralitas CIP', formula: '1 \\to 2 \\to 3 \\quad [\\text{Clockwise} = (R), \\quad \\text{Counter-Clockwise} = (S)]' },
@@ -4003,249 +4059,7 @@ Penentuan urutan asam amino pada fragmen peptida melibatkan kombinasi pemotongan
       ]
     },
     ],
-    worked_examples: [
-      {
-        tag: 'contoh-identifikasi-senyawa-karbon',
-        title: 'Contoh Soal 1 (Tingkat Mudah-Sedang): Analisis Spektroskopi Reaksi Kimia & Diferensiasi Isomer C4H10O',
-        summary: 'Menentukan rumus struktur dan nama IUPAC senyawa alkohol berdasarkan hasil reaksi oksidasi bertingkat, reaksi logam Na, serta menggambar seluruh isomer kerangka dan posisinya.',
-        content: `**Soal:**
-Suatu senyawa organik cair tak berwarna $X$ memiliki rumus molekul $\\ce{C4H10O}$. Di laboratorium kimia analitik, sampel senyawa $X$ diuji dengan serangkaian prosedur eksperimental:
-1. Reaksi sampel $X$ dengan potongan logam natrium ($\\ce{Na}$) menghasilkan gelembung gas hidrogen ($\\ce{H2}$) yang dapat meletup bila didekatkan nyala api.
-2. Sampel $X$ dioksidasi dengan larutan kalium dikromat ($\\ce{K2Cr2O7}$) berlebih yang diasamkan dengan $\\ce{H2SO4}$. Larutan yang semula berwarna jingga berubah menjadi hijau cerah ($\\ce{Cr^3+}$), dan produk oksidasi yang diisolasi adalah suatu senyawa $Y$ ($\\ce{C4H8O}$).
-3. Senyawa $Y$ diuji dengan pereaksi Tollens dan pereaksi Fehling, dan kedua pereaksi tersebut **tidak menunjukkan perubahan sama sekali (hasil uji negatif)**.
-
-**Pertanyaan:**
-a. Tentukan gugus fungsi dan kelompok homolog senyawa $X$ dan senyawa $Y$!
-b. Tentukan rumus struktur dan nama resmi IUPAC dari senyawa $X$ dan $Y$!
-c. Sebutkan dan gambarkan seluruh isomer struktur (kerangka dan posisi) dari senyawa $X$ yang masih tergolong dalam homolog yang sama!
-
----
-
-**Pembahasan & Kunci Jawaban:**
-
-**Langkah 1: Analisis Rumus Molekul & Uji Reaktivitas**
-- Rumus molekul $\\ce{C4H10O}$ memenuhi rumus umum deret homolog $\\ce{C_n H_{2n+2} O}$ dengan $n = 4$. Kelompok senyawa yang memiliki rumus umum ini adalah pasangan isomer fungsi **Alkohol (Alkanol)** atau **Eter (Alkoksi Alkana)**.
-- Sampel bereaksi positif dengan logam $\\ce{Na}$ melepaskan gas $\\ce{H2}$, membuktikan secara pasti bahwa senyawa $X$ adalah **Alkohol**, bukan eter.
-
-**Langkah 2: Analisis Tingkat Oksidasi dan Hasil Uji Diferensiasi**
-- Senyawa $X$ dapat dioksidasi oleh $\\ce{K2Cr2O7/H+}$ menghasilkan senyawa $Y$ ($\\ce{C4H8O}$, homolog $\\ce{C_n H_{2n} O}$). Ini membuktikan bahwa senyawa $X$ **bukan alkohol tersier** (karena alkohol tersier resisten terhadap oksidasi).
-- Senyawa $Y$ tidak bereaksi dengan pereaksi Tollens maupun Fehling (negatif). Pereaksi Tollens dan Fehling positif untuk aldehid dan negatif untuk keton. Jadi, senyawa $Y$ adalah **Keton (Alkanon)**, bukan aldehid!
-- Karena oksidasi $X$ menghasilkan keton, maka $X$ haruslah berupa **Alkohol Sekunder ($2^\\circ$)**!
-
-**Langkah 3: Menentukan Struktur dan Nama IUPAC**
-- Senyawa $X$ adalah alkohol sekunder dengan 4 atom karbon. Alkohol sekunder memiliki gugus $-\\ce{OH}$ pada karbon sekunder (mengikat 2 atom C lain):
-  $$\\ce{CH3-CH(OH)-CH2-CH3} \\implies \\textbf{2-Butanol}$$
-- Oksidasi 2-butanol menghasilkan keton dengan 4 atom karbon:
-  $$\\ce{CH3-CO-CH2-CH3} \\implies \\textbf{2-Butanon (Etil metil keton)}$$
-  Reaksi oksidasinya:
-  $$\\ce{3CH3CH(OH)CH2CH3 + Cr2O7^2- + 8H+ -> 3CH3COCH2CH3 + 2Cr^3+ (hijau) + 7H2O}$$
-
-**Langkah 4: Inventarisasi Seluruh Isomer Rantai dan Posisi Alkohol C4H10O**
-Untuk rantai karbon dengan 4 atom C dan gugus $-\\ce{OH}$:
-1. **1-Butanol (Rantai lurus, primer):**
-   $$\\ce{CH3-CH2-CH2-CH2-OH}$$
-2. **2-Butanol (Rantai lurus, sekunder, memiliki 1 karbon kiral $C^*_2$):**
-   $$\\ce{CH3-CH2-CH(OH)-CH3}$$
-3. **2-Metil-1-propanol (Rantai cabang, primer):**
-   $$\\ce{(CH3)2CH-CH2-OH}$$
-4. **2-Metil-2-propanol / t-butanol (Rantai cabang, tersier):**
-   $$\\ce{(CH3)3C-OH}$$
-
-> **Kesimpulan:** Senyawa $X$ adalah **2-butanol** dan senyawa $Y$ adalah **2-butanon**. Terdapat total 4 isomer struktur alkohol untuk $\\ce{C4H10O}$.`,
-      },
-      {
-        tag: 'contoh-sintesis-dan-regioselektivitas-benzena',
-        title: 'Contoh Soal 2 (Tingkat Sedang): Analisis Regioselektivitas SEAr & Sintesis Berantai Turunan Benzena',
-        summary: 'Menganalisis urutan penambahan pereaksi halogenasi dan nitrasi pada toluena vs benzena, efek pengarah substituen, serta menentukan struktur produk mayor asam p-nitrobenzoat dan TNT.',
-        content: `**Soal:**
-Seorang kimiawan di laboratorium sintesis organik ingin mensintesis senyawa **Asam $p$-nitrobenzoat** dari bahan dasar murni **Benzena** ($\\ce{C6H6}$). Tersedia reagen laboratorium berikut:
-- Gas $\\ce{CH3Cl}$ dan katalis $\\ce{AlCl3}$ anhidrat (Alkilasi Friedel-Crafts)
-- Campuran asam nitrat pekat dan asam sulfat pekat ($\\ce{HNO3 / H2SO4}$) (Nitrasi)
-- Larutan $\\ce{KMnO4}$ basa panas diikuti pengasaman $\\ce{H3O+}$ (Oksidasi rantai samping alkil)
-
-Kimiawan tersebut mempertimbangkan dua skema rute sintesis yang berbeda:
-- **Rute A:** Benzena $\\xrightarrow{\\ce{CH3Cl/AlCl3}}$ Senyawa $P$ $\\xrightarrow{\\ce{KMnO4/H3O+}}$ Senyawa $Q$ $\\xrightarrow{\\ce{HNO3/H2SO4}}$ Produk Akhir
-- **Rute B:** Benzena $\\xrightarrow{\\ce{CH3Cl/AlCl3}}$ Senyawa $P$ $\\xrightarrow{\\ce{HNO3/H2SO4}}$ Senyawa $R$ (isolasi isomer mayor) $\\xrightarrow{\\ce{KMnO4/H3O+}}$ Produk Akhir
-
-**Pertanyaan:**
-1. Evaluasi secara mekanistik rute manakah (Rute A atau Rute B) yang berhasil menghasilkan **Asam $p$-nitrobenzoat** sebagai produk utama? Jelaskan kegagalan rute yang lain berdasarkan sifat pengarah gugus substituen!
-2. Gambarkan struktur senyawa perantara $P$, $Q$, dan $R$, serta jelaskan mengapa oksidasi rantai samping toluena menghasilkan gugus karboksilat!
-
----
-
-**Pembahasan & Kunci Jawaban:**
-
-**Langkah 1: Evaluasi Efek Pengarah Gugus pada Rute A**
-1. **Langkah 1:** Benzena direaksikan dengan $\\ce{CH3Cl/AlCl3}$ menghasilkan senyawa $P$, yaitu **Toluena** ($\\ce{C6H5CH3}$).
-2. **Langkah 2:** Oksidasi toluena dengan $\\ce{KMnO4}$ mengoksidasi gugus metil ($-\\ce{CH3}$) menjadi gugus karboksilat ($-\\ce{COOH}$), menghasilkan senyawa $Q$, yaitu **Asam Benzoat** ($\\ce{C6H5COOH}$).
-3. **Langkah 3:** Asam benzoat direaksikan dengan campuran nitrasi ($\\ce{HNO3/H2SO4}$). Gugus karboksilat ($-\\ce{COOH}$) adalah **gugus penarik elektron (deaktivator kuat)** melalui efek resonansi $-R$ karena atom karbon karbonil bermuatan parsial positif ($\\ce{C^{\\delta+}=O}$). Akibatnya, gugus $-\\ce{COOH}$ bertindak sebagai **pengarah META**!
-4. Reaksi nitrasi pada senyawa $Q$ akan menghasilkan **Asam $m$-nitrobenzoat** (produk meta > $90\\%$), bukan asam $p$-nitrobenzoat! Jadi, **Rute A GAGAL**.
-
-**Langkah 2: Evaluasi Efek Pengarah Gugus pada Rute B**
-1. **Langkah 1:** Benzena dialkilasi menghasilkan senyawa $P$, yaitu **Toluena** ($\\ce{C6H5CH3}$).
-2. **Langkah 2:** Toluena memiliki gugus metil ($-\\ce{CH3}$) yang merupakan **gugus pendorong elektron (aktivator)** melalui efek hiperkonjugasi dan induksi positif $+I$. Oleh karena itu, gugus metil merupakan **pengarah ORTO-PARA**!
-   - Nitrasi pada toluena akan menghasilkan campuran isomer orto-nitrotoluena dan para-nitrotoluena ($p$-nitrotoluena). Karena adanya rintangan sterik (*steric hindrance*) pada posisi orto yang bersebelahan dengan gugus metil, isomer **$p$-nitrotoluena** (senyawa $R$) dapat dipisahkan dan diisolasi sebagai fraksi kristal murni dengan efisiensi tinggi.
-3. **Langkah 3:** Oksidasi $p$-nitrotoluena (senyawa $R$) dengan $\\ce{KMnO4}$ panas mengoksidasi gugus benzylic $-\\ce{CH3}$ menjadi $-\\ce{COOH}$ tanpa merusak gugus nitro ($-\\ce{NO2}$) yang resisten oksidasi.
-   - Hasil akhir: terbentuk secara spesifik **Asam $p$-nitrobenzoat**!
-   - Jadi, **Rute B adalah rute sintesis yang TEPAT dan BERHASIL**.
-
-**Langkah 3: Identifikasi Struktur Senyawa**
-- Senyawa $P$: $\\ce{C6H5-CH3}$ (Toluena / Metilbenzena)
-- Senyawa $Q$: $\\ce{C6H5-COOH}$ (Asam Benzoat)
-- Senyawa $R$: $\\ce{p-NO2-C6H4-CH3}$ ($p$-Nitrotoluena / 4-Nitrotoluena)
-
-> **Kesimpulan:** Rute B adalah jalur sintesis yang tepat karena nitrasi dilakukan saat cincin masih mengikat gugus $-\\ce{CH3}$ (pengarah orto-para), barulah kemudian gugus metil dioksidasi menjadi asam karboksilat.`,
-      },
-      {
-        tag: 'contoh-stoikiometri-polimerisasi-nilon',
-        title: 'Contoh Soal 3 (Tingkat Sedang-Tinggi): Stoikiometri Polimerisasi Kondensasi Nilon 6,6 & Derajat Polimerisasi',
-        summary: 'Perhitungan kuantitatif massa molar rata-rata polimer, derajat polimerisasi DPn, massa reaktan monomer yang bereaksi, dan volume air yang dieliminasi.',
-        content: `**Soal:**
-Dalam industri polimer sintetis serat tekstil, Nilon 6,6 disintesis melalui polimerisasi kondensasi antara monomer asam adipat ($\\ce{HOOC-(CH2)4-COOH}$, $M_r = 146.14\\text{ g/mol}$) dan heksametilendiamina ($\\ce{H2N-(CH2)6-NH2}$, $M_r = 116.20\\text{ g/mol}$) dalam rasio stoikiometri ekimolar $1:1$.
-
-Sebuah reaktor polimerisasi beroperasi dengan mengisi $73.07\\text{ kg}$ asam adipat dan $58.10\\text{ kg}$ heksametilendiamina. Reaksi dipanaskan pada suhu $280^\\circ\\text{C}$ di bawah vakum hingga konversi berlangsung sempurna membentuk rantai polimer Nilon 6,6 dengan massa molekul relatif rata-rata jumlah ($\\bar{M}_n$) sebesar $22.630\\text{ g/mol}$.
-
-Diketahui: $A_r\\text{ H} = 1.008$, $\\ce{C} = 12.011$, $\\ce{N} = 14.007$, $\\ce{O} = 15.999\\text{ g/mol}$.
-**Hitunglah:**
-a. Massa molar unit berulang (*repeating unit*) dari polimer Nilon 6,6!
-b. Derajat polimerisasi rata-rata jumlah ($DP_n$) dari rantai Nilon 6,6 yang dihasilkan!
-c. Massa total uap air ($\\ce{H2O}$) yang dieliminasi dari reaktor selama proses berlangsung (dalam satuan $\\text{kg}$)!
-d. Massa total produk Nilon 6,6 kering yang diperoleh (dalam satuan $\\text{kg}$)!
-
----
-
-**Pembahasan & Kunci Jawaban:**
-
-**Langkah 1: Menghitung Massa Molar Unit Berulang Nilon 6,6**
-Unit berulang Nilon 6,6 adalah:
-$$\\ce{—[—CO-(CH2)4-CO-NH-(CH2)6-NH—]—}$$
-Rumus molekul unit berulang: $\\ce{C12 H22 N2 O2}$
-Massa molar unit berulang ($M_0$):
-$$M_0 = (12 \\times 12.011) + (22 \\times 1.008) + (2 \\times 14.007) + (2 \\times 15.999)$$
-$$M_0 = 144.132 + 22.176 + 28.014 + 31.998 = 226.32\\text{ g/mol}$$
-Perhatikan relasi matematis:
-$$M_0 = M_{r,\\text{asam adipat}} + M_{r,\\text{diamina}} - 2 \\times M_{r,\\ce{H2O}}$$
-$$M_0 = 146.14 + 116.20 - (2 \\times 18.015) = 262.34 - 36.03 = 226.31\\text{ g/mol}$$
-
-**Langkah 2: Menghitung Derajat Polimerisasi Rata-Rata Jumlah ($DP_n$)**
-Derajat polimerisasi $DP_n$ menyatakan jumlah unit berulang per rantai makromolekul:
-$$DP_n = \\frac{\\bar{M}_n}{M_0} = \\frac{22.630\\text{ g/mol}}{226.32\\text{ g/mol}} \\approx 100\\text{ unit berulang per rantai}$$
-
-**Langkah 3: Menghitung Mol Monomer yang Bereaksi**
-- Mol asam adipat:
-  $$n_{\\text{adipat}} = \\frac{73.070\\text{ g}}{146.14\\text{ g/mol}} = 500.0\\text{ mol}$$
-- Mol heksametilendiamina:
-  $$n_{\\text{diamina}} = \\frac{58.100\\text{ g}}{116.20\\text{ g/mol}} = 500.0\\text{ mol}$$
-Campuran berada dalam perbandingan stoikiometri ekimolar sempurna ($1:1$).
-
-**Langkah 4: Menghitung Massa Air yang Dieliminasi**
-Untuk pembentukan rantai polimer dengan derajat polimerisasi $n = 100$, setiap penggabungan 1 mol unit adipat dan 1 mol diamina melepaskan 2 mol molekul air (kecuali dua gugus ujung rantai polimer akhir $\\ce{-COOH}$ dan $\\ce{-NH2}$):
-Jumlah mol air yang dilepaskan secara total mendekati:
-$$n_{\\ce{H2O}} \\approx 2 \\times n_{\\text{adipat}} = 2 \\times 500.0\\text{ mol} = 1000.0\\text{ mol}$$
-(Lebih presisi: dengan $n_{\\text{rantai}} = 500 / 100 = 5\\text{ mol rantai}$, mol ikatan yang terbentuk adalah $1000 - 5 = 995\\text{ mol}$ air, namun pada polimer rantai panjang $DP_n = 100$, koreksi ujung rantai $< 0.5\\%$, sehingga $n_{\\ce{H2O}} \\approx 1000.0\\text{ mol}$).
-Massa air yang tereliminasi:
-$$m_{\\ce{H2O}} = 1000.0\\text{ mol} \\times 18.015\\text{ g/mol} = 18.015\\text{ g} = 18.02\\text{ kg}$$
-
-**Langkah 5: Menghitung Massa Nilon 6,6 Kering yang Dihasilkan**
-Berdasarkan hukum kekekalan massa:
-$$m_{\\text{Nilon 6,6}} = m_{\\text{reaktan total}} - m_{\\ce{H2O}}$$
-$$m_{\\text{Nilon 6,6}} = (73.07 + 58.10)\\text{ kg} - 18.02\\text{ kg} = 131.17\\text{ kg} - 18.02\\text{ kg} = 113.15\\text{ kg}$$
-Atau melalui massa unit berulang:
-$$m = 500.0\\text{ mol} \\times 226.32\\text{ g/mol} = 113.160\\text{ g} = 113.16\\text{ kg}$$
-
-> **Hasil Akhir:**
-> a. Massa molar unit berulang $= 226.32\\text{ g/mol}$.
-> b. Derajat polimerisasi $DP_n = 100$.
-> c. Massa air tereliminasi $= 18.02\\text{ kg}$.
-> d. Massa Nilon 6,6 kering $= 113.15\\text{ kg}$.`,
-      },
-      {
-        tag: 'contoh-analisis-kuantitatif-biomolekul',
-        title: 'Contoh Soal 4 (Tingkat Tinggi / Standar OSN): Analisis Angka Penyabunan Trigliserida & Titik Isolistrik Asam Amino Triprotik',
-        summary: 'Kalkulasi massa molar rata-rata minyak nabati dari data titrasi balik angka penyabunan dan perhitungan titik isolistrik pI asam glutamat triprotik.',
-        content: `**Soal:**
-Analisis kualitas bahan baku industri pangan dan farmasi melibatkan dua pengujian biokimia terstandar berikut:
-
-**Bagian I: Karakterisasi Angka Penyabunan Sampel Trigliserida Murni**
-Sebanyak $2.500\\text{ g}$ sampel minyak nabati murni (suatu trigliserida homogen) direfluks secara kuantitatif dengan $50.00\\text{ mL}$ larutan $\\ce{KOH}$ dalam etanol dengan konsentrasi $0.5000\\text{ M}$ hingga reaksi saponifikasi tuntas sempurna. Kelebihan $\\ce{KOH}$ yang tidak bereaksi kemudian dititrasi balik (*back titration*) dengan larutan standar $\\ce{HCl}$ $0.2500\\text{ M}$, dan memerlukan tepat $32.40\\text{ mL}$ larutan $\\ce{HCl}$ untuk mencapai titik akhir titrasi indikator fenolftalein.
-Percobaan titrasi blanko (tanpa sampel minyak) menggunakan $50.00\\text{ mL}$ larutan $\\ce{KOH}$ yang sama membutuhkan $50.00\\text{ mL}$ larutan $\\ce{HCl}$ $0.5000\\text{ M}$ (ekuivalen dengan $25.00\\text{ mmol } \\ce{KOH}$).
-Diketahui massa molar $\\ce{KOH} = 56.10\\text{ g/mol}$.
-1. Hitunglah **Angka Penyabunan (Saponification Value, SV)** sampel minyak tersebut dalam satuan $\\text{mg KOH / g minyak}$!
-2. Tentukan **Massa Molar Relatif ($M_r$)** dari molekul trigliserida tersebut!
-3. Jika trigliserida tersebut tersusun atas tiga molekul asam lemak jenuh identik ($\\ce{R-COOH}$), tentukan rumus molekul dan nama asam lemak tersebut!
-
-**Bagian II: Penentuan Titik Isolistrik ($pI$) Asam Amino Asam Glutamat**
-Asam glutamat ($\\ce{Glu}$) adalah asam amino triprotik yang memiliki tiga nilai tetapan disosiasi asam:
-- $pK_{a1} = 2.19$ (disosiasi gugus $\\alpha-\\ce{COOH}$)
-- $pK_{a2} = 4.25$ (disosiasi gugus $-\\ce{COOH}$ rantai samping $\\gamma$)
-- $pK_{a3} = 9.67$ (disosiasi gugus $\\alpha-\\ce{NH3+}$)
-Tentukan struktur ion yang dominan pada masing-masing rentang pH dan hitung secara eksak **Titik Isolistrik ($pI$)** asam glutamat!
-
----
-
-**Pembahasan & Kunci Jawaban:**
-
-**Bagian I: Perhitungan Angka Penyabunan dan Massa Molar Trigliserida**
-
-**Langkah 1: Menghitung Mol KOH yang Bereaksi Menyabunkan Lemak**
-- Mol $\\ce{KOH}$ total yang ditambahkan mula-mula:
-  $$n_{\\ce{KOH, awal}} = 50.00\\text{ mL} \\times 0.5000\\text{ mmol/mL} = 25.00\\text{ mmol}$$
-- Mol $\\ce{HCl}$ yang dibutuhkan untuk menitrasi sisa $\\ce{KOH}$:
-  $$n_{\\ce{HCl}} = 32.40\\text{ mL} \\times 0.2500\\text{ mmol/mL} = 8.10\\text{ mmol}$$
-  Karena reaksi netralisasi $\\ce{KOH + HCl -> KCl + H2O}$ memiliki rasio $1:1$, maka:
-  $$n_{\\ce{KOH, sisa}} = 8.10\\text{ mmol}$$
-- Mol $\\ce{KOH}$ yang bereaksi dengan $2.500\\text{ g}$ sampel minyak:
-  $$n_{\\ce{KOH, bereaksi}} = n_{\\ce{KOH, awal}} - n_{\\ce{KOH, sisa}} = 25.00\\text{ mmol} - 8.10\\text{ mmol} = 16.90\\text{ mmol}$$
-
-**Langkah 2: Menghitung Angka Penyabunan (SV)**
-Angka penyabunan didefinisikan sebagai miligram $\\ce{KOH}$ per gram sampel lemak:
-$$\\text{Massa KOH bereaksi} = 16.90\\text{ mmol} \\times 56.10\\text{ mg/mmol} = 948.09\\text{ mg}$$
-$$\\text{SV} = \\frac{948.09\\text{ mg KOH}}{2.500\\text{ g minyak}} = \\mathbf{379.24\\text{ mg KOH / g minyak}}$$
-
-**Langkah 3: Menentukan Massa Molar Trigliserida**
-Satu molekul trigliserida memerlukan tepat 3 molekul $\\ce{KOH}$ untuk hidrolisis saponifikasi lengkap:
-$$n_{\\text{trigliserida}} = \\frac{n_{\\ce{KOH, bereaksi}}}{3} = \\frac{16.90\\text{ mmol}}{3} = 5.6333\\text{ mmol} = 5.6333 \\times 10^{-3}\\text{ mol}$$
-Massa molar trigliserida ($M_r$):
-$$M_r = \\frac{\\text{Massa sampel}}{n_{\\text{trigliserida}}} = \\frac{2.500\\text{ g}}{5.6333 \\times 10^{-3}\\text{ mol}} \\approx \\mathbf{443.8\\text{ g/mol}}$$
-(Dapat juga dihitung langsung: $M_r = \\frac{3 \\times 56.100}{379.24} = 443.8\\text{ g/mol}$).
-
-**Langkah 4: Identifikasi Asam Lemak Penyusun**
-Rumus molekul trigliserida tri-ester gliserol adalah:
-$$\\ce{C3H5(OOCR)3} \\implies M_r = M_{\\ce{C3H5}} + 3 \\times M_{\\ce{OOCR}}$$
-Massa gugus gliseril $\\ce{C3H5} = (3 \\times 12.011) + (5 \\times 1.008) = 41.073\\text{ g/mol}$.
-$$3 \\times M_{\\ce{OOCR}} = 443.8 - 41.073 = 402.73 \\implies M_{\\ce{OOCR}} = 134.24\\text{ g/mol}$$
-Massa residu asam karboksilat $\\ce{R-COO-} = 134.24\\text{ g/mol}$.
-Massa rantai alkil $R$:
-$$M_R = 134.24 - M_{\\ce{COO}} = 134.24 - 44.00 = 90.24\\text{ g/mol}$$
-Untuk alkil jenuh $\\ce{C_n H_{2n+1}}$:
-$$12.011n + 1.008(2n+1) = 90.24 \\implies 14.027n + 1.008 = 90.24$$
-$$14.027n = 89.232 \\implies n = 6.36 \\approx 6$$
-Jika $n = 6$, gugus alkil adalah $\\ce{C6H13}$ (asam heptanoat) atau rata-rata campuran asam kaprilat ($\\ce{C8}$, $n=7$) dan kaproat ($\\ce{C6}$, $n=5$). Untuk trigliserida murni berbobot rendah:
-Minyak ini tergolong trigliserida rantai medium (MCT - *Medium Chain Triglycerides*).
-
----
-
-**Bagian II: Perhitungan Titik Isolistrik ($pI$) Asam Glutamat**
-
-Asam glutamat memiliki 3 tahapan disosiasi:
-1. Bentuk Kation Penuh ($+1$): $\\ce{H3A+} \\quad (\\ce{+H3N-CH(CH2CH2COOH)-COOH})$
-   $$\\ce{H3A+ <=>[pK_{a1}=2.19] H2A^\\pm + H+}$$
-2. Bentuk Zwitter-ion Netral ($0$): $\\ce{H2A^\\pm} \\quad (\\ce{+H3N-CH(CH2CH2COOH)-COO-})$
-   $$\\ce{H2A^\\pm <=>[pK_{a2}=4.25] HA^- + H+}$$
-3. Bentuk Monoanion ($-1$): $\\ce{HA^-} \\quad (\\ce{+H3N-CH(CH2CH2COO-)-COO-})$
-   $$\\ce{HA^- <=>[pK_{a3}=9.67] A^2- + H+}$$
-4. Bentuk Dianion ($-2$): $\\ce{A^2-} \\quad (\\ce{H2N-CH(CH2CH2COO-)-COO-})$
-
-Bentuk zwitter-ion bermuatan listrik netto nol ($\\ce{H2A^\\pm}$) berada di antara kesetimbangan disosiasi pertama ($pK_{a1}$) dan disosiasi kedua ($pK_{a2}$).
-Oleh karena itu, titik isolistrik ($pI$) asam glutamat adalah nilai rata-rata dari $pK_{a1}$ dan $pK_{a2}$:
-$$pI = \\frac{pK_{a1} + pK_{a2}}{2} = \\frac{2.19 + 4.25}{2} = \\frac{6.44}{2} = \\mathbf{3.22}$$
-
-> **Hasil Akhir:**
-> - Angka Penyabunan $= 379.24\\text{ mg KOH / g minyak}$.
-> - $M_r$ trigliserida $= 443.8\\text{ g/mol}$ (MCT - trigliserida rantai medium).
-> - Titik isolistrik asam glutamat $pI = 3.22$ (kondisi asam karena adanya rantai samping karboksilat tambahan).`,
-      },
-    ],
+    worked_examples: WORKED_EXAMPLES_TOPIC_116,
   },
 ];
 

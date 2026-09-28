@@ -1532,3 +1532,591 @@ d. **Dua Peran Utama Kriolit Cair ($\ce{Na3AlF6}$):**
     ],
   },
 ];
+// ============================================================================
+// TOPIK 116: Kimia Karbon (Turunan Alkana, Benzena) & Makromolekul SMA
+// (Tata Nama, Isomerisme, Reaksi Diferensiasi, Benzena SEAr, Polimer, Biomolekul, Stereokimia CIP)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_116: ConceptBlock[] = [
+  {
+    tag: 'contoh-diferensiasi-isomer-alkohol-eter-sma',
+    tags: ['turunan-alkana', 'isomer-fungsi', 'alkohol-eter', 'pereaksi-lucas', 'logam-natrium', 'kimia-sma'],
+    title: 'Contoh Soal 1: Analisis Isomer Gugus Fungsi C4H10O & Uji Diferensiasi Alkohol vs Eter (Level: Sedang)',
+    summary: 'Identifikasi struktur senyawa isomer C4H10O melalui reaksi dengan logam natrium, pereaksi Lucas (HCl pekat + ZnCl2), dan reaksi oksidasi permanganat.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Di laboratorium kimia sekolah, seorang siswa diberikan 3 botol reagen berlabel **Senyawa X**, **Senyawa Y**, dan **Senyawa Z**. Hasil analisis pembakaran elemental menunjukkan ketiga zat tersebut memiliki rumus molekul identik, yaitu $\\ce{C4H10O}$.
+
+Untuk mengidentifikasi rumus struktur masing-masing isomer, dilakukan serangkaian pengujian laboratorium:
+1. **Uji Logam Natrium ($\\ce{Na}$):**
+   - **Senyawa X** dan **Senyawa Y** bereaksi aktif menghasilkan gelembung gas tak berwarna yang meletup saat didekatkan api (gas $\\ce{H2}$).
+   - **Senyawa Z** sama sekali tidak bereaksi (inert) dengan logam natrium.
+2. **Uji Pereaksi Lucas ($\\ce{HCl}$ pekat + katalis $\\ce{ZnCl2}$ anhidrat):**
+   - **Senyawa X** bereaksi lambat; larutan baru berubah menjadi keruh setelah didiamkan selama sekitar $5 - 10\\text{ menit}$.
+   - **Senyawa Y** bereaksi seketika ($< 30\\text{ detik}$) menghasilkan kekeruhan pekat dan pemisahan dua lapisan cairan alkil klorida.
+3. **Uji Oksidasi Bertingkat (larutan $\\ce{KMnO4}$ dalam suasana asam $\\ce{H2SO4}$):**
+   - **Senyawa X** mengalami oksidasi yang ditandai dengan hilangnya warna ungu permanganat, menghasilkan senyawa organik baru berumus molekul $\\ce{C4H8O}$. Senyawa $\\ce{C4H8O}$ ini **TIDAK bereaksi** dengan pereaksi Fehling maupun Tollens.
+   - **Senyawa Y** resisten terhadap oksidasi (warna ungu $\\ce{KMnO4}$ tidak memudar meskipun dipanaskan perlahan).
+
+---
+
+### 🎯 Pertanyaan:
+1. Tentukan golongan deret homolog dan gugus fungsi dari Senyawa X, Senyawa Y, dan Senyawa Z!
+2. Gambarkan struktur molekul dan tentukan nama IUPAC yang sah untuk Senyawa X, Y, dan Z!
+3. Tuliskan persamaan reaksi kimia berimbang untuk:
+   a. Reaksi Senyawa X dengan logam natrium.
+   b. Reaksi oksidasi Senyawa X menghasilkan senyawa $\\ce{C4H8O}$.
+   c. Reaksi Senyawa Y dengan pereaksi Lucas.
+4. Tentukan jenis hubungan keisomeran antara:
+   a. Senyawa X dan Senyawa Y.
+   b. Senyawa X dan Senyawa Z.
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menganalisis Rumus Umum & Golongan Senyawa
+- Rumus molekul $\\ce{C4H10O}$ memenuhi rumus umum $\\ce{C_n H_{2n+2} O}$ ($n=4$).
+- Deret homolog yang memiliki rumus umum $\\ce{C_n H_{2n+2} O}$ adalah pasangan isomer gugus fungsi:
+  1. **Alkanol (Alkohol)** dengan gugus fungsi $-\\ce{OH}$.
+  2. **Alkoksialkana (Eter)** dengan gugus fungsi $-\\ce{O}-$.
+- **Analisis Uji Logam Natrium:**
+  - Alkohol memiliki atom hidrogen asam pada gugus $-\\ce{OH}$ sehingga bereaksi melepaskan gas $\\ce{H2}$:
+    $$\\ce{2R-OH + 2Na -> 2R-ONa + H2 ^}$$
+  - Eter tidak memiliki atom $\\ce{H}$ yang terikat pada atom oksigen sehingga tidak bereaksi dengan logam $\\ce{Na}$.
+  - **Kesimpulan Awal:**
+    - **Senyawa X** dan **Senyawa Y** adalah **Alkohol** (Alkanol).
+    - **Senyawa Z** adalah **Eter** (Alkoksialkana).
+
+---
+
+#### Langkah 2: Mengidentifikasi Struktur Alkohol X dan Y (Uji Lucas & Oksidasi)
+Uji Lucas ($\\ce{HCl + ZnCl2}$) membedakan derajat alkohol berdasarkan kecepatan pembentukan karbokation:
+- Alkohol tersier ($3^\\circ$): bereaksi seketika ($< 30\\text{ detik}$) menghasilkan lapisan alkil klorida keruh.
+- Alkohol sekunder ($2^\\circ$): bereaksi dalam $5 - 10\\text{ menit}$.
+- Alkohol primer ($1^\\circ$): tidak bereaksi pada suhu kamar (hanya bereaksi bila dipanaskan lama).
+
+1. **Analisis Senyawa Y:**
+   - Bereaksi seketika dengan pereaksi Lucas $\\implies$ Senyawa Y adalah **Alkohol Tersier ($3^\\circ$)**.
+   - Resisten terhadap oksidasi $\\ce{KMnO4}$ $\\implies$ memperkuat fakta bahwa Y adalah alkohol tersier (karena tidak memiliki atom H-karbinol).
+   - Satu-satunya alkohol butil tersier berkarbon 4 adalah:
+     $$\\mathbf{\\ce{CH3-C(CH3)(OH)-CH3}} \\quad \\text{(2-metil-2-propanol atau ters-butanol)}$$
+
+2. **Analisis Senyawa X:**
+   - Bereaksi lambat dengan Lucas ($5 - 10\\text{ menit}$) $\\implies$ Senyawa X adalah **Alkohol Sekunder ($2^\\circ$)**.
+   - Oksidasi menghasilkan $\\ce{C4H8O}$ yang tidak bereaksi dengan Fehling/Tollens:
+     - Oksidasi alkohol primer menghasilkan aldehid (positif Fehling/Tollens).
+     - Oksidasi alkohol sekunder menghasilkan **keton** (negatif Fehling/Tollens).
+     - Karena produk oksidasinya adalah keton (butanon), maka X dipastikan adalah alkohol sekunder berantai lurus:
+     $$\\mathbf{\\ce{CH3-CH(OH)-CH2-CH3}} \\quad \\text{(2-butanol)}$$
+
+3. **Analisis Senyawa Z:**
+   - Senyawa Z adalah eter berkarbon 4 ($\\ce{C4H10O}$). Salah satu isomer eter yang paling umum adalah:
+     $$\\mathbf{\\ce{CH3-CH2-O-CH2-CH3}} \\quad \\text{(dietil eter / etoksietana)}$$
+     *(atau metil propil eter: $\\ce{CH3-O-CH2-CH2-CH3}$).*
+
+---
+
+#### Langkah 3: Persamaan Reaksi Kimia
+a. **Reaksi 2-butanol dengan logam natrium:**
+   $$\\ce{2CH3-CH(OH)-CH2-CH3 + 2Na -> 2CH3-CH(ONa)-CH2-CH3 + H2 ^}$$
+   *(Menghasilkan natrium 2-butoksida dan gas hidrogen).*
+
+b. **Reaksi oksidasi 2-butanol menjadi butanon (keton):**
+   $$\\ce{CH3-CH(OH)-CH2-CH3 + [O] ->[KMnO4 / H+] CH3-CO-CH2-CH3 + H2O}$$
+   *(Butanon tidak dapat mereduksi pereaksi Fehling karena tidak memiliki gugus $-\\ce{CHO}$).*
+
+c. **Reaksi 2-metil-2-propanol dengan pereaksi Lucas:**
+   $$\\ce{(CH3)3C-OH + HCl ->[ZnCl2] (CH3)3C-Cl + H2O}$$
+   *(Menghasilkan 2-kloro-2-metilpropana yang tidak larut dalam air sehingga larutan langsung keruh).*
+
+---
+
+#### Langkah 4: Hubungan Keisomeran
+a. **Senyawa X (2-butanol) dan Senyawa Y (2-metil-2-propanol):**
+   Keduanya sama-sama alkohol ($\\ce{C4H10O}$), namun memiliki kerangka rantai utama karbon yang berbeda (rantai lurus 4 karbon vs rantai bercabang 3 karbon). Hubungannya adalah **Isomer Kerangka / Rangka** (*skeletal isomerism*).
+b. **Senyawa X (2-butanol) dan Senyawa Z (dietil eter):**
+   Memiliki rumus molekul sama ($\\ce{C4H10O}$), namun memiliki gugus fungsi yang berbeda (alkohol $-\\ce{OH}$ vs eter $-\\ce{O}-$). Hubungannya adalah **Isomer Gugus Fungsi**.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Cepat Ujian Identifikasi Isomer $\\ce{C_n H_{2n+2} O}$:**
+> 1. **Uji Logam $\\ce{Na}$:**
+>    - Ada gelembung gas $\\ce{H2} \\implies$ **Alkohol**.
+>    - Tidak bereaksi $\\implies$ **Eter**.
+> 2. **Uji Oksidasi KMnO4 / K2Cr2O7:**
+>    - Alkohol Primer ($1^\\circ$) $\\xrightarrow{[O]}$ Aldehid $\\xrightarrow{[O]}$ Asam Karboksilat.
+>    - Alkohol Sekunder ($2^\\circ$) $\\xrightarrow{[O]}$ Keton (merah bata Fehling NEGATIF).
+>    - Alkohol Tersier ($3^\\circ$) $\\xrightarrow{[O]}$ **TIDAK DAPAT DIOKSIDASI**.
+> 3. **Uji Lucas:** Waktu reaksi $3^\\circ$ (< 30 detik) $<$ $2^\\circ$ (5-10 menit) $<$ $1^\\circ$ (tidak bereaksi).`,
+    keyFormulas: [
+      { name: 'Rumus Umum Alkohol & Eter', formula: '\\ce{C_n H_{2n+2} O}' },
+      { name: 'Reaksi Alkohol dengan Natrium', formula: '\\ce{2R-OH + 2Na -> 2R-ONa + H2 ^}' },
+      { name: 'Oksidasi Alkohol Sekunder', formula: '\\ce{R-CH(OH)-R\' + [O] -> R-CO-R\' + H2O}' },
+      { name: 'Reaksi Substitusi Uji Lucas', formula: '\\ce{R3C-OH + HCl ->[ZnCl2] R3C-Cl + H2O}' },
+    ],
+  },
+
+  {
+    tag: 'contoh-sintesis-benzena-regioselektivitas-sma',
+    tags: ['benzena', 'substitusi-elektrofilik', 'pengarah-orto-para', 'pengarah-meta', 'asam-benzoat', 'kimia-sma'],
+    title: 'Contoh Soal 2: Sintesis Regioselektif Turunan Benzena Disubstitusi & Efek Pengarah Orto/Para vs Meta (Level: Sedang-HOTS)',
+    summary: 'Analisis strategi urutan reaksi substitusi elektrofilik aromatik (SEAr) dalam sintesis asam p-klorobenzoat dan asam m-klorobenzoat dari toluena.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam industri sintesis obat dan bahan kimia khusus, dua senyawa turunan benzena disubstitusi berikut sangat dibutuhkan:
+- **Senyawa P**: Asam $p$-klorobenzoat (asam 4-klorobenzoat)
+- **Senyawa Q**: Asam $m$-klorobenzoat (asam 3-klorobenzoat)
+
+Laboratorium menyediakan bahan baku awal yang melimpah, yaitu **Toluena** ($\\ce{C6H5-CH3}$) dan benzena murni, serta beberapa reagen standar:
+1. Gas $\\ce{Cl2}$ dengan katalis asam Lewis $\\ce{FeCl3}$ (Reaksi Klorinasi).
+2. Campuran $\\ce{HNO3}$ pekat dan $\\ce{H2SO4}$ pekat (Reaksi Nitrasi).
+3. Larutan kalium permanganat panas $\\ce{KMnO4 / H+}$ (Reaksi Oksidasi rantai alkil).
+
+Seorang asisten kimia merancang dua jalur sintesis untuk mendapatkan Senyawa P dan Senyawa Q secara selektif dengan rendemen tinggi.
+
+---
+
+### 🎯 Pertanyaan:
+1. Analisis sifat elektronik gugus metil ($-\\ce{CH3}$), kloro ($-\\ce{Cl}$), karboksilat ($-\\ce{COOH}$), dan nitro ($-\\ce{NO2}$) pada cincin benzena! Kelompokkan ke dalam gugus pengaktivasi/pendeaktivasi serta tentukan efek pengarah posisinya (orto/para atau meta)!
+2. Tuliskan skema urutan langkah reaksi yang benar untuk mensintesis:
+   a. **Senyawa P** (Asam $p$-klorobenzoat) dari bahan awal toluena.
+   b. **Senyawa Q** (Asam $m$-klorobenzoat) dari bahan awal toluena.
+3. Jelaskan kesalahan fatal apa yang terjadi jika urutan langkah pada sintesis Senyawa P dibalik (oksidasi dilakukan terlebih dahulu sebelum klorinasi)!
+4. Tuliskan nama IUPAC dan fungsi komersial dari turunan benzena berikut:
+   a. Fenol ($\\ce{C6H5-OH}$)
+   b. Natrium benzoat ($\\ce{C6H5-COONa}$)
+   c. Trinitrotoluena / TNT ($\\ce{C6H2(CH3)(NO2)3}$)
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Sifat Elektronik & Efek Pengarah Gugus
+Pada reaksi Substitusi Elektrofilik Aromatik (SEAr), substituen yang sudah terikat pada cincin benzena mengontrol laju reaksi dan posisi masuknya elektrofil kedua:
+1. **Gugus Metil ($-\\ce{CH3}$):**
+   - Merupakan gugus pendonor elektron melalui efek induksi positif ($+I$) dan hiperkonjugasi.
+   - Bersifat **Pengaktivasi Lemah** cincin benzena dan merupakan **PENGARAH ORTO / PARA**.
+2. **Gugus Karboksilat ($-\\ce{COOH}$):**
+   - Memiliki atom karbon karbonil yang bermuatan parsial positif ($\\ce{C^{\\delta+}=O}$), menarik elektron cincin melalui efek resonansi negatif ($-M$) dan induksi ($-I$).
+   - Bersifat **Pendeaktivasi Kuat** cincin benzena dan merupakan **PENGARAH META**.
+3. **Gugus Kloro ($-\\ce{Cl}$):**
+   - Menarik elektron melalui efek induksi elektronegatif ($-I$), sehingga bersifat **Pendeaktivasi Lemah**.
+   - Namun, pasangan elektron bebas pada atom $\\ce{Cl}$ dapat didonorkan melalui resonansi ($+M$) saat keadaan transisi orto/para, sehingga kloro bertindak unik sebagai **PENGARAH ORTO / PARA**.
+4. **Gugus Nitro ($-\\ce{NO2}$):**
+   - Penarik elektron sangat kuat ($-M, -I$), bersifat **Pendeaktivasi Kuat** dan **PENGARAH META**.
+
+---
+
+#### Langkah 2: Merancang Rute Sintesis Regioselektif
+a. **Sintesis Senyawa P (Asam $p$-klorobenzoat):**
+   - Target: Gugus $-\\ce{Cl}$ dan $-\\ce{COOH}$ berada pada posisi saling *para* (1,4).
+   - Rencana: Kita harus memanfaatkan sifat pengarah orto/para dari gugus metil ($-\\ce{CH3}$) terlebih dahulu sebelum mengubahnya menjadi $-\\ce{COOH}$.
+   - **Langkah 1 (Klorinasi Toluena):**
+     $$\\ce{C6H5-CH3 + Cl2 ->[FeCl3] p-klorotoluena + o-klorotoluena + HCl}$$
+     *(Isomer para dipisahkan melalui kristalisasi fraksional).*
+   - **Langkah 2 (Oksidasi Rantai Alkil):**
+     Oksidasi gugus metil pada $p$-klorotoluena dengan $\\ce{KMnO4}$ asam panas:
+     $$\\ce{p-Cl-C6H4-CH3 + 3[O] ->[KMnO4, \\Delta / H+] p-Cl-C6H4-COOH + H2O}$$
+     *(Menghasilkan asam $p$-klorobenzoat dengan rendemen tinggi).*
+
+b. **Sintesis Senyawa Q (Asam $m$-klorobenzoat):**
+   - Target: Gugus $-\\ce{Cl}$ dan $-\\ce{COOH}$ berada pada posisi saling *meta* (1,3).
+   - Rencana: Kita harus mengubah gugus metil menjadi gugus karboksilat ($-\\ce{COOH}$) terlebih dahulu, sehingga terbentuk gugus pengarah meta sebelum klorinasi dilakukan.
+   - **Langkah 1 (Oksidasi Toluena Menjadi Asam Benzoat):**
+     $$\\ce{C6H5-CH3 + 3[O] ->[KMnO4, \\Delta / H+] C6H5-COOH + H2O}$$
+   - **Langkah 2 (Klorinasi Asam Benzoat):**
+     Gugus $-\\ce{COOH}$ mengarahkan elektrofil kloronium ($\\ce{Cl+}$) secara spesifik ke posisi *meta*:
+     $$\\ce{C6H5-COOH + Cl2 ->[FeCl3] m-Cl-C6H4-COOH + HCl}$$
+     *(Menghasilkan asam $m$-klorobenzoat sebagai produk dominan).*
+
+---
+
+#### Langkah 3: Evaluasi Jika Urutan Reaksi Dibalik
+Jika pada sintesis Senyawa P urutannya dibalik (toluena dioksidasi dulu menjadi asam benzoat, baru kemudian diklorinasi):
+- Gugus $-\\ce{COOH}$ yang terbentuk adalah **pengarah meta**.
+- Akibatnya, klorinasi akan menghasilkan **asam $m$-klorobenzoat (Senyawa Q)**, BUKAN asam $p$-klorobenzoat (Senyawa P). Sintesis Senyawa P akan gagal total.
+
+---
+
+#### Langkah 4: Identifikasi Turunan Benzena & Manfaatnya
+a. **Fenol ($\\ce{C6H5-OH}$):**
+   - Sifat: Bersifat asam lemah ($K_a \\approx 10^{-10}$), mampu memerahkan lakmus biru samar-samar, bersifat kaustik.
+   - Manfaat: Digunakan sebagai antiseptik/desinfektan (karbol) dan bahan baku pembuatan resin bakelit serta polikarbonat.
+b. **Natrium Benzoat ($\\ce{C6H5-COONa}$):**
+   - Sifat: Garam yang mudah larut dalam air.
+   - Manfaat: Bahan pengawet makanan dan minuman asam (menghambat pertumbuhan khamir dan kapang).
+c. **2,4,6-Trinitrotoluena / TNT ($\\ce{C6H2(CH3)(NO2)3}$):**
+   - Sifat: Padatan kuning stabil terhadap goncangan mekanik, namun sangat eksplosif bila dipicu detonator.
+   - Manfaat: Bahan peledak berkekuatan tinggi untuk keperluan pertambangan dan militer.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Tabel Pengarah Substitusi Benzena (Wajib Dihafal di UTBK):**
+> - **Pengarah Orto/Para (Pendonor Elektron):**
+>   $-\\ce{OH}, -\\ce{NH2}, -\\ce{OCH3}, -\\ce{CH3}, -\\ce{R}$ (serta halogen $-\\ce{Cl}, -\\ce{Br}$ walau pendeaktivasi).
+> - **Pengarah Meta (Penarik Elektron):**
+>   $-\\ce{NO2}, -\\ce{COOH}, -\\ce{CHO}, -\\ce{CO-R}, -\\ce{CN}, -\\ce{SO3H}$.
+> - **Kunci Urutan:** Jika produk adalah isomer *orto/para*, pasang substituen pengarah orto/para lebih dulu! Jika produk adalah isomer *meta*, pasang substituen pengarah meta lebih dulu!`,
+    keyFormulas: [
+      { name: 'Klorinasi Elektrofilik', formula: '\\ce{Ar-H + Cl2 ->[FeCl3] Ar-Cl + HCl}' },
+      { name: 'Oksidasi Rantai Samping Toluena', formula: '\\ce{Ar-CH3 + 3[O] ->[KMnO4/H+] Ar-COOH + H2O}' },
+      { name: 'Nitrasi Benzena', formula: '\\ce{Ar-H + HNO3 ->[H2SO4] Ar-NO2 + H2O}' },
+    ],
+  },
+
+  {
+    tag: 'contoh-stoikiometri-polimerisasi-nilon-dacron-sma',
+    tags: ['polimer-sintetis', 'polimerisasi-kondensasi', 'poliamida', 'poliester', 'derajat-polimerisasi', 'kimia-sma'],
+    title: 'Contoh Soal 3: Stoikiometri Polimerisasi Kondensasi Nilon-6,6 & Dacron Serta Analisis Derajat Polimerisasi (Level: HOTS SMA)',
+    summary: 'Perhitungan stoikiometri pembentukan poliamida (Nilon-6,6) dan poliester Dacron, massa molekul relatif polimer, derajat polimerisasi (DP), dan eliminasi air.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Industri serat sintetis memproduksi serat tekstil poliamida unggul yaitu **Nilon-6,6** melalui polimerisasi kondensasi antara:
+1. **1,6-Diaminoheksana** (heksametilendiamina, $\\ce{H2N-(CH2)6-NH2}$, massa molar $M_1 = 116.21\\text{ g/mol}$).
+2. **Asam 1,6-heksanadioat** (asam adipat, $\\ce{HOOC-(CH2)4-COOH}$, massa molar $M_2 = 146.14\\text{ g/mol}$).
+
+Dalam satu tangki reaktor industri, direaksikan $116.21\\text{ kg}$ 1,6-diaminoheksana dengan $146.14\\text{ kg}$ asam adipat dalam perbandingan mol equimolar $1 : 1$.
+Reaksi dibiarkan berlangsung pada temperatur $280^\\circ\\text{C}$ di bawah vakum untuk menguapkan molekul air yang terbentuk hingga diperoleh rantai polimer dengan **derajat polimerisasi rata-rata ($DP$ / nilai $n$) sebesar $n = 500$**.
+
+Diketahui massa atom relatif ($A_r$): $\\ce{H} = 1.008, \\ce{C} = 12.011, \\ce{N} = 14.007, \\ce{O} = 15.999\\text{ g/mol}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Tuliskan persamaan reaksi polimerisasi kondensasi pembentukan Nilon-6,6 lengkap dengan struktur unit berulang (*repeating unit*) dan molekul sampingan yang dieliminasi!
+2. Hitung massa molar satu unit berulang ($M_{\\text{repeat}}$) Nilon-6,6!
+3. Tentukan massa molar rata-rata rantai polimer ($M_n$) Nilon-6,6 pada derajat polimerisasi $n = 500$!
+4. Hitung massa total air ($\\ce{H2O}$) yang tereliminasi dan teruapkan dari tangki reaktor selama polimerisasi tersebut!
+5. Jelaskan perbedaan struktural ikatan penghubung antara polimer **Nilon-6,6** (poliamida) dengan serat sintetik **Dacron (PET)** (poliester)!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Persamaan Reaksi Polimerisasi Kondensasi
+Reaksi kondensasi terjadi antara gugus karboksilat ($-\\ce{COOH}$) asam adipat dan gugus amina ($-\\ce{NH2}$) heksametilendiamina membentuk ikatan amida/peptida ($\\ce{-CO-NH-}$):
+$$n\\,\\ce{H2N-(CH2)6-NH2} + n\\,\\ce{HOOC-(CH2)4-COOH} \\longrightarrow \\ce{H-[HN-(CH2)6-NH-CO-(CH2)4-CO]_n-OH} + (2n - 1)\\,\\ce{H2O}$$
+
+Unit berulang (*repeating unit*) di dalam tanda kurung kurawal adalah:
+$$\\mathbf{\\ce{[-HN-(CH2)6-NH-CO-(CH2)4-CO-]}}$$
+
+---
+
+#### Langkah 2: Menghitung Massa Molar Unit Berulang ($M_{\\text{repeat}}$)
+Formula unit berulang Nilon-6,6 adalah $\\ce{C12 H22 N2 O2}$:
+- Jumlah atom:
+  - $\\ce{C} = 6 + 4 + 2 = 12$
+  - $\\ce{H} = 1 + 12 + 1 + 8 = 22$
+  - $\\ce{N} = 2$
+  - $\\ce{O} = 2$
+- Massa molar unit berulang:
+  $$M_{\\text{repeat}} = (12 \\times 12.011) + (22 \\times 1.008) + (2 \\times 14.007) + (2 \\times 15.999)$$
+  $$M_{\\text{repeat}} = 144.132 + 22.176 + 28.014 + 31.998 = \\mathbf{226.32\\text{ g/mol}}$$
+*(Catatan praktis: $M_{\\text{repeat}} = M_{\\text{diamina}} + M_{\\text{adipat}} - 2 \\times M_{\\ce{H2O}} = 116.21 + 146.14 - 36.03 = 226.32\\text{ g/mol}$).*
+
+---
+
+#### Langkah 3: Menentukan Massa Molar Rata-Rata Polimer ($M_n$)
+Rantai polimer terdiri atas $n$ unit berulang ditambah gugus ujung $\\ce{H-}$ (pada satu ujung) dan $\\ce{-OH}$ (pada ujung lainnya) yang setara dengan satu molekul $\\ce{H2O}$ ($18.015\\text{ g/mol}$):
+$$M_n = n \\times M_{\\text{repeat}} + M_{\\ce{H2O}}$$
+Untuk derajat polimerisasi $n = 500$:
+$$M_n = (500 \\times 226.32\\text{ g/mol}) + 18.015\\text{ g/mol}$$
+$$M_n = 113.160 + 18.015 = \\mathbf{113.178\\text{ g/mol}} \\approx 1.13 \\times 10^5\\text{ g/mol}$$
+
+---
+
+#### Langkah 4: Menghitung Massa Air yang Tereliminasi
+1. Mol bahan awal dalam reaktor:
+   - Mol heksametilendiamina:
+     $$n_{\\text{diamina}} = \\frac{116.21\\text{ kg}}{116.21\\text{ kg/kmol}} = 1.000\\text{ kmol} = 1.000\\text{ mol}$$
+   - Mol asam adipat:
+     $$n_{\\text{adipat}} = \\frac{146.14\\text{ kg}}{146.14\\text{ kg/kmol}} = 1.000\\text{ kmol} = 1.000\\text{ mol}$$
+2. Reaksi berlangsung equimolar sempurna ($1.000\\text{ kmol}$ masing-masing monomer).
+3. Setiap pembentukan 1 unit berulang melepaskan 2 molekul $\\ce{H2O}$ (untuk rantai panjang di mana $n \\gg 1$, $(2n-1)/n \\approx 2$):
+   $$n_{\\ce{H2O, terlepas}} = 2 \\times 1.000\\text{ kmol} = 2.000\\text{ kmol air}$$
+4. Massa total air yang tereliminasi:
+   $$m_{\\ce{H2O}} = 2.000\\text{ kmol} \\times 18.015\\text{ kg/kmol} = \\mathbf{36.03\\text{ kg Air}}$$
+*(Hukum Kekekalan Massa: Massa polimer kering $= 116.21 + 146.14 - 36.03 = 226.32\\text{ kg Nilon-6,6}$).*
+
+---
+
+#### Langkah 5: Perbandingan Nilon-6,6 vs Dacron (PET)
+- **Nilon-6,6 (Poliamida):**
+  - Ikatan penghubung utama: **Ikatan Amida** ($\\mathbf{\\ce{-CO-NH-}}$).
+  - Ikatan amida memiliki dipol kuat dan mampu membentuk **ikatan hidrogen antar-rantai** yang sangat rapat dan kuat, menjadikan serat nilon sangat kenyal, ulet, dan tahan abrasi.
+- **Dacron / PET (Poliester):**
+  - Terbentuk dari asam tereftalat (asam 1,4-benzenadikarboksilat) dan etilen glikol (1,2-etandiol).
+  - Ikatan penghubung utama: **Ikatan Ester** ($\\mathbf{\\ce{-CO-O-}}$).
+  - Tidak membentuk ikatan hidrogen antar-rantai (hanya gaya dipol-dipol), sehingga poliester memiliki sifat hidrofobik tinggi (cepat kering, tidak mudah kusut).
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Mengingat Penamaan Nilon-6,6:**
+> Angka "6,6" menandakan bahwa monomer diamina memiliki **6 atom karbon** (heksametilendiamina) dan monomer asam dikarboksilat juga memiliki **6 atom karbon** (asam adipat). Bandingkan dengan Nilon-6 yang dibentuk dari satu jenis monomer bersiklik 6 karbon (kaprolaktam).`,
+    keyFormulas: [
+      { name: 'Massa Molar Rata-rata Polimer Kondensasi', formula: 'M_n = n \\times M_{\\text{repeat}} + M_{\\text{ujung}}' },
+      { name: 'Massa Molar Unit Berulang Nilon-6,6', formula: 'M_{\\text{repeat}} = M_{\\text{diamina}} + M_{\\text{dikarboksilat}} - 2 M_{\\ce{H2O}}' },
+      { name: 'Unit Berulang Dacron (PET)', formula: '\\ce{[-O-CH2-CH2-O-CO-C6H4-CO-]}' },
+    ],
+  },
+
+  {
+    tag: 'contoh-identifikasi-biomolekul-makanan-sma',
+    tags: ['biomolekul', 'karbohidrat', 'protein', 'uji-biuret', 'saponifikasi-lipid', 'titik-isoelektrik', 'kimia-sma'],
+    title: 'Contoh Soal 4: Matriks Identifikasi Biomolekul (Karbohidrat, Protein, Lemak) & Analisis Titik Isolistrik Asam Amino (Level: Sedang-HOTS)',
+    summary: 'Investigasi kualitatif makronutrien pangan melalui uji Molisch, Lugol, Benedict, Biuret, Xantoproteat, dan Timbal Asetat serta kalkulasi titik isolistrik asam amino asam.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam praktikum biokimia makanan, seorang siswa menganalisis 4 sampel bahan pangan tidak berlabel (**Sampel A, B, C, dan D**) menggunakan serangkaian reagen uji spesifik. Data hasil uji dirangkum dalam tabel berikut:
+
+| Pengujian Laboratorium | Sampel A | Sampel B | Sampel C | Sampel D |
+| :--- | :--- | :--- | :--- | :--- |
+| **Uji Molisch** ($\\alpha$-naftol + $\\ce{H2SO4}$) | Cincin ungu di batas cairan | Cincin ungu di batas cairan | Tidak berwarna (negatif) | Tidak berwarna (negatif) |
+| **Uji Iodin / Lugol** | Biru kehitaman pekat | Kuning kecokelatan (negatif) | Negatif | Negatif |
+| **Uji Benedict** | Biru jernih (negatif) | Endapan merah bata ($\\ce{Cu2O}$) | Biru jernih (negatif) | Negatif |
+| **Uji Barfoed** | Negatif | Negatif dalam 2 menit; Mengendap merah setelah 10 menit dididihkan | Negatif | Negatif |
+| **Uji Biuret** ($\\ce{CuSO4 + NaOH}$) | Biru terang (negatif) | Biru terang (negatif) | Warna ungu tua pekat | Biru terang (negatif) |
+| **Uji Xantoproteat** ($\\ce{HNO3}$ pekat) | Negatif | Negatif | Endapan kuning berubah menjadi jingga saat ditambah amonia | Negatif |
+| **Uji Timbal Asetat** [$\\ce{Pb(CH3COO)2}$] | Negatif | Negatif | Endapan hitam pekat ($\\ce{PbS}$) | Negatif |
+| **Kelarutan dalam Air & Pelarut Nonpolar** | Larut parsial (suspensi) | Larut sempurna | Larut | Tidak larut air; Larut sempurna dalam kloroform |
+| **Uji Penyabunan ($\\ce{NaOH}$ panas)** | Tidak ada buih | Tidak ada buih | Tidak ada buih | Menghasilkan larutan yang sangat berbuih |
+
+---
+
+### 🎯 Pertanyaan:
+1. Berdasarkan data matriks pengujian di atas, identifikasi jenis golongan biomolekul spesifik yang terkandung dalam Sampel A, B, C, dan D!
+2. Pada Sampel C:
+   a. Gugus kimia apakah yang dideteksi oleh Uji Biuret? Mengapa asam amino bebas (misalnya glisin murni) tidak memberikan warna ungu pada uji ini?
+   b. Mengapa uji Xantoproteat menghasilkan warna jingga?
+   c. Asam amino apa yang menyebabkan terbentuknya endapan hitam pada uji Timbal Asetat?
+3. Sampel C setelah dihidrolisis sempurna menghasilkan asam amino asam aspartat. Diketahui asam aspartat memiliki 3 nilai $pK_a$:
+   $$pK_{a1} (\\alpha\\text{-COOH}) = 2.09, \\quad pK_{a2} (\\beta\\text{-COOH}) = 3.86, \\quad pK_{a3} (\\alpha\\text{-NH}_3^+) = 9.82$$
+   Hitung nilai **titik isolistrik ($pI$)** asam aspartat dan gambarkan struktur spesi ion zwitter-nya pada kondisi $pI$!
+4. Pada Sampel D, tuliskan reaksi kimia hidrolisis basa (saponifikasi) antara gliseril tripalmitin (trigliserida jenuh $\\ce{C51H98O6}$) dengan larutan $\\ce{NaOH}$!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Deduksi Golongan Biomolekul Setiap Sampel
+1. **Sampel A:**
+   - Molisch ($+$ cincin ungu) $\\implies$ Mengandung **Karbohidrat**.
+   - Iodin/Lugol ($+$ biru kehitaman) $\\implies$ Karbohidrat tersebut adalah polisakarida **Amilum (Pati)**.
+   - Benedict ($-$) mengonfirmasi bahwa amilum bukan gula pereduksi.
+   - **Kesimpulan: Sampel A adalah Amilum / Pati.**
+
+2. **Sampel B:**
+   - Molisch ($+$) $\\implies$ Mengandung **Karbohidrat**.
+   - Iodin ($-$) $\\implies$ Bukan amilum/polisakarida.
+   - Benedict ($+$ endapan merah bata) $\\implies$ Merupakan **Gula Pereduksi**.
+   - Uji Barfoed membedakan monosakarida vs disakarida: Monosakarida mereduksi Barfoed dalam waktu singkat ($< 2 - 3\\text{ menit}$), sedangkan disakarida baru mereduksi setelah hidrolisis pemanasan lama ($> 5 - 10\\text{ menit}$).
+   - Karena Sampel B baru mengendap setelah 10 menit $\\implies$ Sampel B adalah **Disakarida Pereduksi (seperti Maltosa atau Laktosa)**.
+
+3. **Sampel C:**
+   - Molisch ($-$) $\\implies$ Bukan karbohidrat.
+   - Biuret ($+$ ungu tua pekat) $\\implies$ Mengandung **Protein (Polipeptida)** dengan ikatan peptida.
+   - Xantoproteat ($+$ kuning ke jingga) $\\implies$ Mengandung asam amino dengan **cincin benzena aromatik** (seperti Tirosin, Triptofan, atau Fenilalanin).
+   - Timbal Asetat ($+$ endapan hitam $\\ce{PbS}$) $\\implies$ Mengandung asam amino yang memiliki **atom belerang ($\ce{S}$)** (seperti Sistein atau Metionin).
+   - **Kesimpulan: Sampel C adalah Protein Lengkap yang mengandung asam amino aromatik dan belerang.**
+
+4. **Sampel D:**
+   - Tidak larut dalam air, larut dalam kloroform (pelarut organik nonpolar).
+   - Uji penyabunan dengan $\\ce{NaOH}$ menghasilkan zat berbuih (sabun).
+   - **Kesimpulan: Sampel D adalah Lemak / Minyak (Trigliserida Lipid).**
+
+---
+
+#### Langkah 2: Mekanisme Reaksi Biokimia Sampel C
+a. **Uji Biuret:**
+   - Mendeteksi adanya **Ikatan Peptida ($\\ce{-CO-NH-}$)** minimal 2 ikatan peptida (tripeptida ke atas).
+   - Kation $\\ce{Cu^2+}$ berkoordinasi dengan 4 atom nitrogen amida dalam suasana basa membentuk ion kompleks tetrakoordinasi berwarna **ungu violet**.
+   - Asam amino bebas (seperti glisin tunggal) tidak memiliki ikatan peptida sehingga uji Biuret negatif (tetap biru reagen).
+b. **Uji Xantoproteat:**
+   - Reaksi nitrasi cincin benzena aromatik asam amino oleh $\\ce{HNO3}$ pekat membentuk senyawa nitro aromatik berwarna kuning.
+   - Penambahan basa (amonia/$\\ce{NaOH}$) menyebabkan ionisasi gugus fenolik membentuk garam fenolat yang meredistribusi muatan resonansi sehingga warna berubah menjadi **jingga cerah**.
+c. **Uji Timbal Asetat:**
+   - Pemanasan protein yang mengandung asam amino **Sistein** dengan basa kuat melepaskan ion sulfida ($\\ce{S^2-}$).
+   - Ion $\\ce{S^2-}$ bereaksi seketika dengan kation timbal(II) membentuk endapan hitam timbal(II) sulfida:
+     $$\\ce{Pb^2+(aq) + S^2-(aq) -> PbS(s)} \\quad \\text{(endapan hitam)}$$
+
+---
+
+#### Langkah 3: Menghitung Titik Isolistrik ($pI$) Asam Aspartat
+Asam aspartat adalah asam amino asam dengan rumus rantai samping $-\\ce{CH2-COOH}$.
+Tahapan ionisasinya:
+1. $\\ce{H3A+} \\xrightleftharpoons{pK_{a1}=2.09} \\ce{H2A^\\pm} + \\ce{H+}$ (Bentuk Kation, muatan $+1$)
+2. $\\ce{H2A^\\pm} \\xrightleftharpoons{pK_{a2}=3.86} \\ce{HA^-} + \\ce{H+}$ (Bentuk Zwitter-ion, muatan $0$)
+3. $\\ce{HA^-} \\xrightleftharpoons{pK_{a3}=9.82} \\ce{A^2-} + \\ce{H+}$ (Bentuk Anion, muatan $-2$)
+
+Spesi zwitter-ion bermuatan nol ($\\ce{H2A^\\pm}$) diapit oleh dua kesetimbangan asam: $pK_{a1}$ dan $pK_{a2}$.
+Oleh karena itu, titik isolistrik ($pI$) adalah rata-rata aritmatik dari $pK_{a1}$ dan $pK_{a2}$:
+$$pI = \\frac{pK_{a1} + pK_{a2}}{2} = \\frac{2.09 + 3.86}{2} = \\frac{5.95}{2} = \\mathbf{2.98}$$
+
+**Struktur Zwitter-ion pada $pI = 2.98$:**
+Gugus $\\alpha\\text{-COOH}$ terdeprotonasi menjadi $-\\ce{COO-}$, gugus $\\alpha\\text{-NH2}$ terprotonasi menjadi $-\\ce{NH3+}$, sedangkan rantai samping $\\beta\\text{-COOH}$ tetap netral:
+$$\\mathbf{\\ce{+H3N-CH(CH2COOH)-COO-}}$$
+*(Muatan bersih: $(+1) + (-1) = 0$).*
+
+---
+
+#### Langkah 4: Reaksi Saponifikasi Sampel D (Tripalmitin)
+Gliseril tripalmitin (ester tri-palmitat gliserol, $\\ce{C3H5(OOC-C15H31)3}$) dihidrolisis oleh 3 molekul $\\ce{NaOH}$:
+$$\\ce{C3H5(OOC-C15H31)3 + 3NaOH ->[\\Delta] C3H5(OH)3 + 3C15H31-COONa}$$
+- **Produk:**
+  1. $\\ce{C3H5(OH)3}$: Gliserol (1,2,3-propanatriol).
+  2. $\\ce{C15H31-COONa}$: Natrium palmitat (sabun padat pembuih).
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Rumus Cepat Menghitung $pI$ Asam Amino di Ujian:**
+> 1. **Asam Amino Netral (misal Alanin):** $pI = \\frac{pK_{a1} + pK_{a2}}{2}$.
+> 2. **Asam Amino Asam (Aspartat, Glutamat):** $pI = \\frac{pK_{a1} + pK_{aR}}{2}$ (rata-rata 2 nilai $pK_a$ terendah).
+> 3. **Asam Amino Basa (Lisin, Arginin, Histidin):** $pI = \\frac{pK_{aR} + pK_{a2}}{2}$ (rata-rata 2 nilai $pK_a$ tertinggi).`,
+    keyFormulas: [
+      { name: 'Titik Isolistrik Asam Amino Asam', formula: 'pI = \\frac{pK_{a1} + pK_{aR}}{2}' },
+      { name: 'Reaksi Saponifikasi Trigliserida', formula: '\\ce{Trigliserida + 3NaOH -> Gliserol + 3Sabun (R-COONa)}' },
+      { name: 'Uji Biuret Kompleks Tembaga', formula: '\\ce{Cu^2+ + 4 N_{amida} -> [Cu(N_amida)4]^2+ (Ungu)}' },
+    ],
+  },
+
+  {
+    tag: 'contoh-stereokimia-cip-sekuensing-peptida-sma',
+    tags: ['stereokimia', 'aturan-cip', 'konfigurasi-rs', 'karbon-asimetris', 'oligopeptida', 'sekuensing-asam-amino', 'kimia-sma'],
+    title: 'Contoh Soal 5: Konfigurasi Stereokimia R/S Cahn-Ingold-Prelog & Sekuensing Logis Fragmen Peptida (Level: HOTS SMA)',
+    summary: 'Penentuan atom C kiral dan konfigurasi absolut R/S asam laktat dan alanin menggunakan aturan CIP serta pemecahan sekuens heksapeptida dari fragmen hidrolisis.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam kimia organik modern dan biokimia farmasi, orientasi tiga dimensi gugus atom pada atom karbon kiral (*stereoisomerisme*) serta urutan primer asam amino (*primary sequence*) sangat menentukan aktivitas biologis zat aktif obat dan peptida tubuh.
+
+---
+
+#### 🧪 Bagian I: Stereokimia Asam Laktat & Alanin (Aturan CIP)
+Diberikan molekul asam laktat yang memiliki rumus struktur molekul:
+$$\\ce{CH3-C^*H(OH)-COOH}$$
+Atom $\\ce{C^*}$ adalah atom karbon nomor 2 yang mengikat 4 gugus yang berbeda secara stereokimia.
+
+---
+
+#### 🧩 Bagian II: Sekuensing Logis Fragmen Peptida
+Suatu hormon heksapeptida (tersusun atas 6 residu asam amino) dianalisis untuk menentukan urutan primernya.
+Asam amino penyusunnya diketahui meliputi: **Alanin (Ala), Glisin (Gly), Leusin (Leu), Fenilalanin (Phe), Tirosin (Tyr), dan Valin (Val)**.
+Dilakukan dua eksperimen pemotongan kimia dan enzimatik terpisah:
+1. **Analisis Ujung N-Terminal:**
+   Uji degradasi Sanger/Edman membuktikan bahwa asam amino ujung N-terminal bebas adalah **Valin (Val)**.
+2. **Hidrolisis Enzimatik Kimotripsin:**
+   Enzim kimotripsin secara spesifik memotong ikatan peptida pada sisi karboksil ($\ce{-C(=O)-}$) dari asam amino aromatik (**Phe** dan **Tyr**). Hasil pemotongan menghasilkan 3 fragmen:
+   - **Fragmen K-1:** Tripeptida yang mengandung asam amino $\\text{Val, Ala, Tyr}$.
+   - **Fragmen K-2:** Dipeptida yang mengandung asam amino $\\text{Leu, Phe}$.
+   - **Fragmen K-3:** Asam amino bebas tunggal **Glisin (Gly)**.
+3. **Hidrolisis Asam Encer Terkendali:**
+   Menghasilkan beberapa fragmen peptida pendek tumpang-tindih (*overlapping fragments*):
+   - **Fragmen A-1:** Dipeptida $\\text{Tyr-Leu}$
+   - **Fragmen A-2:** Tripeptida $\\text{Ala-Tyr-Leu}$
+   - **Fragmen A-3:** Dipeptida $\\text{Phe-Gly}$
+
+---
+
+### 🎯 Pertanyaan:
+1. Pada molekul asam laktat:
+   a. Identifikasi keempat gugus yang terikat langsung pada atom karbon kiral ($\ce{C^*}$)!
+   b. Urutkan keempat gugus tersebut dari prioritas tertinggi ($1$) ke terendah ($4$) berdasarkan aturan Cahn-Ingold-Prelog (CIP)!
+   c. Jika molekul diproyeksikan dengan gugus prioritas terendah ($-\\ce{H}$) mengarah ke belakang pengamat, dan penomoran $1 \\rightarrow 2 \\rightarrow 3$ memutar searah jarum jam, tentukan konfigurasi stereokimia absolutnya ($R$ atau $S$)!
+2. Pada molekul asam amino alanin ($\\ce{CH3-C^*H(NH2)-COOH}$), tentukan urutan prioritas aturan CIP antara gugus $-\\ce{NH2}, -\\ce{COOH}, -\\ce{CH3},$ dan $-\\ce{H}$!
+3. Berdasarkan data pemotongan enzimatik dan fragmen tumpang-tindih di Bagian II, susunlah rekonstruksi urutan lengkap heksapeptida tersebut dari ujung N-terminal ke C-terminal!
+4. Tentukan jumlah ikatan peptida ($\\ce{-CO-NH-}$) yang terbentuk pada molekul heksapeptida utuh tersebut!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Aturan Cahn-Ingold-Prelog (CIP) pada Asam Laktat
+a. **Keempat gugus pada atom $\\ce{C^*}$:**
+   1. Gugus hidroksil: $-\\ce{OH}$
+   2. Gugus karboksilat: $-\\ce{COOH}$
+   3. Gugus metil: $-\\ce{CH3}$
+   4. Atom hidrogen: $-\\ce{H}$
+
+b. **Penentuan Prioritas CIP Berdasarkan Nomor Atom:**
+   - **Prioritas 1:** Gugus $-\\ce{OH}$. Atom yang terikat langsung pada C kiral adalah **Oksigen** ($Z = 8$). Karena oksigen memiliki nomor atom tertinggi di antara keempatnya, maka $-\\ce{OH}$ menjadi Prioritas 1.
+   - **Membandingkan $-\\ce{COOH}$ vs $-\\ce{CH3}$:** Keduanya terikat melalui atom **Karbon** ($Z = 6$) (seri). Kita bandingkan atom generasi kedua:
+     - Pada $-\\ce{COOH}$, karbon mengikat $(\\ce{=O, -OH})$, yang dalam aturan CIP dihitung mengikat tiga atom oksigen $(\\ce{O, O, O})$.
+     - Pada $-\\ce{CH3}$, karbon mengikat tiga atom hidrogen $(\\ce{H, H, H})$.
+     - Karena atom oksigen ($Z=8$) menang atas hidrogen ($Z=1$), maka $-\\ce{COOH}$ mendapat prioritas lebih tinggi daripada $-\\ce{CH3}$.
+     - **Prioritas 2:** Gugus $-\\ce{COOH}$.
+     - **Prioritas 3:** Gugus $-\\ce{CH3}$.
+   - **Prioritas 4:** Atom hidrogen $-\\ce{H}$ ($Z = 1$, prioritas terendah).
+   $$\\mathbf{\\text{Urutan Prioritas CIP: } -\\ce{OH} > -\\ce{COOH} > -\\ce{CH3} > -\\ce{H}}$$
+
+c. **Penentuan Konfigurasi Absolut:**
+   Dengan gugus prioritas terendah ($4$, yaitu $-\\ce{H}$) berada di belakang menjauhi pengamat:
+   - Arah putaran dari Prioritas $1 \\rightarrow 2 \\rightarrow 3$ ($-\\ce{OH} \\rightarrow -\\ce{COOH} \\rightarrow -\\ce{CH3}$) adalah **searah jarum jam (*clockwise*)**.
+   - Berdasarkan konvensi CIP, putaran searah jarum jam dinamakan konfigurasi **$R$ (*Rectus*)**.
+   - Jadi, isomer tersebut memiliki konfigurasi absolut **$(R)$-asam laktat**.
+
+---
+
+#### Langkah 2: Urutan Prioritas CIP pada Alanin
+Pada molekul alanin $\\ce{CH3-C^*H(NH2)-COOH}$:
+1. Atom terikat langsung:
+   - $-\\ce{NH2}$: atom $\\ce{N}$ ($Z = 7$)
+   - $-\\ce{COOH}$: atom $\\ce{C}$ ($Z = 6$) mengikat $(\\ce{O, O, O})$
+   - $-\\ce{CH3}$: atom $\\ce{C}$ ($Z = 6$) mengikat $(\\ce{H, H, H})$
+   - $-\\ce{H}$: atom $\\ce{H}$ ($Z = 1$)
+2. Karena nitrogen ($Z=7$) memiliki nomor atom lebih tinggi dari karbon ($Z=6$), maka $-\\ce{NH2}$ adalah prioritas 1.
+3. Urutan prioritas lengkap:
+   $$\\mathbf{1: -\\ce{NH2} \\quad > \\quad 2: -\\ce{COOH} \\quad > \\quad 3: -\\ce{CH3} \\quad > \\quad 4: -\\ce{H}}$$
+
+---
+
+#### Langkah 3: Rekonstruksi Sekuens Logis Heksapeptida
+Mari kita susun potongan puzzle biologis ini selangkah demi selangkah:
+1. **Ujung N-terminal adalah Val:**
+   $$\\text{Val} - [\\dots] - [\\dots] - [\\dots] - [\\dots] - [\\dots]$$
+2. **Analisis Fragmen Enzim Kimotripsin:**
+   Kimotripsin memotong di sisi C asam amino aromatik ($\text{Phe}$ dan $\text{Tyr}$):
+   - **Fragmen K-1 (Val, Ala, Tyr):**
+     Karena Val berada di ujung N, dan Tyr adalah asam amino aromatik pemotongan kimotripsin, maka Tyr harus berada di ujung fragmen ini:
+     $$\\text{Fragmen K-1} = \\mathbf{\\text{Val-Ala-Tyr}}$$
+   - **Fragmen K-2 (Leu, Phe):**
+     Karena Phe adalah asam amino aromatik pemotongan kimotripsin, maka Phe harus berada di ujung C fragmen ini:
+     $$\\text{Fragmen K-2} = \\mathbf{\\text{Leu-Phe}}$$
+   - **Fragmen K-3 (Gly):**
+     Asam amino Gly berada di paling ujung akhir peptida (C-terminal), karena tidak dipotong oleh kimotripsin melainkan terlepas sebagai residu sisa.
+3. **Konfirmasi dengan Fragmen Tumpang-Tindih (*Overlapping*):**
+   - Fragmen A-1: $\\text{Tyr-Leu}$ $\\implies$ membuktikan residu Tyr langsung tersambung dengan Leu!
+   - Fragmen A-2: $\\text{Ala-Tyr-Leu}$ $\\implies$ memperkuat sambungan $\\text{Ala-Tyr}$ dengan $\\text{Leu}$.
+   - Fragmen A-3: $\\text{Phe-Gly}$ $\\implies$ membuktikan residu Phe langsung tersambung dengan Gly!
+4. **Penyusunan Rantai Lengkap (N ke C):**
+   $$(\\text{Val-Ala-Tyr}) + (\\text{Leu-Phe}) + (\\text{Gly}) \\implies \\mathbf{\\text{Val-Ala-Tyr-Leu-Phe-Gly}}$$
+
+---
+
+#### Langkah 4: Menghitung Jumlah Ikatan Peptida
+Heksapeptida tersusun atas $n = 6$ molekul asam amino.
+Jumlah ikatan peptida ($\\ce{-CO-NH-}$) yang terbentuk adalah:
+$$\\text{Jumlah ikatan peptida} = n - 1 = 6 - 1 = \\mathbf{5\\text{ ikatan peptida}}$$
+Kelima ikatan peptida tersebut adalah:
+1. $\\ce{Val-CO-NH-Ala}$
+2. $\\ce{Ala-CO-NH-Tyr}$
+3. $\\ce{Tyr-CO-NH-Leu}$
+4. $\\ce{Leu-CO-NH-Phe}$
+5. $\\ce{Phe-CO-NH-Gly}$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Kaidah Emas Menjawab Soal Stereokimia & Sekuensing:**
+> 1. **Prioritas CIP:** Selalu bandingkan **Nomor Atom ($Z$)** atom pertama yang terikat, BUKAN massa gugus total! Jika nomor atom seri, bergeraklah satu ikatan ke atom generasi berikutnya.
+> 2. **Trik Konfigurasi R/S:** Jika gugus prioritas 4 berada di DEPAN (garis tebal baji), baliklah hasil akhirnya: searah jarum jam menjadi $S$, berlawanan menjadi $R$.
+> 3. **Sekuensing Peptida:** Mulailah selalu dari asam amino ujung (N-terminal atau C-terminal), lalu cari fragmen tumpang-tindih (*overlapping*) seperti menyusun potongan domino.`,
+    keyFormulas: [
+      { name: 'Aturan Cahn-Ingold-Prelog (CIP)', formula: 'Z_1 > Z_2 > Z_3 > Z_4' },
+      { name: 'Konfigurasi R/S', formula: '\\text{Clockwise} = R, \\quad \\text{Counter-Clockwise} = S \\quad (\\text{Prioritas 4 di Belakang})' },
+      { name: 'Jumlah Ikatan Peptida', formula: '\\text{Ikatan Peptida} = n - 1' },
+    ],
+  },
+];

@@ -82,7 +82,7 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
 | **113** | **13** | **Sifat Koligatif Larutan SMA** | **Kelas 12 (Fase F2)** | **Tamu Pengganggu Penguapan, Selaput Membran Penjaga Sel** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 17 Miskonsepsi)** |
 | **114** | **14** | **Reaksi Redoks & Sel Elektrokimia SMA** | **Kelas 12 (Fase F2)** | **Perdagangan Elektron Pasar Global, Baterai Pompa Kimia-Listrik** | **✅ Selesai** | **Coverage 100% (5 Soal, 21 Kuis, 14 Miskonsepsi)** |
 | **115** | **15** | **Kimia Unsur Golongan Utama & Transisi 4** | **Kelas 12 (Fase F2)** | **Spektrum Warna Kompleks Kembang Api, Kembang Logam Magnetik** | **✅ Selesai** | **Coverage 100% (5 Soal, 24 Kuis, 16 Miskonsepsi)** |
-| 116 | 16 | Kimia Karbon & Makromolekul | Kelas 12 (Fase F2) | Lego Rantai Karbon, Ritsleting Protein & DNA | ⏳ Terjadwal | Prioritas Fase 4 |
+| **116** | **16** | **Kimia Karbon & Makromolekul** | **Kelas 12 (Fase F2)** | **Lego Rantai Karbon, Ritsleting Protein & DNA** | **✅ Selesai** | **Coverage 100% (5 Soal, 24 Kuis, 16 Miskonsepsi)** |
 
 
 ---
@@ -144,9 +144,9 @@ Setiap topik materi dalam silabus wajib disusun mengikuti **Arsitektur 5 Lapis (
   * **Topik 113 (Sifat Koligatif Larutan SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_113`, 21 Kuis Checkpoint di `checkpointBankTopic113.ts`, 17 Peringatan Miskonsepsi (**100% Coverage ✅**).
   * **Topik 114 (Reaksi Redoks & Sel Elektrokimia SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_114`, 21 Kuis Checkpoint di `checkpointBankTopic114.ts`, 14 Peringatan Miskonsepsi (**100% Coverage ✅**). Celah materi *Baterai Komersial & Fenomena Korosi Besi* telah tertutup sempurna!
   * **Topik 115 (Kimia Unsur Golongan Utama & Transisi Periode 4 SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_115`, 24 Kuis Checkpoint di `checkpointBankTopic115.ts`, 16 Peringatan Miskonsepsi (**100% Coverage ✅**). Kimia Unsur Golongan Utama, Gas Mulia, Halogen, Alkali, Alkali Tanah, serta Logam Transisi Periode 4 (konfigurasi elektron, orbital $d$, bilangan oksidasi bervariasi, warna ion, sifat magnetik, dan ion kompleks) tuntas beres!
-  * **Topik 116 (Kimia Karbon & Makromolekul SMA)**: ⏳ Target penutup Fase F2.
-* Menulis 5 contoh soal lingkup SMA (Sedang & HOTS) per topik (Total 20 contoh soal).
-* Menyusun kuis uji pemahaman cepat (21 kuis/topik) untuk seluruh subtopik Fase F2.
+  * **Topik 116 (Kimia Karbon & Makromolekul SMA)**: 5 Soal Terbimbing di `WORKED_EXAMPLES_TOPIC_116`, 24 Kuis Checkpoint di `checkpointBankTopic116.ts`, 16 Peringatan Miskonsepsi (**100% Coverage ✅**). Turunan Alkana, Isomerisme, Reaksi Diferensiasi Laboratorium, Benzena SEAr & Pengarah Orto/Meta/Para, Polimer Adisi vs Kondensasi, Biomolekul (Karbohidrat, Protein, Lipid), serta Pengayaan Stereokimia CIP (R/S) & Sekuensing Peptida tuntas 100%!
+  * **Pencapaian Tonggak Fase F2 (Kelas 12 SMA)**: Tepat 20 contoh soal berjenjang Sedang & HOTS, 90 kuis uji pemahaman cepat, dan 63 peringatan miskonsepsi (**100% Coverage Seluruh Topik 113–116**).
+  * **🏆 REKAPITULASI KURIKULUM KIMIA SMA (FASE E, F1, F2 - 16 TOPIK)**: **100% SELESAI & TUNTAS** (80 contoh soal terbimbing Sedang & HOTS, 337 kuis checkpoint, 222 peringatan miskonsepsi, 0 concept gaps, 0 errors)!
 
 ### 🔹 Fase 5: Eskalasi 10 Pilar Tingkat Lanjut OSN / IChO (`materialsData.ts`)
 * Mentransformasi materi 10 Pilar OSN menjadi panduan pemikiran tingkat olimpiade internasional.
