@@ -35,72 +35,82 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/katex')) {
+          const nid = id.replace(/\\/g, '/');
+          if (nid.includes('node_modules/katex')) {
             return 'vendor-katex';
           }
-          if (id.includes('node_modules/lucide-react')) {
+          if (nid.includes('node_modules/lucide-react')) {
             return 'vendor-icons';
           }
-          if (id.includes('node_modules/html2canvas') || id.includes('node_modules/dompurify')) {
+          if (nid.includes('node_modules/html2canvas') || nid.includes('node_modules/dompurify')) {
             return 'vendor-canvas';
           }
-          if (id.includes('node_modules/canvas-confetti')) {
+          if (nid.includes('node_modules/canvas-confetti')) {
             return 'vendor-confetti';
           }
-          if (id.includes('node_modules/@supabase')) {
+          if (nid.includes('node_modules/@supabase')) {
             return 'vendor-supabase';
           }
           if (
-            id.includes('node_modules/react') ||
-            id.includes('node_modules/react-dom') ||
-            id.includes('node_modules/react-router')
+            nid.includes('node_modules/react') ||
+            nid.includes('node_modules/react-dom') ||
+            nid.includes('node_modules/react-router')
           ) {
             return 'vendor-react';
           }
-          if (id.includes('src/data/smaMaterialsData')) {
-            return 'data-sma-materials';
+          if (nid.includes('src/data/materials/smaFaseE')) {
+            return 'data-sma-materials-fase-e';
           }
-          if (id.includes('src/data/materialsData')) {
+          if (nid.includes('src/data/materials/smaFaseF1')) {
+            return 'data-sma-materials-fase-f1';
+          }
+          if (nid.includes('src/data/materials/smaFaseF2')) {
+            return 'data-sma-materials-fase-f2';
+          }
+          if (nid.includes('src/data/smaMaterialsData')) {
+            return 'data-sma-materials-core';
+          }
+          if (nid.includes('src/data/materialsData')) {
             return 'data-osn-materials';
           }
           if (
-            id.includes('src/data/smaQuestionsData') ||
-            id.includes('src/data/smaQuestionsTopic2') ||
-            id.includes('src/data/smaQuestionsTopic3') ||
-            id.includes('src/data/smaQuestionsTopic4') ||
-            id.includes('src/data/smaQuestionsTopic5')
+            nid.includes('src/data/smaQuestionsData') ||
+            nid.includes('src/data/smaQuestionsTopic2') ||
+            nid.includes('src/data/smaQuestionsTopic3') ||
+            nid.includes('src/data/smaQuestionsTopic4') ||
+            nid.includes('src/data/smaQuestionsTopic5')
           ) {
             return 'data-sma-questions-fase-e';
           }
           if (
-            id.includes('src/data/smaQuestionsTopic6') ||
-            id.includes('src/data/smaQuestionsTopic7') ||
-            id.includes('src/data/smaQuestionsTopic8') ||
-            id.includes('src/data/smaQuestionsTopic9') ||
-            id.includes('src/data/smaQuestionsTopic10') ||
-            id.includes('src/data/smaQuestionsTopic11') ||
-            id.includes('src/data/smaQuestionsTopic12')
+            nid.includes('src/data/smaQuestionsTopic6') ||
+            nid.includes('src/data/smaQuestionsTopic7') ||
+            nid.includes('src/data/smaQuestionsTopic8') ||
+            nid.includes('src/data/smaQuestionsTopic9') ||
+            nid.includes('src/data/smaQuestionsTopic10') ||
+            nid.includes('src/data/smaQuestionsTopic11') ||
+            nid.includes('src/data/smaQuestionsTopic12')
           ) {
             return 'data-sma-questions-fase-f1';
           }
           if (
-            id.includes('src/data/smaQuestionsTopic13') ||
-            id.includes('src/data/smaQuestionsTopic14') ||
-            id.includes('src/data/smaQuestionsTopic15') ||
-            id.includes('src/data/smaQuestionsTopic16')
+            nid.includes('src/data/smaQuestionsTopic13') ||
+            nid.includes('src/data/smaQuestionsTopic14') ||
+            nid.includes('src/data/smaQuestionsTopic15') ||
+            nid.includes('src/data/smaQuestionsTopic16')
           ) {
             return 'data-sma-questions-fase-f2';
           }
-          if (id.includes('src/data/oskQuestions')) {
+          if (nid.includes('src/data/oskQuestions')) {
             return 'data-osk-questions';
           }
-          if (id.includes('src/data/ospQuestions')) {
+          if (nid.includes('src/data/ospQuestions')) {
             return 'data-osp-questions';
           }
-          if (id.includes('src/data/osnQuestions')) {
+          if (nid.includes('src/data/osnQuestions')) {
             return 'data-osn-questions';
           }
-          if (id.includes('src/data/ichoQuestions')) {
+          if (nid.includes('src/data/ichoQuestions')) {
             return 'data-icho-questions';
           }
         },

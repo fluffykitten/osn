@@ -10,7 +10,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PILLARS_DATA } from '../../data/syllabusData';
-import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
+import { SMA_TOPICS_META, type SmaTopicMeta } from '../../data/smaTopicsMeta';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { resolveQuestionTopicMeta } from '../../utils/topicMapping';
 import { questionBankService } from '../../services/questionBankService';
@@ -261,7 +261,7 @@ export const PracticeBank: React.FC = () => {
   const categories = useMemo(() => {
     const list =
       activeDatabase === 'sma'
-        ? (selectedGrade === 'Semua' ? SMA_MATERIALS : SMA_MATERIALS.filter((m) => m.grade === selectedGrade))
+        ? (selectedGrade === 'Semua' ? SMA_TOPICS_META : SMA_TOPICS_META.filter((m) => m.grade === selectedGrade))
         : PILLARS_DATA;
     const set = new Set(list.map((m) => m.category));
     return ['Semua', ...Array.from(set)];
@@ -272,7 +272,7 @@ export const PracticeBank: React.FC = () => {
     const query = searchQuery.toLowerCase().trim();
 
     if (activeDatabase === 'sma') {
-      return SMA_MATERIALS.filter((mat) => {
+      return SMA_TOPICS_META.filter((mat) => {
         const matchGrade = selectedGrade === 'Semua' || mat.grade === selectedGrade;
         const matchCategory = selectedCategory === 'Semua' || mat.category === selectedCategory;
         const matchSearch =
@@ -317,7 +317,7 @@ export const PracticeBank: React.FC = () => {
     if (activeDrawerTopicId === null) return null;
 
     if (activeDatabase === 'sma') {
-      const mat = SMA_MATERIALS.find((m) => m.topic_number === activeDrawerTopicId);
+      const mat = SMA_TOPICS_META.find((m) => m.topic_number === activeDrawerTopicId);
       if (!mat) return null;
       const qList = getQuestionsForTopic(allQuestions, activeDrawerTopicId, 'sma');
       return {
@@ -638,7 +638,7 @@ export const PracticeBank: React.FC = () => {
 
                 const isSmaItem = 'grade' in topicItem;
                 const levelOrGrade = isSmaItem
-                  ? `${(topicItem as SmaMaterialItem).grade} · ${(topicItem as SmaMaterialItem).curriculumPhase}`
+                  ? `${(topicItem as SmaTopicMeta).grade} · ${(topicItem as SmaTopicMeta).curriculumPhase}`
                   : (topicItem as any).level || 'Puspresnas / IChO';
 
                 const summaryText =

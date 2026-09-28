@@ -30,7 +30,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { PILLARS_DATA } from '../../data/syllabusData';
-import { SMA_MATERIALS } from '../../data/smaMaterialsData';
+import { SMA_TOPICS_META } from '../../data/smaTopicsMeta';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { TopicSvgArt } from '../../components/materials/TopicSvgArt';
@@ -100,7 +100,7 @@ export const PracticeTopicDetail: React.FC = () => {
     const focusTags = getTopicFocusTags(topicNumber, database);
 
     if (isSma) {
-      const mat = SMA_MATERIALS.find((m) => m.topic_number === topicNumber);
+      const mat = SMA_TOPICS_META.find((m) => m.topic_number === topicNumber);
       if (mat) {
         return {
           title: mat.title,
@@ -108,7 +108,7 @@ export const PracticeTopicDetail: React.FC = () => {
           levelOrGrade: mat.grade,
           summary: mat.summary,
           tags: focusTags,
-          totalConceptCount: SMA_MATERIALS.length,
+          totalConceptCount: SMA_TOPICS_META.length,
         };
       }
     } else {
