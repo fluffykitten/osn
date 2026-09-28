@@ -435,3 +435,405 @@ Energi ikatan didefinisikan secara termodinamika murni sebagai energi yang dibut
     ],
   },
 ];
+
+// ============================================================================
+// TOPIK 107: Laju Reaksi & Teori Tumbukan SMA (Kinetika Kimia & Orde Reaksi)
+// ============================================================================
+export const WORKED_EXAMPLES_TOPIC_107: ConceptBlock[] = [
+  {
+    tag: 'contoh-hukum-laju-multikomponen',
+    tags: ['hukum-laju-reaksi', 'orde-reaksi', 'metode-laju-awal', 'tetapan-laju-k', 'satuan-tetapan-laju', 'kimia-sma'],
+    title: 'Contoh Soal 1: Penentuan Orde Reaksi Multikomponen, Hukum Laju & Nilai Tetapan Laju k dari Data Eksperimen (Level: Sedang)',
+    summary: 'Analisis tabel data laju awal multikomponen gas NO dan O2, penentuan orde masing-masing reaktan, formulasi hukum laju, serta kalkulasi nilai dan satuan tetapan laju k.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Reaksi pembentukan gas nitrogen dioksida ($\\\\ce{NO2}$) dari gas nitrogen monoksida ($\\\\ce{NO}$) dan gas oksigen ($\\\\ce{O2}$) diselidiki di laboratorium pada temperatur $25^\\\\circ\\\\text{C}$:
+$$\\\\ce{2 NO(g) + O2(g) -> 2 NO2(g)}$$
+
+Untuk menentukan persamaan hukum lajunya, dilakukan serangkaian percobaan dengan mengukur laju awal pembentukan gas $\\\\ce{NO2}$ pada berbagai variasi konsentrasi awal reaktan:
+
+| Percobaan | $[\\\\ce{NO}]\\\\text{ (M)}$ | $[\\\\ce{O2}]\\\\text{ (M)}$ | Laju Awal $v\\\\text{ (M/detik)}$ |
+| :---: | :---: | :---: | :---: |
+| 1 | $0.10$ | $0.10$ | $1.20 \\\\times 10^{-4}$ |
+| 2 | $0.10$ | $0.30$ | $3.60 \\\\times 10^{-4}$ |
+| 3 | $0.20$ | $0.10$ | $4.80 \\\\times 10^{-4}$ |
+| 4 | $0.30$ | $0.20$ | $?$ |
+
+---
+
+### 🎯 Pertanyaan:
+1. Tentukan orde reaksi terhadap gas $\\\\ce{O2}$ dan terhadap gas $\\\\ce{NO}$!
+2. Tuliskan persamaan hukum laju reaksi dan tentukan orde reaksi totalnya!
+3. Hitung nilai tetapan laju reaksi ($k$) lengkap beserta satuan kinetikanya!
+4. Berapakah laju pembentukan $\\\\ce{NO2}$ pada kondisi Percobaan 4?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+Bentuk umum persamaan hukum laju reaksi:
+$$v = k [\\\\ce{NO}]^m [\\\\ce{O2}]^n$$
+
+#### Langkah 1: Menentukan Orde Reaksi terhadap $\\\\ce{O2}$ (Nilai $n$)
+Pilihlah dua percobaan dengan konsentrasi $[\\\\ce{NO}]$ tetap agar pengaruh konsentrasi $\\\\ce{NO}$ tereliminasi, yaitu Percobaan 1 dan Percobaan 2 ($[\\\\ce{NO}] = 0.10\\\\text{ M}$):
+$$\\\\frac{v_2}{v_1} = \\\\left(\\\\frac{[\\\\ce{NO}]_2}{[\\\\ce{NO}]_1}\\\\right)^m \\\\times \\\\left(\\\\frac{[\\\\ce{O2}]_2}{[\\\\ce{O2}]_1}\\\\right)^n$$
+$$\\\\frac{3.60 \\\\times 10^{-4}}{1.20 \\\\times 10^{-4}} = \\\\left(\\\\frac{0.10}{0.10}\\\\right)^m \\\\times \\\\left(\\\\frac{0.30}{0.10}\\\\right)^n$$
+$$3.0 = (1.0)^m \\\\times (3.0)^n \\\\implies 3.0 = 3.0^n \\\\implies \\\\mathbf{n = 1}$$
+*(Reaksi berorde 1 terhadap gas $\\\\ce{O2}$).*
+
+#### Langkah 2: Menentukan Orde Reaksi terhadap $\\\\ce{NO}$ (Nilai $m$)
+Pilihlah dua percobaan dengan konsentrasi $[\\\\ce{O2}]$ tetap, yaitu Percobaan 1 dan Percobaan 3 ($[\\\\ce{O2}] = 0.10\\\\text{ M}$):
+$$\\\\frac{v_3}{v_1} = \\\\left(\\\\frac{[\\\\ce{NO}]_3}{[\\\\ce{NO}]_1}\\\\right)^m \\\\times \\\\left(\\\\frac{[\\\\ce{O2}]_3}{[\\\\ce{O2}]_1}\\\\right)^n$$
+$$\\\\frac{4.80 \\\\times 10^{-4}}{1.20 \\\\times 10^{-4}} = \\\\left(\\\\frac{0.20}{0.10}\\\\right)^m \\\\times \\\\left(\\\\frac{0.10}{0.10}\\\\right)^n$$
+$$4.0 = (2.0)^m \\\\times (1.0)^n \\\\implies 4.0 = 2.0^m \\\\implies 2^2 = 2^m \\\\implies \\\\mathbf{m = 2}$$
+*(Reaksi berorde 2 terhadap gas $\\\\ce{NO}$).*
+
+#### Langkah 3: Persamaan Hukum Laju & Orde Total
+Substitusikan nilai pangkat $m=2$ dan $n=1$:
+$$\\\\mathbf{v = k [\\\\ce{NO}]^2 [\\\\ce{O2}]}$$
+$$\\\\text{Orde Total} = m + n = 2 + 1 = \\\\mathbf{3}$$
+
+#### Langkah 4: Menghitung Nilai Tetapan Laju ($k$) & Satuannya
+Gunakan data Percobaan 1 ($[\\\\ce{NO}] = 0.10\\\\text{ M}$, $[\\\\ce{O2}] = 0.10\\\\text{ M}$, $v = 1.20 \\\\times 10^{-4}\\\\text{ M/s}$):
+$$1.20 \\\\times 10^{-4}\\\\text{ M}\\\\cdot\\\\text{s}^{-1} = k \\\\times (0.10\\\\text{ M})^2 \\\\times (0.10\\\\text{ M})$$
+$$1.20 \\\\times 10^{-4}\\\\text{ M}\\\\cdot\\\\text{s}^{-1} = k \\\\times (1.0 \\\\times 10^{-3}\\\\text{ M}^3)$$
+$$k = \\\\frac{1.20 \\\\times 10^{-4}\\\\text{ M}\\\\cdot\\\\text{s}^{-1}}{1.0 \\\\times 10^{-3}\\\\text{ M}^3} = \\\\mathbf{0.12\\\\text{ M}^{-2}\\\\cdot\\\\text{s}^{-1}} \\\\quad (\\\\text{atau } 0.12\\\\text{ L}^2\\\\cdot\\\\text{mol}^{-2}\\\\cdot\\\\text{s}^{-1})$$
+
+Formula umum satuan $k$:
+$$\\\\text{Satuan } k = \\\\text{M}^{1 - \\\\text{orde total}} \\\\cdot \\\\text{s}^{-1} = \\\\text{M}^{1 - 3} \\\\cdot \\\\text{s}^{-1} = \\\\mathbf{\\\\text{M}^{-2}\\\\cdot\\\\text{s}^{-1}}$$
+
+#### Langkah 5: Menghitung Laju pada Percobaan 4
+Masukkan konsentrasi baru ke persamaan laju yang telah lengkap:
+$$\\\\begin{aligned}
+v_4 &= k [\\\\ce{NO}]^2 [\\\\ce{O2}] \\\\\\\\
+&= (0.12\\\\text{ M}^{-2}\\\\cdot\\\\text{s}^{-1}) \\\\times (0.30\\\\text{ M})^2 \\\\times (0.20\\\\text{ M}) \\\\\\\\
+&= 0.12 \\\\times 0.090 \\\\times 0.20 \\\\\\\\
+&= \\\\mathbf{2.16 \\\\times 10^{-3}\\\\text{ M/detik}}
+\\\\end{aligned}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Mitos Koefisien Reaksi:** Kebetulan pada soal ini orde reaksi $\\\\ce{NO}$ bernilai $2$ dan $\\\\ce{O2}$ bernilai $1$, persis sama dengan koefisien stoikiometri reaksinya ($\\\\ce{2 NO + 1 O2 -> 2 NO2}$). Namun, **ini hanyalah kebetulan kinetik**!  
+> Jangan pernah menuliskan persamaan laju langsung dari koefisien reaksi sebelum mengujinya dengan rasio data eksperimen, kecuali soal secara tegas menyebutkan *"reaksi berlangsung secara elementer satu tahap"*.`,
+    keyFormulas: [
+      { name: 'Persamaan Laju Reaksi', formula: 'v = k [\\ce{A}]^m [\\ce{B}]^n' },
+      { name: 'Rumus Satuan Tetapan k', formula: '\\text{Satuan } k = \\text{M}^{1 - \\text{orde total}} \\cdot \\text{s}^{-1}' },
+      { name: 'Metode Rasio Laju', formula: '\\frac{v_2}{v_1} = \\left(\\frac{[\\ce{A}]_2}{[\\ce{A}]_1}\\right)^m \\left(\\frac{[\\ce{B}]_2}{[\\ce{B}]_1}\\right)^n' },
+    ],
+  },
+  {
+    tag: 'contoh-kinetika-termal-laju-suhu',
+    tags: ['faktor-suhu-arrhenius', 'aturan-suhu-laju', 'waktu-reaksi', 'kinetika-termal', 'kimia-sma'],
+    title: 'Contoh Soal 2: Kinetika Termal SMA: Pengaruh Kenaikan Suhu terhadap Laju Reaksi & Durasi Waktu Reaksi (Level: Sedang)',
+    summary: 'Penerapan formulasi kelipatan kenaikan temperatur terhadap laju reaksi dan waktu durasi reaksi, serta interpretasi sebaran kinetik Maxwell-Boltzmann.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dalam suatu pengujian kinetika reaksi kimia di laboratorium sekolah, diketahui bahwa laju reaksi meningkat menjadi $3$ kali lebih cepat setiap kenaikan temperatur sebesar $15^\\\\circ\\\\text{C}$.  
+Pada temperatur awal $20^\\\\circ\\\\text{C}$, reaksi tersebut membutuhkan waktu $54\\\\text{ menit}$ untuk bereaksi tuntas dengan laju awal terukur $v_0 = 2.0 \\\\times 10^{-3}\\\\text{ M/menit}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung laju reaksi tersebut jika temperatur dinaikkan menjadi $65^\\\\circ\\\\text{C}$!
+2. Berapa detik waktu yang diperlukan agar reaksi selesai sempurna jika dilangsungkan pada suhu $80^\\\\circ\\\\text{C}$?
+3. Mengapa peningkatan suhu dapat mempercepat reaksi kimia secara drastis, padahal frekuensi tumbukan total antarmolekul hanya meningkat sangat sedikit? Jelaskan berdasarkan kurva distribusi Maxwell-Boltzmann!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+Diketahui data kinetika termal:
+- Faktor pengali kelipatan laju ($n$) $= 3$
+- Interval kenaikan temperatur ($\\\\Delta T_0$) $= 15^\\\\circ\\\\text{C}$
+- Kondisi awal 1: $T_1 = 20^\\\\circ\\\\text{C}$, $v_1 = 2.0 \\\\times 10^{-3}\\\\text{ M/menit}$, $t_1 = 54\\\\text{ menit}$
+
+#### Langkah 1: Menghitung Laju Reaksi pada Suhu $65^\\\\circ\\\\text{C}$
+Hitung selisih temperatur:
+$$\\\\Delta T = T_2 - T_1 = 65^\\\\circ\\\\text{C} - 20^\\\\circ\\\\text{C} = 45^\\\\circ\\\\text{C}$$
+Jumlah kelipatan kenaikan:
+$$\\\\frac{\\\\Delta T}{\\\\Delta T_0} = \\\\frac{45^\\\\circ\\\\text{C}}{15^\\\\circ\\\\text{C}} = 3\\\\text{ kali kenaikan}$$
+
+Gunakan rumus empiris kelipatan laju reaksi SMA:
+$$\\\\begin{aligned}
+v_2 &= v_1 \\\\times n^{\\\\frac{\\\\Delta T}{\\\\Delta T_0}} \\\\\\\\
+v_{65} &= (2.0 \\\\times 10^{-3}\\\\text{ M/menit}) \\\\times 3^3 \\\\\\\\
+&= (2.0 \\\\times 10^{-3}) \\\\times 27 \\\\\\\\
+&= \\\\mathbf{5.4 \\\\times 10^{-2}\\\\text{ M/menit}} \\\\quad (\\\\text{atau } 9.0 \\\\times 10^{-4}\\\\text{ M/detik})
+\\\\end{aligned}$$
+
+#### Langkah 2: Menghitung Waktu Reaksi pada Suhu $80^\\\\circ\\\\text{C}$
+Hitung selisih temperatur dari kondisi awal:
+$$\\\\Delta T = T_3 - T_1 = 80^\\\\circ\\\\text{C} - 20^\\\\circ\\\\text{C} = 60^\\\\circ\\\\text{C}$$
+Jumlah kelipatan kenaikan:
+$$\\\\frac{\\\\Delta T}{\\\\Delta T_0} = \\\\frac{60^\\\\circ\\\\text{C}}{15^\\\\circ\\\\text{C}} = 4\\\\text{ kali kenaikan}$$
+
+Ingat bahwa laju reaksi berbanding terbalik dengan waktu reaksi ($v \\\\propto \\\\frac{1}{t}$). Oleh karena itu, rumusan waktu reaksi memiliki faktor invers $\\\\left(\\\\frac{1}{n}\\\\right)$:
+$$\\\\begin{aligned}
+t_3 &= t_1 \\\\times \\\\left(\\\\frac{1}{n}\\\\right)^{\\\\frac{\\\\Delta T}{\\\\Delta T_0}} \\\\\\\\
+t_{80} &= 54\\\\text{ menit} \\\\times \\\\left(\\\\frac{1}{3}\\\\right)^4 \\\\\\\\
+&= 54\\\\text{ menit} \\\\times \\\\frac{1}{81} \\\\\\\\
+&= \\\\frac{54}{81}\\\\text{ menit} = \\\\frac{2}{3}\\\\text{ menit}
+\\\\end{aligned}$$
+
+Konversikan ke satuan detik:
+$$t_{80} = \\\\frac{2}{3} \\\\times 60\\\\text{ detik} = \\\\mathbf{40\\\\text{ detik}}$$
+
+#### Langkah 3: Penjelasan Fenomena Berdasarkan Teori Maxwell-Boltzmann
+- Kenaikan temperatur $15^\\\\circ\\\\text{C}$ hanya meningkatkan energi kinetik translasi rata-rata partikel (dan frekuensi tumbukan) sebesar kira-kira $2\\text{--}3\\\\%$.
+- Namun, menurut **Distribusi Maxwell-Boltzmann**, kenaikan suhu menggeser kurva sebaran energi ke arah kanan dan mendatar. Akibatnya, luasan daerah di bawah kurva yang melampaui batas energi aktivasi ($E_k \\\\ge E_a$) **melonjak hingga 300% (3 kali lipat)**.
+- Jadi, peningkatan laju yang dahsyat bukan disebabkan oleh lebih seringnya partikel saling bertumbukan, melainkan karena **jauh lebih banyak partikel yang memiliki modal energi kinetik yang cukup untuk menembus bukit energi aktivasi**.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Menghindari Kesalahan Satuan:**  
+> - Jika ditanya laju ($v$), kalikan dengan faktor kelipatan $n^x$.  
+> - Jika ditanya durasi waktu ($t$), bagilah dengan faktor kelipatan $n^x$ (atau kalikan dengan $(1/n)^x$).  
+> - Selalu perhatikan satuan akhir yang diminta pada soal: jika waktu awal dalam satuan *menit* sedangkan pilihan jawaban dalam *detik*, pastikan untuk mengalikan dengan $60$ di langkah paling akhir!`,
+    keyFormulas: [
+      { name: 'Rumus Laju Suhu', formula: 'v_2 = v_1 \\times n^{\\frac{T_2 - T_1}{\\Delta T_0}}' },
+      { name: 'Rumus Waktu Suhu', formula: 't_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\Delta T_0}}' },
+      { name: 'Relasi Laju dan Waktu', formula: 'v \\propto \\frac{1}{t}' },
+    ],
+  },
+  {
+    tag: 'contoh-diagram-energi-tumbukan-ea',
+    tags: ['teori-tumbukan-efektif', 'energi-aktivasi-ea', 'orientasi-tumbukan', 'keadaan-transisi-kompleks', 'diagram-tingkat-energi', 'kimia-sma'],
+    title: 'Contoh Soal 3: Teori Tumbukan Efektif, Diagram Profil Energi Potensial & Penentuan Energi Aktivasi Ea (Level: Sulit / HOTS)',
+    summary: 'Analisis profil kurva koordinat reaksi eksotermik/endotermik, kalkulasi Ea maju, Ea balik, dan ΔH reaksi, serta evaluasi dampak katalis pada kompleks teraktivasi.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Reaksi hipotetis fasa gas berlangsung menurut persamaan berikut:
+$$\\\\ce{A2(g) + B2(g) -> 2 AB(g)}$$
+
+Dari hasil studi spektroskopi keadaan transisi dan termokimia, diperoleh data tingkat energi potensial sistem sebagai berikut:
+- Energi potensial pereaksi awal ($\\\\ce{A2 + B2}$) $= +60\\\\text{ kJ/mol}$
+- Energi potensial puncak kompleks teraktivasi $[\\\\ce{A2B2}]^\\\\ddagger$ tanpa katalis $= +175\\\\text{ kJ/mol}$
+- Energi potensial produk akhir ($\\\\ce{2 AB}$) $= +25\\\\text{ kJ/mol}$
+- Pada percobaan kedua, ditambahkan katalis homogen yang menurunkan energi potensial puncak kompleks teraktivasi menjadi $+115\\\\text{ kJ/mol}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung besar energi aktivasi reaksi maju ($E_{a,\\\\text{maju}}$) dan energi aktivasi reaksi balik ($E_{a,\\\\text{balik}}$) tanpa katalis!
+2. Hitung nilai perubahan entalpi reaksi ($\\\\Delta H$) dan tentukan apakah reaksi ini tergolong eksotermik atau endotermik!
+3. Hitung energi aktivasi reaksi maju dengan katalis ($E'_{a,\\\\text{maju}}$) dan energi aktivasi reaksi balik dengan katalis ($E'_{a,\\\\text{balik}}$)! Apakah penambahan katalis mengubah nilai $\\\\Delta H$ reaksi?
+4. Mengapa dua molekul $\\\\ce{A2}$ dan $\\\\ce{B2}$ yang memiliki energi kinetik melampaui $E_a$ tetap dapat gagal menghasilkan reaksi bila orientasi sudut tabrakannya tidak tepat?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menghitung $E_a$ Reaksi Maju dan Balik Tanpa Katalis
+Energi aktivasi ($E_a$) adalah selisih energi potensial antara puncak kompleks teraktivasi dengan energi zat awal:
+- **Energi Aktivasi Reaksi Maju ($E_{a,\\\\text{maju}}$):**
+  $$E_{a,\\\\text{maju}} = E_{\\\\text{kompleks}} - E_{\\\\text{reaktan}} = +175\\\\text{ kJ/mol} - (+60\\\\text{ kJ/mol}) = \\\\mathbf{+115\\\\text{ kJ/mol}}$$
+- **Energi Aktivasi Reaksi Balik ($E_{a,\\\\text{balik}}$):**
+  $$E_{a,\\\\text{balik}} = E_{\\\\text{kompleks}} - E_{\\\\text{produk}} = +175\\\\text{ kJ/mol} - (+25\\\\text{ kJ/mol}) = \\\\mathbf{+150\\\\text{ kJ/mol}}$$
+
+#### Langkah 2: Menghitung Perubahan Entalpi Reaksi ($\\\\Delta H$)
+Perubahan entalpi reaksi adalah selisih energi produk dikurangi reaktan:
+$$\\\\Delta H = E_{\\\\text{produk}} - E_{\\\\text{reaktan}} = +25\\\\text{ kJ/mol} - (+60\\\\text{ kJ/mol}) = \\\\mathbf{-35\\\\text{ kJ/mol}}$$
+
+*Verifikasi melalui selisih energi aktivasi:*
+$$\\\\Delta H = E_{a,\\\\text{maju}} - E_{a,\\\\text{balik}} = +115\\\\text{ kJ/mol} - 150\\\\text{ kJ/mol} = \\\\mathbf{-35\\\\text{ kJ/mol}}$$
+Karena nilai $\\\\Delta H$ bertanda negatif ($\\\\Delta H < 0$), maka reaksi berlangsung secara **eksotermik** (melepaskan kalor sebesar $35\\\\text{ kJ/mol}$ ke lingkungan).
+
+#### Langkah 3: Dampak Penambahan Katalis terhadap $E_a$ dan $\\\\Delta H$
+Dengan adanya katalis, energi puncak kompleks teraktivasi turun menjadi $+115\\\\text{ kJ/mol}$:
+- **Energi Aktivasi Maju Terkatalisis ($E'_{a,\\\\text{maju}}$):**
+  $$E'_{a,\\\\text{maju}} = E'_{\\\\text{kompleks}} - E_{\\\\text{reaktan}} = +115\\\\text{ kJ/mol} - 60\\\\text{ kJ/mol} = \\\\mathbf{+55\\\\text{ kJ/mol}}$$
+  *(Turun sebesar $60\\\\text{ kJ/mol}$ dibandingkan tanpa katalis).*
+- **Energi Aktivasi Balik Terkatalisis ($E'_{a,\\\\text{balik}}$):**
+  $$E'_{a,\\\\text{balik}} = E'_{\\\\text{kompleks}} - E_{\\\\text{produk}} = +115\\\\text{ kJ/mol} - 25\\\\text{ kJ/mol} = \\\\mathbf{+90\\\\text{ kJ/mol}}$$
+  *(Juga turun sebesar $60\\\\text{ kJ/mol}$).*
+- **Perubahan Entalpi Terkatalisis ($\\\\Delta H'$):**
+  $$\\\\Delta H' = E'_{a,\\\\text{maju}} - E'_{a,\\\\text{balik}} = 55\\\\text{ kJ/mol} - 90\\\\text{ kJ/mol} = \\\\mathbf{-35\\\\text{ kJ/mol}}$$
+  **Kesimpulan Kritis:** Penambahan katalis **sama sekali TIDAK MENGUBAH nilai $\\\\Delta H$ reaksi**. Katalis menurunkan bukit aktivasi maju dan balik dalam jumlah yang persis sama.
+
+#### Langkah 4: Rasionalisasi Teori Orientasi Tumbukan Spasial
+Agar terjadi reaksi, ikatan lama $\\\\ce{A-A}$ dan $\\\\ce{B-B}$ harus putus bersamaan dengan terbentuknya ikatan baru $\\\\ce{A-B}$.  
+Jika molekul $\\\\ce{A2}$ menabrak molekul $\\\\ce{B2}$ dari ujung yang salah (misalnya hanya satu atom A yang menyentuh satu atom B sementara atom A kedua berada terlalu jauh dari atom B kedua), kompleks teraktivasi empat pusat $[\\\\ce{A...B...B...A}]^\\\\ddagger$ tidak dapat terstabilkan. Akibatnya, meskipun energi kinetik kedua molekul sangat tinggi ($E_k \\\\ge E_a$), kedua molekul hanya akan terpental kembali secara elastis tanpa terjadi pertukaran atom.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Dua Aturan Emas Profil Diagram Energi:**  
+> 1. **Hubungan Fundamental:** Selalu berlaku formula $\\\\mathbf{\\\\Delta H = E_{a,\\\\text{maju}} - E_{a,\\\\text{balik}}}$. Jika bukit reaksi maju lebih rendah daripada bukit balik ($E_{a,\\\\text{maju}} < E_{a,\\\\text{balik}}$), reaksi pasti eksoterm ($\\\\Delta H < 0$).  
+> 2. **Sifat Invarian Katalis:** Katalis hanya mengubah lintasan kinetik (menurunkan puncak keadaan transisi), namun tidak memiliki wewenang untuk mengubah tingkat energi keadaan awal (reaktan) maupun keadaan akhir (produk). Maka:  
+>    - $E_a$ berubah $\\\\implies$ Laju reaksi melonjak drastis.  
+>    - $\\\\Delta H$, $\\\\Delta G$, dan tetapan kesetimbangan $K$ **TETAP KONSTAN**!`,
+    keyFormulas: [
+      { name: 'Relasi Ea dan Entalpi Reaksi', formula: '\\Delta H = E_{a,\\text{maju}} - E_{a,\\text{balik}}' },
+      { name: 'Definisi Energi Aktivasi Maju', formula: 'E_{a,\\text{maju}} = E_{\\text{kompleks}} - E_{\\text{reaktan}}' },
+      { name: 'Definisi Energi Aktivasi Balik', formula: 'E_{a,\\text{balik}} = E_{\\text{kompleks}} - E_{\\text{produk}}' },
+    ],
+  },
+  {
+    tag: 'contoh-stoikiometri-laju-diferensial',
+    tags: ['laju-reaksi-kimia', 'stoikiometri-laju', 'laju-sesaat-vs-rata-rata', 'kurva-konsentrasi-waktu', 'kimia-sma'],
+    title: 'Contoh Soal 4: Stoikiometri Laju Reaksi Diferensial & Kinetika Penguraian Gas N2O5 (Level: Sulit / HOTS)',
+    summary: 'Penentuan laju pengurangan reaktan, laju pertambahan produk berdasarkan koefisien stoikiometri diferensial, serta konversi volumetrik gas pada STP.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Dinitrogen pentaoksida ($\\\\ce{N2O5}$) merupakan padatan putih yang mudah menyublim dan terurai menjadi gas nitrogen dioksida yang berwarna cokelat kemerahan serta gas oksigen yang tidak berwarna menurut persamaan:
+$$\\\\ce{2 N2O5(g) -> 4 NO2(g) + O2(g)}$$
+
+Eksperimen dekomposisi termal dilakukan dalam suatu bejana kaku bervolume tetap $4.00\\\\text{ Liter}$ pada suhu konstan $45^\\\\circ\\\\text{C}$.  
+Pada saat awal ($t = 0$), bejana diisi dengan $0.800\\\\text{ mol}$ gas $\\\\ce{N2O5}$. Setelah reaksi berlangsung selama $200\\\\text{ detik}$, sampel dianalisis dan tersisa $0.320\\\\text{ mol}$ gas $\\\\ce{N2O5}$.
+
+---
+
+### 🎯 Pertanyaan:
+1. Hitung konsentrasi awal dan konsentrasi akhir gas $\\\\ce{N2O5}$ di dalam bejana!
+2. Tentukan laju rata-rata penguraian gas $\\\\ce{N2O5}$ ($v_{\\\\ce{N2O5}}$) dalam selang waktu $200\\\\text{ detik}$ tersebut!
+3. Tentukan laju rata-rata pembentukan gas $\\\\ce{NO2}$ ($v_{\\\\ce{NO2}}$) dan gas $\\\\ce{O2}$ ($v_{\\\\ce{O2}}$) menggunakan prinsip stoikiometri laju diferensial!
+4. Berapakah total volume gas hasil reaksi ($\\\\ce{NO2}$ dan $\\\\ce{O2}$) yang terbentuk pada akhir $200\\\\text{ detik}$ jika diukur pada keadaan standar (STP, $0^\\\\circ\\\\text{C}, 1\\\\text{ atm}$)?
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Menghitung Konsentrasi Molar Gas $\\\\ce{N2O5}$
+Karena volume bejana adalah $V = 4.00\\\\text{ L}$:
+$$\\\\begin{aligned}
+[\\\\ce{N2O5}]_0 &= \\\\frac{n_0}{V} = \\\\frac{0.800\\\\text{ mol}}{4.00\\\\text{ L}} = \\\\mathbf{0.200\\\\text{ M}} \\\\\\\\
+[\\\\ce{N2O5}]_{200} &= \\\\frac{n_{200}}{V} = \\\\frac{0.320\\\\text{ mol}}{4.00\\\\text{ L}} = \\\\mathbf{0.080\\\\text{ M}}
+\\\\end{aligned}$$
+
+Perubahan konsentrasi:
+$$\\\\Delta[\\\\ce{N2O5}] = [\\\\ce{N2O5}]_{200} - [\\\\ce{N2O5}]_0 = 0.080\\\\text{ M} - 0.200\\\\text{ M} = -0.120\\\\text{ M}$$
+
+#### Langkah 2: Menghitung Laju Penguraian Gas $\\\\ce{N2O5}$
+Sesuai definisi laju pengurangan reaktan:
+$$\\\\begin{aligned}
+v_{\\\\ce{N2O5}} &= -\\\\frac{\\\\Delta[\\\\ce{N2O5}]}{\\\\Delta t} \\\\\\\\
+&= -\\\\frac{-0.120\\\\text{ M}}{200\\\\text{ detik}} \\\\\\\\
+&= \\\\mathbf{+6.00 \\\\times 10^{-4}\\\\text{ M/detik}}
+\\\\end{aligned}$$
+
+#### Langkah 3: Menghitung Laju Pembentukan Produk Berdasarkan Koefisien
+Hubungan kesetaraan laju reaksi diferensial:
+$$v = -\\\\frac{1}{2} \\\\frac{\\\\Delta[\\\\ce{N2O5}]}{\\\\Delta t} = +\\\\frac{1}{4} \\\\frac{\\\\Delta[\\\\ce{NO2}]}{\\\\Delta t} = +\\\\frac{1}{1} \\\\frac{\\\\Delta[\\\\ce{O2}]}{\\\\Delta t}$$
+Maka berlaku relasi:
+$$\\\\frac{v_{\\\\ce{N2O5}}}{2} = \\\\frac{v_{\\\\ce{NO2}}}{4} = \\\\frac{v_{\\\\ce{O2}}}{1}$$
+
+- **Laju Pembentukan $\\\\ce{NO2}$ ($v_{\\\\ce{NO2}}$):**
+  $$v_{\\\\ce{NO2}} = \\\\frac{4}{2} \\\\times v_{\\\\ce{N2O5}} = 2 \\\\times (6.00 \\\\times 10^{-4}\\\\text{ M/s}) = \\\\mathbf{1.20 \\\\times 10^{-3}\\\\text{ M/detik}}$$
+- **Laju Pembentukan $\\\\ce{O2}$ ($v_{\\\\ce{O2}}$):**
+  $$v_{\\\\ce{O2}} = \\\\frac{1}{2} \\\\times v_{\\\\ce{N2O5}} = \\\\frac{1}{2} \\\\times (6.00 \\\\times 10^{-4}\\\\text{ M/s}) = \\\\mathbf{3.00 \\\\times 10^{-4}\\\\text{ M/detik}}$$
+
+#### Langkah 4: Menghitung Volume Gas Produk pada Kondisi STP
+Hitung mol $\\\\ce{N2O5}$ yang telah bereaksi (terurai):
+$$n(\\\\ce{N2O5})_{\\\\text{bereaksi}} = 0.800\\\\text{ mol} - 0.320\\\\text{ mol} = 0.480\\\\text{ mol}$$
+
+Gunakan perbandingan koefisien reaksi:
+$$\\\\ce{2 N2O5(g) -> 4 NO2(g) + O2(g)}$$
+- Mol $\\\\ce{NO2}$ terbentuk $= \\\\frac{4}{2} \\\\times 0.480\\\\text{ mol} = \\\\mathbf{0.960\\\\text{ mol}}$
+- Mol $\\\\ce{O2}$ terbentuk $= \\\\frac{1}{2} \\\\times 0.480\\\\text{ mol} = \\\\mathbf{0.240\\\\text{ mol}}$
+- Total mol gas produk $= 0.960\\\\text{ mol} + 0.240\\\\text{ mol} = \\\\mathbf{1.200\\\\text{ mol}}$
+
+Volume gas total pada STP ($V_m = 22.4\\\\text{ L/mol}$):
+$$V_{\\\\text{total (STP)}} = n_{\\\\text{total}} \\\\times 22.4\\\\text{ L/mol} = 1.200\\\\text{ mol} \\\\times 22.4\\\\text{ L/mol} = \\\\mathbf{26.88\\\\text{ Liter}}$$
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Tanda Negatif vs Nilai Laju:**  
+> Siswa sering bingung mengapa pada formula terdapat tanda minus ($-d[R]/dt$).  
+> - Karena konsentrasi reaktan selalu menyusut, selisih $\\\\Delta[R]$ pasti bernilai negatif.  
+> - Agar nilai besaran fisika laju reaksi ($v$) selalu bernilai positif riil, dikalikan dengan tanda minus di depan: $-(-0.120) = +0.120$.  
+> - Jangan pernah menuliskan nilai laju reaksi bertanda negatif!`,
+    keyFormulas: [
+      { name: 'Kesetaraan Laju Diferensial', formula: 'v = -\\frac{1}{a}\\frac{\\Delta[\\ce{A}]}{\\Delta t} = +\\frac{1}{c}\\frac{\\Delta[\\ce{C}]}{\\Delta t}' },
+      { name: 'Perbandingan Laju Stoikiometri', formula: '\\frac{v_{\\ce{A}}}{a} = \\frac{v_{\\ce{B}}}{b} = \\frac{v_{\\ce{C}}}{c}' },
+      { name: 'Volume Gas Ideal STP', formula: 'V_{\\text{STP}} = n \\times 22.4\\text{ L/mol}' },
+    ],
+  },
+  {
+    tag: 'contoh-analisis-faktor-laju-eksperimen',
+    tags: ['faktor-konsentrasi', 'faktor-luas-permukaan', 'katalis-homogen-heterogen', 'tahap-penentu-laju-rds', 'kimia-sma'],
+    title: 'Contoh Soal 5: Analisis Eksperimen Faktor Laju Reaksi: Bentuk Padatan, Konsentrasi, Suhu & Katalis (Level: Sulit / HOTS)',
+    summary: 'Studi komparasi 5 variabel eksperimen pelarutan batu pualam CaCO3 dalam asam klorida, penentuan variabel bebas/terikat, dan evaluasi mikroskopis pengenceran vs katalis.',
+    content: `### 📋 Skenario Masalah & Data Eksperimen:
+Sekelompok siswa kelas 11 melakukan investigasi laboratorium untuk mempelajari faktor-faktor yang memengaruhi laju reaksi antara kalsium karbonat ($\\\\ce{CaCO3}$) dengan larutan asam klorida ($\\\\ce{HCl}$):
+$$\\\\ce{CaCO3(s) + 2 HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)}$$
+
+Pada setiap percobaan digunakan $2.00\\\\text{ gram } \\\\ce{CaCO3}$ dan $50.0\\\\text{ mL}$ larutan $\\\\ce{HCl}$. Waktu yang dicatat adalah durasi hingga seluruh padatan $\\\\ce{CaCO3}$ habis bereaksi dan pembentukan gelembung gas $\\\\ce{CO2}$ berhenti total:
+
+| Tabung | Bentuk Fisik $\\\\ce{CaCO3}$ ($2.00\\\\text{ g}$) | Konsentrasi $\\\\ce{HCl}$ (M) | Suhu ($^\\\\circ\\\\text{C}$) | Tambahan Zat Lain | Waktu Reaksi $t\\\\text{ (detik)}$ |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 1 | Bongkahan padat | $1.0$ | $25$ | Tidak ada | $120$ |
+| 2 | Butiran kerikil kecil | $1.0$ | $25$ | Tidak ada | $60$ |
+| 3 | Serbuk halus | $1.0$ | $25$ | Tidak ada | $25$ |
+| 4 | Serbuk halus | $2.0$ | $25$ | Tidak ada | $10$ |
+| 5 | Serbuk halus | $2.0$ | $35$ | $1\\\\text{ tetes } \\\\ce{CuSO4(aq)}$ | $3$ |
+
+---
+
+### 🎯 Pertanyaan:
+1. Berdasarkan data Tabung 1, 2, dan 3, faktor apakah yang diselidiki sebagai variabel bebas dan bagaimanakah pengaruhnya terhadap laju reaksi? Jelaskan mekanisme mikroskopisnya!
+2. Jika seorang siswa ingin membuktikan secara valid bahwa peningkatan konsentrasi mempercepat laju reaksi, pasangan tabung percobaan manakah yang harus dibandingkan? Jelaskan alasannya!
+3. Urutkan kelima tabung percobaan tersebut mulai dari laju reaksi yang paling lambat hingga laju reaksi yang paling cepat!
+4. Jika ke dalam campuran Tabung 4 ditambahkan $50.0\\\\text{ mL}$ air murni (akuades) sebelum padatan $\\\\ce{CaCO3}$ dimasukkan, prediksikan apakah waktu reaksi akan lebih singkat atau lebih lama dari $10\\\\text{ detik}$! Jelaskan alasannya!
+5. Sebutkan perbedaan fundamental mekanisme mikroskopis antara percepatan laju akibat **memperluas permukaan padatan** dibandingkan dengan **penambahan katalis**!
+
+---
+
+### 💡 Pembahasan Langkah demi Langkah:
+
+#### Langkah 1: Analisis Percobaan 1, 2, dan 3 (Faktor Luas Permukaan)
+- **Variabel Bebas:** Bentuk fisik padatan $\\\\ce{CaCO3}$ (bongkahan $\\\\to$ butiran $\\\\to$ serbuk halus).  
+- **Variabel Kontrol:** Konsentrasi $\\\\ce{HCl}$ ($1.0\\\\text{ M}$), suhu ($25^\\\\circ\\\\text{C}$), massa $\\\\ce{CaCO3}$ ($2.00\\\\text{ g}$), dan volume larutan ($50.0\\\\text{ mL}$).
+- **Pengaruh:** Waktu reaksi memendek drastis dari $120\\\\text{ s} \\\\to 60\\\\text{ s} \\\\to 25\\\\text{ s}$, menandakan **laju reaksi meningkat secara signifikan**.
+- **Mekanisme Mikroskopis:** Pada padatan berbentuk serbuk halus, total luas bidang permukaan kontak per gram zat jauh lebih luas dibandingkan bongkahan. Akibatnya, jauh lebih banyak partikel $\\\\ce{CaCO3}$ di lapisan permukaan luar yang terpapar langsung dan dapat bertumbukan dengan ion hidronium $\\\\ce{H3O+}$ dari asam dalam satu satuan waktu (frekuensi tumbukan total meningkat).
+
+#### Langkah 2: Mengisolasi Variabel Konsentrasi
+Untuk menguji pengaruh konsentrasi secara adil (*fair test*), hanya konsentrasi $\\\\ce{HCl}$ yang boleh berbeda, sedangkan semua parameter lain wajib seragam:
+- Bandingkan **Tabung 3 dan Tabung 4**.
+- Pada kedua tabung: bentuk padatan sama (keduanya serbuk halus), suhu sama ($25^\\\\circ\\\\text{C}$), dan tidak ada katalis.
+- Satu-satunya variabel yang diubah adalah konsentrasi $\\\\ce{HCl}$, yaitu naik dari $1.0\\\\text{ M}$ (Tabung 3) menjadi $2.0\\\\text{ M}$ (Tabung 4), yang terbukti mempercepat reaksi dari $25\\\\text{ detik}$ menjadi $10\\\\text{ detik}$.
+
+#### Langkah 3: Mengurutkan Laju Reaksi
+Ingat bahwa laju reaksi berbanding terbalik dengan waktu reaksi:
+$$v \\\\propto \\\\frac{1}{t}$$
+Waktu terlama berarti laju paling lambat, dan waktu tersingkat berarti laju paling cepat:
+- Tabung 1: $t = 120\\\\text{ s} \\\\implies v_1 \\\\propto \\\\frac{1}{120}$ (Paling Lambat)
+- Tabung 2: $t = 60\\\\text{ s} \\\\implies v_2 \\\\propto \\\\frac{1}{60}$
+- Tabung 3: $t = 25\\\\text{ s} \\\\implies v_3 \\\\propto \\\\frac{1}{25}$
+- Tabung 4: $t = 10\\\\text{ s} \\\\implies v_4 \\\\propto \\\\frac{1}{10}$
+- Tabung 5: $t = 3\\\\text{ s} \\\\implies v_5 \\\\propto \\\\frac{1}{3}$ (Paling Cepat)
+
+$$\\\\mathbf{\\\\text{Urutan Laju: } \\\\text{Tabung 1} < \\\\text{Tabung 2} < \\\\text{Tabung 3} < \\\\text{Tabung 4} < \\\\text{Tabung 5}}$$
+
+#### Langkah 4: Dampak Penambahan Air Murni (Pengenceran)
+Penambahan $50.0\\\\text{ mL}$ akuades menyebabkan volume larutan meningkat menjadi $100.0\\\\text{ mL}$ (dua kali lipat):
+$$M_2 = \\\\frac{M_1 \\\\times V_1}{V_2} = \\\\frac{2.0\\\\text{ M} \\\\times 50.0\\\\text{ mL}}{100.0\\\\text{ mL}} = 1.0\\\\text{ M}$$
+- Molaritas ion $\\\\ce{H+}$ berkurang dari $2.0\\\\text{ M}$ menjadi $1.0\\\\text{ M}$.
+- Kerapatan ion asam per satuan volume larutan menurun, sehingga frekuensi tumbukan efektif antara ion $\\\\ce{H+}$ dengan permukaan serbuk $\\\\ce{CaCO3}$ menurun.
+- **Prediksi:** Laju reaksi melambat, sehingga waktu reaksi akan **LEBIH LAMA dari $10\\\\text{ detik}$** (mendekati waktu pada Tabung 3 yaitu sekitar $25\\\\text{ detik}$).
+
+#### Langkah 5: Perbedaan Fundamental Luas Permukaan vs Katalis
+1. **Luas Permukaan Bidang Sentuh:**  
+   - Bekerja secara fisik murni dengan cara **memperbanyak jumlah titik kontak tumbukan** antarmolekul per detik.  
+   - Nilai energi aktivasi ($E_a$) reaksi sama sekali **TIDAK BERUBAH**.
+2. **Katalis Kimiawi:**  
+   - Bekerja secara mekanistik kimiawi dengan cara **menurunkan ambang batas energi aktivasi ($E_a$)** melalui pembentukan spesi kompleks teraktivasi alternatif berenergi lebih rendah.  
+   - Jumlah area kontak fisik tidak berubah, namun fraksi tumbukan yang berhasil melampaui $E_a$ meningkat drastis.
+
+---
+
+> [!TIP]
+> ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
+> **Trik Mengendalikan Variabel Eksperimen:**  
+> Ketika menjumpai tabel data eksperimen multi-tabung di ujian UTBK/Sekolah:  
+> 1. Cari dua baris percobaan di mana **hanya ada TEPAT SATU kolom yang berbeda nilainya**. Baris itulah yang digunakan untuk menarik kesimpulan valid mengenai pengaruh faktor tersebut.  
+> 2. Tabung 5 pada soal di atas mengubah dua faktor sekaligus dibandingkan Tabung 4 (suhu naik menjadi $35^\\\\circ\\\\text{C}$ DAN ditambahkan katalis $\\\\ce{CuSO4}$). Tabung 5 mendemonstrasikan laju tercepat ($3\\\\text{ s}$), tetapi tidak dapat digunakan secara mandiri untuk mengisolasi efek tunggal katalis tanpa adanya tabung kontrol bersuhu $35^\\\\circ\\\\text{C}$ tanpa katalis!`,
+    keyFormulas: [
+      { name: 'Relasi Laju dan Waktu', formula: 'v \\propto \\frac{1}{t}' },
+      { name: 'Rumus Pengenceran', formula: 'M_1 \\times V_1 = M_2 \\times V_2' },
+      { name: 'Prinsip Uji Terkontrol', formula: '\\text{Variabel Manipulasi tunggal, variabel lain konstan}' },
+    ],
+  },
+];

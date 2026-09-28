@@ -1,6 +1,6 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 import { CHECKPOINTS_FASE_F1 } from '../checkpoints/index.ts';
-import { WORKED_EXAMPLES_TOPIC_106 } from './smaWorkedExamplesFaseF1.ts';
+import { WORKED_EXAMPLES_TOPIC_106, WORKED_EXAMPLES_TOPIC_107 } from './smaWorkedExamplesFaseF1.ts';
 
 const BASE_SMA_MATERIALS_FASE_F1: SmaMaterialItem[] = [
   {
@@ -1171,7 +1171,11 @@ Partikel yang bertumbukan harus memiliki energi kinetik minimum yang cukup untuk
 Pada puncak bukit energi aktivasi, terdapat suatu struktur intermediat yang sangat tidak stabil yang dinamakan **Kompleks Teraktivasi (*Activated Complex*)** atau **Keadaan Transisi (*Transition State*)**:
 - Ikatan kovalen reaktan lama sedang meregang (*partially broken*).
 - Ikatan kovalen produk baru sedang mulai terbentuk (*partially formed*).
-- Kompleks ini memiliki energi potensial tertinggi sepanjang lintasan reaksi dan dapat terurai maju membentuk produk atau terurai mundur kembali menjadi reaktan.`,
+- Kompleks ini memiliki energi potensial tertinggi sepanjang lintasan reaksi dan dapat terurai maju membentuk produk atau terurai mundur kembali menjadi reaktan.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Puncak Energi vs Kestabilan
+> Banyak siswa beranggapan salah bahwa partikel di keadaan transisi (kompleks teraktivasi) merupakan senyawa perantara stabil yang dapat disimpan di botol laboratorium. Faktanya, **kompleks teraktivasi berada pada puncak energi potensial tertinggi**, memiliki waktu hidup ultrasingkat (kurang dari $10^{-13}$ detik), dan merupakan konfigurasi ikatan yang sangat rapuh (*unstable*).`,
       keyFormulas: [
         { name: 'Kriteria Tumbukan Efektif', formula: 'E_k \\ge E_a \\quad \\text{dan orientasi spasial tepat}' },
       ],
@@ -1305,7 +1309,11 @@ $$\\mathbf{t_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\De
 ### 4. Peran Katalis Homogen vs Katalis Heterogen
 1. **Katalis Homogen:** Katalis yang berada dalam **fasa wujud yang sama** dengan reaktan (contoh: ion $\\ce{Fe^2+(aq)}$ yang mengkatalisis penguraian hidrogen peroksida $\\ce{H2O2(aq)}$).
 2. **Katalis Heterogen:** Katalis yang berada dalam **fasa berbeda** dengan reaktan, umumnya padatan logam transisi yang menyediakan situs aktif permukaan untuk mengadsorpsi gas pereaksi (contoh: serbuk logam besi $\\ce{Fe(s)}$ pada sintesis amonia Haber-Bosch, atau logam $\\ce{Pt/Ni}$ pada hidrogenasi minyak goreng).
-3. **Inhibitor:** Zat yang memperlambat laju reaksi kimia (kebalikan dari katalis), misalnya zat pengawet makanan untuk mencegah oksidasi ketengikan lemak.`,
+3. **Inhibitor:** Zat yang memperlambat laju reaksi kimia (kebalikan dari katalis), misalnya zat pengawet makanan untuk mencegah oksidasi ketengikan lemak.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Katalis vs Entalpi Reaksi (ΔH)
+> Jebakan paling sering di ujian: menganggap katalis dapat mengubah entalpi reaksi ($\Delta H$) atau memperbanyak produk reaksi! Ingat prinsip mutlak ini: **katalis HANYA menurunkan energi aktivasi ($E_a$)** sehingga reaksi mencapai keadaan akhir lebih cepat. Katalis **SAMA SEKALI TIDAK MENGUBAH tingkat energi reaktan awal maupun produk akhir**, sehingga $\Delta H$, $\Delta G$, dan kuantitas produk akhir tetap persis sama!`,
       keyFormulas: [
         { name: 'Rumus Empiris Laju Suhu', formula: 'v_2 = v_1 \\times n^{\\frac{T_2 - T_1}{\\Delta T}}' },
         { name: 'Rumus Empiris Waktu Suhu', formula: 't_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\Delta T}}' },
@@ -1417,7 +1425,11 @@ $$\\text{Satuan } k = \\frac{\\text{Satuan } v}{(\\text{Satuan Konsentrasi})^{\\
 | **0** | $v = k$ | $\\text{M}\\cdot\\text{s}^{-1}$ atau $\\text{mol}\\cdot\\text{L}^{-1}\\cdot\\text{s}^{-1}$ |
 | **1** | $v = k [\\ce{A}]$ | $\\text{s}^{-1}$ atau $\\text{detik}^{-1}$ |
 | **2** | $v = k [\\ce{A}]^2$ atau $v = k [\\ce{A}][\\ce{B}]$ | $\\text{M}^{-1}\\cdot\\text{s}^{-1}$ atau $\\text{L}\\cdot\\text{mol}^{-1}\\cdot\\text{s}^{-1}$ |
-| **3** | $v = k [\\ce{A}]^2 [\\ce{B}]$ | $\\text{M}^{-2}\\cdot\\text{s}^{-1}$ atau $\\text{L}^2\\cdot\\text{mol}^{-2}\\cdot\\text{s}^{-1}$ |`,
+| **3** | $v = k [\\ce{A}]^2 [\\ce{B}]$ | $\\text{M}^{-2}\\cdot\\text{s}^{-1}$ atau $\\text{L}^2\\cdot\\text{mol}^{-2}\\cdot\\text{s}^{-1}$ |
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Koefisien Stoikiometri vs Pangkat Orde
+> Jangan sekali-kali mengambil pangkat orde reaksi ($m$ dan $n$) langsung dari angka koefisien reaksi setara! Orde reaksi **HANYA DAPAT DITENTUKAN MELALUI DATA EKSPERIMEN LABORATORIUM**. Pangkat orde hanya kebetulan sama dengan koefisien jika reaksi berlangsung secara *elementer satu tahap*. Selain itu, reaksi berorde nol ($v = k [\\ce{A}]^0$) BUKAN berarti laju reaksinya nol, melainkan reaksinya berlangsung konstan tanpa terpengaruh oleh konsentrasi reaktan!`,
       keyFormulas: [
         { name: 'Persamaan Hukum Laju', formula: 'v = k [\\ce{A}]^m [\\ce{B}]^n' },
         { name: 'Rumus Satuan Tetapan Laju k', formula: '\\text{Satuan } k = \\text{M}^{1 - (m+n)} \\cdot \\text{s}^{-1}' },
@@ -1448,200 +1460,18 @@ Reaksi kimia makroskopis jarang sekali terjadi dalam satu kali benturan serempak
 1. **Molekularitas:** Jumlah partikel yang bertumbukan dalam satu langkah elementer (unimolekuler $= 1$, bimolekuler $= 2$, termolekuler $= 3$).
 2. **Tahap Penentu Laju (*Rate-Determining Step* / RDS):** Langkah reaksi elementer yang berjalan **paling lambat**.
    > **Aturan Emas:** Persamaan hukum laju reaksi total ditentukan oleh koefisien pada **Tahap Paling Lambat (RDS)**!
-3. **Zat Intermediat (*Intermediates*):** Senyawa yang terbentuk di langkah awal dan langsung terkonsumsi habis pada langkah berikutnya. Zat intermediat **tidak boleh muncul** dalam persamaan reaksi akhir maupun persamaan hukum laju reaksi final.`,
+3. **Zat Intermediat (*Intermediates*):** Senyawa yang terbentuk di langkah awal dan langsung terkonsumsi habis pada langkah berikutnya. Zat intermediat **tidak boleh muncul** dalam persamaan reaksi akhir maupun persamaan hukum laju reaksi final.
+
+> [!WARNING]
+> ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Waktu Reaksi Berbanding Terbalik dengan Laju
+> Pada tabel eksperimen yang mencatat waktu reaksi ($t$ dalam detik), ingat bahwa **laju reaksi berbanding terbalik dengan waktu reaksi ($v \\propto \\frac{1}{t}$)**! Waktu yang semakin singkat berarti laju reaksinya semakin cepat. Saat membandingkan rasio untuk mencari orde reaksi, rumus perbandingannya harus dibalik: $\\frac{v_1}{v_2} = \\frac{t_2}{t_1} = (\\frac{[\\ce{A}]_1}{[\\ce{A}]_2})^m$.`,
       keyFormulas: [
         { name: 'Rasio Data Waktu Reaksi', formula: '\\frac{t_2}{t_1} = \\left(\\frac{[\\ce{A}]_1}{[\\ce{A}]_2}\\right)^m' },
         { name: 'Definisi Hubungan Laju dan Waktu', formula: 'v \\propto \\frac{1}{t}' },
       ],
     },
   ],
-  worked_examples: [
-    {
-      tag: 'contoh-penentuan-orde-waktu-reaksi',
-      title: 'Contoh Soal 1: Penentuan Orde Reaksi dari Data Waktu Reaksi (Eksperimen Na2S2O3 + HCl)',
-      summary: 'Menentukan orde reaksi, persamaan laju reaksi, dan waktu reaksi pada konsentrasi baru dari tabel waktu (detik).',
-      content: `**Soal:**
-Reaksi antara larutan natrium tiosulfat dengan asam klorida menghasilkan endapan belerang kuning keruh menurut persamaan:
-$$\\ce{Na2S2O3(aq) + 2 HCl(aq) -> 2 NaCl(aq) + H2O(l) + SO2(g) + S(s)}$$
-Waktu yang diperlukan sejak pencampuran hingga tanda silang hitam di bawah labu Erlenmeyer tidak lagi terlihat dicatat dalam tabel berikut:
-
-| Percobaan | $[\\ce{Na2S2O3}]\\text{ (M)}$ | $[\\ce{HCl}]\\text{ (M)}$ | Waktu Reaksi $t\\text{ (detik)}$ |
-| :---: | :---: | :---: | :---: |
-| 1 | $0.10$ | $0.10$ | $80$ |
-| 2 | $0.20$ | $0.10$ | $40$ |
-| 3 | $0.10$ | $0.20$ | $80$ |
-
-Tentukan:
-a) Orde reaksi terhadap $\\ce{Na2S2O3}$ dan terhadap $\\ce{HCl}$!
-b) Persamaan laju reaksinya dan orde reaksi total!
-c) Berapa detik reaksi akan berlangsung jika digunakan $[\\ce{Na2S2O3}] = 0.40\\text{ M}$ dan $[\\ce{HCl}] = 0.30\\text{ M}$?
-
----
-
-**Pembahasan:**
-
-Ingat bahwa laju reaksi berbanding terbalik dengan waktu reaksi: $v \\propto \\frac{1}{t}$.
-Bentuk umum: $v = k [\\ce{Na2S2O3}]^m [\\ce{HCl}]^n$.
-
-**Langkah 1: Menentukan orde $m$ (terhadap $\\ce{Na2S2O3}$)**
-Pilih percobaan 1 dan 2 ($[\\ce{HCl}]$ konstan $= 0.10\\text{ M}$):
-$$\\frac{v_2}{v_1} = \\frac{t_1}{t_2} = \\left(\\frac{[\\ce{Na2S2O3}]_2}{[\\ce{Na2S2O3}]_1}\\right)^m$$
-$$\\frac{80}{40} = \\left(\\frac{0.20}{0.10}\\right)^m \\implies 2 = (2)^m \\implies \\mathbf{m = 1}$$
-
-**Langkah 2: Menentukan orde $n$ (terhadap $\\ce{HCl}$)**
-Pilih percobaan 1 dan 3 ($[\\ce{Na2S2O3}]$ konstan $= 0.10\\text{ M}$):
-$$\\frac{v_3}{v_1} = \\frac{t_1}{t_3} = \\left(\\frac{[\\ce{HCl}]_3}{[\\ce{HCl}]_1}\\right)^n$$
-$$\\frac{80}{80} = \\left(\\frac{0.20}{0.10}\\right)^n \\implies 1 = (2)^n \\implies \\mathbf{n = 0}$$
-*(Artinya perubahan konsentrasi $\\ce{HCl}$ sama sekali tidak memengaruhi laju reaksi).*
-
-**Langkah 3: Tuliskan persamaan laju reaksi**
-$$v = k [\\ce{Na2S2O3}]^1 [\\ce{HCl}]^0 \\implies \\mathbf{v = k [\\ce{Na2S2O3}]}$$
-Orde total reaksi $= 1 + 0 = \\mathbf{1}$.
-
----
-
-**Langkah 4: Menghitung waktu reaksi pada kondisi baru (Pertanyaan c)**
-Bandingkan kondisi baru (percobaan 4) dengan percobaan 1:
-$$\\frac{t_4}{t_1} = \\left(\\frac{[\\ce{Na2S2O3}]_1}{[\\ce{Na2S2O3}]_4}\\right)^1 \\times 1$$
-$$\\frac{t_4}{80\\text{ detik}} = \\frac{0.10}{0.40} = \\frac{1}{4} \\implies t_4 = \\frac{80}{4} = \\mathbf{20\\text{ detik}}$$
-
-> **Kesimpulan Evaluator Juri:** Reaksi bersifat orde 1 terhadap tiosulfat dan orde 0 terhadap asam klorida. Peningkatan konsentrasi tiosulfat menjadi $0.40\\text{ M}$ mempercepat laju sebesar $4$ kali lipat, sehingga waktu reaksi terpangkas menjadi hanya 20 detik.`,
-    },
-    {
-      tag: 'contoh-aturan-suhu-laju-reaksi',
-      title: 'Contoh Soal 2: Perhitungan Laju dan Waktu Reaksi Berdasarkan Kenaikan Suhu',
-      summary: 'Penerapan rumus empiris pelipatan laju reaksi n^(ΔT/10) terhadap laju dan durasi reaksi.',
-      content: `**Soal:**
-Suatu reaksi kimia berlangsung 2 kali lebih cepat setiap kenaikan temperatur sebesar $10^\\circ\\text{C}$.
-Pada temperatur $20^\\circ\\text{C}$, laju reaksi terukur sebesar $v_0 = 1.5 \\times 10^{-3}\\text{ M/s}$.
-a) Tentukan laju reaksi tersebut jika temperatur dinaikkan menjadi $60^\\circ\\text{C}$!
-b) Jika pada suhu $25^\\circ\\text{C}$ reaksi tersebut selesai dalam waktu $32\\text{ menit}$, berapa detik reaksi akan selesai jika dilakukan pada suhu $55^\\circ\\text{C}$?
-
----
-
-**Pembahasan:**
-
-Diketahui:
-- Faktor kelipatan $n = 2$.
-- Interval kenaikan suhu $\\Delta T_0 = 10^\\circ\\text{C}$.
-
-**Bagian a: Menghitung Laju pada Suhu $60^\\circ\\text{C}$**
-$$T_1 = 20^\\circ\\text{C}, \\quad T_2 = 60^\\circ\\text{C} \\implies \\Delta T = 60 - 20 = 40^\\circ\\text{C}$$
-Gunakan rumus laju:
-$$v_2 = v_1 \\times n^{\\frac{T_2 - T_1}{\\Delta T_0}}$$
-$$v_{60} = (1.5 \\times 10^{-3}\\text{ M/s}) \\times 2^{\\frac{40}{10}} = (1.5 \\times 10^{-3}) \\times 2^4 = (1.5 \\times 10^{-3}) \\times 16$$
-$$\\mathbf{v_{60} = 2.4 \\times 10^{-2}\\text{ M/s} = 0.024\\text{ M/s}}$$
-
----
-
-**Bagian b: Menghitung Waktu Reaksi pada Suhu $55^\\circ\\text{C}$**
-$$T_1 = 25^\\circ\\text{C}, \\quad T_2 = 55^\\circ\\text{C} \\implies \\Delta T = 55 - 25 = 30^\\circ\\text{C}$$
-Waktu mula-mula: $t_1 = 32\\text{ menit} = 32 \\times 60 = 1920\\text{ detik}$.
-Gunakan rumus waktu reaksi:
-$$t_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\Delta T_0}}$$
-$$t_{55} = 32\\text{ menit} \\times \\left(\\frac{1}{2}\\right)^{\\frac{30}{10}} = 32 \\times \\left(\\frac{1}{2}\\right)^3 = 32 \\times \\frac{1}{8} = 4\\text{ menit}$$
-Konversi ke satuan detik:
-$$t_{55} = 4 \\times 60\\text{ detik} = \\mathbf{240\\text{ detik}}$$
-
-> **Kesimpulan Evaluator Juri:** Kenaikan suhu sebesar $40^\\circ\\text{C}$ melipatgandakan laju reaksi sebesar $16$ kali lipat. Sementara kenaikan sebesar $30^\\circ\\text{C}$ mempercepat reaksi $8$ kali lipat, memangkas waktu reaksi dari 32 menit menjadi hanya 4 menit (240 detik).`,
-    },
-    {
-      tag: 'contoh-orde-reaksi-3-reaktan-dan-tetapan-k',
-      title: 'Contoh Soal 3: Penentuan Orde Reaksi Multireaktan, Tetapan Laju k, dan Satuan Kinetika',
-      summary: 'Analisis tabel laju awal multikomponen gas NO dan H2 beserta penghitungan nilai tetapan laju k dan satuannya.',
-      content: `**Soal:**
-Reaksi fasa gas berikut dipelajari kinetikanya pada temperatur $300^\\circ\\text{C}$:
-$$\\ce{2 NO(g) + 2 H2(g) -> N2(g) + 2 H2O(g)}$$
-
-Diperoleh data laju awal pembentukan $\\ce{N2}$ sebagai berikut:
-| Percobaan | $[\\ce{NO}]\\text{ (M)}$ | $[\\ce{H2}]\\text{ (M)}$ | Laju Awal $v\\text{ (M/s)}$ |
-| :---: | :---: | :---: | :---: |
-| 1 | $0.10$ | $0.10$ | $1.25 \\times 10^{-5}$ |
-| 2 | $0.20$ | $0.10$ | $5.00 \\times 10^{-5}$ |
-| 3 | $0.10$ | $0.20$ | $2.50 \\times 10^{-5}$ |
-
-Tentukan:
-a) Orde reaksi terhadap $\\ce{NO}$ dan terhadap $\\ce{H2}$!
-b) Persamaan laju reaksi lengkap dan nilai tetapan laju $k$ beserta satuan spesifiknya!
-c) Laju reaksi jika $[\\ce{NO}] = 0.30\\text{ M}$ dan $[\\ce{H2}] = 0.40\\text{ M}$!
-
----
-
-**Pembahasan:**
-
-Bentuk umum hukum laju: $v = k [\\ce{NO}]^m [\\ce{H2}]^n$.
-
-**Langkah 1: Mencari orde $m$ (terhadap $\\ce{NO}$)**
-Bandingkan percobaan 2 dan 1 ($[\\ce{H2}]$ konstan $= 0.10\\text{ M}$):
-$$\\frac{v_2}{v_1} = \\left(\\frac{[\\ce{NO}]_2}{[\\ce{NO}]_1}\\right)^m \\implies \\frac{5.00 \\times 10^{-5}}{1.25 \\times 10^{-5}} = \\left(\\frac{0.20}{0.10}\\right)^m \\implies 4 = 2^m \\implies \\mathbf{m = 2}$$
-
-**Langkah 2: Mencari orde $n$ (terhadap $\\ce{H2}$)**
-Bandingkan percobaan 3 dan 1 ($[\\ce{NO}]$ konstan $= 0.10\\text{ M}$):
-$$\\frac{v_3}{v_1} = \\left(\\frac{[\\ce{H2}]_3}{[\\ce{H2}]_1}\\right)^n \\implies \\frac{2.50 \\times 10^{-5}}{1.25 \\times 10^{-5}} = \\left(\\frac{0.20}{0.10}\\right)^n \\implies 2 = 2^n \\implies \\mathbf{n = 1}$$
-
-**Langkah 3: Persamaan Laju dan Nilai Tetapan $k$**
-$$v = k [\\ce{NO}]^2 [\\ce{H2}]^1 \\quad (\\text{Orde total } = 2 + 1 = 3)$$
-
-Gunakan data percobaan 1 untuk menghitung $k$:
-$$1.25 \\times 10^{-5}\\text{ M/s} = k (0.10\\text{ M})^2 (0.10\\text{ M})$$
-$$1.25 \\times 10^{-5} = k (1.0 \\times 10^{-3}\\text{ M}^3)$$
-$$k = \\frac{1.25 \\times 10^{-5}}{1.0 \\times 10^{-3}} = \\mathbf{1.25 \\times 10^{-2}\\text{ M}^{-2}\\cdot\\text{s}^{-1}}$$
-
-**Langkah 4: Menghitung laju pada kondisi baru (Pertanyaan c)**
-$$v = (1.25 \\times 10^{-2}\\text{ M}^{-2}\\cdot\\text{s}^{-1}) \\times (0.30\\text{ M})^2 \\times (0.40\\text{ M})$$
-$$v = (1.25 \\times 10^{-2}) \\times (0.090) \\times (0.40) = (1.25 \\times 10^{-2}) \\times 0.036 = \\mathbf{4.5 \\times 10^{-4}\\text{ M/s}}$$
-
-> **Kesimpulan Evaluator Juri:** Reaksi bersifat orde 2 terhadap NO dan orde 1 terhadap H2 (orde total 3). Nilai tetapan laju reaksi adalah $k = 1.25 \\times 10^{-2}\\text{ M}^{-2}\\text{s}^{-1}$, dan laju pada konsentrasi baru terhitung sebesar $4.5 \\times 10^{-4}\\text{ M/s}$.`,
-    },
-    {
-      tag: 'contoh-mekanisme-reaksi-rds',
-      title: 'Contoh Soal 4: Pembuktian Hukum Laju dari Mekanisme Reaksi Elementer Bertahap',
-      summary: 'Analisis tahap lambat penentu laju (RDS) dan identifikasi zat intermediat pada pembentukan gas NO2F.',
-      content: `**Soal:**
-Reaksi pembentukan gas nitril fluorida berlangsung menurut persamaan total:
-$$\\ce{2 NO2(g) + F2(g) -> 2 NO2F(g)}$$
-Melalui penelitian spektroskopi ultrafast, diusulkan mekanisme reaksi dua langkah elementer berikut:
-- **Tahap 1 (Lambat / RDS):** $\\ce{NO2(g) + F2(g) ->[k_1] NO2F(g) + F(g)}$
-- **Tahap 2 (Cepat):** $\\ce{NO2(g) + F(g) ->[k_2] NO2F(g)}$
-
-a) Identifikasikan spesi yang bertindak sebagai zat intermediat!
-b) Tentukan persamaan hukum laju reaksi teoretis yang bersesuaian dengan mekanisme tersebut!
-c) Tentukan orde reaksi terhadap $\\ce{NO2}$, orde reaksi terhadap $\\ce{F2}$, dan orde total reaksi!
-
----
-
-**Pembahasan:**
-
-**Bagian a: Mengidentifikasi Zat Intermediat**
-Perhatikan spesi $\\ce{F(g)}$ (atom fluorin bebas):
-- Spesi $\\ce{F}$ dihasilkan pada produk Tahap 1.
-- Spesi $\\ce{F}$ langsung terkonsumsi sebagai reaktan pada Tahap 2.
-- Spesi $\\ce{F}$ tidak muncul dalam persamaan reaksi total.
-Maka, **zat intermediat adalah atom $\\ce{F(g)}$**.
-
----
-
-**Bagian b: Menentukan Persamaan Hukum Laju Reaksi**
-Berdasarkan prinsip kinetika kimia, laju reaksi total ditentukan oleh **tahap paling lambat (*Rate-Determining Step* / RDS)**.
-Tahap 1 adalah tahap lambat:
-$$\\ce{NO2(g) + F2(g) ->[k_1] NO2F(g) + F(g)} \\quad (\\text{Lambat})$$
-
-Karena Tahap 1 merupakan reaksi elementer bimolekuler, koefisien reaktannya secara langsung menjadi pangkat hukum lajunya:
-$$\\mathbf{v = k_1 [\\ce{NO2}]^1 [\\ce{F2}]^1}$$
-
-Perhatikan bahwa reaktan pada Tahap 1 ($\\ce{NO2}$ dan $\\ce{F2}$) keduanya adalah molekul reaktan awal murni (bukan zat intermediat), sehingga hukum laju ini sudah final dan sah!
-
----
-
-**Bagian c: Penentuan Orde Reaksi**
-Dari persamaan $v = k [\\ce{NO2}] [\\ce{F2}]$:
-- Orde reaksi terhadap $\\ce{NO2} = \\mathbf{1}$.
-- Orde reaksi terhadap $\\ce{F2} = \\mathbf{1}$.
-- Orde total reaksi $= 1 + 1 = \\mathbf{2}$.
-
-> **Pelajaran Berharga Siswa SMA:** Meskipun koefisien $\\ce{NO2}$ pada persamaan reaksi total adalah $2$, ternyata orde reaksinya bernilai $1$ karena molekul $\\ce{NO2}$ kedua baru ikut bereaksi pada Tahap 2 yang berlangsung sangat cepat (*fast step*), sehingga tidak membatasi laju reaksi keseluruhan.`,
-    },
-  ],
+  worked_examples: WORKED_EXAMPLES_TOPIC_107,
 },
 
       {
