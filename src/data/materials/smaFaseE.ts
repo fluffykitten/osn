@@ -2294,1381 +2294,397 @@ $$\\mathbf{\\ce{Al^3+} < \\ce{Mg^2+} < \\ce{Na+} < \\ce{F-} < \\ce{O^2-} < \\ce{
 },
 
   {
-  id: 103,
-  topic_number: 3,
-  grade: 'Kelas 10',
-  semester: 1,
-  curriculumPhase: 'Fase E',
-  relatedOsnTopicId: 2,
-  title: 'Ikatan Kimia, Geometri Molekul & Gaya Antarmolekul',
-  slug: 'ikatan-kimia-geometri-molekul-gaya-antarmolekul',
-  category: 'Ikatan Kimia',
-  level: 'SMA',
-  readTimeMinutes: 35,
-  summary: 'Kajian komprehensif stabilitas konfigurasi elektron gas mulia (kaidah oktet & duplet), pembentukan ikatan ion melalui serah-terima elektron dan energi kisi kristal, ikatan kovalen tunggal/rangkap/koordinasi serta pengecualian kaidah oktet, prediksi geometri ruang molekul berdasarkan teori VSEPR & domain elektron, analisis momen dipol dan kepolaran senyawa, model lautan elektron pada ikatan logam, serta hierarki kekuatan gaya Van der Waals dan fenomena anomali ikatan hidrogen.',
-  allTags: [
-      'kaidah-oktet-dan-duplet',
-      'simbol-titik-lewis',
-      'ikatan-ion',
-      'energi-kisi-kristal',
-      'ikatan-kovalen-tunggal-rangkap',
-      'ikatan-kovalen-koordinasi',
-      'pengecualian-kaidah-oktet',
-      'teori-vsepr',
-      'domain-elektron',
-      'geometri-molekul',
-      'sudut-ikatan-dan-distorsi',
-      'momen-dipol',
-      'senyawa-polar-dan-nonpolar',
-      'ikatan-logam',
-      'model-lautan-elektron',
-      'gaya-van-der-waals',
-      'gaya-dispersi-london',
-      'interaksi-dipol-dipol',
-      'ikatan-hidrogen',
-      'anomali-titik-didih-air',
-      'transfer-elektron',
-      'kaidah-oktet',
-      'senyawa-biner',
-      'ikatan-kovalen',
-      'struktur-lewis',
-      'pasangan-elektron-bebas',
-      'pasangan-elektron-ikatan',
-      'amonia',
-      'vsepr',
-      'ikatan-datif',
-      'asam-basa-lewis',
-      'ion-hidronium',
-      'pengecualian-oktet',
-      'sub-oktet',
-      'asam-lewis',
-      'sudut-ikatan',
-      'tetrahedral',
-      'bengkok-bent',
-      'muatan-formal',
-      'resonansi-struktur',
-      'tiosianat',
-      'elektronegativitas',
-      'kontributor-mayor',
-      'kepolaran-ikatan',
-      'simetri-molekul',
-      'vektor-dipol',
-      'hibridisasi-orbital',
-      'ikatan-sigma-pi',
-      'akrilonitril',
-      'aturan-bent',
-      'sf4-seesaw',
-      'posisi-ekuatorial-aksial',
-      'tolakan-peb',
-      'gaya-antarmolekul',
-      'titik-didih',
-      'anomali-air',
-      'stoikiometri-ikatan',
-      'dinitrogen-monoksida',
-      'aturan-oktet',
-      'clf3-t-shape',
-      'sudut-ikatan-terdistorsi',
-      'posisi-ekuatorial',
-      'karakter-s',
-      'panjang-ikatan',
-      'keasaman-hidrokarbon',
-      'intramolekul-vs-intermolekul',
-      'nitrofenol',
-      'kelarutan',
-      'senyawa-gas-mulia',
-      'xef4-square-planar',
-      'oktet-diperluas',
-      'momen-dipol-nol',
-      'hibridisasi-sp3d2',
-      'teori-orbital-molekul-mot',
-      'orde-ikatan',
-      'paramagnetik',
-      'diamagnetik',
-      'deret-spesi-oksigen',
-      'karbon-monoksida-co',
-      'homo-lumo',
-      'ligan-logam-karbonil',
-      'diatomik-heteronuklir',
-      'bents-rule',
-      'pf3cl2',
-      'panjang-ikatan-aksial-ekuatorial',
-      'hibridisasi-sp3d',
-      'siklus-born-haber',
-      'energi-kisi',
-      'hukum-hess',
-      'mgcl2',
-      'termodinamika-ionik',
-      'vsepr-eksotis',
-      'xef5-pentagonal-planar',
-      'bilangan-sterik-7',
-      'hibridisasi-sp3d3',
-      'sp-mixing',
-      'n2-dan-no+',
-      'energi-ionisasi-molekul',
-      'halometana',
-      'sudut-ikatan-riil',
-      'redistribusi-karakter-s',
-      'persamaan-kapustinskii',
-      'afinitas-elektron-kedua',
-      'kalsium-oksida',
-      'if7-pentagonal-bipyramidal',
-      'panjang-ikatan-anomali',
-      'crowding-sterik',
-      'delokalisasi-pi',
-      'orde-ikatan-parsial',
-      'muatan-parsial',
-      'nitrat-dan-karbonat',
-    ],
-  prerequisites: [
-    {
-      tag: 'elektron-valensi-dan-kaidah-oktet',
-      tags: ['elektron-valensi', 'kestabilan-gas-mulia', 'kaidah-oktet-duplet', 'simbol-lewis'],
-      title: 'Prasyarat 1: Kestabilan Gas Mulia, Kaidah Oktet-Duplet & Simbol Titik Lewis',
-      summary: 'Konsep dasar konfigurasi elektron kulit terluar yang mendorong atom-atom membentuk ikatan kimia stabil.',
-      content: `Kecuali unsur-unsur Gas Mulia (Golongan VIIIA), sebagian besar atom di alam tidak berada dalam wujud atom tunggal bebas yang terisolasi, melainkan saling berikatan membentuk molekul unsur atau senyawa kimia.
-
-### 1. Hakikat Termodinamika Kestabilan Gas Mulia
-
-Unsur-unsur Gas Mulia ($\\ce{He}, \\ce{Ne}, \\ce{Ar}, \\ce{Kr}, \\ce{Xe}, \\ce{Rn}$) memiliki energi ionisasi yang sangat tinggi dan afinitas elektron mendekati nol atau positif. Hal ini menyebabkan gas mulia bersifat **sangat stabil (inert)** dan sukar bereaksi secara kimiawi karena telah memiliki kulit valensi yang terisi penuh (*closed valence shell*):
-- **Helium ($\\ce{_{2}He}$):** $1s^2$ (memiliki $2$ elektron valensi, konfigurasi **Duplet** stabil).
-- **Neon hingga Radon:** $ns^2 np^6$ (memiliki tepat $8$ elektron valensi, konfigurasi **Oktet** stabil).
-
----
-
-### 2. Postulat Kaidah Oktet & Duplet G.N. Lewis
-
-Pada tahun 1916, Gilbert N. Lewis dan Irving Langmuir memformulasikan aturan fundamental pembentukan ikatan kimia:
-1. **Kaidah Oktet (*Octet Rule*):**
-   Atom-atom unsur cenderung menyesuaikan jumlah elektron valensinya agar berjumlah **delapan elektron** seperti konfigurasi gas mulia terdekat.
-2. **Kaidah Duplet (*Duplet Rule*):**
-   Atom-atom berukuran kecil dengan nomor atom rendah (seperti $\\ce{H}, \\ce{Li}, \\ce{Be}$) cenderung mencapai kestabilan dengan memiliki **dua elektron** pada kulit terluarnya, menyerupai konfigurasi Helium ($1s^2$).
-
-Atom-atom dapat mencapai konfigurasi oktet atau duplet melalui dua mekanisme utama:
-- **Pelepasan atau penangkapan elektron** (serah-terima elektron) yang menghasilkan **Ikatan Ionik**.
-- **Pemakaian bersama pasangan elektron** antar atom yang menghasilkan **Ikatan Kovalen**.
-
----
-
-### 3. Simbol Titik Lewis (*Lewis Dot Symbols*)
-
-Simbol Lewis adalah representasi grafis di mana elektron valensi suatu atom digambarkan sebagai titik ($\\bullet$) atau silang ($\\times$) yang mengelilingi simbol kimia unsur:
-- Elektron diletakkan satu per satu pada keempat sisi simbol unsur (atas, bawah, kanan, kiri) sebelum dipasangkan, mencerminkan aturan Hund.
-- Contoh:
-  - Golongan IA ($\\ce{Na\\cdot}$): $1$ elektron valensi.
-  - Golongan IIA ($\\ce{\\cdot Mg\\cdot}$): $2$ elektron valensi.
-  - Golongan IVA ($\\ce{\\cdot \\overset{\\cdot}{\\underset{\\cdot}{C}} \\cdot}$): $4$ elektron valensi tunggal.
-  - Golongan VIIA ($:\\!\\ce{\\overset{\\cdot\\cdot}{\\underset{\\cdot\\cdot}{Cl}}}\\cdot$): $7$ elektron valensi (3 pasang berpasangan, 1 elektron tunggal siap berikatan).`,
-      keyFormulas: [
-        { name: 'Kaidah Konfigurasi Oktet Gas Mulia', formula: 'ns^2 np^6 \\quad (\\text{Total } 8\\text{ elektron valensi})' },
-        { name: 'Kaidah Konfigurasi Duplet Helium', formula: '1s^2 \\quad (\\text{Total } 2\\text{ elektron valensi})' },
-      ],
-    },
-    {
-      tag: 'elektronegativitas-dan-karakter-ikatan',
-      tags: ['elektronegativitas-pauling', 'selisih-elektronegativitas', 'spektrum-karakter-ikatan'],
-      title: 'Prasyarat 2: Skala Elektronegativitas Pauling & Spektrum Kontinum Karakter Ikatan',
-      summary: 'Peran perbedaan kemampuan menarik elektron dalam menentukan kecenderungan ikatan ionik vs kovalen polar vs kovalen nonpolar.',
-      content: `Karakter suatu ikatan kimia tidak terbagi secara kaku (hitam-putih) antara ionik murni dan kovalen murni, melainkan merupakan sebuah **spektrum kontinum** yang dikendalikan oleh selisih keelektronegatifan ($\\Delta EN$) antara kedua atom yang berikatan.
-
-### 1. Skala Keelektronegatifan Linus Pauling
-
-Keelektronegatifan adalah ukuran kemampuan relatif suatu atom dalam suatu molekul untuk menarik pasangan elektron ikatan ke arah dirinya.
-- Unsur paling elektronegatif di alam semesta adalah **Fluorin ($\\ce{F} = 3.98 \\approx 4.0$)**, disusul Oksigen ($\\ce{O} = 3.44$), Klorin ($\\ce{Cl} = 3.16$), dan Nitrogen ($\\ce{N} = 3.04$).
-- Unsur paling elektropositif (keelektronegatifan terendah) adalah **Cesium ($\\ce{Cs} = 0.79$)** dan **Fransium ($\\ce{Fr} = 0.7$)**.
-
----
-
-### 2. Kriteria Selisih Keelektronegatifan ($\\Delta EN = |EN_A - EN_B|$)
-
-1. **Ikatan Kovalen Nonpolar (Murni):**
-   - $\\Delta EN \\le 0.4$
-   - Pasangan elektron ikatan ditarik sama kuat secara simetris oleh kedua inti atom.
-   - Contoh: $\\ce{Cl2}$ ($\\Delta EN = 0$), $\\ce{CH4}$ ($\\Delta EN = 2.55 - 2.20 = 0.35$).
-2. **Ikatan Kovalen Polar:**
-   - $0.4 < \\Delta EN \\le 1.7$
-   - Pasangan elektron ikatan tertarik lebih condong ke atom yang lebih elektronegatif, menimbulkan pemisahan muatan parsial: kutub negatif parsial ($\\delta^-$) dan kutub positif parsial ($\\delta^+$).
-   - Contoh: $\\ce{HCl}$ ($\\Delta EN = 3.16 - 2.20 = 0.96$), $\\ce{H2O}$ ($\\Delta EN = 3.44 - 2.20 = 1.24$).
-3. **Ikatan Ionik (Elektrovalen):**
-   - $\\Delta EN > 1.7$
-   - Selisih tarikan sangat ekstrem sehingga terjadi transfer elektron penuh (ionisasi sempurna) dari atom elektropositif ke atom elektronegatif. Karakter ionik ikatan melampaui $50\\%$.
-   - Contoh: $\\ce{NaCl}$ ($\\Delta EN = 3.16 - 0.93 = 2.23$), $\\ce{KF}$ ($\\Delta EN = 3.98 - 0.82 = 3.16$).`,
-      keyFormulas: [
-        { name: 'Selisih Keelektronegatifan', formula: '\\Delta EN = |EN_A - EN_B|' },
-        { name: 'Persen Karakter Ionik Hannay-Smyth', formula: '\\% \\text{ Karakter Ionik} = 16 |\\Delta EN| + 3.5 (|\\Delta EN|)^2' },
-      ],
-    },
+  "id": 103,
+  "topic_number": 3,
+  "grade": "Kelas 10",
+  "semester": 1,
+  "curriculumPhase": "Fase E",
+  "relatedOsnTopicId": 2,
+  "title": "Ikatan Kimia, Geometri Molekul & Gaya Antarmolekul",
+  "slug": "ikatan-kimia-geometri-molekul-gaya-antarmolekul",
+  "category": "Ikatan Kimia",
+  "level": "SMA",
+  "readTimeMinutes": 35,
+  "summary": "Panduan pedagogis komprehensif ikatan kimia dan geometri molekul: analogi intuitif Sistem Barter vs Kepemilikan Saham Bersama Elektron (ionik, kovalen, logam); energi kisi kristal dan siklus Born-Haber; struktur Lewis, muatan formal, resonansi serta pengecualian kaidah oktet; prediksi bentuk geometri molekul berdasarkan analogi Balon Udara Repulsi VSEPR & teori domain elektron; analisis vektor momen dipol dan kepolaran senyawa; model lautan elektron Drude-Lorentz; serta dekonstruksi hierarki gaya antarmolekul (London, dipol-dipol, ikatan hidrogen) melalui analogi Lem Super Intramolekul vs Magnet Kulkas Antarmolekul.",
+  "allTags": [
+    "kaidah-oktet-dan-duplet",
+    "simbol-titik-lewis",
+    "ikatan-ion",
+    "energi-kisi-kristal",
+    "ikatan-kovalen-tunggal-rangkap",
+    "ikatan-kovalen-koordinasi",
+    "pengecualian-kaidah-oktet",
+    "teori-vsepr",
+    "domain-elektron",
+    "geometri-molekul",
+    "sudut-ikatan-dan-distorsi",
+    "momen-dipol",
+    "senyawa-polar-dan-nonpolar",
+    "ikatan-logam",
+    "model-lautan-elektron",
+    "gaya-van-der-waals",
+    "gaya-dispersi-london",
+    "interaksi-dipol-dipol",
+    "ikatan-hidrogen",
+    "anomali-titik-didih-air",
+    "transfer-elektron",
+    "kaidah-oktet",
+    "senyawa-biner",
+    "ikatan-kovalen",
+    "struktur-lewis",
+    "pasangan-elektron-bebas",
+    "pasangan-elektron-ikatan",
+    "amonia",
+    "vsepr",
+    "ikatan-datif",
+    "asam-basa-lewis",
+    "ion-hidronium",
+    "pengecualian-oktet",
+    "sub-oktet",
+    "asam-lewis",
+    "sudut-ikatan",
+    "tetrahedral",
+    "bengkok-bent",
+    "muatan-formal",
+    "resonansi-struktur",
+    "tiosianat",
+    "elektronegativitas",
+    "kontributor-mayor",
+    "kepolaran-ikatan",
+    "simetri-molekul",
+    "vektor-dipol",
+    "hibridisasi-orbital",
+    "ikatan-sigma-pi",
+    "akrilonitril",
+    "aturan-bent",
+    "sf4-seesaw",
+    "posisi-ekuatorial-aksial",
+    "tolakan-peb",
+    "gaya-antarmolekul",
+    "titik-didih",
+    "anomali-air",
+    "stoikiometri-ikatan",
+    "dinitrogen-monoksida",
+    "aturan-oktet",
+    "clf3-t-shape",
+    "sudut-ikatan-terdistorsi",
+    "posisi-ekuatorial",
+    "karakter-s",
+    "panjang-ikatan",
+    "keasaman-hidrokarbon",
+    "intramolekul-vs-intermolekul",
+    "nitrofenol",
+    "kelarutan",
+    "senyawa-gas-mulia",
+    "xef4-square-planar",
+    "oktet-diperluas",
+    "momen-dipol-nol",
+    "hibridisasi-sp3d2",
+    "teori-orbital-molekul-mot",
+    "orde-ikatan",
+    "paramagnetik",
+    "diamagnetik",
+    "deret-spesi-oksigen",
+    "karbon-monoksida-co",
+    "homo-lumo",
+    "ligan-logam-karbonil",
+    "diatomik-heteronuklir",
+    "bents-rule",
+    "pf3cl2",
+    "panjang-ikatan-aksial-ekuatorial",
+    "hibridisasi-sp3d",
+    "siklus-born-haber",
+    "energi-kisi",
+    "hukum-hess",
+    "mgcl2",
+    "termodinamika-ionik",
+    "vsepr-eksotis",
+    "xef5-pentagonal-planar",
+    "bilangan-sterik-7",
+    "hibridisasi-sp3d3",
+    "sp-mixing",
+    "n2-dan-no+",
+    "energi-ionisasi-molekul",
+    "halometana",
+    "sudut-ikatan-riil",
+    "redistribusi-karakter-s",
+    "persamaan-kapustinskii",
+    "afinitas-elektron-kedua",
+    "kalsium-oksida",
+    "if7-pentagonal-bipyramidal",
+    "panjang-ikatan-anomali",
+    "crowding-sterik",
+    "delokalisasi-pi",
+    "orde-ikatan-parsial",
+    "muatan-parsial",
+    "nitrat-dan-karbonat"
   ],
-  core_concepts: [
+  "prerequisites": [
     {
-      tag: 'ikatan-ion-dan-energi-kisi',
-      tags: ['ikatan-ion', 'transfer-elektron', 'energi-kisi', 'kisi-kristal-nacl', 'siklus-born-haber', 'sifat-senyawa-ion'],
-      title: 'Konsep Inti 1: Ikatan Ion (Elektrovalen), Energi Kisi Kristal & Sifat Fisik Senyawa Ionik',
-      summary: 'Mekanisme transfer elektron antarlogam dan nonlogam, stabilitas kisi kristal tiga dimensi, serta penjelasan sifat titik leleh tinggi dan kerapuhan kristal.',
-      content: `Ikatan ion terbentuk akibat gaya tarik-menarik elektrostatik (Gaya Coulomb) yang sangat kuat antara kation (ion bermuatan positif) dan anion (ion bermuatan negatif).
-
-### 1. Mekanisme Pembentukan Ikatan Ion
-
-Ikatan ion secara klasik terjadi antara:
-- **Atom Logam (Golongan IA, IIA, sebagian transisi):** Memiliki energi ionisasi rendah sehingga mudah **melepaskan elektron** valensinya membentuk kation stabil berkonfigurasi gas mulia:
-  $$\\ce{Na ([Ne] 3s^1) -> Na+ ([Ne]) + e-}$$
-- **Atom Nonlogam (Golongan VIA, VIIA):** Memiliki afinitas elektron tinggi dan sangat elektronegatif sehingga mudah **menangkap elektron** tersebut membentuk anion berkonfigurasi gas mulia:
-  $$\\ce{Cl ([Ne] 3s^2 3p^5) + e- -> Cl- ([Ne] 3s^2 3p^6 = [Ar])}$$
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 300" width="100%" height="auto" class="max-w-[780px] select-none font-sans">
-  <defs>
-    <linearGradient id="ionGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#eff6ff"/>
-      <stop offset="100%" stop-color="#dbeafe"/>
-    </linearGradient>
-    <linearGradient id="covGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ecfdf5"/>
-      <stop offset="100%" stop-color="#d1fae5"/>
-    </linearGradient>
-    <marker id="arrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#d97706"/>
-    </marker>
-    <filter id="shadowBox" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08"/>
-    </filter>
-  </defs>
-
-  <!-- PANEL KIRI: IKATAN IONIK -->
-  <g transform="translate(10, 10)">
-    <rect width="365" height="280" rx="16" fill="url(#ionGrad1)" stroke="#bfdbfe" stroke-width="1.5" filter="url(#shadowBox)"/>
-    <rect x="16" y="14" width="140" height="22" rx="6" fill="#2563eb"/>
-    <text x="86" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1. IKATAN IONIK</text>
-    <text x="182" y="52" font-size="12" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Serah-Terima Elektron: Na + Cl → [Na]⁺ + [Cl]⁻</text>
-
-    <!-- Atom Na -->
-    <g transform="translate(65, 125)">
-      <circle r="42" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="3 2"/>
-      <circle r="28" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-      <circle r="15" fill="#3b82f6"/>
-      <text x="0" y="4" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Na</text>
-      <text x="0" y="58" font-size="10" font-weight="semibold" fill="#1e40af" text-anchor="middle">Atom Na (2, 8, 1)</text>
-      <!-- Valensi e- -->
-      <circle cx="42" cy="0" r="5" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>
-      <text x="42" y="-9" font-size="9" font-weight="bold" fill="#b45309" text-anchor="middle">1e⁻</text>
-    </g>
-
-    <!-- Panah Transfer Elektron -->
-    <path d="M 112 125 C 135 75, 165 75, 185 110" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#arrowGold)"/>
-    <text x="148" y="70" font-size="10" font-weight="bold" fill="#b45309" text-anchor="middle">Transfer e⁻</text>
-
-    <!-- Atom Cl -->
-    <g transform="translate(230, 125)">
-      <circle r="46" fill="#ffffff" stroke="#86efac" stroke-width="1.5" stroke-dasharray="3 2"/>
-      <circle r="32" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
-      <circle r="18" fill="#10b981"/>
-      <text x="0" y="4" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Cl</text>
-      <text x="0" y="62" font-size="10" font-weight="semibold" fill="#065f46" text-anchor="middle">Atom Cl (2, 8, 7)</text>
-      <!-- Elektron valensi Cl -->
-      <circle cx="-46" cy="0" r="4" fill="#10b981"/>
-      <circle cx="0" cy="-46" r="4" fill="#10b981"/>
-      <circle cx="0" cy="46" r="4" fill="#10b981"/>
-      <circle cx="46" cy="0" r="4" fill="#10b981"/>
-      <circle cx="32" cy="-32" r="4" fill="#10b981"/>
-      <circle cx="32" cy="32" r="4" fill="#10b981"/>
-      <circle cx="-32" cy="32" r="4" fill="#10b981"/>
-    </g>
-
-    <!-- Hasil: Kisi & Gaya Coulomb -->
-    <rect x="20" y="215" width="325" height="50" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
-    <text x="182" y="234" font-size="11" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Gaya Coulomb: F = k · (|q₁ · q₂|) / r²</text>
-    <text x="182" y="252" font-size="10" fill="#475569" text-anchor="middle">Membentuk kation Na⁺ kecil & anion Cl⁻ besar terkemas rapat</text>
-  </g>
-
-  <!-- PANEL KANAN: IKATAN KOVALEN -->
-  <g transform="translate(395, 10)">
-    <rect width="375" height="280" rx="16" fill="url(#covGrad1)" stroke="#a7f3d0" stroke-width="1.5" filter="url(#shadowBox)"/>
-    <rect x="16" y="14" width="155" height="22" rx="6" fill="#059669"/>
-    <text x="93" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2. IKATAN KOVALEN</text>
-    <text x="187" y="52" font-size="12" font-weight="bold" fill="#064e3b" text-anchor="middle">Pemakaian Bersama Elektron: Cl + Cl → Cl₂</text>
-
-    <!-- Overlapping Cl2 molecule -->
-    <g transform="translate(187, 125)">
-      <!-- Lingkaran Luar Atom Kiri & Kanan -->
-      <circle cx="-42" cy="0" r="52" fill="#3b82f6" fill-opacity="0.1" stroke="#3b82f6" stroke-width="1.5"/>
-      <circle cx="42" cy="0" r="52" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1.5"/>
-
-      <!-- Daerah Overlap -->
-      <ellipse cx="0" cy="0" rx="18" ry="34" fill="#fef08a" fill-opacity="0.55" stroke="#eab308" stroke-width="1.5"/>
-
-      <!-- Inti Kiri & Kanan -->
-      <circle cx="-42" cy="0" r="18" fill="#2563eb"/>
-      <text x="-42" y="4" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Cl</text>
-      <circle cx="42" cy="0" r="18" fill="#059669"/>
-      <text x="42" y="4" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Cl</text>
-
-      <!-- Pasangan Elektron Bersama di Tengah (PEI) -->
-      <circle cx="0" cy="-10" r="4.5" fill="#2563eb"/>
-      <circle cx="0" cy="10" r="4.5" fill="#059669"/>
-
-      <text x="0" y="-45" font-size="10" font-weight="bold" fill="#854d0e" text-anchor="middle">PEI (Shared Pair)</text>
-      <path d="M 0 -38 L 0 -22" stroke="#854d0e" stroke-width="1.2" marker-end="url(#arrowGold)"/>
-
-      <text x="-42" y="68" font-size="10" font-weight="semibold" fill="#1e40af" text-anchor="middle">3 Pasang PEB</text>
-      <text x="42" y="68" font-size="10" font-weight="semibold" fill="#065f46" text-anchor="middle">3 Pasang PEB</text>
-    </g>
-
-    <!-- Keterangan Bawah -->
-    <rect x="20" y="215" width="335" height="50" rx="8" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
-    <text x="187" y="234" font-size="11" font-weight="bold" fill="#065f46" text-anchor="middle">Kerapatan Awan Elektron Terpusat di Antara 2 Inti</text>
-    <text x="187" y="252" font-size="10" fill="#475569" text-anchor="middle">Kedua atom mencapai konfigurasi oktet stabil (8 elektron)</text>
-  </g>
-</svg>
-
----
-
-### 2. Energi Kisi Kristal (*Lattice Energy*, $U$)
-
-Senyawa ionik tidak membentuk molekul individual diskret $\\ce{NaCl}$, melainkan membentuk **kisi kristal tiga dimensi raksasa (*crystalline lattice*)** di mana setiap kation $\\ce{Na+}$ dikelilingi oleh $6$ anion $\\ce{Cl-}$ (koordinasi oktahedral $6:6$), dan setiap anion dikelilingi oleh $6$ kation.
-
-**Energi Kisi ($U$):** Energi yang dilepaskan ketika satu mol senyawa ionik padat terbentuk dari ion-ion penyusunnya dalam wujud gas pada kondisi standar:
-$$\\ce{Na+(g) + Cl-(g) -> NaCl(s)} \\quad \\Delta H = U \\quad (U = -787\\text{ kJ/mol})$$
-
-Berdasarkan formulasi elektrostatik Born-Landé:
-$$U \\propto -\\frac{|z_+ \\cdot z_-|}{r_0}$$
-- $z_+$ dan $z_-$ = muatan kation dan anion.
-- $r_0$ = jarak antarpusat kation-anion ($r_0 = r_+ + r_-$).
-
-> [!IMPORTANT]
-> **Faktor Dominan Penentu Kekuatan Ikatan Ion:**  
-> 1. **Besar muatan ion:** Pengaruh kuadratis muatan jauh lebih dominan daripada ukuran jari-jari. Senyawa dengan ion bervalensi dua (seperti $\\ce{MgO}$, di mana $z_+ = +2, z_- = -2$, hasil kali muatan $= 4$) memiliki energi kisi sekitar **4 kali lipat** lebih besar ($U \\approx -3791\\text{ kJ/mol}$) dan titik leleh jauh lebih tinggi ($2852^\\circ\\text{C}$) dibandingkan $\\ce{NaCl}$ ($z_+ = +1, z_- = -1$, titik leleh $801^\\circ\\text{C}$).
-> 2. **Jari-jari ion:** Makin kecil jari-jari ion, jarak $r_0$ makin pendek, sehingga gaya Coulomb dan energi kisi makin kuat: $U(\\ce{LiF}) > U(\\ce{NaCl}) > U(\\ce{KBr})$.
-
----
-
-### 3. Karakteristik Fisik Khas Senyawa Ionik
-
-1. **Titik Leleh dan Titik Didih Sangat Tinggi:**
-   Dibutuhkan energi termal yang sangat masif untuk mengatasi gaya tarik elektrostatik kisi kristal tiga dimensi di seluruh orientasi ruang.
-2. **Keras Namun Getas / Rapuh (*Hard but Brittle*):**
-   Kristal ionik sangat tahan terhadap tekanan tegak lurus langsung. Namun apabila dipukul dengan palu atau dikenai gaya geser (*shear stress*), satu lapisan ion akan bergeser sejauh satu jari-jari ion. Akibatnya, ion-ion bermuatan sejenis akan berhadapan secara langsung ($\\ce{Na+}$ berhadapan dengan $\\ce{Na+}$, $\\ce{Cl-}$ berhadapan dengan $\\ce{Cl-}$), memicu **gaya tolak elektrostatik raksasa yang memecah kristal seketika**.
-3. **Daya Hantar Listrik (Konduktivitas):**
-   - **Wujud Padat:** *Isolator listrik total*, karena ion-ion terkunci kaku pada titik kisi kristal dan tidak dapat bergerak bebas mengalirkan muatan.
-   - **Wujud Lelehan (*Molten*) & Larutan (*Aqueous*):** *Konduktor listrik sangat baik (Elektrolit Kuat)*, karena kisi kristal terurai dan ion-ion terdisosiasi bergerak bebas (*mobile charge carriers*).`,
-      keyFormulas: [
-        { name: 'Hukum Coulomb Gaya Elektrostatik', formula: 'F = k \\frac{|q_1 \\cdot q_2|}{r^2}' },
-        { name: 'Ketergantungan Energi Kisi Kristal', formula: 'U \\propto \\frac{|z_+ \\cdot z_-|}{r_+ + r_-}' },
+      "tag": "elektron-valensi-dan-kaidah-oktet",
+      "tags": [
+        "elektron-valensi",
+        "kestabilan-gas-mulia",
+        "kaidah-oktet-duplet",
+        "simbol-lewis"
       ],
+      "title": "Prasyarat 1: Kestabilan Gas Mulia, Kaidah Oktet-Duplet & Simbol Titik Lewis",
+      "summary": "Konsep dasar konfigurasi elektron kulit terluar yang mendorong atom-atom membentuk ikatan kimia stabil.",
+      "content": "### 🤝 Sistem Barter vs Kepemilikan Saham Bersama Elektron (Mental Model)\n\nMengapa atom-atom di alam semesta berikatan membentuk senyawa alih-alih menyendiri sebagai atom bebas? Kecuali gas mulia (Golongan VIIIA), mayoritas atom memiliki kulit terluar yang belum terisi penuh sehingga berada pada tingkat energi potensial yang tidak stabil.\n\nUntuk mencapai kestabilan konfigurasi gas mulia (Kaidah Oktet 8 elektron atau Duplet 2 elektron), atom-atom melakukan satu dari tiga strategi:\n1. **Sistem Barter Uang Tunai (Ikatan Ionik):** Satu atom menyerahkan elektron valensinya secara penuh kepada atom lain yang rakus elektron (transfer elektron), menghasilkan kation $(+)$ dan anion $(-)$ yang saling mencengkeram erat melalui gaya tarik elektrostatik Coulomb raksasa.\n2. **Kepemilikan Saham Bersama (Ikatan Kovalen):** Karena kedua atom sama-sama enggan melepas elektron (nonlogam dengan elektronegativitas tinggi), mereka sepakat mengumpulkan dan menggunakan pasangan elektron secara bersama (*mutual investment*).\n3. **Rekening Kas Komunal Bebas (Ikatan Logam):** Seluruh kation logam merelakan elektron valensinya berenang bebas dalam \"lautan elektron komunal\" yang mengalir merata di sela-sela kisi kristal.\n\n---\n\nKecuali unsur-unsur Gas Mulia (Golongan VIIIA), sebagian besar atom di alam tidak berada dalam wujud atom tunggal bebas yang terisolasi, melainkan saling berikatan membentuk molekul unsur atau senyawa kimia.\n\n### 1. Hakikat Termodinamika Kestabilan Gas Mulia\n\nUnsur-unsur Gas Mulia ($\\ce{He}, \\ce{Ne}, \\ce{Ar}, \\ce{Kr}, \\ce{Xe}, \\ce{Rn}$) memiliki energi ionisasi yang sangat tinggi dan afinitas elektron mendekati nol atau positif. Hal ini menyebabkan gas mulia bersifat **sangat stabil (inert)** dan sukar bereaksi secara kimiawi karena telah memiliki kulit valensi yang terisi penuh (*closed valence shell*):\n- **Helium ($\\ce{_{2}He}$):** $1s^2$ (memiliki $2$ elektron valensi, konfigurasi **Duplet** stabil).\n- **Neon hingga Radon:** $ns^2 np^6$ (memiliki tepat $8$ elektron valensi, konfigurasi **Oktet** stabil).\n\n---\n\n### 2. Postulat Kaidah Oktet & Duplet G.N. Lewis\n\nPada tahun 1916, Gilbert N. Lewis dan Irving Langmuir memformulasikan aturan fundamental pembentukan ikatan kimia:\n1. **Kaidah Oktet (*Octet Rule*):**\n   Atom-atom unsur cenderung menyesuaikan jumlah elektron valensinya agar berjumlah **delapan elektron** seperti konfigurasi gas mulia terdekat.\n2. **Kaidah Duplet (*Duplet Rule*):**\n   Atom-atom berukuran kecil dengan nomor atom rendah (seperti $\\ce{H}, \\ce{Li}, \\ce{Be}$) cenderung mencapai kestabilan dengan memiliki **dua elektron** pada kulit terluarnya, menyerupai konfigurasi Helium ($1s^2$).\n\nAtom-atom dapat mencapai konfigurasi oktet atau duplet melalui dua mekanisme utama:\n- **Pelepasan atau penangkapan elektron** (serah-terima elektron) yang menghasilkan **Ikatan Ionik**.\n- **Pemakaian bersama pasangan elektron** antar atom yang menghasilkan **Ikatan Kovalen**.\n\n---\n\n### 3. Simbol Titik Lewis (*Lewis Dot Symbols*)\n\nSimbol Lewis adalah representasi grafis di mana elektron valensi suatu atom digambarkan sebagai titik ($\\bullet$) atau silang ($\\times$) yang mengelilingi simbol kimia unsur:\n- Elektron diletakkan satu per satu pada keempat sisi simbol unsur (atas, bawah, kanan, kiri) sebelum dipasangkan, mencerminkan aturan Hund.\n- Contoh:\n  - Golongan IA ($\\ce{Na\\cdot}$): $1$ elektron valensi.\n  - Golongan IIA ($\\ce{\\cdot Mg\\cdot}$): $2$ elektron valensi.\n  - Golongan IVA ($\\ce{\\cdot \\overset{\\cdot}{\\underset{\\cdot}{C}} \\cdot}$): $4$ elektron valensi tunggal.\n  - Golongan VIIA ($:\\!\\ce{\\overset{\\cdot\\cdot}{\\underset{\\cdot\\cdot}{Cl}}}\\cdot$): $7$ elektron valensi (3 pasang berpasangan, 1 elektron tunggal siap berikatan).\n> [!NOTE]\n> ### 💡 Tiga Kategori Pengecualian Kaidah Oktet yang Sering Diuji di OSN\n> 1. **Spesi Berelektron Ganjil (Radikal Bebas):** Molekul dengan jumlah elektron valensi total ganjil sehingga mustahil semua elektron berpasangan (misal $\\ce{NO}$ dengan 11 elektron valensi dan $\\ce{NO2}$ dengan 17 elektron valensi). Sangat reaktif!\n> 2. **Oktet Kurang / Tak Lengkap (*Incomplete Octet*):** Atom pusat dikelilingi kurang dari 8 elektron namun stabil (misal $\\ce{BeCl2}$ dengan 4 elektron di sekitar Be, $\\ce{BF3}$ dan $\\ce{AlCl3}$ dengan 6 elektron di sekitar atom pusat).\n> 3. **Superoktet / Ekspansi Kulit Valensi (*Expanded Octet*):** Atom pusat dari **Periode 3 atau lebih tinggi** (seperti P, S, Cl, Xe) dapat menampung 10, 12, bahkan 14 elektron valensi karena memiliki **subkulit $d$ kosong** yang dapat diakses untuk hibridisasi (misal $\\ce{PCl5}$ memiliki 10e⁻, $\\ce{SF6}$ memiliki 12e⁻, $\\ce{XeF4}$ memiliki 12e⁻). Unsur Periode 2 (C, N, O, F) MUTLAK TIDAK BISA mengalami ekspansi oktet karena tidak memiliki subkulit $d$!\n",
+      "keyFormulas": [
+        {
+          "name": "Kaidah Konfigurasi Oktet Gas Mulia",
+          "formula": "ns^2 np^6 \\quad (\\text{Total } 8\\text{ elektron valensi})"
+        },
+        {
+          "name": "Kaidah Konfigurasi Duplet Helium",
+          "formula": "1s^2 \\quad (\\text{Total } 2\\text{ elektron valensi})"
+        }
+      ]
     },
     {
-      tag: 'ikatan-kovalen-dan-kovalen-koordinasi',
-      tags: ['ikatan-kovalen', 'kovalen-tunggal-rangkap', 'ikatan-sigma-pi', 'kovalen-koordinasi', 'datif', 'pengecualian-oktet'],
-      title: 'Konsep Inti 2: Ikatan Kovalen, Kovalen Koordinasi (Datif) & Anomali Pengecualian Kaidah Oktet',
-      summary: 'Tumpang tindih orbital sigma dan pi, ikatan donor-akseptor elektron bebas, serta fenomena oktet tak lengkap, radikal bebas, dan superoktet.',
-      content: `Ikatan kovalen terbentuk akibat gaya tarik elektrostatik simultan antara dua inti atom positif terhadap pasangan elektron yang digunakan bersama di daerah antarnukleus (*internuclear region*).
-
-### 1. Mekanisme Pembentukan Ikatan Kovalen & Kurva Energi Potensial
-
-Pembentukan ikatan kovalen antara dua atom (seperti dua atom hidrogen, $\\ce{H + H -> H2}$) melibatkan kompetisi dinamis antara gaya tarik dan gaya tolak elektrostatik seiring perubahan jarak antarinti ($r$).
-
-#### A. Dinamika Dua Gaya yang Berkompetisi:
-1. **Gaya Tarik Elektrostatik ($F_{\\text{tarik}}$):**
-   - Tarikan antara inti atom A (bermuatan $+1$) terhadap elektron atom B (bermuatan $-1$).
-   - Tarikan antara inti atom B terhadap elektron atom A.
-2. **Gaya Tolak Elektrostatik ($F_{\\text{tolak}}$):**
-   - Tolakan antara elektron atom A dengan elektron atom B (tolakan sesama muatan negatif).
-   - Tolakan antara inti atom A dengan inti atom B (tolakan sesama muatan positif).
-
-#### B. Analisis Kurva Energi Potensial (Kurva Morse $\\ce{H2}$):
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="100%" stop-color="#0284c7"/>
-    </linearGradient>
-    <radialGradient id="hAtom" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#93c5fd"/>
-      <stop offset="60%" stop-color="#3b82f6"/>
-      <stop offset="100%" stop-color="#1d4ed8"/>
-    </radialGradient>
-    <marker id="arrowEp" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7"/>
-    </marker>
-    <marker id="arrowDist" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#16a34a"/>
-    </marker>
-  </defs>
-
-  <!-- BACKGROUND -->
-  <rect width="820" height="380" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-
-  <!-- HEADER -->
-  <text x="410" y="26" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="middle">KURVA ENERGI POTENSIAL PEMBENTUKAN IKATAN KOVALEN (H₂)</text>
-  <text x="410" y="44" font-size="10.5" fill="#64748b" text-anchor="middle">Keseimbangan Termodinamika antara Gaya Tarik Inti-Elektron dan Gaya Tolak Inti-Inti</text>
-
-  <!-- AREA GRAFIK UTAMA -->
-  <!-- Sumbu Koordinat: Asal (X=90, Y=170) -> Ep = 0 -->
-  <g transform="translate(10, 20)">
-    <!-- Garis Sumbu Ep = 0 -->
-    <line x1="90" y1="150" x2="520" y2="150" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
-    <text x="82" y="154" font-size="10" font-weight="bold" fill="#64748b" text-anchor="end">Ep = 0</text>
-
-    <!-- Sumbu Y: Energi Potensial -->
-    <line x1="90" y1="50" x2="90" y2="310" stroke="#334155" stroke-width="2"/>
-    <path d="M 90 44 L 86 52 L 94 52 z" fill="#334155"/>
-    <text x="85" y="42" font-size="10.5" font-weight="bold" fill="#334155" text-anchor="end">Energi Potensial (kJ/mol)</text>
-
-    <!-- Sumbu X: Jarak Antarinti r -->
-    <line x1="90" y1="310" x2="540" y2="310" stroke="#334155" stroke-width="2"/>
-    <path d="M 546 310 L 538 306 L 538 314 z" fill="#334155"/>
-    <text x="535" y="328" font-size="10.5" font-weight="bold" fill="#334155" text-anchor="end">Jarak Antarinti r (pm)</text>
-
-    <!-- Label Skala Y -->
-    <text x="82" y="80" font-size="9" fill="#dc2626" text-anchor="end">+400</text>
-    <line x1="86" y1="76" x2="94" y2="76" stroke="#94a3b8" stroke-width="1"/>
-    <text x="82" y="278" font-size="9" font-weight="bold" fill="#0284c7" text-anchor="end">-436</text>
-    <line x1="86" y1="274" x2="94" y2="274" stroke="#0284c7" stroke-width="1.5"/>
-
-    <!-- Label Skala X: r = 74 pm -->
-    <line x1="220" y1="306" x2="220" y2="314" stroke="#16a34a" stroke-width="1.5"/>
-    <text x="220" y="328" font-size="10" font-weight="bold" fill="#16a34a" text-anchor="middle">74 pm</text>
-
-    <!-- KURVA ENERGI POTENSIAL (Smooth Bezier) -->
-    <!-- Turun dari (120, 60) menembus Ep=0 di (150, 150) -> palung di (220, 274) -> naik ke (340, 165) -> (500, 152) -->
-    <path d="M 115 55 C 122 120, 138 210, 160 250 C 180 285, 205 274, 220 274 C 245 274, 280 230, 330 185 C 380 160, 440 152, 510 150" fill="none" stroke="#0284c7" stroke-width="3.5" stroke-linecap="round"/>
-
-    <!-- TITIK PALUNG MINIMUM: r = 74 pm, Ep = -436 kJ/mol -->
-    <circle cx="220" cy="274" r="6" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
-    <line x1="90" y1="274" x2="220" y2="274" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="3 2"/>
-    <line x1="220" y1="150" x2="220" y2="310" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="3 2"/>
-
-    <!-- PANAH ENERGI IKATAN (De = 436 kJ/mol) -->
-    <line x1="260" y1="150" x2="260" y2="274" stroke="#0284c7" stroke-width="2" marker-start="url(#arrowEp)" marker-end="url(#arrowEp)"/>
-    <rect x="270" y="200" width="130" height="24" rx="5" fill="#ffffff" stroke="#bae6fd" stroke-width="1"/>
-    <text x="335" y="216" font-size="9.5" font-weight="bold" fill="#0284c7" text-anchor="middle">Energi Ikatan: 436 kJ/mol</text>
-
-    <!-- PANAH PANJANG IKATAN (r0 = 74 pm) -->
-    <line x1="90" y1="290" x2="220" y2="290" stroke="#16a34a" stroke-width="2" marker-start="url(#arrowDist)" marker-end="url(#arrowDist)"/>
-    <text x="155" y="285" font-size="9" font-weight="bold" fill="#16a34a" text-anchor="middle">Panjang Ikatan (r₀)</text>
-  </g>
-
-  <!-- ILUSTRASI 3 TAHAP MEKANISME (KARTU KANAN) -->
-  <g transform="translate(560, 60)">
-    <rect width="245" height="295" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <text x="122" y="20" font-size="11" font-weight="bold" fill="#1e293b" text-anchor="middle">3 TAHAPAN PEMBENTUKAN</text>
-
-    <!-- TAHAP 1: ATOM TERPISAH (r >> 74 pm) -->
-    <g transform="translate(15, 32)">
-      <rect width="215" height="72" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-      <text x="10" y="16" font-size="9.5" font-weight="bold" fill="#0369a1">1. Jarak Jauh (r &gt;&gt; r₀)</text>
-      <!-- Visual 2 atom terpisah -->
-      <circle cx="65" cy="45" r="14" fill="url(#hAtom)"/>
-      <text x="65" y="49" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-      <circle cx="150" cy="45" r="14" fill="url(#hAtom)"/>
-      <text x="150" y="49" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-      <text x="107" y="48" font-size="8" fill="#64748b" text-anchor="middle">Tidak Ada Interaksi</text>
-      <text x="10" y="66" font-size="8.5" fill="#475569">Ep = 0 kJ/mol (Atom Bebas)</text>
-    </g>
-
-    <!-- TAHAP 2: PANJANG IKATAN OPTIMAL (r = 74 pm) -->
-    <g transform="translate(15, 114)">
-      <rect width="215" height="85" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
-      <text x="10" y="16" font-size="9.5" font-weight="bold" fill="#15803d">2. Keseimbangan (r = 74 pm)</text>
-      <!-- Visual tumpang tindih optimal -->
-      <g transform="translate(107, 45)">
-        <circle cx="-11" cy="0" r="15" fill="url(#hAtom)" opacity="0.9"/>
-        <circle cx="11" cy="0" r="15" fill="url(#hAtom)" opacity="0.9"/>
-        <ellipse cx="0" cy="0" rx="7" ry="12" fill="#fef08a" opacity="0.8"/>
-        <text x="-11" y="4" font-size="8.5" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-        <text x="11" y="4" font-size="8.5" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-      </g>
-      <text x="107" y="70" font-size="8.5" font-weight="bold" fill="#15803d" text-anchor="middle">F_tarik = F_tolak | Molekul H₂ Stabil</text>
-      <text x="107" y="80" font-size="8" fill="#166534" text-anchor="middle">Ep Minimum: -436 kJ/mol</text>
-    </g>
-
-    <!-- TAHAP 3: TERLALU DEKAT (r < 74 pm) -->
-    <g transform="translate(15, 210)">
-      <rect width="215" height="74" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-      <text x="10" y="16" font-size="9.5" font-weight="bold" fill="#b91c1c">3. Terlalu Dekat (r &lt; 74 pm)</text>
-      <!-- Visual bertabrakan inti -->
-      <g transform="translate(107, 42)">
-        <circle cx="-5" cy="0" r="15" fill="#ef4444" opacity="0.8"/>
-        <circle cx="5" cy="0" r="15" fill="#ef4444" opacity="0.8"/>
-        <text x="0" y="4" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">⚡</text>
-      </g>
-      <text x="107" y="65" font-size="8.5" font-weight="bold" fill="#b91c1c" text-anchor="middle">F_tolak &gt;&gt; F_tarik (Tolakan Inti)</text>
-    </g>
-  </g>
-</svg>
-
-#### C. Tiga Zona Kritis Kurva Energi Potensial:
-1. **Zona Jarak Jauh ($r > r_0$):**
-   Ketika kedua atom hidrogen saling mendekat dari jarak jauh, gaya tarik elektrostatik antara inti satu atom dengan elektron atom lainnya mulai bekerja mendominasi gaya tolak ($F_{\\text{tarik}} > F_{\\text{tolak}}$). Akibatnya, **energi potensial sistem menurun secara kontinu ($E_p < 0$)**, melepaskan kalor (proses eksotermik) seiring meningkatnya kestabilan sistem.
-2. **Zona Keseimbangan Termodinamika ($r = r_0 = 74\\text{ pm}$):**
-   Pada jarak antarinti $74\\text{ pm}$ ($0.74\\text{ \\AA}$), gaya tarik elektrostatik inti-elektron tepat mengimbangi gaya tolak inti-inti dan elektron-elektron ($F_{\\text{tarik}} = F_{\\text{tolak}}$).
-   - Sistem mencapai **palung energi terendah (energi minimum)** sebesar **$-436\\text{ kJ/mol}$**.
-   - **Panjang Ikatan Kovalen ($r_0$):** Jarak antarinti pada titik energi potensial minimum ($74\\text{ pm}$ untuk molekul $\\ce{H2}$).
-   - **Energi Ikatan / Energi Disosiasi Ikatan ($D_e$):** Besarnya kedalaman palung energi ($436\\text{ kJ/mol}$), yaitu energi yang harus diserap sistem untuk memisahkan kembali molekul $\\ce{H2}$ menjadi atom-atom bebas netral.
-3. **Zona Tolakan Inti ($r < r_0$):**
-   Jika kedua atom dipaksa saling mendekat melewati jarak $74\\text{ pm}$, awan elektron saling tumpang tindih berlebihan dan kedua inti atom bermuatan positif saling mendekat. Gaya tolak elektrostatik inti-inti melonjak secara eksponensial ($F_{\\text{tolak}} \\gg F_{\\text{tarik}}$).
-   - Energi potensial sistem melesat naik tajam ke nilai positif tinggi ($E_p \\gg 0$), menyebabkan sistem menjadi sangat labil dan kedua atom saling tolak-menolak keras.
-
----
-
-### 2. Klasifikasi Orde Ikatan Kovalen
-
-Berdasarkan jumlah pasangan elektron ikatan (PEI) yang digunakan bersama:
-1. **Ikatan Kovalen Tunggal (Orde Ikatan = 1):**
-   - Menggunakan $1$ pasang elektron bersama ($2$ elektron).
-   - Terdiri dari **$1$ ikatan $\\sigma$ (sigma)** yang terbentuk dari tumpang tindih langsung ujung-ke-ujung (*head-on overlap*) orbital atom.
-   - Memiliki panjang ikatan paling panjang dan energi ikatan paling lemah.
-   - Contoh: $\\ce{H-H}$, $\\ce{Cl-Cl}$, $\\ce{H-CH3}$.
-2. **Ikatan Kovalen Rangkap Dua (Orde Ikatan = 2):**
-   - Menggunakan $2$ pasang elektron bersama ($4$ elektron).
-   - Terdiri dari **$1$ ikatan $\\sigma$ + $1$ ikatan $\\pi$ (pi)** yang terbentuk dari tumpang tindih sisi-ke-sisi (*side-by-side overlap*) orbital $p$.
-   - Contoh: $\\ce{O=O}$ pada $\\ce{O2}$, $\\ce{O=C=O}$ pada $\\ce{CO2}$, $\\ce{H2C=CH2}$ (etena).
-3. **Ikatan Kovalen Rangkap Tiga (Orde Ikatan = 3):**
-   - Menggunakan $3$ pasang elektron bersama ($6$ elektron).
-   - Terdiri dari **$1$ ikatan $\\sigma$ + $2$ ikatan $\\pi$** yang saling tegak lurus.
-   - Memiliki panjang ikatan paling pendek dan energi ikatan paling tinggi (sangat kuat dan inert).
-   - Contoh: $\\ce{N\\equiv N}$ pada gas Nitrogen ($D_{\\ce{N\\equiv N}} = 945\\text{ kJ/mol}$, menjelaskan mengapa $\\ce{N2}$ sangat stabil di atmosfer), gas asetilena $\\ce{H-C\\equiv C-H}$.
-
----
-
-### 3. Ikatan Kovalen Koordinasi (Ikatan Datif / Semipolar)
-
-Ikatan kovalen koordinasi adalah jenis ikatan kovalen di mana **pasangan elektron ikatan yang digunakan bersama hanya disumbangkan secara sepihak oleh salah satu atom (atom donor)**, sedangkan atom mitranya (atom akseptor) hanya menyediakan orbital kosong tanpa menyumbangkan elektron.
-- **Syarat Terbentuknya:**
-  1. Atom donor wajib memiliki minimal satu **Pasangan Elektron Bebas (PEB)** yang belum berikatan (Basa Lewis).
-  2. Atom akseptor memiliki **orbital kosong** yang siap menerima pasangan elektron tersebut (Asam Lewis).
-- **Contoh Penting dalam Kimia:**
-  1. **Pembentukan Kation Amonium ($\\ce{NH4+}$):**
-     Molekul amonia ($\\ce{NH3}$) memiliki 1 PEB pada atom $\\ce{N}$. Ketika bereaksi dengan ion $\\ce{H+}$ (yang tidak memiliki elektron sama sekali, orbital $1s^0$ kosong):
-     $$\\ce{H3N:} + \\ce{H+} \\to [\\ce{H3N -> H}]+ \\quad \\text{atau} \\quad [\\ce{NH4}]+$$
-  2. **Pembentukan Kation Hidronium ($\\ce{H3O+}$):**
-     $$\\ce{H2\\ddot{O}} + \\ce{H+} \\to [\\ce{H2O -> H}]+$$
-  3. **Adisi Asam-Basa Lewis Amonia dan Boron Trifluorida:**
-     $$\\ce{H3N:} + \\ce{BF3} \\to \\ce{H3N -> BF3}$$
-  4. **Molekul Belerang Trioksida ($\\ce{SO3}$):**
-     Berdasarkan kaidah oktet formal, atom $\\ce{S}$ berikatan rangkap dua dengan 1 atom $\\ce{O}$ ($\\ce{S=O}$), dan menyumbangkan 2 PEB-nya untuk membentuk **2 ikatan kovalen koordinasi** ke dua atom $\\ce{O}$ lainnya ($\\ce{O <- S(=O) -> O}$).
-
----
-
-### 4. Tiga Kategori Pengecualian Kaidah Oktet
-
-Meskipun kaidah oktet sangat berguna untuk memprediksi struktur senyawa unsur periode 2, terdapat tiga kelas senyawa yang menyimpang dari kaidah oktet:
-
-1. **Oktet Tak Lengkap (*Incomplete Octet* - Elektron Kurang dari 8):**
-   Terjadi pada senyawa kovalen berilium ($\\ce{Be}$), boron ($\\ce{B}$), dan aluminium ($\\ce{Al}$):
-   - $\\ce{BeCl2}$: Atom $\\ce{Be}$ hanya dikelilingi oleh **4 elektron valensi** (2 PEI).
-   - $\\ce{BF3}$ dan $\\ce{BCl3}$: Atom $\\ce{B}$ hanya dikelilingi oleh **6 elektron valensi** (3 PEI).
-   - *Dampak Reaktivitas:* Senyawa dengan oktet tak lengkap sangat reaktif sebagai **Asam Lewis** (akseptor pasangan elektron) yang rakus berikatan dengan spesi kaya elektron.
-2. **Molekul Berjumlah Elektron Ganjil (Radikal Bebas / *Odd-Electron Molecules*):**
-   Molekul yang total elektron valensinya bernomor ganjil secara matematis mustahil memasangkan seluruh elektronnya menjadi oktet:
-   - Nitrogen Monoksida ($\\ce{NO}$): $5 + 6 = 11$ elektron valensi. Atom $\\ce{N}$ memiliki $7$ elektron di sekelilingnya.
-   - Nitrogen Dioksida ($\\ce{NO2}$): $5 + 2(6) = 17$ elektron valensi. Berwarna cokelat gas, bersifat paramagnetik dan sangat mudah mendimerisasi menjadi dinitrogen tetraoksida non-radikal:
-     $$\\ce{2 NO2 (g) <=> N2O4 (g)}$$
-3. **Oktet Berkembang (*Expanded Octet* / Superoktet - Lebih dari 8 Elektron):**
-   Hanya dapat terjadi pada atom pusat dari **Periode 3 atau lebih besar** (seperti $\\ce{P}, \\ce{S}, \\ce{Cl}, \\ce{Br}, \\ce{I}, \\ce{Xe}$) karena atom-atom ini memiliki **subkulit $3d$ kosong yang berenergi relatif rendah** sehingga mampu menampung 10, 12, atau 14 elektron valensi:
-   - Fosforus Pentaklorida ($\\ce{PCl5}$): Atom pusat $\\ce{P}$ memiliki **10 elektron valensi** (5 PEI).
-   - Belerang Heksafluorida ($\\ce{SF6}$): Atom pusat $\\ce{S}$ memiliki **12 elektron valensi** (6 PEI, sangat stabil dan inert).
-   - Ksenon Tetrafluorida ($\\ce{XeF4}$): Atom pusat $\\ce{Xe}$ memiliki **12 elektron** (4 PEI + 2 PEB).
-   *(Unsur Periode 2 seperti Karbon, Nitrogen, dan Oksigen TIDAK PERNAH mengalami superoktet karena tidak memiliki subkulit $2d$).*`,
-      keyFormulas: [
-        { name: 'Keseimbangan Termodinamika Ikatan Kovalen', formula: 'r = r_0 \\implies \\left(\\frac{dE_p}{dr}\\right)_{r=r_0} = 0 \\quad (E_p = -D_e)' },
-        { name: 'Orde Ikatan Kovalen', formula: '\\text{Orde Ikatan} = \\frac{N_b - N_a}{2}' },
-        { name: 'Kapasitas Maksimal Superoktet Periode 3', formula: '\\text{Elektron Kulit Terluar} > 8 \\quad (\\text{Melibatkan orbital } d)' },
+      "tag": "elektronegativitas-dan-karakter-ikatan",
+      "tags": [
+        "elektronegativitas-pauling",
+        "selisih-elektronegativitas",
+        "spektrum-karakter-ikatan"
       ],
-    },
-    {
-      tag: 'teori-vsepr-dan-geometri-molekul',
-      tags: ['teori-vsepr', 'domain-elektron', 'geometri-molekul', 'notasi-axne-m', 'sudut-ikatan', 'distorsi-peb'],
-      title: 'Konsep Inti 3: Teori VSEPR, Notasi Domain Elektron & Prediksi Geometri Ruang Molekul',
-      summary: 'Kaidah tolakan pasangan elektron Gillespie-Nyholm, perumusan AXnEm, serta penurunan bentuk geometri molekul dari bentuk dasarnya.',
-      content: `Bentuk ruang tiga dimensi molekul mengendalikan reaktivitas kimiawi, kepolaran, interaksi dengan reseptor biologis, hingga wujud fisiknya.
-
-### 1. Prinsip Fundamental Teori VSEPR
-
-Teori VSEPR (*Valence Shell Electron Pair Repulsion*) dikembangkan oleh Ronald Gillespie dan Ronald Nyholm:
-> *"Pasangan-pasangan elektron valensi (baik pasangan elektron ikatan maupun pasangan elektron bebas) yang mengelilingi atom pusat bermuatan negatif, sehingga mereka akan saling tolak-menolak dan berusaha menempati posisi ruang sejauh mungkin satu sama lain untuk meminimalkan gaya tolak elektrostatik."*
-
-**Hierarki Kekuatan Tolakan Elektron (Gillespie-Nyholm Rule):**
-$$\\mathbf{\\text{Tolakan PEB - PEB} > \\text{Tolakan PEB - PEI} > \\text{Tolakan PEI - PEI}}$$
-- **Mengapa PEB menolak lebih kuat?** Pasangan Elektron Bebas (PEB) hanya terikat pada satu inti atom, sehingga awan elektronnya lebih menggelembung besar dan menyebar luas di sekitar atom pusat. Sebaliknya, Pasangan Elektron Ikatan (PEI) ditarik oleh dua inti atom sehingga awan elektronnya lebih ramping dan terkurung di antara kedua inti.
-- **Akibat Fisik:** Kehadiran PEB akan **menekan sudut ikatan PEI-PEI menjadi lebih sempit** daripada sudut idealnya!
-
----
-
-### 2. Notasi Domain Elektron ($AX_n E_m$)
-
-Untuk meramalkan bentuk molekul, digunakan notasi:
-$$\\mathbf{AX_n E_m}$$
-- $\\mathbf{A}$ = Simbol atom pusat.
-- $\\mathbf{X}$ = Jumlah atom ligan yang terikat pada atom pusat (sama dengan jumlah Pasangan Elektron Ikatan / PEI). Ikatan tunggal, rangkap dua, maupun rangkap tiga dihitung sebagai **$1$ domain ikatan**.
-- $\\mathbf{E}$ = Jumlah Pasangan Elektron Bebas (PEB) yang berada pada kulit valensi atom pusat.
-- $\\mathbf{n + m}$ = Jumlah total domain elektron (menentukan **Geometri Domain Elektron Dasar**).
-
-Rumus cepat menghitung PEB ($E$):
-$$E = \\frac{EV - (n \\times b)}{2}$$
-*(di mana $EV$ = elektron valensi atom pusat, $n$ = jumlah atom ligan terikat, $b$ = valensi kebutuhan elektron ligan: $b=1$ untuk $\\ce{H, F, Cl, Br, I}$; $b=2$ untuk $\\ce{O, S}$; $b=3$ untuk $\\ce{N}$).*
-
----
-
-### 3. Peta Komparatif 5 Geometri Molekul Kunci
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 330" width="100%" height="auto" class="max-w-[840px] select-none font-sans">
-  <defs>
-    <radialGradient id="atomCenter" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#93c5fd"/>
-      <stop offset="60%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </radialGradient>
-    <radialGradient id="atomLigand" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#86efac"/>
-      <stop offset="60%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#064e3b"/>
-    </radialGradient>
-    <radialGradient id="lonePair" cx="40%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="70%" stop-color="#eab308"/>
-      <stop offset="100%" stop-color="#ca8a04"/>
-    </radialGradient>
-  </defs>
-
-  <!-- BACKGROUND CONTAINER -->
-  <rect width="840" height="330" rx="16" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-
-  <!-- TITLE -->
-  <text x="420" y="28" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">SPEKTRUM GEOMETRI MOLEKUL VSEPR & DISTORSI SUDUT IKATAN</text>
-  <text x="420" y="46" font-size="11" fill="#64748b" text-anchor="middle">Pengaruh tolakan awan elektron PEB terhadap penciutan sudut ikatan PEI-PEI</text>
-
-  <!-- CARD 1: LINEAR (AX2) -->
-  <g transform="translate(20, 65)">
-    <rect width="150" height="200" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <rect x="10" y="10" width="130" height="22" rx="6" fill="#3b82f6"/>
-    <text x="75" y="25" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Linear (AX₂)</text>
-    <!-- Visual 3D -->
-    <g transform="translate(75, 95)">
-      <!-- Ikatan -->
-      <line x1="-50" y1="0" x2="50" y2="0" stroke="#94a3b8" stroke-width="5" stroke-linecap="round"/>
-      <!-- Bola Pusat -->
-      <circle cx="0" cy="0" r="16" fill="url(#atomCenter)"/>
-      <text x="0" y="4" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Be</text>
-      <!-- Bola Ligan Kiri & Kanan -->
-      <circle cx="-50" cy="0" r="13" fill="url(#atomLigand)"/>
-      <text x="-50" y="3" font-size="8.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Cl</text>
-      <circle cx="50" cy="0" r="13" fill="url(#atomLigand)"/>
-      <text x="50" y="3" font-size="8.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Cl</text>
-      <!-- Arc Sudut -->
-      <path d="M -22 -14 A 26 26 0 0 1 22 -14" fill="none" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="0" y="-28" font-size="10" font-weight="bold" fill="#2563eb" text-anchor="middle">180°</text>
-    </g>
-    <text x="75" y="162" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Sudut: 180°</text>
-    <text x="75" y="178" font-size="9" fill="#64748b" text-anchor="middle">0 PEB | Nonpolar</text>
-    <text x="75" y="192" font-size="8.5" font-style="italic" fill="#0284c7" text-anchor="middle">Contoh: BeCl₂, CO₂</text>
-  </g>
-
-  <!-- CARD 2: TRIGONAL PLANAR (AX3) -->
-  <g transform="translate(180, 65)">
-    <rect width="150" height="200" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <rect x="10" y="10" width="130" height="22" rx="6" fill="#0ea5e9"/>
-    <text x="75" y="25" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Trigonal Planar (AX₃)</text>
-    <g transform="translate(75, 95)">
-      <!-- Ikatan 3 Arah -->
-      <line x1="0" y1="0" x2="0" y2="-45" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="-40" y2="28" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="40" y2="28" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- Bola Pusat -->
-      <circle cx="0" cy="0" r="16" fill="url(#atomCenter)"/>
-      <text x="0" y="4" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">B</text>
-      <!-- 3 Ligan -->
-      <circle cx="0" cy="-45" r="12" fill="url(#atomLigand)"/>
-      <circle cx="-40" cy="28" r="12" fill="url(#atomLigand)"/>
-      <circle cx="40" cy="28" r="12" fill="url(#atomLigand)"/>
-      <!-- Sudut -->
-      <text x="24" y="-12" font-size="9.5" font-weight="bold" fill="#0284c7">120°</text>
-    </g>
-    <text x="75" y="162" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Sudut: 120°</text>
-    <text x="75" y="178" font-size="9" fill="#64748b" text-anchor="middle">0 PEB | Nonpolar</text>
-    <text x="75" y="192" font-size="8.5" font-style="italic" fill="#0284c7" text-anchor="middle">Contoh: BF₃, SO₃</text>
-  </g>
-
-  <!-- CARD 3: TETRAHEDRAL (AX4) -->
-  <g transform="translate(340, 65)">
-    <rect width="155" height="200" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-    <rect x="10" y="10" width="135" height="22" rx="6" fill="#10b981"/>
-    <text x="77" y="25" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Tetrahedral (AX₄)</text>
-    <g transform="translate(77, 95)">
-      <!-- 4 Ikatan -->
-      <line x1="0" y1="0" x2="0" y2="-45" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="-42" y2="25" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="42" y2="25" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="10" y2="35" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 2"/>
-      <!-- Pusat -->
-      <circle cx="0" cy="0" r="16" fill="url(#atomCenter)"/>
-      <text x="0" y="4" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">C</text>
-      <!-- Ligands -->
-      <circle cx="0" cy="-45" r="11" fill="url(#atomLigand)"/>
-      <circle cx="-42" cy="25" r="11" fill="url(#atomLigand)"/>
-      <circle cx="42" cy="25" r="11" fill="url(#atomLigand)"/>
-      <circle cx="10" cy="35" r="9" fill="url(#atomLigand)"/>
-      <text x="24" y="-10" font-size="9.5" font-weight="bold" fill="#059669">109.5°</text>
-    </g>
-    <text x="77" y="162" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Sudut Ideal: 109.5°</text>
-    <text x="77" y="178" font-size="9" fill="#64748b" text-anchor="middle">0 PEB | Nonpolar</text>
-    <text x="77" y="192" font-size="8.5" font-style="italic" fill="#059669" text-anchor="middle">Contoh: CH₄, CCl₄</text>
-  </g>
-
-  <!-- CARD 4: TRIGONAL PIRAMIDA (AX3E1) -->
-  <g transform="translate(505, 65)">
-    <rect width="155" height="200" rx="12" fill="#ffffff" stroke="#f59e0b" stroke-width="1.5"/>
-    <rect x="10" y="10" width="135" height="22" rx="6" fill="#f59e0b"/>
-    <text x="77" y="25" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Trigonal Piramida (AX₃E)</text>
-    <g transform="translate(77, 100)">
-      <!-- Balon Awan PEB di Atas -->
-      <ellipse cx="0" cy="-26" rx="14" ry="20" fill="url(#lonePair)" opacity="0.85"/>
-      <circle cx="-4" cy="-28" r="2.5" fill="#78350f"/>
-      <circle cx="4" cy="-28" r="2.5" fill="#78350f"/>
-      <text x="24" y="-28" font-size="8" font-weight="bold" fill="#b45309">1 PEB</text>
-      <!-- Ikatan tertekan ke bawah -->
-      <line x1="0" y1="0" x2="-38" y2="34" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="38" y2="34" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="0" y2="40" stroke="#64748b" stroke-width="3" stroke-dasharray="2 2"/>
-      <!-- Pusat N -->
-      <circle cx="0" cy="0" r="16" fill="url(#atomCenter)"/>
-      <text x="0" y="4" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
-      <!-- Ligands H -->
-      <circle cx="-38" cy="34" r="10" fill="url(#atomLigand)"/>
-      <circle cx="38" cy="34" r="10" fill="url(#atomLigand)"/>
-      <circle cx="0" cy="40" r="8" fill="url(#atomLigand)"/>
-    </g>
-    <text x="77" y="162" font-size="10" font-weight="bold" fill="#b45309" text-anchor="middle">Sudut Menciut: 107.3°</text>
-    <text x="77" y="178" font-size="9" font-weight="semibold" fill="#dc2626" text-anchor="middle">1 PEB | Polar</text>
-    <text x="77" y="192" font-size="8.5" font-style="italic" fill="#b45309" text-anchor="middle">Contoh: NH₃, PCl₃</text>
-  </g>
-
-  <!-- CARD 5: BENGKOK / V-SHAPE (AX2E2) -->
-  <g transform="translate(670, 65)">
-    <rect width="150" height="200" rx="12" fill="#ffffff" stroke="#ef4444" stroke-width="1.5"/>
-    <rect x="10" y="10" width="130" height="22" rx="6" fill="#ef4444"/>
-    <text x="75" y="25" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Bengkok / V (AX₂E₂)</text>
-    <g transform="translate(75, 100)">
-      <!-- 2 Balon Awan PEB di Atas -->
-      <ellipse cx="-13" cy="-24" rx="12" ry="18" fill="url(#lonePair)" opacity="0.85" transform="rotate(-15, -13, -24)"/>
-      <ellipse cx="13" cy="-24" rx="12" ry="18" fill="url(#lonePair)" opacity="0.85" transform="rotate(15, 13, -24)"/>
-      <text x="0" y="-38" font-size="8" font-weight="bold" fill="#b45309" text-anchor="middle">2 PEB Kuat</text>
-      <!-- Ikatan tertekan sangat sempit -->
-      <line x1="0" y1="0" x2="-35" y2="34" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <line x1="0" y1="0" x2="35" y2="34" stroke="#94a3b8" stroke-width="4.5" stroke-linecap="round"/>
-      <!-- Pusat O -->
-      <circle cx="0" cy="0" r="16" fill="url(#atomCenter)"/>
-      <text x="0" y="4" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">O</text>
-      <!-- Ligands H -->
-      <circle cx="-35" cy="34" r="10" fill="url(#atomLigand)"/>
-      <circle cx="35" cy="34" r="10" fill="url(#atomLigand)"/>
-    </g>
-    <text x="75" y="162" font-size="10" font-weight="bold" fill="#dc2626" text-anchor="middle">Sudut Tertekan: 104.5°</text>
-    <text x="75" y="178" font-size="9" font-weight="semibold" fill="#dc2626" text-anchor="middle">2 PEB | Sangat Polar</text>
-    <text x="75" y="192" font-size="8.5" font-style="italic" fill="#dc2626" text-anchor="middle">Contoh: H₂O, OF₂, SCl₂</text>
-  </g>
-
-  <!-- BANNER BAWAH: HIERARKI TOLAKAN GILLESPIE -->
-  <g transform="translate(20, 276)">
-    <rect width="800" height="38" rx="8" fill="#1e293b"/>
-    <text x="400" y="24" font-size="11.5" font-weight="bold" fill="#f8fafc" text-anchor="middle">
-      Kaidah Tolakan Gillespie: Tolakan PEB-PEB &gt; Tolakan PEB-PEI &gt; Tolakan PEI-PEI
-    </text>
-  </g>
-</svg>
-
----
-
-### 4. Tabel Lengkap Bentuk Geometri Berdasarkan Domain Elektron
-
-| Domain | Notasi | PEI ($n$) | PEB ($m$) | Geometri Molekul | Sudut Ikatan | Contoh Molekul | Kepolaran Umum |
-| :---: | :---: | :---: | :---: | :--- | :---: | :--- | :---: |
-| **2** | $AX_2$ | 2 | 0 | **Linear** | $180^\\circ$ | $\\ce{BeCl2}, \\ce{CO2}, \\ce{HCN}$ | Nonpolar |
-| **3** | $AX_3$ | 3 | 0 | **Trigonal Planar** | $120^\\circ$ | $\\ce{BF3}, \\ce{SO3}, \\ce{NO3-}$ | Nonpolar |
-| **3** | $AX_2 E_1$ | 2 | 1 | **Bengkok / Bent** | $< 120^\\circ$ ($119^\\circ$) | $\\ce{SO2}, \\ce{O3}, \\ce{NO2-}$ | **Polar** |
-| **4** | $AX_4$ | 4 | 0 | **Tetrahedral** | $109.5^\\circ$ | $\\ce{CH4}, \\ce{CCl4}, \\ce{SO4^2-}$ | Nonpolar |
-| **4** | $AX_3 E_1$ | 3 | 1 | **Trigonal Piramida** | $< 109.5^\\circ$ ($107.3^\\circ$) | $\\ce{NH3}, \\ce{PCl3}, \\ce{H3O+}$ | **Polar** |
-| **4** | $AX_2 E_2$ | 2 | 2 | **Bengkok / Bent (V)** | $\\ll 109.5^\\circ$ ($104.5^\\circ$) | $\\ce{H2O}, \\ce{H2S}, \\ce{OF2}$ | **Polar** |
-| **5** | $AX_5$ | 5 | 0 | **Trigonal Bipiramida** | $90^\\circ, 120^\\circ$ | $\\ce{PCl5}, \\ce{PF5}$ | Nonpolar |
-| **5** | $AX_4 E_1$ | 4 | 1 | **Jungkat-jungkit (Seesaw)** | $< 90^\\circ, < 120^\\circ$ | $\\ce{SF4}, \\ce{TeCl4}$ | **Polar** |
-| **5** | $AX_3 E_2$ | 3 | 2 | **Bentuk-T (T-Shaped)** | $< 90^\\circ$ ($87.5^\\circ$) | $\\ce{ClF3}, \\ce{BrF3}$ | **Polar** |
-| **5** | $AX_2 E_3$ | 2 | 3 | **Linear** | $180^\\circ$ | $\\ce{XeF2}, \\ce{I3-}$ | Nonpolar |
-| **6** | $AX_6$ | 6 | 0 | **Oktahedral** | $90^\\circ$ | $\\ce{SF6}, \\ce{PCl6-}$ | Nonpolar |
-| **6** | $AX_5 E_1$ | 5 | 1 | **Piramida Alas Persegi** | $< 90^\\circ$ ($84.8^\\circ$) | $\\ce{BrF5}, \\ce{IF5}$ | **Polar** |
-| **6** | $AX_4 E_2$ | 4 | 2 | **Persegi Planar** | $90^\\circ$ | $\\ce{XeF4}, \\ce{ICl4-}$ | Nonpolar |
-
-> [!TIP]
-> **Aturan Posisi PEB pada Domain 5 & 6:**
-> - Pada domain 5 (Trigonal Bipiramida), PEB **SELALU menempati posisi EKUATORIAL ($120^\circ$)**, bukan posisi aksial ($90^\circ$), karena posisi ekuatorial hanya mengalami tolakan $90^\circ$ sebanyak 2 kali (sedangkan posisi aksial mengalami tolakan $90^\circ$ sebanyak 3 kali).
-> - Pada domain 6 (Oktahedral), kedua PEB pada $AX_4 E_2$ **saling bertolak belakang di posisi aksial ($180^\circ$)** untuk meminimalkan tolakan, menghasilkan bentuk **Persegi Planar yang simetris dan NONPOLAR** (seperti $\\ce{XeF4}$).`,
-      keyFormulas: [
-        { name: 'Rumus Perhitungan PEB Atom Pusat', formula: 'E = \\frac{EV - \\sum (n_i \\cdot b_i)}{2}' },
-        { name: 'Hierarki Tolakan Pasangan Elektron', formula: '\\text{PEB-PEB} > \\text{PEB-PEI} > \\text{PEI-PEI}' },
-      ],
-    },
-    {
-      tag: 'kepolaran-senyawa-dan-momen-dipol',
-      tags: ['kepolaran-senyawa', 'momen-dipol', 'vektor-momen-dipol', 'polar-nonpolar', 'kelarutan-like-dissolves-like'],
-      title: 'Konsep Inti 4: Kepolaran Senyawa, Momen Dipol & Kriteria Simetri Molekul',
-      summary: 'Penjumlahan vektor momen dipol ikatan, pengaruh simetri bentuk molekul, serta prinsip like dissolves like.',
-      content: `Kepolaran suatu molekul ditentukan oleh dua faktor serentak:
-1. **Adanya ikatan kovalen polar** di dalam molekul (perbedaan keelektronegatifan $\\Delta EN > 0$).
-2. **Bentuk geometri molekul yang asimetris**, sehingga resultan vektor momen dipol tidak saling meniadakan.
-
----
-
-### 1. Definisi Fisik Momen Dipol Listrik ($\\vec{\\mu}$)
-
-Momen dipol listrik ($\\vec{\\mu}$) adalah besaran vektor yang merepresentasikan derajat pemisahan muatan positif dan negatif dalam suatu ikatan atau molekul:
-$$\\vec{\\mu} = q \\times \\vec{r}$$
-- $q$ = besar muatan parsial (Coulomb).
-- $r$ = jarak pemisahan muatan (meter).
-- Satuan standar kimia: **Debye (D)**, di mana $1\\text{ D} = 3.336 \\times 10^{-30}\\text{ C}\\cdot\\text{m}$.
-- Arah vektor dipol digambarkan dengan panah bertanda plus di pangkalnya: $\\mapsto$ (berpangkal pada kutub parsial positif $\\delta^+$ dan mengarah ke kutub parsial negatif $\\delta^-$).
-
----
-
-### 2. Kriteria Molekul Polar vs Nonpolar
-
-Resultan momen dipol total molekul merupakan penjumlahan vektor seluruh momen dipol ikatannya:
-$$\\vec{\\mu}_{\\text{total}} = \\sum \\vec{\\mu}_{\\text{ikatan}}$$
-
-1. **Molekul Nonpolar ($\\vec{\\mu}_{\\text{total}} = 0$):**
-   - Terjadi apabila molekul tidak memiliki ikatan polar (misal $\\ce{O2}, \\ce{N2}$), **ATAU** molekul memiliki ikatan polar tetapi **bentuk geometrinya sangat simetris** sehingga vektor-vektor momen dipol ikatan saling meniadakan secara sempurna.
-   - *Contoh Klasik:*
-     - Karbon Dioksida ($\\ce{CO2}$): Ikatan $\\ce{C=O}$ sangat polar, tetapi karena bergeometri **Linear ($AX_2$, $180^\\circ$)**, dua vektor dipol yang berlawanan arah saling meniadakan: $\\vec{\\mu} = 0$.
-     - Karbon Tetraklorida ($\\ce{CCl4}$): Memiliki 4 ikatan polar $\\ce{C-Cl}$, tetapi tersusun dalam geometri **Tetrahedral ($AX_4$)** yang simetris sempurna ke 4 penjuru ruang, resultan $\\vec{\\mu} = 0$.
-     - Belerang Heksafluorida ($\\ce{SF6}$): Geometri **Oktahedral ($AX_6$)**, resultan $\\vec{\\mu} = 0$.
-2. **Molekul Polar ($\\vec{\\mu}_{\\text{total}} \\neq 0$):**
-   - Memiliki ikatan polar dan **bentuk geometrinya asimetris** (umumnya memiliki Pasangan Elektron Bebas / PEB pada atom pusat, atau atom-atom ligan yang terikat tidak sejenis).
-   - *Contoh Klasik:*
-     - Air ($\\ce{H2O}$): Memiliki 2 ikatan polar $\\ce{O-H}$ dan 2 PEB pada atom $\\ce{O}$ dengan geometri **Bengkok ($104.5^\\circ$)**. Kedua vektor dipol tidak berlawanan $180^\\circ$, melainkan mengarah ke atas menuju atom $\\ce{O}$, menghasilkan resultan $\\mu = 1.85\\text{ D}$ (Sangat Polar).
-     - Amonia ($\\ce{NH3}$): Geometri **Trigonal Piramida ($AX_3 E_1$)**, ketiga ikatan $\\ce{N-H}$ dan PEB di puncak menghasilkan momen dipol neto $\\mu = 1.47\\text{ D}$.
-     - Klorometana ($\\ce{CH3Cl}$): Bentuk tetrahedral namun asimetris karena 1 atom $\\ce{Cl}$ jauh lebih elektronegatif daripada 3 atom $\\ce{H}$, $\\mu = 1.87\\text{ D}$.
-
----
-
-### 3. Konsekuensi Fisis Kepolaran Molekul
-
-- **Kelarutan (*Like Dissolves Like*):** Senyawa polar (dan ionik) mudah larut dalam pelarut polar (seperti air, etanol) karena terbentuk interaksi ion-dipol atau dipol-dipol yang stabil. Sebaliknya, senyawa nonpolar (seperti minyak, lemak, hidrokarbon, $\\ce{CCl4}$) hanya larut dalam pelarut nonpolar (benzena, heksana).
-- **Pengaruh Medan Listrik Eksternal:** Aliran cairan polar (seperti aliran air kran) akan dibelokkan ke arah penggaris mika yang telah digosok bermuatan listrik statis, sedangkan cairan nonpolar (seperti $\\ce{CCl4}$) mengalir lurus tanpa terpengaruh.`,
-      keyFormulas: [
-        { name: 'Definisi Momen Dipol', formula: '\\vec{\\mu} = q \\cdot \\vec{r}' },
-        { name: 'Syarat Molekul Nonpolar', formula: '\\sum \\vec{\\mu}_i = \\mathbf{0} \\quad (\\mu_{\\text{total}} = 0)' },
-      ],
-    },
-    {
-      tag: 'ikatan-logam-dan-sifat-khas',
-      tags: ['ikatan-logam', 'model-lautan-elektron', 'drude-lorentz', 'konduktivitas-termal-listrik', 'malleable-ductile', 'deformasi-kristal'],
-      title: 'Konsep Inti 5: Ikatan Logam, Model Lautan Elektron & Penjelasan Ilmiah Sifat Fisik Logam',
-      summary: 'Teori awan elektron terdelokalisasi Drude-Lorentz, konduktivitas listrik/panas, kilap logam, serta perbandingan deformasi logam vs kerapuhan ionik.',
-      content: `Lebih dari $75\\%$ unsur dalam tabel periodik adalah logam. Logam memiliki sifat-sifat unik yang tidak dijumpai pada senyawa ionik maupun kovalen, seperti kemampuan menghantarkan arus listrik dalam wujud padat, dapat ditempa menjadi lempengan tipis, dan ditarik menjadi kawat halus.
-
-### 1. Teori Lautan Elektron (*Electron-Sea Model* Drude & Lorentz)
-
-Logam memiliki energi ionisasi yang rendah dan orbital valensi yang relatif kosong. Akibatnya, atom-atom logam melepaskan elektron valensinya:
-- Kation-kation logam bermuatan positif ($\\ce{M^{n+}}$) tersusun secara teratur dan rapat dalam kisi kristal (misalnya kubus berpusat badan/BCC, kubus berpusat muka/FCC, atau heksagonal terjejal/HCP).
-- Elektron-elektron valensi tidak terikat pada satu kation tertentu, melainkan **terdelokalisasi bebas mengalir membentuk "lautan elektron"** yang menyelimuti seluruh kation logam.
-- **Ikatan Logam:** Gaya tarik elektrostatik antara kation-kation logam positif dengan lautan elektron valensi yang terdelokalisasi bebas tersebut.
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 290" width="100%" height="auto" class="max-w-[780px] select-none font-sans">
-  <defs>
-    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0fdf4"/>
-      <stop offset="100%" stop-color="#dcfce7"/>
-    </linearGradient>
-    <linearGradient id="ionicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef2f2"/>
-      <stop offset="100%" stop-color="#fee2e2"/>
-    </linearGradient>
-    <marker id="hammerArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#dc2626"/>
-    </marker>
-  </defs>
-
-  <!-- PANEL KIRI: LOGAM ULET & DAPAT DITEMPA -->
-  <g transform="translate(10, 10)">
-    <rect width="365" height="270" rx="14" fill="url(#metalGrad)" stroke="#86efac" stroke-width="1.5"/>
-    <rect x="14" y="12" width="165" height="22" rx="6" fill="#16a34a"/>
-    <text x="96" y="27" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">LOGAM: ULET & DAPAT DITEMPA</text>
-    <text x="182" y="48" font-size="11" font-weight="bold" fill="#14532d" text-anchor="middle">Lautan Elektron Menyelimuti Pergeseran Kation</text>
-
-    <!-- Kation Grid Logam -->
-    <g transform="translate(30, 65)">
-      <!-- Lautan Elektron (Awan hijau muda) -->
-      <rect width="305" height="120" rx="10" fill="#bbf7d0" opacity="0.6"/>
-
-      <!-- Titik-titik elektron bebas melayang -->
-      <circle cx="25" cy="20" r="2.5" fill="#047857"/><circle cx="85" cy="15" r="2.5" fill="#047857"/>
-      <circle cx="145" cy="22" r="2.5" fill="#047857"/><circle cx="205" cy="18" r="2.5" fill="#047857"/>
-      <circle cx="265" cy="20" r="2.5" fill="#047857"/><circle cx="55" cy="60" r="2.5" fill="#047857"/>
-      <circle cx="115" cy="62" r="2.5" fill="#047857"/><circle cx="175" cy="58" r="2.5" fill="#047857"/>
-      <circle cx="235" cy="60" r="2.5" fill="#047857"/><circle cx="290" cy="55" r="2.5" fill="#047857"/>
-      <circle cx="25" cy="100" r="2.5" fill="#047857"/><circle cx="85" cy="102" r="2.5" fill="#047857"/>
-      <circle cx="145" cy="98" r="2.5" fill="#047857"/><circle cx="205" cy="104" r="2.5" fill="#047857"/>
-
-      <!-- Baris Atas Kation (Bergeser ke kanan akibat pukulan) -->
-      <g transform="translate(30, 0)">
-        <circle cx="35" cy="25" r="14" fill="#15803d"/><text x="35" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="95" cy="25" r="14" fill="#15803d"/><text x="95" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="155" cy="25" r="14" fill="#15803d"/><text x="155" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="215" cy="25" r="14" fill="#15803d"/><text x="215" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-      </g>
-      <!-- Panah Gaya Geser Palu -->
-      <path d="M 5 25 L 45 25" stroke="#dc2626" stroke-width="3" marker-end="url(#hammerArrow)"/>
-      <text x="25" y="12" font-size="9" font-weight="bold" fill="#dc2626" text-anchor="middle">Palu</text>
-
-      <!-- Baris Bawah Kation (Tetap) -->
-      <g transform="translate(0, 0)">
-        <circle cx="35" cy="85" r="14" fill="#15803d"/><text x="35" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="95" cy="85" r="14" fill="#15803d"/><text x="95" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="155" cy="85" r="14" fill="#15803d"/><text x="155" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="215" cy="85" r="14" fill="#15803d"/><text x="215" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="275" cy="85" r="14" fill="#15803d"/><text x="275" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-      </g>
-    </g>
-
-    <rect x="20" y="200" width="325" height="55" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1"/>
-    <text x="182" y="220" font-size="10.5" font-weight="bold" fill="#166534" text-anchor="middle">Ikatan Tidak Pernah Putus!</text>
-    <text x="182" y="238" font-size="9.5" fill="#475569" text-anchor="middle">Lautan elektron fleksibel menyesuaikan bentuk (Malleable)</text>
-  </g>
-
-  <!-- PANEL KANAN: KRISTAL IONIK RAPUH / GETAS -->
-  <g transform="translate(395, 10)">
-    <rect width="375" height="270" rx="14" fill="url(#ionicGrad)" stroke="#fca5a5" stroke-width="1.5"/>
-    <rect x="14" y="12" width="165" height="22" rx="6" fill="#dc2626"/>
-    <text x="96" y="27" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle">SENYAWA ION: RAPUH / GETAS</text>
-    <text x="187" y="48" font-size="11" font-weight="bold" fill="#991b1b" text-anchor="middle">Muatan Sejenis Berhadapan → Tolakan Kuat</text>
-
-    <!-- Grid Ion -->
-    <g transform="translate(35, 65)">
-      <!-- Baris Atas Tergeser 1 Langkah -->
-      <g transform="translate(30, 0)">
-        <circle cx="35" cy="25" r="13" fill="#2563eb"/><text x="35" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="85" cy="25" r="15" fill="#16a34a"/><text x="85" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
-        <circle cx="135" cy="25" r="13" fill="#2563eb"/><text x="135" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-        <circle cx="185" cy="25" r="15" fill="#16a34a"/><text x="185" y="29" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
-      </g>
-      <!-- Panah Pukul Palu -->
-      <path d="M 5 25 L 45 25" stroke="#dc2626" stroke-width="3" marker-end="url(#hammerArrow)"/>
-
-      <!-- Baris Bawah -->
-      <circle cx="15" cy="85" r="15" fill="#16a34a"/><text x="15" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
-      <circle cx="65" cy="85" r="13" fill="#2563eb"/><text x="65" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-      <circle cx="115" cy="85" r="15" fill="#16a34a"/><text x="115" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
-      <circle cx="165" cy="85" r="13" fill="#2563eb"/><text x="165" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
-      <circle cx="215" cy="85" r="15" fill="#16a34a"/><text x="215" y="89" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
-
-      <!-- Garis Retak Merah / Repulsion -->
-      <path d="M 50 55 L 75 52 L 105 58 L 140 50 L 175 56 L 210 52" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="3 3"/>
-      <!-- Panah Tolak Antara + dan + -->
-      <line x1="65" y1="42" x2="65" y2="68" stroke="#dc2626" stroke-width="2"/>
-      <text x="65" y="58" font-size="10" font-weight="bold" fill="#dc2626">⚡</text>
-      <line x1="115" y1="42" x2="115" y2="68" stroke="#dc2626" stroke-width="2"/>
-      <text x="115" y="58" font-size="10" font-weight="bold" fill="#dc2626">⚡</text>
-      <line x1="165" y1="42" x2="165" y2="68" stroke="#dc2626" stroke-width="2"/>
-      <text x="165" y="58" font-size="10" font-weight="bold" fill="#dc2626">⚡</text>
-    </g>
-
-    <rect x="20" y="200" width="335" height="55" rx="8" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
-    <text x="187" y="220" font-size="10.5" font-weight="bold" fill="#991b1b" text-anchor="middle">Gaya Tolak Elektrostatik Raksasa!</text>
-    <text x="187" y="238" font-size="9.5" fill="#475569" text-anchor="middle">Ion (+ +) dan (− −) berhadapan → Kristal Retak & Pecah</text>
-  </g>
-</svg>
-
----
-
-### 2. Penjelasan Ilmiah 4 Sifat Fisik Karakteristik Logam
-
-1. **Dapat Ditempa (*Malleable*) dan Ditarik (*Ductile*):**
-   Ketika logam dipukul dengan palu atau ditarik melalui cetakan kawat, lapisan-lapisan kation bergeser melewati satu sama lain. Namun karena lautan elektron bebas bergerak mengikuti pergeseran tersebut secara instan, lingkungan elektrostatik kation tidak berubah. Tidak ada muatan sejenis yang saling tolak. Logam hanya mengalami deformasi plastis tanpa patah.
-2. **Konduktivitas Listrik Sangat Tinggi:**
-   Ketika beda potensial (tegangan listrik) diberikan pada kedua ujung logam, elektron-elektron valensi yang terdelokalisasi bebas segera mengalir secara terarah menuju kutub positif, menghasilkan arus listrik yang besar.
-3. **Konduktivitas Termal (Penghantar Panas):**
-   Pemanasan pada salah satu ujung logam meningkatkan energi kinetik elektron bebas di area tersebut. Elektron yang bergerak cepat ini bertumbukan dengan elektron lain dan kation-kation kisi, mentransfer energi termal ke seluruh badan logam dengan sangat cepat.
-4. **Kilap Logam (*Metallic Luster*):**
-   Lautan elektron bebas pada permukaan logam mampu menyerap seluruh spektrum foton cahaya tampak dan memancarkannya kembali (*re-emission*) secara instan, sehingga permukaan logam tampak mengilap seperti cermin.`,
-      keyFormulas: [
-        { name: 'Model Densitas Arus Konduktivitas Logam', formula: 'J = \\sigma E = n e v_d' },
-      ],
-    },
-    {
-      tag: 'gaya-antarmolekul-dan-ikatan-hidrogen',
-      tags: ['gaya-antarmolekul', 'van-der-waals', 'gaya-london', 'dipol-dipol', 'ikatan-hidrogen', 'anomali-air', 'titik-didih-hidrida'],
-      title: 'Konsep Inti 6: Gaya Antarmolekul (Van der Waals & Ikatan Hidrogen) serta Anomali Sifat Fisik Air',
-      summary: 'Perbedaan gaya intramolekul vs intermolekul, mekanisme dispersi London, interaksi dipol-dipol, serta peran ikatan hidrogen dalam menentukan titik didih cairan.',
-      content: `Perbedaan fundamental antara ikatan kimia dan gaya antarmolekul:
-- **Ikatan Kimia Intramolekul (Kovalen, Ion, Logam):** Mengikat atom-atom **di dalam** suatu molekul (energi ikatan: $150 - 1000\\text{ kJ/mol}$). Menentukan sifat kimia senyawa.
-- **Gaya Antarmolekul Intermolekul (Van der Waals, Ikatan Hidrogen):** Gaya tarik-menarik **antar molekul yang bertetangga** (energi ikatan: $1 - 40\\text{ kJ/mol}$). Mengendalikan sifat fisis seperti wujud zat (padat/cair/gas), titik leleh, titik didih, viskositas, dan kalor penguapan.
-
----
-
-### 1. Spektrum Gaya Van der Waals
-
-Gaya Van der Waals mencakup semua gaya tarik elektrostatik antarmolekul netral:
-1. **Gaya Dispersi London (Dipol Sesaat - Dipol Terimbas / *London Dispersion Forces*):**
-   - Bekerja pada **SEMUA molekul** (baik nonpolar maupun polar).
-   - Terjadi karena gerakan acak elektron yang sewaktu-waktu dapat terdistribusi secara tidak merata, menciptakan **dipol sesaat (*instantaneous dipole*)**. Dipol sesaat ini kemudian menginduksi awan elektron molekul tetangga membentuk **dipol terimbas (*induced dipole*)**, menghasilkan gaya tarik lemah sesaat.
-   - **Faktor yang Memperkuat Gaya London:**
-     - **Massa Molekul Relatif ($M_r$) & Ukuran Atom:** Makin besar atom, jumlah elektron makin banyak, awan elektron makin longgar dan **mudah terpolarisasi (*polarizability* tinggi)**.  
-       Contoh titik didih gas mulia naik seiring kenaikan $M_r$: $\\ce{He} (-269^\\circ\\text{C}) < \\ce{Ne} < \\ce{Ar} < \\ce{Kr} < \\ce{Xe} (-108^\\circ\\text{C})$.  
-       Halogen: $\\ce{F2}\\text{ (gas)} < \\ce{Cl2}\\text{ (gas)} < \\ce{Br2}\\text{ (cair)} < \\ce{I2}\\text{ (padat)}$.
-     - **Bentuk Molekul & Luas Permukaan Kontak:** Molekul rantai lurus memiliki luas kontak antarmolekul lebih besar daripada molekul bercabang bulat sferis.  
-       Contoh: n-pentana (titik didih $36.1^\\circ\\text{C}$) vs neopentana (titik didih $9.5^\\circ\\text{C}$), padahal $M_r$ keduanya sama ($72\\text{ g/mol}$).
-2. **Interaksi Dipol-Dipol (Gaya Keesom):**
-   - Terjadi khusus antar **molekul-molekul kovalen polar** permanen ($\\mu > 0$).
-   - Kutub positif parsial ($\\delta^+$) suatu molekul tertarik ke kutub negatif parsial ($\\delta^-$) molekul di sebelahnya.
-   - Lebih kuat daripada gaya London pada molekul dengan massa setara.  
-     Contoh: Propana (nonpolar, $M_r = 44$, titik didih $-42^\\circ\\text{C}$) vs Asetaldehida (polar, $M_r = 44$, titik didih $+20^\\circ\\text{C}$).
-
----
-
-### 2. Ikatan Hidrogen (*Hydrogen Bonding*)
-
-Ikatan hidrogen adalah gaya tarik antarmolekul istimewa yang **jauh lebih kuat ($10 - 40\\text{ kJ/mol}$)** daripada gaya Van der Waals biasa:
-- **Syarat Mutlak Terbentuknya Ikatan Hidrogen:**
-  1. Atom Hidrogen wajib terikat kovalen langsung pada atom yang **sangat elektronegatif dengan ukuran jari-jari sangat kecil: $\\mathbf{\\ce{F}}$, $\\mathbf{\\ce{O}}$, atau $\\mathbf{\\ce{N}}$**.
-  2. Molekul tetangga memiliki atom $\\ce{F}, \\ce{O},$ atau $\\ce{N}$ yang memiliki **Pasangan Elektron Bebas (PEB)**.
-- Akibat elektronegativitas $\\ce{F, O, N}$ yang sangat tinggi dan ukuran atom $\\ce{H}$ yang mungil tanpa elektron kulit dalam, ikatan menjadi terpolarisasi sangat ekstrem. Atom $\\ce{H}$ nyaris berupa "proton telanjang" dengan kerapatan muatan positif $\\delta^+$ yang luar biasa pekat, menarik PEB molekul tetangga dengan sangat kuat.
-
----
-
-### 3. Grafik Anomali Titik Didih Hidrida & Jaringan Ikatan Hidrogen Air
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" width="100%" height="auto" class="max-w-[820px] select-none font-sans">
-  <defs>
-    <linearGradient id="plotBg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f8fafc"/>
-    </linearGradient>
-  </defs>
-
-  <!-- PANEL KIRI: GRAFIK TITIK DIDIH -->
-  <g transform="translate(10, 10)">
-    <rect width="450" height="310" rx="14" fill="url(#plotBg)" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="225" y="24" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">KURVA ANOMALI TITIK DIDIH HIDRIDA GOLONGAN 14-17</text>
-
-    <!-- Sumbu Koordinat -->
-    <!-- Y: -150 to +100 C. Height = 220px. Scale: 1 C = 0.88px.
-         Y=100 C -> y=50
-         Y=0 C   -> y=138
-         Y=-50 C -> y=182
-         Y=-100 C-> y=226
-         Y=-150 C-> y=270
-         X: Periode 2 (x=80), Periode 3 (x=180), Periode 4 (x=280), Periode 5 (x=380)
-    -->
-    <line x1="55" y1="50" x2="55" y2="270" stroke="#94a3b8" stroke-width="1.5"/>
-    <line x1="55" y1="270" x2="425" y2="270" stroke="#94a3b8" stroke-width="1.5"/>
-
-    <!-- Grid Garis Horisontal -->
-    <line x1="55" y1="50" x2="425" y2="50" stroke="#f1f5f9" stroke-width="1"/>
-    <text x="48" y="54" font-size="9" fill="#64748b" text-anchor="end">100°C</text>
-
-    <line x1="55" y1="138" x2="425" y2="138" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
-    <text x="48" y="142" font-size="9" font-weight="bold" fill="#0284c7" text-anchor="end">0°C</text>
-
-    <line x1="55" y1="182" x2="425" y2="182" stroke="#f1f5f9" stroke-width="1"/>
-    <text x="48" y="186" font-size="9" fill="#64748b" text-anchor="end">-50°C</text>
-
-    <line x1="55" y1="226" x2="425" y2="226" stroke="#f1f5f9" stroke-width="1"/>
-    <text x="48" y="230" font-size="9" fill="#64748b" text-anchor="end">-100°C</text>
-
-    <!-- Label X: Periode -->
-    <text x="80" y="286" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Periode 2</text>
-    <text x="180" y="286" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Periode 3</text>
-    <text x="280" y="286" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Periode 4</text>
-    <text x="380" y="286" font-size="10" font-weight="bold" fill="#334155" text-anchor="middle">Periode 5</text>
-
-    <!-- KURVA GOLONGAN 14 (CH4 -> SiH4 -> GeH4 -> SnH4): Nonpolar Murni -->
-    <!-- CH4 (-161 C -> y=280), SiH4 (-112 C -> y=236), GeH4 (-88 C -> y=215), SnH4 (-52 C -> y=184) -->
-    <path d="M 80 280 L 180 236 L 280 215 L 380 184" fill="none" stroke="#64748b" stroke-width="2.5"/>
-    <circle cx="80" cy="280" r="4" fill="#64748b"/><text x="80" y="295" font-size="8.5" fill="#475569" text-anchor="middle">CH₄</text>
-    <circle cx="180" cy="236" r="4" fill="#64748b"/><text x="180" y="248" font-size="8.5" fill="#475569" text-anchor="middle">SiH₄</text>
-    <circle cx="280" cy="215" r="4" fill="#64748b"/><text x="280" y="227" font-size="8.5" fill="#475569" text-anchor="middle">GeH₄</text>
-    <circle cx="380" cy="184" r="4" fill="#64748b"/><text x="380" y="196" font-size="8.5" fill="#475569" text-anchor="middle">SnH₄</text>
-
-    <!-- KURVA GOLONGAN 16 (H2O -> H2S -> H2Se -> H2Te) -->
-    <!-- H2O (+100 C -> y=50), H2S (-60 C -> y=191), H2Se (-41 C -> y=174), H2Te (-2 C -> y=140) -->
-    <path d="M 80 50 L 180 191 L 280 174 L 380 140" fill="none" stroke="#0284c7" stroke-width="3"/>
-    <circle cx="80" cy="50" r="5.5" fill="#0284c7"/><text x="80" y="42" font-size="10.5" font-weight="bold" fill="#0284c7" text-anchor="middle">H₂O (+100°C)</text>
-    <circle cx="180" cy="191" r="4" fill="#0284c7"/><text x="195" y="198" font-size="8.5" fill="#0284c7">H₂S</text>
-    <circle cx="280" cy="174" r="4" fill="#0284c7"/><text x="295" y="180" font-size="8.5" fill="#0284c7">H₂Se</text>
-    <circle cx="380" cy="140" r="4" fill="#0284c7"/><text x="395" y="145" font-size="8.5" fill="#0284c7">H₂Te</text>
-
-    <!-- KURVA GOLONGAN 17 (HF -> HCl -> HBr -> HI) -->
-    <!-- HF (+19.5 C -> y=121), HCl (-85 C -> y=213), HBr (-66 C -> y=196), HI (-35 C -> y=169) -->
-    <path d="M 80 121 L 180 213 L 280 196 L 380 169" fill="none" stroke="#9333ea" stroke-width="2.5" stroke-dasharray="4 2"/>
-    <circle cx="80" cy="121" r="4.5" fill="#9333ea"/><text x="96" y="118" font-size="9.5" font-weight="bold" fill="#9333ea">HF (+20°C)</text>
-    <circle cx="180" cy="213" r="3.5" fill="#9333ea"/><text x="180" y="223" font-size="8" fill="#9333ea" text-anchor="middle">HCl</text>
-
-    <!-- KURVA GOLONGAN 15 (NH3 -> PH3 -> AsH3 -> SbH3) -->
-    <!-- NH3 (-33 C -> y=167), PH3 (-88 C -> y=215), AsH3 (-62 C -> y=193), SbH3 (-17 C -> y=153) -->
-    <path d="M 80 167 L 180 215 L 280 193 L 380 153" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="2 2"/>
-    <circle cx="80" cy="167" r="4.5" fill="#16a34a"/><text x="65" y="165" font-size="9" font-weight="bold" fill="#16a34a" text-anchor="end">NH₃ (-33°C)</text>
-
-    <!-- Label Panah Lonjakan Anomali -->
-    <path d="M 120 180 C 105 130, 95 80, 85 62" fill="none" stroke="#e11d48" stroke-width="1.8" stroke-dasharray="3 2"/>
-    <text x="135" y="115" font-size="9" font-weight="bold" fill="#e11d48">Lonjakan Ekstrem H-Bond!</text>
-  </g>
-
-  <!-- PANEL KANAN: MOLEKUL AIR & JEMBATAN IKATAN HIDROGEN -->
-  <g transform="translate(470, 10)">
-    <rect width="340" height="310" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-    <text x="170" y="24" font-size="12" font-weight="bold" fill="#0369a1" text-anchor="middle">JARINGAN IKATAN HIDROGEN AIR (H₂O)</text>
-
-    <!-- Struktur 2 Molekul H2O Berikatan -->
-    <g transform="translate(170, 140)">
-      <!-- Molekul Air 1 (Atas) -->
-      <g transform="translate(0, -50)">
-        <circle cx="0" cy="0" r="22" fill="#0284c7"/>
-        <text x="0" y="5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">O</text>
-        <text x="0" y="-26" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">δ⁻</text>
-        <!-- Ikatan O-H -->
-        <line x1="-15" y1="15" x2="-35" y2="35" stroke="#0284c7" stroke-width="4.5"/>
-        <circle cx="-35" cy="35" r="11" fill="#38bdf8"/>
-        <text x="-35" y="39" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-
-        <line x1="15" y1="15" x2="35" y2="35" stroke="#0284c7" stroke-width="4.5"/>
-        <circle cx="35" cy="35" r="11" fill="#38bdf8"/>
-        <text x="35" y="39" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-        <text x="48" y="44" font-size="10" font-weight="bold" fill="#0284c7">δ⁺</text>
-      </g>
-
-      <!-- JEMBATAN IKATAN HIDROGEN (Garis Titik-Titik Biru Tebal) -->
-      <line x1="35" y1="-15" x2="35" y2="40" stroke="#e11d48" stroke-width="3" stroke-dasharray="4 3"/>
-      <text x="48" y="15" font-size="10" font-weight="bold" fill="#e11d48">Ikatan Hidrogen</text>
-      <text x="48" y="28" font-size="8.5" fill="#e11d48">~23.3 kJ/mol</text>
-
-      <!-- Molekul Air 2 (Bawah) -->
-      <g transform="translate(35, 60)">
-        <circle cx="0" cy="0" r="22" fill="#0284c7"/>
-        <text x="0" y="5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">O</text>
-        <text x="26" y="2" font-size="10" font-weight="bold" fill="#0369a1">δ⁻</text>
-
-        <line x1="-15" y1="15" x2="-35" y2="35" stroke="#0284c7" stroke-width="4.5"/>
-        <circle cx="-35" cy="35" r="11" fill="#38bdf8"/>
-        <text x="-35" y="39" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-
-        <line x1="15" y1="15" x2="35" y2="35" stroke="#0284c7" stroke-width="4.5"/>
-        <circle cx="35" cy="35" r="11" fill="#38bdf8"/>
-        <text x="35" y="39" font-size="9" font-weight="bold" fill="#ffffff" text-anchor="middle">H</text>
-      </g>
-    </g>
-
-    <rect x="15" y="240" width="310" height="55" rx="8" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
-    <text x="170" y="258" font-size="10" font-weight="bold" fill="#0369a1" text-anchor="middle">1 Molekul Air Membentuk 4 Ikatan Hidrogen</text>
-    <text x="170" y="274" font-size="9" fill="#475569" text-anchor="middle">Membentuk kisi tetrahedral heksagonal terbuka saat membeku (Es)</text>
-    <text x="170" y="288" font-size="8.5" font-style="italic" fill="#0284c7" text-anchor="middle">Menjelaskan densitas es lebih rendah daripada air cair (terapung)!</text>
-  </g>
-</svg>
-
----
-
-### 4. Anomali Sifat Fisik Air Akibat Ikatan Hidrogen
-
-1. **Titik Didih Ekstrem Tinggi ($100^\\circ\\text{C}$):**
-   Berdasarkan tren hidrida Golongan VIA lainnya ($\\ce{H2S}, \\ce{H2Se}, \\ce{H2Te}$), titik didih air seharusnya sekitar **$-80^\\circ\\text{C}$**. Namun kenyataannya titik didih air mencapai $+100^\\circ\\text{C}$ (selisih sebesar $180^\\circ\\text{C}$!). Setiap molekul $\\ce{H2O}$ memiliki $2$ atom $\\ce{H}$ dan $2$ PEB, sehingga dapat membentuk **jejaring 4 ikatan hidrogen 3D serentak per molekul**.
-2. **Titik Didih $\\ce{H2O}$ Lebih Tinggi daripada $\\ce{HF}$ ($19.5^\\circ\\text{C}$):**
-   Meskipun ikatan $\\ce{H-F}$ secara individual lebih polar daripada $\\ce{H-O}$, molekul $\\ce{HF}$ hanya memiliki 1 atom $\\ce{H}$ (meskipun punya 3 PEB), sehingga rata-rata hanya dapat membentuk **2 ikatan hidrogen per molekul** (rantai zigzag 1 dimensi). Air membentuk 4 ikatan hidrogen, sehingga total energi yang dibutuhkan untuk menguapkannya jauh lebih besar.
-3. **Anomali Densitas Es (Mengapung di Air Cair):**
-   Ketika air membeku menjadi es pada suhu $< 4^\\circ\\text{C}$, ikatan hidrogen terkunci membentuk kisi heksagonal kaku dengan banyak **rongga kosong terbuka (*open cage-like structure*)**. Akibatnya, volume es mengembang dan massa jenis es ($0.917\\text{ g/cm}^3$) menjadi lebih kecil daripada massa jenis air cair ($1.000\\text{ g/cm}^3$). Hal ini mencegah danau dan lautan kutub membeku dari dasar, menjaga kelangsungan hidup ekosistem akuatik di musim dingin!`,
-      keyFormulas: [
-        { name: 'Hierarki Kekuatan Relatif Gaya Intermolekul', formula: '\\text{Gaya London} < \\text{Dipol-Dipol} < \\text{Ikatan Hidrogen} \\ll \\text{Ikatan Kimia}' },
-        { name: 'Potensial Interaksi Lennard-Jones', formula: 'V(r) = 4\\varepsilon \\left[ \\left(\\frac{\\sigma}{r}\\right)^{12} - \\left(\\frac{\\sigma}{r}\\right)^6 \\right]' },
-      ],
-    },
+      "title": "Prasyarat 2: Skala Elektronegativitas Pauling & Spektrum Kontinum Karakter Ikatan",
+      "summary": "Peran perbedaan kemampuan menarik elektron dalam menentukan kecenderungan ikatan ionik vs kovalen polar vs kovalen nonpolar.",
+      "content": "Karakter suatu ikatan kimia tidak terbagi secara kaku (hitam-putih) antara ionik murni dan kovalen murni, melainkan merupakan sebuah **spektrum kontinum** yang dikendalikan oleh selisih keelektronegatifan ($\\Delta EN$) antara kedua atom yang berikatan.\n\n### 1. Skala Keelektronegatifan Linus Pauling\n\nKeelektronegatifan adalah ukuran kemampuan relatif suatu atom dalam suatu molekul untuk menarik pasangan elektron ikatan ke arah dirinya.\n- Unsur paling elektronegatif di alam semesta adalah **Fluorin ($\\ce{F} = 3.98 \\approx 4.0$)**, disusul Oksigen ($\\ce{O} = 3.44$), Klorin ($\\ce{Cl} = 3.16$), dan Nitrogen ($\\ce{N} = 3.04$).\n- Unsur paling elektropositif (keelektronegatifan terendah) adalah **Cesium ($\\ce{Cs} = 0.79$)** dan **Fransium ($\\ce{Fr} = 0.7$)**.\n\n---\n\n### 2. Kriteria Selisih Keelektronegatifan ($\\Delta EN = |EN_A - EN_B|$)\n\n1. **Ikatan Kovalen Nonpolar (Murni):**\n   - $\\Delta EN \\le 0.4$\n   - Pasangan elektron ikatan ditarik sama kuat secara simetris oleh kedua inti atom.\n   - Contoh: $\\ce{Cl2}$ ($\\Delta EN = 0$), $\\ce{CH4}$ ($\\Delta EN = 2.55 - 2.20 = 0.35$).\n2. **Ikatan Kovalen Polar:**\n   - $0.4 < \\Delta EN \\le 1.7$\n   - Pasangan elektron ikatan tertarik lebih condong ke atom yang lebih elektronegatif, menimbulkan pemisahan muatan parsial: kutub negatif parsial ($\\delta^-$) dan kutub positif parsial ($\\delta^+$).\n   - Contoh: $\\ce{HCl}$ ($\\Delta EN = 3.16 - 2.20 = 0.96$), $\\ce{H2O}$ ($\\Delta EN = 3.44 - 2.20 = 1.24$).\n3. **Ikatan Ionik (Elektrovalen):**\n   - $\\Delta EN > 1.7$\n   - Selisih tarikan sangat ekstrem sehingga terjadi transfer elektron penuh (ionisasi sempurna) dari atom elektropositif ke atom elektronegatif. Karakter ionik ikatan melampaui $50\\%$.\n   - Contoh: $\\ce{NaCl}$ ($\\Delta EN = 3.16 - 0.93 = 2.23$), $\\ce{KF}$ ($\\Delta EN = 3.98 - 0.82 = 3.16$).",
+      "keyFormulas": [
+        {
+          "name": "Selisih Keelektronegatifan",
+          "formula": "\\Delta EN = |EN_A - EN_B|"
+        },
+        {
+          "name": "Persen Karakter Ionik Hannay-Smyth",
+          "formula": "\\% \\text{ Karakter Ionik} = 16 |\\Delta EN| + 3.5 (|\\Delta EN|)^2"
+        }
+      ]
+    }
   ],
-  worked_examples: [
+  "core_concepts": [
     {
-      tag: 'contoh-vsepr-kepolaran-xef4-sf4',
-      title: 'Contoh Soal 1: Analisis Geometri Molekul, Notasi VSEPR & Kepolaran Senyawa Superoktet (XeF4 vs SF4)',
-      summary: 'Kalkulasi domain elektron, penentuan posisi aksial vs ekuatorial PEB, dan evaluasi momen dipol neto.',
-      content: `### Soal Ujian Tingkat Lanjut:
-Diberikan dua senyawa biner dari unsur periode 4 dan 5: Belerang Tetrafluorida ($\\ce{SF4}$, nomor atom $Z_{\\ce{S}} = 16, Z_{\\ce{F}} = 9$) dan Ksenon Tetrafluorida ($\\ce{XeF4}$, nomor atom $Z_{\\ce{Xe}} = 54$).
-1. Tentukan jumlah elektron valensi total, pasangan elektron ikatan (PEI), dan pasangan elektron bebas (PEB) pada atom pusat masing-masing senyawa!
-2. Rumuskan notasi tipe molekul VSEPR ($AX_n E_m$) dan tentukan nama bentuk geometri molekul keduanya!
-3. Jelaskan mengapa salah satu senyawa bersifat **polar** sedangkan senyawa lainnya bersifat **nonpolar**, kaitkan dengan resultan vektor momen dipolnya!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Analisis Belerang Tetrafluorida ($\\ce{SF4}$):
-- **Elektron Valensi Atom Pusat ($\\ce{S}$):** Golongan VIA $\\implies 6$ elektron valensi.
-- **Elektron yang Digunakan Berikatan:** 4 atom $\\ce{F}$ masing-masing membutuhkan $1$ elektron $\\implies 4$ elektron digunakan berikatan ($n = 4$ PEI).
-- **Sisa Elektron Bebas pada Atom $\\ce{S}$:**
-  $$E = \\frac{6 - (4 \\times 1)}{2} = \\frac{2}{2} = \\mathbf{1 \\text{ PEB}} \\quad (m = 1)$$
-- **Total Domain Elektron:** $4 + 1 = 5$ domain (Geometri domain dasar: *Trigonal Bipiramida*).
-- **Tipe Molekul VSEPR:** $\\mathbf{AX_4 E_1}$
-- **Bentuk Geometri Molekul:** **Jungkat-jungkit (*Seesaw* / Bipiramida Trigonal Terdistorsi)**.
-  - PEB menempati posisi **ekuatorial** untuk meminimalkan tolakan $90^\\circ$.
-- **Kepolaran:**
-  - Bentuk jungkat-jungkit bersifat **asimetris**. Momen dipol dari dua ikatan $\\ce{S-F}$ aksial saling meniadakan, tetapi dua ikatan $\\ce{S-F}$ ekuatorial dan satu PEB ekuatorial menghasilkan resultan momen dipol yang tidak sama dengan nol:
-    $$\\sum \\vec{\\mu} \\neq 0 \\implies \\mathbf{\\text{Senyawa Polar (}\\mu = 0.632\\text{ D)}}$$
-
----
-
-#### 2. Analisis Ksenon Tetrafluorida ($\\ce{XeF4}$):
-- **Elektron Valensi Atom Pusat ($\\ce{Xe}$):** Golongan VIIIA (Gas Mulia) $\\implies 8$ elektron valensi.
-- **Elektron yang Digunakan Berikatan:** 4 atom $\\ce{F}$ berikatan $\\implies 4$ elektron ($n = 4$ PEI).
-- **Sisa Elektron Bebas pada Atom $\\ce{Xe}$:**
-  $$E = \\frac{8 - (4 \\times 1)}{2} = \\frac{4}{2} = \\mathbf{2 \\text{ PEB}} \\quad (m = 2)$$
-- **Total Domain Elektron:** $4 + 2 = 6$ domain (Geometri domain dasar: *Oktahedral*).
-- **Tipe Molekul VSEPR:** $\\mathbf{AX_4 E_2}$
-- **Bentuk Geometri Molekul:** **Persegi Planar (*Square Planar*)**.
-  - Kedua PEB menempati posisi aksial yang saling berseberangan ($180^\\circ$) untuk meminimalkan gaya tolak PEB-PEB yang sangat kuat. Keempat atom $\\ce{F}$ terletak pada satu bidang datar segiempat.
-- **Kepolaran:**
-  - Walaupun ikatan $\\ce{Xe-F}$ sangat polar ($\\Delta EN = 3.98 - 2.60 = 1.38$), keempat vektor dipol ikatan $\\ce{Xe-F}$ saling meniadakan secara berpasangan dalam bidang datar ($180^\\circ$), dan kedua vektor PEB aksial juga saling meniadakan:
-    $$\\sum \\vec{\\mu} = \\mathbf{0} \\implies \\mathbf{\\text{Senyawa Nonpolar (}\\mu = 0\\text{ D)}}$$
-
-> **Kesimpulan Evaluator Juri:** Keberadaan PEB tidak selalu menghasilkan molekul polar! Jika susunan PEB dan PEI menghasilkan simetri ruang sempurna (seperti $AX_4 E_2$ persegi planar dan $AX_2 E_3$ linear), molekul tersebut tetap **bersifat nonpolar** karena resultan vektor momen dipolnya nol.`,
-      keyFormulas: [
-        { name: 'Tipe VSEPR SF4', formula: 'AX_4 E_1 \\implies \\text{Jungkat-jungkit (Seesaw, Polar)}' },
-        { name: 'Tipe VSEPR XeF4', formula: 'AX_4 E_2 \\implies \\text{Persegi Planar (Square Planar, Nonpolar)}' },
+      "tag": "ikatan-ion-dan-energi-kisi",
+      "tags": [
+        "ikatan-ion",
+        "transfer-elektron",
+        "energi-kisi",
+        "kisi-kristal-nacl",
+        "siklus-born-haber",
+        "sifat-senyawa-ion"
       ],
+      "title": "Konsep Inti 1: Ikatan Ion (Elektrovalen), Energi Kisi Kristal & Sifat Fisik Senyawa Ionik",
+      "summary": "Mekanisme transfer elektron antarlogam dan nonlogam, stabilitas kisi kristal tiga dimensi, serta penjelasan sifat titik leleh tinggi dan kerapuhan kristal.",
+      "content": "Ikatan ion terbentuk akibat gaya tarik-menarik elektrostatik (Gaya Coulomb) yang sangat kuat antara kation (ion bermuatan positif) dan anion (ion bermuatan negatif).\n\n### 1. Mekanisme Pembentukan Ikatan Ion\n\nIkatan ion secara klasik terjadi antara:\n- **Atom Logam (Golongan IA, IIA, sebagian transisi):** Memiliki energi ionisasi rendah sehingga mudah **melepaskan elektron** valensinya membentuk kation stabil berkonfigurasi gas mulia:\n  $$\\ce{Na ([Ne] 3s^1) -> Na+ ([Ne]) + e-}$$\n- **Atom Nonlogam (Golongan VIA, VIIA):** Memiliki afinitas elektron tinggi dan sangat elektronegatif sehingga mudah **menangkap elektron** tersebut membentuk anion berkonfigurasi gas mulia:\n  $$\\ce{Cl ([Ne] 3s^2 3p^5) + e- -> Cl- ([Ne] 3s^2 3p^6 = [Ar])}$$\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 780 300\" width=\"100%\" height=\"auto\" class=\"max-w-[780px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"ionGrad1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#eff6ff\"/>\n      <stop offset=\"100%\" stop-color=\"#dbeafe\"/>\n    </linearGradient>\n    <linearGradient id=\"covGrad1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#ecfdf5\"/>\n      <stop offset=\"100%\" stop-color=\"#d1fae5\"/>\n    </linearGradient>\n    <marker id=\"arrowGold\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 9 5 L 0 9 z\" fill=\"#d97706\"/>\n    </marker>\n    <filter id=\"shadowBox\" x=\"-5%\" y=\"-5%\" width=\"110%\" height=\"115%\" filterUnits=\"userSpaceOnUse\">\n      <feDropShadow dx=\"0\" dy=\"2\" stdDeviation=\"3\" flood-opacity=\"0.08\"/>\n    </filter>\n  </defs>\n\n  <!-- PANEL KIRI: IKATAN IONIK -->\n  <g transform=\"translate(10, 10)\">\n    <rect width=\"365\" height=\"280\" rx=\"16\" fill=\"url(#ionGrad1)\" stroke=\"#bfdbfe\" stroke-width=\"1.5\" filter=\"url(#shadowBox)\"/>\n    <rect x=\"16\" y=\"14\" width=\"140\" height=\"22\" rx=\"6\" fill=\"#2563eb\"/>\n    <text x=\"86\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">1. IKATAN IONIK</text>\n    <text x=\"182\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#1e3a8a\" text-anchor=\"middle\">Serah-Terima Elektron: Na + Cl → [Na]⁺ + [Cl]⁻</text>\n\n    <!-- Atom Na -->\n    <g transform=\"translate(65, 125)\">\n      <circle r=\"42\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n      <circle r=\"28\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1.5\"/>\n      <circle r=\"15\" fill=\"#3b82f6\"/>\n      <text x=\"0\" y=\"4\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Na</text>\n      <text x=\"0\" y=\"58\" font-size=\"10\" font-weight=\"semibold\" fill=\"#1e40af\" text-anchor=\"middle\">Atom Na (2, 8, 1)</text>\n      <!-- Valensi e- -->\n      <circle cx=\"42\" cy=\"0\" r=\"5\" fill=\"#f59e0b\" stroke=\"#b45309\" stroke-width=\"1.5\"/>\n      <text x=\"42\" y=\"-9\" font-size=\"9\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">1e⁻</text>\n    </g>\n\n    <!-- Panah Transfer Elektron -->\n    <path d=\"M 112 125 C 135 75, 165 75, 185 110\" fill=\"none\" stroke=\"#d97706\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\" marker-end=\"url(#arrowGold)\"/>\n    <text x=\"148\" y=\"70\" font-size=\"10\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">Transfer e⁻</text>\n\n    <!-- Atom Cl -->\n    <g transform=\"translate(230, 125)\">\n      <circle r=\"46\" fill=\"#ffffff\" stroke=\"#86efac\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n      <circle r=\"32\" fill=\"#ffffff\" stroke=\"#86efac\" stroke-width=\"1.5\"/>\n      <circle r=\"18\" fill=\"#10b981\"/>\n      <text x=\"0\" y=\"4\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Cl</text>\n      <text x=\"0\" y=\"62\" font-size=\"10\" font-weight=\"semibold\" fill=\"#065f46\" text-anchor=\"middle\">Atom Cl (2, 8, 7)</text>\n      <!-- Elektron valensi Cl -->\n      <circle cx=\"-46\" cy=\"0\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"0\" cy=\"-46\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"0\" cy=\"46\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"46\" cy=\"0\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"32\" cy=\"-32\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"32\" cy=\"32\" r=\"4\" fill=\"#10b981\"/>\n      <circle cx=\"-32\" cy=\"32\" r=\"4\" fill=\"#10b981\"/>\n    </g>\n\n    <!-- Hasil: Kisi & Gaya Coulomb -->\n    <rect x=\"20\" y=\"215\" width=\"325\" height=\"50\" rx=\"8\" fill=\"#ffffff\" stroke=\"#93c5fd\" stroke-width=\"1\"/>\n    <text x=\"182\" y=\"234\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e3a8a\" text-anchor=\"middle\">Gaya Coulomb: F = k · (|q₁ · q₂|) / r²</text>\n    <text x=\"182\" y=\"252\" font-size=\"10\" fill=\"#475569\" text-anchor=\"middle\">Membentuk kation Na⁺ kecil & anion Cl⁻ besar terkemas rapat</text>\n  </g>\n\n  <!-- PANEL KANAN: IKATAN KOVALEN -->\n  <g transform=\"translate(395, 10)\">\n    <rect width=\"375\" height=\"280\" rx=\"16\" fill=\"url(#covGrad1)\" stroke=\"#a7f3d0\" stroke-width=\"1.5\" filter=\"url(#shadowBox)\"/>\n    <rect x=\"16\" y=\"14\" width=\"155\" height=\"22\" rx=\"6\" fill=\"#059669\"/>\n    <text x=\"93\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">2. IKATAN KOVALEN</text>\n    <text x=\"187\" y=\"52\" font-size=\"12\" font-weight=\"bold\" fill=\"#064e3b\" text-anchor=\"middle\">Pemakaian Bersama Elektron: Cl + Cl → Cl₂</text>\n\n    <!-- Overlapping Cl2 molecule -->\n    <g transform=\"translate(187, 125)\">\n      <!-- Lingkaran Luar Atom Kiri & Kanan -->\n      <circle cx=\"-42\" cy=\"0\" r=\"52\" fill=\"#3b82f6\" fill-opacity=\"0.1\" stroke=\"#3b82f6\" stroke-width=\"1.5\"/>\n      <circle cx=\"42\" cy=\"0\" r=\"52\" fill=\"#10b981\" fill-opacity=\"0.1\" stroke=\"#10b981\" stroke-width=\"1.5\"/>\n\n      <!-- Daerah Overlap -->\n      <ellipse cx=\"0\" cy=\"0\" rx=\"18\" ry=\"34\" fill=\"#fef08a\" fill-opacity=\"0.55\" stroke=\"#eab308\" stroke-width=\"1.5\"/>\n\n      <!-- Inti Kiri & Kanan -->\n      <circle cx=\"-42\" cy=\"0\" r=\"18\" fill=\"#2563eb\"/>\n      <text x=\"-42\" y=\"4\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Cl</text>\n      <circle cx=\"42\" cy=\"0\" r=\"18\" fill=\"#059669\"/>\n      <text x=\"42\" y=\"4\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Cl</text>\n\n      <!-- Pasangan Elektron Bersama di Tengah (PEI) -->\n      <circle cx=\"0\" cy=\"-10\" r=\"4.5\" fill=\"#2563eb\"/>\n      <circle cx=\"0\" cy=\"10\" r=\"4.5\" fill=\"#059669\"/>\n\n      <text x=\"0\" y=\"-45\" font-size=\"10\" font-weight=\"bold\" fill=\"#854d0e\" text-anchor=\"middle\">PEI (Shared Pair)</text>\n      <path d=\"M 0 -38 L 0 -22\" stroke=\"#854d0e\" stroke-width=\"1.2\" marker-end=\"url(#arrowGold)\"/>\n\n      <text x=\"-42\" y=\"68\" font-size=\"10\" font-weight=\"semibold\" fill=\"#1e40af\" text-anchor=\"middle\">3 Pasang PEB</text>\n      <text x=\"42\" y=\"68\" font-size=\"10\" font-weight=\"semibold\" fill=\"#065f46\" text-anchor=\"middle\">3 Pasang PEB</text>\n    </g>\n\n    <!-- Keterangan Bawah -->\n    <rect x=\"20\" y=\"215\" width=\"335\" height=\"50\" rx=\"8\" fill=\"#ffffff\" stroke=\"#a7f3d0\" stroke-width=\"1\"/>\n    <text x=\"187\" y=\"234\" font-size=\"11\" font-weight=\"bold\" fill=\"#065f46\" text-anchor=\"middle\">Kerapatan Awan Elektron Terpusat di Antara 2 Inti</text>\n    <text x=\"187\" y=\"252\" font-size=\"10\" fill=\"#475569\" text-anchor=\"middle\">Kedua atom mencapai konfigurasi oktet stabil (8 elektron)</text>\n  </g>\n</svg>\n\n---\n\n### 2. Energi Kisi Kristal (*Lattice Energy*, $U$)\n\nSenyawa ionik tidak membentuk molekul individual diskret $\\ce{NaCl}$, melainkan membentuk **kisi kristal tiga dimensi raksasa (*crystalline lattice*)** di mana setiap kation $\\ce{Na+}$ dikelilingi oleh $6$ anion $\\ce{Cl-}$ (koordinasi oktahedral $6:6$), dan setiap anion dikelilingi oleh $6$ kation.\n\n**Energi Kisi ($U$):** Energi yang dilepaskan ketika satu mol senyawa ionik padat terbentuk dari ion-ion penyusunnya dalam wujud gas pada kondisi standar:\n$$\\ce{Na+(g) + Cl-(g) -> NaCl(s)} \\quad \\Delta H = U \\quad (U = -787\\text{ kJ/mol})$$\n\nBerdasarkan formulasi elektrostatik Born-Landé:\n$$U \\propto -\\frac{|z_+ \\cdot z_-|}{r_0}$$\n- $z_+$ dan $z_-$ = muatan kation dan anion.\n- $r_0$ = jarak antarpusat kation-anion ($r_0 = r_+ + r_-$).\n\n> [!IMPORTANT]\n> **Faktor Dominan Penentu Kekuatan Ikatan Ion:**  \n> 1. **Besar muatan ion:** Pengaruh kuadratis muatan jauh lebih dominan daripada ukuran jari-jari. Senyawa dengan ion bervalensi dua (seperti $\\ce{MgO}$, di mana $z_+ = +2, z_- = -2$, hasil kali muatan $= 4$) memiliki energi kisi sekitar **4 kali lipat** lebih besar ($U \\approx -3791\\text{ kJ/mol}$) dan titik leleh jauh lebih tinggi ($2852^\\circ\\text{C}$) dibandingkan $\\ce{NaCl}$ ($z_+ = +1, z_- = -1$, titik leleh $801^\\circ\\text{C}$).\n> 2. **Jari-jari ion:** Makin kecil jari-jari ion, jarak $r_0$ makin pendek, sehingga gaya Coulomb dan energi kisi makin kuat: $U(\\ce{LiF}) > U(\\ce{NaCl}) > U(\\ce{KBr})$.\n\n---\n\n### 3. Karakteristik Fisik Khas Senyawa Ionik\n\n1. **Titik Leleh dan Titik Didih Sangat Tinggi:**\n   Dibutuhkan energi termal yang sangat masif untuk mengatasi gaya tarik elektrostatik kisi kristal tiga dimensi di seluruh orientasi ruang.\n2. **Keras Namun Getas / Rapuh (*Hard but Brittle*):**\n   Kristal ionik sangat tahan terhadap tekanan tegak lurus langsung. Namun apabila dipukul dengan palu atau dikenai gaya geser (*shear stress*), satu lapisan ion akan bergeser sejauh satu jari-jari ion. Akibatnya, ion-ion bermuatan sejenis akan berhadapan secara langsung ($\\ce{Na+}$ berhadapan dengan $\\ce{Na+}$, $\\ce{Cl-}$ berhadapan dengan $\\ce{Cl-}$), memicu **gaya tolak elektrostatik raksasa yang memecah kristal seketika**.\n3. **Daya Hantar Listrik (Konduktivitas):**\n   - **Wujud Padat:** *Isolator listrik total*, karena ion-ion terkunci kaku pada titik kisi kristal dan tidak dapat bergerak bebas mengalirkan muatan.\n   - **Wujud Lelehan (*Molten*) & Larutan (*Aqueous*):** *Konduktor listrik sangat baik (Elektrolit Kuat)*, karena kisi kristal terurai dan ion-ion terdisosiasi bergerak bebas (*mobile charge carriers*).",
+      "keyFormulas": [
+        {
+          "name": "Hukum Coulomb Gaya Elektrostatik",
+          "formula": "F = k \\frac{|q_1 \\cdot q_2|}{r^2}"
+        },
+        {
+          "name": "Ketergantungan Energi Kisi Kristal",
+          "formula": "U \\propto \\frac{|z_+ \\cdot z_-|}{r_+ + r_-}"
+        }
+      ]
     },
     {
-      tag: 'contoh-lewis-muatan-formal-hno3-so4',
-      title: 'Contoh Soal 2: Struktur Lewis, Evaluasi Muatan Formal & Ikatan Kovalen Koordinasi (HNO3 & SO4^2-)',
-      summary: 'Metode kalkulasi muatan formal untuk memilih struktur resonansi terbaik dan mengidentifikasi ikatan kovalen datif.',
-      content: `### Soal Latihan:
-1. Gambarkan struktur Lewis molekul Asam Nitrat ($\\ce{HNO3}$) yang mematuhi kaidah oktet ketat ($Z_{\\ce{H}}=1, Z_{\\ce{N}}=7, Z_{\\ce{O}}=8$). Hitung muatan formal seluruh atom dan tentukan ada tidaknya ikatan kovalen koordinasi!
-2. Pada ion Poliatomik Sulfat ($\\ce{SO4^2-}$), bandingkan struktur Lewis yang mematuhi kaidah oktet murni dengan struktur superoktet yang meminimalkan muatan formal! Struktur manakah yang paling stabil menurut data spektroskopi eksperimental?
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Analisis Molekul Asam Nitrat ($\\ce{HNO3}$):
-- **Jumlah Elektron Valensi Total:**
-  $$EV = 1(\\ce{H}) + 5(\\ce{N}) + 3 \\times 6(\\ce{O}) = 1 + 5 + 18 = \\mathbf{24 \\text{ elektron}} \\quad (12 \\text{ pasang})$$
-- Atom $\\ce{N}$ bertindak sebagai atom pusat. Atom $\\ce{H}$ terikat pada salah satu atom Oksigen (gugus hidroksil $-\\ce{OH}$).
-- **Distribusi Ikatan pada Atom $\\ce{N}$:**
-  - $\\ce{N}$ membentuk ikatan kovalen tunggal dengan atom $\\ce{O_{(1)}}$ yang mengikat $\\ce{H}$ ($\\ce{N-O-H}$).
-  - $\\ce{N}$ membentuk ikatan kovalen rangkap dua dengan atom $\\ce{O_{(2)}}$ kedua ($\\ce{N=O}$).
-  - $\\ce{N}$ menyumbangkan 1 pasang elektron bebasnya ke atom $\\ce{O_{(3)}}$ ketiga tanpa sumbangan balik dari atom $\\ce{O_{(3)}}$, membentuk **1 ikatan kovalen koordinasi (datif)**: $\\ce{N -> O}$.
-- **Kalkulasi Muatan Formal (*Formal Charge*):**
-  $$FC = EV - N_{\\text{nonbonding}} - \\frac{1}{2} N_{\\text{bonding}}$$
-  - Atom $\\ce{N}$: $FC = 5 - 0 - \\frac{1}{2}(8) = \\mathbf{+1}$
-  - Atom $\\ce{O_{(1)}}$ ($-\\ce{OH}$): $FC = 6 - 4 - \\frac{1}{2}(4) = \\mathbf{0}$
-  - Atom $\\ce{O_{(2)}}$ (ikatan rangkap $\\ce{=O}$): $FC = 6 - 4 - \\frac{1}{2}(4) = \\mathbf{0}$
-  - Atom $\\ce{O_{(3)}}$ (ikatan koordinasi $\\ce{-> O}$): $FC = 6 - 6 - \\frac{1}{2}(2) = \\mathbf{-1}$
-  - Atom $\\ce{H}$: $FC = 1 - 0 - \\frac{1}{2}(2) = \\mathbf{0}$
-  - *Jumlah total muatan formal:* $(+1) + 0 + 0 + (-1) + 0 = 0$ (Netral sesuai rumus molekul $\\ce{HNO3}$).
-- **Kesimpulan:** Pada $\\ce{HNO3}$ terdapat **1 ikatan kovalen rangkap dua**, **2 ikatan kovalen tunggal**, dan **1 ikatan kovalen koordinasi**.
-
----
-
-#### 2. Analisis Ion Sulfat ($\\ce{SO4^2-}$):
-- **Elektron Valensi Total:** $6(\\ce{S}) + 4 \\times 6(\\ce{O}) + 2(\\text{muatan}) = \\mathbf{32 \\text{ elektron}}$ ($16$ pasang).
-- **Struktur A (Kaidah Oktet Murni - Tanpa Superoktet):**
-  - Atom $\\ce{S}$ hanya membentuk 4 ikatan tunggal ke empat atom $\\ce{O}$ ($\\ce{S-O}$).
-  - Atom $\\ce{S}$ memiliki 8 elektron valensi (oktet terpenuhi).
-  - *Muatan Formal:*
-    - $FC(\\ce{S}) = 6 - 0 - \\frac{1}{2}(8) = \\mathbf{+2}$
-    - $FC(\\ce{O}) = 6 - 6 - \\frac{1}{2}(2) = \\mathbf{-1}$ (untuk keempat atom O).
-  - Kelemahan: Terjadi pemisahan muatan formal besar ($+2$ pada sulfur).
-- **Struktur B (Superoktet - Minimasi Muatan Formal):**
-  - Dua atom $\\ce{O}$ berikatan rangkap dua ($\\ce{S=O}$), dua atom $\\ce{O}$ berikatan tunggal ($\\ce{S-O-}$).
-  - Atom $\\ce{S}$ dikelilingi 12 elektron valensi (superoktet diperbolehkan karena belerang berada di Periode 3 dengan subkulit $3d$).
-  - *Muatan Formal:*
-    - $FC(\\ce{S}) = 6 - 0 - \\frac{1}{2}(12) = \\mathbf{0}$
-    - $FC(\\ce{O}$ ikatan rangkap$) = 6 - 4 - 2 = \\mathbf{0}$
-    - $FC(\\ce{O}$ ikatan tunggal$) = 6 - 6 - 1 = \\mathbf{-1}$
-- **Validasi Eksperimental:**
-  Data difraksi sinar-X kristalografi menunjukkan bahwa keempat ikatan $\\ce{S-O}$ pada ion $\\ce{SO4^2-}$ memiliki panjang ikatan yang **identik persis ($149\\text{ pm}$)**, jauh lebih pendek daripada ikatan tunggal murni ($170\\text{ pm}$). Hal ini membuktikan bahwa struktur sebenarnya adalah **Hibrida Resonansi** di mana muatan $-2$ terdelokalisasi merata ke keempat atom oksigen dengan orde ikatan rata-rata **$1.5$** (Struktur B paling dominan).`,
-      keyFormulas: [
-        { name: 'Rumus Muatan Formal Atom', formula: 'FC = EV - N_{\\text{PEB}} - \\frac{1}{2} N_{\\text{PEI}}' },
+      "tag": "ikatan-kovalen-dan-kovalen-koordinasi",
+      "tags": [
+        "ikatan-kovalen",
+        "kovalen-tunggal-rangkap",
+        "ikatan-sigma-pi",
+        "kovalen-koordinasi",
+        "datif",
+        "pengecualian-oktet"
       ],
+      "title": "Konsep Inti 2: Ikatan Kovalen, Kovalen Koordinasi (Datif) & Anomali Pengecualian Kaidah Oktet",
+      "summary": "Tumpang tindih orbital sigma dan pi, ikatan donor-akseptor elektron bebas, serta fenomena oktet tak lengkap, radikal bebas, dan superoktet.",
+      "content": "Ikatan kovalen terbentuk akibat gaya tarik elektrostatik simultan antara dua inti atom positif terhadap pasangan elektron yang digunakan bersama di daerah antarnukleus (*internuclear region*).\n\n### 1. Mekanisme Pembentukan Ikatan Kovalen & Kurva Energi Potensial\n\nPembentukan ikatan kovalen antara dua atom (seperti dua atom hidrogen, $\\ce{H + H -> H2}$) melibatkan kompetisi dinamis antara gaya tarik dan gaya tolak elektrostatik seiring perubahan jarak antarinti ($r$).\n\n#### A. Dinamika Dua Gaya yang Berkompetisi:\n1. **Gaya Tarik Elektrostatik ($F_{\\text{tarik}}$):**\n   - Tarikan antara inti atom A (bermuatan $+1$) terhadap elektron atom B (bermuatan $-1$).\n   - Tarikan antara inti atom B terhadap elektron atom A.\n2. **Gaya Tolak Elektrostatik ($F_{\\text{tolak}}$):**\n   - Tolakan antara elektron atom A dengan elektron atom B (tolakan sesama muatan negatif).\n   - Tolakan antara inti atom A dengan inti atom B (tolakan sesama muatan positif).\n\n#### B. Analisis Kurva Energi Potensial (Kurva Morse $\\ce{H2}$):\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 820 380\" width=\"100%\" height=\"auto\" class=\"max-w-[820px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"curveGrad\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#38bdf8\"/>\n      <stop offset=\"100%\" stop-color=\"#0284c7\"/>\n    </linearGradient>\n    <radialGradient id=\"hAtom\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#93c5fd\"/>\n      <stop offset=\"60%\" stop-color=\"#3b82f6\"/>\n      <stop offset=\"100%\" stop-color=\"#1d4ed8\"/>\n    </radialGradient>\n    <marker id=\"arrowEp\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 8 5 L 0 9 z\" fill=\"#0284c7\"/>\n    </marker>\n    <marker id=\"arrowDist\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 8 5 L 0 9 z\" fill=\"#16a34a\"/>\n    </marker>\n  </defs>\n\n  <!-- BACKGROUND -->\n  <rect width=\"820\" height=\"380\" rx=\"16\" fill=\"#f8fafc\" stroke=\"#e2e8f0\" stroke-width=\"1.5\"/>\n\n  <!-- HEADER -->\n  <text x=\"410\" y=\"26\" font-size=\"13\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">KURVA ENERGI POTENSIAL PEMBENTUKAN IKATAN KOVALEN (H₂)</text>\n  <text x=\"410\" y=\"44\" font-size=\"10.5\" fill=\"#64748b\" text-anchor=\"middle\">Keseimbangan Termodinamika antara Gaya Tarik Inti-Elektron dan Gaya Tolak Inti-Inti</text>\n\n  <!-- AREA GRAFIK UTAMA -->\n  <!-- Sumbu Koordinat: Asal (X=90, Y=170) -> Ep = 0 -->\n  <g transform=\"translate(10, 20)\">\n    <!-- Garis Sumbu Ep = 0 -->\n    <line x1=\"90\" y1=\"150\" x2=\"520\" y2=\"150\" stroke=\"#94a3b8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/>\n    <text x=\"82\" y=\"154\" font-size=\"10\" font-weight=\"bold\" fill=\"#64748b\" text-anchor=\"end\">Ep = 0</text>\n\n    <!-- Sumbu Y: Energi Potensial -->\n    <line x1=\"90\" y1=\"50\" x2=\"90\" y2=\"310\" stroke=\"#334155\" stroke-width=\"2\"/>\n    <path d=\"M 90 44 L 86 52 L 94 52 z\" fill=\"#334155\"/>\n    <text x=\"85\" y=\"42\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"end\">Energi Potensial (kJ/mol)</text>\n\n    <!-- Sumbu X: Jarak Antarinti r -->\n    <line x1=\"90\" y1=\"310\" x2=\"540\" y2=\"310\" stroke=\"#334155\" stroke-width=\"2\"/>\n    <path d=\"M 546 310 L 538 306 L 538 314 z\" fill=\"#334155\"/>\n    <text x=\"535\" y=\"328\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"end\">Jarak Antarinti r (pm)</text>\n\n    <!-- Label Skala Y -->\n    <text x=\"82\" y=\"80\" font-size=\"9\" fill=\"#dc2626\" text-anchor=\"end\">+400</text>\n    <line x1=\"86\" y1=\"76\" x2=\"94\" y2=\"76\" stroke=\"#94a3b8\" stroke-width=\"1\"/>\n    <text x=\"82\" y=\"278\" font-size=\"9\" font-weight=\"bold\" fill=\"#0284c7\" text-anchor=\"end\">-436</text>\n    <line x1=\"86\" y1=\"274\" x2=\"94\" y2=\"274\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n\n    <!-- Label Skala X: r = 74 pm -->\n    <line x1=\"220\" y1=\"306\" x2=\"220\" y2=\"314\" stroke=\"#16a34a\" stroke-width=\"1.5\"/>\n    <text x=\"220\" y=\"328\" font-size=\"10\" font-weight=\"bold\" fill=\"#16a34a\" text-anchor=\"middle\">74 pm</text>\n\n    <!-- KURVA ENERGI POTENSIAL (Smooth Bezier) -->\n    <!-- Turun dari (120, 60) menembus Ep=0 di (150, 150) -> palung di (220, 274) -> naik ke (340, 165) -> (500, 152) -->\n    <path d=\"M 115 55 C 122 120, 138 210, 160 250 C 180 285, 205 274, 220 274 C 245 274, 280 230, 330 185 C 380 160, 440 152, 510 150\" fill=\"none\" stroke=\"#0284c7\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>\n\n    <!-- TITIK PALUNG MINIMUM: r = 74 pm, Ep = -436 kJ/mol -->\n    <circle cx=\"220\" cy=\"274\" r=\"6\" fill=\"#0284c7\" stroke=\"#ffffff\" stroke-width=\"2\"/>\n    <line x1=\"90\" y1=\"274\" x2=\"220\" y2=\"274\" stroke=\"#0284c7\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\"/>\n    <line x1=\"220\" y1=\"150\" x2=\"220\" y2=\"310\" stroke=\"#16a34a\" stroke-width=\"1.2\" stroke-dasharray=\"3 2\"/>\n\n    <!-- PANAH ENERGI IKATAN (De = 436 kJ/mol) -->\n    <line x1=\"260\" y1=\"150\" x2=\"260\" y2=\"274\" stroke=\"#0284c7\" stroke-width=\"2\" marker-start=\"url(#arrowEp)\" marker-end=\"url(#arrowEp)\"/>\n    <rect x=\"270\" y=\"200\" width=\"130\" height=\"24\" rx=\"5\" fill=\"#ffffff\" stroke=\"#bae6fd\" stroke-width=\"1\"/>\n    <text x=\"335\" y=\"216\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#0284c7\" text-anchor=\"middle\">Energi Ikatan: 436 kJ/mol</text>\n\n    <!-- PANAH PANJANG IKATAN (r0 = 74 pm) -->\n    <line x1=\"90\" y1=\"290\" x2=\"220\" y2=\"290\" stroke=\"#16a34a\" stroke-width=\"2\" marker-start=\"url(#arrowDist)\" marker-end=\"url(#arrowDist)\"/>\n    <text x=\"155\" y=\"285\" font-size=\"9\" font-weight=\"bold\" fill=\"#16a34a\" text-anchor=\"middle\">Panjang Ikatan (r₀)</text>\n  </g>\n\n  <!-- ILUSTRASI 3 TAHAP MEKANISME (KARTU KANAN) -->\n  <g transform=\"translate(560, 60)\">\n    <rect width=\"245\" height=\"295\" rx=\"12\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n    <text x=\"122\" y=\"20\" font-size=\"11\" font-weight=\"bold\" fill=\"#1e293b\" text-anchor=\"middle\">3 TAHAPAN PEMBENTUKAN</text>\n\n    <!-- TAHAP 1: ATOM TERPISAH (r >> 74 pm) -->\n    <g transform=\"translate(15, 32)\">\n      <rect width=\"215\" height=\"72\" rx=\"8\" fill=\"#f8fafc\" stroke=\"#e2e8f0\" stroke-width=\"1\"/>\n      <text x=\"10\" y=\"16\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#0369a1\">1. Jarak Jauh (r &gt;&gt; r₀)</text>\n      <!-- Visual 2 atom terpisah -->\n      <circle cx=\"65\" cy=\"45\" r=\"14\" fill=\"url(#hAtom)\"/>\n      <text x=\"65\" y=\"49\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n      <circle cx=\"150\" cy=\"45\" r=\"14\" fill=\"url(#hAtom)\"/>\n      <text x=\"150\" y=\"49\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n      <text x=\"107\" y=\"48\" font-size=\"8\" fill=\"#64748b\" text-anchor=\"middle\">Tidak Ada Interaksi</text>\n      <text x=\"10\" y=\"66\" font-size=\"8.5\" fill=\"#475569\">Ep = 0 kJ/mol (Atom Bebas)</text>\n    </g>\n\n    <!-- TAHAP 2: PANJANG IKATAN OPTIMAL (r = 74 pm) -->\n    <g transform=\"translate(15, 114)\">\n      <rect width=\"215\" height=\"85\" rx=\"8\" fill=\"#f0fdf4\" stroke=\"#86efac\" stroke-width=\"1.5\"/>\n      <text x=\"10\" y=\"16\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#15803d\">2. Keseimbangan (r = 74 pm)</text>\n      <!-- Visual tumpang tindih optimal -->\n      <g transform=\"translate(107, 45)\">\n        <circle cx=\"-11\" cy=\"0\" r=\"15\" fill=\"url(#hAtom)\" opacity=\"0.9\"/>\n        <circle cx=\"11\" cy=\"0\" r=\"15\" fill=\"url(#hAtom)\" opacity=\"0.9\"/>\n        <ellipse cx=\"0\" cy=\"0\" rx=\"7\" ry=\"12\" fill=\"#fef08a\" opacity=\"0.8\"/>\n        <text x=\"-11\" y=\"4\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n        <text x=\"11\" y=\"4\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n      </g>\n      <text x=\"107\" y=\"70\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#15803d\" text-anchor=\"middle\">F_tarik = F_tolak | Molekul H₂ Stabil</text>\n      <text x=\"107\" y=\"80\" font-size=\"8\" fill=\"#166534\" text-anchor=\"middle\">Ep Minimum: -436 kJ/mol</text>\n    </g>\n\n    <!-- TAHAP 3: TERLALU DEKAT (r < 74 pm) -->\n    <g transform=\"translate(15, 210)\">\n      <rect width=\"215\" height=\"74\" rx=\"8\" fill=\"#fef2f2\" stroke=\"#fca5a5\" stroke-width=\"1\"/>\n      <text x=\"10\" y=\"16\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#b91c1c\">3. Terlalu Dekat (r &lt; 74 pm)</text>\n      <!-- Visual bertabrakan inti -->\n      <g transform=\"translate(107, 42)\">\n        <circle cx=\"-5\" cy=\"0\" r=\"15\" fill=\"#ef4444\" opacity=\"0.8\"/>\n        <circle cx=\"5\" cy=\"0\" r=\"15\" fill=\"#ef4444\" opacity=\"0.8\"/>\n        <text x=\"0\" y=\"4\" font-size=\"10\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">⚡</text>\n      </g>\n      <text x=\"107\" y=\"65\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#b91c1c\" text-anchor=\"middle\">F_tolak &gt;&gt; F_tarik (Tolakan Inti)</text>\n    </g>\n  </g>\n</svg>\n\n#### C. Tiga Zona Kritis Kurva Energi Potensial:\n1. **Zona Jarak Jauh ($r > r_0$):**\n   Ketika kedua atom hidrogen saling mendekat dari jarak jauh, gaya tarik elektrostatik antara inti satu atom dengan elektron atom lainnya mulai bekerja mendominasi gaya tolak ($F_{\\text{tarik}} > F_{\\text{tolak}}$). Akibatnya, **energi potensial sistem menurun secara kontinu ($E_p < 0$)**, melepaskan kalor (proses eksotermik) seiring meningkatnya kestabilan sistem.\n2. **Zona Keseimbangan Termodinamika ($r = r_0 = 74\\text{ pm}$):**\n   Pada jarak antarinti $74\\text{ pm}$ ($0.74\\text{ \\AA}$), gaya tarik elektrostatik inti-elektron tepat mengimbangi gaya tolak inti-inti dan elektron-elektron ($F_{\\text{tarik}} = F_{\\text{tolak}}$).\n   - Sistem mencapai **palung energi terendah (energi minimum)** sebesar **$-436\\text{ kJ/mol}$**.\n   - **Panjang Ikatan Kovalen ($r_0$):** Jarak antarinti pada titik energi potensial minimum ($74\\text{ pm}$ untuk molekul $\\ce{H2}$).\n   - **Energi Ikatan / Energi Disosiasi Ikatan ($D_e$):** Besarnya kedalaman palung energi ($436\\text{ kJ/mol}$), yaitu energi yang harus diserap sistem untuk memisahkan kembali molekul $\\ce{H2}$ menjadi atom-atom bebas netral.\n3. **Zona Tolakan Inti ($r < r_0$):**\n   Jika kedua atom dipaksa saling mendekat melewati jarak $74\\text{ pm}$, awan elektron saling tumpang tindih berlebihan dan kedua inti atom bermuatan positif saling mendekat. Gaya tolak elektrostatik inti-inti melonjak secara eksponensial ($F_{\\text{tolak}} \\gg F_{\\text{tarik}}$).\n   - Energi potensial sistem melesat naik tajam ke nilai positif tinggi ($E_p \\gg 0$), menyebabkan sistem menjadi sangat labil dan kedua atom saling tolak-menolak keras.\n\n---\n\n### 2. Klasifikasi Orde Ikatan Kovalen\n\nBerdasarkan jumlah pasangan elektron ikatan (PEI) yang digunakan bersama:\n1. **Ikatan Kovalen Tunggal (Orde Ikatan = 1):**\n   - Menggunakan $1$ pasang elektron bersama ($2$ elektron).\n   - Terdiri dari **$1$ ikatan $\\sigma$ (sigma)** yang terbentuk dari tumpang tindih langsung ujung-ke-ujung (*head-on overlap*) orbital atom.\n   - Memiliki panjang ikatan paling panjang dan energi ikatan paling lemah.\n   - Contoh: $\\ce{H-H}$, $\\ce{Cl-Cl}$, $\\ce{H-CH3}$.\n2. **Ikatan Kovalen Rangkap Dua (Orde Ikatan = 2):**\n   - Menggunakan $2$ pasang elektron bersama ($4$ elektron).\n   - Terdiri dari **$1$ ikatan $\\sigma$ + $1$ ikatan $\\pi$ (pi)** yang terbentuk dari tumpang tindih sisi-ke-sisi (*side-by-side overlap*) orbital $p$.\n   - Contoh: $\\ce{O=O}$ pada $\\ce{O2}$, $\\ce{O=C=O}$ pada $\\ce{CO2}$, $\\ce{H2C=CH2}$ (etena).\n3. **Ikatan Kovalen Rangkap Tiga (Orde Ikatan = 3):**\n   - Menggunakan $3$ pasang elektron bersama ($6$ elektron).\n   - Terdiri dari **$1$ ikatan $\\sigma$ + $2$ ikatan $\\pi$** yang saling tegak lurus.\n   - Memiliki panjang ikatan paling pendek dan energi ikatan paling tinggi (sangat kuat dan inert).\n   - Contoh: $\\ce{N\\equiv N}$ pada gas Nitrogen ($D_{\\ce{N\\equiv N}} = 945\\text{ kJ/mol}$, menjelaskan mengapa $\\ce{N2}$ sangat stabil di atmosfer), gas asetilena $\\ce{H-C\\equiv C-H}$.\n\n---\n\n### 3. Ikatan Kovalen Koordinasi (Ikatan Datif / Semipolar)\n\nIkatan kovalen koordinasi adalah jenis ikatan kovalen di mana **pasangan elektron ikatan yang digunakan bersama hanya disumbangkan secara sepihak oleh salah satu atom (atom donor)**, sedangkan atom mitranya (atom akseptor) hanya menyediakan orbital kosong tanpa menyumbangkan elektron.\n- **Syarat Terbentuknya:**\n  1. Atom donor wajib memiliki minimal satu **Pasangan Elektron Bebas (PEB)** yang belum berikatan (Basa Lewis).\n  2. Atom akseptor memiliki **orbital kosong** yang siap menerima pasangan elektron tersebut (Asam Lewis).\n- **Contoh Penting dalam Kimia:**\n  1. **Pembentukan Kation Amonium ($\\ce{NH4+}$):**\n     Molekul amonia ($\\ce{NH3}$) memiliki 1 PEB pada atom $\\ce{N}$. Ketika bereaksi dengan ion $\\ce{H+}$ (yang tidak memiliki elektron sama sekali, orbital $1s^0$ kosong):\n     $$\\ce{H3N:} + \\ce{H+} \\to [\\ce{H3N -> H}]+ \\quad \\text{atau} \\quad [\\ce{NH4}]+$$\n  2. **Pembentukan Kation Hidronium ($\\ce{H3O+}$):**\n     $$\\ce{H2\\ddot{O}} + \\ce{H+} \\to [\\ce{H2O -> H}]+$$\n  3. **Adisi Asam-Basa Lewis Amonia dan Boron Trifluorida:**\n     $$\\ce{H3N:} + \\ce{BF3} \\to \\ce{H3N -> BF3}$$\n  4. **Molekul Belerang Trioksida ($\\ce{SO3}$):**\n     Berdasarkan kaidah oktet formal, atom $\\ce{S}$ berikatan rangkap dua dengan 1 atom $\\ce{O}$ ($\\ce{S=O}$), dan menyumbangkan 2 PEB-nya untuk membentuk **2 ikatan kovalen koordinasi** ke dua atom $\\ce{O}$ lainnya ($\\ce{O <- S(=O) -> O}$).\n\n---\n\n### 4. Tiga Kategori Pengecualian Kaidah Oktet\n\nMeskipun kaidah oktet sangat berguna untuk memprediksi struktur senyawa unsur periode 2, terdapat tiga kelas senyawa yang menyimpang dari kaidah oktet:\n\n1. **Oktet Tak Lengkap (*Incomplete Octet* - Elektron Kurang dari 8):**\n   Terjadi pada senyawa kovalen berilium ($\\ce{Be}$), boron ($\\ce{B}$), dan aluminium ($\\ce{Al}$):\n   - $\\ce{BeCl2}$: Atom $\\ce{Be}$ hanya dikelilingi oleh **4 elektron valensi** (2 PEI).\n   - $\\ce{BF3}$ dan $\\ce{BCl3}$: Atom $\\ce{B}$ hanya dikelilingi oleh **6 elektron valensi** (3 PEI).\n   - *Dampak Reaktivitas:* Senyawa dengan oktet tak lengkap sangat reaktif sebagai **Asam Lewis** (akseptor pasangan elektron) yang rakus berikatan dengan spesi kaya elektron.\n2. **Molekul Berjumlah Elektron Ganjil (Radikal Bebas / *Odd-Electron Molecules*):**\n   Molekul yang total elektron valensinya bernomor ganjil secara matematis mustahil memasangkan seluruh elektronnya menjadi oktet:\n   - Nitrogen Monoksida ($\\ce{NO}$): $5 + 6 = 11$ elektron valensi. Atom $\\ce{N}$ memiliki $7$ elektron di sekelilingnya.\n   - Nitrogen Dioksida ($\\ce{NO2}$): $5 + 2(6) = 17$ elektron valensi. Berwarna cokelat gas, bersifat paramagnetik dan sangat mudah mendimerisasi menjadi dinitrogen tetraoksida non-radikal:\n     $$\\ce{2 NO2 (g) <=> N2O4 (g)}$$\n3. **Oktet Berkembang (*Expanded Octet* / Superoktet - Lebih dari 8 Elektron):**\n   Hanya dapat terjadi pada atom pusat dari **Periode 3 atau lebih besar** (seperti $\\ce{P}, \\ce{S}, \\ce{Cl}, \\ce{Br}, \\ce{I}, \\ce{Xe}$) karena atom-atom ini memiliki **subkulit $3d$ kosong yang berenergi relatif rendah** sehingga mampu menampung 10, 12, atau 14 elektron valensi:\n   - Fosforus Pentaklorida ($\\ce{PCl5}$): Atom pusat $\\ce{P}$ memiliki **10 elektron valensi** (5 PEI).\n   - Belerang Heksafluorida ($\\ce{SF6}$): Atom pusat $\\ce{S}$ memiliki **12 elektron valensi** (6 PEI, sangat stabil dan inert).\n   - Ksenon Tetrafluorida ($\\ce{XeF4}$): Atom pusat $\\ce{Xe}$ memiliki **12 elektron** (4 PEI + 2 PEB).\n   *(Unsur Periode 2 seperti Karbon, Nitrogen, dan Oksigen TIDAK PERNAH mengalami superoktet karena tidak memiliki subkulit $2d$).*",
+      "keyFormulas": [
+        {
+          "name": "Keseimbangan Termodinamika Ikatan Kovalen",
+          "formula": "r = r_0 \\implies \\left(\\frac{dE_p}{dr}\\right)_{r=r_0} = 0 \\quad (E_p = -D_e)"
+        },
+        {
+          "name": "Orde Ikatan Kovalen",
+          "formula": "\\text{Orde Ikatan} = \\frac{N_b - N_a}{2}"
+        },
+        {
+          "name": "Kapasitas Maksimal Superoktet Periode 3",
+          "formula": "\\text{Elektron Kulit Terluar} > 8 \\quad (\\text{Melibatkan orbital } d)"
+        }
+      ]
     },
     {
-      tag: 'contoh-gaya-antarmolekul-titik-didih',
-      tags: ['analisis-titik-didih', 'isomer-pentana', 'etanol-vs-dimetil-eter', 'komparasi-ikatan-hidrogen', 'gaya-london'],
-      title: 'Contoh Soal 3: Komparasi Gaya Antarmolekul, Efek Percabangan Isomer & Kekuatan Ikatan Hidrogen',
-      summary: 'Rasionalisasi titik didih isomer hidrokarbon dan senyawa bertaraf massa molar serupa.',
-      content: `### Soal Analisis Komparatif:
-Jelaskan perbedaan titik didih pada ketiga pasang senyawa berikut secara mendalam berdasarkan konsep gaya antarmolekul:
-1. **n-Pentana ($36.1^\\circ\\text{C}$) vs Neopentana / 2,2-dimetilpropana ($9.5^\\circ\\text{C}$)** (Keduanya memiliki rumus molekul identik $\\ce{C5H12}$, $M_r = 72\\text{ g/mol}$).
-2. **Etanol ($\\ce{C2H5OH}$, titik didih $+78.3^\\circ\\text{C}$) vs Dimetil Eter ($\\ce{CH3-O-CH3}$, titik didih $-24^\\circ\\text{C}$)** (Keduanya berisomer rumus $\\ce{C2H6O}$, $M_r = 46\\text{ g/mol}$).
-3. **Air ($\\ce{H2O}$, titik didih $100^\\circ\\text{C}$) vs Asam Fluorida ($\\ce{HF}$, titik didih $19.5^\\circ\\text{C}$)**, padahal ikatan $\\ce{H-F}$ memiliki $\\Delta EN$ yang lebih tinggi daripada $\\ce{H-O}$.
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. n-Pentana vs Neopentana:
-- **Jenis Gaya:** Kedua senyawa merupakan hidrokarbon nonpolar murni, sehingga gaya antarmolekul satu-satunya yang bekerja adalah **Gaya Dispersi London**.
-- **Faktor Bentuk Geometri Molekul:**
-  - n-Pentana memiliki struktur rantai karbon lurus memanjang (*rod-like / cylindrical shape*), menghasilkan **luas permukaan kontak antarmolekul yang besar**. Awan elektron antarmolekul dapat saling mendekat dan berinteraksi di sepanjang rantai.
-  - Neopentana memiliki struktur tetrahedral sangat bercabang dan kompak menyerupai bola (*spherical shape*), menghasilkan **luas permukaan kontak yang jauh lebih kecil**.
-- **Kesimpulan:** Gaya dispersi London pada n-pentana jauh lebih kuat dan membutuhkan energi termal lebih tinggi untuk diputuskan, sehingga titik didihnya ($36.1^\\circ\\text{C}$) jauh lebih tinggi daripada neopentana ($9.5^\\circ\\text{C}$).
-
----
-
-#### 2. Etanol vs Dimetil Eter:
-- **Analisis Gugus Fungsi dan Interaksi:**
-  - Pada etanol ($\\ce{CH3-CH2-OH}$), terdapat atom hidrogen yang terikat langsung pada atom elektronegatif oksigen (gugus hidroksil $-\\ce{OH}$). Hal ini memungkinkan terbentuknya **Ikatan Hidrogen Intermolekul yang sangat kuat** antar molekul etanol.
-  - Pada dimetil eter ($\\ce{CH3-O-CH3}$), atom oksigen berada di tengah diapit oleh dua atom karbon. Tidak ada ikatan $\\ce{O-H}$ langsung. Interaksi antarmolekul dimetil eter hanya berupa **gaya dipol-dipol lemah** dan dispersi London.
-- **Kesimpulan:** Energi untuk memutuskan ikatan hidrogen pada etanol jauh lebih masif daripada gaya dipol-dipol dimetil eter, menyebabkan selisih titik didih lebih dari $102^\\circ\\text{C}$!
-
----
-
-#### 3. Air ($\\ce{H2O}$) vs Asam Fluorida ($\\ce{HF}$):
-- **Perbandingan Ikatan Individu vs Jaringan Ikatan:**
-  - Secara individual per ikatan, ikatan hidrogen $\\ce{F\\dots H-F}$ memang lebih kuat daripada $\\ce{O\\dots H-O}$ karena Fluorin lebih elektronegatif ($4.0$ vs $3.44$).
-  - Namun, dalam satu molekul $\\ce{HF}$, hanya terdapat **$1$ atom hidrogen** dan $3$ PEB. Karena kekurangan atom hidrogen sebagai donor, molekul $\\ce{HF}$ rata-rata hanya dapat membentuk **$2$ ikatan hidrogen per molekul** (membentuk rantai polimer 1 dimensi zig-zag).
-  - Sebaliknya, molekul $\\ce{H2O}$ memiliki rasio stoikiometri sempurna: **$2$ atom donor hidrogen dan $2$ PEB akseptor**, memungkinkan setiap molekul air berpartisipasi dalam **$4$ ikatan hidrogen serentak** membentuk jaringan kisi 3 dimensi raksasa.
-- **Kesimpulan:** Jumlah total energi ikatan hidrogen per mol molekul pada air jauh melampaui asam fluorida, sehingga titik didih air ($100^\\circ\\text{C}$) jauh lebih tinggi daripada $\\ce{HF}$ ($19.5^\\circ\\text{C}$).`,
-      keyFormulas: [
-        { name: 'Korelasi Bentuk Molekul & Gaya London', formula: '\\text{Luas Permukaan Kontak } \\uparrow \\implies \\text{Gaya London } \\uparrow \\implies T_b \\uparrow' },
-        { name: 'Rasio Ikatan Hidrogen Maksimal Air', formula: '4 \\text{ Ikatan Hidrogen per Molekul } \\ce{H2O}' },
+      "tag": "teori-vsepr-dan-geometri-molekul",
+      "tags": [
+        "teori-vsepr",
+        "domain-elektron",
+        "geometri-molekul",
+        "notasi-axne-m",
+        "sudut-ikatan",
+        "distorsi-peb"
       ],
+      "title": "Konsep Inti 3: Teori VSEPR, Notasi Domain Elektron & Prediksi Geometri Ruang Molekul",
+      "summary": "Kaidah tolakan pasangan elektron Gillespie-Nyholm, perumusan AXnEm, serta penurunan bentuk geometri molekul dari bentuk dasarnya.",
+      "content": "### 🎈 Balon Udara Repulsi VSEPR (Mental Model: Teori Tolakan Domain Elektron)\n\nBayangkan Anda mengikat beberapa balon karet berbentuk lonjong pada satu simpul pusat yang sama:\n- Jika Anda mengikat **2 balon**, balon-balon tersebut secara alami akan saling mendorong ke arah berlawanan membentuk garis lurus (**Linier**, sudut $180^\\circ$).\n- Jika Anda mengikat **3 balon**, mereka akan menyebar rata pada satu bidang datar (**Segitiga Datar / Trigonal Planar**, sudut $120^\\circ$).\n- Jika Anda mengikat **4 balon**, mereka tidak akan membentuk tanda tambah datar ($90^\\circ$), melainkan meletup ke ruang tiga dimensi membentuk piramida berkaki tiga (**Tetrahedral**, sudut $109.5^\\circ$).\n- Mengikat **5 balon** menghasilkan **Trigonal Bipiramida** ($90^\\circ$ dan $120^\\circ$).\n- Mengikat **6 balon** menghasilkan **Oktahedral** ($90^\\circ$).\n\nBegitulah persisnya cara kerja teori **VSEPR (*Valence Shell Electron Pair Repulsion*)**. Pasangan-pasangan elektron pada kulit valensi atom pusat bermuatan negatif, sehingga mereka saling tolak-menolak sekuat tenaga dan menata diri di ruang 3D pada posisi dengan gaya tolak minimum!\n\n---\n\nBentuk ruang tiga dimensi molekul mengendalikan reaktivitas kimiawi, kepolaran, interaksi dengan reseptor biologis, hingga wujud fisiknya.\n\n### 1. Prinsip Fundamental Teori VSEPR\n\nTeori VSEPR (*Valence Shell Electron Pair Repulsion*) dikembangkan oleh Ronald Gillespie dan Ronald Nyholm:\n> *\"Pasangan-pasangan elektron valensi (baik pasangan elektron ikatan maupun pasangan elektron bebas) yang mengelilingi atom pusat bermuatan negatif, sehingga mereka akan saling tolak-menolak dan berusaha menempati posisi ruang sejauh mungkin satu sama lain untuk meminimalkan gaya tolak elektrostatik.\"*\n\n**Hierarki Kekuatan Tolakan Elektron (Gillespie-Nyholm Rule):**\n$$\\mathbf{\\text{Tolakan PEB - PEB} > \\text{Tolakan PEB - PEI} > \\text{Tolakan PEI - PEI}}$$\n- **Mengapa PEB menolak lebih kuat?** Pasangan Elektron Bebas (PEB) hanya terikat pada satu inti atom, sehingga awan elektronnya lebih menggelembung besar dan menyebar luas di sekitar atom pusat. Sebaliknya, Pasangan Elektron Ikatan (PEI) ditarik oleh dua inti atom sehingga awan elektronnya lebih ramping dan terkurung di antara kedua inti.\n- **Akibat Fisik:** Kehadiran PEB akan **menekan sudut ikatan PEI-PEI menjadi lebih sempit** daripada sudut idealnya!\n\n---\n\n### 2. Notasi Domain Elektron ($AX_n E_m$)\n\nUntuk meramalkan bentuk molekul, digunakan notasi:\n$$\\mathbf{AX_n E_m}$$\n- $\\mathbf{A}$ = Simbol atom pusat.\n- $\\mathbf{X}$ = Jumlah atom ligan yang terikat pada atom pusat (sama dengan jumlah Pasangan Elektron Ikatan / PEI). Ikatan tunggal, rangkap dua, maupun rangkap tiga dihitung sebagai **$1$ domain ikatan**.\n- $\\mathbf{E}$ = Jumlah Pasangan Elektron Bebas (PEB) yang berada pada kulit valensi atom pusat.\n- $\\mathbf{n + m}$ = Jumlah total domain elektron (menentukan **Geometri Domain Elektron Dasar**).\n\nRumus cepat menghitung PEB ($E$):\n$$E = \\frac{EV - (n \\times b)}{2}$$\n*(di mana $EV$ = elektron valensi atom pusat, $n$ = jumlah atom ligan terikat, $b$ = valensi kebutuhan elektron ligan: $b=1$ untuk $\\ce{H, F, Cl, Br, I}$; $b=2$ untuk $\\ce{O, S}$; $b=3$ untuk $\\ce{N}$).*\n\n---\n\n### 3. Peta Komparatif 5 Geometri Molekul Kunci\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 840 330\" width=\"100%\" height=\"auto\" class=\"max-w-[840px] select-none font-sans\">\n  <defs>\n    <radialGradient id=\"atomCenter\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#93c5fd\"/>\n      <stop offset=\"60%\" stop-color=\"#2563eb\"/>\n      <stop offset=\"100%\" stop-color=\"#1e3a8a\"/>\n    </radialGradient>\n    <radialGradient id=\"atomLigand\" cx=\"35%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#86efac\"/>\n      <stop offset=\"60%\" stop-color=\"#10b981\"/>\n      <stop offset=\"100%\" stop-color=\"#064e3b\"/>\n    </radialGradient>\n    <radialGradient id=\"lonePair\" cx=\"40%\" cy=\"35%\" r=\"65%\">\n      <stop offset=\"0%\" stop-color=\"#fef08a\"/>\n      <stop offset=\"70%\" stop-color=\"#eab308\"/>\n      <stop offset=\"100%\" stop-color=\"#ca8a04\"/>\n    </radialGradient>\n  </defs>\n\n  <!-- BACKGROUND CONTAINER -->\n  <rect width=\"840\" height=\"330\" rx=\"16\" fill=\"#f8fafc\" stroke=\"#e2e8f0\" stroke-width=\"1.5\"/>\n\n  <!-- TITLE -->\n  <text x=\"420\" y=\"28\" font-size=\"14\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">SPEKTRUM GEOMETRI MOLEKUL VSEPR & DISTORSI SUDUT IKATAN</text>\n  <text x=\"420\" y=\"46\" font-size=\"11\" fill=\"#64748b\" text-anchor=\"middle\">Pengaruh tolakan awan elektron PEB terhadap penciutan sudut ikatan PEI-PEI</text>\n\n  <!-- CARD 1: LINEAR (AX2) -->\n  <g transform=\"translate(20, 65)\">\n    <rect width=\"150\" height=\"200\" rx=\"12\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n    <rect x=\"10\" y=\"10\" width=\"130\" height=\"22\" rx=\"6\" fill=\"#3b82f6\"/>\n    <text x=\"75\" y=\"25\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Linear (AX₂)</text>\n    <!-- Visual 3D -->\n    <g transform=\"translate(75, 95)\">\n      <!-- Ikatan -->\n      <line x1=\"-50\" y1=\"0\" x2=\"50\" y2=\"0\" stroke=\"#94a3b8\" stroke-width=\"5\" stroke-linecap=\"round\"/>\n      <!-- Bola Pusat -->\n      <circle cx=\"0\" cy=\"0\" r=\"16\" fill=\"url(#atomCenter)\"/>\n      <text x=\"0\" y=\"4\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Be</text>\n      <!-- Bola Ligan Kiri & Kanan -->\n      <circle cx=\"-50\" cy=\"0\" r=\"13\" fill=\"url(#atomLigand)\"/>\n      <text x=\"-50\" y=\"3\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Cl</text>\n      <circle cx=\"50\" cy=\"0\" r=\"13\" fill=\"url(#atomLigand)\"/>\n      <text x=\"50\" y=\"3\" font-size=\"8.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Cl</text>\n      <!-- Arc Sudut -->\n      <path d=\"M -22 -14 A 26 26 0 0 1 22 -14\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"1.5\"/>\n      <text x=\"0\" y=\"-28\" font-size=\"10\" font-weight=\"bold\" fill=\"#2563eb\" text-anchor=\"middle\">180°</text>\n    </g>\n    <text x=\"75\" y=\"162\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Sudut: 180°</text>\n    <text x=\"75\" y=\"178\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"middle\">0 PEB | Nonpolar</text>\n    <text x=\"75\" y=\"192\" font-size=\"8.5\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">Contoh: BeCl₂, CO₂</text>\n  </g>\n\n  <!-- CARD 2: TRIGONAL PLANAR (AX3) -->\n  <g transform=\"translate(180, 65)\">\n    <rect width=\"150\" height=\"200\" rx=\"12\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n    <rect x=\"10\" y=\"10\" width=\"130\" height=\"22\" rx=\"6\" fill=\"#0ea5e9\"/>\n    <text x=\"75\" y=\"25\" font-size=\"10\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Trigonal Planar (AX₃)</text>\n    <g transform=\"translate(75, 95)\">\n      <!-- Ikatan 3 Arah -->\n      <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-45\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"-40\" y2=\"28\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"40\" y2=\"28\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <!-- Bola Pusat -->\n      <circle cx=\"0\" cy=\"0\" r=\"16\" fill=\"url(#atomCenter)\"/>\n      <text x=\"0\" y=\"4\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">B</text>\n      <!-- 3 Ligan -->\n      <circle cx=\"0\" cy=\"-45\" r=\"12\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"-40\" cy=\"28\" r=\"12\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"40\" cy=\"28\" r=\"12\" fill=\"url(#atomLigand)\"/>\n      <!-- Sudut -->\n      <text x=\"24\" y=\"-12\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#0284c7\">120°</text>\n    </g>\n    <text x=\"75\" y=\"162\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Sudut: 120°</text>\n    <text x=\"75\" y=\"178\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"middle\">0 PEB | Nonpolar</text>\n    <text x=\"75\" y=\"192\" font-size=\"8.5\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">Contoh: BF₃, SO₃</text>\n  </g>\n\n  <!-- CARD 3: TETRAHEDRAL (AX4) -->\n  <g transform=\"translate(340, 65)\">\n    <rect width=\"155\" height=\"200\" rx=\"12\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1\"/>\n    <rect x=\"10\" y=\"10\" width=\"135\" height=\"22\" rx=\"6\" fill=\"#10b981\"/>\n    <text x=\"77\" y=\"25\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Tetrahedral (AX₄)</text>\n    <g transform=\"translate(77, 95)\">\n      <!-- 4 Ikatan -->\n      <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"-45\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"-42\" y2=\"25\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"42\" y2=\"25\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"10\" y2=\"35\" stroke=\"#64748b\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-dasharray=\"3 2\"/>\n      <!-- Pusat -->\n      <circle cx=\"0\" cy=\"0\" r=\"16\" fill=\"url(#atomCenter)\"/>\n      <text x=\"0\" y=\"4\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">C</text>\n      <!-- Ligands -->\n      <circle cx=\"0\" cy=\"-45\" r=\"11\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"-42\" cy=\"25\" r=\"11\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"42\" cy=\"25\" r=\"11\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"10\" cy=\"35\" r=\"9\" fill=\"url(#atomLigand)\"/>\n      <text x=\"24\" y=\"-10\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#059669\">109.5°</text>\n    </g>\n    <text x=\"77\" y=\"162\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Sudut Ideal: 109.5°</text>\n    <text x=\"77\" y=\"178\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"middle\">0 PEB | Nonpolar</text>\n    <text x=\"77\" y=\"192\" font-size=\"8.5\" font-style=\"italic\" fill=\"#059669\" text-anchor=\"middle\">Contoh: CH₄, CCl₄</text>\n  </g>\n\n  <!-- CARD 4: TRIGONAL PIRAMIDA (AX3E1) -->\n  <g transform=\"translate(505, 65)\">\n    <rect width=\"155\" height=\"200\" rx=\"12\" fill=\"#ffffff\" stroke=\"#f59e0b\" stroke-width=\"1.5\"/>\n    <rect x=\"10\" y=\"10\" width=\"135\" height=\"22\" rx=\"6\" fill=\"#f59e0b\"/>\n    <text x=\"77\" y=\"25\" font-size=\"10\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Trigonal Piramida (AX₃E)</text>\n    <g transform=\"translate(77, 100)\">\n      <!-- Balon Awan PEB di Atas -->\n      <ellipse cx=\"0\" cy=\"-26\" rx=\"14\" ry=\"20\" fill=\"url(#lonePair)\" opacity=\"0.85\"/>\n      <circle cx=\"-4\" cy=\"-28\" r=\"2.5\" fill=\"#78350f\"/>\n      <circle cx=\"4\" cy=\"-28\" r=\"2.5\" fill=\"#78350f\"/>\n      <text x=\"24\" y=\"-28\" font-size=\"8\" font-weight=\"bold\" fill=\"#b45309\">1 PEB</text>\n      <!-- Ikatan tertekan ke bawah -->\n      <line x1=\"0\" y1=\"0\" x2=\"-38\" y2=\"34\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"38\" y2=\"34\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"40\" stroke=\"#64748b\" stroke-width=\"3\" stroke-dasharray=\"2 2\"/>\n      <!-- Pusat N -->\n      <circle cx=\"0\" cy=\"0\" r=\"16\" fill=\"url(#atomCenter)\"/>\n      <text x=\"0\" y=\"4\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">N</text>\n      <!-- Ligands H -->\n      <circle cx=\"-38\" cy=\"34\" r=\"10\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"38\" cy=\"34\" r=\"10\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"0\" cy=\"40\" r=\"8\" fill=\"url(#atomLigand)\"/>\n    </g>\n    <text x=\"77\" y=\"162\" font-size=\"10\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">Sudut Menciut: 107.3°</text>\n    <text x=\"77\" y=\"178\" font-size=\"9\" font-weight=\"semibold\" fill=\"#dc2626\" text-anchor=\"middle\">1 PEB | Polar</text>\n    <text x=\"77\" y=\"192\" font-size=\"8.5\" font-style=\"italic\" fill=\"#b45309\" text-anchor=\"middle\">Contoh: NH₃, PCl₃</text>\n  </g>\n\n  <!-- CARD 5: BENGKOK / V-SHAPE (AX2E2) -->\n  <g transform=\"translate(670, 65)\">\n    <rect width=\"150\" height=\"200\" rx=\"12\" fill=\"#ffffff\" stroke=\"#ef4444\" stroke-width=\"1.5\"/>\n    <rect x=\"10\" y=\"10\" width=\"130\" height=\"22\" rx=\"6\" fill=\"#ef4444\"/>\n    <text x=\"75\" y=\"25\" font-size=\"10\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">Bengkok / V (AX₂E₂)</text>\n    <g transform=\"translate(75, 100)\">\n      <!-- 2 Balon Awan PEB di Atas -->\n      <ellipse cx=\"-13\" cy=\"-24\" rx=\"12\" ry=\"18\" fill=\"url(#lonePair)\" opacity=\"0.85\" transform=\"rotate(-15, -13, -24)\"/>\n      <ellipse cx=\"13\" cy=\"-24\" rx=\"12\" ry=\"18\" fill=\"url(#lonePair)\" opacity=\"0.85\" transform=\"rotate(15, 13, -24)\"/>\n      <text x=\"0\" y=\"-38\" font-size=\"8\" font-weight=\"bold\" fill=\"#b45309\" text-anchor=\"middle\">2 PEB Kuat</text>\n      <!-- Ikatan tertekan sangat sempit -->\n      <line x1=\"0\" y1=\"0\" x2=\"-35\" y2=\"34\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <line x1=\"0\" y1=\"0\" x2=\"35\" y2=\"34\" stroke=\"#94a3b8\" stroke-width=\"4.5\" stroke-linecap=\"round\"/>\n      <!-- Pusat O -->\n      <circle cx=\"0\" cy=\"0\" r=\"16\" fill=\"url(#atomCenter)\"/>\n      <text x=\"0\" y=\"4\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">O</text>\n      <!-- Ligands H -->\n      <circle cx=\"-35\" cy=\"34\" r=\"10\" fill=\"url(#atomLigand)\"/>\n      <circle cx=\"35\" cy=\"34\" r=\"10\" fill=\"url(#atomLigand)\"/>\n    </g>\n    <text x=\"75\" y=\"162\" font-size=\"10\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">Sudut Tertekan: 104.5°</text>\n    <text x=\"75\" y=\"178\" font-size=\"9\" font-weight=\"semibold\" fill=\"#dc2626\" text-anchor=\"middle\">2 PEB | Sangat Polar</text>\n    <text x=\"75\" y=\"192\" font-size=\"8.5\" font-style=\"italic\" fill=\"#dc2626\" text-anchor=\"middle\">Contoh: H₂O, OF₂, SCl₂</text>\n  </g>\n\n  <!-- BANNER BAWAH: HIERARKI TOLAKAN GILLESPIE -->\n  <g transform=\"translate(20, 276)\">\n    <rect width=\"800\" height=\"38\" rx=\"8\" fill=\"#1e293b\"/>\n    <text x=\"400\" y=\"24\" font-size=\"11.5\" font-weight=\"bold\" fill=\"#f8fafc\" text-anchor=\"middle\">\n      Kaidah Tolakan Gillespie: Tolakan PEB-PEB &gt; Tolakan PEB-PEI &gt; Tolakan PEI-PEI\n    </text>\n  </g>\n</svg>\n\n---\n\n### 4. Tabel Lengkap Bentuk Geometri Berdasarkan Domain Elektron\n\n| Domain | Notasi | PEI ($n$) | PEB ($m$) | Geometri Molekul | Sudut Ikatan | Contoh Molekul | Kepolaran Umum |\n| :---: | :---: | :---: | :---: | :--- | :---: | :--- | :---: |\n| **2** | $AX_2$ | 2 | 0 | **Linear** | $180^\\circ$ | $\\ce{BeCl2}, \\ce{CO2}, \\ce{HCN}$ | Nonpolar |\n| **3** | $AX_3$ | 3 | 0 | **Trigonal Planar** | $120^\\circ$ | $\\ce{BF3}, \\ce{SO3}, \\ce{NO3-}$ | Nonpolar |\n| **3** | $AX_2 E_1$ | 2 | 1 | **Bengkok / Bent** | $< 120^\\circ$ ($119^\\circ$) | $\\ce{SO2}, \\ce{O3}, \\ce{NO2-}$ | **Polar** |\n| **4** | $AX_4$ | 4 | 0 | **Tetrahedral** | $109.5^\\circ$ | $\\ce{CH4}, \\ce{CCl4}, \\ce{SO4^2-}$ | Nonpolar |\n| **4** | $AX_3 E_1$ | 3 | 1 | **Trigonal Piramida** | $< 109.5^\\circ$ ($107.3^\\circ$) | $\\ce{NH3}, \\ce{PCl3}, \\ce{H3O+}$ | **Polar** |\n| **4** | $AX_2 E_2$ | 2 | 2 | **Bengkok / Bent (V)** | $\\ll 109.5^\\circ$ ($104.5^\\circ$) | $\\ce{H2O}, \\ce{H2S}, \\ce{OF2}$ | **Polar** |\n| **5** | $AX_5$ | 5 | 0 | **Trigonal Bipiramida** | $90^\\circ, 120^\\circ$ | $\\ce{PCl5}, \\ce{PF5}$ | Nonpolar |\n| **5** | $AX_4 E_1$ | 4 | 1 | **Jungkat-jungkit (Seesaw)** | $< 90^\\circ, < 120^\\circ$ | $\\ce{SF4}, \\ce{TeCl4}$ | **Polar** |\n| **5** | $AX_3 E_2$ | 3 | 2 | **Bentuk-T (T-Shaped)** | $< 90^\\circ$ ($87.5^\\circ$) | $\\ce{ClF3}, \\ce{BrF3}$ | **Polar** |\n| **5** | $AX_2 E_3$ | 2 | 3 | **Linear** | $180^\\circ$ | $\\ce{XeF2}, \\ce{I3-}$ | Nonpolar |\n| **6** | $AX_6$ | 6 | 0 | **Oktahedral** | $90^\\circ$ | $\\ce{SF6}, \\ce{PCl6-}$ | Nonpolar |\n| **6** | $AX_5 E_1$ | 5 | 1 | **Piramida Alas Persegi** | $< 90^\\circ$ ($84.8^\\circ$) | $\\ce{BrF5}, \\ce{IF5}$ | **Polar** |\n| **6** | $AX_4 E_2$ | 4 | 2 | **Persegi Planar** | $90^\\circ$ | $\\ce{XeF4}, \\ce{ICl4-}$ | Nonpolar |\n\n> [!TIP]\n> **Aturan Posisi PEB pada Domain 5 & 6:**\n> - Pada domain 5 (Trigonal Bipiramida), PEB **SELALU menempati posisi EKUATORIAL ($120^circ$)**, bukan posisi aksial ($90^circ$), karena posisi ekuatorial hanya mengalami tolakan $90^circ$ sebanyak 2 kali (sedangkan posisi aksial mengalami tolakan $90^circ$ sebanyak 3 kali).\n> - Pada domain 6 (Oktahedral), kedua PEB pada $AX_4 E_2$ **saling bertolak belakang di posisi aksial ($180^circ$)** untuk meminimalkan tolakan, menghasilkan bentuk **Persegi Planar yang simetris dan NONPOLAR** (seperti $\\ce{XeF4}$).\n> [!IMPORTANT]\n> ### 🚨 Hierarki Kekuatan Tolakan Domain Elektron & Posisi Ekuatorial PEB\n> Pasangan Elektron Bebas (PEB) hanya terikat pada satu inti atom, sehingga awan elektronnya lebih buncit, menyebar luas, dan memiliki daya tolak elektrostatik jauh lebih dahsyat daripada Pasangan Elektron Ikatan (PEI):\n> $$\\mathbf{\\text{Tolakan PEB-PEB} > \\text{Tolakan PEB-PEI} > \\text{Tolakan PEI-PEI}}$$\n> \n> **Dua Konsekuensi Fatal di Olimpiade:**\n> 1. **Penyempitan Sudut Ikatan:** Kehadiran PEB menekan pasangan ikatan lainnya merapat. Itulah sebabnya molekul tetrahedral sempurna $\\ce{CH4}$ bersudut $109.5^\\circ$, namun $\\ce{NH3}$ (1 PEB) menyempit menjadi $107^\\circ$, dan $\\ce{H2O}$ (2 PEB) tertekan hebat menjadi $104.5^\\circ$!\n> 2. **Aturan Emas Bipiramida Trigonal (5 Domain):** PEB **SELALU menempati posisi EKUATORIAL** (sudut $120^\\circ$) daripada posisi AKSIAL (sudut $90^\\circ$) untuk meminimalkan tolakan $90^\\circ$ yang paling destruktif. Ini menghasilkan bentuk *Seesaw* (1 PEB), *Bentuk-T* (2 PEB), dan *Linier* (3 PEB seperti pada $\\ce{I3-}$ dan $\\ce{XeF2}$).\n",
+      "keyFormulas": [
+        {
+          "name": "Rumus Perhitungan PEB Atom Pusat",
+          "formula": "E = \\frac{EV - \\sum (n_i \\cdot b_i)}{2}"
+        },
+        {
+          "name": "Hierarki Tolakan Pasangan Elektron",
+          "formula": "\\text{PEB-PEB} > \\text{PEB-PEI} > \\text{PEI-PEI}"
+        }
+      ]
     },
     {
-      tag: 'contoh-energi-kisi-fajans',
-      tags: ['siklus-born-haber', 'energi-kisi-mgo-nacl', 'kaidah-fajans', 'karakter-kovalen-parsial'],
-      title: 'Contoh Soal 4: Termodinamika Energi Kisi (Siklus Born-Haber) & Kaidah Fajans Karakter Kovalen',
-      summary: 'Kalkulasi energi kisi senyawa ionik dan prediksi polarisasi kation terhadap awan elektron anion.',
-      content: `### Soal Olimpiade Dasar:
-1. Menggunakan data termodinamika berikut, hitung energi kisi kristal ($U$) dari Natrium Klorida ($\\ce{NaCl(s)}$) menggunakan Siklus Born-Haber:
-   - Entalpi pembentukan standar ($\\Delta H_f^\\circ \\ce{NaCl(s)}$) $= -411\\text{ kJ/mol}$
-   - Entalpi sublimasi natrium ($\\Delta H_{\\text{sub}} \\ce{Na(s)}$) $= +107\\text{ kJ/mol}$
-   - Energi ionisasi pertama natrium ($IE_1 \\ce{Na}$) $= +496\\text{ kJ/mol}$
-   - Energi disosiasi ikatan klorin ($D_{\\ce{Cl-Cl}}$) $= +242\\text{ kJ/mol}$
-   - Afinitas elektron klorin ($EA_1 \\ce{Cl}$) $= -349\\text{ kJ/mol}$
-2. Berdasarkan **Kaidah Fajans**, jelaskan mengapa Aluminium Klorida ($\\ce{AlCl3}$) memiliki titik leleh yang relatif rendah ($192^\\circ\\text{C}$, menyublim) dan lelehannya tidak menghantarkan arus listrik, padahal terbentuk dari unsur logam dan nonlogam!
-
----
-
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Kalkulasi Energi Kisi Natrium Klorida Melalui Siklus Born-Haber:
-Siklus Born-Haber didasarkan pada Hukum Hess, di mana pembentukan $\\ce{NaCl(s)}$ dari unsur-unsurnya dapat melalui dua rute:
-$$\\Delta H_f^\\circ = \\Delta H_{\\text{sub}} + IE_1(\\ce{Na}) + \\frac{1}{2} D(\\ce{Cl2}) + EA_1(\\ce{Cl}) + U$$
-- Masukkan nilai entalpi ke dalam persamaan:
-  $$-411 = +107 + (+496) + \\frac{1}{2}(+242) + (-349) + U$$
-  $$-411 = +107 + 496 + 121 - 349 + U$$
-  $$-411 = +375 + U$$
-  $$U = -411 - 375 = \\mathbf{-786 \\text{ kJ/mol}}$$
-- **Interpretasi:** Pembentukan satu mol kisi kristal padat $\\ce{NaCl}$ dari ion-ion gas $\\ce{Na+(g)}$ dan $\\ce{Cl-(g)}$ membebaskan energi sebesar **$786\\text{ kJ/mol}$**.
-
----
-
-#### 2. Penerapan Kaidah Fajans pada $\\ce{AlCl3}$ vs Senyawa Ionik Murni:
-Kasimir Fajans merumuskan aturan bahwa ikatan ionik murni dapat terdistorsi dan memiliki **karakter kovalen parsial signifikan** apabila terjadi polarisasi kuat:
-- **Faktor Pemicu Karakter Kovalen Kaidah Fajans:**
-  1. **Kation berukuran kecil dengan muatan positif tinggi:** Kation $\\ce{Al^3+}$ memiliki muatan $+3$ dan jari-jari ion sangat mungil ($53.5\\text{ pm}$), menghasilkan **densitas muatan (rapat muatan) elektrostatik yang luar biasa masif**. Kation ini memiliki daya polarisasi (*polarizing power*) yang sangat kuat.
-  2. **Anion berukuran besar:** Anion klorida ($\\ce{Cl-}$) memiliki jari-jari besar ($181\\text{ pm}$) dengan awan elektron valensi terluar yang longgar dan mudah terdistorsi (*polarisabilitas tinggi*).
-- **Mekanisme Polarisasi:**
-  Medan listrik pekat dari kation $\\ce{Al^3+}$ menarik awan elektron anion $\\ce{Cl-}$ masuk ke daerah di antara kedua inti atom. Terjadi tumpang tindih awan elektron parsial yang mengubah karakter ikatan dari ionik murni menjadi **didominasi ikatan kovalen polar**.
-- **Konsekuensi Sifat Fisis:**
-  - $\\ce{AlCl3}$ tidak membentuk kisi kristal ionik raksasa yang kaku, melainkan membentuk molekul dimer kovalen $\\ce{Al2Cl6}$ pada fase uap.
-  - Titik lelehnya sangat rendah ($192^\\circ\\text{C}$) dibandingkan senyawa ionik sejati seperti $\\ce{AlF3}$ ($1290^\\circ\\text{C}$, di mana anion $\\ce{F-}$ sangat kecil dan sukar dipolarisasi).
-  - Dalam fasa cair (lelehan), $\\ce{AlCl3}$ berupa molekul netral tanpa ion-ion bebas, sehingga **bersifat isolator (tidak menghantarkan listrik)**.`,
-      keyFormulas: [
-        { name: 'Siklus Born-Haber Energi Kisi', formula: '\\Delta H_f^\\circ = \\Delta H_{\\text{sub}} + IE + \\frac{1}{2} D + EA + U' },
-        { name: 'Kaidah Polarisasi Fajans', formula: '\\text{Rapat Muatan Kation } \\left(\\frac{z_+}{r_+}\\right) \\uparrow \\implies \\text{Karakter Kovalen } \\uparrow' },
+      "tag": "kepolaran-senyawa-dan-momen-dipol",
+      "tags": [
+        "kepolaran-senyawa",
+        "momen-dipol",
+        "vektor-momen-dipol",
+        "polar-nonpolar",
+        "kelarutan-like-dissolves-like"
       ],
+      "title": "Konsep Inti 4: Kepolaran Senyawa, Momen Dipol & Kriteria Simetri Molekul",
+      "summary": "Penjumlahan vektor momen dipol ikatan, pengaruh simetri bentuk molekul, serta prinsip like dissolves like.",
+      "content": "Kepolaran suatu molekul ditentukan oleh dua faktor serentak:\n1. **Adanya ikatan kovalen polar** di dalam molekul (perbedaan keelektronegatifan $\\Delta EN > 0$).\n2. **Bentuk geometri molekul yang asimetris**, sehingga resultan vektor momen dipol tidak saling meniadakan.\n\n---\n\n### 1. Definisi Fisik Momen Dipol Listrik ($\\vec{\\mu}$)\n\nMomen dipol listrik ($\\vec{\\mu}$) adalah besaran vektor yang merepresentasikan derajat pemisahan muatan positif dan negatif dalam suatu ikatan atau molekul:\n$$\\vec{\\mu} = q \\times \\vec{r}$$\n- $q$ = besar muatan parsial (Coulomb).\n- $r$ = jarak pemisahan muatan (meter).\n- Satuan standar kimia: **Debye (D)**, di mana $1\\text{ D} = 3.336 \\times 10^{-30}\\text{ C}\\cdot\\text{m}$.\n- Arah vektor dipol digambarkan dengan panah bertanda plus di pangkalnya: $\\mapsto$ (berpangkal pada kutub parsial positif $\\delta^+$ dan mengarah ke kutub parsial negatif $\\delta^-$).\n\n---\n\n### 2. Kriteria Molekul Polar vs Nonpolar\n\nResultan momen dipol total molekul merupakan penjumlahan vektor seluruh momen dipol ikatannya:\n$$\\vec{\\mu}_{\\text{total}} = \\sum \\vec{\\mu}_{\\text{ikatan}}$$\n\n1. **Molekul Nonpolar ($\\vec{\\mu}_{\\text{total}} = 0$):**\n   - Terjadi apabila molekul tidak memiliki ikatan polar (misal $\\ce{O2}, \\ce{N2}$), **ATAU** molekul memiliki ikatan polar tetapi **bentuk geometrinya sangat simetris** sehingga vektor-vektor momen dipol ikatan saling meniadakan secara sempurna.\n   - *Contoh Klasik:*\n     - Karbon Dioksida ($\\ce{CO2}$): Ikatan $\\ce{C=O}$ sangat polar, tetapi karena bergeometri **Linear ($AX_2$, $180^\\circ$)**, dua vektor dipol yang berlawanan arah saling meniadakan: $\\vec{\\mu} = 0$.\n     - Karbon Tetraklorida ($\\ce{CCl4}$): Memiliki 4 ikatan polar $\\ce{C-Cl}$, tetapi tersusun dalam geometri **Tetrahedral ($AX_4$)** yang simetris sempurna ke 4 penjuru ruang, resultan $\\vec{\\mu} = 0$.\n     - Belerang Heksafluorida ($\\ce{SF6}$): Geometri **Oktahedral ($AX_6$)**, resultan $\\vec{\\mu} = 0$.\n2. **Molekul Polar ($\\vec{\\mu}_{\\text{total}} \\neq 0$):**\n   - Memiliki ikatan polar dan **bentuk geometrinya asimetris** (umumnya memiliki Pasangan Elektron Bebas / PEB pada atom pusat, atau atom-atom ligan yang terikat tidak sejenis).\n   - *Contoh Klasik:*\n     - Air ($\\ce{H2O}$): Memiliki 2 ikatan polar $\\ce{O-H}$ dan 2 PEB pada atom $\\ce{O}$ dengan geometri **Bengkok ($104.5^\\circ$)**. Kedua vektor dipol tidak berlawanan $180^\\circ$, melainkan mengarah ke atas menuju atom $\\ce{O}$, menghasilkan resultan $\\mu = 1.85\\text{ D}$ (Sangat Polar).\n     - Amonia ($\\ce{NH3}$): Geometri **Trigonal Piramida ($AX_3 E_1$)**, ketiga ikatan $\\ce{N-H}$ dan PEB di puncak menghasilkan momen dipol neto $\\mu = 1.47\\text{ D}$.\n     - Klorometana ($\\ce{CH3Cl}$): Bentuk tetrahedral namun asimetris karena 1 atom $\\ce{Cl}$ jauh lebih elektronegatif daripada 3 atom $\\ce{H}$, $\\mu = 1.87\\text{ D}$.\n\n---\n\n### 3. Konsekuensi Fisis Kepolaran Molekul\n\n- **Kelarutan (*Like Dissolves Like*):** Senyawa polar (dan ionik) mudah larut dalam pelarut polar (seperti air, etanol) karena terbentuk interaksi ion-dipol atau dipol-dipol yang stabil. Sebaliknya, senyawa nonpolar (seperti minyak, lemak, hidrokarbon, $\\ce{CCl4}$) hanya larut dalam pelarut nonpolar (benzena, heksana).\n- **Pengaruh Medan Listrik Eksternal:** Aliran cairan polar (seperti aliran air kran) akan dibelokkan ke arah penggaris mika yang telah digosok bermuatan listrik statis, sedangkan cairan nonpolar (seperti $\\ce{CCl4}$) mengalir lurus tanpa terpengaruh.",
+      "keyFormulas": [
+        {
+          "name": "Definisi Momen Dipol",
+          "formula": "\\vec{\\mu} = q \\cdot \\vec{r}"
+        },
+        {
+          "name": "Syarat Molekul Nonpolar",
+          "formula": "\\sum \\vec{\\mu}_i = \\mathbf{0} \\quad (\\mu_{\\text{total}} = 0)"
+        }
+      ]
     },
+    {
+      "tag": "ikatan-logam-dan-sifat-khas",
+      "tags": [
+        "ikatan-logam",
+        "model-lautan-elektron",
+        "drude-lorentz",
+        "konduktivitas-termal-listrik",
+        "malleable-ductile",
+        "deformasi-kristal"
+      ],
+      "title": "Konsep Inti 5: Ikatan Logam, Model Lautan Elektron & Penjelasan Ilmiah Sifat Fisik Logam",
+      "summary": "Teori awan elektron terdelokalisasi Drude-Lorentz, konduktivitas listrik/panas, kilap logam, serta perbandingan deformasi logam vs kerapuhan ionik.",
+      "content": "Lebih dari $75\\%$ unsur dalam tabel periodik adalah logam. Logam memiliki sifat-sifat unik yang tidak dijumpai pada senyawa ionik maupun kovalen, seperti kemampuan menghantarkan arus listrik dalam wujud padat, dapat ditempa menjadi lempengan tipis, dan ditarik menjadi kawat halus.\n\n### 1. Teori Lautan Elektron (*Electron-Sea Model* Drude & Lorentz)\n\nLogam memiliki energi ionisasi yang rendah dan orbital valensi yang relatif kosong. Akibatnya, atom-atom logam melepaskan elektron valensinya:\n- Kation-kation logam bermuatan positif ($\\ce{M^{n+}}$) tersusun secara teratur dan rapat dalam kisi kristal (misalnya kubus berpusat badan/BCC, kubus berpusat muka/FCC, atau heksagonal terjejal/HCP).\n- Elektron-elektron valensi tidak terikat pada satu kation tertentu, melainkan **terdelokalisasi bebas mengalir membentuk \"lautan elektron\"** yang menyelimuti seluruh kation logam.\n- **Ikatan Logam:** Gaya tarik elektrostatik antara kation-kation logam positif dengan lautan elektron valensi yang terdelokalisasi bebas tersebut.\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 780 290\" width=\"100%\" height=\"auto\" class=\"max-w-[780px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"metalGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#f0fdf4\"/>\n      <stop offset=\"100%\" stop-color=\"#dcfce7\"/>\n    </linearGradient>\n    <linearGradient id=\"ionicGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#fef2f2\"/>\n      <stop offset=\"100%\" stop-color=\"#fee2e2\"/>\n    </linearGradient>\n    <marker id=\"hammerArrow\" viewBox=\"0 0 10 10\" refX=\"6\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\">\n      <path d=\"M 0 1 L 9 5 L 0 9 z\" fill=\"#dc2626\"/>\n    </marker>\n  </defs>\n\n  <!-- PANEL KIRI: LOGAM ULET & DAPAT DITEMPA -->\n  <g transform=\"translate(10, 10)\">\n    <rect width=\"365\" height=\"270\" rx=\"14\" fill=\"url(#metalGrad)\" stroke=\"#86efac\" stroke-width=\"1.5\"/>\n    <rect x=\"14\" y=\"12\" width=\"165\" height=\"22\" rx=\"6\" fill=\"#16a34a\"/>\n    <text x=\"96\" y=\"27\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">LOGAM: ULET & DAPAT DITEMPA</text>\n    <text x=\"182\" y=\"48\" font-size=\"11\" font-weight=\"bold\" fill=\"#14532d\" text-anchor=\"middle\">Lautan Elektron Menyelimuti Pergeseran Kation</text>\n\n    <!-- Kation Grid Logam -->\n    <g transform=\"translate(30, 65)\">\n      <!-- Lautan Elektron (Awan hijau muda) -->\n      <rect width=\"305\" height=\"120\" rx=\"10\" fill=\"#bbf7d0\" opacity=\"0.6\"/>\n\n      <!-- Titik-titik elektron bebas melayang -->\n      <circle cx=\"25\" cy=\"20\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"85\" cy=\"15\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"145\" cy=\"22\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"205\" cy=\"18\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"265\" cy=\"20\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"55\" cy=\"60\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"115\" cy=\"62\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"175\" cy=\"58\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"235\" cy=\"60\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"290\" cy=\"55\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"25\" cy=\"100\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"85\" cy=\"102\" r=\"2.5\" fill=\"#047857\"/>\n      <circle cx=\"145\" cy=\"98\" r=\"2.5\" fill=\"#047857\"/><circle cx=\"205\" cy=\"104\" r=\"2.5\" fill=\"#047857\"/>\n\n      <!-- Baris Atas Kation (Bergeser ke kanan akibat pukulan) -->\n      <g transform=\"translate(30, 0)\">\n        <circle cx=\"35\" cy=\"25\" r=\"14\" fill=\"#15803d\"/><text x=\"35\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"95\" cy=\"25\" r=\"14\" fill=\"#15803d\"/><text x=\"95\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"155\" cy=\"25\" r=\"14\" fill=\"#15803d\"/><text x=\"155\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"215\" cy=\"25\" r=\"14\" fill=\"#15803d\"/><text x=\"215\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n      </g>\n      <!-- Panah Gaya Geser Palu -->\n      <path d=\"M 5 25 L 45 25\" stroke=\"#dc2626\" stroke-width=\"3\" marker-end=\"url(#hammerArrow)\"/>\n      <text x=\"25\" y=\"12\" font-size=\"9\" font-weight=\"bold\" fill=\"#dc2626\" text-anchor=\"middle\">Palu</text>\n\n      <!-- Baris Bawah Kation (Tetap) -->\n      <g transform=\"translate(0, 0)\">\n        <circle cx=\"35\" cy=\"85\" r=\"14\" fill=\"#15803d\"/><text x=\"35\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"95\" cy=\"85\" r=\"14\" fill=\"#15803d\"/><text x=\"95\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"155\" cy=\"85\" r=\"14\" fill=\"#15803d\"/><text x=\"155\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"215\" cy=\"85\" r=\"14\" fill=\"#15803d\"/><text x=\"215\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"275\" cy=\"85\" r=\"14\" fill=\"#15803d\"/><text x=\"275\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n      </g>\n    </g>\n\n    <rect x=\"20\" y=\"200\" width=\"325\" height=\"55\" rx=\"8\" fill=\"#ffffff\" stroke=\"#86efac\" stroke-width=\"1\"/>\n    <text x=\"182\" y=\"220\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#166534\" text-anchor=\"middle\">Ikatan Tidak Pernah Putus!</text>\n    <text x=\"182\" y=\"238\" font-size=\"9.5\" fill=\"#475569\" text-anchor=\"middle\">Lautan elektron fleksibel menyesuaikan bentuk (Malleable)</text>\n  </g>\n\n  <!-- PANEL KANAN: KRISTAL IONIK RAPUH / GETAS -->\n  <g transform=\"translate(395, 10)\">\n    <rect width=\"375\" height=\"270\" rx=\"14\" fill=\"url(#ionicGrad)\" stroke=\"#fca5a5\" stroke-width=\"1.5\"/>\n    <rect x=\"14\" y=\"12\" width=\"165\" height=\"22\" rx=\"6\" fill=\"#dc2626\"/>\n    <text x=\"96\" y=\"27\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">SENYAWA ION: RAPUH / GETAS</text>\n    <text x=\"187\" y=\"48\" font-size=\"11\" font-weight=\"bold\" fill=\"#991b1b\" text-anchor=\"middle\">Muatan Sejenis Berhadapan → Tolakan Kuat</text>\n\n    <!-- Grid Ion -->\n    <g transform=\"translate(35, 65)\">\n      <!-- Baris Atas Tergeser 1 Langkah -->\n      <g transform=\"translate(30, 0)\">\n        <circle cx=\"35\" cy=\"25\" r=\"13\" fill=\"#2563eb\"/><text x=\"35\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"85\" cy=\"25\" r=\"15\" fill=\"#16a34a\"/><text x=\"85\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">−</text>\n        <circle cx=\"135\" cy=\"25\" r=\"13\" fill=\"#2563eb\"/><text x=\"135\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n        <circle cx=\"185\" cy=\"25\" r=\"15\" fill=\"#16a34a\"/><text x=\"185\" y=\"29\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">−</text>\n      </g>\n      <!-- Panah Pukul Palu -->\n      <path d=\"M 5 25 L 45 25\" stroke=\"#dc2626\" stroke-width=\"3\" marker-end=\"url(#hammerArrow)\"/>\n\n      <!-- Baris Bawah -->\n      <circle cx=\"15\" cy=\"85\" r=\"15\" fill=\"#16a34a\"/><text x=\"15\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">−</text>\n      <circle cx=\"65\" cy=\"85\" r=\"13\" fill=\"#2563eb\"/><text x=\"65\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n      <circle cx=\"115\" cy=\"85\" r=\"15\" fill=\"#16a34a\"/><text x=\"115\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">−</text>\n      <circle cx=\"165\" cy=\"85\" r=\"13\" fill=\"#2563eb\"/><text x=\"165\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">+</text>\n      <circle cx=\"215\" cy=\"85\" r=\"15\" fill=\"#16a34a\"/><text x=\"215\" y=\"89\" font-size=\"11\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">−</text>\n\n      <!-- Garis Retak Merah / Repulsion -->\n      <path d=\"M 50 55 L 75 52 L 105 58 L 140 50 L 175 56 L 210 52\" stroke=\"#dc2626\" stroke-width=\"2.5\" stroke-dasharray=\"3 3\"/>\n      <!-- Panah Tolak Antara + dan + -->\n      <line x1=\"65\" y1=\"42\" x2=\"65\" y2=\"68\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n      <text x=\"65\" y=\"58\" font-size=\"10\" font-weight=\"bold\" fill=\"#dc2626\">⚡</text>\n      <line x1=\"115\" y1=\"42\" x2=\"115\" y2=\"68\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n      <text x=\"115\" y=\"58\" font-size=\"10\" font-weight=\"bold\" fill=\"#dc2626\">⚡</text>\n      <line x1=\"165\" y1=\"42\" x2=\"165\" y2=\"68\" stroke=\"#dc2626\" stroke-width=\"2\"/>\n      <text x=\"165\" y=\"58\" font-size=\"10\" font-weight=\"bold\" fill=\"#dc2626\">⚡</text>\n    </g>\n\n    <rect x=\"20\" y=\"200\" width=\"335\" height=\"55\" rx=\"8\" fill=\"#ffffff\" stroke=\"#fca5a5\" stroke-width=\"1\"/>\n    <text x=\"187\" y=\"220\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#991b1b\" text-anchor=\"middle\">Gaya Tolak Elektrostatik Raksasa!</text>\n    <text x=\"187\" y=\"238\" font-size=\"9.5\" fill=\"#475569\" text-anchor=\"middle\">Ion (+ +) dan (− −) berhadapan → Kristal Retak & Pecah</text>\n  </g>\n</svg>\n\n---\n\n### 2. Penjelasan Ilmiah 4 Sifat Fisik Karakteristik Logam\n\n1. **Dapat Ditempa (*Malleable*) dan Ditarik (*Ductile*):**\n   Ketika logam dipukul dengan palu atau ditarik melalui cetakan kawat, lapisan-lapisan kation bergeser melewati satu sama lain. Namun karena lautan elektron bebas bergerak mengikuti pergeseran tersebut secara instan, lingkungan elektrostatik kation tidak berubah. Tidak ada muatan sejenis yang saling tolak. Logam hanya mengalami deformasi plastis tanpa patah.\n2. **Konduktivitas Listrik Sangat Tinggi:**\n   Ketika beda potensial (tegangan listrik) diberikan pada kedua ujung logam, elektron-elektron valensi yang terdelokalisasi bebas segera mengalir secara terarah menuju kutub positif, menghasilkan arus listrik yang besar.\n3. **Konduktivitas Termal (Penghantar Panas):**\n   Pemanasan pada salah satu ujung logam meningkatkan energi kinetik elektron bebas di area tersebut. Elektron yang bergerak cepat ini bertumbukan dengan elektron lain dan kation-kation kisi, mentransfer energi termal ke seluruh badan logam dengan sangat cepat.\n4. **Kilap Logam (*Metallic Luster*):**\n   Lautan elektron bebas pada permukaan logam mampu menyerap seluruh spektrum foton cahaya tampak dan memancarkannya kembali (*re-emission*) secara instan, sehingga permukaan logam tampak mengilap seperti cermin.",
+      "keyFormulas": [
+        {
+          "name": "Model Densitas Arus Konduktivitas Logam",
+          "formula": "J = \\sigma E = n e v_d"
+        }
+      ]
+    },
+    {
+      "tag": "gaya-antarmolekul-dan-ikatan-hidrogen",
+      "tags": [
+        "gaya-antarmolekul",
+        "van-der-waals",
+        "gaya-london",
+        "dipol-dipol",
+        "ikatan-hidrogen",
+        "anomali-air",
+        "titik-didih-hidrida"
+      ],
+      "title": "Konsep Inti 6: Gaya Antarmolekul (Van der Waals & Ikatan Hidrogen) serta Anomali Sifat Fisik Air",
+      "summary": "Perbedaan gaya intramolekul vs intermolekul, mekanisme dispersi London, interaksi dipol-dipol, serta peran ikatan hidrogen dalam menentukan titik didih cairan.",
+      "content": "### 🧲 Lem Super Intramolekul vs Magnet Kulkas Antarmolekul (Mental Model)\n\nBanyak siswa pemula bingung membedakan antara **ikatan kimia intramolekul** dengan **gaya antarmolekul**:\n- **Ikatan Intramolekul (Lem Super Kuat):** Ikatan kovalen yang merekatkan atom H dan atom O *di dalam* satu molekul air tunggal ($\\ce{H-O-H}$). Energi pemutusannya sangat masif, sekitar $\\sim 460\\text{ kJ/mol}$!\n- **Gaya Antarmolekul (Magnet Kulkas Lemah):** Gaya tarik elektrostatis yang bekerja *antar molekul-molekul air yang bertetangga* (ikatan hidrogen $\\sim 20\\text{ kJ/mol}$ atau gaya London $\\sim 2-10\\text{ kJ/mol}$).\n\nKetika Anda merebus air hingga mendidih pada suhu $100^\\circ\\text{C}$, energi kalor yang diberikan HANYA cukup untuk melepaskan \"magnet kulkas\" antarmolekul air sehingga cairan berubah menjadi uap uap air ($\\ce{H2O(l) -> H2O(g)}$). Molekul air **TIDAK PERNAH terurai menjadi gas hidrogen ($\\ce{H2}$) dan oksigen ($\\ce{O2}$)**, karena lem super ikatan kovalennya membutuhkan suhu ribuan derajat untuk putus!\n\n---\n\nPerbedaan fundamental antara ikatan kimia dan gaya antarmolekul:\n- **Ikatan Kimia Intramolekul (Kovalen, Ion, Logam):** Mengikat atom-atom **di dalam** suatu molekul (energi ikatan: $150 - 1000\\text{ kJ/mol}$). Menentukan sifat kimia senyawa.\n- **Gaya Antarmolekul Intermolekul (Van der Waals, Ikatan Hidrogen):** Gaya tarik-menarik **antar molekul yang bertetangga** (energi ikatan: $1 - 40\\text{ kJ/mol}$). Mengendalikan sifat fisis seperti wujud zat (padat/cair/gas), titik leleh, titik didih, viskositas, dan kalor penguapan.\n\n---\n\n### 1. Spektrum Gaya Van der Waals\n\nGaya Van der Waals mencakup semua gaya tarik elektrostatik antarmolekul netral:\n1. **Gaya Dispersi London (Dipol Sesaat - Dipol Terimbas / *London Dispersion Forces*):**\n   - Bekerja pada **SEMUA molekul** (baik nonpolar maupun polar).\n   - Terjadi karena gerakan acak elektron yang sewaktu-waktu dapat terdistribusi secara tidak merata, menciptakan **dipol sesaat (*instantaneous dipole*)**. Dipol sesaat ini kemudian menginduksi awan elektron molekul tetangga membentuk **dipol terimbas (*induced dipole*)**, menghasilkan gaya tarik lemah sesaat.\n   - **Faktor yang Memperkuat Gaya London:**\n     - **Massa Molekul Relatif ($M_r$) & Ukuran Atom:** Makin besar atom, jumlah elektron makin banyak, awan elektron makin longgar dan **mudah terpolarisasi (*polarizability* tinggi)**.  \n       Contoh titik didih gas mulia naik seiring kenaikan $M_r$: $\\ce{He} (-269^\\circ\\text{C}) < \\ce{Ne} < \\ce{Ar} < \\ce{Kr} < \\ce{Xe} (-108^\\circ\\text{C})$.  \n       Halogen: $\\ce{F2}\\text{ (gas)} < \\ce{Cl2}\\text{ (gas)} < \\ce{Br2}\\text{ (cair)} < \\ce{I2}\\text{ (padat)}$.\n     - **Bentuk Molekul & Luas Permukaan Kontak:** Molekul rantai lurus memiliki luas kontak antarmolekul lebih besar daripada molekul bercabang bulat sferis.  \n       Contoh: n-pentana (titik didih $36.1^\\circ\\text{C}$) vs neopentana (titik didih $9.5^\\circ\\text{C}$), padahal $M_r$ keduanya sama ($72\\text{ g/mol}$).\n2. **Interaksi Dipol-Dipol (Gaya Keesom):**\n   - Terjadi khusus antar **molekul-molekul kovalen polar** permanen ($\\mu > 0$).\n   - Kutub positif parsial ($\\delta^+$) suatu molekul tertarik ke kutub negatif parsial ($\\delta^-$) molekul di sebelahnya.\n   - Lebih kuat daripada gaya London pada molekul dengan massa setara.  \n     Contoh: Propana (nonpolar, $M_r = 44$, titik didih $-42^\\circ\\text{C}$) vs Asetaldehida (polar, $M_r = 44$, titik didih $+20^\\circ\\text{C}$).\n\n---\n\n### 2. Ikatan Hidrogen (*Hydrogen Bonding*)\n\nIkatan hidrogen adalah gaya tarik antarmolekul istimewa yang **jauh lebih kuat ($10 - 40\\text{ kJ/mol}$)** daripada gaya Van der Waals biasa:\n- **Syarat Mutlak Terbentuknya Ikatan Hidrogen:**\n  1. Atom Hidrogen wajib terikat kovalen langsung pada atom yang **sangat elektronegatif dengan ukuran jari-jari sangat kecil: $\\mathbf{\\ce{F}}$, $\\mathbf{\\ce{O}}$, atau $\\mathbf{\\ce{N}}$**.\n  2. Molekul tetangga memiliki atom $\\ce{F}, \\ce{O},$ atau $\\ce{N}$ yang memiliki **Pasangan Elektron Bebas (PEB)**.\n- Akibat elektronegativitas $\\ce{F, O, N}$ yang sangat tinggi dan ukuran atom $\\ce{H}$ yang mungil tanpa elektron kulit dalam, ikatan menjadi terpolarisasi sangat ekstrem. Atom $\\ce{H}$ nyaris berupa \"proton telanjang\" dengan kerapatan muatan positif $\\delta^+$ yang luar biasa pekat, menarik PEB molekul tetangga dengan sangat kuat.\n\n---\n\n### 3. Grafik Anomali Titik Didih Hidrida & Jaringan Ikatan Hidrogen Air\n\n<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 820 330\" width=\"100%\" height=\"auto\" class=\"max-w-[820px] select-none font-sans\">\n  <defs>\n    <linearGradient id=\"plotBg\" x1=\"0%\" y1=\"0%\" x2=\"0%\" y2=\"100%\">\n      <stop offset=\"0%\" stop-color=\"#ffffff\"/>\n      <stop offset=\"100%\" stop-color=\"#f8fafc\"/>\n    </linearGradient>\n  </defs>\n\n  <!-- PANEL KIRI: GRAFIK TITIK DIDIH -->\n  <g transform=\"translate(10, 10)\">\n    <rect width=\"450\" height=\"310\" rx=\"14\" fill=\"url(#plotBg)\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n    <text x=\"225\" y=\"24\" font-size=\"12\" font-weight=\"bold\" fill=\"#0f172a\" text-anchor=\"middle\">KURVA ANOMALI TITIK DIDIH HIDRIDA GOLONGAN 14-17</text>\n\n    <!-- Sumbu Koordinat -->\n    <!-- Y: -150 to +100 C. Height = 220px. Scale: 1 C = 0.88px.\n         Y=100 C -> y=50\n         Y=0 C   -> y=138\n         Y=-50 C -> y=182\n         Y=-100 C-> y=226\n         Y=-150 C-> y=270\n         X: Periode 2 (x=80), Periode 3 (x=180), Periode 4 (x=280), Periode 5 (x=380)\n    -->\n    <line x1=\"55\" y1=\"50\" x2=\"55\" y2=\"270\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n    <line x1=\"55\" y1=\"270\" x2=\"425\" y2=\"270\" stroke=\"#94a3b8\" stroke-width=\"1.5\"/>\n\n    <!-- Grid Garis Horisontal -->\n    <line x1=\"55\" y1=\"50\" x2=\"425\" y2=\"50\" stroke=\"#f1f5f9\" stroke-width=\"1\"/>\n    <text x=\"48\" y=\"54\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"end\">100°C</text>\n\n    <line x1=\"55\" y1=\"138\" x2=\"425\" y2=\"138\" stroke=\"#e2e8f0\" stroke-width=\"1\" stroke-dasharray=\"3 3\"/>\n    <text x=\"48\" y=\"142\" font-size=\"9\" font-weight=\"bold\" fill=\"#0284c7\" text-anchor=\"end\">0°C</text>\n\n    <line x1=\"55\" y1=\"182\" x2=\"425\" y2=\"182\" stroke=\"#f1f5f9\" stroke-width=\"1\"/>\n    <text x=\"48\" y=\"186\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"end\">-50°C</text>\n\n    <line x1=\"55\" y1=\"226\" x2=\"425\" y2=\"226\" stroke=\"#f1f5f9\" stroke-width=\"1\"/>\n    <text x=\"48\" y=\"230\" font-size=\"9\" fill=\"#64748b\" text-anchor=\"end\">-100°C</text>\n\n    <!-- Label X: Periode -->\n    <text x=\"80\" y=\"286\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Periode 2</text>\n    <text x=\"180\" y=\"286\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Periode 3</text>\n    <text x=\"280\" y=\"286\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Periode 4</text>\n    <text x=\"380\" y=\"286\" font-size=\"10\" font-weight=\"bold\" fill=\"#334155\" text-anchor=\"middle\">Periode 5</text>\n\n    <!-- KURVA GOLONGAN 14 (CH4 -> SiH4 -> GeH4 -> SnH4): Nonpolar Murni -->\n    <!-- CH4 (-161 C -> y=280), SiH4 (-112 C -> y=236), GeH4 (-88 C -> y=215), SnH4 (-52 C -> y=184) -->\n    <path d=\"M 80 280 L 180 236 L 280 215 L 380 184\" fill=\"none\" stroke=\"#64748b\" stroke-width=\"2.5\"/>\n    <circle cx=\"80\" cy=\"280\" r=\"4\" fill=\"#64748b\"/><text x=\"80\" y=\"295\" font-size=\"8.5\" fill=\"#475569\" text-anchor=\"middle\">CH₄</text>\n    <circle cx=\"180\" cy=\"236\" r=\"4\" fill=\"#64748b\"/><text x=\"180\" y=\"248\" font-size=\"8.5\" fill=\"#475569\" text-anchor=\"middle\">SiH₄</text>\n    <circle cx=\"280\" cy=\"215\" r=\"4\" fill=\"#64748b\"/><text x=\"280\" y=\"227\" font-size=\"8.5\" fill=\"#475569\" text-anchor=\"middle\">GeH₄</text>\n    <circle cx=\"380\" cy=\"184\" r=\"4\" fill=\"#64748b\"/><text x=\"380\" y=\"196\" font-size=\"8.5\" fill=\"#475569\" text-anchor=\"middle\">SnH₄</text>\n\n    <!-- KURVA GOLONGAN 16 (H2O -> H2S -> H2Se -> H2Te) -->\n    <!-- H2O (+100 C -> y=50), H2S (-60 C -> y=191), H2Se (-41 C -> y=174), H2Te (-2 C -> y=140) -->\n    <path d=\"M 80 50 L 180 191 L 280 174 L 380 140\" fill=\"none\" stroke=\"#0284c7\" stroke-width=\"3\"/>\n    <circle cx=\"80\" cy=\"50\" r=\"5.5\" fill=\"#0284c7\"/><text x=\"80\" y=\"42\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#0284c7\" text-anchor=\"middle\">H₂O (+100°C)</text>\n    <circle cx=\"180\" cy=\"191\" r=\"4\" fill=\"#0284c7\"/><text x=\"195\" y=\"198\" font-size=\"8.5\" fill=\"#0284c7\">H₂S</text>\n    <circle cx=\"280\" cy=\"174\" r=\"4\" fill=\"#0284c7\"/><text x=\"295\" y=\"180\" font-size=\"8.5\" fill=\"#0284c7\">H₂Se</text>\n    <circle cx=\"380\" cy=\"140\" r=\"4\" fill=\"#0284c7\"/><text x=\"395\" y=\"145\" font-size=\"8.5\" fill=\"#0284c7\">H₂Te</text>\n\n    <!-- KURVA GOLONGAN 17 (HF -> HCl -> HBr -> HI) -->\n    <!-- HF (+19.5 C -> y=121), HCl (-85 C -> y=213), HBr (-66 C -> y=196), HI (-35 C -> y=169) -->\n    <path d=\"M 80 121 L 180 213 L 280 196 L 380 169\" fill=\"none\" stroke=\"#9333ea\" stroke-width=\"2.5\" stroke-dasharray=\"4 2\"/>\n    <circle cx=\"80\" cy=\"121\" r=\"4.5\" fill=\"#9333ea\"/><text x=\"96\" y=\"118\" font-size=\"9.5\" font-weight=\"bold\" fill=\"#9333ea\">HF (+20°C)</text>\n    <circle cx=\"180\" cy=\"213\" r=\"3.5\" fill=\"#9333ea\"/><text x=\"180\" y=\"223\" font-size=\"8\" fill=\"#9333ea\" text-anchor=\"middle\">HCl</text>\n\n    <!-- KURVA GOLONGAN 15 (NH3 -> PH3 -> AsH3 -> SbH3) -->\n    <!-- NH3 (-33 C -> y=167), PH3 (-88 C -> y=215), AsH3 (-62 C -> y=193), SbH3 (-17 C -> y=153) -->\n    <path d=\"M 80 167 L 180 215 L 280 193 L 380 153\" fill=\"none\" stroke=\"#16a34a\" stroke-width=\"2.5\" stroke-dasharray=\"2 2\"/>\n    <circle cx=\"80\" cy=\"167\" r=\"4.5\" fill=\"#16a34a\"/><text x=\"65\" y=\"165\" font-size=\"9\" font-weight=\"bold\" fill=\"#16a34a\" text-anchor=\"end\">NH₃ (-33°C)</text>\n\n    <!-- Label Panah Lonjakan Anomali -->\n    <path d=\"M 120 180 C 105 130, 95 80, 85 62\" fill=\"none\" stroke=\"#e11d48\" stroke-width=\"1.8\" stroke-dasharray=\"3 2\"/>\n    <text x=\"135\" y=\"115\" font-size=\"9\" font-weight=\"bold\" fill=\"#e11d48\">Lonjakan Ekstrem H-Bond!</text>\n  </g>\n\n  <!-- PANEL KANAN: MOLEKUL AIR & JEMBATAN IKATAN HIDROGEN -->\n  <g transform=\"translate(470, 10)\">\n    <rect width=\"340\" height=\"310\" rx=\"14\" fill=\"#ffffff\" stroke=\"#cbd5e1\" stroke-width=\"1.5\"/>\n    <text x=\"170\" y=\"24\" font-size=\"12\" font-weight=\"bold\" fill=\"#0369a1\" text-anchor=\"middle\">JARINGAN IKATAN HIDROGEN AIR (H₂O)</text>\n\n    <!-- Struktur 2 Molekul H2O Berikatan -->\n    <g transform=\"translate(170, 140)\">\n      <!-- Molekul Air 1 (Atas) -->\n      <g transform=\"translate(0, -50)\">\n        <circle cx=\"0\" cy=\"0\" r=\"22\" fill=\"#0284c7\"/>\n        <text x=\"0\" y=\"5\" font-size=\"12\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">O</text>\n        <text x=\"0\" y=\"-26\" font-size=\"10\" font-weight=\"bold\" fill=\"#0369a1\" text-anchor=\"middle\">δ⁻</text>\n        <!-- Ikatan O-H -->\n        <line x1=\"-15\" y1=\"15\" x2=\"-35\" y2=\"35\" stroke=\"#0284c7\" stroke-width=\"4.5\"/>\n        <circle cx=\"-35\" cy=\"35\" r=\"11\" fill=\"#38bdf8\"/>\n        <text x=\"-35\" y=\"39\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n\n        <line x1=\"15\" y1=\"15\" x2=\"35\" y2=\"35\" stroke=\"#0284c7\" stroke-width=\"4.5\"/>\n        <circle cx=\"35\" cy=\"35\" r=\"11\" fill=\"#38bdf8\"/>\n        <text x=\"35\" y=\"39\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n        <text x=\"48\" y=\"44\" font-size=\"10\" font-weight=\"bold\" fill=\"#0284c7\">δ⁺</text>\n      </g>\n\n      <!-- JEMBATAN IKATAN HIDROGEN (Garis Titik-Titik Biru Tebal) -->\n      <line x1=\"35\" y1=\"-15\" x2=\"35\" y2=\"40\" stroke=\"#e11d48\" stroke-width=\"3\" stroke-dasharray=\"4 3\"/>\n      <text x=\"48\" y=\"15\" font-size=\"10\" font-weight=\"bold\" fill=\"#e11d48\">Ikatan Hidrogen</text>\n      <text x=\"48\" y=\"28\" font-size=\"8.5\" fill=\"#e11d48\">~23.3 kJ/mol</text>\n\n      <!-- Molekul Air 2 (Bawah) -->\n      <g transform=\"translate(35, 60)\">\n        <circle cx=\"0\" cy=\"0\" r=\"22\" fill=\"#0284c7\"/>\n        <text x=\"0\" y=\"5\" font-size=\"12\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">O</text>\n        <text x=\"26\" y=\"2\" font-size=\"10\" font-weight=\"bold\" fill=\"#0369a1\">δ⁻</text>\n\n        <line x1=\"-15\" y1=\"15\" x2=\"-35\" y2=\"35\" stroke=\"#0284c7\" stroke-width=\"4.5\"/>\n        <circle cx=\"-35\" cy=\"35\" r=\"11\" fill=\"#38bdf8\"/>\n        <text x=\"-35\" y=\"39\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n\n        <line x1=\"15\" y1=\"15\" x2=\"35\" y2=\"35\" stroke=\"#0284c7\" stroke-width=\"4.5\"/>\n        <circle cx=\"35\" cy=\"35\" r=\"11\" fill=\"#38bdf8\"/>\n        <text x=\"35\" y=\"39\" font-size=\"9\" font-weight=\"bold\" fill=\"#ffffff\" text-anchor=\"middle\">H</text>\n      </g>\n    </g>\n\n    <rect x=\"15\" y=\"240\" width=\"310\" height=\"55\" rx=\"8\" fill=\"#f0f9ff\" stroke=\"#bae6fd\" stroke-width=\"1\"/>\n    <text x=\"170\" y=\"258\" font-size=\"10\" font-weight=\"bold\" fill=\"#0369a1\" text-anchor=\"middle\">1 Molekul Air Membentuk 4 Ikatan Hidrogen</text>\n    <text x=\"170\" y=\"274\" font-size=\"9\" fill=\"#475569\" text-anchor=\"middle\">Membentuk kisi tetrahedral heksagonal terbuka saat membeku (Es)</text>\n    <text x=\"170\" y=\"288\" font-size=\"8.5\" font-style=\"italic\" fill=\"#0284c7\" text-anchor=\"middle\">Menjelaskan densitas es lebih rendah daripada air cair (terapung)!</text>\n  </g>\n</svg>\n\n---\n\n### 4. Anomali Sifat Fisik Air Akibat Ikatan Hidrogen\n\n1. **Titik Didih Ekstrem Tinggi ($100^\\circ\\text{C}$):**\n   Berdasarkan tren hidrida Golongan VIA lainnya ($\\ce{H2S}, \\ce{H2Se}, \\ce{H2Te}$), titik didih air seharusnya sekitar **$-80^\\circ\\text{C}$**. Namun kenyataannya titik didih air mencapai $+100^\\circ\\text{C}$ (selisih sebesar $180^\\circ\\text{C}$!). Setiap molekul $\\ce{H2O}$ memiliki $2$ atom $\\ce{H}$ dan $2$ PEB, sehingga dapat membentuk **jejaring 4 ikatan hidrogen 3D serentak per molekul**.\n2. **Titik Didih $\\ce{H2O}$ Lebih Tinggi daripada $\\ce{HF}$ ($19.5^\\circ\\text{C}$):**\n   Meskipun ikatan $\\ce{H-F}$ secara individual lebih polar daripada $\\ce{H-O}$, molekul $\\ce{HF}$ hanya memiliki 1 atom $\\ce{H}$ (meskipun punya 3 PEB), sehingga rata-rata hanya dapat membentuk **2 ikatan hidrogen per molekul** (rantai zigzag 1 dimensi). Air membentuk 4 ikatan hidrogen, sehingga total energi yang dibutuhkan untuk menguapkannya jauh lebih besar.\n3. **Anomali Densitas Es (Mengapung di Air Cair):**\n   Ketika air membeku menjadi es pada suhu $< 4^\\circ\\text{C}$, ikatan hidrogen terkunci membentuk kisi heksagonal kaku dengan banyak **rongga kosong terbuka (*open cage-like structure*)**. Akibatnya, volume es mengembang dan massa jenis es ($0.917\\text{ g/cm}^3$) menjadi lebih kecil daripada massa jenis air cair ($1.000\\text{ g/cm}^3$). Hal ini mencegah danau dan lautan kutub membeku dari dasar, menjaga kelangsungan hidup ekosistem akuatik di musim dingin!\n> [!WARNING]\n> ### ⚠️ Miskonsepsi Fatal: Perubahan Fisika vs Reaksi Kimia\n> Titik didih, titik leleh, viskositas, dan tekanan uap suatu zat molekuler **hanya ditentukan oleh kekuatan GAYA ANTARMOLEKULNYA**, bukan oleh kuat lemahnya ikatan kovalen di dalam molekul! \n> - Intan memiliki titik leleh raksasa ($> 3500^\\circ\\text{C}$) karena intan adalah jaringan kovalen raksasa (*covalent network*), bukan molekul diskret.\n> - Nitrogen ($\\ce{N2}$) memiliki ikatan kovalen rangkap tiga $\\ce{N#N}$ yang teramat kuat ($945\\text{ kJ/mol}$), namun gas $\\ce{N2}$ mendidih pada suhu super dingin $-196^\\circ\\text{C}$ karena gaya tarik London antarmolekul $\\ce{N2}$ yang nonpolar sangat lemah!\n\n---\n\n> [!WARNING]\n> ### ⚠️ Anomali Titik Didih Hidrida Periode 2: Mengapa H₂O, HF, dan NH₃ Melonjak?\n> Secara umum, makin besar massa molekul ($M_r$), makin besar ukuran awan elektron, makin mudah terpolarisasi, sehingga gaya London makin kuat dan titik didih makin tinggi (misal: $\\ce{CH4 < SiH4 < GeH4 < SnH4}$).\n> \n> Namun pada hidrida golongan 15, 16, dan 17, anggota Periode 2 ($\\ce{NH3, H2O, HF}$) justru memiliki titik didih yang **melonjak drastis keluar dari tren**:\n> - Hal ini terjadi karena atom **N, O, dan F** memiliki elektronegativitas yang sangat tinggi dan jari-jari atom yang sangat kecil.\n> - Ketika terikat dengan atom Hidrogen, terbentuk ikatan dipol yang sangat terkonsentrasi yang disebut **Ikatan Hidrogen**.\n> - Air ($\\ce{H2O}$) memiliki titik didih tertinggi ($100^\\circ\\text{C}$) di antara ketiganya karena setiap molekul $\\ce{H2O}$ memiliki **2 atom H dan 2 PEB**, memungkinkannya membentuk jaringan 3 dimensi sempurna dengan **4 ikatan hidrogen per molekul** ($\\ce{HF}$ hanya memiliki 1 H sehingga rata-rata hanya membentuk 2 ikatan hidrogen per molekul).\n",
+      "keyFormulas": [
+        {
+          "name": "Hierarki Kekuatan Relatif Gaya Intermolekul",
+          "formula": "\\text{Gaya London} < \\text{Dipol-Dipol} < \\text{Ikatan Hidrogen} \\ll \\text{Ikatan Kimia}"
+        },
+        {
+          "name": "Potensial Interaksi Lennard-Jones",
+          "formula": "V(r) = 4\\varepsilon \\left[ \\left(\\frac{\\sigma}{r}\\right)^{12} - \\left(\\frac{\\sigma}{r}\\right)^6 \\right]"
+        }
+      ]
+    }
   ],
+  "worked_examples": [
+    {
+      "tag": "contoh-vsepr-kepolaran-xef4-sf4",
+      "title": "Contoh Soal 1: Analisis Geometri Molekul, Notasi VSEPR & Kepolaran Senyawa Superoktet (XeF4 vs SF4)",
+      "summary": "Kalkulasi domain elektron, penentuan posisi aksial vs ekuatorial PEB, dan evaluasi momen dipol neto.",
+      "content": "### Soal Ujian Tingkat Lanjut:\nDiberikan dua senyawa biner dari unsur periode 3 dan 5: Belerang Tetrafluorida ($\\ce{SF4}$, nomor atom $Z_{\\ce{S}} = 16, Z_{\\ce{F}} = 9$) dan Ksenon Tetrafluorida ($\\ce{XeF4}$, nomor atom $Z_{\\ce{Xe}} = 54$).\n1. Tentukan jumlah elektron valensi total, pasangan elektron ikatan (PEI), dan pasangan elektron bebas (PEB) pada atom pusat masing-masing senyawa!\n2. Rumuskan notasi tipe molekul VSEPR ($AX_n E_m$) dan tentukan nama bentuk geometri molekul keduanya!\n3. Jelaskan mengapa salah satu senyawa bersifat **polar** sedangkan senyawa lainnya bersifat **nonpolar**, kaitkan dengan resultan vektor momen dipolnya!\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Senyawa 1: $\\ce{SF4}$ (Atom pusat $\\ce{S}$, $Z=16$, Golongan VIA, 6 elektron valensi). Terikat pada 4 atom $\\ce{F}$.\n- Senyawa 2: $\\ce{XeF4}$ (Atom pusat $\\ce{Xe}$, $Z=54$, Golongan VIIIA, 8 elektron valensi). Terikat pada 4 atom $\\ce{F}$.\n- *Target:* Notasi VSEPR ($AX_n E_m$), bentuk geometri molekul, dan analisis kepolaran vektor momen dipol.\n\n---\n\n#### 2. Rencana Strategi (Mental Model & Formula):\n- Hitung PEB atom pusat menggunakan rumus domain:\n  $$E = \\frac{\\text{EV Pusat} - (n \\times \\text{valensi substituen})}{2}$$\n  dengan substituen monovalen $\\ce{F}$ bernilai 1.\n- Total domain $SN = n + m$. Tentukan geometri dasar dan bentuk molekul nyata.\n- Evaluasi simetri ruang: jika momen dipol saling meniadakan secara simetris ($\\sum \\vec{\\mu} = 0$), molekul bersifat nonpolar; jika asimetris ($\\sum \\vec{\\mu} \\ne 0$), molekul bersifat polar.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### A. Analisis Belerang Tetrafluorida ($\\ce{SF4}$):\n- **Elektron Valensi Atom Pusat ($\\ce{S}$):** 6 elektron valensi.\n- **Elektron Berikatan (PEI):** 4 ikatan tunggal dengan $\\ce{F} \\implies n = 4$ PEI.\n- **Pasangan Elektron Bebas (PEB):**\n  $$E = \\frac{6 - (4 \\times 1)}{2} = \\frac{2}{2} = \\mathbf{1 \\text{ PEB}} \\quad (m = 1)$$\n- **Total Domain Elektron:** $SN = 4 + 1 = 5$ domain (Geometri domain dasar: *Trigonal Bipiramida*).\n- **Tipe Molekul VSEPR:** $\\mathbf{AX_4E_1}$\n- **Bentuk Geometri Molekul:** **Jungkat-Jungkit (*Seesaw / Sawhorse*)**.\n  - PEB menempati posisi *ekuatorial* pada bidang segitiga untuk meminimalkan tolakan $90^\\circ$.\n- **Analisis Kepolaran:** Bentuk *seesaw* tidak memiliki pusat simetri inversi. Resultan vektor momen dipol ikatan $\\ce{S-F}$ dan momen dipol PEB tidak saling meniadakan ($\\sum \\vec{\\mu} \\ne 0$). Maka $\\ce{SF4}$ bersifat **POLAR** (momen dipol eksperimen $\\mu = 0.63\\text{ D}$).\n\n##### B. Analisis Ksenon Tetrafluorida ($\\ce{XeF4}$):\n- **Elektron Valensi Atom Pusat ($\\ce{Xe}$):** 8 elektron valensi.\n- **Elektron Berikatan (PEI):** 4 ikatan tunggal dengan $\\ce{F} \\implies n = 4$ PEI.\n- **Pasangan Elektron Bebas (PEB):**\n  $$E = \\frac{8 - (4 \\times 1)}{2} = \\frac{4}{2} = \\mathbf{2 \\text{ PEB}} \\quad (m = 2)$$\n- **Total Domain Elektron:** $SN = 4 + 2 = 6$ domain (Geometri domain dasar: *Oktahedral*).\n- **Tipe Molekul VSEPR:** $\\mathbf{AX_4E_2}$\n- **Bentuk Geometri Molekul:** **Bujur Sangkar / Persegi Datar (*Square Planar*)**.\n  - Kedua PEB menempati posisi saling berseberangan (*trans*, sudut $180^\\circ$) di sumbu aksial atas dan bawah untuk meminimalkan tolakan PEB-PEB.\n- **Analisis Kepolaran:** Keempat ikatan $\\ce{Xe-F}$ berada pada satu bidang datar dengan sudut $90^\\circ$ yang saling meniadakan secara berpasangan. Kedua PEB di sumbu aksial juga saling meniadakan ($\\sum \\vec{\\mu} = 0$). Maka $\\ce{XeF4}$ bersifat **NONPOLAR** (momen dipol neto $\\mu = 0\\text{ D}$).\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Soal komparasi $\\ce{SF4}$ vs $\\ce{XeF4}$ adalah jebakan klasik di babak seleksi OSN. Keduanya sama-sama memiliki rumus empiris berakhiran empat halogen ($X\\ce{F4}$), namun struktur elektroniknya berbeda fundamental: $\\ce{SF4}$ berbasis 5 domain ($AX_4E$, asimetris, polar), sedangkan $\\ce{XeF4}$ berbasis 6 domain ($AX_4E_2$, persegi datar sangat simetris, nonpolar). Jangan pernah menebak kepolaran hanya dari rumus kimianya tanpa menggambar geometri ruang 3D!",
+      "keyFormulas": [
+        {
+          "name": "Tipe VSEPR SF4",
+          "formula": "AX_4 E_1 \\implies \\text{Jungkat-jungkit (Seesaw, Polar)}"
+        },
+        {
+          "name": "Tipe VSEPR XeF4",
+          "formula": "AX_4 E_2 \\implies \\text{Persegi Planar (Square Planar, Nonpolar)}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-lewis-muatan-formal-hno3-so4",
+      "title": "Contoh Soal 2: Struktur Lewis, Evaluasi Muatan Formal & Ikatan Kovalen Koordinasi (HNO3 & SO4^2-)",
+      "summary": "Metode kalkulasi muatan formal untuk memilih struktur resonansi terbaik dan mengidentifikasi ikatan kovalen datif.",
+      "content": "### Soal Latihan Struktur Lewis & Muatan Formal:\n1. Gambarkan struktur Lewis molekul Asam Nitrat ($\\ce{HNO3}$) yang mematuhi kaidah oktet ketat ($Z_{\\ce{H}}=1, Z_{\\ce{N}}=7, Z_{\\ce{O}}=8$). Hitung muatan formal seluruh atom dan tentukan ada tidaknya ikatan kovalen koordinasi!\n2. Pada ion Poliatomik Sulfat ($\\ce{SO4^2-}$), bandingkan struktur Lewis yang mematuhi kaidah oktet murni dengan struktur superoktet yang meminimalkan muatan formal! Struktur manakah yang paling stabil menurut data spektroskopi eksperimental?\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Molekul 1: $\\ce{HNO3}$ (Elektron valensi total: $\\ce{H}=1, \\ce{N}=5, 3\\ce{O}=18 \\implies 24$ elektron).\n- Ion 2: $\\ce{SO4^2-}$ (Elektron valensi total: $\\ce{S}=6, 4\\ce{O}=24, \\text{muatan}-2 \\implies 32$ elektron).\n- *Target:* Rumus struktur Lewis, evaluasi muatan formal ($FC$), dan identifikasi ikatan koordinasi.\n\n---\n\n#### 2. Rencana Strategi:\n- Formula Muatan Formal:\n  $$FC = \\text{EV Bebas} - \\text{Elektron Non-ikatan (Titik)} - \\frac{1}{2}(\\text{Elektron Ikatan / Garis})$$\n- Kriteria Kestabilan Struktur Lewis:\n  1. Muatan formal serendah mungkin (mendekati 0).\n  2. Muatan formal negatif berada pada atom dengan elektronegativitas paling tinggi.\n  3. Muatan formal sejenis tidak bersebelahan.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. Analisis Molekul Asam Nitrat ($\\ce{HNO3}$):\nKerangka ikatan: Atom $\\ce{H}$ terikat pada salah satu atom $\\ce{O}$, dan ketiga atom $\\ce{O}$ terikat pada atom pusat $\\ce{N}$ ($\\\\ce{H-O-N(=O)-O}$):\n- Ikatan tunggal $\\ce{H-O}$ (2e⁻)\n- Ikatan tunggal $\\ce{O-N}$ (2e⁻)\n- Ikatan rangkap dua $\\ce{N=O}$ (4e⁻)\n- Ikatan tunggal koordinasi $\\ce{N->O}$ (2e⁻)\n- Total elektron terpakai ikatan: $2 + 2 + 4 + 2 = 10$ elektron ($5$ pasang).\n- Sisa 14 elektron didistribusikan sebagai PEB: 2 pasang pada $\\ce{O}$ hidroksil, 2 pasang pada $\\ce{O}$ ikatan rangkap, dan 3 pasang pada $\\ce{O}$ ikatan tunggal.\n\n**Kalkulasi Muatan Formal Tiap Atom:**\n$$\\begin{aligned}\nFC(\\ce{H}) &= 1 - 0 - 1 = \\mathbf{0} \\\\\nFC(\\ce{O}_{\\text{hidroksil}}) &= 6 - 4 - 2 = \\mathbf{0} \\\\\nFC(\\ce{N}) &= 5 - 0 - 4 = \\mathbf{+1} \\\\\nFC(\\ce{O}_{\\text{rangkap}}) &= 6 - 4 - 2 = \\mathbf{0} \\\\\nFC(\\ce{O}_{\\text{tunggal}}) &= 6 - 6 - 1 = \\mathbf{-1}\n\\end{aligned}$$\n- **Jumlah Muatan Formal:** $0 + 0 + (+1) + 0 + (-1) = 0$ (Sesuai dengan molekul netral $\\ce{HNO3}$).\n- **Identifikasi Ikatan Datif:** Ikatan antara atom $\\ce{N}$ dan atom $\\ce{O}$ berikatan tunggal merupakan **ikatan kovalen koordinasi (datif)**, karena kedua elektron ikatan disumbangkan seutuhnya oleh pasangan elektron bebas atom $\\ce{N}$.\n\n##### 2. Analisis Ion Sulfat ($\\ce{SO4^2-}$):\n- **Struktur A (Kaidah Oktet Murni):**  \n  Atom $\\ce{S}$ mengikat 4 atom $\\ce{O}$ melalui 4 ikatan tunggal (8 elektron di sekitar $\\ce{S}$).\n  $$FC(\\ce{S}) = 6 - 0 - 4 = \\mathbf{+2}$$\n  $$FC(\\ce{O}) = 6 - 6 - 1 = \\mathbf{-1} \\quad (\\text{keempat atom } \\ce{O})$$\n  Struktur ini memiliki pemisahan muatan yang besar ($+2$ pada sulfur).\n- **Struktur B (Superoktet / Minimasi Muatan Formal):**  \n  Sulfur (unsur Periode 3) dapat melakukan ekspansi oktet dengan memanfaatkan orbital $3d$ kosong. Sulfur membentuk **2 ikatan rangkap dua ($\\ce{S=O}$)** dan **2 ikatan tunggal ($\\ce{S-O-}$)** (12 elektron di sekitar $\\ce{S}$):\n  $$\\begin{aligned}\n  FC(\\ce{S}) &= 6 - 0 - 6 = \\mathbf{0} \\\\\n  FC(\\ce{O}_{\\text{rangkap}}) &= 6 - 4 - 2 = \\mathbf{0} \\quad (\\text{dua atom } \\ce{O}) \\\\\n  FC(\\ce{O}_{\\text{tunggal}}) &= 6 - 6 - 1 = \\mathbf{-1} \\quad (\\text{dua atom } \\ce{O})\n  \\end{aligned}$$\n  Total muatan: $0 + 0 + (-1) + (-1) = -2$ (Persis sama dengan muatan ion).\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Data difraksi sinar-X kristal membuktikan bahwa keempat ikatan $\\ce{S-O}$ pada ion sulfat memiliki panjang ikatan yang persis sama ($149\\text{ pm}$), yang lebih pendek daripada ikatan tunggal biasa ($157\\text{ pm}$). Ini membuktikan secara empiris bahwa Struktur B beresonansi sempurna ke seluruh 4 atom oksigen, memberikan orde ikatan rata-rata sebesar $\\frac{2 + 2 + 1 + 1}{4} = 1.5$. Struktur superoktet dengan muatan formal minimal terbukti paling merepresentasikan realitas fisik!",
+      "keyFormulas": [
+        {
+          "name": "Rumus Muatan Formal Atom",
+          "formula": "FC = EV - N_{\\text{PEB}} - \\frac{1}{2} N_{\\text{PEI}}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-gaya-antarmolekul-titik-didih",
+      "tags": [
+        "analisis-titik-didih",
+        "isomer-pentana",
+        "etanol-vs-dimetil-eter",
+        "komparasi-ikatan-hidrogen",
+        "gaya-london"
+      ],
+      "title": "Contoh Soal 3: Komparasi Gaya Antarmolekul, Efek Percabangan Isomer & Kekuatan Ikatan Hidrogen",
+      "summary": "Rasionalisasi titik didih isomer hidrokarbon dan senyawa bertaraf massa molar serupa.",
+      "content": "### Soal Analisis Komparatif Gaya Antarmolekul:\nJelaskan perbedaan titik didih pada ketiga pasang senyawa berikut secara mendalam berdasarkan konsep gaya antarmolekul:\n1. **n-Pentana ($36.1^\\circ\\text{C}$) vs Neopentana / 2,2-dimetilpropana ($9.5^\\circ\\text{C}$)** (Keduanya berisomer rantai $\\ce{C5H12}$, $M_r = 72\\text{ g/mol}$).\n2. **Etanol ($\\ce{C2H5OH}$, titik didih $+78.3^\\circ\\text{C}$) vs Dimetil Eter ($\\ce{CH3-O-CH3}$, titik didih $-24^\\circ\\text{C}$)** (Keduanya berisomer gugus fungsi $\\ce{C2H6O}$, $M_r = 46\\text{ g/mol}$).\n3. **Air ($\\ce{H2O}$, titik didih $+100^\\circ\\text{C}$) vs Asam Fluorida ($\\ce{HF}$, titik didih $+19.5^\\circ\\text{C}$)** (Meskipun ikatan $\\ce{H-F}$ lebih polar daripada $\\ce{H-O}$).\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Pasangan 1: Isomer alkana rantai lurus vs bola bercabang (sama $M_r$, beda bentuk geometri molekul).\n- Pasangan 2: Alkohol vs eter (sama $M_r$, beda tipe gaya antarmolekul).\n- Pasangan 3: Air vs hidrogen fluorida (sama-sama memiliki ikatan hidrogen, beda jumlah ikatan per molekul).\n- *Target:* Penjelasan ilmiah kausalitas perbedaan titik didih berbasis gaya antarmolekul.\n\n---\n\n#### 2. Rencana Strategi:\n- Untuk isomer nonpolar (alkana): analisis luas area kontak permukaan (*surface contact area*) terhadap kemudahan induksi dipol sesaat (Gaya London).\n- Untuk isomer polar (alkohol vs eter): identifikasi keberadaan ikatan hidrogen (gugus donor $\\ce{-OH}$) vs interaksi dipol-dipol lemah pada eter.\n- Untuk $\\ce{H2O}$ vs $\\ce{HF}$: komparasi stoikiometri donor dan akseptor ikatan hidrogen per molekul.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. n-Pentana ($36.1^\\circ\\text{C}$) vs Neopentana ($9.5^\\circ\\text{C}$):\n- Kedua molekul bersifat nonpolar, sehingga gaya antarmolekul yang bekerja murni adalah **Gaya Dispersi London**.\n- $n$-Pentana memiliki konformasi rantai karbon memanjang silindris lurus, sehingga memiliki **luas permukaan kontak antarmolekul yang jauh lebih besar**. Molekul-molekul dapat saling mendekat dan bertumpuk rapat.\n- Neopentana berbentuk menyerupai **bola padat (*spherical*)** yang kompak dan simetris, menghasilkan luas permukaan kontak minimal.\n- Luas kontak yang lebih besar pada $n$-pentana menyebabkan awan elektron lebih mudah terpolarisasi, gaya tarik London lebih kuat, sehingga membutuhkan energi termal lebih tinggi untuk mendidih ($36.1^\\circ\\text{C} \\gg 9.5^\\circ\\text{C}$).\n\n##### 2. Etanol ($+78.3^\\circ\\text{C}$) vs Dimetil Eter ($-24^\\circ\\text{C}$):\n- **Etanol ($\\ce{CH3CH2OH}$):** Memiliki atom Hidrogen yang terikat langsung pada atom Oksigen yang sangat elektronegatif (gugus hidroksil $\\ce{-OH}$). Hal ini memungkinkan terbentuknya **Ikatan Hidrogen antarmolekul** yang sangat kuat.\n- **Dimetil Eter ($\\ce{CH3-O-CH3}$):** Seluruh atom Hidrogen terikat pada atom Karbon (ikatan $\\ce{C-H}$ tidak cukup polar untuk berikatan hidrogen). Antarmolekul eter hanya terikat oleh **interaksi Dipol-Dipol** yang jauh lebih lemah daripada ikatan hidrogen.\n- Karena ikatan hidrogen jauh lebih kokoh dibanding gaya dipol-dipol biasa, titik didih etanol melonjak hingga berbeda lebih dari $102^\\circ\\text{C}$ dibandingkan isomernya.\n\n##### 3. Air ($+100^\\circ\\text{C}$) vs Asam Fluorida ($+19.5^\\circ\\text{C}$):\n- Elektronegativitas Fluorin ($4.0$) lebih tinggi daripada Oksigen ($3.5$), sehingga secara individu **satu ikatan hidrogen $\\ce{F-H\\dots F}$ lebih kuat** daripada satu ikatan $\\ce{O-H\\dots O}$.\n- Namun, perhatikan rasio stoikiometri proton dan PEB:\n  - Pada $\\ce{HF}$: Memiliki $1$ atom H dan $3$ PEB pada F. Jumlah ikatan dibatasi oleh minimnya atom H donor $\\implies$ rata-rata hanya dapat membentuk **2 ikatan hidrogen per molekul** (membentuk rantai polimer zigzag zig-zag 1 dimensi).\n  - Pada $\\ce{H2O}$: Memiliki $2$ atom H donor dan $2$ PEB akseptor pada O (rasio $1:1$ sempurna!). Setiap molekul air dapat membentuk **4 ikatan hidrogen secara simultan**, merajut jaringan kristalin 3 dimensi (*tetrahedral network*) yang teramat masif.\n- Jaringan 4 ikatan hidrogen per molekul pada $\\ce{H2O}$ secara total membutuhkan energi termal kumulatif yang jauh lebih besar untuk diputuskan daripada 2 ikatan pada $\\ce{HF}$, sehingga titik didih air jauh lebih tinggi ($100^\\circ\\text{C} \\gg 19.5^\\circ\\text{C}$).\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Pertanyaan $\\ce{H2O}$ vs $\\ce{HF}$ adalah penguji pemahaman konsep esensial: kekuatan total gaya antarmolekul adalah perkalian antara **kekuatan per ikatan** dengan **kuantitas ikatan yang terbentuk**. Jangan terkecoh oleh tingginya elektronegativitas fluorin semata!",
+      "keyFormulas": [
+        {
+          "name": "Korelasi Bentuk Molekul & Gaya London",
+          "formula": "\\text{Luas Permukaan Kontak } \\uparrow \\implies \\text{Gaya London } \\uparrow \\implies T_b \\uparrow"
+        },
+        {
+          "name": "Rasio Ikatan Hidrogen Maksimal Air",
+          "formula": "4 \\text{ Ikatan Hidrogen per Molekul } \\ce{H2O}"
+        }
+      ]
+    },
+    {
+      "tag": "contoh-energi-kisi-fajans",
+      "tags": [
+        "siklus-born-haber",
+        "energi-kisi-mgo-nacl",
+        "kaidah-fajans",
+        "karakter-kovalen-parsial"
+      ],
+      "title": "Contoh Soal 4: Termodinamika Energi Kisi (Siklus Born-Haber) & Kaidah Fajans Karakter Kovalen",
+      "summary": "Kalkulasi energi kisi senyawa ionik dan prediksi polarisasi kation terhadap awan elektron anion.",
+      "content": "### Soal Termodinamika Kisi & Kaidah Fajans:\n1. Menggunakan data termodinamika berikut, hitung energi kisi kristal ($U$) dari Natrium Klorida ($\\ce{NaCl(s)}$) menggunakan Siklus Born-Haber:\n   - Entalpi pembentukan standar ($\\Delta H_f^\\circ \\ce{NaCl(s)}$) $= -411\\text{ kJ/mol}$\n   - Entalpi sublimasi natrium ($\\Delta H_{\\text{sub}} \\ce{Na(s)}$) $= +107\\text{ kJ/mol}$\n   - Energi ionisasi pertama natrium ($IE_1 \\ce{Na}$) $= +496\\text{ kJ/mol}$\n   - Energi disosiasi ikatan klorin ($D_{\\ce{Cl-Cl}}$) $= +242\\text{ kJ/mol}$\n   - Afinitas elektron klorin ($EA \\ce{Cl}$) $= -349\\text{ kJ/mol}$\n2. Mengapa aluminium klorida ($\\ce{AlCl3}$) memiliki titik leleh yang relatif rendah ($192^\\circ\\text{C}$, menyublim) dan dapat larut dalam pelarut organik nonpolar, sedangkan magnesium klorida ($\\ce{MgCl2}$) meleleh pada suhu tinggi ($714^\\circ\\text{C}$)? Jelaskan fenomena ini menggunakan **Kaidah Fajans**!\n\n---\n\n### Pembahasan Langkah demi Langkah:\n\n#### 1. Data Diketahui & Target Analisis:\n- Data Born-Haber: $\\Delta H_f^\\circ = -411, \\Delta H_{\\text{sub}} = +107, IE_1 = +496, D = +242, EA = -349\\text{ kJ/mol}$.\n- Target 1: Nilai energi kisi kristal $U$ natrium klorida.\n- Target 2: Rasionalisasi titik leleh dan kelarutan $\\ce{AlCl3}$ vs $\\ce{MgCl2}$ berbasis Kaidah Fajans.\n\n---\n\n#### 2. Rencana Strategi:\n- Siklus Born-Haber didasarkan pada Hukum Hess:\n  $$\\Delta H_f^\\circ = \\Delta H_{\\text{sub}} + IE_1 + \\frac{1}{2} D_{\\ce{Cl-Cl}} + EA + U_{\\text{kisi}}$$\n- Kaidah Fajans memprediksi derajat karakter kovalen pada ikatan ionik:\n  $$\\text{Karakter Kovalen Meningkat jika: (1) Kation kecil muatan tinggi, (2) Anion besar muatan tinggi.}$$\n  Kerapatan muatan kation yang tinggi mendistorsi (mempolarisasi) awan elektron anion.\n\n---\n\n#### 3. Eksekusi KaTeX Langkah Demi Langkah:\n\n##### 1. Kalkulasi Siklus Born-Haber $\\ce{NaCl}$:\nPersamaan termokimia pembentukan:\n$$\\ce{Na(s) + 1/2 Cl2(g) -> NaCl(s)} \\quad \\Delta H_f^\\circ = -411\\text{ kJ/mol}$$\n\nRincian tahapan siklus energi:\n1. Sublimasi Natrium: $\\ce{Na(s) -> Na(g)} \\quad \\Delta H_1 = +107\\text{ kJ/mol}$\n2. Ionisasi Natrium: $\\ce{Na(g) -> Na+(g) + e-} \\quad \\Delta H_2 = +496\\text{ kJ/mol}$\n3. Disosiasi Klorin: $\\ce{1/2 Cl2(g) -> Cl(g)} \\quad \\Delta H_3 = \\frac{1}{2}(+242) = +121\\text{ kJ/mol}$\n4. Afinitas Elektron Klorin: $\\ce{Cl(g) + e- -> Cl-(g)} \\quad \\Delta H_4 = -349\\text{ kJ/mol}$\n5. Pembentukan Kisi Kristal: $\\ce{Na+(g) + Cl-(g) -> NaCl(s)} \\quad \\Delta H_5 = U_{\\text{kisi}}$\n\nBerdasarkan Hukum Hess:\n$$\\begin{aligned}\n\\Delta H_f^\\circ &= \\Delta H_1 + \\Delta H_2 + \\Delta H_3 + \\Delta H_4 + U_{\\text{kisi}} \\\\\n-411 &= (+107) + (+496) + (+121) + (-349) + U_{\\text{kisi}} \\\\\n-411 &= +375 + U_{\\text{kisi}} \\\\\nU_{\\text{kisi}} &= -411 - 375 = \\mathbf{-786\\text{ kJ/mol}}\n\\end{aligned}$$\n*(Jika energi kisi didefinisikan sebagai energi pemutusan kisi menjadi ion gas, maka $U = \\mathbf{+786\\text{ kJ/mol}}$).*\n\n##### 2. Penerapan Kaidah Fajans pada $\\ce{AlCl3}$ vs $\\ce{MgCl2}$:\n- Ion $\\ce{Al^3+}$ memiliki muatan $+3$ dan jari-jari ion sangat kecil ($53.5\\text{ pm}$), menghasilkan **kerapatan muatan (*charge density*) yang teramat tinggi**.\n- Ion $\\ce{Mg^2+}$ bermuatan $+2$ dengan jari-jari lebih besar ($72\\text{ pm}$).\n- Berdasarkan **Kaidah Fajans**: Kation $\\ce{Al^3+}$ yang kecil dengan muatan tinggi memiliki **daya mempolarisasi (*polarizing power*) yang luar biasa kuat**. Kation ini menarik dan mendistorsi awan elektron anion $\\ce{Cl-}$ yang relatif besar ke daerah antar-inti.\n- Terjadinya tumpang-tindih (*overlap*) awan elektron yang signifikan ini mengubah karakter ikatan $\\ce{Al-Cl}$ dari ionik murni menjadi **dominan berkarakter KOVALEN**.\n- Akibatnya, pada fasa padat dan cair $\\ce{AlCl3}$ membentuk dimer molekuler kovalen $\\ce{Al2Cl6}$, bukan kisi kristal ionik raksasa. Hal ini menyebabkan titik lelehnya anjlok drastis ($192^\\circ\\text{C}$) dan membuatnya mudah larut dalam pelarut organik nonpolar seperti benzena. Sebaliknya, $\\ce{MgCl2}$ tetap merupakan senyawa ionik sejati dengan titik leleh tinggi ($714^\\circ\\text{C}$).\n\n---\n\n> [!NOTE]\n> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)\n> Kaidah Fajans adalah jembatan intelektual antara model ikatan ionik murni dan kovalen murni. Tidak ada batas biner yang kaku antara keduanya! Ketika kation memiliki rasio muatan terhadap ukuran yang ekstrem (seperti $\\ce{Al^3+}, \\ce{Be^2+}, \\ce{Li+}$), senyawa yang di atas kertas tampak seperti \"garam ionik\" sebenarnya berperilaku sebagai molekul kovalen. Konsep ini adalah salah satu favorit pembuat soal olimpiade!",
+      "keyFormulas": [
+        {
+          "name": "Siklus Born-Haber Energi Kisi",
+          "formula": "\\Delta H_f^\\circ = \\Delta H_{\\text{sub}} + IE + \\frac{1}{2} D + EA + U"
+        },
+        {
+          "name": "Kaidah Polarisasi Fajans",
+          "formula": "\\text{Rapat Muatan Kation } \\left(\\frac{z_+}{r_+}\\right) \\uparrow \\implies \\text{Karakter Kovalen } \\uparrow"
+        }
+      ]
+    }
+  ]
 },
 
   {
