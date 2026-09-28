@@ -1,7 +1,7 @@
 import type { SmaMaterialItem } from '../smaMaterialsData';
 
 export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
-  {
+{
     id: 101,
     topic_number: 1,
     grade: 'Kelas 10',
@@ -11,15 +11,17 @@ export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
     slug: 'hakikat-kimia-metode-ilmiah',
     category: 'Dasar Ilmu Kimia',
     level: 'SMA',
-    readTimeMinutes: 30,
-    summary: 'Kajian komprehensif hakikat ilmu kimia dan klasifikasi materi, pengukuran presisi dan aturan angka penting, 7 tahapan siklus metode ilmiah serta desain variabel eksperimen, pengenalan alat ukur laboratorium dan pembacaan meniskus, protokol keselamatan kerja & 9 simbol bahaya GHS (SDS), serta 12 prinsip kimia hijau (green chemistry) dan kalkulasi ekonomi atom untuk pembangunan berkelanjutan.',
+    readTimeMinutes: 35,
+    summary: 'Panduan pedagogis komprehensif hakikat sains kimia dan penyelidikan ilmiah: segitiga pemahaman Johnstone (makroskopis, sub-mikroskopis, simbolik); klasifikasi materi zat tunggal vs campuran; 4 kaidah baku angka penting dan konvensi pembulatan genap (banker\'s rounding); siklus 7 langkah metode ilmiah berbasis analogi investigasi detektif forensik; desain uji adil (fair test) dengan triad variabel dan kontrol negatif/positif; teknik pembacaan meniskus menghindari paralaks; profil api Bunsen; protokol K3 lab, 9 piktogram GHS & dokumen SDS 16 bagian; kaidah emas AAA (Always Add Acid); serta 12 prinsip kimia hijau dan kalkulasi kuantitatif ekonomi atom.',
     allTags: [
       'hakikat-ilmu-kimia',
+      'segitiga-johnstone',
       'klasifikasi-materi',
       'unsur-senyawa-campuran',
       'perubahan-fisika-kimia',
       'pemisahan-campuran',
       'angka-penting-pengukuran',
+      'bankers-rounding',
       'akurasi-dan-presisi',
       'satuan-si-kimia',
       'galat-relatif',
@@ -27,12 +29,14 @@ export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
       'tahapan-metode-ilmiah',
       'variabel-bebas-terikat-kontrol',
       'desain-eksperimen',
+      'kontrol-positif-negatif',
       'alat-laboratorium-kimia',
       'pembacaan-meniskus',
       'keselamatan-kerja-lab',
       'simbol-bahaya-ghs',
       'safety-data-sheet-sds',
       'pertolongan-pertama-lab',
+      'always-add-acid',
       'kimia-hijau',
       '12-prinsip-green-chemistry',
       'ekonomi-atom',
@@ -41,61 +45,33 @@ export const SMA_MATERIALS_FASE_E: SmaMaterialItem[] = [
       'soal-ekonomi-atom',
       'soal-keselamatan-lab',
       'soal-pengukuran-angka-penting',
-      'reaksi-kimia',
-      'fermentasi',
-      'korosi',
-      'bahan-korosif',
-      'presisi-akurasi',
-      'labu-ukur',
-      'pipet-volume',
-      'pengenceran-asam-pekat',
-      'kerapatan-massa',
-      'distilasi',
-      'corong-pisah',
-      'sublimasi',
-      'kromatografi',
-      'biomassa-terbarukan',
-      'biokatalisis',
-      'buret',
-      'kontrol-positif-negatif',
-      'katalis-homogen',
-      'hidrogen-peroksida',
-      'faktor-retardasi-rf',
-      'lemari-asam',
-      'pengukuran-presisi',
-      'standar-deviasi',
-      'analisis-data',
-      'limbah-industri',
-      'propagasi-galat',
-      'azeotrop',
-      'kurva-titik-didih',
-      'reaksi-adisi',
-      'reaksi-substitusi',
-      'reaksi-netralisasi',
-      'stoikiometri-reaksi',
-      'kalibrasi-gravimetri',
-      'filtrasi',
-      'kristalisasi',
-      'neraca-massa',
-      'reaksi-eksotermik',
-      'hierarki-pengendalian-bahaya',
     ],
     prerequisites: [
       {
         tag: 'hakikat-kimia-dan-materi',
-        tags: ['hakikat-ilmu-kimia', 'klasifikasi-materi', 'unsur-senyawa-campuran', 'perubahan-fisika-kimia', 'pemisahan-campuran'],
-        title: 'Prasyarat 1: Hakikat Sains Kimia, Klasifikasi Materi & Karakteristik Perubahan Zat',
-        summary: 'Fondasi ilmu kimia pada level makroskopis, sub-mikroskopis, dan simbolik, taksonomi zat tunggal vs campuran, serta perbedaan mendasar perubahan fisika dan kimia.',
-        content: `Ilmu Kimia secara hakiki adalah cabang sains alam yang mempelajari komposisi, struktur, sifat, dan perubahan materi, serta energi yang menyertai perubahan tersebut. Kimia modern beroperasi pada tiga tingkatan representasi utama (*Johnstone's Triangle*):
-1. **Level Makroskopis:** Fenomena konkret yang dapat diamati secara visual melalui panca indra di laboratorium (misal: perubahan warna, pembentukan gelembung gas, endapan, atau pelepasan kalor).
-2. **Level Sub-mikroskopis (Partikulat):** Penjelasan teoretis pada skala atomik, molekuler, dan ionik yang tidak kasatmata (misal: penataan ulang ikatan kimia, transfer elektron, dan gerak termal partikel).
-3. **Level Simbolik:** Representasi kualitatif dan kuantitatif menggunakan rumus kimia, persamaan reaksi, kurva grafik, dan persamaan matematika (misal: $\\ce{2H2 + O2 -> 2H2O}$, $\\Delta H = -483.6\\text{ kJ}$).
+        tags: ['hakikat-ilmu-kimia', 'segitiga-johnstone', 'klasifikasi-materi', 'unsur-senyawa-campuran', 'perubahan-fisika-kimia'],
+        title: 'Prasyarat 1: Hakikat Sains Kimia, Segitiga Johnstone & Taksonomi Materi',
+        summary: 'Fondasi cara berpikir kimiawan melalui Johnstone\'s Triangle (makroskopis, sub-mikroskopis, simbolik), taksonomi zat murni vs campuran, serta empat tanda pasti reaksi kimia.',
+        content: `### 🔍 Kacamata Tiga Lensa Ilmuwan Kimia (Mental Model: Johnstone\'s Triangle)
+
+Bagi orang awam, segelas air mendidih hanyalah air yang bergelembung dan mengeluarkan uap panas. Namun bagi seorang kimiawan, fenomena tersebut dilihat secara simultan melalui **tiga lapisan realitas** yang dikenal sebagai **Segitiga Johnstone (*Johnstone\'s Chemical Triangle*)**:
+
+1. **Lapisan Makroskopis (Apa yang Terlihat):** Gejala konkret yang dapat diamati langsung oleh panca indra di laboratorium—seperti timbulnya endapan putih, bau menyengat gas amonia, atau perubahan larutan bening menjadi merah darah.
+2. **Lapisan Sub-mikroskopis / Partikulat (Apa yang Terjadi di Tingkat Partikel):** Rekonstruksi mental tentang perilaku atom, ion, dan molekul yang tak kasatmata—bagaimana molekul $\\ce{H2O}$ bergerak semakin cepat, saling bertumbukan, dan memutus ikatan hidrogen antarmolekul saat dipanaskan.
+3. **Lapisan Simbolik (Bagaimana Kita Menuliskannya):** Bahasa universal kimia berupa rumus kimia, persamaan reaksi terkuantifikasi, kurva energi, dan simbol fasa:
+   $$\\ce{H2O(l) ->[\\Delta] H2O(g)} \\quad \\Delta H^\\circ_{\\text{vap}} = +40.7\\text{ kJ/mol}$$
+
+> [!NOTE]
+> ### 💡 Kunci Penguasaan Kimia OSN
+> Kegagalan terbesar siswa dalam memahami kimia bermula dari menghafal formula simbolik di papan tulis tanpa pernah membayangkan apa yang sebenarnya terjadi pada partikel sub-mikroskopisnya. Setiap kali Anda melihat rumus kimia, bayangkanlah wujud molekul fisiknya di dunia nyata!
 
 ---
 
-### 1. Klasifikasi Materi: Zat Tunggal vs Campuran
+### 1. Klasifikasi Materi: Taksonomi Zat Tunggal vs Campuran
+
 Materi didefinisikan sebagai segala sesuatu yang memiliki massa inersia dan menempati ruang (memiliki volume). Berdasarkan komposisi kimianya, materi terbagi menjadi dua klasifikasi besar:
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="110%">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.06"/>
@@ -186,42 +162,30 @@ Memiliki komposisi kimia yang seragam (*homogen*) dan sifat fisika-kimia yang ko
   - *Unsur Logam:* Konduktor listrik dan panas yang baik, berkilau, dapat ditempa (*malleable*), dan ulet (*ductile*). Contoh: $\\ce{Fe}$, $\\ce{Cu}$, $\\ce{Au}$, $\\ce{Na}$.
   - *Unsur Nonlogam:* Isolator listrik (kecuali grafit), rapuh dalam wujud padat, atau berwujud gas/cair. Contoh: $\\ce{O2}$, $\\ce{N2}$, $\\ce{S8}$, $\\ce{Cl2}$.
   - *Unsur Metaloid (Semilogam):* Memiliki sifat intermediet antara logam dan nonlogam, sering bersifat semikonduktor. Contoh: $\\ce{Si}$, $\\ce{Ge}$, $\\ce{As}$.
-- **Senyawa:** Gabungan kimiawi dua atau lebih unsur berbeda dengan perbandingan massa tertentu dan tetap (**Hukum Komposisi Tetap / Hukum Proust**). Senyawa memiliki sifat yang sama sekali baru dan berbeda dari unsur-unsur penyusunnya.
-  Contoh: Air ($\\ce{H2O}$) tersusun atas gas $\\ce{H2}$ yang mudah meledak dan gas $\\ce{O2}$ yang memicu pembakaran, namun $\\ce{H2O}$ berwujud cair pada suhu kamar dan justru memadamkan api. Perbandingan massa $\\ce{H} : \\ce{O}$ dalam air murni selalu $1 : 8$.
+- **Senyawa:** Gabungan kimiawi dua atau lebih unsur berbeda dengan perbandingan massa tertentu dan tetap (**Hukum Komposisi Tetap / Hukum Proust**). Senyawa memiliki sifat yang sama sekali baru dan berbeda dari unsur-unsur penyusunnya.  
+  *Contoh Nyata:* Gas hidrogen ($\\ce{H2}$) sangat mudah meledak dan gas oksigen ($\\ce{O2}$) memicu pembakaran. Namun saat keduanya berikatan kimia membentuk air ($\\ce{H2O}$), senyawa yang dihasilkan justru memadamkan api!
 
-#### B. Campuran
-Gabungan fisik dua atau lebih zat murni di mana masing-masing zat tetap mempertahankan identitas dan sifat kimianya:
-- **Campuran Homogen (Larutan):** Partikel terlarut berukuran diameter $< 1\\text{ nm}$, terdispersi merata secara molekuler sehingga tidak terdapat batas fase fisik yang terlihat bahkan dengan mikroskop optik. Contoh: larutan $\\ce{NaCl}$ dalam air, udara bersih, paduan logam (*alloy* seperti kuningan $\\ce{Cu-Zn}$ dan baja $\\ce{Fe-C}$).
-- **Campuran Heterogen:** Komponen-komponennya tidak terdistribusi merata dan masih menampakkan bidang batas fase (*phase boundary*).
-  - *Suspensi:* Partikel kasar ($> 100\\text{ nm}$) yang mudah mengendap akibat gravitasi dan dapat disaring kertas saring biasa. Contoh: campuran air dan pasir, suspensi tepung terigu.
-  - *Koloid:* Partikel berukuran intermediet ($1 - 100\\text{ nm}$) yang tidak mengendap spontan namun menghamburkan cahaya (**Efek Tyndall**). Contoh: susu, kabut, cat, darah.
+> [!TIP]
+> ### 💡 Cara Cepat Membedakan Senyawa vs Campuran
+> - **Senyawa:** Terbentuk melalui reaksi kimia dengan perubahan energi besar ($\\Delta H$), perbandingan massa unsur penyusunnya **selalu pasti/tetap**, dan komponennya **hanya dapat dipisahkan secara kimiawi**.
+> - **Campuran:** Terbentuk melalui pencampuran fisik sederhana tanpa ikatan kimia baru, perbandingan komponennya **bebas/bervariasi**, dan komponennya **dapat dipisahkan kembali secara mekanis/fisika** (filtrasi, distilasi, kromatografi).
 
 ---
 
-### 2. Perubahan Fisika vs Perubahan Kimia
+### 2. Perubahan Fisika vs Perubahan Kimia (Empat Sinyal Reaksi)
 
 | Parameter Pembanding | Perubahan Fisika | Perubahan Kimia (Reaksi Kimia) |
 | :--- | :--- | :--- |
-| **Pembentukan Zat Baru** | Tidak menghasilkan zat baru; identitas kimia molekul tetap utuh. | Menghasilkan satu atau lebih zat baru dengan sifat kimia berbeda. |
-| **Reversibilitas** | Umumnya mudah dibalik (*reversible*) melalui proses fisik. | Sukar dibalik (*irreversible*) kecuali melalui reaksi kimia kebalikannya. |
-| **Keterlibatan Energi** | Melibatkan perubahan energi relatif kecil (misal: kalor laten peleburan). | Melibatkan perubahan energi yang jauh lebih besar (entalpi reaksi $\\Delta H$). |
-| **Contoh Fenomena** | Es mencair, air menguap, pelarutan garam, pemotongan kayu, pelelehan lilin. | Perkaratan besi ($\\ce{4Fe + 3O2 -> 2Fe2O3}$), pembakaran bensin, fermentasi tape, fotosintesis. |
+| **Pembentukan Zat Baru** | Tidak menghasilkan zat baru; molekul penyusun tetap utuh. | Terbentuk satu atau lebih zat baru dengan ikatan kimia baru. |
+| **Reversibilitas** | Mudah dibalik (*reversible*) dengan mengubah suhu/tekanan. | Sukar dibalik (*irreversible*) secara fisik biasa. |
+| **Keterlibatan Kalor** | Kalor laten perubahan fasa relatif kecil ($\\approx 1 - 50\\text{ kJ/mol}$). | Kalor pemutusan &amp; pembentukan ikatan jauh lebih besar. |
+| **Contoh Sehari-hari** | Es mencair, lilin meleleh, gula larut dalam teh, pelarutan iodin. | Besi berkarat, tape membusuk, kayu terbakar, tablet effervescent berbuih. |
 
-#### Empat Indikator Utama Berlangsungnya Reaksi Kimia:
-1. **Perubahan Warna:** Munculnya kompleks atau senyawa baru yang menyerap spektrum cahaya tampak berbeda (misal: larutan bening $\\ce{FeCl3}$ ditambah $\\ce{KSCN}$ berubah menjadi merah darah karena pembentukan $\\ce{[Fe(SCN)]^2+}$).
-2. **Pembentukan Gas:** Timbulnya gelembung gas tak terlarut (misal: logam seng dimasukkan ke dalam asam sulfat encer menghasilkan gas hidrogen: $\\ce{Zn(s) + H2SO4(aq) -> ZnSO4(aq) + H2(g)^}$).
-3. **Pembentukan Endapan (*Precipitate*):** Terbentuknya senyawa sukar larut ($K_{sp}$ terlampaui) berupa padatan halus (misal: pencampuran larutan perak nitrat dan natrium klorida membentuk endapan putih perak klorida: $\\ce{AgNO3(aq) + NaCl(aq) -> AgCl(s) v + NaNO3(aq)}$).
-4. **Perubahan Suhu / Energi:** Pelepasan kalor ke lingkungan (reaksi eksotermik, suhu wadah naik) atau penyerapan kalor dari lingkungan (reaksi endotermik, suhu wadah turun).
-
----
-
-### 3. Metode Pemisahan Campuran Berdasarkan Perbedaan Sifat Fisika
-Karena campuran terbentuk melalui proses fisika, komponen-komponennya dapat dipisahkan kembali secara fisik tanpa merusak ikatan kimia:
-1. **Filtrasi (Penyaringan):** Memisahkan padatan tak larut dari cairan berdasarkan perbedaan ukuran partikel menggunakan medium berpori (kertas saring).
-2. **Kristalisasi & Penguapan:** Memisahkan zat terlarut padat dari pelarut cairnya berdasarkan perbedaan kelarutan pada suhu berbeda (misal: kristalisasi garam dapur dari air laut).
-3. **Distilasi (Penyulingan):** Memisahkan campuran zat cair berdasarkan perbedaan titik didih (*boiling point*). Distilasi fraksionasi digunakan pada pemisahan fraksi minyak bumi dan pemurnian bioetanol.
-4. **Sublimasi:** Memisahkan zat yang dapat menyublim (berubah langsung dari padat ke gas tanpa mencair) dari pengotor yang tidak menyublim. Contoh: pemurnian iodin ($\\ce{I2}$) dan kapur barus (kamper).
-5. **Kromatografi:** Memisahkan komponen campuran berwarna atau zat bioaktif berdasarkan perbedaan kecepatan migrasi analit di antara dua fase: fase diam (*stationary phase*) dan fase gerak (*mobile phase*).`,
+#### Empat Sinyal Detektif Berlangsungnya Reaksi Kimia:
+1. **Perubahan Warna:** Pembentukan spesi molekul baru yang menyerap panjang gelombang cahaya berbeda (misal: larutan bening $\\ce{FeCl3}$ ditambah $\\ce{KSCN}$ menjadi merah darah pekat $\\ce{[Fe(SCN)]^2+}$).
+2. **Pembentukan Gas:** Lepasnya molekul produk dalam fase gas yang tidak larut jenuh (misal: logam kalsium dimasukkan ke air membentuk letupan gas $\\ce{H2}$: $\\ce{Ca(s) + 2H2O(l) -> Ca(OH)2(aq) + H2(g)^}$).
+3. **Pembentukan Endapan (*Precipitate*):** Ion-ion reaktan bergabung membentuk kisi kristal sukar larut ($Q_{\\text{sp}} > K_{\\text{sp}}$) (misal: $\\ce{AgNO3(aq) + NaCl(aq) -> AgCl(s) v + NaNO3(aq)}$).
+4. **Perubahan Suhu Sistem:** Pelepasan kalor spontan ke lingkungan (reaksi eksotermik, tabung terasa panas) atau penyerapan kalor lingkungan (reaksi endotermik, tabung terasa dingin membeku).`,
         keyFormulas: [
           { name: 'Hukum Kekekalan Massa (Lavoisier)', formula: '\\sum m_{\\text{reaktan}} = \\sum m_{\\text{produk}}' },
           { name: 'Persentase Massa Komponen', formula: '\\% m_i = \\frac{m_i}{m_{\\text{total}}} \\times 100\\%' },
@@ -230,77 +194,146 @@ Karena campuran terbentuk melalui proses fisika, komponen-komponennya dapat dipi
       },
       {
         tag: 'pengukuran-angka-penting-si',
-        tags: ['angka-penting-pengukuran', 'akurasi-dan-presisi', 'satuan-si-kimia', 'galat-relatif'],
-        title: 'Prasyarat 2: Pengukuran Ilmiah, Angka Penting, Galat Relatif & Analisis Satuan SI',
-        summary: 'Standarisasi besaran SI kimia, kaidah baku angka penting pada instrumen analitik, kalkulasi galat relatif, dan distingsi akurasi versus presisi.',
-        content: `Data kuantitatif dalam kimia adalah hasil pengukuran empiris yang tidak pernah bernilai mutlak benar, melainkan selalu memiliki rentang ketidakpastian (*uncertainty*). Oleh karena itu, penguasaan aturan pengukuran dan angka penting merupakan prasyarat mutlak sebelum melakukan praktikum laboratorium.
+        tags: ['angka-penting-pengukuran', 'bankers-rounding', 'akurasi-dan-presisi', 'satuan-si-kimia', 'galat-relatif'],
+        title: 'Prasyarat 2: Pengukuran Ilmiah, Angka Penting, Aturan Pembulatan Genap & Akurasi vs Presisi',
+        summary: 'Metrologi ilmiah kimia, pembedaan akurasi vs presisi via papan target panah, 4 aturan emas angka penting, konvensi pembulatan genap IUPAC/OSN, serta analisis galat relatif.',
+        content: `### 🎯 Akurasi (*Ketepatan*) vs Presisi (*Ketelitian*)
 
-### 1. Satuan Internasional (SI) yang Sering Digunakan dalam Kimia
-- **Massa:** Satuan dasar $\\text{kg}$; di laboratorium kimia lebih sering digunakan gram ($\\text{g}$) dan miligram ($\\text{mg}$, $1\\text{ g} = 1000\\text{ mg}$).
-- **Volume:** Satuan turunan $\\text{m}^3$; satuan praktis laboratorium adalah liter ($\\text{L}$) dan mililiter ($\\text{mL}$), dengan relasi:
-  $$1\\text{ m}^3 = 1000\\text{ L} = 1000\\text{ dm}^3, \\quad 1\\text{ L} = 1000\\text{ mL} = 1000\\text{ cm}^3$$
-- **Suhu Mutlak:** Satuan dasar Kelvin ($\\text{K}$). Hubungan dengan skala Celsius ($^\\circ\\text{C}$):
-  $$T(\\text{K}) = T(^\\circ\\text{C}) + 273.15$$
-  *Catatan:* Skala Kelvin tidak menggunakan tanda derajat ($^\\circ$). Nol mutlak ($0\\text{ K} = -273.15^\\circ\\text{C}$) adalah kondisi teoretis di mana energi kinetik translasi partikel materi bernilai minimum.
-- **Kerapatan Massa (Densitas / Massa Jenis, $\\rho$):**
-  $$\\rho = \\frac{m}{V} \\quad (\\text{satuan: } \\text{g/cm}^3 \\text{ atau } \\text{g/mL})$$
+Dalam eksperimen laboratorium analitik, kata *akurat* dan *presisi* memiliki arti ilmiah yang sepenuhnya berbeda:
+- **Akurasi (*Accuracy*):** Seberapa dekat nilai rata-rata hasil pengukuran dengan **nilai rujukan sejati yang sebenarnya** (*true/accepted value*). Akurasi mencerminkan ketiadaan galat sistematis instrumen.
+- **Presisi (*Precision*):** Seberapa dekat hasil-hasil pengukuran berulang satu sama lain saat diulang pada kondisi yang sama (**reprodusibilitas**). Presisi mencerminkan ketelitian pembacaan dan kestabilan instrumen.
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 210" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
+  <defs>
+    <filter id="tgtShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Target 1: Akurasi Tinggi & Presisi Tinggi -->
+  <g transform="translate(10, 10)">
+    <rect width="175" height="190" rx="12" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5" filter="url(#tgtShadow)"/>
+    <rect width="175" height="28" rx="12" fill="#dcfce7"/>
+    <text x="87" y="19" text-anchor="middle" font-size="9.5" font-weight="800" fill="#15803d">AKURAT &amp; PRESISI</text>
+    <!-- Target Rings -->
+    <circle cx="87" cy="98" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="35" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="20" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+    <circle cx="87" cy="98" r="6" fill="#dc2626"/>
+    <!-- Hits clustered in bullseye -->
+    <circle cx="86" cy="97" r="3" fill="#1e293b"/>
+    <circle cx="88" cy="99" r="3" fill="#1e293b"/>
+    <circle cx="85" cy="100" r="3" fill="#1e293b"/>
+    <circle cx="89" cy="96" r="3" fill="#1e293b"/>
+    <text x="87" y="165" text-anchor="middle" font-size="8.5" font-weight="600" fill="#166534">Rapat di Pusat Target</text>
+    <text x="87" y="178" text-anchor="middle" font-size="7.5" fill="#15803d">(Ideal Analisis Standar)</text>
+  </g>
+
+  <!-- Target 2: Presisi Tinggi, Akurasi Rendah (Galat Sistematis) -->
+  <g transform="translate(198, 10)">
+    <rect width="175" height="190" rx="12" fill="#ffffff" stroke="#fed7aa" stroke-width="1.5" filter="url(#tgtShadow)"/>
+    <rect width="175" height="28" rx="12" fill="#ffedd5"/>
+    <text x="87" y="19" text-anchor="middle" font-size="9.5" font-weight="800" fill="#c2410c">PRESISI, TIDAK AKURAT</text>
+    <!-- Target Rings -->
+    <circle cx="87" cy="98" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="35" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="20" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+    <circle cx="87" cy="98" r="6" fill="#dc2626"/>
+    <!-- Hits clustered off-center (systematic error) -->
+    <circle cx="118" cy="70" r="3" fill="#1e293b"/>
+    <circle cx="120" cy="72" r="3" fill="#1e293b"/>
+    <circle cx="117" cy="73" r="3" fill="#1e293b"/>
+    <circle cx="121" cy="69" r="3" fill="#1e293b"/>
+    <text x="87" y="165" text-anchor="middle" font-size="8.5" font-weight="600" fill="#9a3412">Rapat tetapi Meleset</text>
+    <text x="87" y="178" text-anchor="middle" font-size="7.5" fill="#c2410c">(Ada Galat Kalibrasi Alat)</text>
+  </g>
+
+  <!-- Target 3: Akurasi Tinggi, Presisi Rendah (Galat Acak) -->
+  <g transform="translate(386, 10)">
+    <rect width="175" height="190" rx="12" fill="#ffffff" stroke="#fed7aa" stroke-width="1.5" filter="url(#tgtShadow)"/>
+    <rect width="175" height="28" rx="12" fill="#ffedd5"/>
+    <text x="87" y="19" text-anchor="middle" font-size="9.5" font-weight="800" fill="#c2410c">AKURAT, TIDAK PRESISI</text>
+    <!-- Target Rings -->
+    <circle cx="87" cy="98" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="35" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="20" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+    <circle cx="87" cy="98" r="6" fill="#dc2626"/>
+    <!-- Hits scattered symmetrically around center -->
+    <circle cx="87" cy="68" r="3" fill="#1e293b"/>
+    <circle cx="87" cy="128" r="3" fill="#1e293b"/>
+    <circle cx="57" cy="98" r="3" fill="#1e293b"/>
+    <circle cx="117" cy="98" r="3" fill="#1e293b"/>
+    <text x="87" y="165" text-anchor="middle" font-size="8.5" font-weight="600" fill="#9a3412">Tersebar, Rata-rata Tepat</text>
+    <text x="87" y="178" text-anchor="middle" font-size="7.5" fill="#c2410c">(Fluktuasi Acak / Noise)</text>
+  </g>
+
+  <!-- Target 4: Tidak Akurat & Tidak Presisi -->
+  <g transform="translate(574, 10)">
+    <rect width="175" height="190" rx="12" fill="#ffffff" stroke="#fecaca" stroke-width="1.5" filter="url(#tgtShadow)"/>
+    <rect width="175" height="28" rx="12" fill="#fee2e2"/>
+    <text x="87" y="19" text-anchor="middle" font-size="9.5" font-weight="800" fill="#b91c1c">BURUK TOTAL</text>
+    <!-- Target Rings -->
+    <circle cx="87" cy="98" r="50" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="35" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/>
+    <circle cx="87" cy="98" r="20" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+    <circle cx="87" cy="98" r="6" fill="#dc2626"/>
+    <!-- Hits scattered erratically off-center -->
+    <circle cx="120" cy="55" r="3" fill="#1e293b"/>
+    <circle cx="135" cy="85" r="3" fill="#1e293b"/>
+    <circle cx="105" cy="130" r="3" fill="#1e293b"/>
+    <circle cx="125" cy="115" r="3" fill="#1e293b"/>
+    <text x="87" y="165" text-anchor="middle" font-size="8.5" font-weight="600" fill="#991b1b">Tersebar dan Meleset</text>
+    <text x="87" y="178" text-anchor="middle" font-size="7.5" fill="#b91c1c">(Kesalahan Prosedur Fatal)</text>
+  </g>
+</svg>
 
 ---
 
-### 2. Akurasi (*Ketepatan*) vs Presisi (*Ketelitian*)
-Dua istilah ini memiliki makna ilmiah yang sangat berbeda:
-- **Akurasi (*Accuracy*):** Seberapa dekat nilai rata-rata hasil pengukuran eksperimen dengan **nilai acuan/standar yang sebenarnya** (*true/accepted value*). Akurasi mencerminkan kebenaran pengukuran.
-- **Presisi (*Precision*):** Seberapa dekat hasil-hasil pengukuran berulang satu sama lain di bawah kondisi percobaan yang identik (**reprodusibilitas** atau keterulangan). Presisi mencerminkan kestabilan instrumen dan keahlian teknis pengukur.
+### 1. Empat Kaidah Emas Penentuan Angka Penting (AP)
 
-\`\`\`
-   [Akurasi Tinggi & Presisi Tinggi]     [Akurasi Rendah & Presisi Tinggi]
-       (Semua titik berkumpul tepat         (Semua titik berkumpul rapat,
-            di pusat target)                    tetapi meleset jauh dari pusat)
-\`\`\`
+Angka penting mencerminkan batas kemampuan instrumen ukur. Terdiri dari angka pasti (*certain digits*) ditambah **satu digit terakhir yang ditaksir** (*estimated digit*):
 
----
-
-### 3. Kaidah Baku Angka Penting (AP)
-Angka penting adalah semua angka yang diperoleh dari hasil pengukuran langsung pada skala instrumen, yang terdiri dari angka pasti (*certain digits*) ditambah **satu angka terakhir yang ditaksir/meragukan** (*estimated digit*).
-
-#### Aturan Penentuan Jumlah Angka Penting:
 1. **Semua angka bukan nol adalah AP.**  
-   Contoh: $45.82\\text{ g}$ memiliki **4 AP**.
-2. **Angka nol di antara angka bukan nol adalah AP.**  
-   Contoh: $100.05\\text{ mL}$ memiliki **5 AP**; $2.08\\text{ g}$ memiliki **3 AP**.
-3. **Angka nol di sebelah kiri angka bukan nol pertama BUKAN AP** (hanya berfungsi sebagai penentu letak desimal).  
-   Contoh: $0.0035\\text{ M}$ hanya memiliki **2 AP**; $0.050\\text{ g}$ memiliki **2 AP**.
-4. **Angka nol di sebelah kanan tanda koma desimal dan terletak di belakang angka bukan nol adalah AP.**  
-   Contoh: $50.00\\text{ mL}$ memiliki **4 AP**; $1.20\\text{ g}$ memiliki **3 AP**.
-5. **Bilangan bulat dengan nol di ujung tanpa tanda desimal bersifat ambigu.**  
-   Contoh: $2500\\text{ g}$ dapat memiliki 2, 3, atau 4 AP. Untuk menghilangkan ambiguitas, wajib ditulis dalam **Notasi Ilmiah Baku**:
-   - $2.5 \\times 10^3\\text{ g}$ $\\rightarrow$ **2 AP**
-   - $2.50 \\times 10^3\\text{ g}$ $\\rightarrow$ **3 AP**
-   - $2.500 \\times 10^3\\text{ g}$ $\\rightarrow$ **4 AP**
+   *Contoh:* $28.45\\text{ g}$ memiliki **4 AP**.
+2. **Angka nol di antara angka bukan nol (nol terjepit) adalah AP.**  
+   *Contoh:* $10.05\\text{ mL}$ memiliki **4 AP**; $302\\text{ K}$ memiliki **3 AP**.
+3. **Angka nol di sebelah kiri angka bukan nol pertama BUKAN AP** (hanya pengatur koma).  
+   *Contoh:* $0.0025\\text{ M}$ hanya memiliki **2 AP**; $0.080\\text{ g}$ memiliki **2 AP**.
+4. **Angka nol di kanan desimal dan setelah angka bukan nol adalah AP.**  
+   *Contoh:* $50.00\\text{ mL}$ memiliki **4 AP**; $1.20\\text{ g}$ memiliki **3 AP**.
+
+> [!WARNING]
+> ### ⚠️ Waspada Bilangan Bulat dengan Nol di Ujung (Ambiguitas AP)
+> Angka seperti $2500\\text{ mL}$ memiliki tafsiran ambigu (bisa 2, 3, atau 4 AP). Untuk menghilangkan ambiguitas dalam soal ujian OSN, **wajib menggunakan Notasi Ilmiah**:
+> - $2.5 \\times 10^3\\text{ mL}$ $\\rightarrow$ **2 AP**
+> - $2.50 \\times 10^3\\text{ mL}$ $\\rightarrow$ **3 AP**
+> - $2.500 \\times 10^3\\text{ mL}$ $\\rightarrow$ **4 AP**
 
 ---
 
-### 4. Kaidah Perhitungan Berdasarkan Angka Penting
-- **Operasi Penjumlahan & Pengurangan:**
-  Hasil akhir dibatasi oleh bilangan yang memiliki **jumlah angka desimal paling sedikit di belakang koma**.
-  $$\\begin{aligned}
-  & 12.11\\text{ g} \\quad (2 \\text{ desimal}) \\\\
-  + & \\; 0.235\\text{ g} \\quad (3 \\text{ desimal}) \\\\
-  + & \\; 3.4\\text{ g} \\quad (1 \\text{ desimal}) \\\\
+### 2. Aturan Operasi Berhitung & Konvensi Pembulatan Genap
+
+- **Penjumlahan & Pengurangan:** Hasil akhir dibatasi oleh bilangan dengan **jumlah desimal paling sedikit di belakang koma**.
+  $$\\begin{array}{rll}
+  & 12.11\\text{ g} & (2 \\text{ desimal}) \\\\
+  + & \\; 0.235\\text{ g} & (3 \\text{ desimal}) \\\\
+  + & \\; 3.4\\text{ g} & (1 \\text{ desimal}) \\\\
   \\hline
-  = & 15.745\\text{ g} \\xrightarrow{\\text{dibulatkan ke 1 desimal}} \\mathbf{15.7\\text{ g}}
-  \\end{aligned}$$
-- **Operasi Perkalian & Pembagian:**
-  Hasil akhir harus memiliki jumlah angka penting yang **sama dengan faktor pengali/pembagi dengan angka penting paling sedikit**.
-  $$\\text{Massa Jenis } \\rho = \\frac{14.28\\text{ g (4 AP)}}{3.1\\text{ mL (2 AP)}} = 4.60645\\dots\\text{ g/mL} \\xrightarrow{\\text{dibulatkan ke 2 AP}} \\mathbf{4.6\\text{ g/mL}}$$
+  = & 15.745\\text{ g} & \\xrightarrow{\\text{dibulatkan ke 1 desimal}} \\mathbf{15.7\\text{ g}}
+  \\end{array}$$
+- **Perkalian & Pembagian:** Hasil akhir dibatasi oleh bilangan dengan **jumlah angka penting paling sedikit**.
+  $$\\rho = \\frac{14.28\\text{ g (4 AP)}}{3.1\\text{ mL (2 AP)}} = 4.60645\\dots\\text{ g/mL} \\xrightarrow{\\text{dibulatkan ke 2 AP}} \\mathbf{4.6\\text{ g/mL}}$$
 
----
+> [!TIP]
+> ### 💡 Konvensi Pembulatan Angka 5 IUPAC/OSN (Banker\'s Rounding / Round-to-Even)
+> Jika digit yang dibuang tepat bernilai $5$ (atau $5$ diikuti nol):
+> - **Jika angka di depannya GANJIL:** Bulatkan ke ATAS menjadi genap (misal $3.75 \\rightarrow 3.8$).
+> - **Jika angka di depannya GENAP:** Bulatkan ke BAWAH tetap genap (misal $3.45 \\rightarrow 3.4$).  
+> *Mengapa?* Aturan konvensional sekolah (selalu bulatkan ke atas saat $\\ge 5$) menyebabkan bias akumulasi statistik ke atas pada pengolahan data sains besar. Aturan *round-to-even* menjamin probabilitas pembulatan ke atas dan ke bawah seimbang $50 : 50$.
 
-### 5. Evaluasi Kualitas Eksperimen: Galat Relatif
-Untuk menilai seberapa akurat pengukuran yang dilakukan di laboratorium sekolah, digunakan formula persentase galat relatif (*percent relative error*):
-$$\\% \\text{Galat Relatif} = \\left| \\frac{\\text{Nilai Eksperimen} - \\text{Nilai Teoretis / Literatur}}{\\text{Nilai Teoretis / Literatur}} \\right| \\times 100\\%$$
-
-> **Catatan Praktikum:** Galat $< 5\\%$ umumnya dianggap sangat baik untuk praktikum kimia tingkat SMA, sedangkan galat $> 15\\%$ mengindikasikan adanya galat sistematis pada instrumen atau kesalahan prosedur personal.`,
+> [!WARNING]
+> ### ⚠️ Bahaya Pembulatan Dini (Premature Rounding)
+> Dilarang keras membulatkan hasil perhitungan pada langkah-langkah perantara di tengah soal! Simpan minimal 2 digit ekstra di kalkulator Anda, dan hanya terapkan kaidah angka penting pada langkah pamungkas laporan akhir.`,
         keyFormulas: [
           { name: 'Kerapatan Massa (Densitas)', formula: '\\rho = \\frac{m}{V}' },
           { name: 'Konversi Suhu Celcius ke Kelvin', formula: 'T(\\text{K}) = T(^\\circ\\text{C}) + 273.15' },
@@ -311,14 +344,25 @@ $$\\% \\text{Galat Relatif} = \\left| \\frac{\\text{Nilai Eksperimen} - \\text{N
     core_concepts: [
       {
         tag: 'metode-ilmiah-dan-variabel',
-        tags: ['metode-ilmiah', 'tahapan-metode-ilmiah', 'variabel-bebas-terikat-kontrol', 'desain-eksperimen'],
-        title: 'Konsep Inti 1: Siklus Metode Ilmiah, Perumusan Masalah, Hipotesis & Desain Variabel Eksperimen',
-        summary: 'Proses investigasi sains sistematis dari observasi empiris hingga publikasi laporan, perumusan hipotesis yang dapat diuji (falsifiable), serta kontrol ketat terhadap variabel bebas, terikat, dan kontrol.',
-        content: `Metode ilmiah adalah proses sistematis, logis, dan terkontrol yang digunakan oleh ilmuwan kimia untuk menyelidiki fenomena alam, menguji gagasan baru, dan membangun teori ilmiah yang kokoh. Metode ilmiah bukan sekadar deretan hafalan langkah linier, melainkan suatu siklus berulang (*iterative cycle*) di mana hasil percobaan dapat mengarahkan peneliti untuk menyempurnakan hipotesis awal.
+        tags: ['metode-ilmiah', 'tahapan-metode-ilmiah', 'variabel-bebas-terikat-kontrol', 'kontrol-positif-negatif', 'desain-eksperimen'],
+        title: 'Konsep Inti 1: Siklus Metode Ilmiah, Triad Variabel & Desain Uji Adil (Fair Test)',
+        summary: 'Penyelidikan sains berbasis analogi investigasi detektif forensik, 7 tahapan siklus metode ilmiah, triad variabel, pembedaan kontrol negatif vs kontrol positif, serta pencegahan variabel pengacau.',
+        content: `### 🕵️ Analogi Detektif Forensik: Menyingkap Rahasia Alam (Mental Model)
+
+Ilmuwan kimia di laboratorium bekerja persis seperti **detektif kriminal forensik** di tempat kejadian perkara (TKP). Seorang detektif hebat tidak pernah langsung menuduh pelaku berdasarkan prasangka buta, melainkan menempuh alur bernalar yang sangat ketat:
+
+1. **Observasi Jejak TKP:** Mengamati sidik jari, tetesan darah, atau serpihan serat pakaian (Observasi fenomena alamiah).
+2. **Merumuskan Pertanyaan Motif:** *"Senjata apa yang digunakan dan kapan kejadian berlangsung?"* (Perumusan Masalah).
+3. **Membangun Teori Rekonstruksi:** Mengajukan dugaan kronologi kejadian yang logis dan dapat dibuktikan salah jika ditemukan alibi yang sah (Perumusan Hipotesis yang *falsifiable*).
+4. **Uji Forensik Terkontrol:** Menguji sampel DNA di lab dengan pembanding standar tanpa kontaminasi silang (Eksperimen Terkontrol).
+5. **Menganalisis Fakta:** Menguji kecocokan data sidik jari dengan database kepolisian (Pengolahan Data & Uji Hipotesis).
+6. **Menjatuhkan Vonis yang Sahih:** Menetapkan kesimpulan yang terbukti secara sah dan meyakinkan di pengadilan (Publikasi Kesimpulan Ilmiah).
+
+---
 
 ### Tujuh Tahapan Baku Siklus Metode Ilmiah:
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 230" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b"/>
@@ -416,35 +460,24 @@ $$\\% \\text{Galat Relatif} = \\left| \\frac{\\text{Nilai Eksperimen} - \\text{N
   <text x="470" y="109" text-anchor="middle" font-size="8" font-weight="700" fill="#b91c1c">TIDAK: Revisi Hipotesis</text>
 </svg>
 
-1. **Observasi Gejala Alam:** Mengamati fenomena menggunakan panca indra atau instrumen laboratorium, baik secara kualitatif (deskripsi warna, bau, wujud) maupun kuantitatif (data numerik hasil pengukuran).
-2. **Perumusan Masalah:** Merumuskan pertanyaan spesifik yang operasional, jelas, dan dapat diuji melalui investigasi empiris. Rumusan masalah yang baik selalu menyatakan hubungan antara dua atau lebih variabel (biasanya menggunakan kata tanya *"Bagaimanakah pengaruh [Variabel Bebas] terhadap [Variabel Terikat]?"*).
-3. **Studi Kepustakaan:** Menelaah jurnal ilmiah, buku teks, dan hasil penelitian terdahulu agar tidak melakukan pengulangan percuma (*reinventing the wheel*) dan memiliki landasan teori yang kokoh.
-4. **Perumusan Hipotesis Ilmiah:** Mengajukan dugaan atau penjelasan sementara yang logis. Karakteristik utama hipotesis ilmiah yang sah adalah harus bersifat **dapat diuji (*testable*)** dan **dapat dibuktikan salah (*falsifiable*)**.
-   - *Hipotesis Nol ($H_0$):* Menyatakan tidak ada pengaruh nyata variabel bebas terhadap variabel terikat ($H_0: \\mu_1 = \\mu_2$).
-   - *Hipotesis Alternatif ($H_1$):* Menyatakan adanya pengaruh nyata variabel bebas terhadap variabel terikat ($H_1: \\mu_1 \\neq \\mu_2$).
-5. **Perancangan & Pelaksanaan Eksperimen Terkontrol:** Menyusun prosedur kerja langkah demi langkah, memilih instrumen yang memiliki presisi memadai, menerapkan protokol keselamatan kerja, dan memastikan uji coba adil (*fair test*).
-6. **Pengumpulan & Analisis Data:** Mengorganisasikan data mentah ke dalam tabel, menghitung parameter statistik (rata-rata, standar deviasi), dan memplot kurva grafik hubungan antarvariabel.
-7. **Penarikan Kesimpulan:** Menilai secara objektif apakah data empiris mendukung atau menolak hipotesis awal. Jika data menolak hipotesis, bukan berarti eksperimen gagal, melainkan hipotesis harus direvisi sesuai fakta eksperimental yang baru ditemukan.
-
 ---
 
-### Triad Variabel Eksperimen & Desain Uji Adil (*Fair Test*)
-Dalam sains kimia modern, keabsahan (*validity*) suatu kesimpulan eksperimen sangat bergantung pada ketatnya pengendalian variabel:
+### Triad Variabel: Arsitektur Uji Adil (*Fair Test*)
 
-| Jenis Variabel | Definisi & Karakteristik | Contoh Kasus: Pengaruh Konsentrasi terhadap Laju Pelarutan Logam $\\ce{Mg}$ |
-| :--- | :--- | :--- |
-| **Variabel Bebas** (*Independent Variable* / Manipulasi) | Faktor atau kondisi yang **sengaja diubah-ubah secara terencana** oleh peneliti untuk melihat dampaknya. Diletakkan pada **sumbu-$x$** grafik. | Konsentrasi larutan asam klorida ($\\ce{HCl}$) yang dibuat bervariasi: $0.5\\text{ M}$, $1.0\\text{ M}$, $2.0\\text{ M}$, dan $3.0\\text{ M}$. |
-| **Variabel Terikat** (*Dependent Variable* / Respons) | Parameter atau besaran yang **diamati, diukur, dan dicatat nilainya** sebagai akibat langsung dari perubahan variabel bebas. Diletakkan pada **sumbu-$y$** grafik. | Waktu yang dibutuhkan pita magnesium hingga larut habis (dalam detik) atau volume gas $\\ce{H2}$ yang diproduksi per menit. |
-| **Variabel Kontrol** (*Controlled Variable*) | Semua faktor lain yang berpotensi memengaruhi hasil eksperimen dan **wajib dipertahankan tetap konstan** di seluruh kelompok perlakuan. | Massa dan luas permukaan pita magnesium ($0.10\\text{ g}$ pita digosok amplas), volume larutan $\\ce{HCl}$ ($50.0\\text{ mL}$), suhu ruangan ($25^\\circ\\text{C}$), dan wadah erlenmeyer yang sama. |
+| Jenis Variabel | Peran Operasional dalam Eksperimen | Penempatan Grafik | Contoh: Laju Pelarutan Logam $\\ce{Mg}$ |
+| :--- | :--- | :---: | :--- |
+| **Variabel Bebas** (*Independent*) | Faktor yang **sengaja diubah-ubah secara terencana** oleh peneliti. | **Sumbu-$x$** (Horizontal) | Konsentrasi larutan $\\ce{HCl}$: $0.5\\text{ M}$, $1.0\\text{ M}$, $2.0\\text{ M}$. |
+| **Variabel Terikat** (*Dependent*) | Besaran yang **diukur responsnya** sebagai akibat perubahan variabel bebas. | **Sumbu-$y$** (Vertikal) | Laju produksi volume gas $\\ce{H2}$ per menit ($\\text{mL/detik}$). |
+| **Variabel Kontrol** (*Controlled*) | Semua faktor luar yang **wajib dijaga konstan** agar tidak merusak uji adil. | Parameter Tetap | Massa dan luas permukaan pita $\\ce{Mg}$ ($0.10\\text{ g}$), suhu ruang ($25^\\circ\\text{C}$). |
 
-> **Prinsip Uji Adil (*Fair Test*):**  
-> Dalam satu rangkaian percobaan ilmiah, **hanya boleh ada SATU variabel bebas** yang diuji dalam satu waktu. Jika terdapat dua faktor yang diubah sekaligus (misalnya konsentrasi diubah dan suhunya juga ikut dinaikkan), peneliti tidak akan pernah tahu apakah perubahan laju reaksi disebabkan oleh faktor konsentrasi atau faktor suhu!
+> [!WARNING]
+> ### ⚠️ Bahaya Variabel Pengacau (Confounding Variables)
+> Dalam satu percobaan sains, **hanya boleh ada SATU variabel bebas** yang diubah! Jika Anda menaikkan konsentrasi asam sekaligus menaikkan suhunya, Anda tidak akan pernah tahu apakah kenaikan laju reaksi disebabkan oleh kepekatan partikel atau kenaikan energi kinetik!
 
----
-
-### Kelompok Eksperimen vs Kelompok Kontrol
-- **Kelompok Eksperimen (*Experimental Group*):** Sampel uji yang diberikan perlakuan khusus dari variabel bebas yang sedang diteliti.
-- **Kelompok Kontrol (*Control Group*):** Sampel pembanding yang **tidak diberi perlakuan variabel bebas** (dibiarkan dalam kondisi alami dasar), yang berfungsi sebagai garis acuan (*baseline*) untuk memastikan bahwa perubahan yang terjadi pada kelompok eksperimen benar-benar disebabkan oleh variabel yang diuji, bukan oleh faktor lingkungan yang tidak terduga.`,
+> [!IMPORTANT]
+> ### 📌 Pembedaan Kritis: Kontrol Negatif vs Kontrol Positif
+> 1. **Kontrol Negatif (*Negative Control*):** Kelompok sampel yang **sama sekali tidak diberi variabel bebas** (misal: larutan $\\ce{H2O2}$ tanpa katalis). Tujuannya membuktikan bahwa tanpa perlakuan, respons tidak akan terjadi secara spontan.
+> 2. **Kontrol Positif (*Positive Control*):** Kelompok sampel yang diberi perlakuan standar yang **sudah pasti memberikan respons positif yang diketahui** (misal: uji amilum menggunakan larutan kanji murni sebagai pembanding reagen iodin). Tujuannya memastikan bahwa reagen deteksi dan prosedur bekerja dengan benar.`,
         keyFormulas: [
           { name: 'Persamaan Regresi Linear', formula: 'y = mx + c' },
           { name: 'Gradien Laju Perubahan', formula: 'm = \\frac{\\Delta y}{\\Delta x} = \\frac{y_2 - y_1}{x_2 - x_1}' },
@@ -452,38 +485,35 @@ Dalam sains kimia modern, keabsahan (*validity*) suatu kesimpulan eksperimen san
       },
       {
         tag: 'alat-laboratorium-teknik-pengukuran',
-        tags: ['alat-laboratorium-kimia', 'pembacaan-meniskus', 'gelas-volumetrik', 'neraca-analitik'],
-        title: 'Konsep Inti 2: Pengenalan Alat Laboratorium Kimia, Klasifikasi Fungsi & Teknik Pengukuran Presisi',
-        summary: 'Klasifikasi komprehensif instrumen gelas kuantitatif vs kualitatif, teknik pembacaan meniskus menghindari paralaks, dan karakteristik nyala pembakar Bunsen.',
-        content: `Eksperimen kimia yang sahih menuntut pemilihan instrumen laboratorium yang tepat sesuai tingkat ketelitian yang diharapkan. Menggunakan gelas kimia untuk mengukur volume pada reaksi kuantitatif stoikiometri adalah kesalahan fatal yang sering dilakukan pemula.
+        tags: ['alat-laboratorium-kimia', 'pembacaan-meniskus', 'gelas-volumetrik', 'buret-pipet-labu', 'nyala-bunsen'],
+        title: 'Konsep Inti 2: Instrumen Laboratorium Presisi, Teknik Meniskus & Karakteristik Nyala Bunsen',
+        summary: 'Klasifikasi peralatan gelas analitik kelas A vs wadah penampung kasar, teknik eliminasi paralaks meniskus cekung vs cembung, serta zonasi termal api Bunsen.',
+        content: `### 1. Klasifikasi Instrumen Gelas: Volumetrik Kuantitatif vs Penampung Kasar
 
-### 1. Klasifikasi Peralatan Laboratorium Berdasarkan Fungsi Analitis
+Kesalahan fatal yang sering dilakukan pemula di laboratorium adalah mengukur volume titrasi menggunakan gelas kimia (*beaker*). Gelas laboratorium terbagi menjadi dua kelas fungsional tegas:
 
-#### A. Alat Pengukur Volume Cairan Berketelitian Tinggi (Volumetrik Kuantitatif)
-Peralatan ini dikalibrasi secara ketat oleh pabrikan pada suhu tertentu (biasanya $20^\\circ\\text{C}$) dengan kode toleransi spesifik:
-- **Buret ($50\\text{ mL}$):** Tabung kaca silindris panjang dengan kran teflon/kaca (*stopcock*) di ujung bawah dan skala berkebalikan (angka $0\\text{ mL}$ di atas dan $50\\text{ mL}$ di bawah). Digunakan untuk mengeluarkan titran dengan volume terukur presisi tinggi pada analisis titrimetri. Ketelitian: **$\\pm 0.02\\text{ mL}$**.
-- **Pipet Volumetrik / Pipet Gondok:** Memiliki gelembung di tengah tabung dengan satu garis tanda batas kalibrasi tunggal. Hanya dapat mengukur satu nilai volume cairan secara sangat presisi (misal tepat $10.00\\text{ mL}$ atau $25.00\\text{ mL}$). Ketelitian: **$\\pm 0.01 - 0.03\\text{ mL}$**.
-- **Labu Ukur / Labu Volumetrik:** Labu beralas datar berbentuk buah pir dengan leher panjang bertanda batas tunggal dan tutup kedap. Digunakan untuk membuat larutan standar dan mengencerkan larutan dengan konsentrasi yang sangat akurat. Ketelitian: **$\\pm 0.08\\text{ mL}$** (pada labu $100\\text{ mL}$).
-- **Pipet Ukur:** Memiliki skala pembagian volume sepanjang badan tabung, digunakan untuk memindahkan berbagai volume cairan dengan akurasi menengah.
+#### A. Alat Volumetrik Presisi Tinggi (Kelas Kuantitatif)
+- **Buret ($50.00\\text{ mL}$):** Tabung berskala presisi tinggi dengan kran di ujung bawah untuk titrasi volumetri. Ketelitian: **$\\pm 0.02\\text{ mL}$**.
+- **Pipet Volumetrik (Pipet Gondok):** Tabung bertanda batas kalibrasi tunggal untuk memindahkan volume cairan spesifik dengan akurasi sangat tinggi (misal tepat $10.00\\text{ mL}$ atau $25.00\\text{ mL}$). Ketelitian: **$\\pm 0.01 - 0.03\\text{ mL}$**.
+- **Labu Ukur / Labu Volumetrik:** Labu leher panjang bertanda batas tunggal dan tutup kedap untuk membuat larutan baku standar dan pengenceran presisi tinggi. Ketelitian: **$\\pm 0.08\\text{ mL}$** (pada labu $100.0\\text{ mL}$).
 
-#### B. Alat Penampung & Pengukur Volume Kasar (Kualitatif / Semikuantitatif)
-Peralatan ini TIDAK BOLEH digunakan untuk analisis kuantitatif stoikiometri presisi:
-- **Gelas Ukur:** Tabung silinder berskala dengan cerat tuang. Digunakan untuk mengukur volume cairan kasar dengan toleransi ketidakpastian $\\pm 0.5 - 1.0\\text{ mL}$.
-- **Gelas Kimia (*Beaker Glass*):** Wadah penampung larutan, pelarutan padatan, dan pemanasan cairan. Tanda skala mililiter pada dinding gelas kimia hanyalah perkiraan kasar (toleransi galat $\\pm 5 - 10\\%$).
-- **Labu Erlenmeyer:** Labu berbadan kerucut dengan leher sempit. Sangat ideal sebagai wadah titrasi karena bentuk lehernya mencegah cairan memercik keluar saat digoyang memutar (*swirling*).
+#### B. Alat Penampung & Pengukur Kasar (Kelas Kualitatif)
+- **Gelas Ukur:** Hanya untuk pengukuran volume cairan kasar (toleransi galat $\\pm 0.5 - 1.0\\text{ mL}$). **Dilarang untuk analisis kuantitatif stoikiometri!**
+- **Gelas Kimia (*Beaker Glass*):** Wadah melarutkan padatan, menampung filtrat, dan memanaskan cairan. Skala dindingnya memiliki galat $\\pm 5 - 10\\%$.
+- **Labu Erlenmeyer:** Wadah kerucut leher sempit ideal untuk wadah titrasi karena cairan tidak memercik keluar saat digoyang memutar (*swirling*).
 
-#### C. Alat Penanganan Padatan & Pemanasan Suhu Tinggi
-- **Cawan Porselen (*Evaporating Dish*):** Wadah porselen tahan panas untuk menguapkan pelarut dari larutan hingga terbentuk kristal.
-- **Krusibel (*Crucible*) & Tutup:** Wadah porselen/platina tahan suhu sangat tinggi ($> 1000^\\circ\\text{C}$) untuk memijarkan padatan atau mengabukan senyawa organik.
-- **Kaca Arloji:** Piring kaca cembung untuk menimbang kristal padat di atas neraca, mengeringkan sampel basah, atau menutup gelas kimia.
-- **Desikator:** Wadah kaca tebal kedap udara yang diisi zat pengering silika gel ($\\ce{SiO2}$) atau kalsium klorida ($\\ce{CaCl2}$) anhidrat untuk mendinginkan krusibel panas tanpa menyerap kelembapan udara.
+> [!WARNING]
+> ### ⚠️ Skala Buret yang Berkebalikan!
+> Berbeda dari gelas ukur, **angka nol ($0.00\\text{ mL}$) pada buret terletak di ujung paling ATAS**, dan angka maksimum ($50.00\\text{ mL}$) terletak di BAWAH dekat kran!  
+> Volume cairan yang terpakai dihitung dari selisih:
+> $$\\Delta V = V_{\\text{akhir}} - V_{\\text{awal}}$$
+> Membaca skala buret dari bawah ke atas adalah kesalahan klasik yang langsung menggagalkan ujian praktikum!
 
 ---
 
 ### 2. Teknik Presisi Pembacaan Meniskus Cairan
-Permukaan cairan di dalam tabung sempit selalu membentuk lengkungan akibat persaingan antara gaya adhesi (tarik-menarik molekul cairan dengan dinding kaca) dan gaya kohesi (tarik-menarik antarmolekul cairan sendiri):
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85"/>
@@ -622,15 +652,15 @@ Permukaan cairan di dalam tabung sempit selalu membentuk lengkungan akibat persa
   </g>
 </svg>
 
-1. **Meniskus Cekung:** Terjadi pada air dan sebagian besar larutan akuatik karena adhesi molekul air terhadap kaca polar lebih kuat daripada kohesi air-air. **Pembacaan volume WAJIB dilakukan tepat pada dasar lengkungan paling bawah.**
-2. **Meniskus Cembung:** Terjadi pada raksa ($\\ce{Hg}$) karena gaya kohesi ikatan logam raksa jauh lebih kuat daripada adhesi raksa terhadap kaca silika. **Pembacaan volume WAJIB dilakukan tepat pada puncak lengkungan paling atas.**
-3. **Pencegahan Kesalahan Paralaks:** Garis pandang mata pengamat harus berada tepat horizontal setinggi permukaan meniskus. Jika mata memandang dari atas, volume terbaca terlalu besar; jika memandang dari bawah, volume terbaca terlalu kecil.
+- **Meniskus Cekung (Air/Larutan Biasa):** Gaya adhesi air-kaca $>$ kohesi air-air. **Skala volume WAJIB dibaca tepat pada dasar lengkungan paling bawah.**
+- **Meniskus Cembung (Air Raksa / $\\ce{Hg}$):** Gaya kohesi raksa-raksa $>$ adhesi raksa-kaca. **Skala volume WAJIB dibaca tepat pada puncak lengkungan paling atas.**
+- **Garis Pandang Horizontal:** Mata pengamat harus tegak lurus sejajar dengan lengkungan meniskus untuk meniadakan galat paralaks.
 
 ---
 
-### 3. Karakteristik Api Pembakar Bunsen
+### 3. Profil Zonasi Api Pembakar Bunsen
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <linearGradient id="yellowFlame" x1="0" y1="1" x2="0" y2="0">
       <stop offset="0%" stop-color="#f59e0b"/>
@@ -735,8 +765,8 @@ Permukaan cairan di dalam tabung sempit selalu membentuk lengkungan akibat persa
   </g>
 </svg>
 
-- **Zona Kerucut Luar (Biru Pudar):** Merupakan bagian api paling panas ($> 1200^\circ\text{C}$), kaya akan oksigen lingkungan (**Zona Oksidasi**), digunakan untuk pemanasan cepat dan uji nyala nyala garam kation.
-- **Zona Kerucut Dalam (Biru Terang):** Bagian dalam yang kaya gas belum terbakar sempurna (**Zona Reduksi**), suhu relatif lebih dingin.`,
+- **Nyala Kuning (Safety Flame):** Lubang udara tertutup, pembakaran tidak sempurna menghasilkan jelaga karbon padat ($300 - 500^\\circ\\text{C}$). Hanya digunakan saat istirahat praktikum agar api terlihat kasatmata.
+- **Nyala Biru (Heating Flame):** Lubang udara terbuka penuh, pembakaran sempurna metana ($\\ce{CH4 + 2O2 -> CO2 + 2H2O}$). Suhu puncak zona oksidasi mencapai **$\\approx 1500^\\circ\\text{C}$**, bebas jelaga kotor, dan merupakan nyala standar untuk pemanasan tabung reaksi dan uji nyala kation.`,
         keyFormulas: [
           { name: 'Toleransi Buret Kelas A', formula: '\\Delta V = \\pm 0.02\\text{ mL}' },
           { name: 'Reaksi Pembakaran Sempurna Metana Bunsen', formula: '\\ce{CH4(g) + 2 O2(g) -> CO2(g) + 2 H2O(g)} \\quad (\\Delta H < 0)' },
@@ -744,86 +774,77 @@ Permukaan cairan di dalam tabung sempit selalu membentuk lengkungan akibat persa
       },
       {
         tag: 'keselamatan-kerja-lab-ghs-sds',
-        tags: ['keselamatan-kerja-lab', 'simbol-bahaya-ghs', 'safety-data-sheet-sds', 'pertolongan-pertama-lab'],
-        title: 'Konsep Inti 3: Standarisasi Keselamatan Kerja Lab, 9 Simbol Bahaya GHS & Safety Data Sheet (SDS)',
-        summary: 'Protokol keamanan operasional laboratorium, 9 piktogram bahaya Sistem Harmonisasi Global (GHS), 16 bagian dokumen Safety Data Sheet (SDS), dan pertolongan pertama pada kecelakaan tumpahan bahan kimia.',
-        content: `Keselamatan kerja di laboratorium kimia (*Laboratory Chemical Safety*) adalah prioritas mutlak di atas segalanya. Sebagian besar kecelakaan fatal di laboratorium sekolah terjadi bukan karena bahan kimia itu sendiri, melainkan karena kecerobohan personal, ketiadaan alat pelindung diri (APD), atau ketidaktahuan atas sifat bahaya zat yang digunakan.
+        tags: ['keselamatan-kerja-lab', 'simbol-bahaya-ghs', 'safety-data-sheet-sds', 'always-add-acid', 'pertolongan-pertama-lab'],
+        title: 'Konsep Inti 3: Standarisasi K3 Lab, 9 Simbol Bahaya GHS, Lembar SDS & Kaidah Emas AAA',
+        summary: 'Protokol keselamatan operasional laboratorium kimia, 9 piktogram Sistem Harmonisasi Global (GHS), anatomi dokumen SDS 16 bagian, hierarki kendali bahaya, serta mitigasi darurat kaidah emas AAA.',
+        content: `### 1. Sembilan Piktogram Bahaya Global GHS (*Globally Harmonized System*)
 
-### 1. Alat Pelindung Diri (APD) Wajib di Laboratorium Kimia
-1. **Jas Laboratorium Katun 100%:** Melindungi tubuh dari percikan bahan kimia korosif. Bahan katun dipilih karena tidak mudah meleleh dan menempel pada kulit saat terkena jilatan api (berbeda dari bahan poliester sintetis yang mudah meleleh saat terbakar).
-2. **Kacamata Pengaman (*Safety Goggles*):** Wajib menutupi mata dari segala arah (termasuk ventilasi samping tertutup) untuk mencegah cipratan asam/basa kuat atau fragmen pecahan kaca masuk ke kornea mata.
-3. **Sarung Tangan Nitril / Neoprene:** Memberikan ketahanan kimia yang lebih unggul dibandingkan lateks tipis terhadap pelarut organik, asam kuat, dan zat karsinogenik.
-4. **Sepatu Tertutup Penuh (*Closed-toe Shoes*):** Tidak boleh memakai sandal atau sepatu terbuka untuk melindungi kaki dari pecahan kaca dan tumpahan asam pekat.
-5. **Lemari Asam (*Fume Hood*):** Fasilitas ventilasi berpenghisap udara berkecepatan konstan ($0.5\\text{ m/s}$) yang WAJIB digunakan ketika mereaksikan zat yang melepaskan uap beracun atau gas berbahaya seperti $\\ce{Cl2}$, $\\ce{Br2}$, $\\ce{NO2}$, $\\ce{H2S}$, $\\ce{SO2}$, dan $\\ce{NH3}$.
+PBB menetapkan simbol belah ketupat bertepi merah dengan piktogram hitam di atas latar putih untuk menandai bahaya bahan kimia:
 
----
-
-### 2. Sembilan Piktogram Bahaya Global GHS (*Globally Harmonized System*)
-PBB telah menetapkan sistem piktogram internasional berupa simbol belah ketupat bertepi merah dengan latar belakang putih:
-
-| Simbol Bahaya GHS | Deskripsi Bahaya Kimia | Contoh Bahan Kimia di Lab SMA | Tindakan Pengamanan Khusus |
+| Simbol Bahaya GHS | Karakteristik Bahaya Kimia | Contoh Bahan di Lab SMA | Tindakan Pengamanan Wajib |
 | :--- | :--- | :--- | :--- |
-| **Mudah Terbakar (*Flammable*)** | Bahan dengan titik nyala (*flash point*) rendah yang mudah terbakar jika terkena percikan api atau panas. | Etanol, aseton, dietil eter, benzena, logam $\\ce{Na}$, hidrogen. | Jauhkan dari sumber api terbuka Bunsen; simpan dalam lemari penyimpanan tahan api (*flammable cabinet*). |
-| **Pengoksidasi (*Oxidizing*)** | Zat yang melepaskan oksigen secara cepat sehingga memicu atau memperhebat pembakaran bahan lain. | Kalium permanganat ($\\ce{KMnO4}$), hidrogen peroksida pekat ($\\ce{H2O2}$), asam nitrat ($\\ce{HNO3}$). | Jangan dicampur dengan bahan organik yang mudah terbakar seperti alkohol atau gliserol. |
-| **Korosif (*Corrosive*)** | Zat yang merusak jaringan hidup manusia (luka bakar kimia permanen) dan mengikis logam. | Asam sulfat ($\\ce{H2SO4}$), asam klorida ($\\ce{HCl}$), natrium hidroksida ($\\ce{NaOH}$), bromin cair ($\\ce{Br2}$). | Gunakan sarung tangan tebal dan pelindung wajah; selalu tambahkan asam ke dalam air saat pengenceran. |
-| **Toksik Akut (*Toxic*)** | Zat mematikan bahkan dalam paparan dosis sangat kecil melalui inhalasi, pencernaan, atau serapan kulit. | Kalium sianida ($\\ce{KCN}$), merkuri klorida ($\\ce{HgCl2}$), arsenik trioksida ($\\ce{As2O3}$), gas $\\ce{H2S}$. | Wajib dikerjakan di lemari asam dengan pengawasan guru; wadah berlabel racun terkunci. |
-| **Bahaya Kesehatan Kronis (*Health Hazard*)** | Menyebabkan kerusakan organ bertahap, bersifat karsinogenik (pemicu kanker), mutagenik, atau teratogenik. | Benzena, formaldehida (formalin), kloroform, asbes, garam timbal ($\\ce{Pb}$). | Hindari kontak kulit dan hirupan uap secara total; gunakan respirator berfilter karbon aktif. |
-| **Iritan / Berbahaya (*Exclamation Mark*)** | Menyebabkan iritasi pada mata, kulit, dan saluran pernapasan; efek narkotik atau alergi. | Larutan amonia encer, kalsium klorida, tembaga sulfat encer, etil asetat. | Hindari kontak langsung; cuci tangan bersih dengan sabun setelah praktikum selesai. |
-| **Mudah Meledak (*Explosive*)** | Zat yang peka terhadap benturan, gesekan, panas, atau reaksi swa-dekomposisi mendadak. | Amonium nitrat ($\\ce{NH4NO3}$), asam pikrat kering, peroksida organik. | Hindari gesekan, benturan keras, dan panas berlebih; simpan dalam wadah lembap. |
-| **Gas Bertekanan (*Gas Cylinder*)** | Gas yang disimpan dalam tabung silinder bertekanan tinggi ($> 200\\text{ bar}$) yang rentan meledak jika terbentur. | Silinder gas $\\ce{N2}$, $\\ce{O2}$, $\\ce{Ar}$, $\\ce{CO2}$, tabung gas asetilena. | Tabung silinder wajib dirantai tegak ke dinding agar tidak roboh; gunakan regulator bertekanan ganda. |
-| **Pencemar Lingkungan (*Environmental Hazard*)** | Zat yang merusak ekosistem akuatik dan membunuh biota laut secara persisten. | Garam raksa, senyawa timbal, pestisida organoklorin, detergen fosfat keras. | Dilarang keras membuang langsung ke wastafel air; wajib ditampung dalam botol limbah B3 khusus. |
+| **Mudah Terbakar (*Flammable*)** | Titik nyala (*flash point*) rendah; mudah tersulut percikan api. | Etanol, aseton, dietil eter, logam $\\ce{Na}$. | Jauhkan dari api terbuka Bunsen; simpan di lemari tahan api. |
+| **Pengoksidasi (*Oxidizing*)** | Melepaskan oksigen cepat, memicu pembakaran dahsyat. | $\\ce{KMnO4}$, $\\ce{H2O2}$ pekat, $\\ce{HNO3}$ pekat. | Jangan disimpan bercampur dengan zat organik mudah terbakar. |
+| **Korosif (*Corrosive*)** | Menghancurkan jaringan biologis kulit dan mengikis logam. | $\\ce{H2SO4}$, $\\ce{HCl}$ pekat, $\\ce{NaOH}$, $\\ce{Br2}$ cair. | Gunakan kacamata *goggles* rapat, sarung tangan nitril tebal. |
+| **Toksik Akut (*Toxic*)** | Mematikan dalam dosis sangat kecil melalui inhalasi atau serapan. | $\\ce{KCN}$, $\\ce{HgCl2}$, $\\ce{As2O3}$, gas $\\ce{H2S}$. | Kerjakan hanya di dalam lemari asam; simpan di lemari racun terkunci. |
+| **Bahaya Kesehatan (*Health Hazard*)** | Karsinogenik (pemicu kanker), mutagenik, atau toksik pada organ. | Benzena, formaldehida (formalin), kloroform, garam $\\ce{Pb}$. | Hindari kontak kulit total; gunakan masker respirator uap organik. |
+| **Iritan / Bahaya Rendah (*Harmful*)** | Menyebabkan iritasi selaput lendir mata, kulit, dan pernapasan. | Amonia encer, kalsium klorida, tembaga sulfat encer. | Bilas tangan dengan air mengalir dan sabun seusai praktikum. |
+| **Mudah Meledak (*Explosive*)** | Sensitif terhadap benturan, gesekan, panas, atau swa-dekomposisi. | $\\ce{NH4NO3}$, asam pikrat kering, peroksida organik. | Hindari panas dan gesekan logam; simpan dalam wadah lembap. |
+| **Gas Bertekanan (*Gas Cylinder*)** | Tabung bertekanan tinggi ($> 200\\text{ bar}$) yang rentan meledak jika jatuh. | Silinder gas $\\ce{N2}$, $\\ce{O2}$, $\\ce{Ar}$, $\\ce{CO2}$. | Silinder wajib dirantai tegak ke dinding; pasang regulator ganda. |
+| **Pencemar Lingkungan (*Aquatic*)** | Sangat beracun bagi ekosistem perairan secara persisten. | Garam raksa, senyawa timbal, pestisida organoklorin. | **Dilarang membuang ke wastafel!** Tampung di jeriken limbah B3. |
 
 ---
 
-### 3. Struktur Lembar Data Keselamatan (*Safety Data Sheet / SDS*)
-Sebelum membuka kemasan bahan kimia baru, praktikan wajib membaca dokumen SDS yang terdiri atas **16 Bagian Standar OSHA/GHS**:
-1. *Identifikasi Bahan dan Produsen*
-2. *Identifikasi Bahaya (Piktogram, Pernyataan Bahaya H-Statement, Pernyataan Kehati-hatian P-Statement)*
-3. *Komposisi dan Informasi Bahan Penyusun*
-4. *Tindakan Pertolongan Pertama pada Kecelakaan (P3K)*
-5. *Tindakan Pemadaman Kebakaran (APAR jenis busa, serbuk $\\ce{CO2}$, atau air)*
-6. *Tindakan Penanggulangan Tumpahan dan Kebocoran*
-7. *Penyimpanan dan Penanganan yang Aman*
-8. *Pengendalian Paparan dan Alat Pelindung Diri (Nilai Ambang Batas / TLV)*
-9. *Sifat Fisika dan Kimia (Titik didih, titik leleh, pH, densitas, kelarutan)*
-10. *Stabilitas dan Reaktivitas (Inkompatibilitas dengan zat lain)*
-11. *Informasi Toksikologi ($LD_{50}$ dan $LC_{50}$)*
-12. *Informasi Ekologi dan Dampak Lingkungan*
-13. *Pertimbangan Pembuangan Limbah Kimia*
-14. *Informasi Transportasi Bahan Berbahaya (Kode UN)*
-15. *Informasi Peraturan Perundang-undangan*
-16. *Informasi Lain (Tanggal revisi dokumen)*
+### 2. Kaidah Emas Pengenceran Asam Pekat (The Golden AAA Rule)
+
+> [!DANGER]
+> ### 🚨 INGAT KAIDAH EMAS: "AAA = ALWAYS ADD ACID TO WATER!"
+> **SELALU TUANGKAN ASAM SULFAT PEKAT PERLAHAN KE DALAM AIR SAMBIL DIADUK.**  
+> **JANGAN PERNAH MENUANGKAN AIR KE DALAM ASAM SULFAT PEKAT!**  
+> *Mengapa?* Pelarutan asam sulfat pekat dalam air melepaskan kalor hidrasi yang **luar biasa dahsyat**:
+> $$\\ce{H2SO4(l) + H2O(l) -> H3O+(aq) + HSO4-(aq)} \\quad \\Delta H_{\\text{hidrasi}} \\approx -880\\text{ kJ/mol}$$
+> Jika air dituangkan ke dalam asam pekat: tetesan air yang sedikit itu akan langsung mencapai titik didih ($> 100^\\circ\\text{C}$) dalam sekejap karena densitas asam sulfat ($\\rho = 1.84\\text{ g/mL}$) jauh lebih berat, menyebabkan **letupan semburan asam mendidih (*violent acid boil-over splash*)** yang dapat membakar wajah dan mata Anda!
 
 ---
 
-### 4. Prosedur Tanggap Darurat & Pertolongan Pertama (P3K)
-- **Aturan Emas Pengenceran Asam Sulfat Pekat:**  
-  > **"INGAT ATURAN AA: Asam ke Air!"**  
-  > **Selalu tuangkan asam sulfat pekat secara perlahan ke dalam air melalui dinding wadah sambil terus diaduk.**  
-  > **JANGAN PERNAH MENUANG AIR KE DALAM ASAM SULFAT PEKAT!**  
-  > Pelarutan asam sulfat dalam air adalah proses hidrasi yang **sangat eksotermik dahsyat** ($\\Delta H_{\\text{hidrasi}} = -880\\text{ kJ/mol}$). Jika air dituangkan ke dalam asam sulfat pekat, volume air yang sedikit tersebut akan langsung mendidih seketika dan memercikkan asam pekat korosif ke wajah dan tubuh praktikan!
-- **Kontak Asam atau Basa Pekat pada Kulit:**  
-  Segera guyur bagian tubuh yang terkena dengan air mengalir deras dari kran darurat (*Emergency Shower*) selama **minimal 15 menit terus-menerus**. Jangan mengoleskan salep berminyak sebelum dibilas tuntas.
-- **Kontak Bahan Kimia pada Mata:**  
-  Segera gunakan *Eye Wash Station*, buka kelopak mata lebar-lebar dengan jemari, dan bilas kornea mata dengan air mengalir selama minimal 15–20 menit sambil meminta pertolongan medis dokter.
-- **Penanganan Tumpahan Bahan di Meja Lab:**  
-  - Tumpahan asam: Taburi serbuk natrium bikarbonat ($\\ce{NaHCO3}$) hingga buih gelembung $\\ce{CO2}$ berhenti, lalu serap dengan kain lap basah.
-  - Tumpahan basa kuat: Netralkan dengan asam asetat encer ($1\\%$) atau asam sitrat, lalu bilas dengan air.`,
+### 3. Protokol Tanggap Darurat & Pertolongan Pertama (P3K) Lab
+
+1. **Percikan Asam/Basa Kuat pada Kulit:** Segera guyur dengan air mengalir deras dari pancuran darurat (*Emergency Shower*) selama **minimal 15 menit terus-menerus**. Jangan mengoleskan salep sebelum dibilas tuntas!
+2. **Bahan Kimia Mengenai Mata:** Buka kelopak mata lebar-lebar dengan jemari dan bilas kornea di *Eye Wash Station* selama minimal 15–20 menit sambil meminta bantuan medis darurat.
+3. **Tumpahan Asam Kuat di Meja Praktikum:** Netralkan dengan menaburkan serbuk natrium bikarbonat ($\\ce{NaHCO3}$) hingga buih $\\ce{CO2}$ berhenti total, baru kemudian diseka dengan kain lap basah.
+4. **Tumpahan Basa Kuat di Meja:** Netralkan dengan larutan asam asetat encer ($1\\%$) atau asam sitrat encer, lalu bilas air bersih.
+
+> [!CAUTION]
+> ### 🛑 Hierarki Pengendalian Bahaya Kimiawi (Hierarchy of Controls)
+> Penggunaan APD (seperti jas lab dan sarung tangan) adalah **garis pertahanan paling terakhir**, bukan solusi utama! Urutan perlindungan yang benar adalah:
+> 1. **Eliminasi:** Meniadakan zat berbahaya jika tidak mutlak diperlukan.
+> 2. **Substitusi:** Mengganti zat beracun dengan zat yang lebih aman (misal mengganti benzena dengan toluena).
+> 3. **Rekayasa Teknis (*Engineering Controls*):** Menggunakan lemari asam (*fume hood*) bersirkulasi hisap.
+> 4. **Pengendalian Administratif:** SOP keselamatan kerja, label SDS, dan pelatihan praktikan.
+> 5. **Alat Pelindung Diri (APD):** Kacamata *goggles*, sarung tangan nitril, jas lab katun 100%, sepatu tertutup.`,
         keyFormulas: [
-          { name: 'Reaksi Netralisasi Asam Tumpahan dengan Soda Kue', formula: '\\ce{H2SO4(aq) + 2 NaHCO3(s) -> Na2SO4(aq) + 2 CO2(g)^ + 2 H2O(l)}' },
+          { name: 'Reaksi Netralisasi Tumpahan Asam dengan Soda Kue', formula: '\\ce{H2SO4(aq) + 2 NaHCO3(s) -> Na2SO4(aq) + 2 CO2(g)^ + 2 H2O(l)}' },
           { name: 'Entalpi Hidrasi Asam Sulfat Pekat', formula: '\\Delta H_{\\text{hidrasi}} \\approx -880\\text{ kJ/mol} \\quad (\\text{Sangat Eksotermik!})' },
         ],
       },
       {
         tag: 'kimia-hijau-dan-ekonomi-atom',
-        tags: ['kimia-hijau', '12-prinsip-green-chemistry', 'ekonomi-atom', 'faktor-lingkungan-e-factor'],
-        title: 'Konsep Inti 4: Prinsip Kimia Hijau (Green Chemistry) & Perhitungan Ekonomi Atom dalam Desain Berkelanjutan',
-        summary: 'Filosofi 12 prinsip kimia hijau (Anastas & Warner), perancangan proses industri ramah lingkungan, distingsi persen rendemen vs persen ekonomi atom, serta metrik faktor dampak lingkungan (E-Factor).',
-        content: `Sepanjang abad ke-20, industri kimia konvensional kerap dipandang sebagai sumber pencemaran biosfer karena mengandalkan pendekatan *end-of-pipe treatment* (mengolah limbah beracun setelah limbah tersebut terbentuk di cerobong atau saluran pembuangan). Pada tahun 1998, Paul Anastas dan John Warner memformulasikan paradigma revolusioner: **Kimia Hijau (*Green Chemistry*)**, yaitu perancangan produk dan proses kimia yang berupaya meniadakan atau meminimalkan penggunaan serta pembentukan zat-zat berbahaya sejak tahap desain molekuler.
+        tags: ['kimia-hijau', '12-prinsip-green-chemistry', 'ekonomi-atom', 'faktor-lingkungan-e-factor', 'sintesis-berkelanjutan'],
+        title: 'Konsep Inti 4: Prinsip Kimia Hijau (Green Chemistry) & Kuantifikasi Ekonomi Atom',
+        summary: 'Paradigma 12 prinsip kimia hijau (Anastas & Warner), perbedaan fundamental antara persen rendemen laboratorium vs persen ekonomi atom intrinsik, serta metrik kalkulasi E-Factor.',
+        content: `### 🥭 Analogi Mengupas Buah Mangga: Rendemen vs Ekonomi Atom (Mental Model)
 
-### 1. Dua Belas Prinsip Kimia Hijau (*The 12 Principles of Green Chemistry*)
+Bayangkan Anda membeli $1000\\text{ gram}$ buah mangga di pasar untuk membuat jus mangga.
+- **Persen Rendemen (*Yield*):** Jika resep menargetkan Anda memeras semua daging buah yang tersedia tanpa tumpah sedikit pun, dan Anda berhasil mendapatkan $100\\%$ daging buah ke dalam blender, maka rendemen kerja Anda adalah **$100\\%$**.
+- **Ekonomi Atom (*Atom Economy*):** Namun setelah dihitung, berat kulit mangga dan biji keras yang harus dibuang ke tempat sampah mencapai $450\\text{ gram}$. Artinya, dari $1000\\text{ gram}$ bahan mentah yang Anda beli, hanya $550\\text{ gram}$ yang benar-benar menjadi makanan! Efisiensi atom buah mangga Anda sebenarnya hanya **$55\\%$**.
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" class="max-w-[760px] select-none font-sans">
+Dalam industri kimia konvensional abad ke-20, pabrik sering membanggakan rendemen reaksi $95\\%$, padahal limbah samping garam buangan yang dihasilkan mencapai ribuan ton karena desain reaksi kimianya memiliki ekonomi atom yang sangat buruk!
+
+---
+
+### Dua Belas Prinsip Kimia Hijau (*Anastas & Warner, 1998*):
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" class="max-w-[760px] my-6 select-none font-sans">
   <defs>
     <filter id="gcShadow" x="-5%" y="-5%" width="110%" height="110%">
       <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#064e3b" flood-opacity="0.06"/>
@@ -913,41 +934,19 @@ Sebelum membuka kemasan bahan kimia baru, praktikan wajib membaca dokumen SDS ya
   </g>
 </svg>
 
-1. **Pencegahan Limbah (*Waste Prevention*):** Jauh lebih baik dan hemat mencegah terbentuknya limbah daripada membersihkan, mengolah, dan menimbun limbah setelah terbentuk.
-2. **Ekonomi Atom (*Atom Economy*):** Rute sintesis kimia harus dirancang sedemikian rupa sehingga memaksimalkan penggabungan semua atom bahan baku reaktan ke dalam produk akhir yang diinginkan.
-3. **Sintesis Kimia Kurang Berbahaya (*Less Hazardous Chemical Syntheses*):** Sedapat mungkin menggunakan dan menghasilkan zat dengan sedikit atau tanpa toksisitas bagi kesehatan manusia dan kelestarian biosfer.
-4. **Perancangan Bahan Kimia Lebih Aman (*Designing Safer Chemicals*):** Produk kimia harus mempertahankan efikasi fungsinya secara maksimal sekaligus meminimalkan bahaya toksisitas intrinsiknya.
-5. **Pelarut dan Bahan Pembantu Lebih Aman (*Safer Solvents and Auxiliaries*):** Menghindari penggunaan pelarut organik volatil beracun (seperti benzena, kloroform, dan heksana). Mengutamakan air, cairan ionik (*ionic liquids*), atau karbon dioksida superkritis ($\\ce{scCO2}$).
-6. **Desain untuk Efisiensi Energi (*Design for Energy Efficiency*):** Kebutuhan energi proses harus diminimalkan; reaksi diupayakan berlangsung pada suhu dan tekanan kamar ($25^\\circ\\text{C}, 1\\text{ atm}$) atau dibantu radiasi gelombang mikro (*microwave heating*) dan fotokatalisis.
-7. **Penggunaan Bahan Baku Terbarukan (*Use of Renewable Feedstocks*):** Bahan mentah industri kimia diprioritaskan berasal dari produk agrikultur terbarukan (biomassa, selulosa, pati, minyak kelapa sawit) daripada hidrokarbon minyak bumi yang tak terbarukan.
-8. **Pengurangan Derivatisasi (*Reduce Derivatives*):** Meminimalkan tahapan proteksi, deproteksi, atau modifikasi sementara yang tidak esensial karena tahapan tambahan ini menghabiskan reagen tambahan dan menghasilkan limbah samping.
-9. **Katalisis (*Catalysis*):** Penggunaan katalis selektif berefisiensi tinggi jauh lebih unggul daripada reagen stoikiometris, karena katalis dapat memicu reaksi dengan energi aktivasi rendah berulang kali tanpa ikut terkonsumsi.
-10. **Desain untuk Degradasi (*Design for Degradation*):** Produk kimia yang dilepas ke konsumen harus dirancang agar setelah masa pakainya habis dapat terurai secara alami oleh mikroorganisme tanah menjadi senyawa nontoksik (contoh: bioplastik *polylactic acid* / PLA dari jagung yang menggantikan plastik poliolefin non-biodegradable).
-11. **Analisis Real-Time untuk Pencegahan Polusi (*Real-time Analysis for Pollution Prevention*):** Mengembangkan metodologi analitis sensor waktu-nyata untuk memonitor jalannya reaksi secara kontinu sebelum zat berbahaya terbentuk.
-12. **Kimia Inheren Aman untuk Mencegah Kecelakaan (*Inherently Safer Chemistry for Accident Prevention*):** Memilih wujud fisik zat kimia yang meminimalkan risiko kecelakaan kerja seperti kebakaran, ledakan, dan pelepasan gas beracun.
-
 ---
 
-### 2. Kuantifikasi Efisiensi Kimia Hijau: Ekonomi Atom & E-Factor
+### Kuantifikasi Efisiensi Kimia Hijau: Metrik AE &amp; E-Factor
 
-#### A. Persentase Ekonomi Atom (% AE)
-Ditemukan oleh Barry Trost (1991), metrik ini mengukur seberapa efisien atom-atom reaktan bertransformasi menjadi produk target yang diinginkan:
-$$\\% \\text{Ekonomi Atom (AE)} = \\frac{\\text{Massa Molar Produk Target}}{\\sum \\text{Massa Molar Semua Reaktan}} \\times 100\\%$$
+1. **Persentase Ekonomi Atom (% AE):**
+   $$\\% \\text{AE} = \\frac{M_r(\\text{Produk Target Diinginkan})}{\\sum M_r(\\text{Semua Reaktan dalam Persamaan Reaksi})} \\times 100\\%$$
+2. **Faktor Dampak Lingkungan (*E-Factor*):**
+   $$E\\text{-Factor} = \\frac{\\text{Massa Total Limbah Bersih (kg)}}{\\text{Massa Produk Akhir Murni (kg)}}$$
 
-- **Reaksi Adisi Langsung:** Memiliki $\\% \\text{AE} = 100\\%$ karena semua atom reaktan bergabung menjadi satu molekul produk target tanpa menghasilkan produk samping apapun (contoh: hidrogenasi alkena $\\ce{CH2=CH2 + H2 -> CH3-CH3}$).
-- **Reaksi Substitusi & Eliminasi:** Umumnya memiliki $\\% \\text{AE} < 100\\%$ karena selalu menghasilkan produk samping garam atau molekul buangan (misal $\\ce{NaCl}$, $\\ce{H2O}$, $\\ce{NaBr}$).
-
-#### B. Perbedaan Fundamental antara Persen Rendemen (*Yield*) dan Persen Ekonomi Atom (*Atom Economy*)
-- **Persen Rendemen (*Percentage Yield*):**
-  $$\\% \\text{Rendemen} = \\frac{\\text{Massa Nyata Produk yang Diperoleh di Lab}}{\\text{Massa Teoretis Stoikiometri}} \\times 100\\%$$
-  *Mengukur efisiensi praktis dari keterampilan praktikan atau kondisi percobaan di laboratorium.* Suatu reaksi bisa memiliki rendemen $100\\%$, tetapi prosesnya sangat kotor mencemari lingkungan jika ekonomi atomnya hanya $20\\%$.
-- **Persen Ekonomi Atom (*Atom Economy*):**
-  *Mengukur efisiensi intrinsik dari desain persamaan reaksi kimia di atas kertas secara teoretis.*
-
-#### C. Faktor Dampak Lingkungan (*Environmental Factor / E-Factor*)
-Diciptakan oleh Roger Sheldon, metrik ini menghitung rasio bobot limbah aktual yang dihasilkan per kilogram produk murni yang diperoleh:
-$$E\\text{-Factor} = \\frac{\\text{Massa Total Limbah (kg)}}{\\text{Massa Produk Akhir yang Diinginkan (kg)}}$$
-Industri petrokimia hulu memiliki $E\\text{-Factor} < 0.1$, sedangkan industri farmasi obat sintetis memiliki $E\\text{-Factor} = 25 - 100$, yang menunjukkan bahwa pembuatan obat murni menghasilkan limbah samping puluhan kali lipat dari berat obat yang dihasilkan!`,
+> [!NOTE]
+> ### 📌 Mengapa Reaksi Adisi Selalu Menjadi Primadona Kimia Hijau?
+> - **Reaksi Adisi Langsung:** Menggabungkan seluruh molekul reaktan menjadi satu molekul produk target tanpa produk samping, sehingga **selalu memiliki $\\% \\text{AE} = 100\\%$** (misal: $\\ce{CH2=CH2 + H2O -> CH3CH2OH}$).
+> - **Reaksi Substitusi &amp; Eliminasi:** Selalu menghasilkan produk samping buangan (seperti $\\ce{NaCl}$, $\\ce{H2O}$, $\\ce{NaBr}$), sehingga **selalu memiliki $\\% \\text{AE} < 100\\%$**.`,
         keyFormulas: [
           { name: 'Persentase Ekonomi Atom (Atom Economy)', formula: '\\% \\text{AE} = \\frac{M_r(\\text{Produk Target})}{\\sum M_r(\\text{Semua Reaktan})} \\times 100\\%' },
           { name: 'Persentase Rendemen Hasil Reaksi', formula: '\\% \\text{Rendemen} = \\frac{\\text{Massa Nyata}}{\\text{Massa Teoretis}} \\times 100\\%' },
@@ -958,54 +957,59 @@ Industri petrokimia hulu memiliki $E\\text{-Factor} < 0.1$, sedangkan industri f
     worked_examples: [
       {
         tag: 'soal-desain-eksperimen-h2o2',
-        tags: ['soal-variabel-eksperimen', 'desain-eksperimen', 'tahapan-metode-ilmiah'],
-        title: 'Contoh Soal 1: Desain Eksperimen & Analisis Variabel pada Penguraian Hidrogen Peroksida',
-        summary: 'Analisis variabel bebas, terikat, dan kontrol serta perumusan hipotesis operasional pada reaksi dekomposisi katalitik hidrogen peroksida.',
-        content: `**Konteks Eksperimen:**  
-Sekelompok siswa kelas X melakukan investigasi ilmiah untuk mempelajari faktor-faktor yang memengaruhi laju reaksi penguraian larutan hidrogen peroksida ($\\ce{H2O2}$) menjadi air dan gas oksigen menurut persamaan reaksi:
+        tags: ['soal-variabel-eksperimen', 'desain-eksperimen', 'tahapan-metode-ilmiah', 'kontrol-positif-negatif'],
+        title: 'Contoh Soal 1: Desain Eksperimen Uji Adil & Pengendalian Variabel Dekomposisi H₂O₂',
+        summary: 'Metodologi perancangan uji adil (fair test), identifikasi variabel bebas/terikat/kontrol, perumusan hipotesis operasional, serta fungsi kontrol negatif pada dekomposisi hidrogen peroksida.',
+        content: `### 📋 Data Eksperimen Diketahui:
+Sekelompok siswa kelas X melakukan investigasi ilmiah untuk menguji faktor-faktor yang memengaruhi laju penguraian hidrogen peroksida:
 $$\\ce{2 H2O2(aq) -> 2 H2O(l) + O2(g)^}$$
-Reaksi berlangsung lambat pada suhu kamar, namun lajunya melonjak drastis dengan penambahan katalis larutan besi(III) klorida ($\\ce{FeCl3}$). Siswa merancang empat rangkaian percobaan dengan data sebagai berikut:
+Dengan penambahan katalis besi(III) klorida ($\\ce{FeCl3}$), diperoleh data kuantitatif:
 
-| Tabung Uji | Volume $\\ce{H2O2}$ $3\\%$ | Suhu Larutan | Konsentrasi Katalis $\\ce{FeCl3}$ | Volume Gas $\\ce{O2}$ dalam 60 Detik |
+| Tabung Uji | Volume $\\ce{H2O2}$ $3\\%$ | Suhu Larutan | Konsentrasi Katalis $\\ce{FeCl3}$ | Volume Gas $\\ce{O2}$ (60 detik) |
 | :---: | :---: | :---: | :---: | :---: |
 | **Tabung 1** | $20.0\\text{ mL}$ | $25^\\circ\\text{C}$ | $0.0\\text{ M}$ (tanpa katalis) | $0.5\\text{ mL}$ |
 | **Tabung 2** | $20.0\\text{ mL}$ | $25^\\circ\\text{C}$ | $0.1\\text{ M}$ ($2.0\\text{ mL}$) | $18.4\\text{ mL}$ |
 | **Tabung 3** | $20.0\\text{ mL}$ | $25^\\circ\\text{C}$ | $0.2\\text{ M}$ ($2.0\\text{ mL}$) | $36.2\\text{ mL}$ |
 | **Tabung 4** | $20.0\\text{ mL}$ | $45^\\circ\\text{C}$ | $0.1\\text{ M}$ ($2.0\\text{ mL}$) | $42.8\\text{ mL}$ |
 
-**Pertanyaan Analitis:**
-1. Pada pembandingan antara **Tabung 1, Tabung 2, dan Tabung 3**, tentukan:
-   - Variabel Bebas (Manipulasi)
-   - Variabel Terikat (Respons)
-   - Tiga Variabel Kontrol yang dijaga konstan!
-2. Apakah fungsi spesifik dari **Tabung 1** dalam desain eksperimen ilmiah tersebut?
-3. Rumuskan hipotesis alternatif ($H_1$) yang diuji melalui pembandingan Tabung 2 dan Tabung 4!
-4. Berdasarkan data tabel, buatlah kesimpulan ilmiah mengenai pengaruh konsentrasi katalis terhadap laju dekomposisi hidrogen peroksida!
+---
+
+### 🎯 Pertanyaan Analitis & Rencana Strategi:
+1. Pada pembandingan **Tabung 1, 2, dan 3**, identifikasi variabel bebas, variabel terikat, dan 3 variabel kontrol!
+2. Apakah fungsi esensial dari **Tabung 1** dalam metode ilmiah?
+3. Rumuskan hipotesis alternatif ($H_1$) untuk pembandingan **Tabung 2 vs Tabung 4**!
+4. Buatlah kesimpulan ilmiah matematis berdasarkan perbandingan data konsentrasi katalis terhadap laju reaksi!
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### ⚡ Eksekusi Langkah demi Langkah:
 
-#### 1. Identifikasi Variabel pada Tabung 1, 2, dan 3:
-- **Variabel Bebas:** Konsentrasi katalis $\\ce{FeCl3}$ ($0.0\\text{ M}$, $0.1\\text{ M}$, dan $0.2\\text{ M}$). Parameter ini adalah satu-satunya faktor yang sengaja dibuat bervariasi oleh siswa.
-- **Variabel Terikat:** Volume gas $\\ce{O2}$ yang terbentuk dalam 60 detik (dalam $\\text{mL}$), yang merepresentasikan laju penguraian hidrogen peroksida.
-- **Variabel Kontrol:** 
-  1. Suhu sistem (dijaga konstan pada $25^\\circ\\text{C}$).
-  2. Volume dan konsentrasi larutan $\\ce{H2O2}$ awal ($20.0\\text{ mL}$ larutan $3\\%\\text{ w/v}$).
-  3. Volume larutan katalis yang ditambahkan (tetap $2.0\\text{ mL}$).
-  4. Durasi waktu pengamatan (tepat 60 detik).
+#### 1. Identifikasi Triad Variabel (Tabung 1, 2, 3):
+- **Variabel Bebas (Manipulasi):** Konsentrasi larutan katalis $\\ce{FeCl3}$ ($0.0\\text{ M}$, $0.1\\text{ M}$, $0.2\\text{ M}$).
+- **Variabel Terikat (Respons):** Laju pembentukan gas oksigen, diukur dari volume gas $\\ce{O2}$ yang tertampung dalam 60 detik ($\\text{mL}$).
+- **Variabel Kontrol:**
+  1. Suhu sistem percobaan (dijaga konstan pada $25^\\circ\\text{C}$).
+  2. Volume dan kadar awal $\\ce{H2O2}$ ($20.0\\text{ mL}$ larutan $3\\%$).
+  3. Volume larutan katalis yang ditambahkan ($2.0\\text{ mL}$).
+  4. Durasi interval pengamatan (tepat 60 detik).
 
-#### 2. Fungsi Tabung 1:
-Tabung 1 berfungsi sebagai **Kelompok Kontrol (*Negative Control Group*)**. Tujuannya adalah membuktikan bahwa penguraian spontan $\\ce{H2O2}$ tanpa katalis menghasilkan gas $\\ce{O2}$ yang sangat sedikit ($0.5\\text{ mL}$), sehingga terbukti sahih bahwa lonjakan produksi gas $\\ce{O2}$ pada Tabung 2 dan 3 murni disebabkan oleh keberadaan katalis $\\ce{FeCl3}$, bukan oleh dekomposisi termal alami.
+#### 2. Fungsi Khusus Tabung 1:
+Tabung 1 berfungsi sebagai **Kelompok Kontrol Negatif (*Negative Control*)**. Tabung ini membuktikan bahwa tanpa kehadiran katalis, laju penguraian hidrogen peroksida pada suhu kamar berlangsung amat lambat ($0.5\\text{ mL/menit}$). Dengan demikian, terbukti sahih bahwa lonjakan produksi gas $\\ce{O2}$ pada Tabung 2 dan 3 murni dihasilkan oleh aksi katalisis $\\ce{FeCl3}$, bukan oleh dekomposisi termal latar belakang.
 
-#### 3. Rumusan Hipotesis Alternatif ($H_1$) untuk Tabung 2 vs Tabung 4:
-Pada Tabung 2 dan 4, konsentrasi katalis dibuat sama ($0.1\\text{ M}$), namun suhunya dinaikkan dari $25^\\circ\\text{C}$ ke $45^\\circ\\text{C}$.
-> **Rumusan Hipotesis $H_1$:** *"Peningkatan suhu sistem dari $25^\\circ\\text{C}$ menjadi $45^\\circ\\text{C}$ akan meningkatkan energi kinetik molekul pereaksi, sehingga meningkatkan frekuensi tumbukan efektif dan mempercepat laju penguraian hidrogen peroksida, ditandai dengan volume gas $\\ce{O2}$ yang terbentuk lebih banyak dalam interval waktu 60 detik."*
+#### 3. Rumusan Hipotesis Alternatif ($H_1$) Tabung 2 vs 4:
+Pada Tabung 2 dan 4, konsentrasi katalis dijaga identik ($0.1\\text{ M}$), namun suhunya dinaikkan dari $25^\\circ\\text{C}$ menjadi $45^\\circ\\text{C}$.
+> *"Peningkatan suhu reaksi dari $25^\\circ\\text{C}$ ke $45^\\circ\\text{C}$ meningkatkan fraksi molekul yang memiliki energi kinetik melampaui energi aktivasi ($E > E_a$), sehingga meningkatkan frekuensi tumbukan efektif dan mempercepat laju dekomposisi $\\ce{H2O2}$, dibuktikan dengan volume gas $\\ce{O2}$ yang terbentuk lebih banyak dalam interval waktu 60 detik."*
 
-#### 4. Kesimpulan Ilmiah:
-Dari perbandingan Tabung 1 ($0.5\\text{ mL}$), Tabung 2 ($18.4\\text{ mL}$), dan Tabung 3 ($36.2\\text{ mL}$), terbukti bahwa **peningkatan konsentrasi katalis $\\ce{FeCl3}$ berbanding lurus secara linier dengan laju dekomposisi $\\ce{H2O2}$**. Menggandakan konsentrasi katalis dari $0.1\\text{ M}$ menjadi $0.2\\text{ M}$ menggandakan volume oksigen yang terproduksi dari $18.4\\text{ mL}$ menjadi $36.2\\text{ mL}$ per menit.
+#### 4. Kesimpulan Matematis:
+Perbandingan volume $\\ce{O2}$ pada Tabung 2 ($18.4\\text{ mL}$) dan Tabung 3 ($36.2\\text{ mL}$) menunjukkan rasio:
+$$\\frac{36.2\\text{ mL}}{18.4\\text{ mL}} \\approx 1.97 \\approx 2$$
+Menggandakan konsentrasi katalis dari $0.1\\text{ M}$ ke $0.2\\text{ M}$ melipatgandakan laju pembentukan gas $\\ce{O2}$ tepat dua kali lipat. Laju dekomposisi $\\ce{H2O2}$ berbanding lurus secara linier dengan konsentrasi katalis $\\ce{FeCl3}$ (Orde 1 terhadap katalis).
 
-> **Pro-Tip Ujian:** Jangan pernah menyimpulkan *"katalis terpakai habis dalam reaksi"*. Katalis hanya menurunkan energi aktivasi ($E_a$) dengan menyediakan jalur reaksi alternatif dan akan teregenerasi utuh di akhir siklus reaksi.`,
+---
+
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Jangan pernah menjawab *"katalis ikut bereaksi dan habis menjadi produk"*. Dalam sains kimia, katalis menurunkan energi aktivasi ($E_a$) dengan menyediakan tahapan mekanisme alternatif, dan di akhir siklus reaksi katalis **akan teregenerasi utuh kembali** dengan massa dan komposisi kimia yang tidak berkurang.`,
         keyFormulas: [
           { name: 'Laju Pembentukan Gas Oksigen', formula: 'r_{\\ce{O2}} = \\frac{\\Delta V_{\\ce{O2}}}{\\Delta t} \\quad (\\text{mL/detik})' },
         ],
@@ -1013,117 +1017,112 @@ Dari perbandingan Tabung 1 ($0.5\\text{ mL}$), Tabung 2 ($18.4\\text{ mL}$), dan
       {
         tag: 'soal-kuantitatif-ekonomi-atom',
         tags: ['soal-ekonomi-atom', 'kimia-hijau', '12-prinsip-green-chemistry'],
-        title: 'Contoh Soal 2: Komparasi Kuantitatif Ekonomi Atom Sintesis Kimia Hijau vs Konvensional',
+        title: 'Contoh Soal 2: Komparasi Kuantitatif Ekonomi Atom Sintesis Etilena Oksida',
         summary: 'Perhitungan matematis persentase ekonomi atom (% AE) pada produksi etilena oksida rute klorohidrin klasik vs oksidasi katalitik hijau.',
-        content: `**Konteks Masalah Industri Kimia:**  
-Etilena oksida ($\\ce{C2H4O}$, $M_r = 44.05\\text{ g/mol}$) adalah bahan baku industri vital untuk memproduksi etilena glikol (zat antibeku radiator dan monomer serat poliester PET). Terdapat dua rute industri untuk memproduksi senyawa ini:
-
-- **Rute 1: Proses Klorohidrin Klasik (Metode Konvensional Abad ke-20)**
+        content: `### 📋 Data Eksperimen Diketahui:
+Etilena oksida ($\\ce{C2H4O}$, $M_r = 44.05\\text{ g/mol}$) diproduksi di industri melalui dua rute alternatif:
+- **Rute 1 (Proses Klorohidrin Konvensional):**
   $$\\ce{C2H4 + Cl2 + Ca(OH)2 -> C2H4O + CaCl2 + H2O}$$
-- **Rute 2: Oksidasi Katalitik Langsung (Prinsip Kimia Hijau Modern)**
+- **Rute 2 (Oksidasi Hijau dengan Katalis Perak):**
   $$\\ce{C2H4 + 1/2 O2 ->[\\text{katalis } \\ce{Ag}] C2H4O}$$
 
-*(Diketahui data massa molar atom standar: $\\ce{C} = 12.01$, $\\ce{H} = 1.008$, $\\ce{O} = 16.00$, $\\ce{Cl} = 35.45$, $\\ce{Ca} = 40.08\\text{ g/mol}$)*
-
-**Tugas Perhitungan:**
-1. Hitunglah total massa molar seluruh reaktan pada Rute 1 dan Rute 2!
-2. Tentukan persentase Ekonomi Atom ($\\% \\text{AE}$) untuk masing-masing rute sintesis tersebut!
-3. Berdasarkan 12 Prinsip Kimia Hijau, jelaskan mengapa Rute 2 jauh lebih ramah lingkungan dan menguntungkan secara ekonomi!
+*(Data massa atom standar: $\\ce{C} = 12.01$, $\\ce{H} = 1.008$, $\\ce{O} = 16.00$, $\\ce{Cl} = 35.45$, $\\ce{Ca} = 40.08\\text{ g/mol}$)*
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### 🎯 Pertanyaan Analitis & Rencana Strategi:
+1. Hitung total massa molar reaktan untuk Rute 1 dan Rute 2!
+2. Hitung persentase Ekonomi Atom ($\\% \\text{AE}$) masing-masing rute!
+3. Evaluasi kedua rute berdasarkan 12 Prinsip Kimia Hijau!
 
-#### 1. Perhitungan Massa Molar Reaktan:
+---
+
+### ⚡ Eksekusi Langkah demi Langkah:
+
+#### 1. Perhitungan Massa Molar Reaktan ($\\sum M_r$ Reaktan):
 - **Untuk Rute 1:**
   $$\\begin{aligned}
-  M_r(\\ce{C2H4}) &= (2 \\times 12.01) + (4 \\times 1.008) = 28.05\\text{ g/mol} \\\\
-  M_r(\\ce{Cl2}) &= 2 \\times 35.45 = 70.90\\text{ g/mol} \\\\
-  M_r(\\ce{Ca(OH)2}) &= 40.08 + 2 \\times (16.00 + 1.008) = 74.10\\text{ g/mol} \\\\
+  M_r(\\ce{C2H4}) &= (2 \\times 12.01) + (4 \\times 1.008) = 28.05\\text{ g/mol} \\
+  M_r(\\ce{Cl2}) &= 2 \\times 35.45 = 70.90\\text{ g/mol} \\
+  M_r(\\ce{Ca(OH)2}) &= 40.08 + 2 \\times (16.00 + 1.008) = 74.10\\text{ g/mol} \\
   \\sum M_r(\\text{Reaktan Rute 1}) &= 28.05 + 70.90 + 74.10 = \\mathbf{173.05\\text{ g/mol}}
   \\end{aligned}$$
 - **Untuk Rute 2:**
   $$\\begin{aligned}
-  M_r(\\ce{C2H4}) &= 28.05\\text{ g/mol} \\\\
-  \\frac{1}{2} M_r(\\ce{O2}) &= \\frac{1}{2} \\times (2 \\times 16.00) = 16.00\\text{ g/mol} \\\\
+  M_r(\\ce{C2H4}) &= 28.05\\text{ g/mol} \\
+  \\frac{1}{2} M_r(\\ce{O2}) &= \\frac{1}{2} \\times (2 \\times 16.00) = 16.00\\text{ g/mol} \\
   \\sum M_r(\\text{Reaktan Rute 2}) &= 28.05 + 16.00 = \\mathbf{44.05\\text{ g/mol}}
   \\end{aligned}$$
 
----
-
 #### 2. Perhitungan Persentase Ekonomi Atom (% AE):
-Produk yang diinginkan (*target product*) adalah etilena oksida ($\\ce{C2H4O}$) dengan $M_r = 44.05\\text{ g/mol}$.
-- **Ekonomi Atom Rute 1:**
+Produk target adalah etilena oksida ($\\ce{C2H4O}$) dengan $M_r = 44.05\\text{ g/mol}$.
+- **Rute 1:**
   $$\\% \\text{AE}_{\\text{Rute 1}} = \\frac{M_r(\\ce{C2H4O})}{\\sum M_r(\\text{Reaktan})} \\times 100\\% = \\frac{44.05}{173.05} \\times 100\\% = \\mathbf{25.45\\%}$$
-- **Ekonomi Atom Rute 2:**
+- **Rute 2:**
   $$\\% \\text{AE}_{\\text{Rute 2}} = \\frac{M_r(\\ce{C2H4O})}{\\sum M_r(\\text{Reaktan})} \\times 100\\% = \\frac{44.05}{44.05} \\times 100\\% = \\mathbf{100.00\\%}$$
 
 ---
 
-#### 3. Analisis Kesesuaian dengan Prinsip Kimia Hijau:
-1. **Prinsip 2 (Ekonomi Atom):** Rute 2 mencapai $\\% \\text{AE} = 100\\%$, artinya **seluruh atom pereaksi (karbon, hidrogen, dan oksigen) terinkorporasi sempurna** ke dalam molekul produk etilena oksida tanpa ada satu pun atom yang terbuang. Sebaliknya, Rute 1 memiliki $\\% \\text{AE}$ hanya $25.45\\%$, yang berarti hampir $75\\%$ massa reaktan berakhir sebagai limbah samping garam kalsium klorida ($\\ce{CaCl2}$) dan air.
-2. **Prinsip 1 (Pencegahan Limbah):** Rute 1 memproduksi limbah padat garam $\\ce{CaCl2}$ dalam tonase masif yang memerlukan biaya pengolahan dan tempat penimbunan limbah yang mahal. Rute 2 menghasilkan **nol limbah samping**.
-3. **Prinsip 3 & 12 (Bahan Kurang Berbahaya & Pencegahan Kecelakaan):** Rute 1 menggunakan gas klorin ($\\ce{Cl2}$) yang sangat toksik, korosif, dan berbahaya bagi pernapasan operator pabrik. Rute 2 hanya menggunakan gas oksigen ($\\ce{O2}$) dari udara yang relatif aman.
-4. **Prinsip 9 (Katalisis):** Rute 2 memanfaatkan katalis perak ($\\ce{Ag}$) heterogen yang dapat dipakai berulang-ulang tanpa habis terkonsumsi.`,
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Rute 2 memiliki $\\% \\text{AE} = 100\\%$, membuktikan bahwa **seluruh atom pereaksi terinkorporasi utuh** ke molekul produk tanpa ada satu pun atom yang terbuang menjadi limbah. Sebaliknya pada Rute 1, hampir $75\\%$ massa reaktan berakhir sebagai limbah sampingan garam kalsium klorida ($\\ce{CaCl2}$) dan air. Rute 2 juga memenuhi Prinsip 3 &amp; 12 dengan meniadakan gas klorin ($\\ce{Cl2}$) yang sangat korosif dan mematikan.`,
         keyFormulas: [
           { name: 'Rumus Persentase Ekonomi Atom', formula: '\\% \\text{AE} = \\frac{M_r(\\text{Produk Target})}{\\sum M_r(\\text{Reaktan})} \\times 100\\%' },
         ],
       },
       {
         tag: 'soal-keselamatan-tumpahan-asam',
-        tags: ['soal-keselamatan-lab', 'pertolongan-pertama-lab', 'simbol-bahaya-ghs'],
-        title: 'Contoh Soal 3: Penanganan Darurat Tumpahan Asam Sulfat Pekat & Perhitungan Reaksi Netralisasi',
-        summary: 'Protokol mitigasi tumpahan bahan kimia korosif, stoikiometri netralisasi asam kuat menggunakan natrium bikarbonat, dan termodinamika keselamatan kerja.',
-        content: `**Studi Kasus Insiden Laboratorium:**  
-Saat melakukan pengenceran larutan di laboratorium kimia SMA, sebuah botol pereaksi berisi asam sulfat pekat tersenggol dan menumpahkan $25.0\\text{ mL}$ larutan asam sulfat $98.0\\%\\text{ (b/b)}$ ke meja praktikum.  
-*(Data fisik: kerapatan larutan $\\rho = 1.84\\text{ g/mL}$, massa molar $\\ce{H2SO4} = 98.08\\text{ g/mol}$, massa molar $\\ce{NaHCO3} = 84.01\\text{ g/mol}$, massa molar $\\ce{NaOH} = 40.00\\text{ g/mol}$)*.
-
-**Pertanyaan Prosedural & Stoikiometris:**
-1. Sebutkan urutan tindakan darurat pertama (*initial emergency response*) yang harus segera diambil oleh siswa sebelum mendekati tumpahan!
-2. Mengapa petugas laboratorium dilarang keras menetralkan tumpahan asam sulfat pekat menggunakan pelet/larutan natrium hidroksida ($\\ce{NaOH}$) pekat? Jelaskan dari tinjauan termodinamika kalor netralisasi!
-3. Bahan penetral standar yang digunakan adalah serbuk natrium bikarbonat (soda kue, $\\ce{NaHCO3}$). Tuliskan persamaan reaksi netralisasi setara yang terjadi!
-4. Hitung massa minimal serbuk $\\ce{NaHCO3}$ padat (dalam gram) yang harus ditaburkan agar seluruh asam sulfat yang tumpah ternetralkan secara tuntas!
+        tags: ['soal-keselamatan-lab', 'pertolongan-pertama-lab', 'simbol-bahaya-ghs', 'always-add-acid'],
+        title: 'Contoh Soal 3: Penanganan Darurat Tumpahan Asam Sulfat Pekat & Stoikiometri Netralisasi NaHCO₃',
+        summary: 'Protokol tanggap darurat tumpahan asam pekat korosif, alasan pelarangan NaOH pekat dari termodinamika kalor netralisasi, serta perhitungan massa serbuk soda kue penetral.',
+        content: `### 📋 Data Eksperimen Diketahui:
+Sebuah botol asam sulfat pekat tersenggol di laboratorium kimia dan menumpahkan $25.0\\text{ mL}$ larutan asam sulfat $98.0\\%\\text{ (b/b)}$ ke meja praktikum.  
+*(Data fisik: kerapatan $\\rho = 1.84\\text{ g/mL}$, massa molar $\\ce{H2SO4} = 98.08\\text{ g/mol}$, massa molar $\\ce{NaHCO3} = 84.01\\text{ g/mol}$)*.
 
 ---
 
-### Pembahasan Langkah demi Langkah:
-
-#### 1. Tindakan Tanggap Darurat Awal:
-1. **Evakuasi & Peringatan:** Berteriak memberitahu seluruh rekan praktikan dan guru pembina lab untuk menjauh dari area tumpahan minimal radius 3 meter.
-2. **Ventilasi Maksimal:** Buka semua jendela ruangan laboratorium dan nyalakan sakelar ventilasi hisap (*exhaust fan*) untuk mencegah akumulasi uap asam sulfat pekat yang mengiritasi saluran pernapasan.
-3. **Penggunaan APD Khusus:** Petugas penanganan wajib mengenakan sarung tangan karet nitril tebal tahan kimia, kacamata *goggles*, masker uap asam bertabung absorben, dan jas lab tertutup kancing.
-
----
-
-#### 2. Alasan Larangan Penggunaan $\\ce{NaOH}$ Pekat:
-- **Tinjauan Termodinamika:** Reaksi netralisasi antara asam kuat pekat ($\\ce{H2SO4}$) dan basa kuat pekat ($\\ce{NaOH}$) merupakan reaksi yang **sangat eksotermik dahsyat**:
-  $$\\ce{H+(aq) + OH-(aq) -> H2O(l)} \\quad (\\Delta H^\\circ = -57.3\\text{ kJ/mol})$$
-- Ditambah lagi dengan entalpi pelarutan pelet $\\ce{NaOH}$ yang juga eksotermik, pelepasan kalor yang masif dalam sekejap akan menaikkan suhu campuran hingga melebihi $100^\\circ\\text{C}$. Hal ini memicu larutan asam-basa yang mendidih menyembur dan memercik (*acid-base boiling eruptive splash*) ke mata dan tubuh petugas.
-- **Keunggulan $\\ce{NaHCO3}$:** Reaksi dengan natrium bikarbonat melepaskan gas $\\ce{CO2}$. Pembentukan buih gelembung gas $\\ce{CO2}$ ini berfungsi ganda:
-  1. Efek pembentukan buih gas menyerap sebagian kalor reaksi sehingga sistem tidak mengalami kenaikan suhu ekstrem.
-  2. Buih gelembung berfungsi sebagai **indikator visual alami**: selama masih terbentuk buih gelembung gas $\\ce{CO2}$, area tersebut masih bersifat asam; saat pembentukan buih berhenti total, menandakan seluruh asam telah ternetralkan secara tuntas!
+### 🎯 Pertanyaan Analitis & Rencana Strategi:
+1. Jelaskan urutan respon darurat pertama (*initial emergency response*) sebelum mendekati meja!
+2. Mengapa petugas lab **dilarang keras** menetralkan tumpahan asam sulfat pekat menggunakan larutan/pelet $\\ce{NaOH}$ pekat?
+3. Tuliskan persamaan reaksi netralisasi menggunakan serbuk natrium bikarbonat ($\\ce{NaHCO3}$)!
+4. Hitung massa minimal serbuk $\\ce{NaHCO3}$ padat (dalam gram) yang harus ditaburkan hingga seluruh asam ternetralkan!
 
 ---
+
+### ⚡ Eksekusi Langkah demi Langkah:
+
+#### 1. Prosedur Tanggap Darurat Awal:
+1. **Evakuasi & Peringatan:** Berteriak memberitahu seluruh praktikan dan guru pembina untuk menjauh radius minimal 3 meter.
+2. **Ventilasi Maksimal:** Buka semua jendela dan nyalakan *exhaust fan* lemari asam untuk menghalau uap asam pekat yang merusak jaringan paru-paru.
+3. **Penggunaan APD Lengkap:** Petugas penanganan wajib mengenakan sarung tangan nitril tebal tahan kimia, kacamata *goggles*, dan masker respirator uap asam sebelum mendekat.
+
+#### 2. Mengapa Dilarang Menggunakan $\\ce{NaOH}$ Pekat?
+- **Bahaya Termodinamika:** Reaksi antara asam kuat pekat dan basa kuat pekat bersifat **sangat eksotermik dahsyat**:
+  $$\\ce{H+(aq) + OH-(aq) -> H2O(l)} \\quad \\Delta H^\\circ = -57.3\\text{ kJ/mol}$$
+  Kalor yang dilepaskan dalam sekejap akan menaikkan suhu campuran melampaui $100^\\circ\\text{C}$, memicu **letupan semburan asam-basa mendidih (*boiling caustic eruption*)** yang memercik ke wajah petugas!
+- **Keunggulan $\\ce{NaHCO3}$:** Reaksi dengan soda kue melepaskan gas $\\ce{CO2}$. Pembentukan buih menyerap sebagian kalor reaksi, dan buih gelembung berfungsi sebagai **indikator visual alami**: selama buih masih muncul, meja masih bersifat asam; saat buih berhenti total, asam telah ternetralkan sempurna!
 
 #### 3. Persamaan Reaksi Netralisasi Setara:
 $$\\ce{H2SO4(aq) + 2 NaHCO3(s) -> Na2SO4(aq) + 2 CO2(g)^ + 2 H2O(l)}$$
 
----
-
-#### 4. Perhitungan Stoikiometri Massa Penetral $\\ce{NaHCO3}$:
-1. **Menghitung Massa Total Larutan Asam Sulfat yang Tumpah:**
+#### 4. Perhitungan Stoikiometri Massa Penetral:
+1. **Massa Total Larutan Tumpahan:**
    $$m_{\\text{larutan}} = \\rho \\times V = 1.84\\text{ g/mL} \\times 25.0\\text{ mL} = 46.0\\text{ gram}$$
-2. **Menghitung Massa Murni $\\ce{H2SO4}$ (kemurnian $98.0\\%$):**
+2. **Massa Murni $\\ce{H2SO4}$:**
    $$m_{\\ce{H2SO4}} = 98.0\\% \\times 46.0\\text{ g} = 0.980 \\times 46.0 = 45.08\\text{ gram}$$
-3. **Menghitung Mol Murni $\\ce{H2SO4}$:**
+3. **Jumlah Mol Murni $\\ce{H2SO4}$:**
    $$n_{\\ce{H2SO4}} = \\frac{m}{M_r} = \\frac{45.08\\text{ g}}{98.08\\text{ g/mol}} = 0.4596\\text{ mol}$$
-4. **Menghitung Mol $\\ce{NaHCO3}$ Berdasarkan Koefisien Reaksi:**
-   Dari persamaan reaksi, rasio mol $\\ce{H2SO4} : \\ce{NaHCO3} = 1 : 2$.
-   $$n_{\\ce{NaHCO3}} = 2 \\times n_{\\ce{H2SO4}} = 2 \\times 0.4596\\text{ mol} = 0.9192\\text{ mol}$$
-5. **Menghitung Massa $\\ce{NaHCO3}$ yang Diperlukan:**
+4. **Jumlah Mol $\\ce{NaHCO3}$ yang Diperlukan:**
+   Berdasarkan koefisien reaksi, rasio mol $\\ce{H2SO4} : \\ce{NaHCO3} = 1 : 2$:
+   $$n_{\\ce{NaHCO3}} = 2 \\times 0.4596\\text{ mol} = 0.9192\\text{ mol}$$
+5. **Massa $\\ce{NaHCO3}$ Padat yang Wajib Ditaburkan:**
    $$m_{\\ce{NaHCO3}} = n \\times M_r = 0.9192\\text{ mol} \\times 84.01\\text{ g/mol} = \\mathbf{77.22\\text{ gram}}$$
 
-> **Kesimpulan:** Diperlukan minimal **$77.22\\text{ gram}$ serbuk natrium bikarbonat murni** (praktiknya ditaburkan sekitar $85 - 90\\text{ gram}$ berlebih) untuk menetralkan tumpahan asam sulfat tersebut hingga aman untuk disapu dan dibuang.`,
+---
+
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Diperlukan minimal **$77.22\\text{ gram}$ serbuk $\\ce{NaHCO3}$ murni** (dalam praktiknya ditaburkan sekitar $85 - 90\\text{ gram}$ berlebih). Pastikan penaburan dilakukan melingkari tumpahan dari sisi luar ke arah dalam (*containment perimeter*), bukan langsung menumpuk di pusat agar cairan asam tidak meluber ke lantai.`,
         keyFormulas: [
           { name: 'Massa dari Kerapatan', formula: 'm = \\rho \\times V' },
           { name: 'Hubungan Mol Stoikiometri', formula: 'n = \\frac{m}{M_r}' },
@@ -1132,70 +1131,58 @@ $$\\ce{H2SO4(aq) + 2 NaHCO3(s) -> Na2SO4(aq) + 2 CO2(g)^ + 2 H2O(l)}$$
       },
       {
         tag: 'soal-pengukuran-dan-angka-penting',
-        tags: ['soal-pengukuran-angka-penting', 'angka-penting-pengukuran', 'pembacaan-meniskus'],
-        title: 'Contoh Soal 4: Pengukuran Kerapatan Massa Cairan, Pembacaan Buret & Analisis Angka Penting',
-        summary: 'Penerapan kaidah angka penting pada operasi pengurangan penimbangan massa dan pembacaan volume buret, kalkulasi massa jenis dan penentuan galat relatif.',
-        content: `**Data Pengukuran Praktikum:**  
-Dalam praktikum penentuan massa jenis cairan organik tak dikenal di laboratorium sekolah, seorang siswa menggunakan neraca analitik digital (akurasi $0.001\\text{ g}$) dan buret $50\\text{ mL}$ (ketelitian skala $0.02\\text{ mL}$). Siswa mencatat data percobaan berikut:
-
+        tags: ['soal-pengukuran-angka-penting', 'angka-penting-pengukuran', 'pembacaan-meniskus', 'bankers-rounding'],
+        title: 'Contoh Soal 4: Pengukuran Densitas Etanol, Pembacaan Buret & Propagasi Angka Penting',
+        summary: 'Penerapan aturan angka penting pada penimbangan massa dan pembacaan buret, kalkulasi densitas analitik, serta evaluasi galat relatif terhadap literatur.',
+        content: `### 📋 Data Eksperimen Diketahui:
+Dalam penentuan massa jenis cairan organik tak dikenal, siswa mencatat data instrumen:
 - Massa botol timbang kosong bertutup: $28.450\\text{ g}$
 - Massa botol timbang + cairan organik: $45.175\\text{ g}$
 - Skala awal buret sebelum cairan dialirkan: $2.10\\text{ mL}$
 - Skala akhir buret setelah cairan dialirkan: $23.35\\text{ mL}$
-- Nilai literatur massa jenis cairan murni (etanol absolut): $\\rho_{\\text{lit}} = 0.789\\text{ g/mL}$
-
-**Tugas Analisis Data:**
-1. Hitunglah massa bersih cairan organik tersebut dengan menerapkan aturan angka penting!
-2. Hitunglah volume cairan yang dialirkan dari buret dengan menerapkan aturan angka penting!
-3. Tentukan massa jenis cairan ($\\rho$) dalam satuan $\\text{g/mL}$ lengkap dengan jumlah angka penting yang sah!
-4. Hitung persentase galat relatif percobaan siswa tersebut terhadap nilai literatur!
+- Nilai literatur massa jenis etanol murni: $\\rho_{\\text{lit}} = 0.789\\text{ g/mL}$
 
 ---
 
-### Pembahasan Langkah demi Langkah:
+### 🎯 Pertanyaan Analitis & Rencana Strategi:
+1. Hitung massa bersih cairan organik dengan kaidah angka penting yang sah!
+2. Hitung volume cairan yang dialirkan dari buret dengan kaidah angka penting yang sah!
+3. Tentukan kerapatan massa cairan ($\\rho$) dalam satuan $\\text{g/mL}$ dengan jumlah angka penting yang tepat!
+4. Hitung persentase galat relatif percobaan siswa terhadap nilai literatur!
+
+---
+
+### ⚡ Eksekusi Langkah demi Langkah:
 
 #### 1. Perhitungan Massa Bersih Cairan:
-Massa bersih diperoleh dari pengurangan massa botol berisi cairan dengan massa botol kosong:
-$$\\begin{aligned}
-m_{\\text{cairan}} &= m_{\\text{botol+isi}} - m_{\\text{botol kosong}} \\\\
-&= 45.175\\text{ g} - 28.450\\text{ g} \\\\
-&= \\mathbf{16.725\\text{ gram}}
-\\end{aligned}$$
-*Evaluasi Angka Penting:* Kedua bilangan memiliki 3 digit desimal di belakang koma. Sesuai aturan pengurangan, hasilnya tetap memiliki 3 digit desimal di belakang koma, yaitu **$16.725\\text{ g}$ (memiliki 5 AP)**.
-
----
+$$m_{\\text{cairan}} = 45.175\\text{ g} - 28.450\\text{ g} = \\mathbf{16.725\\text{ gram}}$$
+*Evaluasi Angka Penting:* Kedua data penimbangan memiliki 3 digit desimal di belakang koma. Sesuai kaidah pengurangan, hasilnya wajib mempertahankan 3 digit desimal, menghasilkan **$16.725\\text{ g}$ (memiliki 5 AP)**.
 
 #### 2. Perhitungan Volume Cairan dari Buret:
-Volume cairan yang keluar dari buret dihitung dari selisih skala akhir dengan skala awal:
-$$\\begin{aligned}
-V_{\\text{cairan}} &= V_{\\text{akhir}} - V_{\\text{awal}} \\\\
-&= 23.35\\text{ mL} - 2.10\\text{ mL} \\\\
-&= \\mathbf{21.25\\text{ mL}}
-\\end{aligned}$$
-*Evaluasi Angka Penting:* Kedua bilangan memiliki 2 digit desimal di belakang koma. Hasil pengurangan tetap memiliki 2 digit desimal di belakang koma, yaitu **$21.25\\text{ mL}$ (memiliki 4 AP)**.
-
----
+$$V_{\\text{cairan}} = 23.35\\text{ mL} - 2.10\\text{ mL} = \\mathbf{21.25\\text{ mL}}$$
+*Evaluasi Angka Penting:* Kedua skala buret memiliki 2 digit desimal di belakang koma. Hasil pengurangan wajib mempertahankan 2 digit desimal, menghasilkan **$21.25\\text{ mL}$ (memiliki 4 AP)**.
 
 #### 3. Penentuan Massa Jenis Cairan ($\\rho$):
 $$\\rho = \\frac{m_{\\text{cairan}}}{V_{\\text{cairan}}} = \\frac{16.725\\text{ g (5 AP)}}{21.25\\text{ mL (4 AP)}} = 0.7870588\\dots\\text{ g/mL}$$
-*Evaluasi Angka Penting:* Sesuai aturan pembagian, hasil akhir dibatasi oleh faktor dengan jumlah angka penting paling sedikit. 
+*Evaluasi Angka Penting:* Sesuai aturan pembagian, hasil akhir dibatasi oleh faktor dengan jumlah angka penting paling sedikit:
 - Pembilang: $16.725\\text{ g}$ (5 AP)
-- Penyebut: $21.25\\text{ mL}$ (4 AP)
-Maka hasil akhir wajib dibulatkan menjadi **4 Angka Penting**:
+- Penyebut: $21.25\\text{ mL}$ (4 AP)  
+Hasil akhir dibulatkan menjadi **4 Angka Penting**:
 $$\\rho = \\mathbf{0.7871\\text{ g/mL}}$$
-
----
 
 #### 4. Perhitungan Persentase Galat Relatif:
 $$\\begin{aligned}
-\\% \\text{Galat Relatif} &= \\left| \\frac{\\rho_{\\text{eksperimen}} - \\rho_{\\text{literatur}}}{\\rho_{\\text{literatur}}} \\right| \\times 100\\% \\\\
-&= \\left| \\frac{0.7871 - 0.789}{0.789} \\right| \\times 100\\% \\\\
-&= \\left| \\frac{-0.0019}{0.789} \\right| \\times 100\\% \\\\
-&= 0.002408 \\times 100\\% \\\\
-&= \\mathbf{0.24\\%}
+\\% \\text{Galat Relatif} &= \\left| \\frac{\\rho_{\\text{eksperimen}} - \\rho_{\\text{literatur}}}{\\rho_{\\text{literatur}}} \\right| \\times 100\\% \\
+&= \\left| \\frac{0.7871 - 0.789}{0.789} \\right| \\times 100\\% \\
+&= \\left| \\frac{-0.0019}{0.789} \\right| \\times 100\\% \\
+&= 0.002408 \\times 100\\% = \\mathbf{0.24\\%}
 \\end{aligned}$$
 
-> **Kesimpulan Evaluator Juri:** Galat relatif sebesar **$0.24\\%$** ($< 1\\%$) menunjukkan bahwa teknik pengukuran siswa memiliki **akurasi yang luar biasa tinggi**, dan cairan organik misterius tersebut terkonfirmasi sangat kuat sebagai etanol murni.`,
+---
+
+> [!NOTE]
+> ### ⚖️ Kesimpulan Evaluator Juri (Insight OSN)
+> Persentase galat relatif sebesar **$0.24\\%$** ($< 1\\%$) mengindikasikan tingkat akurasi eksperimen yang istimewa. Nilai eksperimen $0.7871\\text{ g/mL}$ sangat dekat dengan $0.789\\text{ g/mL}$, membuktikan secara konklusif bahwa cairan organik tersebut adalah etanol murni berderajat analitik (*analytical grade*).`,
         keyFormulas: [
           { name: 'Formula Massa Jenis', formula: '\\rho = \\frac{m}{V}' },
           { name: 'Formula Persen Galat Relatif', formula: '\\% \\text{Galat} = \\left| \\frac{\\text{Hasil Percobaan} - \\text{Nilai Literatur}}{\\text{Nilai Literatur}} \\right| \\times 100\\%' },
