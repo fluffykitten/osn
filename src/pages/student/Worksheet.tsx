@@ -1580,10 +1580,22 @@ export const Worksheet: React.FC = () => {
     const t2 = setTimeout(() => setEvaluationStage('synthesizing_feedback'), 1400);
 
     try {
+      // Sertakan teks sub-soal ke dalam naskah yang dikirim ke AI agar evaluasi komprehensif
+      const comprehensiveQuestionText =
+        currentQuestion.sub_questions && currentQuestion.sub_questions.length > 0
+          ? `${currentQuestion.question_text}\n\n` +
+            currentQuestion.sub_questions
+              .map(
+                (sq, i) =>
+                  `Sub-soal (${sq.label || String.fromCharCode(97 + i)}) [${sq.points || 0} Poin]:\n${sq.question_text}`
+              )
+              .join('\n\n')
+          : currentQuestion.question_text;
+
       const result = await evaluateStudentWorksheet({
         questionId: currentQuestion.id,
         questionTitle: currentQuestion.title,
-        questionText: currentQuestion.question_text,
+        questionText: comprehensiveQuestionText,
         pillarNumber: currentQuestion.pillar_number,
         subtopic: currentQuestion.subtopic,
         expectedFinalAnswer: currentQuestion.expected_final_answer || '',
@@ -2001,6 +2013,41 @@ export const Worksheet: React.FC = () => {
               className="p-4 sm:p-5 flex-1 min-h-[480px]"
             >
               <KaTeXRenderer content={currentQuestion.question_text} />
+
+              {/* Rincian Sub-Pertanyaan Terstruktur (jika ada) */}
+              {currentQuestion.sub_questions && currentQuestion.sub_questions.length > 0 && (
+                <div className="mt-5 pt-4 border-t border-[#B0C4DE]/60 space-y-3">
+                  <div className="flex items-center gap-2 text-xs font-bold text-[#2D3748]">
+                    <span className="w-2 h-2 rounded-full bg-[#708090]" />
+                    <span className="uppercase tracking-wider">Pertanyaan Terstruktur:</span>
+                    <span className="text-[11px] font-normal text-[#708090]">
+                      ({currentQuestion.sub_questions.length} Butir Sub-Soal)
+                    </span>
+                  </div>
+                  <div className="space-y-3">
+                    {currentQuestion.sub_questions.map((sub, idx) => (
+                      <div
+                        key={sub.label || idx}
+                        className="p-3.5 sm:p-4 rounded-xl bg-[#FFFFF0] border border-[#B0C4DE] shadow-2xs space-y-2 transition-all hover:border-[#708090]"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#596A7A] text-[#FFFFF0] text-xs font-bold font-mono">
+                            Sub-soal ({sub.label || String.fromCharCode(97 + idx)})
+                          </span>
+                          {typeof sub.points === 'number' && sub.points > 0 && (
+                            <span className="text-[11px] font-mono font-bold text-[#708090] bg-[#B0C4DE]/30 px-2.5 py-0.5 rounded-md border border-[#B0C4DE]/60">
+                              {sub.points} Poin
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-xs sm:text-sm text-[#2D3748] leading-relaxed">
+                          <KaTeXRenderer content={sub.question_text} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Diagram Kimia / Kurva Tersemat dari Cloudflare R2 */}
               {currentQuestion.diagram_url && (

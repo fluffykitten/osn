@@ -1161,6 +1161,26 @@ export const PracticeTopicDetail: React.FC = () => {
                 </h4>
                 <div className="text-sm text-slate-800 leading-relaxed bg-slate-50 p-5 rounded-2xl border border-slate-200/80 font-sans">
                   <KaTeXRenderer content={inspectedQuestion.question_text} />
+                  {inspectedQuestion.sub_questions && inspectedQuestion.sub_questions.length > 0 && (
+                    <div className="mt-4 pt-3 border-t border-slate-200/80 space-y-2.5">
+                      <span className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono block">
+                        Rincian Sub-Pertanyaan ({inspectedQuestion.sub_questions.length} Butir):
+                      </span>
+                      <div className="space-y-2">
+                        {inspectedQuestion.sub_questions.map((sq, idx) => (
+                          <div key={sq.label || idx} className="p-3 bg-white rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                            <div className="flex items-center justify-between text-xs font-mono font-bold text-slate-700">
+                              <span>Sub-soal ({sq.label || String.fromCharCode(97 + idx)})</span>
+                              {sq.points && <span className="text-slate-500 font-normal">{sq.points} Poin</span>}
+                            </div>
+                            <div className="text-xs text-slate-800 leading-relaxed">
+                              <KaTeXRenderer content={sq.question_text} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 

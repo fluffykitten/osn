@@ -49,6 +49,7 @@ import { worksheetRealtimeService, extractStudentAnswer } from '../../services/w
 import { calculatePillarMastery, getSubmissionHistory } from '../../services/submissionService';
 import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
 import { StudentMasteryMatrix } from '../../components/teacher/StudentMasteryMatrix';
+import { StudentProfileDrawer } from '../../components/teacher/StudentProfileDrawer';
 import type {
   Classroom,
   ClassroomMember,
@@ -76,6 +77,7 @@ export const ClassroomDetail: React.FC = () => {
   const [copiedCode, setCopiedCode] = useState(false);
   const [isProjectorOpen, setIsProjectorOpen] = useState(false);
   const [isBatchApproving, setIsBatchApproving] = useState(false);
+  const [selectedProfileStudent, setSelectedProfileStudent] = useState<ClassroomMember | null>(null);
 
   // SpeedGrader State
   const [selectedAssignmentId, setSelectedAssignmentId] = useState<number | null>(null);
@@ -690,8 +692,25 @@ export const ClassroomDetail: React.FC = () => {
                       .filter((m) => m.status !== 'pending_approval')
                       .map((m) => (
                         <tr key={m.id} className="hover:bg-slate-50/60 transition-colors">
-                          <td className="px-5 py-3.5 font-bold text-slate-900">
-                            {m.student_name || 'Calon Medalis OSN'}
+                          <td className="px-5 py-3.5">
+                            <button
+                              type="button"
+                              onClick={() => setSelectedProfileStudent(m)}
+                              className="text-left group flex items-center gap-2.5 cursor-pointer focus:outline-none"
+                            >
+                              <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-700 font-bold font-mono text-xs flex items-center justify-center shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors border border-indigo-200/60 shadow-2xs">
+                                {(m.student_name || m.student_email || 'S').charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                <div className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors flex items-center gap-1.5">
+                                  <span>{m.student_name || 'Calon Medalis OSN'}</span>
+                                  <ExternalLink className="w-3 h-3 text-slate-300 group-hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </div>
+                                <div className="text-[10px] text-slate-400 group-hover:text-indigo-500 font-medium">
+                                  Buka Profil & Analisis &rarr;
+                                </div>
+                              </div>
+                            </button>
                           </td>
                           <td className="px-5 py-3.5 font-mono text-slate-700">{m.student_email}</td>
                           <td className="px-5 py-3.5">
@@ -715,13 +734,24 @@ export const ClassroomDetail: React.FC = () => {
                             })}
                           </td>
                           <td className="px-5 py-3.5 text-right">
-                            <button
-                              onClick={() => handleRemoveMember(m.id, m.student_email)}
-                              className="p-1.5 text-slate-300 hover:text-rose-600 rounded-lg transition-colors hover:bg-rose-50 cursor-pointer"
-                              title="Hapus dari Kelas"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
+                            <div className="flex items-center justify-end gap-1">
+                              <button
+                                type="button"
+                                onClick={() => setSelectedProfileStudent(m)}
+                                className="p-1.5 text-slate-400 hover:text-indigo-600 rounded-lg transition-colors hover:bg-indigo-50 cursor-pointer"
+                                title="Lihat Profil & Analisis Siswa"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveMember(m.id, m.student_email)}
+                                className="p-1.5 text-slate-300 hover:text-rose-600 rounded-lg transition-colors hover:bg-rose-50 cursor-pointer"
+                                title="Hapus dari Kelas"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -1036,6 +1066,22 @@ export const ClassroomDetail: React.FC = () => {
                                     <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-800 leading-relaxed max-h-56 overflow-y-auto">
                                       <p className="text-[10px] uppercase font-bold text-slate-500 mb-1">Naskah Soal:</p>
                                       <KaTeXRenderer content={q.question_text || ''} />
+                                      {q.sub_questions && q.sub_questions.length > 0 && (
+                                        <div className="mt-3 pt-2 border-t border-slate-200/80 space-y-2">
+                                          <p className="text-[10px] uppercase font-bold text-slate-500">Sub-Soal:</p>
+                                          {q.sub_questions.map((sq, idx) => (
+                                            <div key={sq.label || idx} className="p-2 bg-white rounded-lg border border-slate-200 space-y-0.5">
+                                              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-indigo-700">
+                                                <span>Bagian ({sq.label || String.fromCharCode(97 + idx)})</span>
+                                                {sq.points && <span>{sq.points} Poin</span>}
+                                              </div>
+                                              <div className="text-xs text-slate-800">
+                                                <KaTeXRenderer content={sq.question_text} />
+                                              </div>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      )}
                                       {q.expected_final_answer && (
                                         <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-emerald-800 font-bold">
                                           Kunci Jawaban Resmi: <span className="font-mono">{q.expected_final_answer}</span>
@@ -2045,6 +2091,22 @@ export const ClassroomDetail: React.FC = () => {
                 <div className="pt-2 border-t border-slate-200/80 space-y-2.5">
                   <div className="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-800 leading-relaxed max-h-40 overflow-y-auto">
                     <KaTeXRenderer content={modalMatchedQuestion.question_text || ''} />
+                    {modalMatchedQuestion.sub_questions && modalMatchedQuestion.sub_questions.length > 0 && (
+                      <div className="mt-3 pt-2 border-t border-slate-200/80 space-y-2">
+                        <p className="text-[10px] uppercase font-bold text-slate-500">Sub-Soal:</p>
+                        {modalMatchedQuestion.sub_questions.map((sq, idx) => (
+                          <div key={sq.label || idx} className="p-2 bg-slate-50 rounded-lg border border-slate-200 space-y-0.5">
+                            <div className="flex items-center justify-between text-[10px] font-mono font-bold text-indigo-700">
+                              <span>Bagian ({sq.label || String.fromCharCode(97 + idx)})</span>
+                              {sq.points && <span>{sq.points} Poin</span>}
+                            </div>
+                            <div className="text-xs text-slate-800">
+                              <KaTeXRenderer content={sq.question_text} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   {modalMatchedQuestion.expected_final_answer && (
                     <div className="p-2.5 bg-emerald-50 rounded-xl border border-emerald-200 text-[11px] text-emerald-900 flex items-center gap-2">
@@ -2406,6 +2468,12 @@ export const ClassroomDetail: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* STUDENT PROFILE DRAWER */}
+      <StudentProfileDrawer
+        student={selectedProfileStudent}
+        onClose={() => setSelectedProfileStudent(null)}
+      />
       </div>
     </div>
   );

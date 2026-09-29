@@ -426,10 +426,11 @@ export const PracticeBank: React.FC = () => {
     >
       <ChemistryWatermarkBackground />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
-      {/* 1. Header Eksekutif Gamifikasi Siswa */}
+      {/* 1. Header Eksekutif Gamifikasi Siswa / Guru */}
       <PracticeStatsHeader
         stats={overallStats}
         activeDatabase={activeDatabase}
+        isTeacher={isTeacher}
         onLaunchRecommendedDrill={(qIds) => {
           navigate(`/worksheet/practice/${qIds.join(',')}`);
         }}
@@ -912,13 +913,33 @@ export const PracticeBank: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveModalQuestion(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-600"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="p-6 overflow-y-auto space-y-4 text-xs">
               <KaTeXRenderer content={activeModalQuestion.question_text} />
+              {activeModalQuestion.sub_questions && activeModalQuestion.sub_questions.length > 0 && (
+                <div className="space-y-2 pt-2 border-t border-slate-200">
+                  <span className="text-[11px] font-bold text-slate-700 uppercase tracking-wider block">
+                    Rincian Sub-Pertanyaan ({activeModalQuestion.sub_questions.length} Butir):
+                  </span>
+                  <div className="space-y-2">
+                    {activeModalQuestion.sub_questions.map((sq, idx) => (
+                      <div key={sq.label || idx} className="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                        <div className="flex items-center justify-between text-[11px] font-mono font-bold text-slate-700">
+                          <span>Sub-soal ({sq.label || String.fromCharCode(97 + idx)})</span>
+                          {sq.points && <span className="text-slate-500 font-normal">{sq.points} Poin</span>}
+                        </div>
+                        <div className="text-xs text-slate-800">
+                          <KaTeXRenderer content={sq.question_text} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               {activeModalQuestion.solution_rubric && (
                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
                   <strong className="block text-slate-800">Pedoman Penskoran:</strong>

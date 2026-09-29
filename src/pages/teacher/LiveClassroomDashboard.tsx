@@ -1061,6 +1061,26 @@ export const LiveClassroomDashboard: React.FC = () => {
                           className="p-4"
                         >
                           <KaTeXRenderer content={currentQuestion.question_text || ''} />
+                          {currentQuestion.sub_questions && currentQuestion.sub_questions.length > 0 && (
+                            <div className="mt-4 pt-3 border-t border-slate-200/80 space-y-2">
+                              <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider block">
+                                Rincian Sub-Pertanyaan ({currentQuestion.sub_questions.length} Butir):
+                              </span>
+                              <div className="space-y-2">
+                                {currentQuestion.sub_questions.map((sq, idx) => (
+                                  <div key={sq.label || idx} className="p-2.5 bg-slate-50 rounded-lg border border-slate-200 space-y-1">
+                                    <div className="flex items-center justify-between text-[11px] font-mono font-bold text-indigo-700">
+                                      <span>Sub-soal ({sq.label || String.fromCharCode(97 + idx)})</span>
+                                      {sq.points && <span className="text-slate-500 font-normal">{sq.points} Poin</span>}
+                                    </div>
+                                    <div className="text-xs text-slate-800 leading-relaxed">
+                                      <KaTeXRenderer content={sq.question_text} />
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </ScaledDocumentCanvas>
                       </div>
 
