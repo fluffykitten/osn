@@ -10,7 +10,8 @@
     "test:materials": "node --experimental-strip-types scripts/validate-materials.js",
     "test:questions": "npx tsx scripts/validate-questions.ts",
     "test:coverage": "npx tsx scripts/validate-coverage.ts",
-    "test:all": "npm run test:materials && npm run test:questions && npm run test:coverage",
+    "test:scaffold": "node --experimental-strip-types scripts/validate-scaffold.js",
+    "test:all": "npm run test:materials && npm run test:questions && npm run test:coverage && npm run test:scaffold",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -350,6 +350,23 @@ E. Ketiga struktur memiliki kestabilan identik karena muatan totalnya sama-sama 
    - **Struktur III adalah yang paling tidak stabil (paling minor):** Memiliki pemisahan muatan besar ($+1$ pada $\\ce{S}$ dan $-2$ pada $\\ce{N}$), melanggar prinsip minimalisasi muatan formal.
    - **Perbandingan Struktur I vs Struktur II:** Keduanya memiliki pemisahan muatan minimal (hanya satu atom bermuatan $-1$, lainnya $0$). Namun, aturan keelektronegatifan Pauling menyatakan bahwa muatan formal negatif **harus berada pada atom yang lebih elektronegatif**. Karena atom Nitrogen ($\\chi = 3.04$) jauh lebih elektronegatif daripada Belerang ($\\chi = 2.58$), penempatan muatan negatif pada atom $\\ce{N}$ (**Struktur I**) jauh lebih disukai daripada pada atom $\\ce{S}$ (**Struktur II**).
    - Jadi, **Struktur I adalah kontributor mayor** dan **Struktur III adalah kontributor paling minor**.`,
+    solution_framework_template: `1. Identifikasi Elektron Valensi Bebas Atom Netral:
+• Elektron valensi atom: V(S) = 6, V(C) = 4, V(N) = 5.
+• Muatan total anion SCN- = -1 -> Total elektron valensi = 16 elektron (8 pasang).
+
+2. Perhitungan Muatan Formal (FC) Masing-Masing Atom:
+• Rumus: FC = V - (titik PEB) - (garis ikatan)
+• Struktur I [S=C=N]- : FC(S) = 6-4-2 = 0; FC(C) = 4-0-4 = 0; FC(N) = 5-4-2 = -1.
+• Struktur II [S-C#N]- : FC(S) = 6-6-1 = -1; FC(C) = 4-0-4 = 0; FC(N) = 5-2-3 = 0.
+• Struktur III [S#C-N]- : FC(S) = 6-2-3 = +1; FC(C) = 4-0-4 = 0; FC(N) = 5-6-1 = -2.
+
+3. Evaluasi Kriteria Kestabilan Resonansi:
+• Minimalisasi pemisahan muatan formal: Struktur I dan II memiliki muatan minimal (hanya satu atom -1). Struktur III memiliki pemisahan muatan besar (+1 dan -2) -> paling tidak stabil.
+• Penempatan muatan negatif pada atom paling elektronegatif: Skala Pauling chi(N) = 3.04 > chi(S) = 2.58 -> muatan negatif pada atom N lebih disukai.
+
+4. Kesimpulan Kontributor Mayor & Minor:
+• Kontributor Mayor (Paling Stabil): Struktur I (muatan -1 berada pada atom N yang lebih elektronegatif).
+• Kontributor Paling Minor: Struktur III (pemisahan muatan besar +1 pada S dan -2 pada N).`,
     generation_type: 'manual',
     is_verified: true,
     estimated_time_minutes: 4,
