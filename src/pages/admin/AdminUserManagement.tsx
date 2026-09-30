@@ -24,6 +24,7 @@ import {
   Code,
   Sparkles,
   Trash2,
+  Lock,
 } from 'lucide-react';
 import { adminService, type CreateUserPayload } from '../../services/adminService';
 import type { Profile } from '../../types/database';
@@ -208,7 +209,7 @@ export const AdminUserManagement: React.FC = () => {
   // 4. Change Role
   const handleRoleChange = async (user: Profile, newRole: 'student' | 'teacher' | 'admin') => {
     if (user.role === newRole) return;
-    if (user.email === 'fluffykitten.dev@gmail.com' && newRole !== 'admin') {
+    if ((user.email === 'fluffykitten.dev@gmail.com' || user.email === 'ezzarscarlet@gmail.com') && newRole !== 'admin') {
       alert('Akun master administrator tidak dapat diubah rolenya.');
       return;
     }
@@ -219,6 +220,60 @@ export const AdminUserManagement: React.FC = () => {
       await loadUsers();
     } catch {
       showNotification('error', 'Gagal memperbarui peranan.');
+    }
+  };
+
+  // 5. Toggle Hak Akses AI Grading untuk Siswa
+  const handleToggleAiGrading = async (u: Profile) => {
+    const nextState = !u.ai_grading_access;
+    try {
+      const res = await adminService.toggleUserAiGrading(u.id, nextState);
+      if (res.success) {
+        showNotification(
+          'success',
+          `Hak akses AI Grading untuk ${u.full_name || u.email} berhasil ${
+            nextState ? 'DIBERIKAN (AI Aktif)' : 'DICABUT (Manual Guru)'
+          }.`
+        );
+        await loadUsers();
+      } else {
+        showNotification('error', res.error || 'Gagal mengubah hak akses AI Grading.');
+      }
+    } catch {
+      showNotification('error', 'Terjadi kesalahan sistem.');
+    }
+  };
+
+  // 6. Hibah Massal AI Grading untuk Siswa yang Terfilter
+  const handleBatchGrantAi = async (enable: boolean) => {
+    const targetStudents = filteredUsers.filter((u) => u.role === 'student' || u.role === 'siswa');
+    if (targetStudents.length === 0) {
+      showNotification('error', 'Tidak ada akun siswa dalam filter saat ini.');
+      return;
+    }
+
+    if (
+      !window.confirm(
+        `${enable ? 'Aktifkan' : 'Nonaktifkan'} akses AI Grading untuk ${targetStudents.length} siswa dalam daftar ini?`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const ids = targetStudents.map((s) => s.id);
+      const res = await adminService.batchGrantAiGrading(ids, enable);
+      if (res.success) {
+        showNotification(
+          'success',
+          `Berhasil ${enable ? 'mengaktifkan' : 'menonaktifkan'} akses AI Grading untuk ${res.updatedCount} siswa.`
+        );
+        await loadUsers();
+      } else {
+        showNotification('error', res.error || 'Gagal memproses hibah massal.');
+      }
+    } catch {
+      showNotification('error', 'Terjadi kesalahan sistem.');
     }
   };
 
@@ -515,6 +570,17 @@ export const AdminUserManagement: React.FC = () => {
             <option value="pending_activation">Status: Belum Aktivasi ({countPending})</option>
             <option value="suspended">Status: Ditangguhkan ({countSuspended})</option>
           </select>
+
+          {/* Tombol Hibah AI Siswa Massal */}
+          <button
+            type="button"
+            onClick={() => handleBatchGrantAi(true)}
+            className="px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] hover:text-[#2D3748] border border-[#D3D3D3] rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+            title="Beri akses AI Grading sekaligus untuk seluruh siswa di filter ini"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span className="hidden sm:inline">Beri AI Siswa</span>
+          </button>
         </div>
       </div>
 
@@ -528,6 +594,7 @@ export const AdminUserManagement: React.FC = () => {
                 <th className="py-3.5 px-4 font-semibold">Peranan (Role)</th>
                 <th className="py-3.5 px-4 font-semibold">Asal Sekolah & Kelas</th>
                 <th className="py-3.5 px-4 font-semibold">Status Akun</th>
+                <th className="py-3.5 px-4 font-semibold">Hak AI Grading</th>
                 <th className="py-3.5 px-4 font-semibold">XP & Level</th>
                 <th className="py-3.5 px-4 text-right font-semibold">Tindakan Admin</th>
               </tr>
@@ -535,20 +602,23 @@ export const AdminUserManagement: React.FC = () => {
             <tbody className="divide-y divide-slate-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
                     <div className="inline-block w-6 h-6 border-2 border-slate-400 border-t-transparent rounded-full animate-spin mb-2" />
                     <div>Memuat direktori pengguna platform...</div>
                   </td>
                 </tr>
               ) : filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
+                  <td colSpan={7} className="py-12 text-center text-slate-400">
                     Tidak ada akun pengguna yang sesuai dengan kriteria pencarian.
                   </td>
                 </tr>
               ) : (
                 filteredUsers.map((u) => {
-                  const isAdminUser = u.email === 'fluffykitten.dev@gmail.com' || u.role === 'admin';
+                  const isAdminUser =
+                    u.email === 'fluffykitten.dev@gmail.com' ||
+                    u.email === 'ezzarscarlet@gmail.com' ||
+                    u.role === 'admin';
                   return (
                     <tr key={u.id} className="hover:bg-slate-50/70 transition">
                       {/* Name & Email */}
@@ -612,6 +682,32 @@ export const AdminUserManagement: React.FC = () => {
                             Aktif
                           </span>
                         )}
+                      </td>
+
+                      {/* Hak AI Grading */}
+                      <td className="py-3.5 px-4">
+                        <button
+                          type="button"
+                          onClick={() => handleToggleAiGrading(u)}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border transition cursor-pointer ${
+                            u.ai_grading_access
+                              ? 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 shadow-xs'
+                              : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+                          }`}
+                          title={u.ai_grading_access ? 'AI Aktif: Klik untuk mencabut akses' : 'Manual (Off): Klik untuk memberi izin AI'}
+                        >
+                          {u.ai_grading_access ? (
+                            <>
+                              <Sparkles size={11} className="text-indigo-600 animate-pulse" />
+                              <span>AI Aktif</span>
+                            </>
+                          ) : (
+                            <>
+                              <Lock size={11} className="text-slate-400" />
+                              <span>Manual (Off)</span>
+                            </>
+                          )}
+                        </button>
                       </td>
 
                       {/* Gamification Stats */}

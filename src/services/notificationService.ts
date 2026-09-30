@@ -14,8 +14,9 @@ export interface StudentNotificationPayload {
   registeredAt?: string;
 }
 
+const env = (import.meta as any)?.env || (globalThis as any)?.process?.env || {};
 const CLOUDFLARE_MAILER_URL =
-  import.meta.env.VITE_CLOUDFLARE_MAILER_URL || import.meta.env.VITE_CLOUDFLARE_MAILER || '';
+  env.VITE_CLOUDFLARE_MAILER_URL || env.VITE_CLOUDFLARE_MAILER || '';
 
 export const sendStudentRegistrationNotification = async (
   data: StudentNotificationPayload

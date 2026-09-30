@@ -55,6 +55,8 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
         if (onClassStatusChanged) {
           onClassStatusChanged();
         }
+        // Jika sudah aktif, otomatis arahkan langsung ke dashboard pengerjaan siswa
+        navigate('/student/dashboard', { replace: true });
       } else {
         sessionStorage.setItem('osn_has_active_classroom', 'false');
       }
@@ -152,9 +154,21 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
                 <h1 className="text-2xl font-black font-display tracking-tight text-white">
                   {profile?.full_name || 'Siswa OSN Kimia'}
                 </h1>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                  Menunggu Aktivasi Kelas
-                </span>
+                {activeClassroom ? (
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Terdaftar: {activeClassroom.name}</span>
+                  </span>
+                ) : pendingClassroom ? (
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+                    <span>Menunggu Persetujuan Guru</span>
+                  </span>
+                ) : (
+                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-400/20 text-sky-300 border border-sky-400/30">
+                    Aktivasi Kode Kelas
+                  </span>
+                )}
               </div>
               <p className="text-sm text-slate-300 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
                 <span>{profile?.school_name || 'Sekolah Belum Diatur'}</span>
@@ -239,8 +253,58 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
               </div>
             )}
 
-            {/* Single Classroom Rule: Jika sedang pending_approval, tampilkan status menunggu (tidak izinkan input kelas lain) */}
-            {pendingClassroom ? (
+            {/* Single Classroom Rule: Cek active, pending, atau belum ada kelas */}
+            {activeClassroom ? (
+              <div className="mt-6 p-6 bg-emerald-50/70 border border-emerald-200 rounded-2xl space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-emerald-800">
+                      Kelas Binaan Aktif
+                    </div>
+                    <div className="text-base font-bold text-slate-900 mt-0.5">
+                      {activeClassroom.name}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white/80 p-3.5 rounded-xl border border-emerald-200/60 text-xs text-slate-700 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-500">Kode Kelas:</span>
+                    <span className="font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      {activeClassroom.code}
+                    </span>
+                  </div>
+                  {activeClassroom.teacher_name && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-slate-500">Guru Pembina:</span>
+                      <span className="font-semibold text-slate-800">{activeClassroom.teacher_name}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-500">Status Keanggotaan:</span>
+                    <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-md text-[10px]">
+                      Aktif (Terverifikasi)
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center gap-3">
+                  <button
+                    onClick={() => {
+                      if (onClassStatusChanged) onClassStatusChanged();
+                      navigate('/student/dashboard');
+                    }}
+                    className="flex-1 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Masuk ke Dashboard Pembelajaran</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            ) : pendingClassroom ? (
               <div className="mt-6 p-6 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">

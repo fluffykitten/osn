@@ -8,6 +8,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { LevelUpModal } from './components/gamification/LevelUpModal';
 import { AchievementUnlockModal } from './components/gamification/AchievementUnlockModal';
 import { FloatingBugReportButton } from './components/common/FloatingBugReportButton';
+import { TeacherGradeNotificationToast } from './components/common/TeacherGradeNotificationToast';
 
 // Auth & Landing Pages (Lazy Loaded on Demand)
 import { RequireClassroom } from './components/common/RequireClassroom';
@@ -110,8 +111,7 @@ function AdminOnly({ children }: { children: React.ReactNode }) {
 }
 
 /**
- * Route guard untuk membatasi fitur Bank Soal dan Studio Guru khusus bagi Guru
- * (Admin dialihkan ke Portal Admin mandiri /admin/analytics)
+ * Route guard untuk membatasi fitur Bank Soal dan Studio Guru khusus bagi Guru dan Admin
  */
 function TeacherOnly({ children }: { children: React.ReactNode }) {
   const { user, isTeacher, isAdmin, loading } = useAuth();
@@ -129,11 +129,8 @@ function TeacherOnly({ children }: { children: React.ReactNode }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (isAdmin) {
-    return <Navigate to="/admin/analytics" replace />;
-  }
-
-  if (!isTeacher) {
+  // Admin dan Guru memiliki akses ke fitur Studio Guru & Manajemen Kelas
+  if (!isTeacher && !isAdmin) {
     return <Navigate to="/worksheet" replace />;
   }
 
@@ -541,6 +538,7 @@ function AppContent() {
       <LevelUpModal />
       <AchievementUnlockModal />
       <FloatingBugReportButton />
+      <TeacherGradeNotificationToast />
 
       {!isFullScreenWorkspace && !isAdminPortal && <Footer />}
     </div>

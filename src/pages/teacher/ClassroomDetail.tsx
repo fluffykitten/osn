@@ -39,6 +39,8 @@ import {
   Download,
   ChevronDown,
   ChevronUp,
+  Save,
+  PenTool,
 } from 'lucide-react';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { BENCHMARK_QUESTIONS, PILLARS_DATA } from '../../data/syllabusData';
@@ -46,7 +48,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
 import { questionBankService } from '../../services/questionBankService';
 import { worksheetRealtimeService, extractStudentAnswer } from '../../services/worksheetRealtimeService';
-import { calculatePillarMastery, getSubmissionHistory } from '../../services/submissionService';
+import { calculatePillarMastery, getSubmissionHistory, teacherGradeSubmission } from '../../services/submissionService';
 import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
 import { StudentMasteryMatrix } from '../../components/teacher/StudentMasteryMatrix';
 import { StudentProfileDrawer } from '../../components/teacher/StudentProfileDrawer';
@@ -63,7 +65,7 @@ import type {
 export const ClassroomDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const teacherId = user?.id || 'teacher-demo-uuid';
 
   const [classroom, setClassroom] = useState<Classroom | null>(null);
@@ -87,6 +89,60 @@ export const ClassroomDetail: React.FC = () => {
   const [speedGraderQuestions, setSpeedGraderQuestions] = useState<Question[]>([]);
   const [speedGraderStudentSearch, setSpeedGraderStudentSearch] = useState('');
   const [expandedQuestionId, setExpandedQuestionId] = useState<number | null>(null);
+
+  // SpeedGrader Manual Grading States
+  const [speedGraderStatusFilter, setSpeedGraderStatusFilter] = useState<'all' | 'needs_grading' | 'graded'>('all');
+  const [gradingScores, setGradingScores] = useState<Record<string, number>>({});
+  const [gradingFeedbacks, setGradingFeedbacks] = useState<Record<string, string>>({});
+  const [savingGradeSubId, setSavingGradeSubId] = useState<string | null>(null);
+  const [gradeSuccessSubId, setGradeSuccessSubId] = useState<string | null>(null);
+
+  const handleSaveTeacherGrade = async (sub: any, q: Question) => {
+    const subId = sub.id;
+    const score = gradingScores[subId] !== undefined ? gradingScores[subId] : (sub.total_score ?? sub.totalScore ?? 0);
+    const feedback = gradingFeedbacks[subId] !== undefined ? gradingFeedbacks[subId] : (sub.teacher_feedback || sub.teacherFeedback || '');
+    const teacherName = profile?.full_name || user?.user_metadata?.full_name || 'Guru Pembina';
+    const studentId = sub.user_id || sub.userId;
+
+    setSavingGradeSubId(subId);
+    try {
+      const updatedRecord = await teacherGradeSubmission({
+        submissionId: subId,
+        studentId,
+        teacherId,
+        teacherName,
+        totalScore: Number(score),
+        maxScore: sub.max_score || sub.maxScore || 10,
+        teacherFeedback: feedback,
+        questionTitle: q.title,
+      });
+
+      // Update in local state
+      setSpeedGraderSubmissions((prev) =>
+        prev.map((s) =>
+          s.id === subId
+            ? {
+                ...s,
+                ...updatedRecord,
+                is_graded: true,
+                grading_type: 'manual_teacher',
+                total_score: Number(score),
+                totalScore: Number(score),
+                teacher_feedback: feedback,
+                teacherFeedback: feedback,
+              }
+            : s
+        )
+      );
+
+      setGradeSuccessSubId(subId);
+      setTimeout(() => setGradeSuccessSubId(null), 3000);
+    } catch (err: any) {
+      alert('Gagal menyimpan nilai: ' + (err?.message || 'Terjadi kesalahan'));
+    } finally {
+      setSavingGradeSubId(null);
+    }
+  };
 
   // Analytics State
   const [pillarMastery, setPillarMastery] = useState<PillarMasteryScore[]>([]);
@@ -774,11 +830,31 @@ export const ClassroomDetail: React.FC = () => {
               const activeMembers = members.filter((m) => m.status === 'active');
               const filteredStudents = activeMembers.filter((m) => {
                 const q = speedGraderStudentSearch.toLowerCase().trim();
-                if (!q) return true;
-                return (
+                const matchesSearch =
+                  !q ||
                   (m.student_name && m.student_name.toLowerCase().includes(q)) ||
-                  (m.student_email && m.student_email.toLowerCase().includes(q))
-                );
+                  (m.student_email && m.student_email.toLowerCase().includes(q));
+                if (!matchesSearch) return false;
+
+                if (speedGraderStatusFilter === 'all') return true;
+
+                const mSubs = speedGraderSubmissions.filter((s) => {
+                  const sId = m.student_id || m.student_email;
+                  return (
+                    (s.user_id && s.user_id === sId) ||
+                    (s.userId && s.userId === sId) ||
+                    (m.student_email && s.student_email?.toLowerCase() === m.student_email.toLowerCase())
+                  );
+                });
+
+                if (speedGraderStatusFilter === 'needs_grading') {
+                  return mSubs.some((s) => !s.is_graded || s.status === 'pending_review');
+                }
+                if (speedGraderStatusFilter === 'graded') {
+                  return mSubs.length > 0 && mSubs.every((s) => s.is_graded);
+                }
+
+                return true;
               });
 
               // Helper untuk mendapatkan submissions milik siswa yang sedang dipilih
@@ -874,16 +950,54 @@ export const ClassroomDetail: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Search Student Input */}
-                      <div className="relative">
-                        <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                        <input
-                          type="text"
-                          value={speedGraderStudentSearch}
-                          onChange={(e) => setSpeedGraderStudentSearch(e.target.value)}
-                          placeholder="Cari siswa..."
-                          className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
-                        />
+                      {/* Search Student Input & Status Filter */}
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-xl text-[11px] font-semibold">
+                          <button
+                            type="button"
+                            onClick={() => setSpeedGraderStatusFilter('all')}
+                            className={`flex-1 py-1 px-1.5 rounded-lg transition cursor-pointer text-center text-[10px] ${
+                              speedGraderStatusFilter === 'all'
+                                ? 'bg-white text-slate-800 shadow-2xs font-bold'
+                                : 'text-slate-500 hover:text-slate-800'
+                            }`}
+                          >
+                            Semua ({activeMembers.length})
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSpeedGraderStatusFilter('needs_grading')}
+                            className={`flex-1 py-1 px-1.5 rounded-lg transition cursor-pointer text-center text-[10px] ${
+                              speedGraderStatusFilter === 'needs_grading'
+                                ? 'bg-white text-amber-800 shadow-2xs font-bold'
+                                : 'text-slate-500 hover:text-amber-800'
+                            }`}
+                          >
+                            ⏳ Perlu Nilai
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSpeedGraderStatusFilter('graded')}
+                            className={`flex-1 py-1 px-1.5 rounded-lg transition cursor-pointer text-center text-[10px] ${
+                              speedGraderStatusFilter === 'graded'
+                                ? 'bg-white text-emerald-800 shadow-2xs font-bold'
+                                : 'text-slate-500 hover:text-emerald-800'
+                            }`}
+                          >
+                            ✅ Dinilai
+                          </button>
+                        </div>
+
+                        <div className="relative">
+                          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            value={speedGraderStudentSearch}
+                            onChange={(e) => setSpeedGraderStudentSearch(e.target.value)}
+                            placeholder="Cari siswa..."
+                            className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                          />
+                        </div>
                       </div>
 
                       {/* Student List */}
@@ -941,7 +1055,11 @@ export const ClassroomDetail: React.FC = () => {
                                 </div>
 
                                 <div className="text-right shrink-0">
-                                  {subs.length > 0 ? (
+                                  {subs.some((s) => !s.is_graded || s.status === 'pending_review') ? (
+                                    <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-amber-100 text-amber-800 border border-amber-300 animate-pulse">
+                                      ⏳ Perlu Nilai
+                                    </span>
+                                  ) : subs.length > 0 ? (
                                     <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold font-mono bg-emerald-100 text-emerald-800 border border-emerald-300">
                                       Skor: {studentScore}/{speedGraderQuestions.length * 10}
                                     </span>
@@ -1039,9 +1157,19 @@ export const ClassroomDetail: React.FC = () => {
 
                                     <div className="flex items-center gap-2">
                                       {sub ? (
-                                        <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg text-xs font-bold font-mono">
-                                          Skor AI: {sub.total_score || sub.totalScore || 0}/{sub.max_score || sub.maxScore || 10}
-                                        </span>
+                                        sub.is_graded || sub.grading_type === 'manual_teacher' ? (
+                                          <span className="px-2.5 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold font-mono">
+                                            ✅ Nilai Guru: {sub.total_score ?? sub.totalScore ?? 0}/{sub.max_score ?? sub.maxScore ?? 10}
+                                          </span>
+                                        ) : sub.status === 'pending_review' || !sub.is_graded ? (
+                                          <span className="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-300 rounded-lg text-xs font-bold font-mono animate-pulse">
+                                            ⏳ Perlu Dinilai
+                                          </span>
+                                        ) : (
+                                          <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-bold font-mono">
+                                            Skor AI: {sub.total_score ?? sub.totalScore ?? 0}/{sub.max_score ?? sub.maxScore ?? 10}
+                                          </span>
+                                        )
                                       ) : (
                                         <span className="px-2.5 py-1 bg-slate-100 text-slate-500 rounded-lg text-xs font-medium">
                                           Belum Dikerjakan
@@ -1183,6 +1311,156 @@ export const ClassroomDetail: React.FC = () => {
                                             </div>
                                           </div>
                                         )}
+                                      </div>
+
+                                      {/* FORMULIR PENILAIAN MANUAL GURU (SPEEDGRADER ACTION) */}
+                                      <div className="p-4 bg-[#FFFFF0] rounded-xl border-2 border-[#B0C4DE] space-y-3.5 shadow-2xs">
+                                        <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-[#D3D3D3]/60">
+                                          <div className="flex items-center gap-2">
+                                            <PenTool className="w-4 h-4 text-[#708090]" />
+                                            <span className="text-xs font-bold text-[#2D3748]">
+                                              Penilaian Manual Guru Pembina
+                                            </span>
+                                          </div>
+                                          {sub.is_graded || sub.grading_type === 'manual_teacher' ? (
+                                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[10px] font-bold">
+                                              ✅ Sudah Dinilai ({sub.total_score ?? sub.totalScore}/{sub.max_score ?? sub.maxScore ?? 10})
+                                            </span>
+                                          ) : (
+                                            <span className="px-2 py-0.5 bg-amber-50 text-amber-800 border border-amber-300 rounded text-[10px] font-bold animate-pulse">
+                                              ⏳ Menunggu Penilaian Guru
+                                            </span>
+                                          )}
+                                        </div>
+
+                                        {/* Input Skor & Presets */}
+                                        <div className="space-y-2">
+                                          <div className="flex flex-wrap items-center justify-between gap-2">
+                                            <label className="text-[11px] font-semibold text-[#2D3748]">
+                                              Nilai Soal Ini (Maks {sub.max_score || sub.maxScore || 10}):
+                                            </label>
+                                            <div className="flex items-center gap-1">
+                                              <span className="text-[10px] text-[#708090] mr-1">Cepat:</span>
+                                              {[10, 8.5, 7, 5, 0].map((preset) => (
+                                                <button
+                                                  key={preset}
+                                                  type="button"
+                                                  onClick={() =>
+                                                    setGradingScores((prev) => ({ ...prev, [sub.id]: preset }))
+                                                  }
+                                                  className="px-2 py-0.5 bg-[#F0F8FF] hover:bg-[#B0C4DE]/30 text-[#2D3748] border border-[#B0C4DE] rounded text-[10px] font-mono font-bold transition cursor-pointer"
+                                                >
+                                                  {preset}
+                                                </button>
+                                              ))}
+                                            </div>
+                                          </div>
+
+                                          <div className="flex items-center gap-3">
+                                            <input
+                                              type="number"
+                                              min={0}
+                                              max={sub.max_score || sub.maxScore || 10}
+                                              step={0.5}
+                                              value={
+                                                gradingScores[sub.id] !== undefined
+                                                  ? gradingScores[sub.id]
+                                                  : sub.total_score ?? sub.totalScore ?? 0
+                                              }
+                                              onChange={(e) => {
+                                                const val = parseFloat(e.target.value) || 0;
+                                                setGradingScores((prev) => ({ ...prev, [sub.id]: val }));
+                                              }}
+                                              className="w-24 px-3 py-1.5 bg-white border border-[#B0C4DE] rounded-lg text-sm font-mono font-bold text-[#2D3748] focus:outline-none focus:border-[#708090]"
+                                            />
+                                            <span className="text-xs text-[#708090]">
+                                              / {sub.max_score || sub.maxScore || 10} Poin
+                                            </span>
+                                          </div>
+                                        </div>
+
+                                        {/* Feedback Textarea & Quick Snippets */}
+                                        <div className="space-y-1.5">
+                                          <label className="text-[11px] font-semibold text-[#2D3748] flex items-center justify-between">
+                                            <span>Ulasan & Masukan Guru untuk Siswa:</span>
+                                            <span className="text-[10px] text-[#708090] font-normal">
+                                              (Akan tampil di lembar kerja siswa)
+                                            </span>
+                                          </label>
+
+                                          {/* Quick Snippet Chips */}
+                                          <div className="flex flex-wrap gap-1.5 pt-0.5">
+                                            {[
+                                              'Langkah pengerjaan KaTeX sangat rapi & teliti! 👏',
+                                              'Perhatikan ketelitian pembulatan angka penting.',
+                                              'Konsep sudah tepat, namun terjadi kesalahan hitung numerik di tahap akhir.',
+                                            ].map((snippet, sIdx) => (
+                                              <button
+                                                key={sIdx}
+                                                type="button"
+                                                onClick={() => {
+                                                  const cur =
+                                                    gradingFeedbacks[sub.id] !== undefined
+                                                      ? gradingFeedbacks[sub.id]
+                                                      : sub.teacher_feedback || sub.teacherFeedback || '';
+                                                  const updated = cur ? `${cur} ${snippet}` : snippet;
+                                                  setGradingFeedbacks((prev) => ({ ...prev, [sub.id]: updated }));
+                                                }}
+                                                className="text-[10px] px-2 py-0.5 bg-[#F0F8FF] hover:bg-[#B0C4DE]/40 text-[#708090] hover:text-[#2D3748] border border-[#B0C4DE]/60 rounded-md transition cursor-pointer text-left truncate max-w-[280px]"
+                                                title={`Sisipkan: "${snippet}"`}
+                                              >
+                                                + {snippet}
+                                              </button>
+                                            ))}
+                                          </div>
+
+                                          <textarea
+                                            rows={2}
+                                            value={
+                                              gradingFeedbacks[sub.id] !== undefined
+                                                ? gradingFeedbacks[sub.id]
+                                                : sub.teacher_feedback || sub.teacherFeedback || ''
+                                            }
+                                            onChange={(e) =>
+                                              setGradingFeedbacks((prev) => ({ ...prev, [sub.id]: e.target.value }))
+                                            }
+                                            placeholder="Tuliskan catatan khusus atau koreksi untuk siswa..."
+                                            className="w-full p-2.5 bg-white border border-[#B0C4DE] rounded-xl text-xs text-[#2D3748] placeholder-[#708090]/60 focus:outline-none focus:border-[#708090] leading-relaxed"
+                                          />
+                                        </div>
+
+                                        {/* Tombol Simpan Nilai */}
+                                        <div className="flex items-center justify-between pt-1">
+                                          {gradeSuccessSubId === sub.id ? (
+                                            <span className="text-xs text-emerald-700 font-bold flex items-center gap-1.5">
+                                              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                                              Nilai berhasil disimpan & diterbitkan ke siswa!
+                                            </span>
+                                          ) : (
+                                            <span className="text-[11px] text-[#708090]">
+                                              Nilai akan langsung masuk ke portofolio & notifikasi siswa.
+                                            </span>
+                                          )}
+
+                                          <button
+                                            type="button"
+                                            onClick={() => handleSaveTeacherGrade(sub, q)}
+                                            disabled={savingGradeSubId === sub.id}
+                                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] rounded-xl text-xs font-bold transition shadow-xs hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer"
+                                          >
+                                            {savingGradeSubId === sub.id ? (
+                                              <>
+                                                <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                <span>Menyimpan...</span>
+                                              </>
+                                            ) : (
+                                              <>
+                                                <Save className="w-3.5 h-3.5 text-[#FFFFF0]" />
+                                                <span>Simpan & Terbitkan Nilai</span>
+                                              </>
+                                            )}
+                                          </button>
+                                        </div>
                                       </div>
                                     </div>
                                   ) : (

@@ -551,14 +551,14 @@ export const StudentWorksheetList: React.FC = () => {
 
                           {/* Status Badge */}
                           {item.status === 'in_progress' ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-100 text-amber-800 font-semibold text-[10px] rounded-md">
-                              <Clock className="w-3 h-3 text-amber-600" />
-                              <span>Sedang Berjalan</span>
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 font-semibold text-[10px] rounded-md">
+                              <Clock className="w-3 h-3 text-amber-600 animate-pulse" />
+                              <span>Sedang Berjalan / Ditinjau</span>
                             </span>
                           ) : item.status === 'completed' ? (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-100 text-emerald-800 font-semibold text-[10px] rounded-md">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold text-[10px] rounded-md">
                               <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                              <span>Selesai</span>
+                              <span>Selesai Dinilai</span>
                             </span>
                           ) : (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100 text-slate-600 font-medium text-[10px] rounded-md">

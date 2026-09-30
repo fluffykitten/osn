@@ -77,6 +77,25 @@ export const Navbar: React.FC = React.memo(() => {
     setActiveWorksheet(studentWorksheetService.getActiveSession(user?.id));
   }, [location.pathname, user?.id]);
 
+  const [hasNewGradeNotification, setHasNewGradeNotification] = useState(false);
+
+  useEffect(() => {
+    const handleGradePublished = (e: any) => {
+      const detail = e.detail;
+      if (detail && (!user?.id || detail.studentId === user.id || detail.studentId === user.email)) {
+        setHasNewGradeNotification(true);
+      }
+    };
+    window.addEventListener('osn_teacher_grade_published', handleGradePublished);
+    return () => window.removeEventListener('osn_teacher_grade_published', handleGradePublished);
+  }, [user?.id, user?.email]);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/worksheet')) {
+      setHasNewGradeNotification(false);
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     setMobileMenuOpen(false);
     setShowUserDropdown(false);
@@ -222,7 +241,12 @@ export const Navbar: React.FC = React.memo(() => {
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Worksheet</span>
-                  {activeWorksheet && !location.pathname.startsWith('/worksheet/') && (
+                  {hasNewGradeNotification && (
+                    <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold font-mono bg-emerald-100 text-emerald-800 border border-emerald-300 animate-pulse">
+                      Nilai Baru!
+                    </span>
+                  )}
+                  {activeWorksheet && !location.pathname.startsWith('/worksheet/') && !hasNewGradeNotification && (
                     <span className="flex h-2 w-2 relative -mr-0.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#708090] opacity-75" />
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-[#708090]" />
@@ -269,8 +293,8 @@ export const Navbar: React.FC = React.memo(() => {
                   </Link>
                 )}
 
-                {/* Menu Khusus Guru */}
-                {!isAdmin && isTeacher && (
+                {/* Menu Khusus Guru & Admin */}
+                {(isTeacher || isAdmin) && (
                   <>
                     <Link
                       to="/practice?mode=table"
@@ -476,6 +500,27 @@ export const Navbar: React.FC = React.memo(() => {
                           <BarChart3 className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Audit Log Aktivitas</span>
                         </Link>
+                        <div className="pt-1 mt-1 border-t border-[#D3D3D3]/60">
+                          <div className="px-2 py-0.5 text-[9px] font-bold text-[#708090] uppercase tracking-wider">
+                            Akses Studio Guru
+                          </div>
+                          <Link
+                            to="/teacher"
+                            onClick={() => setShowUserDropdown(false)}
+                            className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
+                          >
+                            <Users className="w-3.5 h-3.5 text-[#708090]" />
+                            <span>Studio Guru & Pemantauan</span>
+                          </Link>
+                          <Link
+                            to="/teacher/classes"
+                            onClick={() => setShowUserDropdown(false)}
+                            className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
+                          >
+                            <School className="w-3.5 h-3.5 text-[#708090]" />
+                            <span>Manajemen Kelas Binaan</span>
+                          </Link>
+                        </div>
                       </>
                     ) : isTeacher ? (
                       <>
@@ -795,7 +840,7 @@ export const Navbar: React.FC = React.memo(() => {
                   )}
 
                   {/* Fitur Khusus Guru & Admin */}
-                  {isTeacher && (
+                  {(isTeacher || isAdmin) && (
                     <div className="pt-2 border-t border-[#D3D3D3] space-y-1">
                       <div className="px-3 py-1 text-[10px] font-bold text-[#708090] uppercase tracking-wider">
                         Fitur Guru & Pembina

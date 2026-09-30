@@ -22,6 +22,8 @@ export interface Profile {
   target_olympiad?: 'OSK' | 'OSP' | 'OSN' | 'IChO' | string;
   phone_whatsapp?: string;
   membership_tier?: 'free' | 'pro' | 'school';
+  ai_grading_access?: boolean;
+  is_admin?: boolean;
   account_status?: AccountStatus;
   is_suspended?: boolean;
   suspended_reason?: string;
@@ -413,6 +415,7 @@ export interface SavedSubmissionRecord {
   id: string;
   userId: string;
   questionId: number;
+  question_id?: number | string;
   questionTitle: string;
   pillarNumber: number;
   subtopic: string;
@@ -421,7 +424,7 @@ export interface SavedSubmissionRecord {
   totalScore: number;
   maxScore: number;
   scorePercentage: number;
-  status: 'perfect' | 'partial_correct' | 'incorrect';
+  status: 'perfect' | 'partial_correct' | 'incorrect' | 'pending_review';
   criteriaBreakdown: GradingCriterionResult[];
   overallFeedback: string;
   strengths: string[];
@@ -432,7 +435,13 @@ export interface SavedSubmissionRecord {
   confidenceScore: number;
   elapsedSeconds: number;
   gradedAt: string;
+  graded_at?: string;
   modelUsed?: string;
+  is_graded?: boolean;
+  grading_type?: 'manual' | 'manual_teacher' | 'ai';
+  teacher_feedback?: string;
+  graded_by_teacher_id?: string;
+  graded_by_teacher_name?: string;
   syncedToCloud: boolean;
 }
 
@@ -471,6 +480,10 @@ export interface AuditLog {
     | 'USER_ACTIVATED'
     | 'PASSWORD_RESET'
     | 'ROLE_CHANGED'
+    | 'GRANT_AI_GRADING'
+    | 'REVOKE_AI_GRADING'
+    | 'BATCH_GRANT_AI_GRADING'
+    | 'BATCH_REVOKE_AI_GRADING'
     | 'MATERIAL_UPDATED'
     | 'QUESTION_CREATED'
     | 'QUESTION_UPDATED'

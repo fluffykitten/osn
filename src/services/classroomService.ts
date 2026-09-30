@@ -189,11 +189,17 @@ class ClassroomService {
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
-        const { data, error } = await supabase
+        let query = supabase
           .from('classrooms')
-          .select('*, classroom_members(count), classroom_assignments(count)')
-          .eq('teacher_id', teacherId)
-          .order('created_at', { ascending: false });
+          .select('*, classroom_members(count), classroom_assignments(count)');
+
+        if (teacherId && teacherId !== 'teacher-demo-uuid') {
+          query = query.or(`teacher_id.eq.${teacherId},teacher_id.eq.teacher-demo-uuid`);
+        } else if (teacherId) {
+          query = query.eq('teacher_id', teacherId);
+        }
+
+        const { data, error } = await query.order('created_at', { ascending: false });
 
         if (data && !error) {
           const formatted: Classroom[] = data.map((c: any) => ({
@@ -223,7 +229,7 @@ class ClassroomService {
           const unsyncedLocal = this.localClassrooms.filter(
             (c) =>
               !cloudCodes.has(c.code.toUpperCase()) &&
-              (c.teacher_id === teacherId || teacherId === 'teacher-demo-uuid')
+              (c.teacher_id === teacherId || c.teacher_id === 'teacher-demo-uuid' || teacherId === 'teacher-demo-uuid')
           );
 
           return [...formatted, ...unsyncedLocal];
@@ -234,7 +240,7 @@ class ClassroomService {
     }
 
     return this.localClassrooms.filter(
-      (c) => c.teacher_id === teacherId || teacherId === 'teacher-demo-uuid'
+      (c) => c.teacher_id === teacherId || c.teacher_id === 'teacher-demo-uuid' || teacherId === 'teacher-demo-uuid'
     );
   }
 
@@ -902,31 +908,65 @@ class ClassroomService {
 
     if (supabase) {
       try {
-        // Cari members di mana student_email cocok
-        const { data: memberRows, error } = await supabase
+        // Cari members di mana student_email cocok (case-insensitive) atau student_id cocok
+        let query = supabase
           .from('classroom_members')
-          .select('classroom_id, status, classrooms(*)')
-          .eq('student_email', cleanEmail);
+          .select('classroom_id, status, classrooms(*)');
+
+        if (studentId && !studentId.includes('demo')) {
+          query = query.or(`student_email.ilike.${cleanEmail},student_id.eq.${studentId}`);
+        } else {
+          query = query.ilike('student_email', cleanEmail);
+        }
+
+        const { data: memberRows, error } = await query;
 
         if (memberRows && !error) {
-          // Update status ke 'active' jika masih 'invited' dan ada studentId
-          if (studentId) {
+          // Update status ke 'active' jika masih 'invited' dan ada studentId valid
+          if (studentId && !studentId.includes('demo')) {
             await supabase
               .from('classroom_members')
               .update({ status: 'active', student_id: studentId, joined_at: new Date().toISOString() })
-              .eq('student_email', cleanEmail)
+              .ilike('student_email', cleanEmail)
               .eq('status', 'invited');
           }
 
           const cloudClassrooms = memberRows
             .map((r: any) => {
-              if (!r.classrooms) return null;
+              const cls = Array.isArray(r.classrooms) ? r.classrooms[0] : r.classrooms;
+              if (!cls) return null;
               return {
-                ...r.classrooms,
+                ...cls,
                 user_membership_status: r.status as ClassroomMemberStatus,
               };
             })
             .filter((c): c is Classroom => Boolean(c));
+
+          // Sinkronkan ke cache lokal agar konsisten di semua tab & saat offline
+          cloudClassrooms.forEach((c) => {
+            const existIdx = this.localMembers.findIndex(
+              (m) => m.classroom_id === c.id && m.student_email.toLowerCase() === cleanEmail
+            );
+            const memRecord: ClassroomMember = {
+              id: Date.now(),
+              classroom_id: c.id,
+              student_email: cleanEmail,
+              student_id: studentId || null,
+              student_name: cleanEmail.split('@')[0],
+              status: c.user_membership_status || 'active',
+              invited_at: new Date().toISOString(),
+              joined_at: new Date().toISOString(),
+            };
+            if (existIdx !== -1) {
+              this.localMembers[existIdx] = {
+                ...this.localMembers[existIdx],
+                status: c.user_membership_status || 'active',
+              };
+            } else {
+              this.localMembers.push(memRecord);
+            }
+          });
+          this.persistLocalStore();
 
           // Gabungkan kelas lokal jika siswa bergabung pada kelas lokal yang belum di cloud
           const cloudClassIds = new Set(cloudClassrooms.map((c) => c.id));

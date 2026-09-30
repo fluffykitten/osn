@@ -12,7 +12,12 @@ import { awardXp } from '../../services/gamificationService';
 import { trackAchievementEvent } from '../../services/achievementService';
 import { evaluateStudentWorksheet } from '../../services/aiGradingService';
 import { analyzeScaffoldWork } from '../../services/scaffoldService';
-import { saveWorksheetSubmission, getSubmissionHistory, syncSubmissionsFromCloud } from '../../services/submissionService';
+import {
+  saveWorksheetSubmission,
+  savePendingWorksheetSubmission,
+  getSubmissionHistory,
+  syncSubmissionsFromCloud,
+} from '../../services/submissionService';
 import { worksheetRealtimeService } from '../../services/worksheetRealtimeService';
 import { studentWorksheetService } from '../../services/studentWorksheetService';
 import { findConceptByTag, OSN_MATERIALS, type MaterialItem, type ConceptBlock } from '../../data/materialsData';
@@ -29,6 +34,7 @@ import type {
   Worksheet as WorksheetType,
   LiveHighlightItem,
   LiveHighlightEvent,
+  SavedSubmissionRecord,
 } from '../../types/database';
 import { getSupabaseClient } from '../../lib/supabaseClient';
 import {
@@ -60,6 +66,10 @@ import {
   Cloud,
   CloudCheck,
   Image as ImageIcon,
+  Send,
+  Lock,
+  UserCheck,
+  MessageSquare,
 } from 'lucide-react';
 
 export const Worksheet: React.FC = () => {
@@ -244,7 +254,15 @@ export const Worksheet: React.FC = () => {
   const evaluationsRef = useRef(evaluations);
   evaluationsRef.current = evaluations;
 
+  const [submissionRecords, setSubmissionRecords] = useState<Record<number, SavedSubmissionRecord>>({});
+  const [pendingSuccessMessage, setPendingSuccessMessage] = useState<string | null>(null);
+
   const evaluationResult = evaluations[currentQIndex] || null;
+  const currentSubmission = submissionRecords[currentQIndex] || null;
+  const isPendingTeacherReview = currentSubmission?.status === 'pending_review' && !currentSubmission.is_graded;
+  const isTeacherGraded = currentSubmission?.is_graded === true || currentSubmission?.grading_type === 'manual_teacher';
+  const hasAiGradingAccess = Boolean(profile?.ai_grading_access);
+
   const [evaluationError, setEvaluationError] = useState<string | null>(null);
   const [isSubmissionSaved, setIsSubmissionSaved] = useState(false);
 
@@ -255,13 +273,23 @@ export const Worksheet: React.FC = () => {
     const restoreFromSubs = (subs: any[]) => {
       if (!isMounted || !subs || subs.length === 0 || questionsList.length === 0) return;
 
+      // 0. Simpan map submission records
+      const subMap: Record<number, SavedSubmissionRecord> = {};
+      questionsList.forEach((q, idx) => {
+        const matched = subs.find((s) => Number(s.question_id || s.questionId) === q.id);
+        if (matched) {
+          subMap[idx] = matched;
+        }
+      });
+      setSubmissionRecords((prev) => ({ ...prev, ...subMap }));
+
       // 1. Pulihkan evaluasi penilaian AI
       setEvaluations((prev) => {
         const updated = { ...prev };
         let changed = false;
         questionsList.forEach((q, idx) => {
           if (!updated[idx]) {
-            const matched = subs.find((s) => s.questionId === q.id);
+            const matched = subs.find((s) => Number(s.question_id || s.questionId) === q.id);
             if (matched && matched.totalScore !== undefined) {
               const stat = matched.status === 'perfect' || matched.status === 'partial_correct' || matched.status === 'incorrect'
                 ? matched.status
@@ -297,7 +325,7 @@ export const Worksheet: React.FC = () => {
           const hasFinal = Boolean(currentAns?.finalAnswer && currentAns.finalAnswer.trim());
 
           if (!hasSteps && !hasFinal) {
-            const matched = subs.find((s) => s.questionId === q.id);
+            const matched = subs.find((s) => Number(s.question_id || s.questionId) === q.id);
             if (matched && (matched.studentWorkSteps || matched.studentFinalAnswer)) {
               updatedAnswers[idx] = {
                 steps: matched.studentWorkSteps || '',
@@ -336,6 +364,37 @@ export const Worksheet: React.FC = () => {
       isMounted = false;
     };
   }, [studentId, questionsList, user?.id]);
+
+  // Dengarkan notifikasi jika ada nilai baru yang diterbitkan oleh guru secara realtime
+  useEffect(() => {
+    const handleGradePublished = (e: any) => {
+      const detail = e.detail;
+      if (detail && detail.studentId === studentId) {
+        if (user?.id) {
+          syncSubmissionsFromCloud(user.id).then((cloudSubs) => {
+            if (cloudSubs && cloudSubs.length > 0) {
+              const subMap: Record<number, SavedSubmissionRecord> = {};
+              questionsList.forEach((q, idx) => {
+                const matched = cloudSubs.find((s: any) => Number(s.question_id || s.questionId) === q.id);
+                if (matched) subMap[idx] = matched;
+              });
+              setSubmissionRecords((prev) => ({ ...prev, ...subMap }));
+            }
+          }).catch(() => {});
+        } else {
+          const local = getSubmissionHistory(studentId);
+          const subMap: Record<number, SavedSubmissionRecord> = {};
+          questionsList.forEach((q, idx) => {
+            const matched = local.find((s) => Number(s.question_id || s.questionId) === q.id);
+            if (matched) subMap[idx] = matched;
+          });
+          setSubmissionRecords((prev) => ({ ...prev, ...subMap }));
+        }
+      }
+    };
+    window.addEventListener('osn_teacher_grade_published', handleGradePublished);
+    return () => window.removeEventListener('osn_teacher_grade_published', handleGradePublished);
+  }, [studentId, user?.id, questionsList]);
 
   // Statistik progres penilaian seluruh butir soal dalam worksheet ini
   const gradedQuestionsCount = useMemo(() => {
@@ -1571,8 +1630,55 @@ export const Worksheet: React.FC = () => {
       return;
     }
 
+    if (!hasAiGradingAccess) {
+      // MODE PENILAIAN MANUAL GURU (AI Grading Nonaktif secara Default)
+      setIsEvaluating(true);
+      setEvaluationError(null);
+      setPendingSuccessMessage(null);
+
+      try {
+        const pendingRecord = await savePendingWorksheetSubmission({
+          userId: studentId,
+          questionId: currentQuestion.id,
+          questionTitle: currentQuestion.title,
+          pillarNumber: currentQuestion.pillar_number,
+          subtopic: currentQuestion.subtopic,
+          studentWorkSteps: currentStepValue.trim() || `(Jawaban langsung: ${currentFinalAnswer.trim()})`,
+          studentFinalAnswer: currentFinalAnswer.trim(),
+          elapsedSeconds,
+          maxPoints: 10,
+        });
+
+        // Simpan jawaban terbaru ke draft lokal & realtime
+        saveProgress(answersRef.current, currentQIndex);
+
+        setSubmissionRecords((prev) => ({
+          ...prev,
+          [currentQIndex]: pendingRecord,
+        }));
+
+        setIsSubmissionSaved(true);
+        setIsEvaluating(false);
+        setPendingSuccessMessage(
+          'Jawaban berhasil diserahkan ke Guru Pembina! Lembar kerja Anda tersimpan dan siap dinilai secara manual oleh guru.'
+        );
+
+        studentWorksheetService.markWorksheetStarted({
+          type,
+          id: id || '1',
+          token: liveToken,
+          studentId,
+        });
+      } catch (saveErr: any) {
+        setIsEvaluating(false);
+        setEvaluationError(saveErr?.message || 'Gagal menyimpan dan mengirimkan jawaban ke guru.');
+      }
+      return;
+    }
+
     setIsEvaluating(true);
     setEvaluationError(null);
+    setPendingSuccessMessage(null);
     setEvaluationStage('analyzing');
 
     // Dynamic progression indicators
@@ -1646,7 +1752,7 @@ export const Worksheet: React.FC = () => {
 
       // Milestone 3: Auto-Save evaluasi pengerjaan ke Portofolio Siswa (Supabase + Local Cache)
       try {
-        await saveWorksheetSubmission({
+        const savedRec = await saveWorksheetSubmission({
           userId: studentId,
           questionId: currentQuestion.id,
           questionTitle: currentQuestion.title,
@@ -1657,6 +1763,10 @@ export const Worksheet: React.FC = () => {
           gradingResponse: result,
           elapsedSeconds,
         });
+        setSubmissionRecords((prev) => ({
+          ...prev,
+          [currentQIndex]: savedRec,
+        }));
         setIsSubmissionSaved(true);
 
         // Periksa apakah seluruh butir soal dalam worksheet sudah selesai dinilai
@@ -2468,27 +2578,69 @@ export const Worksheet: React.FC = () => {
                   )}
                 </button>
 
+                {hasAiGradingAccess ? (
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-indigo-700 font-semibold bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
+                    <Sparkles size={12} className="text-indigo-600" />
+                    <span>Akses AI Aktif</span>
+                  </span>
+                ) : (
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#708090] font-medium bg-[#FFFFF0] px-2.5 py-1 rounded-lg border border-[#D3D3D3]">
+                    <Lock size={12} className="text-[#708090]" />
+                    <span>Penilaian Guru</span>
+                  </span>
+                )}
+
                 <button
                   type="button"
                   onClick={handleEvaluate}
                   disabled={isEvaluating}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-bold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer border border-[#708090]"
-                  title="Evaluasi jawaban Anda dengan AI"
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 font-bold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer border ${
+                    hasAiGradingAccess
+                      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white border-indigo-500'
+                      : 'bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] border-[#708090]'
+                  }`}
+                  title={
+                    hasAiGradingAccess
+                      ? 'Evaluasi instan dengan kecerdasan buatan'
+                      : 'Kirim lembar kerja Anda ke Guru Pembina untuk dinilai secara manual'
+                  }
                 >
                   {isEvaluating ? (
                     <>
                       <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>Sedang Mengevaluasi...</span>
+                      <span>{hasAiGradingAccess ? 'Sedang Mengevaluasi AI...' : 'Mengirim ke Guru...'}</span>
+                    </>
+                  ) : hasAiGradingAccess ? (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+                      <span>Evaluasi Jawaban (AI)</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4 text-[#FFFFF0]" />
-                      <span>Evaluasi Jawaban</span>
+                      <Send className="w-4 h-4 text-[#FFFFF0]" />
+                      <span>{isPendingTeacherReview ? 'Perbarui Kiriman Guru' : 'Kirim Jawaban ke Guru'}</span>
                     </>
                   )}
                 </button>
               </div>
             </div>
+
+            {/* Notification of Successful Submission to Teacher */}
+            {pendingSuccessMessage && (
+              <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-start gap-2.5 animate-in fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <span className="font-bold block">Terkirim ke Guru Pembina:</span>
+                  <span>{pendingSuccessMessage}</span>
+                </div>
+                <button
+                  onClick={() => setPendingSuccessMessage(null)}
+                  className="text-emerald-700 hover:text-emerald-900 cursor-pointer p-0.5"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            )}
 
             {/* Evaluation Error Alert */}
             {evaluationError && (
@@ -2497,6 +2649,94 @@ export const Worksheet: React.FC = () => {
                 <div className="flex-1">
                   <span className="font-bold block">Gagal Menilai Jawaban:</span>
                   <span>{evaluationError}</span>
+                </div>
+              </div>
+            )}
+
+            {/* HASIL PENILAIAN RESMI GURU PEMBINA (Jika sudah dinilai manual oleh Guru) */}
+            {isTeacherGraded && currentSubmission && (
+              <div className="bg-[#FFFFF0] border-2 border-[#B0C4DE] rounded-2xl p-5 sm:p-6 shadow-sm space-y-4 animate-in fade-in">
+                <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[#D3D3D3]/60 pb-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-11 h-11 rounded-2xl flex items-center justify-center font-bold text-white shadow-xs bg-[#2E6930]">
+                      <CheckCircle2 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-base font-bold text-[#2D3748] font-display">
+                          Hasil Penilaian Guru Pembina 👨‍🏫
+                        </h3>
+                        <span className="px-2.5 py-0.5 bg-[#FFF2CC] text-[#806000] border border-[#FFE599] text-xs font-bold rounded-lg font-mono">
+                          {currentSubmission.totalScore} / {currentSubmission.maxScore || 10} Poin (
+                          {Math.round(((currentSubmission.totalScore || 0) / (currentSubmission.maxScore || 10)) * 100)}%)
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-[#708090]">
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#2D3748] bg-[#F0F8FF] px-2 py-0.5 rounded border border-[#B0C4DE]">
+                          👨‍🏫 Dinilai oleh: {currentSubmission.graded_by_teacher_name || 'Guru Pembina'}
+                        </span>
+                        <span>•</span>
+                        <span>
+                          {currentSubmission.graded_at || currentSubmission.gradedAt
+                            ? new Date(currentSubmission.graded_at || currentSubmission.gradedAt).toLocaleString('id-ID', {
+                                dateStyle: 'medium',
+                                timeStyle: 'short',
+                              })
+                            : 'Baru saja'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-3 py-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-2xs">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>Nilai Resmi Tersimpan</span>
+                  </div>
+                </div>
+
+                {/* Ulasan & Feedback Guru */}
+                <div className="space-y-2">
+                  <span className="text-xs font-bold text-[#2D3748] flex items-center gap-1.5">
+                    <MessageSquare className="w-4 h-4 text-[#708090]" />
+                    <span>Catatan & Ulasan Khusus Guru:</span>
+                  </span>
+                  <div className="p-4 bg-[#F0F8FF] border-l-4 border-[#708090] rounded-r-xl text-xs sm:text-sm text-[#2D3748] leading-relaxed whitespace-pre-wrap shadow-2xs">
+                    {currentSubmission.teacher_feedback ||
+                      currentSubmission.overallFeedback ||
+                      'Pengerjaan telah diperiksa oleh Guru Pembina.'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* STATUS JAWABAN MENUNGGU PENILAIAN MANUAL GURU */}
+            {isPendingTeacherReview && !isTeacherGraded && currentSubmission && (
+              <div className="bg-[#FFFFF0] border-2 border-[#FFE599] rounded-2xl p-5 sm:p-6 shadow-sm space-y-3 animate-in fade-in">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-amber-700 bg-[#FFF2CC] border border-[#FFE599] shadow-xs shrink-0">
+                    <Clock className="w-5 h-5 animate-pulse" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-bold text-[#2D3748]">Jawaban Sedang Menunggu Penilaian Guru</h4>
+                      <span className="px-2 py-0.5 bg-amber-100 text-amber-800 border border-amber-300 rounded text-[10px] font-bold font-mono">
+                        Antrean Review
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#708090] mt-1 leading-relaxed">
+                      Jawaban dan penurunan rumus KaTeX Anda telah terkirim pada{' '}
+                      <strong className="text-[#2D3748]">
+                        {new Date(currentSubmission.gradedAt || currentSubmission.graded_at || Date.now()).toLocaleTimeString(
+                          'id-ID',
+                          { hour: '2-digit', minute: '2-digit' }
+                        )}{' '}
+                        WIB
+                      </strong>
+                      . Guru Pembina akan meninjau ketelitian perhitungan dan memberikan umpan balik serta nilai manual.
+                    </p>
+                    <p className="text-[11px] text-[#708090]/90 mt-1 italic">
+                      💡 Anda tetap dapat mengedit jawaban di atas dan menekan "Perbarui Kiriman Guru" selama guru belum menyelesaikan penilaian.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}

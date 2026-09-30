@@ -13,6 +13,7 @@ import type {
 export type { SavedSubmissionRecord, PillarMasteryScore, GradingResponse };
 import { getSupabaseClient, DEFAULT_STUDENT_ID } from '../lib/supabaseClient';
 import { PILLARS_DATA } from '../data/syllabusData';
+import { awardXp } from './gamificationService';
 
 const SUBMISSIONS_STORAGE_KEY = 'osn_student_submissions';
 
@@ -26,6 +27,30 @@ export interface SaveSubmissionPayload {
   studentFinalAnswer: string;
   gradingResponse: GradingResponse;
   elapsedSeconds: number;
+}
+
+export interface SavePendingSubmissionPayload {
+  userId?: string;
+  questionId: number;
+  questionTitle: string;
+  pillarNumber: number;
+  subtopic: string;
+  studentWorkSteps: string;
+  studentFinalAnswer: string;
+  elapsedSeconds: number;
+  maxPoints?: number;
+}
+
+export interface TeacherGradePayload {
+  submissionId: string;
+  score?: number;
+  totalScore?: number;
+  maxScore?: number;
+  teacherFeedback: string;
+  teacherId: string;
+  teacherName: string;
+  studentId?: string;
+  questionTitle?: string;
 }
 
 // 10 Nama Baku Topik Silabus OSN Kimia Puspresnas
@@ -82,6 +107,8 @@ export async function saveWorksheetSubmission(
     elapsedSeconds: elapsedSeconds || gradingResponse.elapsedSeconds || 0,
     gradedAt: gradingResponse.gradedAt || new Date().toISOString(),
     modelUsed: gradingResponse.modelUsed,
+    is_graded: true,
+    grading_type: 'ai',
     syncedToCloud: false,
   };
 
@@ -137,6 +164,223 @@ export async function saveWorksheetSubmission(
 }
 
 /**
+ * Menyimpan pengerjaan lembar kerja siswa tanpa evaluasi AI (Menunggu Penilaian Manual Guru)
+ */
+export async function savePendingWorksheetSubmission(
+  payload: SavePendingSubmissionPayload
+): Promise<SavedSubmissionRecord> {
+  const userId = payload.userId || DEFAULT_STUDENT_ID;
+  const maxScore = payload.maxPoints || 10;
+  const submissionId = `sub-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+  const now = new Date().toISOString();
+
+  const newRecord: SavedSubmissionRecord = {
+    id: submissionId,
+    userId,
+    questionId: payload.questionId,
+    questionTitle: payload.questionTitle,
+    pillarNumber: payload.pillarNumber,
+    subtopic: payload.subtopic,
+    studentWorkSteps: payload.studentWorkSteps,
+    studentFinalAnswer: payload.studentFinalAnswer,
+    totalScore: 0,
+    maxScore,
+    scorePercentage: 0,
+    status: 'pending_review',
+    is_graded: false,
+    grading_type: 'manual',
+    criteriaBreakdown: [],
+    overallFeedback: 'Jawaban telah dikirim dan sedang menunggu penilaian manual dari Guru Pembina.',
+    strengths: [],
+    missingOrIncorrectPoints: [],
+    xpAwarded: 0,
+    confidenceScore: 1.0,
+    elapsedSeconds: payload.elapsedSeconds || 0,
+    gradedAt: now,
+    syncedToCloud: false,
+  };
+
+  // 1. Simpan ke Local Storage Cache
+  const existing = getLocalSubmissions();
+  const updatedList = [newRecord, ...existing.filter((item) => item.id !== newRecord.id)];
+  saveLocalSubmissions(updatedList);
+
+  // 2. Simpan ke Supabase jika tersedia
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { error } = await supabase.from('worksheet_submissions').insert([
+        {
+          id: newRecord.id,
+          user_id: newRecord.userId,
+          question_id: newRecord.questionId,
+          pillar_number: newRecord.pillarNumber,
+          subtopic: newRecord.subtopic,
+          total_score: 0,
+          max_score: newRecord.maxScore,
+          status: 'pending_review',
+          is_graded: false,
+          grading_type: 'manual',
+          elapsed_seconds: newRecord.elapsedSeconds,
+          overall_feedback: newRecord.overallFeedback,
+          student_work_steps: newRecord.studentWorkSteps,
+          student_final_answer: newRecord.studentFinalAnswer,
+          created_at: newRecord.gradedAt,
+        },
+      ]);
+      if (!error) {
+        newRecord.syncedToCloud = true;
+        const syncedList = updatedList.map((item) =>
+          item.id === newRecord.id ? { ...item, syncedToCloud: true } : item
+        );
+        saveLocalSubmissions(syncedList);
+      }
+    } catch (e: any) {
+      console.warn('Gagal simpan pending submission ke cloud:', e?.message);
+    }
+  }
+
+  return newRecord;
+}
+
+/**
+ * Menyimpan nilai dan umpan balik manual dari Guru Pembina (SpeedGrader)
+ */
+export async function teacherGradeSubmission(
+  payload: TeacherGradePayload
+): Promise<SavedSubmissionRecord | null> {
+  const localList = getLocalSubmissions();
+  const index = localList.findIndex((item) => item.id === payload.submissionId);
+  const now = new Date().toISOString();
+
+  let targetRecord: SavedSubmissionRecord;
+  const maxScore = payload.maxScore || (index !== -1 ? localList[index].maxScore : 10);
+  const rawScore = payload.totalScore !== undefined ? payload.totalScore : (payload.score ?? 0);
+  const clampedScore = Math.max(0, Math.min(rawScore, maxScore));
+  const scorePct = Math.round((clampedScore / maxScore) * 100);
+  const status: 'perfect' | 'partial_correct' | 'incorrect' =
+    scorePct >= 95 ? 'perfect' : scorePct >= 60 ? 'partial_correct' : 'incorrect';
+  const xpAwarded = Math.round(clampedScore * 10);
+
+  if (index !== -1) {
+    targetRecord = {
+      ...localList[index],
+      totalScore: clampedScore,
+      maxScore,
+      scorePercentage: scorePct,
+      status,
+      is_graded: true,
+      grading_type: 'manual',
+      teacher_feedback: payload.teacherFeedback,
+      graded_by_teacher_id: payload.teacherId,
+      graded_by_teacher_name: payload.teacherName,
+      gradedAt: now,
+      overallFeedback: payload.teacherFeedback || 'Telah dinilai oleh Guru Pembina.',
+      xpAwarded,
+    };
+    localList[index] = targetRecord;
+    saveLocalSubmissions(localList);
+  } else {
+    targetRecord = {
+      id: payload.submissionId,
+      userId: DEFAULT_STUDENT_ID,
+      questionId: 0,
+      questionTitle: 'Soal Evaluasi Guru',
+      pillarNumber: 1,
+      subtopic: 'Kimia',
+      studentWorkSteps: '',
+      studentFinalAnswer: '',
+      totalScore: clampedScore,
+      maxScore,
+      scorePercentage: scorePct,
+      status,
+      is_graded: true,
+      grading_type: 'manual',
+      teacher_feedback: payload.teacherFeedback,
+      graded_by_teacher_id: payload.teacherId,
+      graded_by_teacher_name: payload.teacherName,
+      gradedAt: now,
+      overallFeedback: payload.teacherFeedback,
+      criteriaBreakdown: [],
+      strengths: [],
+      missingOrIncorrectPoints: [],
+      xpAwarded,
+      confidenceScore: 1.0,
+      elapsedSeconds: 0,
+      syncedToCloud: false,
+    };
+  }
+
+  // Sync update to Supabase
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      await supabase
+        .from('worksheet_submissions')
+        .update({
+          total_score: clampedScore,
+          max_score: maxScore,
+          status,
+          is_graded: true,
+          grading_type: 'manual',
+          teacher_feedback: payload.teacherFeedback,
+          graded_by_teacher_id: payload.teacherId,
+          graded_by_teacher_name: payload.teacherName,
+          overall_feedback: payload.teacherFeedback,
+          xp_awarded: xpAwarded,
+        })
+        .eq('id', payload.submissionId);
+
+      // Siarkan ke kanal real-time siswa
+      if (targetRecord.userId) {
+        const studentRoom = supabase.channel(`room:student:${targetRecord.userId}`);
+        studentRoom.send({
+          type: 'broadcast',
+          event: 'teacher_grade_published',
+          payload: {
+            submissionId: payload.submissionId,
+            studentId: targetRecord.userId,
+            score: clampedScore,
+            maxScore,
+            teacherFeedback: payload.teacherFeedback,
+            teacherName: payload.teacherName,
+            questionTitle: targetRecord.questionTitle,
+          },
+        });
+      }
+    } catch (e: any) {
+      console.warn('Gagal sinkronisasi nilai guru ke Supabase:', e?.message);
+    }
+  }
+
+  // Berikan XP ke akun siswa
+  if (targetRecord.userId && xpAwarded > 0) {
+    awardXp(targetRecord.userId, xpAwarded, {
+      reason: `Penilaian Guru: ${targetRecord.questionTitle}`,
+    }).catch(() => {});
+  }
+
+  // Dispatch local in-browser event
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(
+      new CustomEvent('osn_teacher_grade_published', {
+        detail: {
+          submissionId: payload.submissionId,
+          studentId: targetRecord.userId,
+          score: clampedScore,
+          maxScore,
+          teacherFeedback: payload.teacherFeedback,
+          teacherName: payload.teacherName,
+          questionTitle: targetRecord.questionTitle,
+        },
+      })
+    );
+  }
+
+  return targetRecord;
+}
+
+/**
  * Mengambil seluruh riwayat pengerjaan siswa
  * Terisolasi secara ketat berdasarkan userId siswa yang sedang aktif
  */
@@ -152,6 +396,65 @@ export function getSubmissionHistory(userId?: string): SavedSubmissionRecord[] {
       return item.userId === userId;
     })
     .sort((a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime());
+}
+
+/**
+ * Mengambil daftar seluruh penugasan yang masih berstatus 'pending_review' (Menunggu Penilaian Guru)
+ */
+export async function getPendingSubmissions(): Promise<SavedSubmissionRecord[]> {
+  const localList = getLocalSubmissions().filter(
+    (item) => item.status === 'pending_review' || item.is_graded === false
+  );
+
+  const supabase = getSupabaseClient();
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('worksheet_submissions')
+        .select('*')
+        .eq('is_graded', false)
+        .order('created_at', { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        const cloudPending: SavedSubmissionRecord[] = data.map((d: any) => ({
+          id: d.id,
+          userId: d.user_id,
+          questionId: Number(d.question_id),
+          questionTitle: d.subtopic || `Soal #${d.question_id}`,
+          pillarNumber: Number(d.pillar_number),
+          subtopic: d.subtopic || '',
+          studentWorkSteps: d.student_work_steps || '',
+          studentFinalAnswer: d.student_final_answer || '',
+          totalScore: Number(d.total_score) || 0,
+          maxScore: Number(d.max_score) || 10,
+          scorePercentage: 0,
+          status: 'pending_review',
+          criteriaBreakdown: [],
+          overallFeedback: d.overall_feedback || 'Menunggu pemeriksaan guru.',
+          strengths: [],
+          missingOrIncorrectPoints: [],
+          xpAwarded: 0,
+          confidenceScore: 1.0,
+          elapsedSeconds: Number(d.elapsed_seconds) || 0,
+          gradedAt: d.created_at || new Date().toISOString(),
+          is_graded: false,
+          grading_type: 'manual',
+          syncedToCloud: true,
+        }));
+
+        const map = new Map<string, SavedSubmissionRecord>();
+        localList.forEach((item) => map.set(item.id, item));
+        cloudPending.forEach((item) => map.set(item.id, item));
+        return Array.from(map.values()).sort(
+          (a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime()
+        );
+      }
+    } catch (e: any) {
+      console.warn('Gagal memuat pending submissions dari Supabase:', e?.message);
+    }
+  }
+
+  return localList.sort((a, b) => new Date(b.gradedAt).getTime() - new Date(a.gradedAt).getTime());
 }
 
 /**
@@ -193,6 +496,11 @@ export async function syncSubmissionsFromCloud(userId?: string): Promise<SavedSu
         elapsedSeconds: Number(d.elapsed_seconds) || 0,
         gradedAt: d.created_at || new Date().toISOString(),
         modelUsed: d.model_used,
+        is_graded: Boolean(d.is_graded ?? (d.status !== 'pending_review')),
+        grading_type: (d.grading_type as 'manual' | 'ai') || (d.model_used ? 'ai' : 'manual'),
+        teacher_feedback: d.teacher_feedback || undefined,
+        graded_by_teacher_id: d.graded_by_teacher_id || undefined,
+        graded_by_teacher_name: d.graded_by_teacher_name || undefined,
         syncedToCloud: true,
       }));
 

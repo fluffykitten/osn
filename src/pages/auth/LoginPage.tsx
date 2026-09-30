@@ -71,20 +71,28 @@ export const LoginPage: React.FC = () => {
         navigate(redirectPath, { replace: true });
         return;
       }
+
+      const sessionTarget = sessionStorage.getItem('osn_login_portal_target');
+      if (sessionTarget) {
+        sessionStorage.removeItem('osn_login_portal_target');
+        navigate(sessionTarget, { replace: true });
+        return;
+      }
+
+      if (isTeacher) {
+        navigate('/teacher', { replace: true });
+        return;
+      }
       if (isAdmin) {
         navigate('/admin/analytics', { replace: true });
         return;
       }
-      if (isTeacher) {
-        navigate('/teacher', { replace: true });
-      } else {
-        classroomService.getStudentClassrooms(user.email || '', user.id).then((classes) => {
-          const hasActive = classes.some((c) => c.user_membership_status === 'active');
-          navigate(hasActive ? '/student/dashboard' : '/join-class', { replace: true });
-        }).catch(() => {
-          navigate('/join-class', { replace: true });
-        });
-      }
+      classroomService.getStudentClassrooms(user.email || '', user.id).then((classes) => {
+        const hasActive = classes.some((c) => c.user_membership_status === 'active');
+        navigate(hasActive ? '/student/dashboard' : '/join-class', { replace: true });
+      }).catch(() => {
+        navigate('/join-class', { replace: true });
+      });
     }
   }, [user, isTeacher, isAdmin, isRecoveryMode, mode, redirectPath, navigate]);
 
@@ -152,20 +160,34 @@ export const LoginPage: React.FC = () => {
 
     try {
       if (mode === 'login') {
+        const cleanEmail = email.trim().toLowerCase();
+        const isAdminUser = cleanEmail === 'fluffykitten.dev@gmail.com' || cleanEmail.includes('admin');
+        const isTeacherUser =
+          cleanEmail.includes('guru') ||
+          cleanEmail === 'ezzarscarlet@gmail.com';
+
+        if (isAdminUser) {
+          sessionStorage.setItem('osn_login_portal_target', '/admin/analytics');
+        } else if (isTeacherUser) {
+          sessionStorage.setItem('osn_login_portal_target', '/teacher');
+        }
+
         const res = await login(email, password);
         if (!res.success) {
+          sessionStorage.removeItem('osn_login_portal_target');
           setErrorMessage(res.error || 'Email atau kata sandi tidak cocok.');
         } else {
           setSuccessMessage('Berhasil masuk! Mengarahkan...');
-          const cleanEmail = email.trim().toLowerCase();
-          const isTeacherUser =
-            cleanEmail.includes('guru') ||
-            cleanEmail === 'fluffykitten.dev@gmail.com' ||
-            cleanEmail === 'ezzarscarlet@gmail.com';
 
           setTimeout(async () => {
+            const target = sessionStorage.getItem('osn_login_portal_target');
+            if (target) sessionStorage.removeItem('osn_login_portal_target');
             if (redirectPath) {
               navigate(redirectPath);
+            } else if (target) {
+              navigate(target);
+            } else if (isAdminUser) {
+              navigate('/admin/analytics');
             } else if (isTeacherUser) {
               navigate('/teacher');
             } else {
@@ -173,11 +195,14 @@ export const LoginPage: React.FC = () => {
                 const classrooms = await classroomService.getStudentClassrooms(cleanEmail);
                 const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
                 if (hasActive) {
+                  sessionStorage.setItem('osn_has_active_classroom', 'true');
                   navigate('/student/dashboard');
                 } else {
+                  sessionStorage.setItem('osn_has_active_classroom', 'false');
                   navigate('/join-class');
                 }
               } catch {
+                sessionStorage.setItem('osn_has_active_classroom', 'false');
                 navigate('/join-class');
               }
             }
@@ -291,21 +316,29 @@ export const LoginPage: React.FC = () => {
     setSuccessMessage(null);
     setIsLoading(true);
 
+    const targetPortal =
+      type === 'admin' ? '/admin/analytics' : type === 'teacher' ? '/teacher' : '/student/dashboard';
+    sessionStorage.setItem('osn_login_portal_target', targetPortal);
+
     try {
       const res = await loginDemo(type);
       if (res.success) {
         const roleName = type === 'admin' ? 'Administrator' : type === 'teacher' ? 'Guru' : 'Siswa';
         setSuccessMessage(`Berhasil login sebagai akun ${roleName}!`);
         setTimeout(async () => {
+          const target = sessionStorage.getItem('osn_login_portal_target');
+          if (target) sessionStorage.removeItem('osn_login_portal_target');
           if (redirectPath) {
             navigate(redirectPath);
+          } else if (target) {
+            navigate(target);
           } else if (type === 'admin') {
             navigate('/admin/analytics');
           } else if (type === 'teacher') {
             navigate('/teacher');
           } else {
             try {
-              const classrooms = await classroomService.getStudentClassrooms('siswa@gmail.com');
+              const classrooms = await classroomService.getStudentClassrooms('siswa@osnkimia.id');
               const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
               if (hasActive) {
                 navigate('/student/dashboard');
@@ -318,9 +351,11 @@ export const LoginPage: React.FC = () => {
           }
         }, 400);
       } else {
+        sessionStorage.removeItem('osn_login_portal_target');
         setErrorMessage(res.error || 'Gagal login akun demo.');
       }
     } catch (err: any) {
+      sessionStorage.removeItem('osn_login_portal_target');
       setErrorMessage(err?.message || 'Gagal login demo.');
     } finally {
       setIsLoading(false);

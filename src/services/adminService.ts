@@ -597,6 +597,77 @@ class AdminService {
     return { success: true };
   }
 
+  public async toggleUserAiGrading(
+    userId: string,
+    hasAccess: boolean,
+    adminEmail = 'fluffykitten.dev@gmail.com'
+  ): Promise<{ success: boolean; error?: string }> {
+    const supabase = getSupabaseClient();
+    if (supabase) {
+      try {
+        await supabase.from('profiles').update({ ai_grading_access: hasAccess }).eq('id', userId);
+      } catch (err: any) {
+        console.warn('[AdminService] Supabase toggleUserAiGrading error:', err?.message);
+      }
+    }
+
+    const localUsers = this.getLocalUsers();
+    const idx = localUsers.findIndex((u) => u.id === userId);
+    let targetEmail = '';
+    if (idx !== -1) {
+      localUsers[idx].ai_grading_access = hasAccess;
+      targetEmail = localUsers[idx].email;
+      this.saveLocalUsers(localUsers);
+    }
+
+    await this.logAction({
+      actor_id: 'admin-master-uuid',
+      actor_email: adminEmail,
+      action_type: hasAccess ? 'GRANT_AI_GRADING' : 'REVOKE_AI_GRADING',
+      target_resource: `users/${userId}`,
+      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses AI Grading untuk ${targetEmail || userId}`,
+      details: { ai_grading_access: hasAccess },
+    });
+
+    return { success: true };
+  }
+
+  public async batchGrantAiGrading(
+    userIds: string[],
+    hasAccess: boolean,
+    adminEmail = 'fluffykitten.dev@gmail.com'
+  ): Promise<{ success: boolean; updatedCount: number; error?: string }> {
+    const supabase = getSupabaseClient();
+    if (supabase && userIds.length > 0) {
+      try {
+        await supabase.from('profiles').update({ ai_grading_access: hasAccess }).in('id', userIds);
+      } catch (err: any) {
+        console.warn('[AdminService] Supabase batchGrantAiGrading error:', err?.message);
+      }
+    }
+
+    const localUsers = this.getLocalUsers();
+    let count = 0;
+    localUsers.forEach((u) => {
+      if (userIds.includes(u.id)) {
+        u.ai_grading_access = hasAccess;
+        count++;
+      }
+    });
+    this.saveLocalUsers(localUsers);
+
+    await this.logAction({
+      actor_id: 'admin-master-uuid',
+      actor_email: adminEmail,
+      action_type: hasAccess ? 'BATCH_GRANT_AI_GRADING' : 'BATCH_REVOKE_AI_GRADING',
+      target_resource: `users/batch`,
+      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses AI Grading massal untuk ${count} pengguna`,
+      details: { count, hasAccess },
+    });
+
+    return { success: true, updatedCount: count };
+  }
+
   public async deleteUser(
     userId: string,
     userEmail: string,

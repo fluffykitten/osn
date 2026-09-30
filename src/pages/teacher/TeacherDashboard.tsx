@@ -27,11 +27,17 @@ import {
   RefreshCw,
   HelpCircle,
   TrendingDown,
+  PenTool,
 } from 'lucide-react';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { questionBankService } from '../../services/questionBankService';
 import { classroomService } from '../../services/classroomService';
-import { calculatePillarMastery, type PillarMasteryScore } from '../../services/submissionService';
+import {
+  calculatePillarMastery,
+  type PillarMasteryScore,
+  getPendingSubmissions,
+  type SavedSubmissionRecord,
+} from '../../services/submissionService';
 import { useAuth } from '../../contexts/AuthContext';
 import { DiagramGalleryModal } from '../../components/teacher/DiagramGalleryModal';
 import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
@@ -50,6 +56,7 @@ export const TeacherDashboard: React.FC = () => {
   const [pendingApprovals, setPendingApprovals] = useState<
     Array<ClassroomMember & { classroom_name: string; classroom_id: number }>
   >([]);
+  const [pendingGradingList, setPendingGradingList] = useState<SavedSubmissionRecord[]>([]);
   const [recentActivities, setRecentActivities] = useState<any[]>([]);
   const [activeLiveSessions, setActiveLiveSessions] = useState<any[]>([]);
   const [pillarMastery, setPillarMastery] = useState<PillarMasteryScore[]>([]);
@@ -76,6 +83,10 @@ export const TeacherDashboard: React.FC = () => {
       const pending = await classroomService.getPendingApprovalsAcrossClasses(teacherId);
       setPendingApprovals(pending);
 
+      // Muat antrean pengerjaan siswa yang menunggu penilaian guru
+      const localPending = await getPendingSubmissions();
+      setPendingGradingList(localPending);
+
       // Hitung penguasaan silabus 10 pilar
       const mastery = calculatePillarMastery();
       setPillarMastery(mastery);
@@ -85,6 +96,16 @@ export const TeacherDashboard: React.FC = () => {
       const supabase = getSupabaseClient();
       if (supabase) {
         try {
+          const { data: cloudPending } = await supabase
+            .from('worksheet_submissions')
+            .select('*')
+            .eq('status', 'pending_review')
+            .order('created_at', { ascending: false });
+
+          if (cloudPending && cloudPending.length > 0) {
+            setPendingGradingList(cloudPending);
+          }
+
           const fifteenMinsAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString();
           const { data: liveData } = await supabase
             .from('worksheet_live_sessions')
@@ -372,6 +393,74 @@ export const TeacherDashboard: React.FC = () => {
                   <span>Buka Layar Live Proctoring ↗</span>
                 </Link>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* PENDING MANUAL GRADING QUEUE BANNER */}
+        {pendingGradingList.length > 0 && (
+          <div className="bg-[#FFFFF0] border-2 border-[#B0C4DE] rounded-3xl p-5 sm:p-6 shadow-xs space-y-4 animate-in fade-in">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#D3D3D3]/60">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-[#708090] text-white flex items-center justify-center shadow-xs">
+                  <PenTool className="w-5 h-5 text-[#FFFFF0]" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm sm:text-base font-bold text-[#2D3748] font-display">
+                      Tugas Menunggu Penilaian Guru ({pendingGradingList.length} Soal)
+                    </h3>
+                    <span className="px-2 py-0.5 bg-amber-100 text-amber-800 border border-amber-300 rounded-full text-[10px] font-bold font-mono animate-pulse">
+                      Antrean Manual
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#708090] mt-0.5">
+                    Siswa telah menyerahkan lembar kerja dan menunggu pemeriksaan langkah KaTeX serta pemberian nilai dari guru.
+                  </p>
+                </div>
+              </div>
+
+              {classrooms.length > 0 && (
+                <button
+                  onClick={() => navigate(`/teacher/classrooms/${classrooms[0].id}`)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer"
+                >
+                  <span>Buka SpeedGrader</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* List Preview */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {pendingGradingList.slice(0, 3).map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-[#F0F8FF] rounded-2xl p-3.5 border border-[#B0C4DE]/60 flex items-center justify-between gap-3 hover:border-[#708090] transition-all"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-[#2D3748] truncate">
+                      {item.questionTitle || `Soal #${item.questionId}`}
+                    </p>
+                    <p className="text-[10px] text-[#708090] font-mono mt-0.5">
+                      Pilar {item.pillarNumber} • {item.subtopic || 'OSN'}
+                    </p>
+                    <span className="inline-block text-[10px] text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded mt-1 font-mono">
+                      ⏱ {new Date(item.gradedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+                    </span>
+                  </div>
+
+                  {classrooms.length > 0 && (
+                    <button
+                      onClick={() => navigate(`/teacher/classrooms/${classrooms[0].id}`)}
+                      className="p-2 bg-white hover:bg-slate-100 text-[#708090] border border-[#B0C4DE] rounded-xl transition-colors cursor-pointer shrink-0"
+                      title="Buka Lembar Kerja di SpeedGrader"
+                    >
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         )}
