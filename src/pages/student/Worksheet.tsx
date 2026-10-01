@@ -1854,14 +1854,14 @@ export const Worksheet: React.FC = () => {
                   <span>{liveToken}</span>
                 </span>
               )}
-              <h1 className="text-xs sm:text-sm font-bold text-[#2D3748] font-display truncate max-w-[200px] lg:max-w-md hidden sm:inline" title={currentQuestion.title || `Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
+              <h1 className="text-xs sm:text-sm font-bold text-[#2D3748] font-display truncate max-w-[120px] xs:max-w-[180px] sm:max-w-[200px] lg:max-w-md hidden sm:inline" title={currentQuestion.title || `Topik #${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}>
                 {currentQuestion.title || `T#${currentQuestion.pillar_number}: ${currentQuestion.subtopic}`}
               </h1>
             </div>
           </div>
 
           {/* Question Stepper Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto text-xs py-0.5 min-w-0 max-w-xs sm:max-w-sm md:max-w-md">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scrollbar-none text-xs py-0.5 min-w-0 max-w-full sm:max-w-sm md:max-w-md">
             {questionsList.map((q, idx) => {
               const isAnswered = Boolean(answers[idx]?.steps?.trim());
               const isGraded = Boolean(evaluations[idx]);
@@ -1902,8 +1902,8 @@ export const Worksheet: React.FC = () => {
         </div>
 
         {/* Row 2: Left: Scale Preset & Stopwatch | Right: Simpan, Mr, Tabel, Mode Layar Penuh */}
-        <div className="flex items-center justify-between gap-2 pt-1 border-t border-[#D3D3D3]/60">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-1.5 sm:gap-2 pt-1 border-t border-[#D3D3D3]/60 overflow-x-auto no-scrollbar scrollbar-none pb-0.5">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <ScalePresetToggle
               scale={canvasScale}
               onChange={(s) => {
@@ -1914,7 +1914,7 @@ export const Worksheet: React.FC = () => {
             />
 
             <div
-              className="flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] border border-[#B0C4DE] rounded-lg text-xs font-mono font-bold text-[#2D3748] shadow-2xs"
+              className="flex items-center gap-1 px-2 sm:px-2.5 py-1 bg-[#F0F8FF] border border-[#B0C4DE] rounded-lg text-xs font-mono font-bold text-[#2D3748] shadow-2xs shrink-0"
               title="Stopwatch Waktu Pengerjaan Siswa"
             >
               <Clock className="w-3.5 h-3.5 text-[#708090]" />
@@ -1923,7 +1923,7 @@ export const Worksheet: React.FC = () => {
 
             {/* Status Penilaian Worksheet */}
             <div
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border shadow-2xs ${
+              className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg text-xs font-semibold border shadow-2xs shrink-0 ${
                 isAllWorksheetCompleted
                   ? 'bg-[#E2F0D9] text-[#2E6930] border-[#C5E0B4]'
                   : gradedQuestionsCount > 0
@@ -1935,7 +1935,7 @@ export const Worksheet: React.FC = () => {
               <span className={`w-2 h-2 rounded-full ${isAllWorksheetCompleted ? 'bg-[#2E6930]' : gradedQuestionsCount > 0 ? 'bg-[#708090]' : 'bg-[#D3D3D3]'}`}></span>
               <span>
                 {isAllWorksheetCompleted
-                  ? 'Selesai Dinilai'
+                  ? 'Selesai'
                   : gradedQuestionsCount > 0
                   ? `${gradedQuestionsCount}/${questionsList.length} Dinilai`
                   : 'Belum Dinilai'}
@@ -1944,12 +1944,12 @@ export const Worksheet: React.FC = () => {
           </div>
 
           {/* Sisi Kanan: Tombol Simpan, Mr, Tabel, dan Mode Layar Penuh */}
-          <div className="flex items-center gap-1.5 ml-auto">
+          <div className="flex items-center gap-1.5 ml-auto shrink-0">
             {/* Manual Save Progress Button */}
             <button
               type="button"
               onClick={handleManualSave}
-              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 border cursor-pointer ${
+              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 border cursor-pointer shrink-0 ${
                 isSaveSuccess
                   ? 'bg-[#2E6930] text-white border-[#2E6930]'
                   : 'bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#2D3748] border-[#B0C4DE]'
@@ -1959,7 +1959,7 @@ export const Worksheet: React.FC = () => {
               {isSaveSuccess ? (
                 <>
                   <Check className="w-3.5 h-3.5 text-white" />
-                  <span>Tersimpan Online!</span>
+                  <span className="hidden xs:inline">Tersimpan!</span>
                 </>
               ) : (
                 <>
@@ -1972,27 +1972,27 @@ export const Worksheet: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsMolarMassOpen(true)}
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer shrink-0"
               title="Kalkulator Massa Molar Relatif (Mr)"
             >
               <Scale className="w-3.5 h-3.5 text-[#708090]" />
-              <span className="hidden lg:inline">Mr</span>
+              <span className="hidden md:inline">Mr</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsPeriodicOpen(true)}
-              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#F0F8FF] hover:bg-[#E6F0FA] text-[#2D3748] border border-[#B0C4DE] rounded-lg text-xs font-bold transition-all shadow-2xs active:scale-95 cursor-pointer shrink-0"
               title="Buka Tabel Periodik & Tetapan Fisika"
             >
               <Table className="w-3.5 h-3.5 text-[#708090]" />
-              <span className="hidden lg:inline">Tabel</span>
+              <span className="hidden md:inline">Tabel</span>
             </button>
 
             <button
               type="button"
               onClick={() => setIsZenMode(!isZenMode)}
-              className={`p-1.5 rounded-lg border transition-colors cursor-pointer ${
+              className={`p-1.5 rounded-lg border transition-colors cursor-pointer shrink-0 ${
                 isZenMode
                   ? 'bg-[#2D3748] text-[#FFFFF0] border-[#2D3748]'
                   : 'bg-[#FFFFF0] text-[#708090] hover:bg-[#F0F8FF] border border-[#B0C4DE]'
@@ -2293,6 +2293,49 @@ export const Worksheet: React.FC = () => {
                 )}
               </span>
             </div>
+
+            {/* Workspace Mode Toggle (Editor / Preview / Split) */}
+            <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-[11px] shrink-0">
+              <button
+                type="button"
+                onClick={() => setWorkspaceMode('editor')}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                  workspaceMode === 'editor'
+                    ? 'bg-white text-[#2D3748] font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+                title="Hanya Tampilkan Editor Ketik"
+              >
+                <Edit3 className="w-3 h-3" />
+                <span>Ketik</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setWorkspaceMode('preview')}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                  workspaceMode === 'preview'
+                    ? 'bg-white text-[#2D3748] font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+                title="Hanya Tampilkan Hasil Live Render KaTeX"
+              >
+                <Sparkles className="w-3 h-3 text-[#D4A359]" />
+                <span>Render</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setWorkspaceMode('split')}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                  workspaceMode === 'split'
+                    ? 'bg-white text-[#2D3748] font-bold shadow-2xs'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+                title="Tampilkan Editor dan Preview Berdampingan"
+              >
+                <Columns className="w-3 h-3" />
+                <span className="hidden xs:inline">Keduanya</span>
+              </button>
+            </div>
           </div>
 
           {/* ChemToolbar directly attached with Kerangka 4 Langkah OSN sejajar dengan Template Cepat OSN */}
@@ -2306,7 +2349,7 @@ export const Worksheet: React.FC = () => {
           />
 
           {/* Editor & Preview Area */}
-          <div className="flex-1 p-4 sm:p-5 space-y-4">
+          <div className="flex-1 p-3.5 sm:p-5 pb-24 lg:pb-6 space-y-4">
             {/* Live Teacher Sticky Comment / Hint */}
             {liveComment && (
               <div className="p-3.5 bg-[#F0F8FF] border border-[#B0C4DE] rounded-2xl text-xs text-[#2D3748] shadow-2xs flex items-start justify-between gap-3 animate-fadeIn">
@@ -2512,7 +2555,7 @@ export const Worksheet: React.FC = () => {
 
             {/* Action Bar: Prev / Next & Save Progress & AI Evaluation Trigger */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   onClick={() => {
                     if (currentQIndex > 0) {
@@ -2522,10 +2565,11 @@ export const Worksheet: React.FC = () => {
                     }
                   }}
                   disabled={currentQIndex === 0}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer shrink-0"
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  <span>Soal Sebelumnya</span>
+                  <span className="hidden xs:inline">Soal </span>
+                  <span>Sebelumnya</span>
                 </button>
                 <button
                   onClick={() => {
@@ -2536,19 +2580,20 @@ export const Worksheet: React.FC = () => {
                     }
                   }}
                   disabled={currentQIndex === questionsList.length - 1}
-                  className="inline-flex items-center gap-1 px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-lg text-xs font-semibold transition-all disabled:opacity-40 cursor-pointer shrink-0"
                 >
-                  <span>Soal Berikutnya</span>
+                  <span className="hidden xs:inline">Soal </span>
+                  <span>Berikutnya</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
 
               {/* Progress Stage Text, Manual Save Button, and AI Evaluate Button */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                 {isEvaluating && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-[#B0C4DE]/20 border border-[#B0C4DE]/50 rounded-xl text-xs text-[#708090] font-medium animate-pulse">
-                    <span className="w-3.5 h-3.5 border-2 border-[#708090] border-t-transparent rounded-full animate-spin" />
-                    <span>
+                  <div className="flex items-center gap-2 px-3 py-1.5 bg-[#B0C4DE]/20 border border-[#B0C4DE]/50 rounded-xl text-xs text-[#708090] font-medium animate-pulse w-full sm:w-auto">
+                    <span className="w-3.5 h-3.5 border-2 border-[#708090] border-t-transparent rounded-full animate-spin shrink-0" />
+                    <span className="truncate">
                       {evaluationStage === 'analyzing' && '🔍 Menganalisis langkah penurunan & notasi kimia...'}
                       {evaluationStage === 'validating_math' &&
                         '⚖️ Memvalidasi stoikiometri & toleransi numerik (±2% - ±5%)...'}
@@ -2562,29 +2607,30 @@ export const Worksheet: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleManualSave}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-xl text-xs font-semibold transition-all shadow-2xs active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] rounded-xl text-xs font-semibold transition-all shadow-2xs active:scale-95 cursor-pointer shrink-0"
                   title="Simpan lembar kerja ke cloud Supabase agar progres tersimpan aman"
                 >
                   {isSaveSuccess ? (
                     <>
                       <Check className="w-4 h-4 text-[#708090]" />
-                      <span className="text-[#708090] font-bold">Tersimpan Online!</span>
+                      <span className="text-[#708090] font-bold">Tersimpan!</span>
                     </>
                   ) : (
                     <>
                       <Save className="w-4 h-4 text-[#708090]" />
-                      <span>Simpan Progress</span>
+                      <span className="hidden xs:inline">Simpan </span>
+                      <span>Progress</span>
                     </>
                   )}
                 </button>
 
                 {hasAiGradingAccess ? (
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-indigo-700 font-semibold bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200">
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-indigo-700 font-semibold bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200 shrink-0">
                     <Sparkles size={12} className="text-indigo-600" />
-                    <span>Akses AI Aktif</span>
+                    <span>Akses AI</span>
                   </span>
                 ) : (
-                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#708090] font-medium bg-[#FFFFF0] px-2.5 py-1 rounded-lg border border-[#D3D3D3]">
+                  <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#708090] font-medium bg-[#FFFFF0] px-2.5 py-1 rounded-lg border border-[#D3D3D3] shrink-0">
                     <Lock size={12} className="text-[#708090]" />
                     <span>Penilaian Guru</span>
                   </span>
@@ -2594,7 +2640,7 @@ export const Worksheet: React.FC = () => {
                   type="button"
                   onClick={handleEvaluate}
                   disabled={isEvaluating}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 font-bold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer border ${
+                  className={`inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 font-bold text-xs rounded-xl transition-all shadow-sm hover:shadow-md disabled:opacity-50 active:scale-98 cursor-pointer border shrink-0 ${
                     hasAiGradingAccess
                       ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white border-indigo-500'
                       : 'bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] border-[#708090]'
@@ -2608,7 +2654,7 @@ export const Worksheet: React.FC = () => {
                   {isEvaluating ? (
                     <>
                       <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>{hasAiGradingAccess ? 'Sedang Mengevaluasi AI...' : 'Mengirim ke Guru...'}</span>
+                      <span>{hasAiGradingAccess ? 'Mengevaluasi AI...' : 'Mengirim...'}</span>
                     </>
                   ) : hasAiGradingAccess ? (
                     <>
@@ -2618,7 +2664,7 @@ export const Worksheet: React.FC = () => {
                   ) : (
                     <>
                       <Send className="w-4 h-4 text-[#FFFFF0]" />
-                      <span>{isPendingTeacherReview ? 'Perbarui Kiriman Guru' : 'Kirim Jawaban ke Guru'}</span>
+                      <span>{isPendingTeacherReview ? 'Perbarui Kiriman' : 'Kirim ke Guru'}</span>
                     </>
                   )}
                 </button>

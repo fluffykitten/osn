@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { 
   X, 
   RotateCw, 
@@ -81,6 +81,33 @@ export const MaterialFlashcardModal: React.FC<MaterialFlashcardModalProps> = ({
   const masteredCount = useMemo(() => {
     return activeDeck.filter((c) => masteredMap[c.id] === true).length;
   }, [activeDeck, masteredMap]);
+
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const diffX = e.changedTouches[0].clientX - touchStartXRef.current;
+    const diffY = e.changedTouches[0].clientY - touchStartYRef.current;
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+
+    // Pastikan swipe horizontal lebih dominan daripada vertikal dan melewati ambang 45px
+    if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
+      if (diffX < 0) {
+        // Geser ke kiri -> Kartu berikutnya
+        handleNext();
+      } else {
+        // Geser ke kanan -> Kartu sebelumnya
+        handlePrev();
+      }
+    }
+  };
 
   const handleNext = useCallback(() => {
     if (currentIndex < totalCards - 1) {
@@ -340,10 +367,12 @@ export const MaterialFlashcardModal: React.FC<MaterialFlashcardModalProps> = ({
                 />
               </div>
 
-              {/* 3D Flip Card Container */}
+              {/* 3D Flip Card Container with Touch Swipe Support */}
               <div
                 onClick={handleFlip}
-                className="w-full min-h-[300px] sm:min-h-[340px] cursor-pointer perspective-1000 select-none group"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                className="w-full min-h-[300px] sm:min-h-[340px] cursor-pointer perspective-1000 select-none group touch-pan-y"
               >
                 <div
                   className={`relative w-full h-full min-h-[300px] sm:min-h-[340px] rounded-3xl border-2 transition-all duration-500 preserve-3d shadow-xl p-6 sm:p-8 flex flex-col justify-between ${
@@ -434,6 +463,7 @@ export const MaterialFlashcardModal: React.FC<MaterialFlashcardModalProps> = ({
                   >
                     <span>Kartu {currentIndex + 1} dari {totalCards}</span>
                     <span className="hidden sm:inline">Tekan [Spasi] untuk balik</span>
+                    <span className="sm:hidden text-[10px] text-[#708090]">Geser ↔ untuk kartu lain</span>
                   </div>
                 </div>
               </div>

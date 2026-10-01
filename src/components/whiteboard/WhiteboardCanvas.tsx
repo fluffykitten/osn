@@ -196,6 +196,21 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   const currentCompassAngleRef = useRef<number | null>(null);
   const lastCompassAngleRef = useRef<number | null>(null);
 
+  // Multi-Touch Gesture Engine (Pinch-to-Zoom & Two-Finger Pan/Scroll) & Palm Rejection
+  const activePointersRef = useRef<Map<number, { clientX: number; clientY: number; pointerType: string }>>(new Map());
+  const pinchGestureRef = useRef<{
+    startDist: number;
+    startZoom: number;
+    startPanX: number;
+    startPanY: number;
+    startMidX: number;
+    startMidY: number;
+    startScrollTop: number;
+    startScrollLeft: number;
+  } | null>(null);
+  const lastGestureEndTimeRef = useRef<number>(0);
+  const lastPenTimeRef = useRef<number>(0);
+
   // Laser Fading Pen: Goresan pemandu yang memudar dan hilang otomatis dalam ~3.2 detik
   interface FadingStroke {
     id: string;
@@ -1086,6 +1101,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   // Listener PointerUp/MouseUp/Blur Global untuk memastikan goresan disimpan dan panning berhenti jika mouse lepas di luar jendela (misal ke sidebar tab vertikal browser)
   useEffect(() => {
     const handleGlobalEnd = () => {
+      activePointersRef.current.clear();
+      pinchGestureRef.current = null;
       autoPanStateRef.current.active = false;
       if (isPanning) {
         setIsPanning(false);
@@ -1108,6 +1125,62 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
 
   // Pointer Events
   const handleMouseDown = (e: React.PointerEvent<HTMLCanvasElement> | React.MouseEvent<HTMLCanvasElement>) => {
+    const pointerEvent = 'pointerId' in e ? (e as React.PointerEvent<HTMLCanvasElement>) : null;
+    const pointerType = pointerEvent?.pointerType || 'mouse';
+
+    if (pointerEvent) {
+      activePointersRef.current.set(pointerEvent.pointerId, {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        pointerType,
+      });
+
+      if (pointerType === 'pen') {
+        lastPenTimeRef.current = Date.now();
+      }
+
+      // Deteksi Gestur Multi-Touch: Jika 2 jari menyentuh layar (Pinch & Pan)
+      if (activePointersRef.current.size >= 2) {
+        // Jika sedang ada goresan tunggal aktif, batalkan goresan (bukan commit) agar tidak timbul coretan liar
+        if (isDrawing) {
+          setIsDrawing(false);
+          setCurrentPoints([]);
+          currentStrokeIdRef.current = null;
+        }
+
+        const pts = Array.from(activePointersRef.current.values());
+        const p1 = pts[0];
+        const p2 = pts[1];
+        const dist = Math.hypot(p1.clientX - p2.clientX, p1.clientY - p2.clientY);
+        const midX = (p1.clientX + p2.clientX) / 2;
+        const midY = (p1.clientY + p2.clientY) / 2;
+
+        pinchGestureRef.current = {
+          startDist: Math.max(10, dist),
+          startZoom: zoomRef.current,
+          startPanX: panXRef.current,
+          startPanY: panYRef.current,
+          startMidX: midX,
+          startMidY: midY,
+          startScrollTop: containerRef.current?.scrollTop || 0,
+          startScrollLeft: containerRef.current?.scrollLeft || 0,
+        };
+        return;
+      }
+
+      // Smart Palm Rejection:
+      // Jika pengguna sedang aktif menggunakan stylus/Apple Pencil (< 800ms lalu)
+      // dan ada sentuhan telapak tangan (touch), abaikan goresan dari telapak tangan
+      if (pointerType === 'touch' && Date.now() - lastPenTimeRef.current < 800) {
+        return;
+      }
+
+      // Cegah goresan titik liar tepat setelah melepas gestur cubit 2-jari
+      if (Date.now() - lastGestureEndTimeRef.current < 200) {
+        return;
+      }
+    }
+
     // 1. Spacebar ATAU Klik Kanan (button === 2) ATAU Tombol Tengah (button === 1) ATAU Alt = Pan / Geser Posisi Kanvas
     if (isSpacePressedRef.current || e.button === 2 || e.button === 1 || e.altKey) {
       e.preventDefault();
@@ -1240,6 +1313,75 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   };
 
   const handleMouseMove = (e: React.PointerEvent<HTMLCanvasElement> | React.MouseEvent<HTMLCanvasElement>) => {
+    const pointerEvent = 'pointerId' in e ? (e as React.PointerEvent<HTMLCanvasElement>) : null;
+    const pointerType = pointerEvent?.pointerType || 'mouse';
+
+    if (pointerEvent) {
+      activePointersRef.current.set(pointerEvent.pointerId, {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        pointerType,
+      });
+
+      // Tangani Gestur Cubit Zoom (Pinch-to-Zoom) & Pan 2-Jari
+      if (pinchGestureRef.current && activePointersRef.current.size >= 2) {
+        const pts = Array.from(activePointersRef.current.values());
+        const p1 = pts[0];
+        const p2 = pts[1];
+        const currDist = Math.hypot(p1.clientX - p2.clientX, p1.clientY - p2.clientY);
+        const currMidX = (p1.clientX + p2.clientX) / 2;
+        const currMidY = (p1.clientY + p2.clientY) / 2;
+
+        const zoomRatio = currDist / Math.max(10, pinchGestureRef.current.startDist);
+        const deltaX = currMidX - pinchGestureRef.current.startMidX;
+        const deltaY = currMidY - pinchGestureRef.current.startMidY;
+
+        if (doc.layoutMode === 'infinite') {
+          const targetZoom = Math.min(
+            5,
+            Math.max(0.15, Number((pinchGestureRef.current.startZoom * zoomRatio).toFixed(3)))
+          );
+
+          const rect = canvasRef.current?.getBoundingClientRect() || containerRef.current?.getBoundingClientRect();
+          const focalX = pinchGestureRef.current.startMidX - (rect?.left || 0);
+          const focalY = pinchGestureRef.current.startMidY - (rect?.top || 0);
+
+          const newPanX = Math.round(
+            focalX - (focalX - pinchGestureRef.current.startPanX) * (targetZoom / pinchGestureRef.current.startZoom) + deltaX
+          );
+          const newPanY = Math.round(
+            focalY - (focalY - pinchGestureRef.current.startPanY) * (targetZoom / pinchGestureRef.current.startZoom) + deltaY
+          );
+
+          if (onUpdateZoomAndPan) {
+            onUpdateZoomAndPan(targetZoom, newPanX, newPanY);
+          } else {
+            onUpdatePan(newPanX, newPanY);
+          }
+        } else {
+          // Mode Paginated: Pan 2-Jari menggulir container dan cubitan menyesuaikan skala zoom kertas
+          if (containerRef.current) {
+            containerRef.current.scrollTop = pinchGestureRef.current.startScrollTop - deltaY;
+            containerRef.current.scrollLeft = pinchGestureRef.current.startScrollLeft - deltaX;
+          }
+
+          if (Math.abs(zoomRatio - 1) > 0.05 && onUpdateZoomAndPan) {
+            const targetZoom = Math.min(
+              3,
+              Math.max(0.3, Number((pinchGestureRef.current.startZoom * zoomRatio).toFixed(2)))
+            );
+            onUpdateZoomAndPan(targetZoom, panX, panY);
+          }
+        }
+        return;
+      }
+
+      // Palm Rejection pada pergerakan
+      if (pointerType === 'touch' && Date.now() - lastPenTimeRef.current < 800) {
+        return;
+      }
+    }
+
     if (isPanning) {
       if (doc.layoutMode === 'infinite') {
         onUpdatePan(e.clientX - panStart.x, e.clientY - panStart.y);
@@ -1413,11 +1555,23 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           (e.target as HTMLElement).releasePointerCapture(e.pointerId);
         }
       } catch {}
+      activePointersRef.current.delete(e.pointerId);
     }
-    setIsDraggingElement(false);
-    elementDragStartRef.current = null;
-    setDragStart(null);
-    commitCurrentDrawing();
+
+    if (pinchGestureRef.current) {
+      if (activePointersRef.current.size < 2) {
+        pinchGestureRef.current = null;
+        lastGestureEndTimeRef.current = Date.now();
+      }
+      return;
+    }
+
+    if (activePointersRef.current.size === 0) {
+      setIsDraggingElement(false);
+      elementDragStartRef.current = null;
+      setDragStart(null);
+      commitCurrentDrawing();
+    }
   };
 
   // Support Paste Gambar dari Clipboard (Ctrl+V)

@@ -106,35 +106,9 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
     }
   };
 
-  // Handle Dragging
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      const modalWidth = modalRef.current?.offsetWidth || size.width;
-      const modalHeight = modalRef.current?.offsetHeight || size.height;
-      const maxX = Math.max(0, window.innerWidth - modalWidth - 10);
-      const maxY = Math.max(0, window.innerHeight - modalHeight - 10);
-
-      const newX = Math.min(Math.max(10, e.clientX - dragOffset.x), maxX);
-      const newY = Math.min(Math.max(10, e.clientY - dragOffset.y), maxY);
-      setPosition({ x: newX, y: newY });
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging, dragOffset, size]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
+  // Handle Pointer Dragging (Touch, Stylus, and Mouse)
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (isMobile || (e.target as HTMLElement).closest('button, a')) return;
     if (modalRef.current) {
       const rect = modalRef.current.getBoundingClientRect();
       setDragOffset({
@@ -142,6 +116,28 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
         y: e.clientY - rect.top,
       });
       setIsDragging(true);
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    }
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDragging || isMobile) return;
+    const modalWidth = modalRef.current?.offsetWidth || size.width;
+    const modalHeight = modalRef.current?.offsetHeight || size.height;
+    const maxX = Math.max(0, window.innerWidth - modalWidth - 10);
+    const maxY = Math.max(0, window.innerHeight - modalHeight - 10);
+
+    const newX = Math.min(Math.max(10, e.clientX - dragOffset.x), maxX);
+    const newY = Math.min(Math.max(10, e.clientY - dragOffset.y), maxY);
+    setPosition({ x: newX, y: newY });
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    setIsDragging(false);
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {
+      // ignore
     }
   };
 
@@ -210,8 +206,12 @@ export const ScaffoldGuideModal: React.FC<ScaffoldGuideModalProps> = ({
     >
       {/* Draggable Header */}
       <div
-        onMouseDown={handleMouseDown}
-        className="bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-[#FFFFF0] px-4 py-2.5 rounded-t-xl cursor-move flex items-center justify-between select-none shadow-sm"
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        className={`bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-[#FFFFF0] px-4 py-2.5 rounded-t-xl flex items-center justify-between select-none shadow-sm touch-none ${
+          isMobile ? '' : 'cursor-grab active:cursor-grabbing'
+        }`}
       >
         <div className="flex items-center gap-2">
           <Move className="w-3.5 h-3.5 text-[#B0C4DE]" />

@@ -221,11 +221,11 @@ Instruksi Tambahan:
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 sm:p-4 animate-in fade-in duration-200">
-      <div className="bg-[#F8FAFC] text-slate-900 rounded-3xl max-w-2xl w-full h-[90vh] sm:h-[84vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-2 sm:p-4 animate-in fade-in duration-200">
+      <div className="bg-[#F8FAFC] text-slate-900 rounded-2xl sm:rounded-3xl max-w-2xl w-full h-[94vh] sm:h-[84vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in zoom-in-95">
         
         {/* Header (Palet Papan Tulis / Slate Theme: #4A5A6A - #596A7A dengan Aksen Ivory #FFFFF0) */}
-        <div className="px-5 py-4 bg-gradient-to-r from-[#4A5A6A] via-[#596A7A] to-[#425262] text-[#FFFFF0] border-b border-[#B0C4DE]/30 flex items-center justify-between shrink-0 shadow-md">
+        <div className="px-4 sm:px-5 py-3.5 sm:py-4 bg-gradient-to-r from-[#4A5A6A] via-[#596A7A] to-[#425262] text-[#FFFFF0] border-b border-[#B0C4DE]/30 flex items-center justify-between shrink-0 shadow-md">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-[#FFFFF0]/15 border border-[#B0C4DE]/30 flex items-center justify-center text-[#FFFFF0] shadow-sm">
               <Atom className="w-5 h-5 animate-spin-slow text-[#B0C4DE]" />

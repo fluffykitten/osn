@@ -358,7 +358,7 @@ export const MolarMassCalculatorModal: React.FC<MolarMassCalculatorModalProps> =
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          className={`flex items-center justify-between px-4 py-3 bg-[#2D3748] text-[#FFFFF0] select-none shadow-xs border-b border-[#B0C4DE]/30 ${
+          className={`flex items-center justify-between px-4 py-3 bg-[#2D3748] text-[#FFFFF0] select-none shadow-xs border-b border-[#B0C4DE]/30 touch-none ${
             isMobile ? '' : 'cursor-grab active:cursor-grabbing'
           }`}
         >

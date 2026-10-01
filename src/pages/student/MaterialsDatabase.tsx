@@ -915,7 +915,7 @@ export const MaterialsDatabase: React.FC = () => {
     return (
       <div
         key={activeMaterial.id}
-        className="min-h-screen pb-16 transition-colors duration-200 relative animate-in fade-in duration-200"
+        className="min-h-screen pb-28 lg:pb-16 transition-colors duration-200 relative animate-in fade-in duration-200"
         style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
       >
         <ChemistryWatermarkBackground />
@@ -940,13 +940,13 @@ export const MaterialsDatabase: React.FC = () => {
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar scrollbar-none py-1 sm:py-0 w-full sm:w-auto shrink-0 sm:flex-wrap">
             {/* Flashcard Kilat Review Button */}
             {featureFlags.materialFlashcards && (
               <button
                 type="button"
                 onClick={() => setFlashcardOpen(true)}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer"
+                className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer touch-manipulation"
                 title="Buka Flashcard Kilat untuk review cepat konsep & rumus"
               >
                 <Layers className="w-3.5 h-3.5 text-indigo-600" />
@@ -959,7 +959,7 @@ export const MaterialsDatabase: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleOpenNotes()}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50/80 hover:bg-amber-100 text-amber-800 shadow-2xs cursor-pointer"
+                className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50/80 hover:bg-amber-100 text-amber-800 shadow-2xs cursor-pointer touch-manipulation"
                 title="Buka Catatan Belajar Pribadi"
               >
                 <StickyNote className="w-3.5 h-3.5 text-amber-600" />
@@ -972,7 +972,7 @@ export const MaterialsDatabase: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleOpenAiTutor()}
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-purple-200 bg-purple-50/80 hover:bg-purple-100 text-purple-700 shadow-2xs cursor-pointer"
+                className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-purple-200 bg-purple-50/80 hover:bg-purple-100 text-purple-700 shadow-2xs cursor-pointer touch-manipulation"
                 title="Konsultasi ke AI Tutor untuk topik ini"
               >
                 <Sparkles className="w-3.5 h-3.5 text-purple-600" />
@@ -983,7 +983,7 @@ export const MaterialsDatabase: React.FC = () => {
             {/* Status Selesai Belajar Toggle Button */}
             <button
               onClick={() => toggleComplete(activeMaterial.id)}
-              className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border cursor-pointer ${
+              className={`shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border cursor-pointer touch-manipulation ${
                 isCompleted
                   ? 'bg-emerald-50 border-emerald-300 text-emerald-700 shadow-2xs'
                   : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50'
@@ -996,7 +996,7 @@ export const MaterialsDatabase: React.FC = () => {
 
             <button
               onClick={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap"
+              className="shrink-0 inline-flex items-center justify-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap touch-manipulation"
             >
               <span>Latihan di Bank Soal</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -2007,10 +2007,10 @@ export const MaterialsDatabase: React.FC = () => {
         </div>
 
         {/* Segmented Database Switcher */}
-        <div className="relative z-10 flex flex-wrap items-center gap-2 p-1.5 bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-700/50 w-fit">
+        <div className="relative z-10 flex flex-wrap items-center gap-2 p-1.5 bg-slate-900/40 backdrop-blur-md rounded-2xl border border-slate-700/50 w-full sm:w-fit overflow-x-auto no-scrollbar scrollbar-none">
           <button
             onClick={() => handleDatabaseSwitch('osn')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 touch-manipulation ${
               activeDatabase === 'osn'
                 ? 'bg-white text-slate-800 shadow-sm border border-slate-200'
                 : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -2028,7 +2028,7 @@ export const MaterialsDatabase: React.FC = () => {
 
           <button
             onClick={() => handleDatabaseSwitch('sma')}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 touch-manipulation ${
               activeDatabase === 'sma'
                 ? 'bg-white text-slate-800 shadow-sm border border-slate-200'
                 : 'text-slate-300 hover:text-white hover:bg-white/10'
@@ -2050,7 +2050,7 @@ export const MaterialsDatabase: React.FC = () => {
       <div className="space-y-3">
         {/* Grade Filter Pills (Specific to SMA Database) */}
         {isSmaDb && (
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scrollbar-none pb-1">
             <span className="text-xs font-bold text-slate-500 mr-1 shrink-0">Jenjang Kelas:</span>
             {(['Semua', 'Kelas 10', 'Kelas 11', 'Kelas 12'] as const).map((grade) => {
               const label =
@@ -2069,7 +2069,7 @@ export const MaterialsDatabase: React.FC = () => {
                     setSelectedGrade(grade);
                     setSelectedCategory('Semua');
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer border shrink-0 touch-manipulation ${
                     selectedGrade === grade
                       ? 'bg-emerald-600 text-white font-bold border-emerald-600 shadow-2xs'
                       : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
@@ -2100,12 +2100,12 @@ export const MaterialsDatabase: React.FC = () => {
           </div>
 
           {/* Category Pills Filter */}
-          <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scrollbar-none w-full sm:w-auto pb-1 sm:pb-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer shrink-0 touch-manipulation ${
                   selectedCategory === cat
                     ? isSmaDb
                       ? 'bg-emerald-600 text-white shadow-2xs'

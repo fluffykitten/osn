@@ -49,8 +49,27 @@ export const ScaledDocumentCanvas: React.FC<ScaledDocumentCanvasProps> = ({
   className = '',
   children,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number>(0);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
+
+  // ResizeObserver untuk mengukur lebar kontainer responsif (misal saat rotasi layar atau perangkat mobile)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const measureWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+      }
+    };
+
+    measureWidth();
+    const observer = new ResizeObserver(measureWidth);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // ResizeObserver untuk memastikan tinggi dokumen selalu terukur akurat secara alami
   useEffect(() => {
@@ -76,7 +95,7 @@ export const ScaledDocumentCanvas: React.FC<ScaledDocumentCanvasProps> = ({
 
   // Handle pergerakan mouse laser dengan normalisasi skala
   const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLDivElement> | React.PointerEvent<HTMLDivElement>) => {
       if (!isInteractive || !innerRef.current) return;
 
       const innerRect = innerRef.current.getBoundingClientRect();
@@ -100,7 +119,7 @@ export const ScaledDocumentCanvas: React.FC<ScaledDocumentCanvasProps> = ({
     [isInteractive, scale, onMouseMove]
   );
 
-  // Handle Drag-to-Highlight Teks saat mouseup
+  // Handle Drag-to-Highlight Teks saat mouseup / pointerup
   const handleMouseUp = useCallback(() => {
     if (!isInteractive || !onHighlightCreated || !innerRef.current) return;
 
@@ -147,12 +166,17 @@ export const ScaledDocumentCanvas: React.FC<ScaledDocumentCanvasProps> = ({
     }
   }, [isInteractive, onHighlightCreated]);
 
+  // Jika kontainer lebih kecil daripada baseWidth (layar HP < 540px),
+  // gunakan lebar kontainer sebagai acuan agar tidak terjadi overflow horizontal yang merusak layout
+  const effectiveBaseWidth =
+    containerWidth > 0 && containerWidth < baseWidth ? containerWidth : baseWidth;
+
   const isScaled = scale !== 1.0;
-  const scaledWidth = Math.round(baseWidth * scale);
+  const scaledWidth = Math.round(effectiveBaseWidth * scale);
   const scaledHeight = contentHeight > 0 ? Math.round(contentHeight * scale) : undefined;
 
   return (
-    <div className={`w-full overflow-x-auto overflow-y-auto max-w-full ${className}`}>
+    <div ref={containerRef} className={`w-full overflow-x-auto overflow-y-auto max-w-full ${className}`}>
       {/* Sizer Box */}
       <div
         style={{
@@ -168,13 +192,16 @@ export const ScaledDocumentCanvas: React.FC<ScaledDocumentCanvasProps> = ({
           onMouseMove={handleMouseMove}
           onMouseLeave={onMouseLeave}
           onMouseUp={handleMouseUp}
+          onPointerMove={handleMouseMove}
+          onPointerLeave={onMouseLeave}
+          onPointerUp={handleMouseUp}
           className={`relative transition-transform duration-100 ease-out select-text ${
             isInteractive ? 'cursor-crosshair' : ''
           }`}
           style={
             isScaled
               ? {
-                  width: `${baseWidth}px`,
+                  width: `${effectiveBaseWidth}px`,
                   transform: `scale(${scale})`,
                   transformOrigin: 'top left',
                   position: 'relative',

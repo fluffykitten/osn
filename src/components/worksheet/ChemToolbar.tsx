@@ -752,7 +752,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
       </div>
 
       {/* Category Tabs */}
-      <div className="flex items-center gap-1 overflow-x-auto text-[11px] py-0.5 mb-2">
+      <div className="flex items-center gap-1 overflow-x-auto no-scrollbar scrollbar-none text-[11px] py-0.5 mb-2">
         {[
           { key: 'all', label: 'Semua' },
           { key: 'format', label: 'Pecahan & Notasi' },
@@ -984,7 +984,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs ${
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs touch-none ${
                 isMobile ? '' : 'cursor-grab active:cursor-grabbing'
               }`}
             >
@@ -1158,7 +1158,7 @@ export const ChemToolbar: React.FC<ChemToolbarProps> = ({
               onPointerDown={handleFillPointerDown}
               onPointerMove={handleFillPointerMove}
               onPointerUp={handleFillPointerUp}
-              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs ${
+              className={`flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#2D3748] via-[#3A4A5B] to-[#4A5867] text-white select-none shadow-xs touch-none ${
                 isMobile ? '' : 'cursor-grab active:cursor-grabbing'
               }`}
             >

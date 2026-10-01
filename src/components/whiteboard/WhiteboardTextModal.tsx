@@ -99,17 +99,17 @@ export const WhiteboardTextModal: React.FC<WhiteboardTextModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in select-none">
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-900/50 backdrop-blur-xs animate-in fade-in select-none">
+      <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-xl overflow-hidden flex flex-col max-h-[94vh] sm:max-h-[90vh]">
         {/* Modal Header */}
-        <div className="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <div className="px-4 py-2.5 sm:px-5 sm:py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <div className="p-1.5 bg-blue-100 text-blue-600 rounded-lg">
               <Type size={18} />
             </div>
             <div>
               <h3 className="text-sm font-bold text-slate-800">Editor Teks</h3>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-slate-500 hidden sm:block">
                 Ketik catatan teks umum atau rumus sains (Kimia, Fisika, Matematika)
               </p>
             </div>
@@ -125,7 +125,7 @@ export const WhiteboardTextModal: React.FC<WhiteboardTextModalProps> = ({
         </div>
 
         {/* Mode Selector Pill */}
-        <div className="px-5 py-2.5 bg-slate-100/60 border-b border-slate-200 flex items-center justify-between">
+        <div className="px-4 py-2 sm:px-5 sm:py-2.5 bg-slate-100/60 border-b border-slate-200 flex items-center justify-between shrink-0">
           <span className="text-xs font-semibold text-slate-600">Pilihan Mode:</span>
           <div className="inline-flex bg-white p-0.5 rounded-xl border border-slate-200 shadow-2xs">
             <button
@@ -156,7 +156,7 @@ export const WhiteboardTextModal: React.FC<WhiteboardTextModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-y-auto p-5 space-y-3.5">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-y-auto p-3.5 sm:p-5 space-y-3">
           {/* Quick Insert Symbols Strip (Khusus Mode Kimia) */}
           {mode === 'chemistry' && (
             <div className="space-y-1">
@@ -268,8 +268,8 @@ export const WhiteboardTextModal: React.FC<WhiteboardTextModalProps> = ({
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+          {/* Action Buttons (Sticky at bottom on mobile) */}
+          <div className="sticky bottom-0 bg-white/95 backdrop-blur-xs flex items-center justify-end gap-2 pt-2.5 pb-1 border-t border-slate-100 z-10">
             <button
               type="button"
               onClick={onClose}

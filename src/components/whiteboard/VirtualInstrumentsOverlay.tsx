@@ -40,11 +40,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
   const compassDrawPointsRef = React.useRef<Array<[number, number]>>([]);
   const [liveCompassPoints, setLiveCompassPoints] = useState<Array<[number, number]>>([]);
 
-  // Listener Drag Mouse Universal untuk Semua Instrumen
+  // Listener Drag Pointer Universal untuk Semua Instrumen (Touchscreen, Stylus & Mouse)
   useEffect(() => {
     if (!activeDrag) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
       if (activeDrag === 'ruler') {
         onUpdateRuler({
           x: Math.max(0, e.clientX - dragOffset.x),
@@ -115,7 +115,7 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
       }
     };
 
-    const handleMouseUp = () => {
+    const handlePointerUp = () => {
       if (activeDrag === 'compass-pencil') {
         if (compassDrawPointsRef.current.length > 2) {
           onAddElement({
@@ -136,11 +136,13 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
       setActiveDrag(null);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerup', handlePointerUp);
+    window.addEventListener('pointercancel', handlePointerUp);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
     };
   }, [
     activeDrag,
@@ -160,8 +162,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
   ]);
 
   // 1. INSTRUMEN PENGGARIS (VIRTUAL RULER)
-  const handleRulerMouseDown = (e: React.MouseEvent) => {
+  const handleRulerPointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
+    try {
+      (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    } catch {}
     setActiveDrag('ruler');
     setDragOffset({
       x: e.clientX - ruler.x,
@@ -196,8 +201,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
   };
 
   // 2. INSTRUMEN JANGKA (VIRTUAL COMPASS)
-  const handleCompassMouseDown = (e: React.MouseEvent) => {
+  const handleCompassPointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
+    try {
+      (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    } catch {}
     setActiveDrag('compass');
     setDragOffset({
       x: e.clientX - compass.centerX,
@@ -230,8 +238,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
   };
 
   // 3. INSTRUMEN BUSUR DERAJAT (VIRTUAL PROTRACTOR)
-  const handleProtractorMouseDown = (e: React.MouseEvent) => {
+  const handleProtractorPointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
+    try {
+      (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    } catch {}
     setActiveDrag('protractor');
     setDragOffset({
       x: e.clientX - protractor.x,
@@ -284,14 +295,17 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
 
           {/* Handle Tarik Panjang Penggaris di Ujung Kanan */}
           <div
-            onMouseDown={(e) => {
+            onPointerDown={(e) => {
               e.stopPropagation();
+              try {
+                (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+              } catch {}
               setActiveDrag('ruler-resize');
             }}
-            className="pointer-events-auto absolute right-0 top-0 bottom-0 w-3.5 bg-sky-300/40 hover:bg-sky-400/80 rounded-r-lg cursor-ew-resize flex items-center justify-center transition group shadow-xs z-10"
+            className="pointer-events-auto absolute right-0 top-0 bottom-0 w-4 sm:w-3.5 bg-sky-300/40 hover:bg-sky-400/80 rounded-r-lg cursor-ew-resize flex items-center justify-center transition group shadow-xs z-10 touch-none"
             title="Tarik ujung ini untuk mengatur panjang penggaris"
           >
-            <div className="w-1 h-7 bg-sky-800/60 rounded group-hover:bg-sky-950" />
+            <div className="w-1.5 sm:w-1 h-7 bg-sky-800/60 rounded group-hover:bg-sky-950" />
           </div>
 
           {/* Kontrol Sudut, Pegangan Geser, Pengaturan Panjang & Aksi Penggaris */}
@@ -299,8 +313,8 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
             <div className="flex items-center gap-1">
               {/* Pegangan Khusus untuk Menggeser Posisi Penggaris */}
               <div
-                onMouseDown={handleRulerMouseDown}
-                className="flex items-center gap-1 cursor-move px-2 py-0.5 rounded-lg bg-sky-100/90 hover:bg-sky-200/90 text-sky-950 font-bold shadow-2xs border border-sky-300/80 transition"
+                onPointerDown={handleRulerPointerDown}
+                className="flex items-center gap-1 cursor-move px-2 py-1 sm:py-0.5 rounded-lg bg-sky-100/90 hover:bg-sky-200/90 text-sky-950 font-bold shadow-2xs border border-sky-300/80 transition touch-none"
                 title="Tahan dan geser untuk memindahkan penggaris"
               >
                 <span>🐾</span>
@@ -329,8 +343,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
             <div className="flex items-center gap-1">
               {/* Dial Pemutar Bebas di Sebelah Kanan dengan Magnet Snap ke Derajat Penting */}
               <div
-                onMouseDown={(e) => {
+                onPointerDown={(e) => {
                   e.stopPropagation();
+                  try {
+                    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+                  } catch {}
                   const overlayRect = overlayRef.current?.getBoundingClientRect();
                   const originX = (overlayRect?.left || 0) + ruler.x;
                   const originY = (overlayRect?.top || 0) + ruler.y;
@@ -341,7 +358,7 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
                   };
                   setActiveDrag('ruler-rotate');
                 }}
-                className="flex items-center gap-1 cursor-grab active:cursor-grabbing px-1.5 py-0.5 rounded-lg bg-sky-100/90 hover:bg-sky-200/90 text-sky-950 font-bold shadow-2xs border border-sky-300/80 transition select-none"
+                className="flex items-center gap-1 cursor-grab active:cursor-grabbing px-2 py-1 sm:py-0.5 rounded-lg bg-sky-100/90 hover:bg-sky-200/90 text-sky-950 font-bold shadow-2xs border border-sky-300/80 transition select-none touch-none"
                 title="Tahan dan putar bebas (otomatis snap halus ke derajat penting tanpa loncat)"
               >
                 <RotateCw size={11} />
@@ -380,8 +397,8 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
         >
           {/* Titik Jarum Pusat dengan Tapak Kucing (Cat Paw Pivot) */}
           <div
-            onMouseDown={handleCompassMouseDown}
-            className="absolute -left-4 -top-4 w-8 h-8 rounded-full bg-white/80 backdrop-blur-xs border-2 border-blue-500 flex items-center justify-center cursor-move hover:scale-110 transition-transform shadow-md group"
+            onPointerDown={handleCompassPointerDown}
+            className="absolute -left-4 -top-4 w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-white/80 backdrop-blur-xs border-2 border-blue-500 flex items-center justify-center cursor-move hover:scale-110 transition-transform shadow-md group touch-none"
             title="Geser Jarum Pusat Jangka (Cat Paw Pivot)"
           >
             <div className="text-[12px] select-none leading-none">🐾</div>
@@ -500,8 +517,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
 
           {/* Handle Pensil Jangka di Keliling Lingkaran */}
           <div
-            onMouseDown={(e) => {
+            onPointerDown={(e) => {
               e.stopPropagation();
+              try {
+                (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+              } catch {}
               const overlayRect = overlayRef.current?.getBoundingClientRect();
               const originX = (overlayRect?.left || 0) + compass.centerX;
               const originY = (overlayRect?.top || 0) + compass.centerY;
@@ -520,10 +540,10 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
               top: `${Math.sin(((compass.angleDeg ?? 0) * Math.PI) / 180) * compass.radiusPx}px`,
               transform: 'translate(-50%, -50%)',
             }}
-            className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-xs border-2 border-amber-500 shadow-md flex items-center justify-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform pointer-events-auto z-10"
+            className="w-8 h-8 sm:w-7 sm:h-7 rounded-full bg-white/90 backdrop-blur-xs border-2 border-amber-500 shadow-md flex items-center justify-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform pointer-events-auto z-10 touch-none"
             title="Tahan dan putar pensil jangka ini untuk menggambar lingkaran"
           >
-            <span className="text-[12px] leading-none select-none">✏️</span>
+            <span className="text-[13px] leading-none select-none">✏️</span>
           </div>
 
           {/* Badge Derajat Melayang Real-Time di Sebelah Pensil Jangka */}
@@ -545,8 +565,11 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
             className="absolute bg-white/45 backdrop-blur-md shadow-2xl border-2 border-sky-300/80 rounded-2xl p-3 flex flex-col gap-2.5 w-56 text-slate-800 pointer-events-auto z-20 select-none transition-shadow"
           >
             <div
-              onMouseDown={(e) => {
+              onPointerDown={(e) => {
                 e.stopPropagation();
+                try {
+                  (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+                } catch {}
                 panelDragStartRef.current = {
                   startClientX: e.clientX,
                   startClientY: e.clientY,
@@ -555,7 +578,7 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
                 };
                 setActiveDrag('compass-panel');
               }}
-              className="flex items-center justify-between text-xs font-bold border-b border-sky-200/60 pb-1.5 cursor-move hover:bg-sky-100/50 rounded-xl px-1.5 py-1 transition"
+              className="flex items-center justify-between text-xs font-bold border-b border-sky-200/60 pb-1.5 cursor-move hover:bg-sky-100/50 rounded-xl px-1.5 py-1 transition touch-none"
               title="Tahan dan geser untuk memindahkan box pengaturan ini"
             >
               <span className="flex items-center gap-1.5 text-blue-700 font-bold">
@@ -639,8 +662,8 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
             width: `${protractor.radiusPx * 2}px`,
             height: `${protractor.radiusPx}px`,
           }}
-          className="pointer-events-auto absolute top-0 left-0 bg-sky-100/70 backdrop-blur-sm border-2 border-sky-400 rounded-t-full shadow-2xl flex flex-col justify-end items-center p-2 cursor-move select-none"
-          onMouseDown={handleProtractorMouseDown}
+          className="pointer-events-auto absolute top-0 left-0 bg-sky-100/70 backdrop-blur-sm border-2 border-sky-400 rounded-t-full shadow-2xl flex flex-col justify-end items-center p-2 cursor-move select-none touch-none"
+          onPointerDown={handleProtractorPointerDown}
         >
           {/* Garis-garis Derajat */}
           <div className="absolute inset-0 rounded-t-full overflow-hidden pointer-events-none">
@@ -666,7 +689,7 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
           </div>
 
           <div
-            onMouseDown={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
             className="flex items-center gap-2 bg-white/90 px-3 py-1 rounded-full shadow-sm text-xs font-semibold text-sky-900 mb-1 pointer-events-auto"
           >
             <span>Busur Derajat (180°)</span>

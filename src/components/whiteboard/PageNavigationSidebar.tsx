@@ -24,41 +24,54 @@ export const PageNavigationSidebar: React.FC<PageNavigationSidebarProps> = ({
   const pageList = Array.isArray(pages) ? pages : [];
 
   return (
-    <aside
-      className={`fixed right-3.5 top-20 bottom-8 z-30 flex flex-row-reverse transition-all duration-300 pointer-events-auto ${
-        isOpen ? 'translate-x-0' : 'translate-x-[calc(100%-24px)]'
-      }`}
-    >
-      <div className="w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-3 flex flex-col justify-between overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
-            <FileText size={16} className="text-blue-600" />
-            <span>Halaman ({pageList.length})</span>
+    <>
+      {/* Backdrop di layar mobile/tablet saat sidebar dibuka */}
+      {isOpen && (
+        <div
+          onClick={onToggle}
+          className="fixed inset-0 z-25 bg-slate-900/25 backdrop-blur-2xs lg:hidden animate-in fade-in"
+        />
+      )}
+      <aside
+        className={`fixed right-3.5 top-20 bottom-8 z-30 flex flex-row-reverse transition-all duration-300 pointer-events-auto ${
+          isOpen ? 'translate-x-0' : 'translate-x-[calc(100%-24px)]'
+        }`}
+      >
+        <div className="w-56 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-3 flex flex-col justify-between overflow-hidden">
+          {/* Header */}
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+              <FileText size={16} className="text-blue-600" />
+              <span>Halaman ({pageList.length})</span>
+            </div>
+            <button
+              onClick={onAddPage}
+              className="p-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition cursor-pointer"
+              title="Tambah Halaman Baru"
+            >
+              <Plus size={16} />
+            </button>
           </div>
-          <button
-            onClick={onAddPage}
-            className="p-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition cursor-pointer"
-            title="Tambah Halaman Baru"
-          >
-            <Plus size={16} />
-          </button>
-        </div>
 
-        {/* List Halaman */}
-        <div className="flex-1 overflow-y-auto space-y-1.5 py-2 pr-1">
-          {pageList.map((page, idx) => {
-            const isActive = idx === currentPageIndex;
-            return (
-              <div
-                key={page.pageIndex}
-                onClick={() => onSelectPage(idx)}
-                className={`group relative p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
-                  isActive
-                    ? 'border-blue-500 bg-blue-50/80 shadow-2xs text-blue-900 font-bold ring-1 ring-blue-400/30'
-                    : 'border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700'
-                }`}
-              >
+          {/* List Halaman */}
+          <div className="flex-1 overflow-y-auto space-y-1.5 py-2 pr-1">
+            {pageList.map((page, idx) => {
+              const isActive = idx === currentPageIndex;
+              return (
+                <div
+                  key={page.pageIndex}
+                  onClick={() => {
+                    onSelectPage(idx);
+                    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+                      onToggle();
+                    }
+                  }}
+                  className={`group relative p-2 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
+                    isActive
+                      ? 'border-blue-500 bg-blue-50/80 shadow-2xs text-blue-900 font-bold ring-1 ring-blue-400/30'
+                      : 'border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-6 h-7 rounded-lg border flex items-center justify-center text-[10px] font-bold shadow-2xs transition ${
@@ -113,5 +126,6 @@ export const PageNavigationSidebar: React.FC<PageNavigationSidebarProps> = ({
         />
       </button>
     </aside>
+    </>
   );
 };

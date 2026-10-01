@@ -63,7 +63,7 @@ export const ChemToolbox: React.FC<ChemToolboxProps> = ({
   };
 
   return (
-    <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-4 w-96 text-slate-800 animate-in fade-in zoom-in-95 duration-150">
+    <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 p-4 w-[calc(100vw-24px)] max-w-sm sm:w-96 max-h-[85vh] overflow-y-auto text-slate-800 animate-in fade-in zoom-in-95 duration-150">
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
           <div className="p-1.5 bg-emerald-100 text-emerald-600 rounded-lg">

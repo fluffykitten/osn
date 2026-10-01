@@ -55,11 +55,11 @@ const FloatingPopover: React.FC<FloatingPopoverProps> = ({
 
   // Posisikan popover tanpa terpotong batas layar baik di desktop maupun mobile
   const top = isMobile
-    ? Math.max(60, Math.min(window.innerHeight - 380, anchorRect.top + offsetY))
+    ? Math.max(70, Math.min(window.innerHeight - 380, anchorRect.top + offsetY))
     : Math.max(16, Math.min(window.innerHeight - 340, anchorRect.top + offsetY));
 
   const left = isMobile
-    ? Math.max(10, Math.min(window.innerWidth - popoverWidth - 10, anchorRect.right + 8))
+    ? Math.max(8, Math.min(window.innerWidth - popoverWidth - 8, (window.innerWidth - popoverWidth) / 2))
     : anchorRect.right + 10;
 
   return createPortal(

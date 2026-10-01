@@ -313,29 +313,29 @@ export const ConceptCheckpointQuiz: React.FC<ConceptCheckpointQuizProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center justify-between p-3.5 rounded-2xl text-xs font-semibold transition-all cursor-pointer select-none shadow-sm ${
+        className={`w-full flex items-center justify-between p-3 sm:p-3.5 rounded-2xl text-xs font-semibold transition-all cursor-pointer select-none shadow-sm gap-2 ${
           isCompleted
             ? 'bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 text-emerald-950 border border-emerald-200/80 hover:border-emerald-300'
             : 'bg-gradient-to-r from-indigo-50/90 via-sky-50/70 to-indigo-50/90 text-indigo-950 border border-indigo-200/80 hover:border-indigo-300'
         }`}
       >
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2.5 min-w-0 flex-1">
           {isCompleted ? (
-            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm">
+            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-sm shrink-0">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           ) : (
-            <div className="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-sm">
+            <div className="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center shadow-sm shrink-0">
               <HelpCircle className="w-4 h-4" />
             </div>
           )}
-          <div className="text-left">
-            <span className="font-bold block text-[13px]">
+          <div className="text-left min-w-0">
+            <span className="font-bold block text-[13px] truncate sm:whitespace-normal">
               {isCompleted
                 ? `Checkpoint Pemahaman Selesai (${savedProgress?.score ?? quizList.length}/${quizList.length} Benar)`
                 : 'Uji Pemahaman Cepat (Checkpoint Kuis)'}
             </span>
-            <span className="text-[11px] font-normal text-slate-500">
+            <span className="text-[11px] font-normal text-slate-500 line-clamp-1 sm:line-clamp-none">
               {isCompleted
                 ? 'Konsep telah dikuasai. Klik untuk meninjau atau mencoba ulang.'
                 : `${quizList.length} soal konseptual & miskonsepsi untuk menguji ketajaman analisismu.`}
@@ -343,9 +343,9 @@ export const ConceptCheckpointQuiz: React.FC<ConceptCheckpointQuizProps> = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <span
-            className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold tracking-wide shadow-xs ${
+            className={`px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] font-mono font-bold tracking-wide shadow-xs ${
               isCompleted
                 ? 'bg-emerald-100 text-emerald-900 border border-emerald-300/60'
                 : 'bg-indigo-100 text-indigo-900 border border-indigo-300/60'
@@ -353,7 +353,7 @@ export const ConceptCheckpointQuiz: React.FC<ConceptCheckpointQuizProps> = ({
           >
             {isCompleted ? '✓ MASTERED' : `+30 XP (${quizList.length} SOAL)`}
           </span>
-          <div className="w-6 h-6 rounded-full bg-white/80 flex items-center justify-center text-slate-500 border border-slate-200/60">
+          <div className="w-6 h-6 rounded-full bg-white/80 flex items-center justify-center text-slate-500 border border-slate-200/60 shrink-0">
             {isOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </div>
         </div>

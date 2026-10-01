@@ -43,7 +43,7 @@ export const KaTeXRenderer = React.memo<KaTeXRendererProps>(({
 
   return (
     <div
-      className={`leading-relaxed break-words ${className.includes('text-') ? className : `text-slate-800 ${className}`.trim()}`}
+      className={`leading-relaxed break-words max-w-full overflow-x-auto ${className.includes('text-') ? className : `text-slate-800 ${className}`.trim()}`}
       aria-label={ariaLabel}
       dangerouslySetInnerHTML={{ __html: renderedHtml }}
     />

@@ -36,7 +36,7 @@ export const ScalePresetToggle: React.FC<ScalePresetToggleProps> = ({
 
   return (
     <div
-      className={`inline-flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/80 shadow-2xs ${className}`}
+      className={`inline-flex items-center gap-0.5 sm:gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/80 shadow-2xs shrink-0 select-none touch-manipulation ${className}`}
       role="group"
       aria-label="Skala Kanvas Dokumen"
     >
