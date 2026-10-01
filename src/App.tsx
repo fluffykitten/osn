@@ -9,6 +9,7 @@ import { LevelUpModal } from './components/gamification/LevelUpModal';
 import { AchievementUnlockModal } from './components/gamification/AchievementUnlockModal';
 import { FloatingBugReportButton } from './components/common/FloatingBugReportButton';
 import { TeacherGradeNotificationToast } from './components/common/TeacherGradeNotificationToast';
+import { DeviceSimulator } from './components/dev/DeviceSimulator';
 
 // Auth & Landing Pages (Lazy Loaded on Demand)
 import { RequireClassroom } from './components/common/RequireClassroom';
@@ -276,13 +277,13 @@ function AppContent() {
             }
           />
 
-          {/* Halaman Standalone Aktivasi Kode Kelas */}
+          {/* Halaman Standalone Aktivasi Kode Kelas (Khusus Siswa, Guru & Admin otomatis dialihkan) */}
           <Route
             path="/join-class"
             element={
-              <RequireAuth>
+              <StudentOnly>
                 <StudentLockedGate />
-              </RequireAuth>
+              </StudentOnly>
             }
           />
 
@@ -539,6 +540,7 @@ function AppContent() {
       <AchievementUnlockModal />
       <FloatingBugReportButton />
       <TeacherGradeNotificationToast />
+      <DeviceSimulator />
 
       {!isFullScreenWorkspace && !isAdminPortal && <Footer />}
     </div>

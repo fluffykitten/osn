@@ -21,6 +21,8 @@ import {
   isPointInPolygon,
   isElementHitByEraser,
   carveStrokeWithEraser,
+  onImageLoaded,
+  prepareWhiteboardImage,
 } from '../../services/whiteboardEngine';
 import { WhiteboardTextModal } from './WhiteboardTextModal';
 import { QuestionCardOverlay } from './QuestionCardOverlay';
@@ -178,6 +180,14 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   const [isDraggingElement, setIsDraggingElement] = useState(false);
   const elementDragStartRef = useRef<{ x: number; y: number } | null>(null);
   const [cardHeights, setCardHeights] = useState<Record<string, number>>({});
+
+  // Pantau unduhan aset gambar agar kanvas seketika re-render saat gambar selesai dimuat dari cloud
+  const [imageRenderTick, setImageRenderTick] = useState(0);
+  useEffect(() => {
+    return onImageLoaded(() => {
+      setImageRenderTick((t) => t + 1);
+    });
+  }, []);
   const handleCardHeightChange = useCallback((id: string, h: number) => {
     setCardHeights((prev) => (prev[id] === h ? prev : { ...prev, [id]: h }));
   }, []);
@@ -607,7 +617,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         zoom
       );
 
-      for (const el of doc.elements) {
+      const sortedElements = [...doc.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+      for (const el of sortedElements) {
         renderElement(ctx, el);
       }
     } else {
@@ -678,8 +689,9 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         ctx.restore();
       }
 
-      // Render semua elemen pada koordinat masing-masing
-      for (const el of doc.elements) {
+      // Render semua elemen pada koordinat masing-masing terurut zIndex
+      const sortedElements = [...doc.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+      for (const el of sortedElements) {
         renderElement(ctx, el);
       }
     }
@@ -894,6 +906,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
     liveStrokes,
     fadingStrokes,
     animTick,
+    imageRenderTick,
   ]);
 
   // Komit dan simpan goresan aktif ke dokumen papan tulis secara aman
@@ -1127,12 +1140,10 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
 
     const pt = getCoordinates(e);
 
-    // Alat Pilih / Geser Objek Tunggal
+    // Alat Pilih / Geser Objek Tunggal (pilih elemen teratas terlebih dahulu berdasarkan zIndex)
     if (activeTool === 'select') {
-      const hit = doc.elements
-        .slice()
-        .reverse()
-        .find((el) => isPointNearElement(pt.x, pt.y, el, 20));
+      const sortedElementsDesc = [...doc.elements].sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0));
+      const hit = sortedElementsDesc.find((el) => isPointNearElement(pt.x, pt.y, el, 20));
 
       if (hit) {
         setSelectedElementId(hit.id);
@@ -1212,7 +1223,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           }
         }
       } else if (mode === 'object') {
-        for (const el of doc.elements) {
+        const sortedDesc = [...doc.elements].sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0));
+        for (const el of sortedDesc) {
           if (el.isLocked) continue; // Elemen terkunci tidak dapat dihapus
           if (isPointNearElement(pt.x, pt.y, el, 16)) {
             onDeleteElement(el.id);
@@ -1382,7 +1394,9 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           }
         }
       } else if (mode === 'object') {
-        for (const el of doc.elements) {
+        const sortedDesc = [...doc.elements].sort((a, b) => (b.zIndex || 0) - (a.zIndex || 0));
+        for (const el of sortedDesc) {
+          if (el.isLocked) continue; // Elemen terkunci tidak dapat dihapus
           if (isPointNearElement(pt.x, pt.y, el, 16)) {
             onDeleteElement(el.id);
             break;
@@ -1409,29 +1423,27 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   // Support Paste Gambar dari Clipboard (Ctrl+V)
   // Helper impor gambar dari file (Drag & Drop, Clipboard Paste, atau Tombol Toolbar)
   const handleImportImageFile = useCallback(
-    (file: File, atX?: number, atY?: number) => {
-      let targetX = atX;
-      let targetY = atY;
+    async (file: File, atX?: number, atY?: number) => {
+      try {
+        const prepared = await prepareWhiteboardImage(file);
 
-      if (targetX === undefined || targetY === undefined) {
-        if (doc.layoutMode === 'infinite') {
-          targetX = Math.round((-panX + 250) / Math.max(0.2, zoom));
-          targetY = Math.round((-panY + 200) / Math.max(0.2, zoom));
-        } else {
-          const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
-          const pageIdx = currentPageIndex || 0;
-          const pageTop = pageIdx * formatConfig.height;
-          targetX = Math.round((formatConfig.width - 360) / 2);
-          targetY = Math.round(pageTop + 200);
+        let targetX = atX;
+        let targetY = atY;
+
+        if (targetX === undefined || targetY === undefined) {
+          if (doc.layoutMode === 'infinite') {
+            targetX = Math.round((-panX + 250) / Math.max(0.2, zoom));
+            targetY = Math.round((-panY + 200) / Math.max(0.2, zoom));
+          } else {
+            const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
+            const pageIdx = currentPageIndex || 0;
+            const pageTop = pageIdx * formatConfig.height;
+            targetX = Math.round((formatConfig.width - prepared.width) / 2);
+            targetY = Math.round(pageTop + 200);
+          }
         }
-      }
 
-      const elementId = `img-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
-      const reader = new FileReader();
-
-      reader.onload = async (event) => {
-        const base64Url = event.target?.result as string;
-        if (!base64Url) return;
+        const elementId = `img-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
 
         const newEl: WhiteboardElement = {
           id: elementId,
@@ -1439,14 +1451,14 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           pageIndex: currentPageIndex,
           x: targetX!,
           y: targetY!,
-          width: 360,
-          height: 260,
+          width: prepared.width,
+          height: prepared.height,
           color: 'transparent',
           strokeWidth: 0,
           opacity: 1,
           isLocked: false,
           zIndex: (doc.elements.length || 0) + 1,
-          imageUrl: base64Url,
+          imageUrl: prepared.dataUrl,
         };
 
         onAddElement(newEl);
@@ -1454,9 +1466,9 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
 
         // Unggah otomatis di latar belakang ke Cloudflare R2
         try {
-          const uploadRes = await storageService.uploadFile(file, {
+          const uploadRes = await storageService.uploadFile(prepared.blob, {
             category: 'questions',
-            filename: file.name,
+            filename: (file.name || 'image').replace(/\.[^/.]+$/, '') + '.jpg',
           });
           if (uploadRes && uploadRes.success && uploadRes.url) {
             if (onModifyElement) {
@@ -1469,9 +1481,9 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         } catch (err) {
           console.warn('[Whiteboard] Unggah gambar ke R2 gagal, menggunakan pratinjau lokal:', err);
         }
-      };
-
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('[Whiteboard] Gagal memproses gambar:', err);
+      }
     },
     [doc.layoutMode, doc.pageFormat, doc.elements.length, currentPageIndex, panX, panY, zoom, onAddElement, onModifyElement]
   );
@@ -1528,7 +1540,8 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
     (id: string) => {
       const el = doc.elements.find((e) => e.id === id);
       if (!el || !onModifyElement) return;
-      const maxZ = Math.max(0, ...doc.elements.map((e) => e.zIndex || 0));
+      const otherZs = doc.elements.filter((e) => e.id !== id).map((e) => e.zIndex || 0);
+      const maxZ = otherZs.length > 0 ? Math.max(...otherZs) : 0;
       onModifyElement({
         ...el,
         zIndex: maxZ + 1,
@@ -1541,10 +1554,11 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
     (id: string) => {
       const el = doc.elements.find((e) => e.id === id);
       if (!el || !onModifyElement) return;
-      const minZ = Math.min(0, ...doc.elements.map((e) => e.zIndex || 0));
+      const otherZs = doc.elements.filter((e) => e.id !== id).map((e) => e.zIndex || 0);
+      const minZ = otherZs.length > 0 ? Math.min(...otherZs) : 0;
       onModifyElement({
         ...el,
-        zIndex: Math.max(0, minZ - 1),
+        zIndex: minZ - 1,
       });
     },
     [doc.elements, onModifyElement]

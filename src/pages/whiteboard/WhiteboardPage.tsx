@@ -25,6 +25,7 @@ import {
 } from '../../services/whiteboardStorageService';
 import { whiteboardRealtimeService } from '../../services/whiteboardRealtimeService';
 import { exportWhiteboardToImage } from '../../services/whiteboardExportService';
+import { prepareWhiteboardImage } from '../../services/whiteboardEngine';
 
 import { WhiteboardCanvas } from '../../components/whiteboard/WhiteboardCanvas';
 import { WhiteboardToolbar } from '../../components/whiteboard/WhiteboardToolbar';
@@ -307,8 +308,16 @@ export const WhiteboardPage: React.FC = () => {
     const unsubscribe = whiteboardRealtimeService.subscribe((payload) => {
       if (payload.action === 'sync_request') {
         // Selalu kirimkan snapshot papan tulis ke peserta yang baru bergabung
+        // Lindungi snapshot agar tidak mengirim dataUrl raksasa (> 60KB) yang melebihi batas Supabase Realtime
+        const sanitizedElements = docRef.current.elements.map((el) => {
+          if (el.type === 'image' && el.imageUrl?.startsWith('data:') && el.imageUrl.length > 60000) {
+            return { ...el, imageUrl: '' };
+          }
+          return el;
+        });
+
         whiteboardRealtimeService.broadcast('sync_response', {
-          elements: docRef.current.elements,
+          elements: sanitizedElements,
           pages: docRef.current.pages,
           backgroundType: docRef.current.backgroundType,
           layoutMode: docRef.current.layoutMode,
@@ -333,10 +342,21 @@ export const WhiteboardPage: React.FC = () => {
           delete next[payload.senderId];
           return next;
         });
-        setDoc((prev) => ({
-          ...prev,
-          elements: [...prev.elements, payload.element!],
-        }));
+        setDoc((prev) => {
+          const exists = prev.elements.some((el) => el.id === payload.element!.id);
+          if (exists) {
+            return {
+              ...prev,
+              elements: prev.elements.map((el) =>
+                el.id === payload.element!.id ? payload.element! : el
+              ),
+            };
+          }
+          return {
+            ...prev,
+            elements: [...prev.elements, payload.element!],
+          };
+        });
       } else if (payload.action === 'stroke_drawing' && payload.liveStroke) {
         setLiveStrokes((prev) => ({
           ...prev,
@@ -350,12 +370,18 @@ export const WhiteboardPage: React.FC = () => {
           return next;
         });
       } else if (payload.action === 'element_updated' && payload.element) {
-        setDoc((prev) => ({
-          ...prev,
-          elements: prev.elements.map((el) =>
-            el.id === payload.element!.id ? payload.element! : el
-          ),
-        }));
+        // UPSERT: Tambahkan elemen jika belum ada (misal element_added terlewat karena jaringan)
+        setDoc((prev) => {
+          const exists = prev.elements.some((el) => el.id === payload.element!.id);
+          return {
+            ...prev,
+            elements: exists
+              ? prev.elements.map((el) =>
+                  el.id === payload.element!.id ? payload.element! : el
+                )
+              : [...prev.elements, payload.element!],
+          };
+        });
       } else if (payload.action === 'element_deleted' && payload.elementId) {
         setDoc((prev) => ({
           ...prev,
@@ -720,65 +746,71 @@ export const WhiteboardPage: React.FC = () => {
 
   // Unggah & Sisipkan Berkas Gambar dari Toolbar (Otomatis ke R2)
   const handleAddImageFileFromToolbar = useCallback(
-    (file: File) => {
-      let targetX = 100;
-      let targetY = 100;
+    async (file: File) => {
+      try {
+        const prepared = await prepareWhiteboardImage(file);
 
-      if (doc.layoutMode === 'infinite') {
-        targetX = Math.round((-panX + 250) / Math.max(0.2, zoom));
-        targetY = Math.round((-panY + 200) / Math.max(0.2, zoom));
-      } else {
-        const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
-        const pageTop = currentPageIndex * formatConfig.height;
-        targetX = Math.round((formatConfig.width - 360) / 2);
-        targetY = Math.round(pageTop + 150);
-      }
+        let targetX = 100;
+        let targetY = 100;
 
-      const elementId = `img-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
-      const reader = new FileReader();
+        if (doc.layoutMode === 'infinite') {
+          targetX = Math.round((-panX + 250) / Math.max(0.2, zoom));
+          targetY = Math.round((-panY + 200) / Math.max(0.2, zoom));
+        } else {
+          const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
+          const pageTop = currentPageIndex * formatConfig.height;
+          targetX = Math.round((formatConfig.width - prepared.width) / 2);
+          targetY = Math.round(pageTop + 150);
+        }
 
-      reader.onload = async (ev) => {
-        const dataUrl = ev.target?.result as string;
-        if (!dataUrl) return;
+        const elementId = `img-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
 
+        // 1. Buat elemen dengan dataUrl terkompresi untuk pratinjau lokal instan bagi guru di tablet
         const newEl: WhiteboardElement = {
           id: elementId,
           type: 'image',
           pageIndex: currentPageIndex,
           x: targetX,
           y: targetY,
-          width: 360,
-          height: 260,
+          width: prepared.width,
+          height: prepared.height,
           color: 'transparent',
           strokeWidth: 0,
           opacity: 1,
           isLocked: false,
           zIndex: (doc.elements.length || 0) + 1,
-          imageUrl: dataUrl,
+          imageUrl: prepared.dataUrl,
         };
 
+        // Pasang elemen di kanvas guru secara lokal
         handleAddElement(newEl);
 
-        // Unggah otomatis di latar belakang ke Cloudflare R2
+        // 2. Unggah berkas yang sudah dioptimasi ke Cloudflare R2
         try {
-          const uploadRes = await storageService.uploadFile(file, {
+          const uploadRes = await storageService.uploadFile(prepared.blob, {
             category: 'questions',
-            filename: file.name,
+            filename: (file.name || 'image').replace(/\.[^/.]+$/, '') + '.jpg',
           });
           if (uploadRes && uploadRes.success && uploadRes.url) {
             handleModifyElement({
               ...newEl,
               imageUrl: uploadRes.url,
             });
+          } else if (prepared.dataUrl.length < 90000 && roomCode) {
+            // Jika upload R2 gagal tapi dataUrl cukup ringan (< 90KB), siarkan dataUrl sebagai fallback
+            whiteboardRealtimeService.broadcastElementUpdated(newEl);
           }
         } catch (err) {
-          console.warn('[Whiteboard] Unggah gambar ke R2 gagal, menggunakan pratinjau lokal:', err);
+          console.warn('[Whiteboard] Unggah gambar ke R2 gagal, menyiarkan pratinjau ringan:', err);
+          if (prepared.dataUrl.length < 90000 && roomCode) {
+            whiteboardRealtimeService.broadcastElementUpdated(newEl);
+          }
         }
-      };
-
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('[Whiteboard] Gagal memproses gambar:', err);
+      }
     },
-    [doc.layoutMode, doc.pageFormat, doc.elements.length, currentPageIndex, panX, panY, zoom, handleAddElement, handleModifyElement]
+    [doc.layoutMode, doc.pageFormat, doc.elements.length, currentPageIndex, panX, panY, zoom, handleAddElement, handleModifyElement, roomCode]
   );
 
   // Siarkan Goresan Live Streaming Saat Sedang Menggambar (Real-Time Drag)

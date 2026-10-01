@@ -7,9 +7,15 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { resilientAuthStorage, ensureStorageQuotaHealth } from '../utils/storageQuotaManager';
 
-const env = (import.meta as any)?.env || (globalThis as any)?.process?.env || {};
-const supabaseUrl = env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY || '';
+// Kredensial cadangan bawaan project Supabase aktif
+const DEFAULT_SUPABASE_URL = 'https://gedmqzdolkmhoehbgxxk.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZG1xemRvbGttaG9laGJneHhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzOTIzMjYsImV4cCI6MjEwNDk2ODMyNn0.InPThoocvZaWNdxFTi3O80L3Fm5wBe0wvHRjqGCq37Q';
+
+const supabaseUrl: string =
+  (import.meta.env.VITE_SUPABASE_URL as string) || DEFAULT_SUPABASE_URL;
+const supabaseAnonKey: string =
+  (import.meta.env.VITE_SUPABASE_ANON_KEY as string) || DEFAULT_SUPABASE_ANON_KEY;
 
 export const isSupabaseConfigured = (): boolean => {
   return Boolean(

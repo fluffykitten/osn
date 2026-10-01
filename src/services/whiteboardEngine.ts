@@ -15,9 +15,35 @@ import { PAGE_FORMATS } from '../types/whiteboard';
 // Cache gambar HTML untuk menghindari reload berulang
 const imageCache: Map<string, HTMLImageElement> = new Map();
 
+// Listener global untuk event penyelesaian unduhan gambar pada kanvas
+const imageLoadListeners = new Set<(url: string) => void>();
+
+export function onImageLoaded(cb: (url: string) => void): () => void {
+  imageLoadListeners.add(cb);
+  return () => {
+    imageLoadListeners.delete(cb);
+  };
+}
+
+function notifyImageLoaded(url: string) {
+  imageLoadListeners.forEach((cb) => {
+    try {
+      cb(url);
+    } catch (err) {
+      console.warn('Error in imageLoadListener:', err);
+    }
+  });
+}
+
 export function preloadImage(url: string): Promise<HTMLImageElement> {
+  if (!url) {
+    return Promise.reject(new Error('Invalid image URL'));
+  }
   if (imageCache.has(url)) {
-    return Promise.resolve(imageCache.get(url)!);
+    const existing = imageCache.get(url)!;
+    if (existing.complete && existing.naturalWidth > 0) {
+      return Promise.resolve(existing);
+    }
   }
   return new Promise((resolve) => {
     const img = new Image();
@@ -28,6 +54,7 @@ export function preloadImage(url: string): Promise<HTMLImageElement> {
     img.src = url;
     img.onload = () => {
       imageCache.set(url, img);
+      notifyImageLoaded(url);
       resolve(img);
     };
     img.onerror = () => {
@@ -37,6 +64,7 @@ export function preloadImage(url: string): Promise<HTMLImageElement> {
         retryImg.src = url;
         retryImg.onload = () => {
           imageCache.set(url, retryImg);
+          notifyImageLoaded(url);
           resolve(retryImg);
         };
         retryImg.onerror = () => resolve(img);
@@ -44,6 +72,103 @@ export function preloadImage(url: string): Promise<HTMLImageElement> {
         resolve(img);
       }
     };
+  });
+}
+
+export interface PreparedWhiteboardImage {
+  blob: Blob;
+  dataUrl: string;
+  width: number;
+  height: number;
+}
+
+/**
+ * Mengoptimalkan berkas gambar (terutama dari tablet/kamera resolusi tinggi)
+ * Menyesuaikan aspect ratio dan mengompresi ukuran berkas (menghindari payload WebSocket drop)
+ */
+export async function prepareWhiteboardImage(
+  fileOrBlob: File | Blob,
+  maxDisplayWidth = 520,
+  maxDisplayHeight = 390,
+  maxPixelDimension = 1440
+): Promise<PreparedWhiteboardImage> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Gagal membaca berkas gambar.'));
+    reader.onload = (e) => {
+      const rawDataUrl = e.target?.result as string;
+      if (!rawDataUrl) {
+        reject(new Error('Format berkas tidak valid.'));
+        return;
+      }
+
+      const img = new Image();
+      img.onerror = () => reject(new Error('Gagal memuat pratinjau gambar.'));
+      img.onload = () => {
+        const naturalWidth = img.naturalWidth || 800;
+        const naturalHeight = img.naturalHeight || 600;
+
+        // 1. Hitung dimensi tampilan di kanvas papan tulis (menjaga aspect ratio alami gambar)
+        let displayWidth = naturalWidth;
+        let displayHeight = naturalHeight;
+
+        if (displayWidth > maxDisplayWidth || displayHeight > maxDisplayHeight) {
+          const widthRatio = maxDisplayWidth / displayWidth;
+          const heightRatio = maxDisplayHeight / displayHeight;
+          const bestRatio = Math.min(widthRatio, heightRatio);
+          displayWidth = Math.round(displayWidth * bestRatio);
+          displayHeight = Math.round(displayHeight * bestRatio);
+        }
+
+        displayWidth = Math.max(120, displayWidth);
+        displayHeight = Math.max(90, displayHeight);
+
+        // 2. Kompresi resolusi jika foto kamera tablet terlalu besar (> 1440px)
+        let renderWidth = naturalWidth;
+        let renderHeight = naturalHeight;
+        if (renderWidth > maxPixelDimension || renderHeight > maxPixelDimension) {
+          const scale = Math.min(maxPixelDimension / renderWidth, maxPixelDimension / renderHeight);
+          renderWidth = Math.round(renderWidth * scale);
+          renderHeight = Math.round(renderHeight * scale);
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = renderWidth;
+        canvas.height = renderHeight;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve({
+            blob: fileOrBlob,
+            dataUrl: rawDataUrl,
+            width: displayWidth,
+            height: displayHeight,
+          });
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, renderWidth, renderHeight);
+
+        const mimeType = 'image/jpeg';
+        const quality = 0.82;
+        const compressedDataUrl = canvas.toDataURL(mimeType, quality);
+
+        canvas.toBlob(
+          (blob) => {
+            const finalBlob = blob || fileOrBlob;
+            resolve({
+              blob: finalBlob,
+              dataUrl: compressedDataUrl,
+              width: displayWidth,
+              height: displayHeight,
+            });
+          },
+          mimeType,
+          quality
+        );
+      };
+      img.src = rawDataUrl;
+    };
+    reader.readAsDataURL(fileOrBlob);
   });
 }
 
@@ -1004,14 +1129,41 @@ export function renderElement(ctx: CanvasRenderingContext2D, el: WhiteboardEleme
     ctx.restore();
   } else if (el.type === 'image' && el.imageUrl) {
     const img = imageCache.get(el.imageUrl);
-    if (img && img.complete) {
+    if (img && img.complete && img.naturalWidth > 0) {
       ctx.save();
       ctx.globalAlpha = el.opacity || 1;
-      ctx.drawImage(img, el.x, el.y, el.width || img.width, el.height || img.height);
+      ctx.drawImage(img, el.x, el.y, el.width || img.naturalWidth, el.height || img.naturalHeight);
       ctx.restore();
     } else {
       preloadImage(el.imageUrl);
+      ctx.save();
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.strokeRect(el.x, el.y, el.width || 240, el.height || 180);
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(el.x, el.y, el.width || 240, el.height || 180);
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Memuat gambar...', el.x + (el.width || 240) / 2, el.y + (el.height || 180) / 2);
+      ctx.restore();
     }
+  } else if (el.type === 'image') {
+    ctx.save();
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(el.x, el.y, el.width || 240, el.height || 180);
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(el.x, el.y, el.width || 240, el.height || 180);
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Mengunggah gambar...', el.x + (el.width || 240) / 2, el.y + (el.height || 180) / 2);
+    ctx.restore();
   } else if (el.type === 'question_card') {
     renderQuestionCardFallback(ctx, el);
   } else if (el.type === 'math_function' || el.type === 'math_shape') {
@@ -1485,7 +1637,8 @@ export function renderDocumentToOffscreenCanvas(
     ctx.save();
     ctx.translate(-bbox.minX + padding, -bbox.minY + padding);
 
-    for (const el of doc.elements) {
+    const sortedElements = [...doc.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+    for (const el of sortedElements) {
       renderElement(ctx, el);
     }
     ctx.restore();
@@ -1545,8 +1698,9 @@ export function renderDocumentToOffscreenCanvas(
       ctx.restore();
     }
 
-    // Render semua elemen
-    for (const el of doc.elements) {
+    // Render semua elemen terurut zIndex
+    const sortedElements = [...doc.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+    for (const el of sortedElements) {
       renderElement(ctx, el);
     }
 
@@ -1584,7 +1738,8 @@ export function renderPageToOffscreenCanvas(
   ctx.save();
   ctx.translate(0, -pageTop);
 
-  for (const el of doc.elements) {
+  const sortedElements = [...doc.elements].sort((a, b) => (a.zIndex || 0) - (b.zIndex || 0));
+  for (const el of sortedElements) {
     let isThisPage = false;
     if (typeof el.pageIndex === 'number') {
       isThisPage = el.pageIndex === pageIndex;

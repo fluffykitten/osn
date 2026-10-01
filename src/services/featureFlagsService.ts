@@ -17,6 +17,9 @@ export interface FeatureFlags {
   aiQuestionStudio: boolean;        // Default: true
   whiteboardCollaboration: boolean; // Default: true
   worksheetRealtime: boolean;       // Default: true
+
+  // Fitur Developer & Pengujian Tampilan
+  devDeviceSimulator: boolean;      // Default: true (Bisa diaktifkan/dinonaktifkan oleh Admin)
 }
 
 export interface FeatureMetadata {
@@ -93,6 +96,15 @@ export const FEATURE_CATALOG: FeatureMetadata[] = [
     badge: 'Realtime',
     defaultValue: true,
   },
+  {
+    key: 'devDeviceSimulator',
+    name: 'Simulator Tampilan Multi-Perangkat (Mobile / Tablet / PC View)',
+    category: 'system',
+    description: 'Bilah simulasi viewport responsif untuk menguji tata letak antarmuka aplikasi dalam mode Ponsel (Mobile), Tablet, Laptop, dan PC Desktop dengan opsi rotasi layar dan skala fleksibel.',
+    impactArea: 'Seluruh Aplikasi (Floating Dev Bar Khusus Administrator & Development)',
+    badge: 'DevTools',
+    defaultValue: true,
+  },
 ];
 
 const STORAGE_KEY = 'osn_feature_flags_config_v1';
@@ -106,6 +118,7 @@ export const DEFAULT_FEATURE_FLAGS: FeatureFlags = {
   aiQuestionStudio: true,
   whiteboardCollaboration: true,
   worksheetRealtime: true,
+  devDeviceSimulator: true,
 };
 
 export const featureFlagsService = {

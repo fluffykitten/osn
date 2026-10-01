@@ -31,7 +31,7 @@ export const AdminFeatureManagement: React.FC = () => {
   const { user } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'materi' | 'teacher'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'materi' | 'teacher' | 'system'>('all');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -230,6 +230,17 @@ export const AdminFeatureManagement: React.FC = () => {
             }`}
           >
             Fitur Guru & Kelas
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedCategory('system')}
+            className={`px-3 py-1.5 rounded-xl font-bold transition-colors ${
+              selectedCategory === 'system'
+                ? 'bg-slate-800 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            Sistem & DevTools
           </button>
         </div>
 

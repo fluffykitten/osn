@@ -41,7 +41,7 @@ export const LoginPage: React.FC = () => {
       ? 'forgot'
       : 'login';
 
-  const { user, isTeacher, isAdmin, login, register, resetPassword, updatePassword, loginDemo, logout } = useAuth();
+  const { user, profile, isTeacher, isAdmin, loading, login, register, resetPassword, updatePassword, loginDemo, logout } = useAuth();
 
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'reset'>(initialMode);
 
@@ -66,6 +66,9 @@ export const LoginPage: React.FC = () => {
       return;
     }
 
+    // PENTING: Tunggu hingga status loading auth selesai agar penentuan peran (teacher/student/admin) akurat!
+    if (loading) return;
+
     if (user) {
       if (redirectPath) {
         navigate(redirectPath, { replace: true });
@@ -79,12 +82,12 @@ export const LoginPage: React.FC = () => {
         return;
       }
 
-      if (isTeacher) {
-        navigate('/teacher', { replace: true });
-        return;
-      }
       if (isAdmin) {
         navigate('/admin/analytics', { replace: true });
+        return;
+      }
+      if (isTeacher) {
+        navigate('/teacher', { replace: true });
         return;
       }
       classroomService.getStudentClassrooms(user.email || '', user.id).then((classes) => {
@@ -94,7 +97,7 @@ export const LoginPage: React.FC = () => {
         navigate('/join-class', { replace: true });
       });
     }
-  }, [user, isTeacher, isAdmin, isRecoveryMode, mode, redirectPath, navigate]);
+  }, [user, profile, isTeacher, isAdmin, loading, isRecoveryMode, mode, redirectPath, navigate]);
 
   useEffect(() => {
     const m = searchParams.get('mode');
@@ -161,16 +164,6 @@ export const LoginPage: React.FC = () => {
     try {
       if (mode === 'login') {
         const cleanEmail = email.trim().toLowerCase();
-        const isAdminUser = cleanEmail === 'fluffykitten.dev@gmail.com' || cleanEmail.includes('admin');
-        const isTeacherUser =
-          cleanEmail.includes('guru') ||
-          cleanEmail === 'ezzarscarlet@gmail.com';
-
-        if (isAdminUser) {
-          sessionStorage.setItem('osn_login_portal_target', '/admin/analytics');
-        } else if (isTeacherUser) {
-          sessionStorage.setItem('osn_login_portal_target', '/teacher');
-        }
 
         const res = await login(email, password);
         if (!res.success) {
@@ -179,34 +172,35 @@ export const LoginPage: React.FC = () => {
         } else {
           setSuccessMessage('Berhasil masuk! Mengarahkan...');
 
+          const target = sessionStorage.getItem('osn_login_portal_target');
+          if (target) sessionStorage.removeItem('osn_login_portal_target');
+
           setTimeout(async () => {
-            const target = sessionStorage.getItem('osn_login_portal_target');
-            if (target) sessionStorage.removeItem('osn_login_portal_target');
             if (redirectPath) {
-              navigate(redirectPath);
+              navigate(redirectPath, { replace: true });
             } else if (target) {
-              navigate(target);
-            } else if (isAdminUser) {
-              navigate('/admin/analytics');
-            } else if (isTeacherUser) {
-              navigate('/teacher');
+              navigate(target, { replace: true });
+            } else if (res.isAdmin) {
+              navigate('/admin/analytics', { replace: true });
+            } else if (res.role === 'teacher') {
+              navigate('/teacher', { replace: true });
             } else {
               try {
                 const classrooms = await classroomService.getStudentClassrooms(cleanEmail);
                 const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
                 if (hasActive) {
                   sessionStorage.setItem('osn_has_active_classroom', 'true');
-                  navigate('/student/dashboard');
+                  navigate('/student/dashboard', { replace: true });
                 } else {
                   sessionStorage.setItem('osn_has_active_classroom', 'false');
-                  navigate('/join-class');
+                  navigate('/join-class', { replace: true });
                 }
               } catch {
                 sessionStorage.setItem('osn_has_active_classroom', 'false');
-                navigate('/join-class');
+                navigate('/join-class', { replace: true });
               }
             }
-          }, 400);
+          }, 300);
         }
       } else if (mode === 'register') {
         if (!schoolName.trim()) {

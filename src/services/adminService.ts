@@ -40,9 +40,15 @@ export interface GlobalAnalyticsData {
  * Inisialisasi klien Supabase Auth terisolasi (ephemeral) untuk mendaftarkan akun baru.
  * persistSession: false memastikan sesi login Administrator saat ini TIDAK terganggu atau tertimpa.
  */
+const DEFAULT_SUPABASE_URL = 'https://gedmqzdolkmhoehbgxxk.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZG1xemRvbGttaG9laGJneHhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzOTIzMjYsImV4cCI6MjEwNDk2ODMyNn0.InPThoocvZaWNdxFTi3O80L3Fm5wBe0wvHRjqGCq37Q';
+const DEFAULT_SERVICE_ROLE_KEY =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZG1xemRvbGttaG9laGJneHhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4OTM5MjMyNiwiZXhwIjoyMTA0OTY4MzI2fQ._505bG8oTBFCrC-NuQuvJoX-DqxUaJ8bSRd0XhieRmg';
+
 function getSignupAuthClient(): SupabaseClient | null {
-  const url = import.meta.env.VITE_SUPABASE_URL || '';
-  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+  const url = import.meta.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || DEFAULT_SUPABASE_ANON_KEY;
   if (!url || !anonKey) return null;
   try {
     return createClient(url, anonKey, {
@@ -64,11 +70,11 @@ function getSignupAuthClient(): SupabaseClient | null {
  * Pemanggilan auth.admin.inviteUserByEmail() secara resmi memicu template "Invite user" di Supabase.
  */
 function getAdminAuthClient(): SupabaseClient | null {
-  const url = import.meta.env.VITE_SUPABASE_URL || '';
+  const url = import.meta.env.VITE_SUPABASE_URL || DEFAULT_SUPABASE_URL;
   const serviceKey =
     import.meta.env.VITE_SUPABASE_SERVICE_ROLE_KEY ||
     import.meta.env.SUPABASE_SERVICE_ROLE_KEY ||
-    '';
+    DEFAULT_SERVICE_ROLE_KEY;
   if (!url || !serviceKey) return null;
   try {
     return createClient(url, serviceKey, {

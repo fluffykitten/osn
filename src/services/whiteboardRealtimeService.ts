@@ -134,11 +134,20 @@ class WhiteboardRealtimeService {
 
     // Kirim lewat Supabase Realtime
     if (this.channel) {
-      this.channel.send({
-        type: 'broadcast',
-        event: 'wb_event',
-        payload,
-      });
+      this.channel
+        .send({
+          type: 'broadcast',
+          event: 'wb_event',
+          payload,
+        })
+        .then((status: any) => {
+          if (status !== 'ok') {
+            console.warn('[WhiteboardRealtime] Broadcast status:', status, 'action:', action);
+          }
+        })
+        .catch((err: any) => {
+          console.warn('[WhiteboardRealtime] Broadcast error:', err, 'action:', action);
+        });
     }
 
     // Kirim lewat BroadcastChannel lokal
@@ -151,13 +160,22 @@ class WhiteboardRealtimeService {
     }
   }
 
-  // Helper cepat penyiaran elemen
+  // Helper cepat penyiaran elemen dengan proteksi kuota Realtime
   public broadcastElementAdded(element: WhiteboardElement) {
-    this.broadcast('element_added', { element });
+    // Pengaman: Jangan pernah menyiarkan dataUrl base64 berukuran raksasa (> 60KB) karena akan di-drop oleh Supabase Realtime WebSocket (maks 256KB)
+    let safeElement = element;
+    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 60000) {
+      safeElement = { ...element, imageUrl: '' };
+    }
+    this.broadcast('element_added', { element: safeElement });
   }
 
   public broadcastElementUpdated(element: WhiteboardElement) {
-    this.broadcast('element_updated', { element });
+    let safeElement = element;
+    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 60000) {
+      safeElement = { ...element, imageUrl: '' };
+    }
+    this.broadcast('element_updated', { element: safeElement });
   }
 
   public broadcastElementDeleted(elementId: string) {

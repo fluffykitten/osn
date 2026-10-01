@@ -14,9 +14,10 @@ export interface StudentNotificationPayload {
   registeredAt?: string;
 }
 
-const env = (import.meta as any)?.env || (globalThis as any)?.process?.env || {};
 const CLOUDFLARE_MAILER_URL =
-  env.VITE_CLOUDFLARE_MAILER_URL || env.VITE_CLOUDFLARE_MAILER || '';
+  import.meta.env.VITE_CLOUDFLARE_MAILER_URL ||
+  (import.meta.env as any).VITE_CLOUDFLARE_MAILER ||
+  'https://osn.icmadani.workers.dev/';
 
 export const sendStudentRegistrationNotification = async (
   data: StudentNotificationPayload

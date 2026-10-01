@@ -27,8 +27,19 @@ interface StudentLockedGateProps {
 }
 
 export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassStatusChanged }) => {
-  const { user, profile } = useAuth();
+  const { user, profile, isTeacher, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  // Perlindungan ekstra: Guru dan Admin tidak boleh berada di halaman aktivasi kode kelas siswa
+  useEffect(() => {
+    if (!authLoading) {
+      if (isAdmin) {
+        navigate('/admin/analytics', { replace: true });
+      } else if (isTeacher) {
+        navigate('/teacher', { replace: true });
+      }
+    }
+  }, [isAdmin, isTeacher, authLoading, navigate]);
 
   const [classCode, setClassCode] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

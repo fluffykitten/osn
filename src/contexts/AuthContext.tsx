@@ -22,7 +22,10 @@ interface AuthContextType {
   isAdmin: boolean;
   loading: boolean;
   isCloudConnected: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; error?: string; role?: 'teacher' | 'student'; isAdmin?: boolean; profile?: Profile | null }>;
   register: (
     email: string,
     password: string,
@@ -34,7 +37,9 @@ interface AuthContextType {
   updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
-  loginDemo: (type: 'teacher' | 'student' | 'admin') => Promise<{ success: boolean; error?: string }>;
+  loginDemo: (
+    type: 'teacher' | 'student' | 'admin'
+  ) => Promise<{ success: boolean; error?: string; role?: 'teacher' | 'student'; isAdmin?: boolean; profile?: Profile | null }>;
   awardUserXp: (amount: number, reason?: string) => Promise<any>;
 }
 
@@ -55,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
-  const fetchProfile = useCallback(async (userId: string, userEmail?: string): Promise<Profile | null> => {
+  const fetchProfile = useCallback(async (userId: string, userEmail?: string, userMetadata?: any): Promise<Profile | null> => {
     const supabase = getSupabaseClient();
     if (!supabase) return null;
 
@@ -87,15 +92,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // 3. Jika belum ada di tabel profiles, buat profile default resmi di Supabase
       if (userEmail) {
         const cleanEmail = userEmail.trim().toLowerCase();
-        const isMasterAdmin = cleanEmail === 'fluffykitten.dev@gmail.com' || cleanEmail === 'ezzarscarlet@gmail.com';
-        const isMasterTeacher = cleanEmail.includes('guru') || cleanEmail.includes('admin') || isMasterAdmin;
+        const isMasterAdmin =
+          cleanEmail === 'fluffykitten.dev@gmail.com' ||
+          cleanEmail === 'ezzarscarlet@gmail.com' ||
+          Boolean(userMetadata?.is_admin);
+        const isMetaTeacher = userMetadata?.role === 'teacher' || userMetadata?.role === 'guru';
+        const isMasterTeacher = isMetaTeacher || cleanEmail.includes('guru') || cleanEmail.includes('admin') || isMasterAdmin;
         const defaultRole: UserRole = isMasterTeacher ? 'teacher' : 'student';
         const defaultName =
-          cleanEmail === 'ezzarscarlet@gmail.com'
+          (userMetadata?.full_name as string)?.trim() ||
+          (cleanEmail === 'ezzarscarlet@gmail.com'
             ? 'Ezzar Scarlet'
             : cleanEmail === 'fluffykitten.dev@gmail.com'
             ? 'Administrator (FluffyKitten)'
-            : cleanEmail.split('@')[0];
+            : cleanEmail.split('@')[0]);
 
         const newProfile: Partial<Profile> = {
           id: userId,
@@ -145,7 +155,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(session);
       if (session?.user) {
         setUser(session.user);
-        fetchProfile(session.user.id, session.user.email).then((prof) => {
+        fetchProfile(session.user.id, session.user.email, session.user.user_metadata).then((prof) => {
           if (!mounted) return;
           if (prof) {
             setProfile(prof);
@@ -182,7 +192,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(newSession);
       if (newSession?.user) {
         setUser(newSession.user);
-        const prof = await fetchProfile(newSession.user.id, newSession.user.email);
+        const prof = await fetchProfile(newSession.user.id, newSession.user.email, newSession.user.user_metadata);
         if (mounted && prof) {
           setProfile(prof);
           const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
@@ -231,7 +241,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshProfile = async () => {
     if (user) {
-      const prof = await fetchProfile(user.id, user.email);
+      const prof = await fetchProfile(user.id, user.email, user.user_metadata);
       if (prof) {
         setProfile(prof);
         const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
@@ -252,7 +262,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 
   // 100% Strict Supabase Cloud Login (No Local Mock / No Fallback Users)
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<{ success: boolean; error?: string; role?: 'teacher' | 'student'; isAdmin?: boolean; profile?: Profile | null }> => {
     const cleanEmail = email.trim().toLowerCase().replace(/['"]/g, '');
     const supabase = getSupabaseClient();
 
@@ -279,24 +292,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: false, error: friendlyError };
       }
 
+      let resolvedRole: 'teacher' | 'student' = 'student';
+      let resolvedIsAdmin = false;
+      let userProfile: Profile | null = null;
+
       if (data.user) {
         setUser(data.user);
         setSession(data.session);
-        const prof = await fetchProfile(data.user.id, data.user.email);
+        const prof = await fetchProfile(data.user.id, data.user.email, data.user.user_metadata);
+        userProfile = prof;
         if (prof) {
           setProfile(prof);
-          const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
-          syncGamificationRole(role);
+          resolvedRole = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
+          resolvedIsAdmin = Boolean(
+            prof.is_admin ||
+            prof.email?.toLowerCase() === 'fluffykitten.dev@gmail.com' ||
+            prof.email?.toLowerCase() === 'ezzarscarlet@gmail.com' ||
+            data.user.user_metadata?.is_admin
+          );
+          syncGamificationRole(resolvedRole);
           localStorage.setItem('osn_student_id', prof.id);
           localStorage.setItem('osn_student_name', prof.full_name || 'Pengguna OSN');
         } else {
+          const isMetaTeacher = data.user.user_metadata?.role === 'teacher' || data.user.user_metadata?.role === 'guru';
+          resolvedRole =
+            isMetaTeacher ||
+            cleanEmail.includes('guru') ||
+            cleanEmail === 'fluffykitten.dev@gmail.com' ||
+            cleanEmail === 'ezzarscarlet@gmail.com'
+              ? 'teacher'
+              : 'student';
+          resolvedIsAdmin = Boolean(
+            cleanEmail === 'fluffykitten.dev@gmail.com' ||
+            cleanEmail === 'ezzarscarlet@gmail.com' ||
+            data.user.user_metadata?.is_admin
+          );
           localStorage.setItem('osn_student_id', data.user.id);
           localStorage.setItem('osn_student_name', (data.user.user_metadata?.full_name as string) || 'Pengguna OSN');
         }
         localStorage.setItem('osn_student_email', cleanEmail);
       }
 
-      return { success: true };
+      return {
+        success: true,
+        role: resolvedRole,
+        isAdmin: resolvedIsAdmin,
+        profile: userProfile,
+      };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Gagal masuk ke akun.' };
     }
@@ -503,7 +545,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // Demo Login: Guru, Siswa, atau Admin (100% Strict Supabase Cloud Auth)
-  const loginDemo = async (type: 'teacher' | 'student' | 'admin'): Promise<{ success: boolean; error?: string }> => {
+  const loginDemo = async (
+    type: 'teacher' | 'student' | 'admin'
+  ): Promise<{ success: boolean; error?: string; role?: 'teacher' | 'student'; isAdmin?: boolean; profile?: Profile | null }> => {
     let email = 'siswa@osnkimia.id';
     if (type === 'admin') {
       email = 'fluffykitten.dev@gmail.com';
