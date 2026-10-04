@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "targets": {
+    "/student/dashboard": {
+      "targetKind": "existing-ui",
+      "projectId": "ac965cc7-3ac0-4253-b08e-79d4ecba8903",
+      "baselineDraftId": "fa9b0c98-c87f-4432-8128-1032e92d05ad",
+      "activeDraftId": "fa9b0c98-c87f-4432-8128-1032e92d05ad",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/init/theme.md",
+        ".superdesign/design-system.md",
+        "src/components/gamification/UserTitleBadge.tsx",
+        "src/components/gamification/LevelProgressBar.tsx"
+      ],
+      "drafts": {
+        "fa9b0c98-c87f-4432-8128-1032e92d05ad": {
+          "title": "OSN Kimia Mastery Student Dashboard",
+          "visualDirection": "serene minimalist",
+          "currentVersion": 1
+        }
+      }
+    },
+    "/teacher": {
+      "targetKind": "existing-ui",
+      "projectId": "ac965cc7-3ac0-4253-b08e-79d4ecba8903",
+      "baselineDraftId": "bc41b7a7-eab5-4279-be7d-93c68e08ffd7",
+      "activeDraftId": "bc41b7a7-eab5-4279-be7d-93c68e08ffd7",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/init/theme.md",
+        ".superdesign/design-system.md",
+        "src/components/teacher/TeacherNavigation.tsx"
+      ],
+      "drafts": {
+        "bc41b7a7-eab5-4279-be7d-93c68e08ffd7": {
+          "title": "OSN Teacher Command Center",
+          "visualDirection": "serene minimalist",
+          "currentVersion": 1
+        }
+      }
+    },
+    "/admin/analytics": {
+      "targetKind": "existing-ui",
+      "projectId": "ac965cc7-3ac0-4253-b08e-79d4ecba8903",
+      "baselineDraftId": "33ab6026-1434-499c-83d3-9cff36591336",
+      "activeDraftId": "33ab6026-1434-499c-83d3-9cff36591336",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/init/theme.md",
+        ".superdesign/design-system.md",
+        "src/pages/admin/AdminAnalyticsDashboard.tsx"
+      ],
+      "drafts": {
+        "33ab6026-1434-499c-83d3-9cff36591336": {
+          "title": "OSN Kimia Admin Dashboard",
+          "visualDirection": "serene minimalist",
+          "currentVersion": 1
+        }
+      }
+    }
+  }
+}
