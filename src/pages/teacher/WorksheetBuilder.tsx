@@ -177,6 +177,10 @@ export const WorksheetBuilder: React.FC = () => {
       OSP: 0,
       OSN: 0,
       IChO: 0,
+      'IGCSE-Core': 0,
+      'IGCSE-Extended': 0,
+      'AS-Level': 0,
+      'A2-Level': 0,
     };
     selectedQuestions.forEach((q) => {
       if (counts[q.difficulty] !== undefined) counts[q.difficulty]++;

@@ -1,9 +1,10 @@
 import React from 'react';
 import { SmaTopicSvgArt } from './SmaTopicSvgArt';
+import { IgcseTopicSvgArt } from './IgcseTopicSvgArt';
 
 interface TopicSvgArtProps {
   topicNumber: number;
-  database?: 'osn' | 'sma';
+  database?: 'osn' | 'sma' | 'igcse';
   className?: string;
 }
 
@@ -12,8 +13,16 @@ export const TopicSvgArt = React.memo<TopicSvgArtProps>(({
   database = 'osn',
   className = '',
 }) => {
+  // Route to IGCSE Topic Art if in IGCSE database or ID is in IGCSE range (>= 201)
+  const isIgcse = database === 'igcse' || (topicNumber >= 201 && topicNumber <= 299);
+  const effectiveIgcseTopic = topicNumber >= 201 ? topicNumber - 200 : topicNumber;
+
+  if (isIgcse) {
+    return <IgcseTopicSvgArt topicNumber={effectiveIgcseTopic} className={className} />;
+  }
+
   // Route to SMA Topic Art if in SMA database or ID is in SMA range (>= 101)
-  const isSma = database === 'sma' || topicNumber >= 101;
+  const isSma = database === 'sma' || (topicNumber >= 101 && topicNumber <= 199);
   const effectiveTopic = topicNumber >= 101 ? topicNumber - 100 : topicNumber;
 
   if (isSma) {

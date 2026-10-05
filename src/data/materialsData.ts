@@ -42,7 +42,7 @@ export interface MaterialItem {
   title: string;
   slug: string;
   category: string;
-  level: 'OSN-K' | 'OSN-P' | 'OSN' | 'IChO' | 'SMA';
+  level: 'OSN-K' | 'OSN-P' | 'OSN' | 'IChO' | 'SMA' | 'IGCSE' | 'AS' | 'A2';
   readTimeMinutes: number;
   summary: string;
   allTags: string[];

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Compass,
@@ -9,6 +9,7 @@ import {
   LogIn,
   LogOut,
   ChevronDown,
+  ChevronRight,
   ExternalLink,
   Code2,
   GraduationCap,
@@ -18,6 +19,7 @@ import {
   Settings,
   PenTool,
   ArrowLeft,
+  ArrowRight,
   Grid,
   Share2,
   Menu,
@@ -32,6 +34,17 @@ import {
   studentWorksheetService,
   type ActiveWorksheetSession,
 } from '../../services/studentWorksheetService';
+import {
+  SolarBook,
+  SolarStars,
+  SolarClipboard,
+  SolarPalette,
+  SolarShield,
+  SolarUsers,
+  SolarDiploma,
+  SolarTrophy,
+  SolarLock,
+} from './AppIcons';
 
 export const Navbar: React.FC = React.memo(() => {
   const location = useLocation();
@@ -41,6 +54,18 @@ export const Navbar: React.FC = React.memo(() => {
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeNavDropdown, setActiveNavDropdown] = useState<'syllabus' | 'practice' | 'studio' | null>(null);
+  const [mobileAccordion, setMobileAccordion] = useState<{
+    syllabus: boolean;
+    practice: boolean;
+    studio: boolean;
+  }>({
+    syllabus: true,
+    practice: true,
+    studio: false,
+  });
+
+  const navDropdownRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
     setShowUserDropdown(false);
@@ -99,7 +124,18 @@ export const Navbar: React.FC = React.memo(() => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setShowUserDropdown(false);
+    setActiveNavDropdown(null);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navDropdownRef.current && !navDropdownRef.current.contains(event.target as Node)) {
+        setActiveNavDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const handleStorage = (e: StorageEvent) => {
@@ -123,9 +159,9 @@ export const Navbar: React.FC = React.memo(() => {
   return (
     <>
       <header
-        className="sticky top-0 z-40 backdrop-blur-md border-b shadow-xs transition-colors duration-200"
+        className="sticky top-0 z-40 backdrop-blur-xl border-b shadow-xs transition-colors duration-200"
         style={{
-          backgroundColor: 'var(--theme-surface)',
+          backgroundColor: 'color-mix(in srgb, var(--theme-surface) 88%, transparent)',
           borderColor: 'var(--theme-border)',
         }}
       >
@@ -146,7 +182,7 @@ export const Navbar: React.FC = React.memo(() => {
                   </span>
                 </div>
                 <span className="text-[10px] text-[#708090]/80 block -mt-0.5 tracking-wider font-medium">
-                  PUSPRESNAS • IChO STANDARD
+                  CHEMISTRY MASTERY PLATFORM
                 </span>
               </div>
             </Link>
@@ -177,97 +213,335 @@ export const Navbar: React.FC = React.memo(() => {
               </div>
             )}
 
-            {/* Main Navigation Links: HANYA TAMPIL JIKA SUDAH LOGIN & BUKAN MODE WHITEBOARD CANVAS */}
+            {/* Main Navigation Links: 3 CATEGORIES ARCHITECTURE */}
             {!isWhiteboardCanvas && user && (
-              <nav className="hidden md:flex items-center gap-1 text-xs font-medium text-[#708090]">
-                {/* Siswa: Dashboard */}
-                {!isTeacher && (
-                  <Link
-                    to="/student/dashboard"
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                      isActive('/student/dashboard')
-                        ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
+              <nav ref={navDropdownRef} className="hidden md:flex items-center gap-1 text-xs font-medium text-[#708090]">
+                {/* 0. Quick Dashboard Link */}
+                <Link
+                  to={isTeacher ? '/teacher' : '/student/dashboard'}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
+                    isActive(isTeacher ? '/teacher' : '/student/dashboard') && !isActive('/teacher/classes')
+                      ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
+                      : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
+                  }`}
+                >
+                  <LayoutDashboard className="w-3.5 h-3.5" />
+                  <span>Dashboard</span>
+                </Link>
+
+                {/* 1. Category: Syllabus */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setActiveNavDropdown(activeNavDropdown === 'syllabus' ? null : 'syllabus')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                      isActive('/materi') || activeNavDropdown === 'syllabus'
+                        ? 'bg-[#B0C4DE]/30 text-[#2D3748] font-bold border border-[#B0C4DE]/60 shadow-2xs'
                         : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
                     }`}
                   >
-                    <LayoutDashboard className="w-3.5 h-3.5" />
-                    <span>Dashboard</span>
-                  </Link>
-                )}
+                    <SolarBook className="w-3.5 h-3.5" />
+                    <span>Syllabus</span>
+                    <ChevronDown
+                      size={13}
+                      className={`transition-transform duration-200 ${
+                        activeNavDropdown === 'syllabus' ? 'rotate-180 text-[#2D3748]' : 'text-[#708090]'
+                      }`}
+                    />
+                  </button>
 
+                  {activeNavDropdown === 'syllabus' && (
+                    <div className="absolute top-full left-0 mt-2 z-50 w-80 rounded-2xl bg-[#FFFFF0]/95 backdrop-blur-xl border border-[#B0C4DE]/60 shadow-xl p-2 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-[#708090]/80">
+                        Pilihan Kurikulum & Silabus
+                      </div>
+                      <div className="space-y-1">
+                        <Link
+                          to="/materi?db=osn"
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarTrophy className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                              Materi OSN Kimia
+                            </span>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Tingkat Kota, Provinsi hingga Pelatnas IChO
+                            </p>
+                          </div>
+                        </Link>
 
+                        <Link
+                          to="/materi?db=sma"
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarBook className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                              Materi Dasar SMA
+                            </span>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Fondasi kurikulum kimia kelas 10, 11, dan 12
+                            </p>
+                          </div>
+                        </Link>
 
-                {/* Materi */}
-                <Link
-                  to="/materi"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                    isActive('/materi')
-                      ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                      : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                  }`}
-                >
-                  <BookOpen className="w-3.5 h-3.5" />
-                  <span>Materi</span>
-                </Link>
+                        <Link
+                          to="/materi?db=igcse"
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarLock className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                              Cambridge IGCSE
+                            </span>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Silabus internasional Core & Extended
+                            </p>
+                          </div>
+                        </Link>
+                      </div>
 
-                {/* Bank Soal Siswa (Sebelah kanan Materi) */}
-                {!isTeacher && (
-                  <Link
-                    to="/practice"
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                      isActive('/practice')
-                        ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
+                      <div className="mt-2 pt-2 border-t border-[#B0C4DE]/40">
+                        <Link
+                          to="/materi"
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF] transition"
+                        >
+                          <span>Buka Semua Katalog Materi</span>
+                          <ArrowRight size={13} />
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* 2. Category: Practice & Tests */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setActiveNavDropdown(activeNavDropdown === 'practice' ? null : 'practice')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors cursor-pointer relative ${
+                      isActive('/practice') || isActive('/worksheet') || activeNavDropdown === 'practice'
+                        ? 'bg-[#B0C4DE]/30 text-[#2D3748] font-bold border border-[#B0C4DE]/60 shadow-2xs'
                         : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
                     }`}
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#708090]" />
-                    <span>Bank Soal</span>
-                  </Link>
-                )}
+                    <SolarStars className="w-3.5 h-3.5" />
+                    <span>Practice & Tests</span>
+                    {hasNewGradeNotification && (
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    )}
+                    {activeWorksheet && !hasNewGradeNotification && (
+                      <span className="flex h-2 w-2 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                      </span>
+                    )}
+                    <ChevronDown
+                      size={13}
+                      className={`transition-transform duration-200 ${
+                        activeNavDropdown === 'practice' ? 'rotate-180 text-[#2D3748]' : 'text-[#708090]'
+                      }`}
+                    />
+                  </button>
 
-                {/* Worksheet Siswa / Lanjutkan Sesi Aktif */}
-                <Link
-                  to={activeWorksheet ? activeWorksheet.url : '/worksheet'}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors relative ${
-                    isActive('/worksheet')
-                      ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                      : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                  }`}
-                  title={
-                    activeWorksheet
-                      ? `Lanjutkan: ${activeWorksheet.title} (Soal ${activeWorksheet.currentQIndex + 1})`
-                      : 'Worksheet Siswa'
-                  }
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span>Worksheet</span>
-                  {hasNewGradeNotification && (
-                    <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold font-mono bg-emerald-100 text-emerald-800 border border-emerald-300 animate-pulse">
-                      Nilai Baru!
-                    </span>
+                  {activeNavDropdown === 'practice' && (
+                    <div className="absolute top-full left-0 mt-2 z-50 w-80 rounded-2xl bg-[#FFFFF0]/95 backdrop-blur-xl border border-[#B0C4DE]/60 shadow-xl p-2 animate-in fade-in zoom-in-95 duration-150">
+                      {/* Active Worksheet Alert Banner if any */}
+                      {activeWorksheet && (
+                        <div className="mb-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                          <div className="flex items-center justify-between text-[11px] font-bold text-amber-900">
+                            <span className="flex items-center gap-1.5">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                              </span>
+                              Sesi Aktif Berjalan
+                            </span>
+                            <span className="font-mono text-[10px]">Soal #{activeWorksheet.currentQIndex + 1}</span>
+                          </div>
+                          <Link
+                            to={activeWorksheet.url}
+                            onClick={() => setActiveNavDropdown(null)}
+                            className="mt-1.5 flex items-center justify-between px-2 py-1 rounded-lg bg-[#FFFFF0] text-amber-900 text-[11px] font-bold hover:bg-amber-100 transition shadow-2xs"
+                          >
+                            <span className="truncate">{activeWorksheet.title || 'Lanjutkan Ujian'}</span>
+                            <ArrowRight size={13} className="shrink-0" />
+                          </Link>
+                        </div>
+                      )}
+
+                      <div className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-[#708090]/80">
+                        Latihan & Evaluasi
+                      </div>
+                      <div className="space-y-1">
+                        <Link
+                          to={isTeacher || isAdmin ? '/practice?mode=table' : '/practice'}
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarStars className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                              Bank Soal Terstandar
+                            </span>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Latihan soal bertingkat dengan pembahasan detail
+                            </p>
+                          </div>
+                        </Link>
+
+                        <Link
+                          to={activeWorksheet ? activeWorksheet.url : '/worksheet'}
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarClipboard className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition">
+                                Worksheet Siswa
+                              </span>
+                              {hasNewGradeNotification && (
+                                <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-300 animate-pulse">
+                                  Nilai Baru!
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Lembar kerja mandiri & evaluasi terstruktur
+                            </p>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
                   )}
-                  {activeWorksheet && !location.pathname.startsWith('/worksheet/') && !hasNewGradeNotification && (
-                    <span className="flex h-2 w-2 relative -mr-0.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#708090] opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#708090]" />
-                    </span>
+                </div>
+
+                {/* 3. Category: Studio */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setActiveNavDropdown(activeNavDropdown === 'studio' ? null : 'studio')}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                      isActive('/whiteboard') || isActive('/teacher') || isActive('/admin') || activeNavDropdown === 'studio'
+                        ? 'bg-[#B0C4DE]/30 text-[#2D3748] font-bold border border-[#B0C4DE]/60 shadow-2xs'
+                        : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
+                    }`}
+                  >
+                    <SolarPalette className="w-3.5 h-3.5" />
+                    <span>Studio</span>
+                    <ChevronDown
+                      size={13}
+                      className={`transition-transform duration-200 ${
+                        activeNavDropdown === 'studio' ? 'rotate-180 text-[#2D3748]' : 'text-[#708090]'
+                      }`}
+                    />
+                  </button>
+
+                  {activeNavDropdown === 'studio' && (
+                    <div className="absolute top-full left-0 mt-2 z-50 w-80 rounded-2xl bg-[#FFFFF0]/95 backdrop-blur-xl border border-[#B0C4DE]/60 shadow-xl p-2 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-3 py-1.5 text-[10px] font-bold tracking-wider uppercase text-[#708090]/80">
+                        Ruang Kolaborasi & Pengelolaan
+                      </div>
+                      <div className="space-y-1">
+                        <Link
+                          to="/whiteboard"
+                          onClick={() => setActiveNavDropdown(null)}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                            <SolarPalette className="w-4 h-4" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                              STEMBoard Whiteboard
+                            </span>
+                            <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                              Papan tulis kimia digital dengan alat gambar & rumus
+                            </p>
+                          </div>
+                        </Link>
+
+                        {(isTeacher || isAdmin) && (
+                          <>
+                            <Link
+                              to="/teacher/classes"
+                              onClick={() => setActiveNavDropdown(null)}
+                              className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/20 text-teal-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                <SolarUsers className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                                  Kelas Binaan
+                                </span>
+                                <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                                  Manajemen murid, penugasan & monitoring
+                                </p>
+                              </div>
+                            </Link>
+
+                            <Link
+                              to="/teacher"
+                              onClick={() => setActiveNavDropdown(null)}
+                              className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                                <SolarDiploma className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                                  Studio Guru
+                                </span>
+                                <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                                  Pengawasan proses belajar & rekap penilaian
+                                </p>
+                              </div>
+                            </Link>
+                          </>
+                        )}
+
+                        {isAdmin && (
+                          <Link
+                            to="/admin/analytics"
+                            onClick={() => setActiveNavDropdown(null)}
+                            className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left border-t border-[#B0C4DE]/40 mt-1 pt-2"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                              <SolarShield className="w-4 h-4" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">
+                                Portal Admin
+                              </span>
+                              <p className="text-[11px] text-[#708090] line-clamp-1 mt-0.5">
+                                Pusat kendali sistem, analitik & manajemen akun
+                              </p>
+                            </div>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
                   )}
-                </Link>
+                </div>
 
-                {/* STEMBoard / Papan Tulis */}
-                <Link
-                  to="/whiteboard"
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                    isActive('/whiteboard')
-                      ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                      : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                  }`}
-                >
-                  <PenTool className="w-3.5 h-3.5 text-[#708090]" />
-                  <span>Papan Tulis</span>
-                </Link>
-
-                {/* Progress Report Siswa */}
+                {/* Progress Siswa Direct Link */}
                 {!isTeacher && (
                   <Link
                     to="/student/progress"
@@ -280,58 +554,6 @@ export const Navbar: React.FC = React.memo(() => {
                     <BarChart3 className="w-3.5 h-3.5" />
                     <span>Progress</span>
                   </Link>
-                )}
-
-                {/* Menu Khusus Admin */}
-                {isAdmin && (
-                  <Link
-                    to="/admin/analytics"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#708090] text-[#FFFFF0] hover:bg-[#5C6D7D] font-bold transition shadow-2xs border border-[#708090]"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-[#FFFFF0]" />
-                    <span>⚡ Portal Admin</span>
-                  </Link>
-                )}
-
-                {/* Menu Khusus Guru & Admin */}
-                {(isTeacher || isAdmin) && (
-                  <>
-                    <Link
-                      to="/practice?mode=table"
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                        isActive('/practice')
-                          ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                          : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                      }`}
-                    >
-                      <Layers className="w-3.5 h-3.5 text-[#708090]" />
-                      <span>Bank Soal</span>
-                    </Link>
-
-                    <Link
-                      to="/teacher/classes"
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                        isActive('/teacher/classes')
-                          ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                          : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                      }`}
-                    >
-                      <School className="w-3.5 h-3.5 text-[#708090]" />
-                      <span>Kelas Binaan</span>
-                    </Link>
-
-                    <Link
-                      to="/teacher"
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-colors ${
-                        isActive('/teacher') && !isActive('/teacher/classes')
-                          ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 shadow-2xs'
-                          : 'hover:bg-[#F0F8FF] hover:text-[#2D3748]'
-                      }`}
-                    >
-                      <Users className="w-3.5 h-3.5 text-[#708090]" />
-                      <span>Studio Guru</span>
-                    </Link>
-                  </>
                 )}
               </nav>
             )}
@@ -465,7 +687,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] transition-colors"
                         >
-                          <School className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarUsers className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Manajemen Kelas</span>
                         </Link>
                         <Link
@@ -473,7 +695,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] transition-colors"
                         >
-                          <BookOpen className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarBook className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Editor Materi Silabus</span>
                         </Link>
                         <Link
@@ -481,7 +703,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] transition-colors"
                         >
-                          <Layers className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarClipboard className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Pengawasan Worksheet</span>
                         </Link>
                         <Link
@@ -509,7 +731,7 @@ export const Navbar: React.FC = React.memo(() => {
                             onClick={() => setShowUserDropdown(false)}
                             className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                           >
-                            <Users className="w-3.5 h-3.5 text-[#708090]" />
+                            <SolarDiploma className="w-3.5 h-3.5 text-[#708090]" />
                             <span>Studio Guru & Pemantauan</span>
                           </Link>
                           <Link
@@ -517,7 +739,7 @@ export const Navbar: React.FC = React.memo(() => {
                             onClick={() => setShowUserDropdown(false)}
                             className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                           >
-                            <School className="w-3.5 h-3.5 text-[#708090]" />
+                            <SolarUsers className="w-3.5 h-3.5 text-[#708090]" />
                             <span>Manajemen Kelas Binaan</span>
                           </Link>
                         </div>
@@ -529,7 +751,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                         >
-                          <School className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarUsers className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Manajemen Kelas Binaan</span>
                         </Link>
                         <Link
@@ -537,7 +759,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                         >
-                          <Users className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarDiploma className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Studio Guru & Pemantauan</span>
                         </Link>
                         <Link
@@ -545,7 +767,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                         >
-                          <PenTool className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarPalette className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Papan Tulis (STEMBoard)</span>
                         </Link>
                       </>
@@ -565,7 +787,7 @@ export const Navbar: React.FC = React.memo(() => {
                           className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                         >
                           <div className="flex items-center gap-2">
-                            <Layers className="w-3.5 h-3.5 text-[#708090]" />
+                            <SolarClipboard className="w-3.5 h-3.5 text-[#708090]" />
                             <span>{activeWorksheet ? 'Lanjutkan Worksheet' : 'Worksheet Saya'}</span>
                           </div>
                           {activeWorksheet && (
@@ -579,7 +801,7 @@ export const Navbar: React.FC = React.memo(() => {
                           onClick={() => setShowUserDropdown(false)}
                           className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[#2D3748] hover:bg-[#F0F8FF] hover:text-[#708090] transition-colors"
                         >
-                          <PenTool className="w-3.5 h-3.5 text-[#708090]" />
+                          <SolarPalette className="w-3.5 h-3.5 text-[#708090]" />
                           <span>Papan Tulis (STEMBoard)</span>
                         </Link>
                         <Link
@@ -723,88 +945,215 @@ export const Navbar: React.FC = React.memo(() => {
             <div className="flex-1 overflow-y-auto p-3 space-y-1 text-xs font-semibold text-[#708090]">
               {user ? (
                 <>
-                  {/* Siswa: Dashboard */}
-                  {!isTeacher && (
-                    <Link
-                      to="/student/dashboard"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                        isActive('/student/dashboard')
-                          ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                          : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                      }`}
-                    >
-                      <LayoutDashboard className="w-4 h-4 text-[#708090]" />
-                      <span>Dashboard Siswa</span>
-                    </Link>
-                  )}
-
-
-
-                  {/* Database Materi */}
+                  {/* Quick Direct Link: Dashboard */}
                   <Link
-                    to="/materi"
+                    to={isTeacher ? '/teacher' : '/student/dashboard'}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                      isActive('/materi')
-                        ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
+                      isActive(isTeacher ? '/teacher' : '/student/dashboard') && !isActive('/teacher/classes')
+                        ? 'bg-[#B0C4DE]/30 text-[#2D3748] font-bold border border-[#B0C4DE]/60'
                         : 'hover:bg-[#F0F8FF] text-[#2D3748]'
                     }`}
                   >
-                    <BookOpen className="w-4 h-4 text-[#708090]" />
-                    <span>Database Materi</span>
+                    <LayoutDashboard className="w-4 h-4 text-[#708090]" />
+                    <span>Dashboard {isTeacher ? 'Guru' : 'Siswa'}</span>
                   </Link>
 
-                  {/* Siswa: Bank Soal (Sebelah kanan/setelah Materi) */}
-                  {!isTeacher && (
-                    <Link
-                      to="/practice"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                        isActive('/practice')
-                          ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                          : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                      }`}
+                  {/* Accordion 1: Syllabus */}
+                  <div className="rounded-xl border border-[#B0C4DE]/60 overflow-hidden bg-[#FFFFF0]">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileAccordion(prev => ({ ...prev, syllabus: !prev.syllabus }))
+                      }
+                      className="w-full flex items-center justify-between p-3 bg-[#F0F8FF]/80 hover:bg-[#F0F8FF] transition text-left cursor-pointer"
                     >
-                      <Sparkles className="w-4 h-4 text-[#708090]" />
-                      <span>Bank Soal Terstandar</span>
-                    </Link>
-                  )}
+                      <div className="flex items-center gap-2.5 text-[#2D3748] font-bold">
+                        <SolarBook className="w-4 h-4 text-[#708090]" />
+                        <span>Syllabus</span>
+                      </div>
+                      <ChevronDown
+                        size={15}
+                        className={`text-[#708090] transition-transform duration-200 ${
+                          mobileAccordion.syllabus ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
 
-                  {/* Worksheet Siswa / Sesi Aktif */}
-                  <Link
-                    to={activeWorksheet ? activeWorksheet.url : '/worksheet'}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition ${
-                      isActive('/worksheet')
-                        ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                        : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Layers className="w-4 h-4 text-[#708090]" />
-                      <span>Worksheet Siswa</span>
-                    </div>
-                    {activeWorksheet && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60 animate-pulse">
-                        Lanjut Soal #{activeWorksheet.currentQIndex + 1}
-                      </span>
+                    {mobileAccordion.syllabus && (
+                      <div className="p-2 space-y-1 bg-[#FFFFF0] border-t border-[#B0C4DE]/40">
+                        <Link
+                          to="/materi?db=osn"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <SolarTrophy className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs text-[#2D3748] font-medium">Materi OSN Kimia</span>
+                        </Link>
+
+                        <Link
+                          to="/materi?db=sma"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <SolarBook className="w-3.5 h-3.5 text-sky-600" />
+                          <span className="text-xs text-[#2D3748] font-medium">Materi Dasar SMA</span>
+                        </Link>
+
+                        <Link
+                          to="/materi?db=igcse"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <SolarLock className="w-3.5 h-3.5 text-purple-600" />
+                          <span className="text-xs text-[#2D3748] font-medium">Cambridge IGCSE</span>
+                        </Link>
+
+                        <Link
+                          to="/materi"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center justify-between p-2 text-[11px] font-bold text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF] rounded-lg transition"
+                        >
+                          <span>Katalog Semua Silabus</span>
+                          <ArrowRight size={12} />
+                        </Link>
+                      </div>
                     )}
-                  </Link>
+                  </div>
 
-                  {/* Papan Tulis STEMBoard */}
-                  <Link
-                    to="/whiteboard"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                      isActive('/whiteboard')
-                        ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                        : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                    }`}
-                  >
-                    <PenTool className="w-4 h-4 text-[#708090]" />
-                    <span>Papan Tulis (STEMBoard)</span>
-                  </Link>
+                  {/* Accordion 2: Practice & Tests */}
+                  <div className="rounded-xl border border-[#B0C4DE]/60 overflow-hidden bg-[#FFFFF0]">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileAccordion(prev => ({ ...prev, practice: !prev.practice }))
+                      }
+                      className="w-full flex items-center justify-between p-3 bg-[#F0F8FF]/80 hover:bg-[#F0F8FF] transition text-left cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5 text-[#2D3748] font-bold">
+                        <SolarStars className="w-4 h-4 text-[#708090]" />
+                        <span>Practice & Tests</span>
+                        {activeWorksheet && (
+                          <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                        )}
+                      </div>
+                      <ChevronDown
+                        size={15}
+                        className={`text-[#708090] transition-transform duration-200 ${
+                          mobileAccordion.practice ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileAccordion.practice && (
+                      <div className="p-2 space-y-1 bg-[#FFFFF0] border-t border-[#B0C4DE]/40">
+                        {/* If active worksheet */}
+                        {activeWorksheet && (
+                          <Link
+                            to={activeWorksheet.url}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center justify-between p-2 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold"
+                          >
+                            <span className="truncate">Lanjut #{activeWorksheet.currentQIndex + 1}: {activeWorksheet.title}</span>
+                            <ArrowRight size={12} className="shrink-0" />
+                          </Link>
+                        )}
+
+                        <Link
+                          to={isTeacher || isAdmin ? '/practice?mode=table' : '/practice'}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <SolarStars className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs text-[#2D3748] font-medium">Bank Soal Terstandar</span>
+                        </Link>
+
+                        <Link
+                          to={activeWorksheet ? activeWorksheet.url : '/worksheet'}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center justify-between p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <div className="flex items-center gap-2">
+                            <SolarClipboard className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="text-xs text-[#2D3748] font-medium">Worksheet Siswa</span>
+                          </div>
+                          {hasNewGradeNotification && (
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold border border-emerald-300 animate-pulse">
+                              Nilai Baru!
+                            </span>
+                          )}
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Accordion 3: Studio */}
+                  <div className="rounded-xl border border-[#B0C4DE]/60 overflow-hidden bg-[#FFFFF0]">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setMobileAccordion(prev => ({ ...prev, studio: !prev.studio }))
+                      }
+                      className="w-full flex items-center justify-between p-3 bg-[#F0F8FF]/80 hover:bg-[#F0F8FF] transition text-left cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5 text-[#2D3748] font-bold">
+                        <SolarPalette className="w-4 h-4 text-[#708090]" />
+                        <span>Studio</span>
+                      </div>
+                      <ChevronDown
+                        size={15}
+                        className={`text-[#708090] transition-transform duration-200 ${
+                          mobileAccordion.studio ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {mobileAccordion.studio && (
+                      <div className="p-2 space-y-1 bg-[#FFFFF0] border-t border-[#B0C4DE]/40">
+                        <Link
+                          to="/whiteboard"
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                        >
+                          <SolarPalette className="w-3.5 h-3.5 text-indigo-600" />
+                          <span className="text-xs text-[#2D3748] font-medium">STEMBoard Whiteboard</span>
+                        </Link>
+
+                        {(isTeacher || isAdmin) && (
+                          <>
+                            <Link
+                              to="/teacher/classes"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                            >
+                              <SolarUsers className="w-3.5 h-3.5 text-teal-600" />
+                              <span className="text-xs text-[#2D3748] font-medium">Kelas Binaan</span>
+                            </Link>
+
+                            <Link
+                              to="/teacher"
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left"
+                            >
+                              <SolarDiploma className="w-3.5 h-3.5 text-blue-600" />
+                              <span className="text-xs text-[#2D3748] font-medium">Studio Guru</span>
+                            </Link>
+                          </>
+                        )}
+
+                        {isAdmin && (
+                          <Link
+                            to="/admin/analytics"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F0F8FF] transition text-left border-t border-[#B0C4DE]/40 mt-1 pt-2"
+                          >
+                            <SolarShield className="w-3.5 h-3.5 text-rose-600" />
+                            <span className="text-xs text-[#2D3748] font-medium">Portal Admin</span>
+                          </Link>
+                        )}
+                      </div>
+                    )}
+                  </div>
 
                   {/* Siswa: Progress Report */}
                   {!isTeacher && (
@@ -822,73 +1171,11 @@ export const Navbar: React.FC = React.memo(() => {
                     </Link>
                   )}
 
-                  {/* Fitur Khusus Admin */}
-                  {isAdmin && (
-                    <div className="pt-2 border-t border-[#D3D3D3] space-y-1">
-                      <div className="px-3 py-1 text-[10px] font-bold text-[#708090] uppercase tracking-wider">
-                        Portal Administrator
-                      </div>
-                      <Link
-                        to="/admin/analytics"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#708090] text-[#FFFFF0] font-bold shadow-2xs"
-                      >
-                        <Sparkles className="w-4 h-4 text-[#FFFFF0]" />
-                        <span>Command Center</span>
-                      </Link>
-                    </div>
-                  )}
-
-                  {/* Fitur Khusus Guru & Admin */}
-                  {(isTeacher || isAdmin) && (
-                    <div className="pt-2 border-t border-[#D3D3D3] space-y-1">
-                      <div className="px-3 py-1 text-[10px] font-bold text-[#708090] uppercase tracking-wider">
-                        Fitur Guru & Pembina
-                      </div>
-                      <Link
-                        to="/practice?mode=table"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                          isActive('/practice')
-                            ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                            : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                        }`}
-                      >
-                        <Layers className="w-4 h-4 text-[#708090]" />
-                        <span>Bank Soal Terkurasi</span>
-                      </Link>
-                      <Link
-                        to="/teacher/classes"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                          isActive('/teacher/classes')
-                            ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                            : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                        }`}
-                      >
-                        <School className="w-4 h-4 text-[#708090]" />
-                        <span>Manajemen Kelas Binaan</span>
-                      </Link>
-                      <Link
-                        to="/teacher"
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl transition ${
-                          isActive('/teacher') && !isActive('/teacher/classes')
-                            ? 'bg-[#B0C4DE]/30 text-[#708090] font-bold border border-[#B0C4DE]/60'
-                            : 'hover:bg-[#F0F8FF] text-[#2D3748]'
-                        }`}
-                      >
-                        <Users className="w-4 h-4 text-[#708090]" />
-                        <span>Studio Guru & Monitor</span>
-                      </Link>
-                    </div>
-                  )}
-
                   {!isTeacher && (
                     <Link
                       to="/student/settings"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[#708090] hover:bg-[#F0F8FF] transition"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#708090] hover:bg-[#F0F8FF] transition text-xs"
                     >
                       <Settings className="w-4 h-4 text-[#708090]" />
                       <span>Pengaturan Akun</span>

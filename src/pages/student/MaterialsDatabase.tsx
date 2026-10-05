@@ -11,6 +11,7 @@ import React, { useState, useMemo, useEffect, useLayoutEffect, useRef } from 're
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { OSN_MATERIALS, findConceptByTag, type MaterialItem } from '../../data/materialsData';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
+import { IGCSE_MATERIALS } from '../../data/igcseMaterialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
 import { MobileTableOfContents } from '../../components/common/MobileTableOfContents';
@@ -23,6 +24,21 @@ import { useFeatureFlags } from '../../services/featureFlagsService';
 import { useAuth } from '../../contexts/AuthContext';
 import { studentReadingService } from '../../services/studentReadingService';
 import { trackAchievementEvent } from '../../services/achievementService';
+import {
+  SolarTrophy,
+  SolarBook,
+  SolarBookBookmark,
+  SolarLock,
+  SolarRocket,
+  SolarLightbulb,
+  SolarLightbulbBolt,
+  SolarAtom,
+  SolarDocumentText,
+  SolarStars,
+  SolarNotes,
+  SolarLayers,
+  SolarCheckCircle,
+} from '../../components/common/AppIcons';
 import {
   Search,
   Clock,
@@ -51,9 +67,9 @@ export const MaterialsDatabase: React.FC = () => {
   const { id } = useParams<{ id?: string }>();
   const [searchParams] = useSearchParams();
   const activeTag = searchParams.get('tag');
-  const dbParam = searchParams.get('db'); // 'osn' | 'sma'
+  const dbParam = searchParams.get('db'); // 'osn' | 'sma' | 'igcse'
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { flags: featureFlags } = useFeatureFlags();
 
   // Search & Filter State
@@ -91,45 +107,68 @@ export const MaterialsDatabase: React.FC = () => {
     });
   };
 
-  // Determine initial database (OSN vs SMA)
-  const initialDb = useMemo<'osn' | 'sma'>(() => {
+  // Determine initial database (OSN vs SMA vs IGCSE)
+  const initialDb = useMemo<'osn' | 'sma' | 'igcse'>(() => {
+    if (isAdmin && dbParam === 'igcse') return 'igcse';
     if (dbParam === 'sma') return 'sma';
     if (dbParam === 'osn') return 'osn';
     if (id) {
+      if (id.startsWith('igcse-')) return isAdmin ? 'igcse' : 'sma';
       if (id.startsWith('sma-')) return 'sma';
       const num = parseInt(id, 10);
-      if (!isNaN(num) && num >= 101 && num <= 116) return 'sma';
+      if (!isNaN(num)) {
+        if (num >= 201 && num <= 299) return isAdmin ? 'igcse' : 'sma';
+        if (num >= 101 && num <= 116) return 'sma';
+      }
+      if (IGCSE_MATERIALS.some((m) => m.slug === id)) return isAdmin ? 'igcse' : 'sma';
       if (SMA_MATERIALS.some((m) => m.slug === id)) return 'sma';
     }
     try {
       const saved = localStorage.getItem('osn_active_material_db');
+      if (saved === 'igcse' && isAdmin) return 'igcse';
       if (saved === 'sma' || saved === 'osn') return saved;
     } catch {
       // ignore
     }
     return 'osn';
-  }, [id, dbParam]);
+  }, [id, dbParam, isAdmin]);
 
-  const [activeDatabase, setActiveDatabase] = useState<'osn' | 'sma'>(initialDb);
+  const [activeDatabase, setActiveDatabase] = useState<'osn' | 'sma' | 'igcse'>(initialDb);
 
   // Synchronize database switcher with URL changes
   useEffect(() => {
-    if (dbParam === 'sma' || dbParam === 'osn') {
+    if (dbParam === 'igcse' && isAdmin) {
+      setActiveDatabase('igcse');
+    } else if (dbParam === 'sma' || dbParam === 'osn') {
       setActiveDatabase(dbParam);
     } else if (id) {
-      if (id.startsWith('sma-')) {
+      if (id.startsWith('igcse-') && isAdmin) {
+        setActiveDatabase('igcse');
+      } else if (id.startsWith('sma-')) {
         setActiveDatabase('sma');
       } else {
         const num = parseInt(id, 10);
-        if (!isNaN(num) && num >= 101 && num <= 116) {
-          setActiveDatabase('sma');
+        if (!isNaN(num)) {
+          if (num >= 201 && num <= 299 && isAdmin) {
+            setActiveDatabase('igcse');
+          } else if (num >= 101 && num <= 116) {
+            setActiveDatabase('sma');
+          }
         }
       }
     }
-  }, [id, dbParam]);
+  }, [id, dbParam, isAdmin]);
+
+  // Guard: if non-admin somehow lands on igcse database, fallback to sma
+  useEffect(() => {
+    if (!isAdmin && activeDatabase === 'igcse') {
+      setActiveDatabase('sma');
+    }
+  }, [isAdmin, activeDatabase]);
 
   // Database switch handler
-  const handleDatabaseSwitch = (newDb: 'osn' | 'sma') => {
+  const handleDatabaseSwitch = (newDb: 'osn' | 'sma' | 'igcse') => {
+    if (newDb === 'igcse' && !isAdmin) return;
     setActiveDatabase(newDb);
     setSelectedCategory('Semua');
     setSelectedGrade('Semua');
@@ -162,6 +201,16 @@ export const MaterialsDatabase: React.FC = () => {
     }
   });
 
+  // Progress Tracking: IGCSE completed materials
+  const [completedIgcse, setCompletedIgcse] = useState<number[]>(() => {
+    try {
+      const saved = localStorage.getItem('igcse_completed_materials');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
   // Scroll Position & Reading Progress Tracking in localStorage
   type ScrollProgressMap = Record<number, { scrollY: number; progressPercent: number; updatedAt: number }>;
 
@@ -183,11 +232,30 @@ export const MaterialsDatabase: React.FC = () => {
     }
   });
 
+  const [scrollPositionsIgcse, setScrollPositionsIgcse] = useState<ScrollProgressMap>(() => {
+    try {
+      const saved = localStorage.getItem('igcse_material_scroll_positions');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
   const [showResumeToast, setShowResumeToast] = useState<{ percent: number } | null>(null);
 
-  // Cari materi aktif jika ada parameter :id (bisa nomor topik 1, atau slug, atau sma-1, atau 101)
+  // Cari materi aktif jika ada parameter :id (bisa nomor topik 1, atau slug, atau igcse-1, atau sma-1, atau 101/201)
   const activeMaterial = useMemo<MaterialItem | SmaMaterialItem | null>(() => {
     if (!id) return null;
+
+    if (id.startsWith('igcse-')) {
+      if (!isAdmin) return null;
+      const sub = id.replace('igcse-', '');
+      const num = parseInt(sub, 10);
+      if (!isNaN(num)) {
+        return IGCSE_MATERIALS.find((m) => m.topic_number === num || m.id === num) || null;
+      }
+      return IGCSE_MATERIALS.find((m) => m.slug === sub) || null;
+    }
 
     if (id.startsWith('sma-')) {
       const sub = id.replace('sma-', '');
@@ -200,8 +268,16 @@ export const MaterialsDatabase: React.FC = () => {
 
     const numericId = parseInt(id, 10);
     if (!isNaN(numericId)) {
+      if (numericId >= 201 && numericId <= 299) {
+        if (!isAdmin) return null;
+        return IGCSE_MATERIALS.find((m) => m.id === numericId || m.topic_number === numericId) || null;
+      }
       if (numericId >= 101 && numericId <= 116) {
         return SMA_MATERIALS.find((m) => m.id === numericId || m.topic_number === numericId) || null;
+      }
+      if (activeDatabase === 'igcse' && isAdmin) {
+        const matchIgcse = IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId);
+        if (matchIgcse) return matchIgcse;
       }
       if (activeDatabase === 'sma' || dbParam === 'sma') {
         const matchSma = SMA_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId);
@@ -210,28 +286,41 @@ export const MaterialsDatabase: React.FC = () => {
       return (
         OSN_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
         SMA_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
+        (isAdmin ? IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) : null) ||
         null
       );
     }
 
+    if (isAdmin) {
+      const foundIgcse = IGCSE_MATERIALS.find((m) => m.slug === id);
+      if (foundIgcse) return foundIgcse;
+    }
     const foundOsn = OSN_MATERIALS.find((m) => m.slug === id);
     if (foundOsn) return foundOsn;
     const foundSma = SMA_MATERIALS.find((m) => m.slug === id);
     if (foundSma) return foundSma;
     return null;
-  }, [id, activeDatabase, dbParam]);
+  }, [id, activeDatabase, dbParam, isAdmin]);
 
-  const isCurrentSma = Boolean(activeMaterial && 'grade' in activeMaterial);
+  const isCurrentIgcse = Boolean(
+    activeMaterial && (
+      activeMaterial.id >= 201 ||
+      activeMaterial.level === 'IGCSE' ||
+      activeDatabase === 'igcse'
+    )
+  );
+  const isCurrentSma = Boolean(activeMaterial && !isCurrentIgcse && 'grade' in activeMaterial);
 
   // Toggle complete for a material
   const toggleComplete = (materialId: number) => {
-    const isSma = isCurrentSma || materialId >= 101;
-    const currentCompleted = isSma ? completedSma : completedOsn;
+    const isIgcse = isCurrentIgcse || (materialId >= 201 && materialId <= 299);
+    const isSma = !isIgcse && (isCurrentSma || materialId >= 101);
+    const currentCompleted = isIgcse ? completedIgcse : isSma ? completedSma : completedOsn;
     const isAlreadyCompleted = currentCompleted.includes(materialId);
-    const setCompleted = isSma ? setCompletedSma : setCompletedOsn;
-    const setScroll = isSma ? setScrollPositionsSma : setScrollPositionsOsn;
-    const storageKey = isSma ? 'sma_completed_materials' : 'osn_completed_materials';
-    const scrollKey = isSma ? 'sma_material_scroll_positions' : 'osn_material_scroll_positions';
+    const setCompleted = isIgcse ? setCompletedIgcse : isSma ? setCompletedSma : setCompletedOsn;
+    const setScroll = isIgcse ? setScrollPositionsIgcse : isSma ? setScrollPositionsSma : setScrollPositionsOsn;
+    const storageKey = isIgcse ? 'igcse_completed_materials' : isSma ? 'sma_completed_materials' : 'osn_completed_materials';
+    const scrollKey = isIgcse ? 'igcse_material_scroll_positions' : isSma ? 'sma_material_scroll_positions' : 'osn_material_scroll_positions';
 
     setCompleted((prev) => {
       let next: number[];
@@ -413,7 +502,11 @@ export const MaterialsDatabase: React.FC = () => {
     if (!activeMaterial) return;
     if (activeTag) return; // If deep-linking to a specific concept tag, let scrollToConcept handle it
 
-    const scrollStorageKey = isCurrentSma ? 'sma_material_scroll_positions' : 'osn_material_scroll_positions';
+    const scrollStorageKey = isCurrentIgcse
+      ? 'igcse_material_scroll_positions'
+      : isCurrentSma
+      ? 'sma_material_scroll_positions'
+      : 'osn_material_scroll_positions';
     let savedPos: { scrollY: number; progressPercent: number } | undefined;
     try {
       const raw = localStorage.getItem(scrollStorageKey);
@@ -425,7 +518,7 @@ export const MaterialsDatabase: React.FC = () => {
 
     // Simpan sesi aktif membaca ke studentReadingService
     studentReadingService.saveActiveReadingSession({
-      database: isCurrentSma ? 'sma' : 'osn',
+      database: isCurrentIgcse ? 'igcse' : isCurrentSma ? 'sma' : 'osn',
       materialId: activeMaterial.id,
       slug: activeMaterial.slug,
       title: activeMaterial.title,
@@ -856,7 +949,9 @@ export const MaterialsDatabase: React.FC = () => {
   // Kategori unik untuk filter berdasarkan dataset aktif
   const categories = useMemo(() => {
     const list =
-      activeDatabase === 'sma'
+      activeDatabase === 'igcse'
+        ? IGCSE_MATERIALS
+        : activeDatabase === 'sma'
         ? (selectedGrade === 'Semua' ? SMA_MATERIALS : SMA_MATERIALS.filter((m) => m.grade === selectedGrade))
         : OSN_MATERIALS;
     const set = new Set(list.map((m) => m.category));
@@ -865,6 +960,17 @@ export const MaterialsDatabase: React.FC = () => {
 
   // Filter materi untuk tampilan katalog
   const filteredMaterials = useMemo(() => {
+    if (activeDatabase === 'igcse') {
+      return IGCSE_MATERIALS.filter((m) => {
+        const matchCategory = selectedCategory === 'Semua' || m.category === selectedCategory;
+        const matchSearch =
+          m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          m.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          m.allTags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchCategory && matchSearch;
+      });
+    }
+
     if (activeDatabase === 'sma') {
       return SMA_MATERIALS.filter((m) => {
         const matchGrade = selectedGrade === 'Semua' || m.grade === selectedGrade;
@@ -890,25 +996,37 @@ export const MaterialsDatabase: React.FC = () => {
   }, [activeDatabase, searchQuery, selectedCategory, selectedGrade]);
 
   // Progress metrics
-  const completedCount = activeDatabase === 'sma'
-    ? completedSma.filter((mid) => SMA_MATERIALS.some((m) => m.id === mid)).length
-    : completedOsn.filter((mid) => OSN_MATERIALS.some((m) => m.id === mid)).length;
-  const totalCount = activeDatabase === 'sma' ? SMA_MATERIALS.length : OSN_MATERIALS.length;
-  const progressPercentage = Math.round((completedCount / totalCount) * 100);
+  const completedCount =
+    activeDatabase === 'igcse'
+      ? completedIgcse.filter((mid) => IGCSE_MATERIALS.some((m) => m.id === mid)).length
+      : activeDatabase === 'sma'
+      ? completedSma.filter((mid) => SMA_MATERIALS.some((m) => m.id === mid)).length
+      : completedOsn.filter((mid) => OSN_MATERIALS.some((m) => m.id === mid)).length;
+  const totalCount =
+    activeDatabase === 'igcse'
+      ? IGCSE_MATERIALS.length
+      : activeDatabase === 'sma'
+      ? SMA_MATERIALS.length
+      : OSN_MATERIALS.length;
+  const progressPercentage = Math.round((completedCount / (totalCount || 1)) * 100);
 
   // ==========================================
   // JIKA DALAM MODE MEMBACA MATERI TERTENTU (/materi/:id)
   // ==========================================
   if (activeMaterial) {
-    const activeList = isCurrentSma ? SMA_MATERIALS : OSN_MATERIALS;
+    const activeList = isCurrentIgcse ? IGCSE_MATERIALS : isCurrentSma ? SMA_MATERIALS : OSN_MATERIALS;
     const currentIndex = activeList.findIndex((m) => m.id === activeMaterial.id);
     const prevMaterial = currentIndex > 0 ? activeList[currentIndex - 1] : null;
     const nextMaterial =
       currentIndex < activeList.length - 1 ? activeList[currentIndex + 1] : null;
-    const isCompleted = isCurrentSma
+    const isCompleted = isCurrentIgcse
+      ? completedIgcse.includes(activeMaterial.id)
+      : isCurrentSma
       ? completedSma.includes(activeMaterial.id)
       : completedOsn.includes(activeMaterial.id);
-    const savedProgress = isCurrentSma
+    const savedProgress = isCurrentIgcse
+      ? (scrollPositionsIgcse[activeMaterial.id]?.progressPercent || 0)
+      : isCurrentSma
       ? (scrollPositionsSma[activeMaterial.id]?.progressPercent || 0)
       : (scrollPositionsOsn[activeMaterial.id]?.progressPercent || 0);
 
@@ -924,15 +1042,15 @@ export const MaterialsDatabase: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 min-w-0">
             <Link
-              to={`/materi?db=${isCurrentSma ? 'sma' : 'osn'}`}
+              to={`/materi?db=${isCurrentIgcse ? 'igcse' : isCurrentSma ? 'sma' : 'osn'}`}
               className="hover:text-slate-800 font-medium transition-colors flex items-center gap-1.5 shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>{isCurrentSma ? 'Database Materi SMA' : 'Database Materi OSN'}</span>
+              <span>{isCurrentIgcse ? 'Cambridge IGCSE Chemistry' : isCurrentSma ? 'Database Materi SMA' : 'Database Materi OSN'}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="font-semibold text-slate-700 shrink-0">
-              {isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`}
+              {isCurrentIgcse ? `Topic ${activeMaterial.topic_number}` : isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`}
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="text-slate-400 truncate max-w-[140px] sm:max-w-xs md:max-w-md" title={activeMaterial.title}>
@@ -949,7 +1067,7 @@ export const MaterialsDatabase: React.FC = () => {
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer touch-manipulation"
                 title="Buka Flashcard Kilat untuk review cepat konsep & rumus"
               >
-                <Layers className="w-3.5 h-3.5 text-indigo-600" />
+                <SolarLayers className="w-3.5 h-3.5 text-indigo-600" />
                 <span>Flashcard ({flashcardDeck.length})</span>
               </button>
             )}
@@ -962,7 +1080,7 @@ export const MaterialsDatabase: React.FC = () => {
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-amber-200 bg-amber-50/80 hover:bg-amber-100 text-amber-800 shadow-2xs cursor-pointer touch-manipulation"
                 title="Buka Catatan Belajar Pribadi"
               >
-                <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                <SolarNotes className="w-3.5 h-3.5 text-amber-600" />
                 <span>Catatan {notesCount > 0 && `(${notesCount})`}</span>
               </button>
             )}
@@ -975,7 +1093,7 @@ export const MaterialsDatabase: React.FC = () => {
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-purple-200 bg-purple-50/80 hover:bg-purple-100 text-purple-700 shadow-2xs cursor-pointer touch-manipulation"
                 title="Konsultasi ke AI Tutor untuk topik ini"
               >
-                <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                <SolarStars className="w-3.5 h-3.5 text-purple-600" />
                 <span>AI Tutor</span>
               </button>
             )}
@@ -990,15 +1108,23 @@ export const MaterialsDatabase: React.FC = () => {
               }`}
               title={isCompleted ? 'Materi telah selesai dipelajari' : 'Tandai materi ini sudah selesai dibaca'}
             >
-              <CheckCircle2 className={`w-3.5 h-3.5 ${isCompleted ? 'text-emerald-600 fill-emerald-100' : 'text-slate-400'}`} />
+              <SolarCheckCircle className={`w-3.5 h-3.5 ${isCompleted ? 'text-emerald-600' : 'text-slate-400'}`} />
               <span>{isCompleted ? 'Selesai' : 'Tandai Selesai'}</span>
             </button>
 
             <button
-              onClick={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
-              className="shrink-0 inline-flex items-center justify-center gap-2 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap touch-manipulation"
+              onClick={() => {
+                if (isCurrentIgcse) {
+                  alert('Bank Soal Cambridge IGCSE sedang dipersiapkan!');
+                  return;
+                }
+                navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+              }}
+              className={`shrink-0 inline-flex items-center justify-center gap-2 px-3.5 py-1.5 ${
+                isCurrentIgcse ? 'bg-purple-600 hover:bg-purple-700' : 'bg-emerald-600 hover:bg-emerald-700'
+              } text-white rounded-lg text-xs font-bold transition-all shadow-xs cursor-pointer whitespace-nowrap touch-manipulation`}
             >
-              <span>Latihan di Bank Soal</span>
+              <span>{isCurrentIgcse ? 'Latihan IGCSE (Segera)' : 'Latihan di Bank Soal'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -1010,7 +1136,7 @@ export const MaterialsDatabase: React.FC = () => {
           <div className="absolute right-0 top-0 bottom-0 w-80 lg:w-96 opacity-15 pointer-events-none hidden sm:block overflow-hidden">
             <TopicSvgArt
               topicNumber={activeMaterial.topic_number}
-              database={isCurrentSma ? 'sma' : 'osn'}
+              database={isCurrentIgcse ? 'igcse' : isCurrentSma ? 'sma' : 'osn'}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-linear-to-r from-white via-white/40 to-transparent" />
@@ -1019,10 +1145,24 @@ export const MaterialsDatabase: React.FC = () => {
           <div className="relative z-10 space-y-4">
             <div className="flex flex-wrap items-center gap-2">
               <span className={`px-2.5 py-0.5 text-[11px] font-bold rounded uppercase font-mono ${
-                isCurrentSma ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'
+                isCurrentIgcse
+                  ? 'bg-purple-100 text-purple-800'
+                  : isCurrentSma
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-sky-100 text-sky-800'
               }`}>
-                {isCurrentSma ? `Modul SMA #${activeMaterial.topic_number}` : `Topik OSN #${activeMaterial.topic_number}`}
+                {isCurrentIgcse
+                  ? `Topic IGCSE #${activeMaterial.topic_number}`
+                  : isCurrentSma
+                  ? `Modul SMA #${activeMaterial.topic_number}`
+                  : `Topik OSN #${activeMaterial.topic_number}`}
               </span>
+
+              {isCurrentIgcse && (
+                <span className="px-2.5 py-0.5 bg-purple-50 border border-purple-200 text-purple-800 text-[11px] font-bold rounded font-mono">
+                  Cambridge 0620 · Core & Extended
+                </span>
+              )}
 
               {isCurrentSma && (
                 <>
@@ -1040,7 +1180,11 @@ export const MaterialsDatabase: React.FC = () => {
               </span>
 
               {!isCurrentSma && (
-                <span className="px-2.5 py-0.5 bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-bold rounded font-mono">
+                <span className={`px-2.5 py-0.5 border text-[11px] font-bold rounded font-mono ${
+                  isCurrentIgcse
+                    ? 'bg-purple-50 border-purple-200 text-purple-800'
+                    : 'bg-amber-50 border-amber-200 text-amber-800'
+                }`}>
                   Level: {activeMaterial.level}
                 </span>
               )}
@@ -1130,8 +1274,8 @@ export const MaterialsDatabase: React.FC = () => {
         {isCurrentSma && (activeMaterial as SmaMaterialItem).relatedOsnTopicId && (
           <div className="bg-linear-to-r from-sky-50 via-indigo-50/50 to-emerald-50 border border-sky-200/90 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center text-lg shadow-2xs shrink-0 font-bold">
-                🚀
+              <div className="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-2xs shrink-0">
+                <SolarRocket className="w-5 h-5 text-white" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -1158,7 +1302,7 @@ export const MaterialsDatabase: React.FC = () => {
           </div>
         )}
 
-        {!isCurrentSma && (() => {
+        {!isCurrentSma && !isCurrentIgcse && (() => {
           const relatedSmaList = SMA_MATERIALS.filter(
             (m) => m.relatedOsnTopicId === activeMaterial.topic_number || m.relatedOsnTopicId === activeMaterial.id
           );
@@ -1167,7 +1311,7 @@ export const MaterialsDatabase: React.FC = () => {
           return (
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-2xs">
               <div className="flex items-center gap-2.5 text-slate-700">
-                <span className="text-base shrink-0">💡</span>
+                <SolarLightbulb className="w-5 h-5 text-amber-500 shrink-0" />
                 <div>
                   <span className="font-bold text-slate-800">Perlu mengulang konsep dasar SMA untuk topik ini?</span>
                   <p className="text-[11px] text-slate-500">Kuatkan fondasi teori sekolah sebelum membedah soal kompetisi tingkat tinggi.</p>
@@ -1193,7 +1337,7 @@ export const MaterialsDatabase: React.FC = () => {
         {/* Global Accordion Control Bar */}
         <div className="flex items-center justify-between bg-white border border-slate-200 rounded-xl px-4 py-2.5 shadow-2xs">
           <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-            <Layers className="w-4 h-4 text-sky-600" />
+            <SolarLayers className="w-4 h-4 text-sky-600" />
             <span>Alur Pedagogis 3 Tahap</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
@@ -1238,13 +1382,19 @@ export const MaterialsDatabase: React.FC = () => {
             {/* TAHAP 1: KONSEP PRASYARAT YANG DIBUTUHKAN */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-amber-800 border-b border-amber-200 pb-2">
-                <Lightbulb className="w-5 h-5 text-amber-600" />
+                <SolarLightbulbBolt className="w-5 h-5 text-amber-600" />
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
-                  Tahap 1: Konsep Prasyarat yang Dibutuhkan
+                  {isCurrentIgcse
+                    ? 'Tahap 1: Konsep Prasyarat & Prinsip Partikel'
+                    : 'Tahap 1: Konsep Prasyarat yang Dibutuhkan'}
                 </h2>
               </div>
               <p className="text-xs text-slate-500">
-                Pondasi teori dasar yang wajib dipahami sebelum melangkah ke konsep olimpiade tingkat lanjut.
+                {isCurrentIgcse
+                  ? 'Pondasi prinsip partikel dan fenomena fisik sebelum mendalami detail kurikulum Cambridge.'
+                  : isCurrentSma
+                  ? 'Pondasi teori dasar kimia SMA sebelum mempelajari materi lanjutan.'
+                  : 'Pondasi teori dasar yang wajib dipahami sebelum melangkah ke konsep olimpiade tingkat lanjut.'}
               </p>
 
               <div className="space-y-6">
@@ -1314,7 +1464,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
                                     title="Tanya AI Tutor tentang konsep ini"
                                   >
-                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
                                     <span>Tanya AI Tutor</span>
                                   </button>
                                 )}
@@ -1326,7 +1476,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
                                     title="Tulis catatan pribadi untuk konsep ini"
                                   >
-                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <SolarNotes className="w-3.5 h-3.5 text-amber-600" />
                                     <span>Catat</span>
                                   </button>
                                 )}
@@ -1368,16 +1518,20 @@ export const MaterialsDatabase: React.FC = () => {
               </div>
             </div>
 
-            {/* TAHAP 2: KONSEP MATERI INTI (OSN / IChO DEEP-DIVE) */}
+            {/* TAHAP 2: KONSEP MATERI INTI (OSN / IChO / IGCSE DEEP-DIVE) */}
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-2 text-sky-800 border-b border-sky-200 pb-2">
-                <GraduationCap className="w-5 h-5 text-sky-600" />
+                <SolarAtom className="w-5 h-5 text-sky-600" />
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
-                  Tahap 2: Konsep Materi Inti (Standar OSN / IChO)
+                  Tahap 2: Konsep Materi Inti ({isCurrentIgcse ? 'Cambridge IGCSE 0620' : isCurrentSma ? 'Kurikulum Merdeka' : 'Standar OSN / IChO'})
                 </h2>
               </div>
               <p className="text-xs text-slate-500">
-                Pembahasan mendalam teori, penurunan formula ilmiah, dan anomali khas kompetisi sains.
+                {isCurrentIgcse
+                  ? 'Pembahasan teori esensial, model partikel, dan konsep kunci sesuai syllabus Cambridge IGCSE.'
+                  : isCurrentSma
+                  ? 'Pembahasan mendalam konsep kimia sekolah menengah atas dan aplikasi praktisnya.'
+                  : 'Pembahasan mendalam teori, penurunan formula ilmiah, dan anomali khas kompetisi sains.'}
               </p>
 
               <div className="space-y-6">
@@ -1447,7 +1601,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
                                     title="Tanya AI Tutor tentang konsep ini"
                                   >
-                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
                                     <span>Tanya AI Tutor</span>
                                   </button>
                                 )}
@@ -1459,7 +1613,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
                                     title="Tulis catatan pribadi untuk konsep ini"
                                   >
-                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <SolarNotes className="w-3.5 h-3.5 text-amber-600" />
                                     <span>Catat</span>
                                   </button>
                                 )}
@@ -1504,15 +1658,19 @@ export const MaterialsDatabase: React.FC = () => {
             {/* TAHAP 3: CONTOH DAN PENJELASAN SOAL */}
             <div className="space-y-4 pt-4">
               <div className="flex items-center gap-2 text-emerald-800 border-b border-emerald-200 pb-2">
-                <FileCheck className="w-5 h-5 text-emerald-600" />
+                <SolarDocumentText className="w-5 h-5 text-emerald-600" />
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
-                  {activeDatabase === 'sma'
+                  {isCurrentIgcse
+                    ? 'Tahap 3: Cambridge Exam-Style Questions & Mark Schemes'
+                    : activeDatabase === 'sma'
                     ? 'Tahap 3: Pembahasan Contoh Soal Kimia SMA (Sedang & HOTS)'
                     : 'Tahap 3: Contoh & Penjelasan Soal OSN Berkaitan'}
                 </h2>
               </div>
               <p className="text-xs text-slate-500">
-                {activeDatabase === 'sma'
+                {isCurrentIgcse
+                  ? 'Latihan soal model Cambridge IGCSE lengkap dengan alur penilaian (mark schemes) dan tips examiner.'
+                  : activeDatabase === 'sma'
                   ? 'Latihan pemecahan masalah bertahap standar Kurikulum SMA dan asesmen/UTBK tingkat sedang & sulit (HOTS) dengan analisis konseptual mendalam.'
                   : 'Aplikasi langsung konsep pada soal seleksi olimpiade lengkap dengan langkah analitis juri.'}
               </p>
@@ -1584,7 +1742,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
                                     title="Tanya AI Tutor tentang tipe soal ini"
                                   >
-                                    <Sparkles className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
+                                    <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
                                     <span>Tanya AI Tutor</span>
                                   </button>
                                 )}
@@ -1596,7 +1754,7 @@ export const MaterialsDatabase: React.FC = () => {
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-50/60 hover:bg-amber-100 text-amber-800 border border-amber-200 transition-all cursor-pointer"
                                     title="Tulis catatan pribadi untuk tipe soal ini"
                                   >
-                                    <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+                                    <SolarNotes className="w-3.5 h-3.5 text-amber-600" />
                                     <span>Catat</span>
                                   </button>
                                 )}
@@ -1673,7 +1831,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <Atom className="w-4 h-4 text-sky-600" />
                       <h3 className="text-sm font-bold text-slate-900 font-display">
-                        Alur Pembelajaran {isCurrentSma ? 'Modul' : 'Topik'}
+                        Alur Pembelajaran {isCurrentIgcse ? 'Topik' : isCurrentSma ? 'Modul' : 'Topik'}
                       </h3>
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -1792,7 +1950,7 @@ export const MaterialsDatabase: React.FC = () => {
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-bold text-emerald-900 flex items-center gap-1.5">
                       <FileCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span>3. Teladan Soal {isCurrentSma ? 'Ujian / UTBK' : 'OSN'}</span>
+                      <span>3. Teladan Soal {isCurrentIgcse ? 'IGCSE Exam' : isCurrentSma ? 'Ujian / UTBK' : 'OSN'}</span>
                     </span>
                     <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-semibold font-mono">
                       {activeMaterial.worked_examples.length} Soal
@@ -1833,11 +1991,19 @@ export const MaterialsDatabase: React.FC = () => {
               {/* Pinned Action Footer */}
               <div className="p-4 border-t border-slate-100 bg-slate-50/70 shrink-0">
                 <button
-                  onClick={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
-                  className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer"
+                  onClick={() => {
+                    if (isCurrentIgcse) {
+                      alert('Bank Soal Cambridge IGCSE sedang dipersiapkan!');
+                      return;
+                    }
+                    navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+                  }}
+                  className={`w-full py-2.5 px-4 ${
+                    isCurrentIgcse ? 'bg-purple-600 hover:bg-purple-700' : 'bg-emerald-600 hover:bg-emerald-700'
+                  } text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer`}
                 >
                   <span>
-                    Latihan Soal {isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`} di Bank Soal
+                    Latihan Soal {isCurrentIgcse ? `Topic ${activeMaterial.topic_number}` : isCurrentSma ? `Modul ${activeMaterial.topic_number}` : `Topik ${activeMaterial.topic_number}`} di Bank Soal
                   </span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
@@ -1882,7 +2048,13 @@ export const MaterialsDatabase: React.FC = () => {
           material={activeMaterial}
           activeVisibleTag={activeVisibleTag}
           onSelectConcept={scrollToConcept}
-          onLaunchWorksheet={() => navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`)}
+          onLaunchWorksheet={() => {
+            if (isCurrentIgcse) {
+              alert('Bank Soal Cambridge IGCSE sedang dipersiapkan!');
+              return;
+            }
+            navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+          }}
           isCurrentSma={isCurrentSma}
         />
 
@@ -1952,6 +2124,7 @@ export const MaterialsDatabase: React.FC = () => {
   // TAMPILAN KATALOG DUAL DATABASE MATERI (/materi)
   // ==========================================
   const isSmaDb = activeDatabase === 'sma';
+  const isIgcseDb = activeDatabase === 'igcse';
 
   return (
     <div
@@ -1960,7 +2133,7 @@ export const MaterialsDatabase: React.FC = () => {
     >
       <ChemistryWatermarkBackground />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Hero Header Section (Matching Papan Tulis Design with Dual Database Switcher) */}
+      {/* Hero Header Section (Matching Papan Tulis Design with Database Switcher) */}
       <div className="theme-hero-banner bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl shadow-slate-900/10 border border-slate-700 relative overflow-hidden space-y-6">
         {/* Subtle ambient lighting */}
         <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
@@ -1968,16 +2141,29 @@ export const MaterialsDatabase: React.FC = () => {
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase text-slate-100 border border-white/20">
-              <BookOpen size={14} className="text-slate-300" />
-              <span>{isSmaDb ? 'Kurikulum Merdeka (Fase E & F) & K13' : 'Puspresnas & IChO Standard'} • Database Materi</span>
+              <SolarBookBookmark className="w-3.5 h-3.5 text-slate-300" />
+              <span>
+                {isIgcseDb
+                  ? 'Cambridge Assessment International Education (0620)'
+                  : isSmaDb
+                  ? 'Kurikulum Merdeka (Fase E & F) & K13'
+                  : 'Puspresnas & IChO Standard'}{' '}
+                • Database Materi
+              </span>
             </div>
 
             <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight font-display">
-              {isSmaDb ? 'Database Materi Sains Kimia Dasar SMA' : 'Database Materi OSN Kimia'}
+              {isIgcseDb
+                ? 'Cambridge IGCSE Chemistry (0620)'
+                : isSmaDb
+                ? 'Database Materi Sains Kimia Dasar SMA'
+                : 'Database Materi OSN Kimia'}
             </h1>
 
             <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl leading-relaxed">
-              {isSmaDb
+              {isIgcseDb
+                ? 'Pustaka materi kurikulum internasional Cambridge IGCSE Chemistry (Syllabus 0620). Disusun komprehensif mengikuti standar Save My Exams & Cambridge Mark Schemes, dilengkapi ilustrasi partikel SVG interaktif, tabel perbandingan, dan checkpoint konsep.'
+                : isSmaDb
                 ? 'Pustaka fondasi kurikulum kimia SMA dari Fase E (Kelas 10) hingga Fase F Lanjutan (Kelas 12). Disusun dengan alur konsep prasyarat, teori inti, formula KaTeX, dan contoh soal kontekstual sebagai batu loncatan persiapan ujian sekolah, UTBK-SNBT, hingga kompetisi sains.'
                 : 'Pustaka komprehensif teori sains kimia tingkat lanjut dengan standar Puspresnas & International Chemistry Olympiad (IChO). Dilengkapi konsep prasyarat, pendalaman teori esensial, formula matematis, dan pembahasan teladan soal olimpiade.'}
             </p>
@@ -1987,11 +2173,11 @@ export const MaterialsDatabase: React.FC = () => {
           <div className="bg-white text-slate-800 border border-slate-200 rounded-2xl p-4 shadow-md sm:w-64 shrink-0 space-y-2">
             <div className="flex items-center justify-between text-xs">
               <span className="font-bold text-slate-500 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />
+                <SolarCheckCircle className="w-3.5 h-3.5 text-emerald-500" />
                 <span>Progress Belajar</span>
               </span>
               <span className="font-mono font-bold text-slate-800">
-                {completedCount}/{totalCount} {isSmaDb ? 'Modul' : 'Topik'}
+                {completedCount}/{totalCount} {isIgcseDb ? 'Topik' : isSmaDb ? 'Modul' : 'Topik'}
               </span>
             </div>
             <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
@@ -2016,7 +2202,8 @@ export const MaterialsDatabase: React.FC = () => {
                 : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
-            <span>🏆 Materi Olimpiade (OSN)</span>
+            <SolarTrophy className="w-4 h-4 text-amber-500 shrink-0" />
+            <span>Materi Olimpiade (OSN)</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeDatabase === 'osn' ? 'bg-amber-100 text-amber-800' : 'bg-slate-800 text-slate-300'
@@ -2034,7 +2221,8 @@ export const MaterialsDatabase: React.FC = () => {
                 : 'text-slate-300 hover:text-white hover:bg-white/10'
             }`}
           >
-            <span>📚 Materi Dasar SMA</span>
+            <SolarBook className="w-4 h-4 text-sky-500 shrink-0" />
+            <span>Materi Dasar SMA</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                 activeDatabase === 'sma' ? 'bg-sky-100 text-sky-800' : 'bg-slate-800 text-slate-300'
@@ -2043,6 +2231,28 @@ export const MaterialsDatabase: React.FC = () => {
               16 Modul
             </span>
           </button>
+
+          {isAdmin && (
+            <button
+              onClick={() => handleDatabaseSwitch('igcse')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 touch-manipulation ${
+                activeDatabase === 'igcse'
+                  ? 'bg-purple-600 text-white shadow-sm border border-purple-500'
+                  : 'text-purple-300 hover:text-white hover:bg-white/10'
+              }`}
+              title="Mode Admin Sandbox: Cambridge IGCSE Chemistry (0620)"
+            >
+              <SolarLock className="w-4 h-4 text-purple-200 shrink-0" />
+              <span>IGCSE (Admin Preview)</span>
+              <span
+                className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                  activeDatabase === 'igcse' ? 'bg-purple-800 text-purple-100' : 'bg-slate-800 text-purple-300'
+                }`}
+              >
+                {IGCSE_MATERIALS.length} Topik
+              </span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -2091,7 +2301,9 @@ export const MaterialsDatabase: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={
-                isSmaDb
+                isIgcseDb
+                  ? 'Search IGCSE topics, kinetic theory, diffusion, formulas...'
+                  : isSmaDb
                   ? 'Cari konsep (#mol, #titrasi), rumus, atau bab SMA...'
                   : 'Cari konsep, tag (#aturan-slater), atau rumus...'
               }
@@ -2107,7 +2319,9 @@ export const MaterialsDatabase: React.FC = () => {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer shrink-0 touch-manipulation ${
                   selectedCategory === cat
-                    ? isSmaDb
+                    ? isIgcseDb
+                      ? 'bg-purple-600 text-white shadow-2xs'
+                      : isSmaDb
                       ? 'bg-emerald-600 text-white shadow-2xs'
                       : 'bg-sky-600 text-white shadow-2xs'
                     : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
@@ -2123,16 +2337,23 @@ export const MaterialsDatabase: React.FC = () => {
       {/* Grid Materi Topik Silabus */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredMaterials.map((material) => {
+          const isIgcseCard = activeDatabase === 'igcse';
           const isSmaCard = activeDatabase === 'sma';
-          const isCompleted = isSmaCard
+          const isCompleted = isIgcseCard
+            ? completedIgcse.includes(material.id)
+            : isSmaCard
             ? completedSma.includes(material.id)
             : completedOsn.includes(material.id);
-          const savedProgress = isSmaCard
+          const savedProgress = isIgcseCard
+            ? scrollPositionsIgcse[material.id]?.progressPercent || 0
+            : isSmaCard
             ? scrollPositionsSma[material.id]?.progressPercent || 0
             : scrollPositionsOsn[material.id]?.progressPercent || 0;
           const currentPercent = isCompleted ? 100 : savedProgress;
 
-          const targetUrl = isSmaCard
+          const targetUrl = isIgcseCard
+            ? `/materi/igcse-${material.topic_number}?db=igcse`
+            : isSmaCard
             ? `/materi/sma-${material.topic_number}?db=sma`
             : `/materi/${material.topic_number}?db=osn`;
 
@@ -2140,7 +2361,11 @@ export const MaterialsDatabase: React.FC = () => {
             <div
               key={material.id}
               className={`bg-white border rounded-2xl p-6 shadow-xs hover:shadow-md transition-all flex flex-col group overflow-hidden ${
-                isSmaCard ? 'border-slate-200 hover:border-emerald-300' : 'border-slate-200 hover:border-sky-300'
+                isIgcseCard
+                  ? 'border-slate-200 hover:border-purple-300'
+                  : isSmaCard
+                  ? 'border-slate-200 hover:border-emerald-300'
+                  : 'border-slate-200 hover:border-sky-300'
               }`}
             >
               {/* Top Banner Minimalist SVG Art */}
@@ -2154,7 +2379,7 @@ export const MaterialsDatabase: React.FC = () => {
                 {/* Badges on SVG art banner */}
                 <div className="absolute top-3 left-3 flex items-center gap-1.5">
                   <span className="px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-md border border-slate-200 text-slate-800 font-mono font-bold text-[11px] shadow-2xs">
-                    {isSmaCard ? `Modul #${material.topic_number}` : `Topik #${material.topic_number}`}
+                    {isIgcseCard ? `Topic #${material.topic_number}` : isSmaCard ? `Modul #${material.topic_number}` : `Topik #${material.topic_number}`}
                   </span>
                   {isCompleted && (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50/95 backdrop-blur-md border border-emerald-300 text-emerald-700 text-[10px] font-bold rounded-md shadow-2xs">
@@ -2173,13 +2398,20 @@ export const MaterialsDatabase: React.FC = () => {
                 <div className="absolute bottom-2 left-4 right-4 flex items-center justify-between">
                   <span
                     className={`text-[10px] uppercase tracking-wider font-bold font-mono px-2 py-0.5 rounded border shadow-2xs ${
-                      isSmaCard
+                      isIgcseCard
+                        ? 'bg-purple-50/95 text-purple-800 border-purple-200/80'
+                        : isSmaCard
                         ? 'bg-emerald-50/95 text-emerald-800 border-emerald-200/80'
                         : 'bg-sky-50/95 text-sky-800 border-sky-200/80'
                     }`}
                   >
                     {material.category}
                   </span>
+                  {isIgcseCard && (
+                    <span className="text-[10px] font-mono text-purple-700 font-bold bg-purple-50/90 px-1.5 py-0.5 rounded border border-purple-200">
+                      Cambridge 0620
+                    </span>
+                  )}
                   {isSmaCard && (
                     <span className="text-[10px] font-mono text-slate-500 font-bold bg-white/90 px-1.5 py-0.5 rounded border border-slate-200">
                       {(material as SmaMaterialItem).curriculumPhase}
@@ -2194,7 +2426,7 @@ export const MaterialsDatabase: React.FC = () => {
                 <div className="min-h-[3rem] flex items-start">
                   <h3
                     className={`text-base font-bold text-slate-900 transition-colors font-display line-clamp-2 leading-snug ${
-                      isSmaCard ? 'group-hover:text-emerald-600' : 'group-hover:text-sky-600'
+                      isIgcseCard ? 'group-hover:text-purple-600' : isSmaCard ? 'group-hover:text-emerald-600' : 'group-hover:text-sky-600'
                     }`}
                   >
                     {material.title}
@@ -2217,8 +2449,8 @@ export const MaterialsDatabase: React.FC = () => {
                         </>
                       ) : currentPercent > 0 ? (
                         <>
-                          <Clock className={`w-3.5 h-3.5 ${isSmaCard ? 'text-emerald-600' : 'text-sky-600'}`} />
-                          <span className={isSmaCard ? 'text-emerald-700' : 'text-sky-700'}>Sedang Dibaca</span>
+                          <Clock className={`w-3.5 h-3.5 ${isIgcseCard ? 'text-purple-600' : isSmaCard ? 'text-emerald-600' : 'text-sky-600'}`} />
+                          <span className={isIgcseCard ? 'text-purple-700' : isSmaCard ? 'text-emerald-700' : 'text-sky-700'}>Sedang Dibaca</span>
                         </>
                       ) : (
                         <>
@@ -2232,7 +2464,9 @@ export const MaterialsDatabase: React.FC = () => {
                         isCompleted
                           ? 'text-emerald-600'
                           : currentPercent > 0
-                          ? isSmaCard
+                          ? isIgcseCard
+                            ? 'text-purple-600'
+                            : isSmaCard
                             ? 'text-emerald-600'
                             : 'text-sky-600'
                           : 'text-slate-400'
@@ -2247,7 +2481,9 @@ export const MaterialsDatabase: React.FC = () => {
                         isCompleted
                           ? 'bg-emerald-500'
                           : currentPercent > 0
-                          ? isSmaCard
+                          ? isIgcseCard
+                            ? 'bg-linear-to-r from-purple-500 to-indigo-500'
+                            : isSmaCard
                             ? 'bg-linear-to-r from-emerald-500 to-teal-500'
                             : 'bg-linear-to-r from-sky-500 to-emerald-500'
                           : 'bg-slate-300'
@@ -2267,7 +2503,7 @@ export const MaterialsDatabase: React.FC = () => {
                     <span>{material.prerequisites.length} konsep</span>
                   </div>
                   <div className="flex items-center justify-between text-slate-600 font-medium">
-                    <span className={`flex items-center gap-1 font-semibold ${isSmaCard ? 'text-teal-700' : 'text-sky-700'}`}>
+                    <span className={`flex items-center gap-1 font-semibold ${isIgcseCard ? 'text-purple-700' : isSmaCard ? 'text-teal-700' : 'text-sky-700'}`}>
                       <GraduationCap className="w-3 h-3" />
                       Materi Inti
                     </span>
@@ -2288,7 +2524,7 @@ export const MaterialsDatabase: React.FC = () => {
                 <Link
                   to={targetUrl}
                   className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 font-bold text-xs rounded-xl transition-all shadow-xs hover:shadow-sm cursor-pointer text-white ${
-                    isSmaCard ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-sky-600 hover:bg-sky-700'
+                    isIgcseCard ? 'bg-purple-600 hover:bg-purple-700' : isSmaCard ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-sky-600 hover:bg-sky-700'
                   }`}
                 >
                   <span>{currentPercent > 0 && !isCompleted ? 'Lanjut Baca' : 'Pelajari Materi'}</span>

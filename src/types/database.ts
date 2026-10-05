@@ -1,5 +1,18 @@
 export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher' | 'admin';
-export type QuestionDifficulty = 'SMA-Mudah' | 'SMA-Sedang' | 'SMA-Sulit' | 'SMA' | 'OSK' | 'OSP' | 'OSN' | 'IChO';
+export type CurriculumId = 'sma' | 'osn' | 'igcse' | 'alevel';
+export type QuestionDifficulty =
+  | 'SMA-Mudah'
+  | 'SMA-Sedang'
+  | 'SMA-Sulit'
+  | 'SMA'
+  | 'OSK'
+  | 'OSP'
+  | 'OSN'
+  | 'IChO'
+  | 'IGCSE-Core'
+  | 'IGCSE-Extended'
+  | 'AS-Level'
+  | 'A2-Level';
 export type GenerationVariant = 'manual' | 'pdf_extracted' | 'twin_parallel' | 'scaffolding' | 'challenging_extension';
 export type WorksheetType = 'static_module' | 'teacher_assignment';
 export type SubmissionStatus = 'in_progress' | 'submitted' | 'reviewed';
@@ -12,6 +25,8 @@ export interface Profile {
   email: string;
   full_name: string;
   role: UserRole;
+  curriculum?: CurriculumId;
+  target_exam?: 'IGCSE-0620' | 'AS-9701' | 'A2-9701' | string;
   xp: number;
   level: number;
   current_streak: number;
@@ -117,8 +132,9 @@ export interface SubQuestion {
   diagram_url?: string;
 }
 
-export type CurriculumTrack = 'ALL' | 'SMA' | 'OSN';
+export type CurriculumTrack = 'ALL' | 'SMA' | 'OSN' | 'IGCSE' | 'A-Level';
 export type SmaGradeLevel = 'ALL' | 'Kelas 10' | 'Kelas 11' | 'Kelas 12';
+export type IgcseGradeLevel = 'ALL' | 'Year 10' | 'Year 11';
 
 export interface Question {
   id: number;
@@ -150,11 +166,12 @@ export interface Question {
   created_at?: string;
   tags?: string[];
   // Metadata Kurikulum SMA (16 Topik Fase E & F) & Dual Mapping
-  curriculum?: 'osn' | 'sma' | 'both';
+  curriculum?: 'osn' | 'sma' | 'both' | 'igcse' | 'alevel';
   sma_topic_number?: number;          // 1 - 16
   sma_topic_id?: number;              // 101 - 116 (sesuai id SMA_MATERIALS)
-  grade?: 'Kelas 10' | 'Kelas 11' | 'Kelas 12';
-  curriculum_phase?: 'Fase E' | 'Fase F';
+  igcse_topic_number?: number;        // 1 - 14 (Cambridge IGCSE)
+  grade?: 'Kelas 10' | 'Kelas 11' | 'Kelas 12' | 'Year 10' | 'Year 11';
+  curriculum_phase?: 'Fase E' | 'Fase F' | 'Core' | 'Extended';
   // Protected fields (only in teacher / AI context)
   solution_rubric?: string;
   expected_final_answer?: string;

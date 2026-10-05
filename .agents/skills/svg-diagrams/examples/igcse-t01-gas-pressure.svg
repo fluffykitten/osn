@@ -1,0 +1,84 @@
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t01-gas-pressure-title igcse-t01-gas-pressure-desc" data-diagram="igcse-t01-gas-pressure" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
+  <title id="igcse-t01-gas-pressure-title">Increasing the pressure of a gas</title>
+  <desc id="igcse-t01-gas-pressure-desc">Two piston cylinders each holding ten gas particles. Pushing the piston down halves the volume, so the same particles hit the container walls more often.</desc>
+  <defs>
+    <marker id="igcse-t01-gas-pressure-arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+  </defs>
+
+  <!-- LAYOUT WORKSHEET
+       canvas 800x480, margin 16
+       left cylinder  : walls x 70..250, floor y 380, rim lips 58/262 @ y160
+       right cylinder : walls x 550..730, floor y 380, rim lips 538/742 @ y160
+       left piston    : plate y 190..208, rod x 154..166 y 110..190
+       right piston   : plate y 280..298, rod x 634..646 y 110..280
+       particles      : r12, 10 per panel (count conserved), gap >= 6, wall clearance >= 3
+       action arrow   : body 302..462 x 255..315, head to tip (498,285); 2 lines @ 14px, lh 20
+       top tag        : 262..750 x 22..86, eyelet top-right; text-safe 262..726
+       bottom tag     : 130..410 x 396..460, eyelet bottom-left; text-safe 154..410 -->
+
+  <!-- ============ LEFT PANEL : low pressure ============ -->
+  <path d="M 58 160 Q 70 164 70 178 L 70 362 Q 70 380 88 380 L 232 380 Q 250 380 250 362 L 250 178 Q 250 164 262 160" fill="#ffffff" stroke="#1f2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <g data-role="particle-region" data-bounds="71 209 249 379" data-count-group="gas" fill="#8fd3ef" stroke="#1f2937" stroke-width="1.5">
+    <circle cx="97" cy="240" r="12" />
+    <circle cx="169" cy="232" r="12" />
+    <circle cx="221" cy="250" r="12" />
+    <circle cx="88" cy="300" r="12" />
+    <circle cx="142" cy="290" r="12" />
+    <circle cx="198" cy="300" r="12" />
+    <circle cx="115" cy="345" r="12" />
+    <circle cx="174" cy="352" r="12" />
+    <circle cx="225" cy="345" r="12" />
+    <circle cx="133" cy="250" r="12" />
+  </g>
+  <rect x="154" y="110" width="12" height="82" fill="#8a939c" stroke="#1f2937" stroke-width="2" />
+  <rect x="71" y="190" width="178" height="18" fill="#8a939c" stroke="#1f2937" stroke-width="2" />
+
+  <!-- ============ ACTION ARROW ============ -->
+  <g data-role="text-box" data-box="302 255 160 60">
+    <path d="M 302 255 L 462 255 L 462 241 L 498 285 L 462 329 L 462 315 L 302 315 Z" fill="#b5efb0" stroke="#3f8f46" stroke-width="2" stroke-linejoin="round" />
+    <text x="382" y="280" text-anchor="middle" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">INCREASE THE</text>
+    <text x="382" y="300" text-anchor="middle" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">PRESSURE</text>
+  </g>
+
+  <!-- ============ RIGHT PANEL : high pressure ============ -->
+  <path d="M 538 160 Q 550 164 550 178 L 550 362 Q 550 380 568 380 L 712 380 Q 730 380 730 362 L 730 178 Q 730 164 742 160" fill="#ffffff" stroke="#1f2937" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <g data-role="particle-region" data-bounds="551 299 729 379" data-count-group="gas" fill="#8fd3ef" stroke="#1f2937" stroke-width="1.5">
+    <circle cx="572" cy="318" r="12" />
+    <circle cx="606" cy="322" r="12" />
+    <circle cx="640" cy="318" r="12" />
+    <circle cx="674" cy="322" r="12" />
+    <circle cx="708" cy="318" r="12" />
+    <circle cx="578" cy="358" r="12" />
+    <circle cx="612" cy="356" r="12" />
+    <circle cx="646" cy="360" r="12" />
+    <circle cx="680" cy="356" r="12" />
+    <circle cx="712" cy="360" r="12" />
+  </g>
+  <rect x="634" y="110" width="12" height="172" fill="#8a939c" stroke="#1f2937" stroke-width="2" />
+  <rect x="551" y="280" width="178" height="18" fill="#8a939c" stroke="#1f2937" stroke-width="2" />
+
+  <!-- ============ CALLOUT TAG : top (eyelet top-right) ============ -->
+  <g data-role="text-box" data-box="262 22 464 64">
+    <path d="M 266 22 L 736 22 L 750 36 L 750 82 Q 750 86 746 86 L 266 86 Q 262 86 262 82 L 262 26 Q 262 22 266 22 Z" fill="#ececec" stroke="#4b5563" stroke-width="1.5" stroke-linejoin="round" />
+    <circle cx="735" cy="38" r="3.5" fill="#ffffff" stroke="#4b5563" stroke-width="1.5" />
+    <text x="280" y="48" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">MORE FREQUENT COLLISIONS OF GAS MOLECULES</text>
+    <text x="280" y="68" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">WITH THE CONTAINER WALL</text>
+  </g>
+
+  <!-- ============ CALLOUT TAG : bottom (eyelet bottom-left) ============ -->
+  <g data-role="text-box" data-box="154 396 256 64">
+    <path d="M 134 396 L 406 396 Q 410 396 410 400 L 410 456 Q 410 460 406 460 L 144 460 L 130 446 L 130 400 Q 130 396 134 396 Z" fill="#ececec" stroke="#4b5563" stroke-width="1.5" stroke-linejoin="round" />
+    <circle cx="146" cy="443" r="3.5" fill="#ffffff" stroke="#4b5563" stroke-width="1.5" />
+    <text x="168" y="422" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">GAS MOLECULES COLLIDE</text>
+    <text x="168" y="442" font-family="'Comic Neue', ui-sans-serif, system-ui, sans-serif" font-weight="700" font-size="14" letter-spacing="0.8" fill="#1f2937">WITH CONTAINER WALLS</text>
+  </g>
+
+  <!-- ============ POINTERS (drawn last) ============ -->
+  <g fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round">
+    <path d="M 744 88 C 784 150, 776 232, 718 274" marker-end="url(#igcse-t01-gas-pressure-arrowhead)" />
+    <path d="M 128 418 C 92 404, 78 360, 85 317" marker-end="url(#igcse-t01-gas-pressure-arrowhead)" />
+    <path d="M 168 394 C 158 380, 136 374, 120 362" marker-end="url(#igcse-t01-gas-pressure-arrowhead)" />
+  </g>
+</svg>

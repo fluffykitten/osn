@@ -58,6 +58,35 @@
           "currentVersion": 1
         }
       }
+    },
+    "navbar": {
+      "targetKind": "existing-ui",
+      "projectId": "ac965cc7-3ac0-4253-b08e-79d4ecba8903",
+      "baselineDraftId": "b1147879-91ef-4b80-a2ee-2fe6b2f09c89",
+      "activeDraftId": "b1147879-91ef-4b80-a2ee-2fe6b2f09c89",
+      "designSystemPath": ".superdesign/design-system.md",
+      "contextFiles": [
+        ".superdesign/init/theme.md",
+        ".superdesign/design-system.md",
+        "src/components/common/Navbar.tsx:140:435"
+      ],
+      "drafts": {
+        "b1147879-91ef-4b80-a2ee-2fe6b2f09c89": {
+          "title": "Floating Glassmorphic Island Navigation",
+          "visualDirection": "floating glass island",
+          "currentVersion": 1
+        },
+        "4405b2b3-4a14-431d-8a6e-7984beacb69c": {
+          "title": "Modern Dual-Deck Header Redesign",
+          "visualDirection": "dual-deck split navbar",
+          "currentVersion": 1
+        },
+        "03d62f41-1268-421a-9dfc-e5c8b03249ae": {
+          "title": "Streamlined Minimalist Navigation Bar",
+          "visualDirection": "grouped categories popovers",
+          "currentVersion": 1
+        }
+      }
     }
   }
 }

@@ -6,12 +6,12 @@ import {
   type ChemistryTier,
 } from '../../utils/gamificationConstants';
 import {
-  FlaskConical,
-  Atom,
-  Sparkles,
-  Trophy,
-  Crown,
-} from 'lucide-react';
+  SolarTestTube,
+  SolarAtom,
+  SolarStars,
+  SolarMedal,
+  SolarCrown,
+} from '../common/AppIcons';
 
 export type TitleBadgeVariant = 'light' | 'glass';
 
@@ -133,17 +133,17 @@ export const UserTitleBadge: React.FC<UserTitleBadgeProps> = ({
 
     switch (definition.tier) {
       case 'basic':
-        return <FlaskConical className={`${iconClass} ${color}`} />;
+        return <SolarTestTube className={`${iconClass} ${color}`} />;
       case 'osk':
-        return <Atom className={`${iconClass} ${color}`} />;
+        return <SolarAtom className={`${iconClass} ${color}`} />;
       case 'osp':
-        return <Sparkles className={`${iconClass} ${color}`} />;
+        return <SolarStars className={`${iconClass} ${color}`} />;
       case 'osn':
-        return <Trophy className={`${iconClass} ${color}`} />;
+        return <SolarMedal className={`${iconClass} ${color}`} />;
       case 'icho':
-        return <Crown className={`${iconClass} ${color} animate-pulse`} />;
+        return <SolarCrown className={`${iconClass} ${color} animate-pulse`} />;
       default:
-        return <Atom className={`${iconClass} ${color}`} />;
+        return <SolarAtom className={`${iconClass} ${color}`} />;
     }
   };
 

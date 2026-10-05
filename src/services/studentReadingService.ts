@@ -10,7 +10,7 @@ import { SMA_TOPICS_META } from '../data/smaTopicsMeta';
 import { OSN_MATERIALS } from '../data/materialsData';
 
 export interface ActiveReadingSession {
-  database: 'osn' | 'sma';
+  database: 'osn' | 'sma' | 'igcse' | 'alevel';
   materialId: number;
   slug: string;
   title: string;
