@@ -90,7 +90,7 @@ export async function prepareWhiteboardImage(
   fileOrBlob: File | Blob,
   maxDisplayWidth = 520,
   maxDisplayHeight = 390,
-  maxPixelDimension = 1440
+  maxPixelDimension = 960
 ): Promise<PreparedWhiteboardImage> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -123,7 +123,7 @@ export async function prepareWhiteboardImage(
         displayWidth = Math.max(120, displayWidth);
         displayHeight = Math.max(90, displayHeight);
 
-        // 2. Kompresi resolusi jika foto kamera tablet terlalu besar (> 1440px)
+        // 2. Kompresi resolusi jika foto kamera tablet terlalu besar (> 960px)
         let renderWidth = naturalWidth;
         let renderHeight = naturalHeight;
         if (renderWidth > maxPixelDimension || renderHeight > maxPixelDimension) {
@@ -149,7 +149,7 @@ export async function prepareWhiteboardImage(
         ctx.drawImage(img, 0, 0, renderWidth, renderHeight);
 
         const mimeType = 'image/jpeg';
-        const quality = 0.82;
+        const quality = 0.74;
         const compressedDataUrl = canvas.toDataURL(mimeType, quality);
 
         canvas.toBlob(

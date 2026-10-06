@@ -12,6 +12,8 @@ import type {
   PageDefinition,
   LiveStrokePayload,
   WhiteboardBackground,
+  CanvasLayoutMode,
+  PageFormat,
 } from '../types/whiteboard';
 
 export type RealtimeCallback = (payload: WhiteboardRealtimePayload) => void;
@@ -162,9 +164,9 @@ class WhiteboardRealtimeService {
 
   // Helper cepat penyiaran elemen dengan proteksi kuota Realtime
   public broadcastElementAdded(element: WhiteboardElement) {
-    // Pengaman: Jangan pernah menyiarkan dataUrl base64 berukuran raksasa (> 60KB) karena akan di-drop oleh Supabase Realtime WebSocket (maks 256KB)
+    // Pengaman: Jangan pernah menyiarkan dataUrl base64 berukuran raksasa (> 85KB) karena akan di-drop oleh Supabase Realtime WebSocket (maks 256KB)
     let safeElement = element;
-    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 60000) {
+    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 85000) {
       safeElement = { ...element, imageUrl: '' };
     }
     this.broadcast('element_added', { element: safeElement });
@@ -172,7 +174,7 @@ class WhiteboardRealtimeService {
 
   public broadcastElementUpdated(element: WhiteboardElement) {
     let safeElement = element;
-    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 60000) {
+    if (element.type === 'image' && element.imageUrl?.startsWith('data:') && element.imageUrl.length > 85000) {
       safeElement = { ...element, imageUrl: '' };
     }
     this.broadcast('element_updated', { element: safeElement });
@@ -214,6 +216,18 @@ class WhiteboardRealtimeService {
 
   public broadcastSessionSettings(sessionMode: SessionPermissionMode) {
     this.broadcast('session_settings_changed', { sessionMode });
+  }
+
+  public broadcastPageDeleted(pageIndex: number) {
+    this.broadcast('page_deleted', { pageIndex });
+  }
+
+  public broadcastLayoutMode(
+    layoutMode: CanvasLayoutMode,
+    pages?: PageDefinition[],
+    pageFormat?: PageFormat
+  ) {
+    this.broadcast('layout_changed', { layoutMode, pages, pageFormat });
   }
 
   public broadcastBackground(backgroundType: WhiteboardBackground) {

@@ -200,7 +200,8 @@ export type RealtimeActionType =
   | 'sync_response'
   | 'stroke_drawing'
   | 'stroke_finished'
-  | 'background_changed';
+  | 'background_changed'
+  | 'layout_changed';
 
 export interface LiveStrokePayload {
   strokeId: string;
@@ -236,6 +237,7 @@ export interface WhiteboardRealtimePayload {
   strokeId?: string;
   backgroundType?: WhiteboardBackground;
   layoutMode?: CanvasLayoutMode;
+  pageFormat?: PageFormat;
 }
 
 // Dokumen Utama Papan Tulis

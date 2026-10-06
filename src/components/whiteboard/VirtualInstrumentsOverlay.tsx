@@ -118,11 +118,21 @@ export const VirtualInstrumentsOverlay: React.FC<VirtualInstrumentsOverlayProps>
     const handlePointerUp = () => {
       if (activeDrag === 'compass-pencil') {
         if (compassDrawPointsRef.current.length > 2) {
+          const pts = compassDrawPointsRef.current;
+          const xs = pts.map((p) => p[0]);
+          const ys = pts.map((p) => p[1]);
+          const minX = Math.min(...xs);
+          const maxX = Math.max(...xs);
+          const minY = Math.min(...ys);
+          const maxY = Math.max(...ys);
+
           onAddElement({
             type: 'stroke',
-            x: compassDrawPointsRef.current[0][0],
-            y: compassDrawPointsRef.current[0][1],
-            points: [...compassDrawPointsRef.current],
+            x: minX,
+            y: minY,
+            width: Math.max(20, maxX - minX),
+            height: Math.max(20, maxY - minY),
+            points: [...pts],
             color: currentColor || '#2563eb',
             strokeWidth: 2,
             opacity: 1,

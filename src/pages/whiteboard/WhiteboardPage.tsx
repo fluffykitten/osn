@@ -44,6 +44,72 @@ import { storageService } from '../../services/storageService';
 import { trackAchievementEvent } from '../../services/achievementService';
 import type { Question } from '../../types/database';
 
+export type HistoryAction =
+  | { type: 'add'; element: WhiteboardElement }
+  | { type: 'delete'; elements: WhiteboardElement[] }
+  | { type: 'modify'; prevElement: WhiteboardElement; nextElement: WhiteboardElement }
+  | {
+      type: 'carve';
+      originalElement: WhiteboardElement;
+      updatedOriginal: WhiteboardElement;
+      newFragments: WhiteboardElement[];
+    }
+  | {
+      type: 'batch';
+      actions: HistoryAction[];
+    };
+
+function removePageAndShiftElements(
+  doc: WhiteboardDocument,
+  indexToDelete: number
+): { pages: PageDefinition[]; elements: WhiteboardElement[] } {
+  if (doc.pages.length <= 1) return { pages: doc.pages, elements: doc.elements };
+  const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
+  const pageShift = formatConfig.height + 48;
+
+  const nextPages = doc.pages
+    .filter((_, i) => i !== indexToDelete)
+    .map((p, i) => ({
+      ...p,
+      pageIndex: i,
+      topOffsetY: 32 + i * (formatConfig.height + 48),
+    }));
+
+  const nextElements = doc.elements
+    .filter((el) => {
+      if (typeof el.pageIndex === 'number') {
+        return el.pageIndex !== indexToDelete;
+      }
+      const elPage = Math.max(0, Math.floor(((el.y ?? 0) - 32) / pageShift));
+      return elPage !== indexToDelete;
+    })
+    .map((el) => {
+      const elPage =
+        typeof el.pageIndex === 'number'
+          ? el.pageIndex
+          : Math.max(0, Math.floor(((el.y ?? 0) - 32) / pageShift));
+
+      if (elPage > indexToDelete) {
+        const nextPageIndex = elPage - 1;
+        const nextY = el.y - pageShift;
+        const nextPoints: [number, number][] | undefined =
+          el.type === 'stroke' && el.points
+            ? el.points.map(([px, py]) => [px, py - pageShift])
+            : el.points;
+
+        return {
+          ...el,
+          pageIndex: nextPageIndex,
+          y: nextY,
+          points: nextPoints,
+        };
+      }
+      return el;
+    });
+
+  return { pages: nextPages, elements: nextElements };
+}
+
 export const WhiteboardPage: React.FC = () => {
   const { id: routeId, roomCode: routeRoomCode } = useParams<{ id?: string; roomCode?: string }>();
   const navigate = useNavigate();
@@ -122,9 +188,10 @@ export const WhiteboardPage: React.FC = () => {
     docRef.current = doc;
   }, [doc]);
 
-  // Riwayat Undo / Redo
-  const [history, setHistory] = useState<WhiteboardElement[][]>([[]]);
-  const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Riwayat Aksi Undo / Redo (Action-based delta undo agar tidak menghapus elemen yang sudah ada di sesi)
+  const [undoStack, setUndoStack] = useState<HistoryAction[]>([]);
+  const [redoStack, setRedoStack] = useState<HistoryAction[]>([]);
 
   // Alat & Pengaturan Menggambar
   const [activeTool, setActiveTool] = useState<WhiteboardTool>('pen');
@@ -199,8 +266,23 @@ export const WhiteboardPage: React.FC = () => {
 
   const handleStartSession = useCallback(
     (code: string) => {
+      const newDocId = `wb-${code}`;
+      const sessionDoc: WhiteboardDocument = {
+        ...docRef.current,
+        id: newDocId,
+        title: `Sesi Kelas ${code}`,
+        updatedAt: new Date().toISOString(),
+      };
+      setDoc(sessionDoc);
+      try {
+        localStorage.setItem(`wb_active_doc_${newDocId}`, JSON.stringify(sessionDoc));
+      } catch {}
+      saveDocumentLocally(sessionDoc);
+
       setIsHost(true);
       setRoomCode(code);
+      setUndoStack([]);
+      setRedoStack([]);
       navigate(`/whiteboard/room/${code}`, { replace: true });
     },
     [navigate]
@@ -210,6 +292,8 @@ export const WhiteboardPage: React.FC = () => {
     (code: string) => {
       setIsHost(false);
       setRoomCode(code);
+      setUndoStack([]);
+      setRedoStack([]);
       navigate(`/whiteboard/room/${code}`, { replace: true });
     },
     [navigate]
@@ -220,6 +304,8 @@ export const WhiteboardPage: React.FC = () => {
     setRoomCode('');
     setParticipants([]);
     setLiveStrokes({});
+    setUndoStack([]);
+    setRedoStack([]);
     setIsHost(Boolean(isTeacher));
     navigate('/whiteboard/default', { replace: true });
   }, [isTeacher, navigate]);
@@ -272,8 +358,8 @@ export const WhiteboardPage: React.FC = () => {
             backgroundType: saved.backgroundType || 'blank',
           };
           setDoc(safeDoc);
-          setHistory([safeDoc.elements]);
-          setHistoryIndex(0);
+          setUndoStack([]);
+          setRedoStack([]);
           try {
             localStorage.setItem(`wb_active_doc_${docId}`, JSON.stringify(safeDoc));
           } catch {}
@@ -300,39 +386,90 @@ export const WhiteboardPage: React.FC = () => {
 
     whiteboardRealtimeService.joinRoom(roomCode, currentUser);
 
-    // Minta sinkronisasi papan tulis jika baru bergabung
-    setTimeout(() => {
+    // Minta sinkronisasi papan tulis jika baru bergabung (dengan timer ganda untuk keandalan)
+    const syncTimer1 = setTimeout(() => {
       whiteboardRealtimeService.broadcast('sync_request', {});
-    }, 400);
+    }, 300);
+
+    const syncTimer2 = setTimeout(() => {
+      whiteboardRealtimeService.broadcast('sync_request', {});
+    }, 1200);
 
     const unsubscribe = whiteboardRealtimeService.subscribe((payload) => {
       if (payload.action === 'sync_request') {
-        // Selalu kirimkan snapshot papan tulis ke peserta yang baru bergabung
-        // Lindungi snapshot agar tidak mengirim dataUrl raksasa (> 60KB) yang melebihi batas Supabase Realtime
-        const sanitizedElements = docRef.current.elements.map((el) => {
-          if (el.type === 'image' && el.imageUrl?.startsWith('data:') && el.imageUrl.length > 60000) {
-            return { ...el, imageUrl: '' };
-          }
-          return el;
-        });
+        // Hanya host, guru, atau yang sudah memiliki elemen yang mengirimkan snapshot
+        if (isHost || isTeacher || docRef.current.elements.length > 0) {
+          const sanitizedElements = docRef.current.elements.map((el) => {
+            if (el.type === 'image' && el.imageUrl?.startsWith('data:') && el.imageUrl.length > 85000) {
+              return { ...el, imageUrl: '' };
+            }
+            return el;
+          });
 
-        whiteboardRealtimeService.broadcast('sync_response', {
-          elements: sanitizedElements,
-          pages: docRef.current.pages,
-          backgroundType: docRef.current.backgroundType,
-          layoutMode: docRef.current.layoutMode,
-          sessionMode,
-        });
+          whiteboardRealtimeService.broadcast('sync_response', {
+            elements: sanitizedElements,
+            pages: docRef.current.pages,
+            backgroundType: docRef.current.backgroundType,
+            layoutMode: docRef.current.layoutMode,
+            pageFormat: docRef.current.pageFormat,
+            sessionMode,
+          });
+        }
       } else if (payload.action === 'sync_response') {
-        setDoc((prev) => ({
-          ...prev,
-          elements: payload.elements || prev.elements,
-          pages: payload.pages && payload.pages.length > 0 ? payload.pages : prev.pages,
-          backgroundType: payload.backgroundType || prev.backgroundType,
-        }));
+        setDoc((prev) => {
+          const nextLayoutMode = payload.layoutMode || prev.layoutMode;
+          const formatConfig =
+            PAGE_FORMATS[payload.pageFormat || prev.pageFormat] || PAGE_FORMATS.a4_portrait;
+          let nextPages = payload.pages && payload.pages.length > 0 ? payload.pages : prev.pages;
+          if (nextLayoutMode === 'paginated' && (!nextPages || nextPages.length === 0)) {
+            nextPages = [
+              {
+                pageIndex: 0,
+                width: formatConfig.width,
+                height: formatConfig.height,
+                topOffsetY: 32,
+              },
+            ];
+          }
+
+          return {
+            ...prev,
+            elements: payload.elements || prev.elements,
+            pages: nextPages,
+            backgroundType: payload.backgroundType || prev.backgroundType,
+            layoutMode: nextLayoutMode,
+            pageFormat: payload.pageFormat || prev.pageFormat,
+          };
+        });
         if (payload.sessionMode) {
           setSessionMode(payload.sessionMode);
         }
+        setUndoStack([]);
+        setRedoStack([]);
+      } else if (payload.action === 'layout_changed' && payload.layoutMode) {
+        setDoc((prev) => {
+          const nextLayoutMode = payload.layoutMode!;
+          const formatConfig =
+            PAGE_FORMATS[payload.pageFormat || prev.pageFormat] || PAGE_FORMATS.a4_portrait;
+          let nextPages = payload.pages && payload.pages.length > 0 ? payload.pages : prev.pages;
+          if (nextLayoutMode === 'paginated' && (!nextPages || nextPages.length === 0)) {
+            nextPages = [
+              {
+                pageIndex: 0,
+                width: formatConfig.width,
+                height: formatConfig.height,
+                topOffsetY: 32,
+              },
+            ];
+          }
+
+          return {
+            ...prev,
+            layoutMode: nextLayoutMode,
+            pages: nextPages,
+            pageFormat: payload.pageFormat || prev.pageFormat,
+          };
+        });
       } else if (payload.action === 'background_changed' && payload.backgroundType) {
         setDoc((prev) => ({ ...prev, backgroundType: payload.backgroundType! }));
       } else if (payload.action === 'element_added' && payload.element) {
@@ -387,11 +524,27 @@ export const WhiteboardPage: React.FC = () => {
           ...prev,
           elements: prev.elements.filter((el) => el.id !== payload.elementId),
         }));
+      } else if (payload.action === 'elements_cleared') {
+        setDoc((prev) => ({
+          ...prev,
+          elements: [],
+        }));
       } else if (payload.action === 'page_added' && payload.page) {
         setDoc((prev) => ({
           ...prev,
           pages: [...prev.pages, payload.page!],
         }));
+      } else if (payload.action === 'page_deleted' && typeof payload.pageIndex === 'number') {
+        setDoc((prev) => {
+          const { pages, elements } = removePageAndShiftElements(prev, payload.pageIndex!);
+          return {
+            ...prev,
+            pages,
+            elements,
+            updatedAt: new Date().toISOString(),
+          };
+        });
+        setCurrentPageIndex((prevIdx) => Math.max(0, Math.min(docRef.current.pages.length - 2, prevIdx)));
       } else if (payload.action === 'pointer_moved' && payload.pointer) {
         setParticipants((prev) => {
           const exists = prev.find((p) => p.id === payload.senderId);
@@ -432,11 +585,13 @@ export const WhiteboardPage: React.FC = () => {
     });
 
     return () => {
+      clearTimeout(syncTimer1);
+      clearTimeout(syncTimer2);
       unsubscribe();
       unsubPresence();
       whiteboardRealtimeService.leaveRoom();
     };
-  }, [roomCode, user, isTeacher]);
+  }, [roomCode, user, isTeacher, isHost, sessionMode]);
 
   // 3. Auto-save ke IndexedDB & LocalStorage setiap kali elemen berubah (debounced)
   useEffect(() => {
@@ -471,25 +626,50 @@ export const WhiteboardPage: React.FC = () => {
   // Tambah Elemen Baru ke Kanvas
   const handleAddElement = useCallback(
     (newEl: Partial<WhiteboardElement>) => {
-      const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
+      const formatConfig = PAGE_FORMATS[docRef.current.pageFormat] || PAGE_FORMATS.a4_portrait;
+      const elWidth = newEl.width || 200;
+      const elHeight = newEl.height || 160;
+
+      let targetX = newEl.x;
+      let targetY = newEl.y;
+      let targetPageIndex = newEl.pageIndex;
+
+      if (targetX === undefined || targetY === undefined) {
+        if (docRef.current.layoutMode === 'paginated') {
+          const pageIdx = typeof newEl.pageIndex === 'number' ? newEl.pageIndex : currentPageIndex;
+          const pageTop = 32 + pageIdx * (formatConfig.height + 48);
+          targetX = Math.round((formatConfig.width - elWidth) / 2);
+          targetY = Math.round(pageTop + 180);
+          targetPageIndex = pageIdx;
+        } else {
+          // Infinite canvas: tempatkan di tengah viewport pengguna saat ini
+          const viewW = typeof window !== 'undefined' ? window.innerWidth : 1200;
+          const viewH = typeof window !== 'undefined' ? window.innerHeight : 800;
+          targetX = Math.round((-panX + viewW / 2 - elWidth / 2) / Math.max(0.2, zoom));
+          targetY = Math.round((-panY + viewH / 2 - elHeight / 2) / Math.max(0.2, zoom));
+        }
+      }
+
       const detectedPageIndex =
-        doc.layoutMode === 'paginated'
-          ? Math.max(0, Math.floor(((newEl.y ?? 0) - 32) / (formatConfig.height + 48)))
+        docRef.current.layoutMode === 'paginated'
+          ? (typeof targetPageIndex === 'number'
+              ? targetPageIndex
+              : Math.max(0, Math.floor(((targetY - 32) / (formatConfig.height + 48)))))
           : undefined;
 
       const el: WhiteboardElement = {
         id: newEl.id || `el-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
         type: newEl.type || 'stroke',
-        pageIndex: typeof newEl.pageIndex !== 'undefined' ? newEl.pageIndex : detectedPageIndex,
-        x: newEl.x || 100,
-        y: newEl.y || 100,
+        pageIndex: detectedPageIndex,
+        x: targetX,
+        y: targetY,
         width: newEl.width,
         height: newEl.height,
         color: newEl.color || color,
         strokeWidth: newEl.strokeWidth || strokeWidth,
         opacity: newEl.opacity ?? 1,
         isLocked: false,
-        zIndex: doc.elements.length + 1,
+        zIndex: docRef.current.elements.length + 1,
         points: newEl.points,
         text: newEl.text,
         fontSize: newEl.fontSize,
@@ -497,50 +677,46 @@ export const WhiteboardPage: React.FC = () => {
         payload: newEl.payload,
       };
 
-      setDoc((prev) => {
-        const nextElements = [...prev.elements, el];
-        // Tambah ke riwayat undo
-        const newHist = history.slice(0, historyIndex + 1);
-        newHist.push(nextElements);
-        setHistory(newHist);
-        setHistoryIndex(newHist.length - 1);
+      setDoc((prev) => ({
+        ...prev,
+        elements: [...prev.elements, el],
+        updatedAt: new Date().toISOString(),
+      }));
 
-        return {
-          ...prev,
-          elements: nextElements,
-          updatedAt: new Date().toISOString(),
-        };
-      });
+      // Tambah ke riwayat aksi undo (action-based agar aman untuk sesi kolaborasi)
+      setUndoStack((prev) => [...prev, { type: 'add', element: el }]);
+      setRedoStack([]);
 
       // Siarkan ke partisipan jika sesi online aktif
       if (roomCode) {
         whiteboardRealtimeService.broadcastElementAdded(el);
       }
     },
-    [doc.layoutMode, doc.elements.length, currentPageIndex, color, strokeWidth, history, historyIndex, roomCode]
+    [color, strokeWidth, roomCode, currentPageIndex, panX, panY, zoom]
   );
 
   // Hapus Elemen (Objek terkunci tidak dapat dihapus)
   const handleDeleteElement = useCallback(
-    (id: string) => {
-      const target = doc.elements.find((el) => el.id === id);
-      if (target?.isLocked) return; // Lindungi objek terkunci
+    (id: string, options?: { skipHistory?: boolean }) => {
+      const target = docRef.current.elements.find((el) => el.id === id);
+      if (!target || target.isLocked) return; // Lindungi objek terkunci
 
-      setDoc((prev) => {
-        const nextElements = prev.elements.filter((el) => el.id !== id);
-        const newHist = history.slice(0, historyIndex + 1);
-        newHist.push(nextElements);
-        setHistory(newHist);
-        setHistoryIndex(newHist.length - 1);
+      setDoc((prev) => ({
+        ...prev,
+        elements: prev.elements.filter((el) => el.id !== id),
+        updatedAt: new Date().toISOString(),
+      }));
 
-        return { ...prev, elements: nextElements };
-      });
+      if (!options?.skipHistory) {
+        setUndoStack((prev) => [...prev, { type: 'delete', elements: [target] }]);
+        setRedoStack([]);
+      }
 
       if (roomCode) {
         whiteboardRealtimeService.broadcastElementDeleted(id);
       }
     },
-    [history, historyIndex, roomCode]
+    [roomCode]
   );
 
   // Hapus Sekelompok Elemen (Lasso Eraser)
@@ -549,33 +725,38 @@ export const WhiteboardPage: React.FC = () => {
       if (ids.length === 0) return;
       // Jangan hapus objek yang sedang terkunci
       const deletableIds = ids.filter((id) => {
-        const el = doc.elements.find((e) => e.id === id);
+        const el = docRef.current.elements.find((e) => e.id === id);
         return el && !el.isLocked;
       });
       if (deletableIds.length === 0) return;
 
+      const targetElements = docRef.current.elements.filter((el) => deletableIds.includes(el.id));
       const idSet = new Set(deletableIds);
-      setDoc((prev) => {
-        const nextElements = prev.elements.filter((el) => !idSet.has(el.id));
-        const newHist = history.slice(0, historyIndex + 1);
-        newHist.push(nextElements);
-        setHistory(newHist);
-        setHistoryIndex(newHist.length - 1);
 
-        return { ...prev, elements: nextElements };
-      });
+      setDoc((prev) => ({
+        ...prev,
+        elements: prev.elements.filter((el) => !idSet.has(el.id)),
+        updatedAt: new Date().toISOString(),
+      }));
+
+      setUndoStack((prev) => [...prev, { type: 'delete', elements: targetElements }]);
+      setRedoStack([]);
 
       if (roomCode) {
-        ids.forEach((id) => whiteboardRealtimeService.broadcastElementDeleted(id));
+        deletableIds.forEach((id) => whiteboardRealtimeService.broadcastElementDeleted(id));
       }
     },
-    [history, historyIndex, roomCode]
+    [roomCode]
   );
 
   // Potong goresan parsial saat disapu penghapus brush
   const handleCarveStroke = useCallback(
-    (id: string, subStrokes: [number, number][][]) => {
-      const originalEl = doc.elements.find((e) => e.id === id);
+    (
+      id: string,
+      subStrokes: [number, number][][],
+      options?: { skipHistory?: boolean }
+    ) => {
+      const originalEl = docRef.current.elements.find((e) => e.id === id);
       if (!originalEl) return;
 
       const first = subStrokes[0];
@@ -602,6 +783,7 @@ export const WhiteboardPage: React.FC = () => {
           return {
             ...prev,
             elements: prev.elements.filter((e) => e.id !== id),
+            updatedAt: new Date().toISOString(),
           };
         }
 
@@ -615,8 +797,21 @@ export const WhiteboardPage: React.FC = () => {
           }
         }
 
-        return { ...prev, elements: nextElements };
+        return { ...prev, elements: nextElements, updatedAt: new Date().toISOString() };
       });
+
+      if (!options?.skipHistory) {
+        setUndoStack((prev) => [
+          ...prev,
+          {
+            type: 'carve',
+            originalElement: originalEl,
+            updatedOriginal,
+            newFragments,
+          },
+        ]);
+        setRedoStack([]);
+      }
 
       if (roomCode) {
         if (subStrokes.length === 0) {
@@ -627,7 +822,7 @@ export const WhiteboardPage: React.FC = () => {
         }
       }
     },
-    [doc.elements, roomCode]
+    [roomCode]
   );
 
   // Geser / Pindahkan Elemen Tunggal (Alat Pilih Objek)
@@ -638,8 +833,17 @@ export const WhiteboardPage: React.FC = () => {
         const target = prev.elements.find((el) => el.id === id);
         if (!target || target.isLocked) return prev; // Lindungi: jangan pindahkan jika terkunci!
 
+        const formatConfig = PAGE_FORMATS[prev.pageFormat] || PAGE_FORMATS.a4_portrait;
+        const pageStep = formatConfig.height + 48;
+
         const nextElements = prev.elements.map((el) => {
           if (el.id !== id) return el;
+          const nextY = el.y + dy;
+          const nextPageIndex =
+            prev.layoutMode === 'paginated'
+              ? Math.max(0, Math.floor((nextY - 32) / pageStep))
+              : el.pageIndex;
+
           if (el.type === 'stroke' && el.points) {
             const movedPoints: [number, number][] = el.points.map((p) => [
               p[0] + dx,
@@ -649,14 +853,16 @@ export const WhiteboardPage: React.FC = () => {
               ...el,
               points: movedPoints,
               x: el.x + dx,
-              y: el.y + dy,
+              y: nextY,
+              pageIndex: nextPageIndex,
             };
             return updatedEl;
           } else {
             updatedEl = {
               ...el,
               x: el.x + dx,
-              y: el.y + dy,
+              y: nextY,
+              pageIndex: nextPageIndex,
             };
             return updatedEl;
           }
@@ -673,24 +879,43 @@ export const WhiteboardPage: React.FC = () => {
 
   // Modifikasi Properti Elemen (Resize, Lock, Z-Index, Kartu Soal Rubrik/Collapse, Gambar R2)
   const handleModifyElement = useCallback(
-    (updatedEl: WhiteboardElement) => {
+    (
+      updatedEl: WhiteboardElement,
+      options?: { skipHistory?: boolean; before?: WhiteboardElement }
+    ) => {
+      const prevEl = options?.before || docRef.current.elements.find((el) => el.id === updatedEl.id);
+      if (!prevEl) return;
+
       setDoc((prev) => {
         const nextElements = prev.elements.map((el) =>
           el.id === updatedEl.id ? updatedEl : el
         );
-        const newHist = history.slice(0, historyIndex + 1);
-        newHist.push(nextElements);
-        setHistory(newHist);
-        setHistoryIndex(newHist.length - 1);
-
         return { ...prev, elements: nextElements, updatedAt: new Date().toISOString() };
       });
+
+      if (options?.skipHistory) {
+        // Pembaruan URL R2 di latar belakang: perbarui objek di undoStack tanpa menambah langkah baru
+        setUndoStack((prev) =>
+          prev.map((action) => {
+            if (action.type === 'add' && action.element.id === updatedEl.id) {
+              return { ...action, element: updatedEl };
+            }
+            return action;
+          })
+        );
+      } else {
+        setUndoStack((prev) => [
+          ...prev,
+          { type: 'modify', prevElement: prevEl, nextElement: updatedEl },
+        ]);
+        setRedoStack([]);
+      }
 
       if (roomCode) {
         whiteboardRealtimeService.broadcastElementUpdated(updatedEl);
       }
     },
-    [history, historyIndex, roomCode]
+    [roomCode]
   );
 
   // Sisipkan Soal Lengkap dari Bank Soal ke Whiteboard
@@ -704,7 +929,7 @@ export const WhiteboardPage: React.FC = () => {
         targetY = Math.round((-panY + 160) / Math.max(0.2, zoom));
       } else {
         const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
-        const pageTop = currentPageIndex * formatConfig.height;
+        const pageTop = 32 + currentPageIndex * (formatConfig.height + 48);
         targetX = Math.round((formatConfig.width - 580) / 2);
         targetY = Math.round(pageTop + 80);
       }
@@ -758,7 +983,7 @@ export const WhiteboardPage: React.FC = () => {
           targetY = Math.round((-panY + 200) / Math.max(0.2, zoom));
         } else {
           const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
-          const pageTop = currentPageIndex * formatConfig.height;
+          const pageTop = 32 + currentPageIndex * (formatConfig.height + 48);
           targetX = Math.round((formatConfig.width - prepared.width) / 2);
           targetY = Math.round(pageTop + 150);
         }
@@ -782,7 +1007,7 @@ export const WhiteboardPage: React.FC = () => {
           imageUrl: prepared.dataUrl,
         };
 
-        // Pasang elemen di kanvas guru secara lokal
+        // Pasang elemen di kanvas secara lokal
         handleAddElement(newEl);
 
         // 2. Unggah berkas yang sudah dioptimasi ke Cloudflare R2
@@ -792,10 +1017,13 @@ export const WhiteboardPage: React.FC = () => {
             filename: (file.name || 'image').replace(/\.[^/.]+$/, '') + '.jpg',
           });
           if (uploadRes && uploadRes.success && uploadRes.url) {
-            handleModifyElement({
-              ...newEl,
-              imageUrl: uploadRes.url,
-            });
+            handleModifyElement(
+              {
+                ...newEl,
+                imageUrl: uploadRes.url,
+              },
+              { skipHistory: true }
+            );
           } else if (prepared.dataUrl.length < 90000 && roomCode) {
             // Jika upload R2 gagal tapi dataUrl cukup ringan (< 90KB), siarkan dataUrl sebagai fallback
             whiteboardRealtimeService.broadcastElementUpdated(newEl);
@@ -866,67 +1094,247 @@ export const WhiteboardPage: React.FC = () => {
   // Beralih Mode Tata Letak Kanvas (Infinite vs Multi-Halaman A4)
   const handleSwitchLayoutMode = useCallback(
     (mode: CanvasLayoutMode) => {
-      setDoc((prev) => {
-        const formatConfig = PAGE_FORMATS[prev.pageFormat] || PAGE_FORMATS.a4_portrait;
-        let pages = prev.pages;
-        if (mode === 'paginated' && (!pages || pages.length === 0)) {
-          pages = [
-            {
-              pageIndex: 0,
-              width: formatConfig.width,
-              height: formatConfig.height,
-              topOffsetY: 32,
-            },
-          ];
-        }
-        return {
-          ...prev,
-          layoutMode: mode,
-          pages,
-          updatedAt: new Date().toISOString(),
-        };
-      });
+      const formatConfig = PAGE_FORMATS[docRef.current.pageFormat] || PAGE_FORMATS.a4_portrait;
+      const pageStep = formatConfig.height + 48;
+      let nextPages = docRef.current.pages;
+
+      if (mode === 'paginated') {
+        // Hitung halaman maksimum yang dibutuhkan berdasarkan koordinat elemen tertinggi
+        const maxY = docRef.current.elements.reduce((acc, el) => {
+          const h = el.height || 100;
+          return Math.max(acc, el.y + h);
+        }, 0);
+
+        const neededPagesCount = Math.max(
+          1,
+          nextPages?.length || 1,
+          Math.ceil(Math.max(0, maxY - 32) / pageStep)
+        );
+
+        nextPages = Array.from({ length: neededPagesCount }, (_, i) => ({
+          pageIndex: i,
+          width: formatConfig.width,
+          height: formatConfig.height,
+          topOffsetY: 32 + i * pageStep,
+        }));
+      }
+
+      setDoc((prev) => ({
+        ...prev,
+        layoutMode: mode,
+        pages: nextPages,
+        elements:
+          mode === 'paginated'
+            ? prev.elements.map((el) => ({
+                ...el,
+                pageIndex: Math.max(0, Math.floor(((el.y ?? 0) - 32) / pageStep)),
+              }))
+            : prev.elements,
+        updatedAt: new Date().toISOString(),
+      }));
 
       if (roomCode) {
-        whiteboardRealtimeService.broadcast('sync_response', {
-          elements: docRef.current.elements,
-          pages: docRef.current.pages,
-          backgroundType: docRef.current.backgroundType,
-          layoutMode: mode,
-          sessionMode,
-        });
+        whiteboardRealtimeService.broadcastLayoutMode(
+          mode,
+          nextPages,
+          docRef.current.pageFormat
+        );
       }
     },
-    [roomCode, sessionMode]
+    [roomCode]
   );
 
   // Hapus Halaman Spesifik
   const handleDeletePage = (index: number) => {
     if (doc.pages.length <= 1) return;
-    setDoc((prev) => ({
-      ...prev,
-      pages: prev.pages.filter((_, i) => i !== index),
-      elements: prev.elements.filter((el) => el.pageIndex !== index),
-    }));
+    setDoc((prev) => {
+      const { pages, elements } = removePageAndShiftElements(prev, index);
+      return {
+        ...prev,
+        pages,
+        elements,
+        updatedAt: new Date().toISOString(),
+      };
+    });
     setCurrentPageIndex((prevIdx) => Math.max(0, Math.min(doc.pages.length - 2, prevIdx)));
+    if (roomCode) {
+      whiteboardRealtimeService.broadcastPageDeleted(index);
+    }
   };
 
-  // Undo & Redo
+  const applySingleUndo = useCallback(
+    (action: HistoryAction) => {
+      if (action.type === 'add') {
+        const targetId = action.element.id;
+        setDoc((prev) => ({
+          ...prev,
+          elements: prev.elements.filter((el) => el.id !== targetId),
+          updatedAt: new Date().toISOString(),
+        }));
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementDeleted(targetId);
+        }
+      } else if (action.type === 'delete') {
+        const restored = action.elements;
+        setDoc((prev) => {
+          const existingIds = new Set(prev.elements.map((e) => e.id));
+          const toAdd = restored.filter((e) => !existingIds.has(e.id));
+          return {
+            ...prev,
+            elements: [...prev.elements, ...toAdd],
+            updatedAt: new Date().toISOString(),
+          };
+        });
+        if (roomCode) {
+          restored.forEach((el) => whiteboardRealtimeService.broadcastElementAdded(el));
+        }
+      } else if (action.type === 'modify') {
+        const prevEl = action.prevElement;
+        setDoc((prev) => ({
+          ...prev,
+          elements: prev.elements.map((el) => (el.id === prevEl.id ? prevEl : el)),
+          updatedAt: new Date().toISOString(),
+        }));
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementUpdated(prevEl);
+        }
+      } else if (action.type === 'carve') {
+        const { originalElement, newFragments } = action;
+        const fragIdSet = new Set(newFragments.map((f) => f.id));
+        setDoc((prev) => ({
+          ...prev,
+          elements: prev.elements
+            .filter((el) => !fragIdSet.has(el.id))
+            .map((el) => (el.id === originalElement.id ? originalElement : el)),
+          updatedAt: new Date().toISOString(),
+        }));
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementUpdated(originalElement);
+          newFragments.forEach((f) =>
+            whiteboardRealtimeService.broadcastElementDeleted(f.id)
+          );
+        }
+      } else if (action.type === 'batch') {
+        for (let i = action.actions.length - 1; i >= 0; i--) {
+          applySingleUndo(action.actions[i]);
+        }
+      }
+    },
+    [roomCode]
+  );
+
+  // Undo & Redo (Action-based, aman untuk kolaborasi dan tidak menghilangkan gambar dasar)
   const handleUndo = useCallback(() => {
-    if (historyIndex > 0) {
-      const nextIdx = historyIndex - 1;
-      setHistoryIndex(nextIdx);
-      setDoc((prev) => ({ ...prev, elements: history[nextIdx] }));
-    }
-  }, [historyIndex, history]);
+    setUndoStack((prevUndo) => {
+      if (prevUndo.length === 0) return prevUndo;
+      const action = prevUndo[prevUndo.length - 1];
+      const nextUndo = prevUndo.slice(0, prevUndo.length - 1);
+      applySingleUndo(action);
+      setRedoStack((prevRedo) => [...prevRedo, action]);
+      return nextUndo;
+    });
+  }, [applySingleUndo]);
 
   const handleRedo = useCallback(() => {
-    if (historyIndex < history.length - 1) {
-      const nextIdx = historyIndex + 1;
-      setHistoryIndex(nextIdx);
-      setDoc((prev) => ({ ...prev, elements: history[nextIdx] }));
-    }
-  }, [historyIndex, history]);
+    setRedoStack((prevRedo) => {
+      if (prevRedo.length === 0) return prevRedo;
+      const action = prevRedo[prevRedo.length - 1];
+      const nextRedo = prevRedo.slice(0, prevRedo.length - 1);
+
+      if (action.type === 'add') {
+        const el = action.element;
+        setDoc((prev) => {
+          const exists = prev.elements.some((e) => e.id === el.id);
+          return {
+            ...prev,
+            elements: exists ? prev.elements : [...prev.elements, el],
+            updatedAt: new Date().toISOString(),
+          };
+        });
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementAdded(el);
+        }
+      } else if (action.type === 'delete') {
+        const deleteIds = new Set(action.elements.map((e) => e.id));
+        setDoc((prev) => ({
+          ...prev,
+          elements: prev.elements.filter((el) => !deleteIds.has(el.id)),
+          updatedAt: new Date().toISOString(),
+        }));
+        if (roomCode) {
+          action.elements.forEach((el) =>
+            whiteboardRealtimeService.broadcastElementDeleted(el.id)
+          );
+        }
+      } else if (action.type === 'modify') {
+        const nextEl = action.nextElement;
+        setDoc((prev) => ({
+          ...prev,
+          elements: prev.elements.map((el) => (el.id === nextEl.id ? nextEl : el)),
+          updatedAt: new Date().toISOString(),
+        }));
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementUpdated(nextEl);
+        }
+      } else if (action.type === 'carve') {
+        const { updatedOriginal, newFragments } = action;
+        setDoc((prev) => {
+          const nextElements = prev.elements
+            .map((el) => (el.id === updatedOriginal.id ? updatedOriginal : el))
+            .concat(newFragments);
+          return { ...prev, elements: nextElements, updatedAt: new Date().toISOString() };
+        });
+        if (roomCode) {
+          whiteboardRealtimeService.broadcastElementUpdated(updatedOriginal);
+          newFragments.forEach((f) =>
+            whiteboardRealtimeService.broadcastElementAdded(f)
+          );
+        }
+      } else if (action.type === 'batch') {
+        for (let i = 0; i < action.actions.length; i++) {
+          const subAction = action.actions[i];
+          if (subAction.type === 'add') {
+            const el = subAction.element;
+            setDoc((prev) => {
+              const exists = prev.elements.some((e) => e.id === el.id);
+              return {
+                ...prev,
+                elements: exists ? prev.elements : [...prev.elements, el],
+                updatedAt: new Date().toISOString(),
+              };
+            });
+            if (roomCode) whiteboardRealtimeService.broadcastElementAdded(el);
+          } else if (subAction.type === 'delete') {
+            const deleteIds = new Set(subAction.elements.map((e) => e.id));
+            setDoc((prev) => ({
+              ...prev,
+              elements: prev.elements.filter((e) => !deleteIds.has(e.id)),
+              updatedAt: new Date().toISOString(),
+            }));
+            if (roomCode) {
+              subAction.elements.forEach((el) => whiteboardRealtimeService.broadcastElementDeleted(el.id));
+            }
+          } else if (subAction.type === 'modify') {
+            const nextEl = subAction.nextElement;
+            setDoc((prev) => ({
+              ...prev,
+              elements: prev.elements.map((el) => (el.id === nextEl.id ? nextEl : el)),
+              updatedAt: new Date().toISOString(),
+            }));
+            if (roomCode) whiteboardRealtimeService.broadcastElementUpdated(nextEl);
+          }
+        }
+      }
+
+      setUndoStack((prevUndo) => [...prevUndo, action]);
+      return nextRedo;
+    });
+  }, [roomCode]);
+
+  const handleCommitHistoryAction = useCallback((action: HistoryAction) => {
+    setUndoStack((prev) => [...prev, action]);
+    setRedoStack([]);
+  }, []);
 
   // Pintasan Keyboard (Ctrl+Z: Undo, Ctrl+Y / Ctrl+Shift+Z: Redo)
   useEffect(() => {
@@ -1108,8 +1516,8 @@ export const WhiteboardPage: React.FC = () => {
             whiteboardRealtimeService.broadcastBackground(bg);
           }
         }}
-        canUndo={historyIndex > 0}
-        canRedo={historyIndex < history.length - 1}
+        canUndo={!isReadOnly && undoStack.length > 0}
+        canRedo={!isReadOnly && redoStack.length > 0}
         onUndo={handleUndo}
         onRedo={handleRedo}
         zoom={zoom}
@@ -1170,6 +1578,7 @@ export const WhiteboardPage: React.FC = () => {
           onDeleteElement={handleDeleteElement}
           onDeleteElements={handleDeleteElements}
           onCarveStroke={handleCarveStroke}
+          onCommitHistoryAction={handleCommitHistoryAction}
           onAutoAppendPage={handleAutoAppendPage}
           onBroadcastPointer={handleBroadcastPointer}
           participants={participants}

@@ -13,7 +13,15 @@ import type { WhiteboardElement } from '../../types/whiteboard';
 interface ObjectTransformerOverlayProps {
   element: WhiteboardElement;
   measuredHeight?: number;
-  onResize: (id: string, newWidth: number, newHeight: number, newX?: number, newY?: number) => void;
+  onResize: (
+    id: string,
+    newWidth: number,
+    newHeight: number,
+    newX?: number,
+    newY?: number,
+    newPoints?: [number, number][],
+    options?: { isFinal?: boolean; before?: WhiteboardElement }
+  ) => void;
   onDuplicate: (id: string) => void;
   onToggleLock: (id: string) => void;
   onBringForward: (id: string) => void;
@@ -43,6 +51,7 @@ export const ObjectTransformerOverlay: React.FC<ObjectTransformerOverlayProps> =
     initY: number;
     initW: number;
     initH: number;
+    initialElement: WhiteboardElement;
   }>({
     startX: 0,
     startY: 0,
@@ -50,7 +59,16 @@ export const ObjectTransformerOverlay: React.FC<ObjectTransformerOverlayProps> =
     initY: 0,
     initW: 0,
     initH: 0,
+    initialElement: element,
   });
+
+  const latestResizedRef = useRef<{
+    w: number;
+    h: number;
+    x: number;
+    y: number;
+    points?: [number, number][];
+  } | null>(null);
 
   const getElementBounds = () => {
     let x = element.x;
@@ -95,7 +113,9 @@ export const ObjectTransformerOverlay: React.FC<ObjectTransformerOverlayProps> =
       initY: bounds.y,
       initW: bounds.w,
       initH: bounds.h,
+      initialElement: { ...element },
     };
+    latestResizedRef.current = null;
   };
 
   useEffect(() => {
@@ -106,7 +126,7 @@ export const ObjectTransformerOverlay: React.FC<ObjectTransformerOverlayProps> =
       const dx = (e.clientX - dragStartRef.current.startX) / effectiveScale;
       const dy = (e.clientY - dragStartRef.current.startY) / effectiveScale;
 
-      const { initX, initY, initW, initH } = dragStartRef.current;
+      const { initX, initY, initW, initH, initialElement } = dragStartRef.current;
       let newX = initX;
       let newY = initY;
       let newW = initW;
@@ -144,11 +164,52 @@ export const ObjectTransformerOverlay: React.FC<ObjectTransformerOverlayProps> =
         }
       }
 
-      onResize(element.id, Math.round(newW), Math.round(newH), Math.round(newX), Math.round(newY));
+      let scaledPoints: [number, number][] | undefined = undefined;
+      if (initialElement.type === 'stroke' && initialElement.points && initialElement.points.length > 0) {
+        const scaleX = newW / Math.max(1, initW);
+        const scaleY = newH / Math.max(1, initH);
+        scaledPoints = initialElement.points.map(([px, py]) => [
+          Math.round(newX + (px - initX) * scaleX),
+          Math.round(newY + (py - initY) * scaleY),
+        ]);
+      }
+
+      latestResizedRef.current = {
+        w: Math.round(newW),
+        h: Math.round(newH),
+        x: Math.round(newX),
+        y: Math.round(newY),
+        points: scaledPoints,
+      };
+
+      onResize(
+        element.id,
+        Math.round(newW),
+        Math.round(newH),
+        Math.round(newX),
+        Math.round(newY),
+        scaledPoints,
+        { isFinal: false }
+      );
     };
 
     const handlePointerUp = () => {
+      if (latestResizedRef.current && dragStartRef.current.initialElement) {
+        onResize(
+          element.id,
+          latestResizedRef.current.w,
+          latestResizedRef.current.h,
+          latestResizedRef.current.x,
+          latestResizedRef.current.y,
+          latestResizedRef.current.points,
+          {
+            isFinal: true,
+            before: dragStartRef.current.initialElement,
+          }
+        );
+      }
       setActiveHandle(null);
+      latestResizedRef.current = null;
     };
 
     window.addEventListener('pointermove', handlePointerMove);

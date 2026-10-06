@@ -28,6 +28,7 @@ import { WhiteboardTextModal } from './WhiteboardTextModal';
 import { QuestionCardOverlay } from './QuestionCardOverlay';
 import { ObjectTransformerOverlay } from './ObjectTransformerOverlay';
 import { storageService } from '../../services/storageService';
+import type { HistoryAction } from '../../pages/whiteboard/WhiteboardPage';
 
 interface WhiteboardCanvasProps {
   document: WhiteboardDocument;
@@ -42,10 +43,18 @@ interface WhiteboardCanvasProps {
   onUpdateZoomAndPan?: (zoom: number, panX: number, panY: number) => void;
   onAddElement: (element: WhiteboardElement) => void;
   onUpdateElement?: (id: string, dx: number, dy: number) => void;
-  onModifyElement?: (element: WhiteboardElement) => void;
-  onDeleteElement: (id: string) => void;
+  onModifyElement?: (
+    element: WhiteboardElement,
+    options?: { skipHistory?: boolean; before?: WhiteboardElement }
+  ) => void;
+  onDeleteElement: (id: string, options?: { skipHistory?: boolean }) => void;
   onDeleteElements?: (ids: string[]) => void;
-  onCarveStroke?: (id: string, subStrokes: [number, number][][]) => void;
+  onCarveStroke?: (
+    id: string,
+    subStrokes: [number, number][][],
+    options?: { skipHistory?: boolean }
+  ) => void;
+  onCommitHistoryAction?: (action: HistoryAction) => void;
   onAutoAppendPage: () => void;
   onBroadcastPointer?: (x: number, y: number, isLaser: boolean) => void;
   participants: WhiteboardParticipant[];
@@ -138,6 +147,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   onDeleteElement,
   onDeleteElements,
   onCarveStroke,
+  onCommitHistoryAction,
   onAutoAppendPage,
   onBroadcastPointer,
   participants,
@@ -179,7 +189,18 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
   const [selectedElementId, setSelectedElementId] = useState<string | null>(null);
   const [isDraggingElement, setIsDraggingElement] = useState(false);
   const elementDragStartRef = useRef<{ x: number; y: number } | null>(null);
+  const initialDragElementRef = useRef<WhiteboardElement | null>(null);
+  const eraserTouchedOriginalsRef = useRef<Map<string, WhiteboardElement>>(new Map());
+  const prevToolRef = useRef(activeTool);
   const [cardHeights, setCardHeights] = useState<Record<string, number>>({});
+
+  // Nonaktifkan laser otomatis saat berpindah alat
+  useEffect(() => {
+    if (prevToolRef.current === 'laser' && activeTool !== 'laser' && onBroadcastPointer) {
+      onBroadcastPointer(0, 0, false);
+    }
+    prevToolRef.current = activeTool;
+  }, [activeTool, onBroadcastPointer]);
 
   // Pantau unduhan aset gambar agar kanvas seketika re-render saat gambar selesai dimuat dari cloud
   const [imageRenderTick, setImageRenderTick] = useState(0);
@@ -850,9 +871,11 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       ctx.restore();
     }
 
-    // Render Laser Partisipan
+    // Render Laser Partisipan (Aman dari laser beku jika partisipan disconnect/idle > 2.5s)
+    const nowTimestamp = Date.now();
     for (const p of participants) {
-      if (p.isLaserActive) {
+      const isStale = p.lastActive ? nowTimestamp - p.lastActive > 2500 : false;
+      if (p.isLaserActive && !isStale) {
         ctx.save();
         ctx.fillStyle = '#ef4444';
         ctx.shadowColor = '#ef4444';
@@ -976,6 +999,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       onAddElement({
         id: strokeId,
         type: 'stroke',
+        pageIndex: currentPageIndex,
         x: finalPoints[0][0],
         y: finalPoints[0][1],
         points: finalPoints,
@@ -999,6 +1023,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         onAddElement({
           id: `${activeTool}-${Date.now()}`,
           type: activeTool,
+          pageIndex: currentPageIndex,
           x: dragStart.x,
           y: dragStart.y,
           width: w,
@@ -1013,6 +1038,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         onAddElement({
           id: `rect-${Date.now()}`,
           type: 'rect',
+          pageIndex: currentPageIndex,
           x: Math.min(dragStart.x, currentPos.x),
           y: Math.min(dragStart.y, currentPos.y),
           width: Math.abs(w),
@@ -1027,6 +1053,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         onAddElement({
           id: `ellipse-${Date.now()}`,
           type: 'ellipse',
+          pageIndex: currentPageIndex,
           x: Math.min(dragStart.x, currentPos.x),
           y: Math.min(dragStart.y, currentPos.y),
           width: Math.abs(w),
@@ -1047,6 +1074,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       const elementsToDelete: string[] = [];
       for (const el of doc.elements) {
         if (el.isLocked) continue; // Jangan hapus elemen terkunci dengan lasso
+        if (el.type === 'image' || el.type === 'question_card') continue; // Lindungi gambar dan kartu soal dari penghapusan lasso
         if (el.type === 'stroke' && el.points && el.points.length > 0) {
           const anyPointInside = el.points.some((p) => isPointInPolygon(p[0], p[1], lassoPoints));
           if (anyPointInside) {
@@ -1092,6 +1120,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
     currentPos,
     color,
     strokeWidth,
+    currentPageIndex,
     onAddElement,
     onDeleteElement,
     onDeleteElements,
@@ -1223,14 +1252,17 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         if (!hit.isLocked) {
           setIsDraggingElement(true);
           elementDragStartRef.current = pt;
+          initialDragElementRef.current = { ...hit };
           setDragStart(pt);
         } else {
           setIsDraggingElement(false);
           elementDragStartRef.current = null;
+          initialDragElementRef.current = null;
           setDragStart(null);
         }
       } else {
         setSelectedElementId(null);
+        initialDragElementRef.current = null;
         setIsPanning(true);
         if (doc.layoutMode === 'infinite') {
           setPanStart({ x: e.clientX - panX, y: e.clientY - panY });
@@ -1278,20 +1310,25 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
       if (mode === 'lasso') {
         setLassoPoints([[pt.x, pt.y]]);
       } else if (mode === 'brush') {
+        eraserTouchedOriginalsRef.current.clear();
         const shape = eraserSettings?.shape || 'circle';
         const size = eraserSettings?.size || 30;
         for (const el of doc.elements) {
           if (el.isLocked) continue; // Elemen terkunci tidak dapat dihapus
+          if (el.type === 'image' || el.type === 'question_card') continue; // Brush eraser hanya menghapus goresan/bentuk, jangan hapus gambar/kartu soal!
           if (isElementHitByEraser(pt, el, shape, size)) {
+            if (!eraserTouchedOriginalsRef.current.has(el.id)) {
+              eraserTouchedOriginalsRef.current.set(el.id, { ...el });
+            }
             if (el.type === 'stroke' && el.points && el.points.length > 0) {
               const subStrokes = carveStrokeWithEraser(el.points, pt, shape, size, el.strokeWidth);
               if (onCarveStroke) {
-                onCarveStroke(el.id, subStrokes);
+                onCarveStroke(el.id, subStrokes, { skipHistory: true });
               } else if (subStrokes.length === 0) {
-                onDeleteElement(el.id);
+                onDeleteElement(el.id, { skipHistory: true });
               }
             } else {
-              onDeleteElement(el.id);
+              onDeleteElement(el.id, { skipHistory: true });
             }
           }
         }
@@ -1522,16 +1559,20 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         const size = eraserSettings?.size || 30;
         for (const el of doc.elements) {
           if (el.isLocked) continue; // Elemen terkunci tidak dapat dihapus
+          if (el.type === 'image' || el.type === 'question_card') continue; // Brush eraser hanya menghapus goresan/bentuk, jangan hapus gambar/kartu soal!
           if (isElementHitByEraser(pt, el, shape, size)) {
+            if (!eraserTouchedOriginalsRef.current.has(el.id)) {
+              eraserTouchedOriginalsRef.current.set(el.id, { ...el });
+            }
             if (el.type === 'stroke' && el.points && el.points.length > 0) {
               const subStrokes = carveStrokeWithEraser(el.points, pt, shape, size, el.strokeWidth);
               if (onCarveStroke) {
-                onCarveStroke(el.id, subStrokes);
+                onCarveStroke(el.id, subStrokes, { skipHistory: true });
               } else if (subStrokes.length === 0) {
-                onDeleteElement(el.id);
+                onDeleteElement(el.id, { skipHistory: true });
               }
             } else {
-              onDeleteElement(el.id);
+              onDeleteElement(el.id, { skipHistory: true });
             }
           }
         }
@@ -1567,12 +1608,65 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
     }
 
     if (activePointersRef.current.size === 0) {
+      // 1. Rekam riwayat undo jika elemen selesai digeser
+      if (initialDragElementRef.current && onModifyElement) {
+        const initialEl = initialDragElementRef.current;
+        const currentEl = doc.elements.find((el) => el.id === initialEl.id);
+        if (currentEl && (currentEl.x !== initialEl.x || currentEl.y !== initialEl.y)) {
+          onModifyElement(currentEl, { before: initialEl });
+        }
+        initialDragElementRef.current = null;
+      }
+
+      // 2. Rekam riwayat undo tunggal (batch) untuk seluruh sapuan kuas penghapus
+      if (activeTool === 'eraser' && eraserTouchedOriginalsRef.current.size > 0 && onCommitHistoryAction) {
+        const touchedMap = eraserTouchedOriginalsRef.current;
+        const currentElements = doc.elements;
+        const actions: HistoryAction[] = [];
+
+        for (const [id, originalEl] of touchedMap.entries()) {
+          const currentEl = currentElements.find((el) => el.id === id);
+          if (!currentEl) {
+            actions.push({ type: 'delete', elements: [originalEl] });
+          } else {
+            const frags = currentElements.filter(
+              (el) => el.id !== id && el.id.startsWith(`${originalEl.id}-frag-`)
+            );
+            actions.push({
+              type: 'carve',
+              originalElement: originalEl,
+              updatedOriginal: currentEl,
+              newFragments: frags,
+            });
+          }
+        }
+
+        if (actions.length === 1) {
+          onCommitHistoryAction(actions[0]);
+        } else if (actions.length > 1) {
+          onCommitHistoryAction({ type: 'batch', actions });
+        }
+        eraserTouchedOriginalsRef.current.clear();
+      }
+
+      // 3. Matikan laser saat pointer up
+      if (activeTool === 'laser' && onBroadcastPointer && currentPos) {
+        onBroadcastPointer(currentPos.x, currentPos.y, false);
+      }
+
       setIsDraggingElement(false);
       elementDragStartRef.current = null;
       setDragStart(null);
       commitCurrentDrawing();
     }
   };
+
+  const handlePointerLeave = useCallback(() => {
+    setCurrentPos(null);
+    if (activeTool === 'laser' && onBroadcastPointer) {
+      onBroadcastPointer(0, 0, false);
+    }
+  }, [activeTool, onBroadcastPointer]);
 
   // Support Paste Gambar dari Clipboard (Ctrl+V)
   // Helper impor gambar dari file (Drag & Drop, Clipboard Paste, atau Tombol Toolbar)
@@ -1591,7 +1685,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           } else {
             const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
             const pageIdx = currentPageIndex || 0;
-            const pageTop = pageIdx * formatConfig.height;
+            const pageTop = 32 + pageIdx * (formatConfig.height + 48);
             targetX = Math.round((formatConfig.width - prepared.width) / 2);
             targetY = Math.round(pageTop + 200);
           }
@@ -1626,10 +1720,13 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           });
           if (uploadRes && uploadRes.success && uploadRes.url) {
             if (onModifyElement) {
-              onModifyElement({
-                ...newEl,
-                imageUrl: uploadRes.url,
-              });
+              onModifyElement(
+                {
+                  ...newEl,
+                  imageUrl: uploadRes.url,
+                },
+                { skipHistory: true }
+              );
             }
           }
         } catch (err) {
@@ -1644,21 +1741,47 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
 
   // Manipulasi Objek (Resize, Duplikat, Kunci, Z-Index)
   const handleResizeElement = useCallback(
-    (id: string, newWidth: number, newHeight: number, newX?: number, newY?: number) => {
+    (
+      id: string,
+      newWidth: number,
+      newHeight: number,
+      newX?: number,
+      newY?: number,
+      newPoints?: [number, number][],
+      options?: { isFinal?: boolean; before?: WhiteboardElement }
+    ) => {
       const el = doc.elements.find((e) => e.id === id);
       if (!el || el.isLocked) return;
+
+      const finalX = newX !== undefined ? newX : el.x;
+      const finalY = newY !== undefined ? newY : el.y;
+
+      let newPageIndex = el.pageIndex;
+      if (doc.layoutMode === 'paginated') {
+        const formatConfig = PAGE_FORMATS[doc.pageFormat] || PAGE_FORMATS.a4_portrait;
+        const pageStride = formatConfig.height + 48;
+        const computedPage = Math.max(0, Math.floor((finalY - 32) / pageStride));
+        newPageIndex = Math.min(doc.pages.length - 1, computedPage);
+      }
+
       const updated: WhiteboardElement = {
         ...el,
         width: newWidth,
         height: newHeight,
-        x: newX !== undefined ? newX : el.x,
-        y: newY !== undefined ? newY : el.y,
+        x: finalX,
+        y: finalY,
+        points: newPoints || el.points,
+        pageIndex: newPageIndex,
       };
+
       if (onModifyElement) {
-        onModifyElement(updated);
+        onModifyElement(updated, {
+          skipHistory: options?.isFinal === false,
+          before: options?.before,
+        });
       }
     },
-    [doc.elements, onModifyElement]
+    [doc.elements, doc.layoutMode, doc.pageFormat, doc.pages.length, onModifyElement]
   );
 
   const handleDuplicate = useCallback(
@@ -1670,6 +1793,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
         id: `${el.type}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
         x: el.x + 30,
         y: el.y + 30,
+        points: el.points ? el.points.map(([px, py]) => [px + 30, py + 30]) : undefined,
         zIndex: (el.zIndex || 1) + 1,
       };
       onAddElement(duplicated);
@@ -1849,7 +1973,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           onPointerMove={handleMouseMove}
           onPointerUp={handleMouseUp}
           onPointerCancel={handleMouseUp}
-          onPointerLeave={() => setCurrentPos(null)}
+          onPointerLeave={handlePointerLeave}
           style={{
             touchAction: 'none',
             cursor: isPanning
@@ -1964,6 +2088,7 @@ export const WhiteboardCanvas: React.FC<WhiteboardCanvasProps> = ({
           onAddElement({
             id: `text-${Date.now()}`,
             type: 'text',
+            pageIndex: currentPageIndex,
             x: textModalPos.x,
             y: textModalPos.y,
             width: Math.max(60, textWidth + 16),
