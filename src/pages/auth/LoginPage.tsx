@@ -5,12 +5,9 @@ import {
   Lock,
   Mail,
   User,
-  Sparkles,
   ArrowRight,
   ArrowLeft,
-  ShieldCheck,
   GraduationCap,
-  Users,
   CheckCircle2,
   AlertCircle,
   KeyRound,
@@ -41,7 +38,7 @@ export const LoginPage: React.FC = () => {
       ? 'forgot'
       : 'login';
 
-  const { user, profile, isTeacher, isAdmin, loading, login, register, resetPassword, updatePassword, loginDemo, logout } = useAuth();
+  const { user, profile, isTeacher, isAdmin, loading, login, register, resetPassword, updatePassword, logout } = useAuth();
 
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'reset'>(initialMode);
 
@@ -305,56 +302,7 @@ export const LoginPage: React.FC = () => {
     }
   };
 
-  const handleDemoLogin = async (type: 'teacher' | 'student' | 'admin') => {
-    setErrorMessage(null);
-    setSuccessMessage(null);
-    setIsLoading(true);
 
-    const targetPortal =
-      type === 'admin' ? '/admin/analytics' : type === 'teacher' ? '/teacher' : '/student/dashboard';
-    sessionStorage.setItem('osn_login_portal_target', targetPortal);
-
-    try {
-      const res = await loginDemo(type);
-      if (res.success) {
-        const roleName = type === 'admin' ? 'Administrator' : type === 'teacher' ? 'Guru' : 'Siswa';
-        setSuccessMessage(`Berhasil login sebagai akun ${roleName}!`);
-        setTimeout(async () => {
-          const target = sessionStorage.getItem('osn_login_portal_target');
-          if (target) sessionStorage.removeItem('osn_login_portal_target');
-          if (redirectPath) {
-            navigate(redirectPath);
-          } else if (target) {
-            navigate(target);
-          } else if (type === 'admin') {
-            navigate('/admin/analytics');
-          } else if (type === 'teacher') {
-            navigate('/teacher');
-          } else {
-            try {
-              const classrooms = await classroomService.getStudentClassrooms('siswa@osnkimia.id');
-              const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
-              if (hasActive) {
-                navigate('/student/dashboard');
-              } else {
-                navigate('/join-class');
-              }
-            } catch {
-              navigate('/join-class');
-            }
-          }
-        }, 400);
-      } else {
-        sessionStorage.removeItem('osn_login_portal_target');
-        setErrorMessage(res.error || 'Gagal login akun demo.');
-      }
-    } catch (err: any) {
-      sessionStorage.removeItem('osn_login_portal_target');
-      setErrorMessage(err?.message || 'Gagal login demo.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 via-sky-50/30 to-slate-50">
@@ -384,66 +332,7 @@ export const LoginPage: React.FC = () => {
           </p>
         </div>
 
-        {/* 1-Click Demo Login Box */}
-        {mode === 'login' && (
-          <div className="bg-gradient-to-br from-indigo-950 via-slate-900 to-sky-950 rounded-2xl p-5 text-white shadow-lg border border-indigo-500/30 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                <span className="text-xs font-bold text-amber-300 uppercase tracking-wider font-mono">
-                  Akses Cepat Akun Demo & Admin
-                </span>
-              </div>
-              <span className="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-slate-300 font-mono">
-                Password: 354123
-              </span>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleDemoLogin('admin')}
-                className="flex flex-col text-left p-2.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 transition-all hover:scale-[1.02] active:scale-98 disabled:opacity-50"
-              >
-                <div className="flex items-center gap-1 text-[11px] font-bold text-amber-300">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                  <span>👑 Admin</span>
-                </div>
-                <span className="text-[10px] text-slate-300 font-mono truncate mt-0.5">fluffykitten.dev@gmail.com</span>
-                <span className="text-[9px] text-amber-200/80 mt-1">Otoritas Guru & Sistem</span>
-              </button>
-
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleDemoLogin('teacher')}
-                className="flex flex-col text-left p-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 transition-all hover:scale-[1.02] active:scale-98 disabled:opacity-50"
-              >
-                <div className="flex items-center gap-1 text-[11px] font-bold text-indigo-200">
-                  <Users className="w-3.5 h-3.5 text-indigo-300" />
-                  <span>👨‍🏫 Guru</span>
-                </div>
-                <span className="text-[10px] text-slate-300 font-mono truncate mt-0.5">guru@osnkimia.id</span>
-                <span className="text-[9px] text-slate-400 mt-1">Kelas & Live Monitor</span>
-              </button>
-
-              <button
-                type="button"
-                disabled={isLoading}
-                onClick={() => handleDemoLogin('student')}
-                className="flex flex-col text-left p-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/30 transition-all hover:scale-[1.02] active:scale-98 disabled:opacity-50"
-              >
-                <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-200">
-                  <GraduationCap className="w-3.5 h-3.5 text-emerald-300" />
-                  <span>🎓 Siswa</span>
-                </div>
-                <span className="text-[10px] text-slate-300 font-mono truncate mt-0.5">siswa@osnkimia.id</span>
-                <span className="text-[9px] text-slate-400 mt-1">Latihan 10 Topik OSN</span>
-              </button>
-            </div>
-          </div>
-        )}
 
         {/* Mode Toggle Tabs */}
         {mode !== 'reset' && (
