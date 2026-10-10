@@ -28,7 +28,9 @@ import {
   Clock,
   Play,
   Share2,
+  FileDown,
 } from 'lucide-react';
+import { QuestionPdfExportModal } from '../../components/practice/QuestionPdfExportModal';
 import { PILLARS_DATA } from '../../data/syllabusData';
 import { SMA_TOPICS_META } from '../../data/smaTopicsMeta';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
@@ -94,6 +96,9 @@ export const PracticeTopicDetail: React.FC = () => {
 
   // Modal / Drawer Pratinjau Cepat Soal yang Diklik di Quest Map
   const [inspectedQuestion, setInspectedQuestion] = useState<Question | null>(null);
+
+  // Modal Ekspor PDF Naskah Soal (Save My Exams Style)
+  const [pdfModalOpen, setPdfModalOpen] = useState(false);
 
   // Ambil metadata Topik dari silabus
   const topicMeta = useMemo(() => {
@@ -585,6 +590,22 @@ export const PracticeTopicDetail: React.FC = () => {
                 <span>Kerjakan {selectedQuestionIds.length} Soal Terpilih</span>
               </button>
             )}
+
+            {/* Tombol Unduh PDF Soal (Save My Exams Format) */}
+            <button
+              type="button"
+              onClick={() => setPdfModalOpen(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+              title="Unduh Naskah Soal PDF Format Save My Exams"
+            >
+              <FileDown className="w-4 h-4 text-sky-400 group-hover:-translate-y-0.5 transition-transform" />
+              <span>Unduh Soal (PDF)</span>
+              {selectedQuestionIds.length > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full bg-sky-500 text-white text-[10px] font-mono font-bold">
+                  {selectedQuestionIds.length} terpilih
+                </span>
+              )}
+            </button>
           </div>
 
           {/* View Mode Switcher: Quest Map vs Grid Kartu */}
@@ -1215,6 +1236,18 @@ export const PracticeTopicDetail: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Save My Exams Question Paper PDF Export Modal */}
+      <QuestionPdfExportModal
+        isOpen={pdfModalOpen}
+        onClose={() => setPdfModalOpen(false)}
+        allQuestions={topicQuestions}
+        selectedQuestionIds={selectedQuestionIds}
+        topicTitle={topicMeta.title}
+        topicNumber={topicNumber}
+        curriculumTrack={isSma ? 'sma' : 'osn'}
+        courseLevel={topicMeta.levelOrGrade}
+        subtopics={topicMeta.tags}
+      />
       </div>
     </div>
   );

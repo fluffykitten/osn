@@ -20,6 +20,7 @@ import { ConceptCheckpointQuiz } from '../../components/materials/ConceptCheckpo
 import { MaterialAiTutorModal } from '../../components/materials/MaterialAiTutorModal';
 import { MaterialNotesDrawer, getStoredNotes } from '../../components/materials/MaterialNotesDrawer';
 import { MaterialFlashcardModal, type FlashcardItem } from '../../components/materials/MaterialFlashcardModal';
+import { MaterialPdfModal } from '../../components/materials/MaterialPdfModal';
 import { useFeatureFlags } from '../../services/featureFlagsService';
 import { useAuth } from '../../contexts/AuthContext';
 import { studentReadingService } from '../../services/studentReadingService';
@@ -61,6 +62,7 @@ import {
   PanelRightClose,
   PanelRightOpen,
   StickyNote,
+  FileDown,
 } from 'lucide-react';
 
 export const MaterialsDatabase: React.FC = () => {
@@ -383,6 +385,8 @@ export const MaterialsDatabase: React.FC = () => {
   const [notesCount, setNotesCount] = useState<number>(0);
 
   const [flashcardOpen, setFlashcardOpen] = useState(false);
+  const [pdfExportOpen, setPdfExportOpen] = useState(false);
+  const [modalExportMaterial, setModalExportMaterial] = useState<MaterialItem | SmaMaterialItem | null>(null);
 
   // Sync notes count badge for active material
   useEffect(() => {
@@ -1097,6 +1101,33 @@ export const MaterialsDatabase: React.FC = () => {
                 <span>AI Tutor</span>
               </button>
             )}
+
+            {/* Unduh Modul PDF Button (Save My Exams Format) */}
+            <button
+              type="button"
+              onClick={() => {
+                setModalExportMaterial(activeMaterial);
+                setPdfExportOpen(true);
+              }}
+              className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-sky-200 bg-sky-50/80 hover:bg-sky-100 text-sky-700 shadow-2xs cursor-pointer touch-manipulation"
+              title="Unduh modul materi ini sebagai naskah PDF format Save My Exams"
+            >
+              <FileDown className="w-3.5 h-3.5 text-sky-600" />
+              <span>Unduh Materi (PDF)</span>
+            </button>
+
+            {/* Unduh Soal Latihan Topik PDF */}
+            <button
+              type="button"
+              onClick={() => {
+                navigate(`/practice/${activeDatabase === 'sma' ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+              }}
+              className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer touch-manipulation"
+              title="Buka Bank Soal & Unduh Soal Latihan Topik Ini (PDF Save My Exams)"
+            >
+              <SolarBookBookmark className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Unduh Soal (PDF)</span>
+            </button>
 
             {/* Status Selesai Belajar Toggle Button */}
             <button
@@ -2115,6 +2146,18 @@ export const MaterialsDatabase: React.FC = () => {
           materialTitle={activeMaterial.title}
           cards={flashcardDeck}
         />
+
+        {/* Save My Exams PDF Export Modal */}
+        {pdfExportOpen && modalExportMaterial && (
+          <MaterialPdfModal
+            isOpen={pdfExportOpen}
+            onClose={() => {
+              setPdfExportOpen(false);
+              setModalExportMaterial(null);
+            }}
+            material={modalExportMaterial}
+          />
+        )}
       </div>
     </div>
   );
@@ -2520,21 +2563,46 @@ export const MaterialsDatabase: React.FC = () => {
               </div>
 
               {/* Pinned Card Footer */}
-              <div className="mt-auto pt-4 border-t border-slate-100">
+              <div className="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
                 <Link
                   to={targetUrl}
-                  className={`w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 font-bold text-xs rounded-xl transition-all shadow-xs hover:shadow-sm cursor-pointer text-white ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 font-bold text-xs rounded-xl transition-all shadow-xs hover:shadow-sm cursor-pointer text-white ${
                     isIgcseCard ? 'bg-purple-600 hover:bg-purple-700' : isSmaCard ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-sky-600 hover:bg-sky-700'
                   }`}
                 >
                   <span>{currentPercent > 0 && !isCompleted ? 'Lanjut Baca' : 'Pelajari Materi'}</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </Link>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setModalExportMaterial(material);
+                    setPdfExportOpen(true);
+                  }}
+                  className="p-2.5 text-slate-500 hover:text-sky-600 bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-sky-200 rounded-xl transition-colors cursor-pointer shrink-0"
+                  title="Unduh PDF (Format Save My Exams)"
+                >
+                  <FileDown className="w-4 h-4" />
+                </button>
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Save My Exams PDF Export Modal for Catalog View */}
+      {pdfExportOpen && modalExportMaterial && (
+        <MaterialPdfModal
+          isOpen={pdfExportOpen}
+          onClose={() => {
+            setPdfExportOpen(false);
+            setModalExportMaterial(null);
+          }}
+          material={modalExportMaterial}
+        />
+      )}
     </div>
   </div>
   );

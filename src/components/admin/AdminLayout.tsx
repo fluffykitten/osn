@@ -17,6 +17,7 @@ import {
   Cloud,
   Bug,
   Sliders,
+  FileDown,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -87,6 +88,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       href: '/admin/appearance',
       icon: Palette,
       badge: 'Tema',
+    },
+    {
+      name: 'Pengaturan Ekspor PDF',
+      href: '/admin/pdf-settings',
+      icon: FileDown,
+      badge: 'PDF',
     },
   ];
 

@@ -53,6 +53,7 @@ const AdminQuestionManagement = lazy(() => import('./pages/admin/AdminQuestionMa
 const AdminAuditLogs = lazy(() => import('./pages/admin/AdminAuditLogs').then((m) => ({ default: m.AdminAuditLogs })));
 const AdminBugReports = lazy(() => import('./pages/admin/AdminBugReports').then((m) => ({ default: m.AdminBugReports })));
 const AdminAppearanceSettings = lazy(() => import('./pages/admin/AdminAppearanceSettings').then((m) => ({ default: m.AdminAppearanceSettings })));
+const AdminPdfExportSettings = lazy(() => import('./pages/admin/AdminPdfExportSettings').then((m) => ({ default: m.AdminPdfExportSettings })));
 const AdminFeatureManagement = lazy(() => import('./pages/admin/AdminFeatureManagement').then((m) => ({ default: m.AdminFeatureManagement })));
 
 // Fallback Loader saat chunk modul sedang diunduh
@@ -518,6 +519,14 @@ function AppContent() {
             element={
               <AdminOnly>
                 <AdminAppearanceSettings />
+              </AdminOnly>
+            }
+          />
+          <Route
+            path="/admin/pdf-settings"
+            element={
+              <AdminOnly>
+                <AdminPdfExportSettings />
               </AdminOnly>
             }
           />

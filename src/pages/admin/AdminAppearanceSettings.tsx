@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Palette,
   CheckCircle2,
@@ -12,6 +13,7 @@ import {
   Award,
   Zap,
   Info,
+  FileDown,
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import type { ThemePalette } from '../../types/theme';
@@ -92,6 +94,7 @@ export const AdminAppearanceSettings: React.FC = () => {
     setSuccessToast(`Palet kustom "${customName}" berhasil dibuat dan diterapkan!`);
     setTimeout(() => setSuccessToast(null), 3500);
   };
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
@@ -672,6 +675,36 @@ export const AdminAppearanceSettings: React.FC = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* CALLOUT MENU PENGATURAN EKSPOR PDF */}
+      <div className="bg-[#FFFFF0] rounded-3xl p-6 sm:p-8 border border-[#D3D3D3] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div className="flex items-start sm:items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+            <FileDown className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-base font-extrabold text-[#2D3748]">
+                Pengaturan Ekspor Dokumen PDF (Materi & Soal)
+              </h3>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-sky-100 text-sky-800">
+                Halaman Mandiri
+              </span>
+            </div>
+            <p className="text-xs text-[#708090] mt-1 max-w-xl">
+              Pengaturan tipografi font naskah (Bookerly, Libron, Inter, dsb.), identitas brand, running footer, perataan teks, dan live preview cetak kini dikelola di halaman tersendiri.
+            </p>
+          </div>
+        </div>
+
+        <Link
+          to="/admin/pdf-settings"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs sm:text-sm transition shadow-sm hover:shadow shrink-0 cursor-pointer"
+        >
+          <span>Buka Pengaturan Ekspor PDF</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
     </div>
   );
