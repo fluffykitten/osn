@@ -16,6 +16,7 @@ import { parseAndRenderMixedText, renderKaTeX } from '../lib/katex-helpers';
 import type { MaterialItem, ConceptBlock, CheckpointQuizItem } from '../data/materialsData';
 import type { SmaMaterialItem } from '../data/smaMaterialsData';
 import { pdfSettingsService, getPdfFontConfig, type MaterialPdfSettings } from './pdfSettingsService';
+import { KATEX_EMBEDDED_CSS } from './katexEmbeddedCss';
 
 export interface MaterialPdfExportOptions {
   includeYourNotesMargin?: boolean;
@@ -187,18 +188,9 @@ export class MaterialPdfExportService {
     ${fontConfig.fontFaceCss}
 
     /* ==============================================================
-       CORE KATEX EMBEDDED STYLES (Mencegah Formula Pecah / Melompat)
+       CORE KATEX EMBEDDED STYLES & ANTI-CRAMPED FRACTION SYSTEM
        ============================================================== */
-    .katex { font: normal 1.02em KaTeX_Main, Times New Roman, serif; line-height: 1.2; text-indent: 0; text-rendering: auto; border-color: currentColor; }
-    .katex * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .katex .vlist-t { display: inline-table; table-layout: fixed; }
-    .katex .vlist-r { display: table-row; }
-    .katex .vlist { display: table-cell; vertical-align: bottom; position: relative; }
-    .katex .mord, .katex .mbin, .katex .mrel { display: inline-block; }
-    .katex-display { display: block; margin: 0.35em 0; text-align: center; }
-    .katex-display > .katex { display: block; text-align: center; white-space: nowrap; }
-    .katex .msupsub { text-align: left; }
-    .katex .mfrac .vlist-t { vertical-align: -0.5em; }
+    ${KATEX_EMBEDDED_CSS}
 
     /* ============================================================
        SAVE MY EXAMS OFFICIAL PDF LAYOUT & PAGED MEDIA SYSTEM
@@ -206,6 +198,13 @@ export class MaterialPdfExportService {
     @page {
       size: A4 portrait;
       margin: 18mm 20mm 20mm 20mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Inter', sans-serif;
+        font-size: 8.5pt;
+        font-weight: 700;
+        color: #0f172a;
+      }
     }
 
     * {
@@ -590,7 +589,7 @@ export class MaterialPdfExportService {
       margin: 10px 0 14px 0;
     }
 
-    .sme-body-content li {
+    .sme-body-content ul > li {
       position: relative;
       padding-left: 18px;
       margin-bottom: 7px;
@@ -599,13 +598,26 @@ export class MaterialPdfExportService {
       text-align: ${textAlign};
     }
 
-    .sme-body-content li::before {
+    .sme-body-content ul > li::before {
       content: "▪";
       position: absolute;
       left: 0;
       top: -1px;
       font-size: 11pt;
       color: #0f172a;
+    }
+
+    .sme-body-content ol {
+      list-style-type: decimal;
+      padding-left: 22px;
+      margin: 10px 0 14px 0;
+    }
+
+    .sme-body-content ol > li {
+      margin-bottom: 7px;
+      font-size: 10pt;
+      line-height: 1.55;
+      text-align: ${textAlign};
     }
 
     .sme-body-content h3, 
@@ -731,8 +743,17 @@ export class MaterialPdfExportService {
       page-break-inside: avoid;
     }
 
+    .sme-diagram-wrapper svg,
+    .sme-body-content svg,
+    .sme-main-column svg {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 0 auto;
+    }
+
     .sme-diagram-image {
-      max-width: 90%;
+      max-width: 100%;
       height: auto;
       margin: 0 auto;
       display: block;
@@ -989,7 +1010,7 @@ export class MaterialPdfExportService {
                   (f) => `
                 <tr>
                   <td><strong>${f.name}</strong></td>
-                  <td style="text-align: center;">${renderKaTeX(f.formula, false)}</td>
+                  <td style="text-align: center;">${renderKaTeX(f.formula.includes('\\displaystyle') ? f.formula : `\\displaystyle ${f.formula}`, false)}</td>
                 </tr>
               `
                 )
@@ -1205,14 +1226,21 @@ export class MaterialPdfExportService {
     let html = parseAndRenderMixedText(content);
 
     // 1. Transform Callout boxes menjadi Save My Exams "Examiner Tips and Tricks"
+    // Tangkap box callout yang dibungkus oleh laser-anchor-block
     html = html.replace(
-      /<div class="my-4 p-4\.5 bg-(?:amber|emerald|sky|rose|indigo|blue|purple)-50(?:\/90)?[\s\S]*?<\/div>\s*<\/div>/gi,
-      (match) => this.convertToExaminerTip(match)
+      /<div data-laser-block="\d+" class="laser-anchor-block">\s*(<div class="my-4 p-4(?:\.5)? (?:rounded-2xl border|bg-emerald-50)[\s\S]*?)<\/div>(?=\s*<div data-laser-block=|\s*$)/gi,
+      (_match, innerCallout) => this.convertToExaminerTip(innerCallout)
     );
 
     html = html.replace(
-      /<blockquote class="[^"]*">([\s\S]*?)<\/blockquote>/gi,
-      (_match, inner) => this.convertToExaminerTip(inner, 'Key Examiner Note')
+      /<div data-laser-block="\d+" class="laser-anchor-block">\s*(<blockquote[\s\S]*?<\/blockquote>)\s*<\/div>(?=\s*<div data-laser-block=|\s*$)/gi,
+      (_match, innerQuote) => this.convertToExaminerTip(innerQuote, 'Key Examiner Note')
+    );
+
+    // Fallback standalone callouts
+    html = html.replace(
+      /<div class="my-4 p-4(?:\.5)? (?:rounded-2xl border|bg-emerald-50)[\s\S]*?<\/div>\s*<\/div>/gi,
+      (match) => this.convertToExaminerTip(match)
     );
 
     // 2. Transform table wrappers agar menggunakan border solid khas Save My Exams
@@ -1237,29 +1265,56 @@ export class MaterialPdfExportService {
    */
   private convertToExaminerTip(htmlBlock: string, defaultTitle = 'Examiner Tips and Tricks'): string {
     let title = defaultTitle;
-    const labelMatch = htmlBlock.match(/<span>([A-Z\s]{4,30})<\/span>/);
-    if (labelMatch && labelMatch[1]) {
-      const lbl = labelMatch[1].trim();
-      if (lbl.includes('PERINGATAN') || lbl.includes('MISKONSEPSI')) {
-        title = 'Examiner Warning & Common Misconceptions';
-      } else if (lbl.includes('TIPS') || lbl.includes('TRIK')) {
-        title = 'Examiner Tips and Tricks';
-      } else if (lbl.includes('CATATAN') || lbl.includes('PENTING')) {
-        title = 'Key Examiner Notes';
-      }
+    let iconColor = '#0284c7';
+    let borderColor = '#0284c7';
+
+    // Deteksi tipe callout berdasarkan kata kunci badge/label
+    if (/PERINGATAN|MISKONSEPSI|BAHAYA|CAUTION|DANGER|WARNING/i.test(htmlBlock)) {
+      title = 'Examiner Warning & Common Misconceptions';
+      iconColor = '#dc2626';
+      borderColor = '#dc2626';
+    } else if (/TIPS|ANALISIS|TIP/i.test(htmlBlock)) {
+      title = 'Examiner Tips and Tricks';
+      iconColor = '#0284c7';
+      borderColor = '#0284c7';
+    } else if (/PENTING|IMPORTANT/i.test(htmlBlock)) {
+      title = 'Key Examiner Notes & Exam Priorities';
+      iconColor = '#4f46e5';
+      borderColor = '#4f46e5';
+    } else if (/Kesimpulan(?:\s+Evaluator)?\s+Juri/i.test(htmlBlock)) {
+      title = 'Kesimpulan Evaluator Juri (Gold Standard)';
+      iconColor = '#059669';
+      borderColor = '#059669';
+    } else if (/CATATAN|INFORMASI|NOTE|INFO/i.test(htmlBlock)) {
+      title = 'Key Examiner Notes';
+      iconColor = '#0284c7';
+      borderColor = '#0284c7';
+    }
+
+    // Ambil judul spesifik jika ada
+    const titleMatch = htmlBlock.match(/<span class="[^"]*font-bold[^"]*text-(?:amber|emerald|indigo|sky|rose|slate)-950[^"]*">([^<]+)<\/span>/i);
+    if (titleMatch && titleMatch[1]) {
+      title = `${title}: ${titleMatch[1].trim()}`;
     }
 
     // Ambil isi teks di dalam callout
-    const contentText = htmlBlock
-      .replace(/<div class="flex items-center[\s\S]*?<\/div>/i, '')
-      .replace(/<span class="[^"]*rounded-full[\s\S]*?<\/span>/gi, '')
-      .replace(/<\/div>\s*$/, '')
-      .trim();
+    let contentText = htmlBlock;
+    const bodyMatch = htmlBlock.match(/<div class="text-[^"]*font-sans">([\s\S]*?)<\/div>\s*<\/div>$/i);
+    if (bodyMatch && bodyMatch[1]) {
+      contentText = bodyMatch[1].trim();
+    } else {
+      contentText = htmlBlock
+        .replace(/<div class="flex items-center[\s\S]*?<\/div>/i, '')
+        .replace(/<span class="[^"]*rounded-full[\s\S]*?<\/span>/gi, '')
+        .replace(/^<div[^>]*>/, '')
+        .replace(/<\/div>\s*<\/div>$/, '')
+        .trim();
+    }
 
     return `
-      <div class="sme-examiner-tip-box">
+      <div class="sme-examiner-tip-box" style="border-left-color: ${borderColor};">
         <div class="sme-tip-header-row">
-          <div class="sme-tip-circle-icon">
+          <div class="sme-tip-circle-icon" style="background: ${iconColor};">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </div>
           <span class="sme-tip-title-text">${title}</span>

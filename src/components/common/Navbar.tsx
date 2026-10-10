@@ -298,7 +298,7 @@ export const Navbar: React.FC = React.memo(() => {
                           className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-[#F0F8FF] transition text-left"
                         >
                           <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-700 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                            <SolarLock className="w-4 h-4" />
+                            <GraduationCap className="w-4 h-4" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <span className="font-bold text-xs text-[#2D3748] group-hover:text-[#708090] transition block">

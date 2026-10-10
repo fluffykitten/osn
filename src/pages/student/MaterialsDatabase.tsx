@@ -111,47 +111,44 @@ export const MaterialsDatabase: React.FC = () => {
 
   // Determine initial database (OSN vs SMA vs IGCSE)
   const initialDb = useMemo<'osn' | 'sma' | 'igcse'>(() => {
-    if (isAdmin && dbParam === 'igcse') return 'igcse';
+    if (dbParam === 'igcse') return 'igcse';
     if (dbParam === 'sma') return 'sma';
     if (dbParam === 'osn') return 'osn';
     if (id) {
-      if (id.startsWith('igcse-')) return isAdmin ? 'igcse' : 'sma';
+      if (id.startsWith('igcse-')) return 'igcse';
       if (id.startsWith('sma-')) return 'sma';
       const num = parseInt(id, 10);
       if (!isNaN(num)) {
-        if (num >= 201 && num <= 299) return isAdmin ? 'igcse' : 'sma';
+        if (num >= 201 && num <= 299) return 'igcse';
         if (num >= 101 && num <= 116) return 'sma';
       }
-      if (IGCSE_MATERIALS.some((m) => m.slug === id)) return isAdmin ? 'igcse' : 'sma';
+      if (IGCSE_MATERIALS.some((m) => m.slug === id)) return 'igcse';
       if (SMA_MATERIALS.some((m) => m.slug === id)) return 'sma';
     }
     try {
       const saved = localStorage.getItem('osn_active_material_db');
-      if (saved === 'igcse' && isAdmin) return 'igcse';
-      if (saved === 'sma' || saved === 'osn') return saved;
+      if (saved === 'igcse' || saved === 'sma' || saved === 'osn') return saved;
     } catch {
       // ignore
     }
     return 'osn';
-  }, [id, dbParam, isAdmin]);
+  }, [id, dbParam]);
 
   const [activeDatabase, setActiveDatabase] = useState<'osn' | 'sma' | 'igcse'>(initialDb);
 
   // Synchronize database switcher with URL changes
   useEffect(() => {
-    if (dbParam === 'igcse' && isAdmin) {
-      setActiveDatabase('igcse');
-    } else if (dbParam === 'sma' || dbParam === 'osn') {
+    if (dbParam === 'igcse' || dbParam === 'sma' || dbParam === 'osn') {
       setActiveDatabase(dbParam);
     } else if (id) {
-      if (id.startsWith('igcse-') && isAdmin) {
+      if (id.startsWith('igcse-')) {
         setActiveDatabase('igcse');
       } else if (id.startsWith('sma-')) {
         setActiveDatabase('sma');
       } else {
         const num = parseInt(id, 10);
         if (!isNaN(num)) {
-          if (num >= 201 && num <= 299 && isAdmin) {
+          if (num >= 201 && num <= 299) {
             setActiveDatabase('igcse');
           } else if (num >= 101 && num <= 116) {
             setActiveDatabase('sma');
@@ -159,18 +156,10 @@ export const MaterialsDatabase: React.FC = () => {
         }
       }
     }
-  }, [id, dbParam, isAdmin]);
-
-  // Guard: if non-admin somehow lands on igcse database, fallback to sma
-  useEffect(() => {
-    if (!isAdmin && activeDatabase === 'igcse') {
-      setActiveDatabase('sma');
-    }
-  }, [isAdmin, activeDatabase]);
+  }, [id, dbParam]);
 
   // Database switch handler
   const handleDatabaseSwitch = (newDb: 'osn' | 'sma' | 'igcse') => {
-    if (newDb === 'igcse' && !isAdmin) return;
     setActiveDatabase(newDb);
     setSelectedCategory('Semua');
     setSelectedGrade('Semua');
@@ -250,7 +239,6 @@ export const MaterialsDatabase: React.FC = () => {
     if (!id) return null;
 
     if (id.startsWith('igcse-')) {
-      if (!isAdmin) return null;
       const sub = id.replace('igcse-', '');
       const num = parseInt(sub, 10);
       if (!isNaN(num)) {
@@ -271,13 +259,12 @@ export const MaterialsDatabase: React.FC = () => {
     const numericId = parseInt(id, 10);
     if (!isNaN(numericId)) {
       if (numericId >= 201 && numericId <= 299) {
-        if (!isAdmin) return null;
         return IGCSE_MATERIALS.find((m) => m.id === numericId || m.topic_number === numericId) || null;
       }
       if (numericId >= 101 && numericId <= 116) {
         return SMA_MATERIALS.find((m) => m.id === numericId || m.topic_number === numericId) || null;
       }
-      if (activeDatabase === 'igcse' && isAdmin) {
+      if (activeDatabase === 'igcse') {
         const matchIgcse = IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId);
         if (matchIgcse) return matchIgcse;
       }
@@ -288,21 +275,19 @@ export const MaterialsDatabase: React.FC = () => {
       return (
         OSN_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
         SMA_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
-        (isAdmin ? IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) : null) ||
+        IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
         null
       );
     }
 
-    if (isAdmin) {
-      const foundIgcse = IGCSE_MATERIALS.find((m) => m.slug === id);
-      if (foundIgcse) return foundIgcse;
-    }
+    const foundIgcse = IGCSE_MATERIALS.find((m) => m.slug === id);
+    if (foundIgcse) return foundIgcse;
     const foundOsn = OSN_MATERIALS.find((m) => m.slug === id);
     if (foundOsn) return foundOsn;
     const foundSma = SMA_MATERIALS.find((m) => m.slug === id);
     if (foundSma) return foundSma;
     return null;
-  }, [id, activeDatabase, dbParam, isAdmin]);
+  }, [id, activeDatabase, dbParam]);
 
   const isCurrentIgcse = Boolean(
     activeMaterial && (
@@ -424,7 +409,7 @@ export const MaterialsDatabase: React.FC = () => {
     if (!activeMaterial) return [];
     const deck: FlashcardItem[] = [];
 
-    activeMaterial.prerequisites.forEach((p, idx) => {
+    (activeMaterial.prerequisites || []).forEach((p, idx) => {
       deck.push({
         id: `fc-prereq-${p.tag}-${idx}`,
         conceptTag: p.tag,
@@ -443,7 +428,7 @@ export const MaterialsDatabase: React.FC = () => {
       });
     });
 
-    activeMaterial.core_concepts.forEach((c, idx) => {
+    (activeMaterial.core_concepts || []).forEach((c, idx) => {
       deck.push({
         id: `fc-core-${c.tag}-${idx}`,
         conceptTag: c.tag,
@@ -462,7 +447,7 @@ export const MaterialsDatabase: React.FC = () => {
       });
     });
 
-    activeMaterial.worked_examples.forEach((w, idx) => {
+    (activeMaterial.worked_examples || []).forEach((w, idx) => {
       deck.push({
         id: `fc-work-${w.tag}-${idx}`,
         conceptTag: w.tag,
@@ -488,9 +473,9 @@ export const MaterialsDatabase: React.FC = () => {
   const allConceptSummaryList = useMemo(() => {
     if (!activeMaterial) return [];
     return [
-      ...activeMaterial.prerequisites.map((p) => ({ tag: p.tag, title: p.title })),
-      ...activeMaterial.core_concepts.map((c) => ({ tag: c.tag, title: c.title })),
-      ...activeMaterial.worked_examples.map((w) => ({ tag: w.tag, title: w.title })),
+      ...(activeMaterial.prerequisites || []).map((p) => ({ tag: p.tag, title: p.title })),
+      ...(activeMaterial.core_concepts || []).map((c) => ({ tag: c.tag, title: c.title })),
+      ...(activeMaterial.worked_examples || []).map((w) => ({ tag: w.tag, title: w.title })),
     ];
   }, [activeMaterial]);
 
@@ -710,7 +695,7 @@ export const MaterialsDatabase: React.FC = () => {
       }
       const norm = activeTag.toLowerCase().trim().replace(/^#/, '');
       for (const mat of SMA_MATERIALS) {
-        const all = [...mat.prerequisites, ...mat.core_concepts, ...mat.worked_examples];
+        const all = [...(mat.prerequisites || []), ...(mat.core_concepts || []), ...(mat.worked_examples || [])];
         const block = all.find(
           (b) =>
             b.tag.toLowerCase() === norm ||
@@ -758,9 +743,9 @@ export const MaterialsDatabase: React.FC = () => {
   const collapseAllBlocks = () => {
     if (!activeMaterial) return;
     const all = [
-      ...activeMaterial.prerequisites,
-      ...activeMaterial.core_concepts,
-      ...activeMaterial.worked_examples,
+      ...(activeMaterial.prerequisites || []),
+      ...(activeMaterial.core_concepts || []),
+      ...(activeMaterial.worked_examples || []),
     ].map((b) => b.tag);
     setCollapsedBlocks(new Set(all));
   };
@@ -771,9 +756,9 @@ export const MaterialsDatabase: React.FC = () => {
     let targetTag = tagOrSubtag;
     if (activeMaterial) {
       const allBlocks = [
-        ...activeMaterial.prerequisites,
-        ...activeMaterial.core_concepts,
-        ...activeMaterial.worked_examples,
+        ...(activeMaterial.prerequisites || []),
+        ...(activeMaterial.core_concepts || []),
+        ...(activeMaterial.worked_examples || []),
       ];
       const normalized = tagOrSubtag.toLowerCase().trim().replace(/^#/, '');
       const matchedBlock = allBlocks.find(
@@ -849,9 +834,9 @@ export const MaterialsDatabase: React.FC = () => {
     if (!activeMaterial) return;
 
     const allBlocks = [
-      ...activeMaterial.prerequisites,
-      ...activeMaterial.core_concepts,
-      ...activeMaterial.worked_examples,
+      ...(activeMaterial.prerequisites || []),
+      ...(activeMaterial.core_concepts || []),
+      ...(activeMaterial.worked_examples || []),
     ];
 
     let rafId: number | null = null;
@@ -1252,9 +1237,9 @@ export const MaterialsDatabase: React.FC = () => {
             <span className="text-[11px] font-semibold text-slate-500 mr-1">Daftar Tag Konsep:</span>
             {(showAllTags ? activeMaterial.allTags : activeMaterial.allTags.slice(0, 8)).map((tag) => {
               const allBlocks = [
-                ...activeMaterial.prerequisites,
-                ...activeMaterial.core_concepts,
-                ...activeMaterial.worked_examples,
+                ...(activeMaterial.prerequisites || []),
+                ...(activeMaterial.core_concepts || []),
+                ...(activeMaterial.worked_examples || []),
               ];
               const isTagActive =
                 activeVisibleTag === tag ||
@@ -1429,7 +1414,7 @@ export const MaterialsDatabase: React.FC = () => {
               </p>
 
               <div className="space-y-6">
-                {activeMaterial.prerequisites.map((block) => {
+                {(activeMaterial.prerequisites || []).map((block) => {
                   const isCollapsed = collapsedBlocks.has(block.tag);
                   return (
                     <div
@@ -1566,7 +1551,7 @@ export const MaterialsDatabase: React.FC = () => {
               </p>
 
               <div className="space-y-6">
-                {activeMaterial.core_concepts.map((block) => {
+                {(activeMaterial.core_concepts || []).map((block) => {
                   const isCollapsed = collapsedBlocks.has(block.tag);
                   return (
                     <div
@@ -1707,7 +1692,7 @@ export const MaterialsDatabase: React.FC = () => {
               </p>
 
               <div className="space-y-6">
-                {activeMaterial.worked_examples.map((block) => {
+                {(activeMaterial.worked_examples || []).map((block) => {
                   const isCollapsed = collapsedBlocks.has(block.tag);
                   return (
                     <div
@@ -1867,9 +1852,9 @@ export const MaterialsDatabase: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-bold">
-                        {activeMaterial.prerequisites.length +
-                          activeMaterial.core_concepts.length +
-                          activeMaterial.worked_examples.length}{' '}
+                        {(activeMaterial.prerequisites?.length || 0) +
+                          (activeMaterial.core_concepts?.length || 0) +
+                          (activeMaterial.worked_examples?.length || 0)}{' '}
                         Blok
                       </span>
                       <button
@@ -1900,11 +1885,11 @@ export const MaterialsDatabase: React.FC = () => {
                       <span>1. Prasyarat</span>
                     </span>
                     <span className="px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[10px] font-semibold font-mono">
-                      {activeMaterial.prerequisites.length} Konsep
+                      {activeMaterial.prerequisites?.length || 0} Konsep
                     </span>
                   </div>
                   <div className="space-y-1">
-                    {activeMaterial.prerequisites.map((p) => {
+                    {(activeMaterial.prerequisites || []).map((p) => {
                       const cleanTitle = (p.title.split(':')[1] || p.title).trim();
                       const isActive = activeVisibleTag === p.tag;
                       return (
@@ -1942,11 +1927,11 @@ export const MaterialsDatabase: React.FC = () => {
                       <span>2. Konsep Inti</span>
                     </span>
                     <span className="px-1.5 py-0.5 bg-sky-100 text-sky-800 rounded text-[10px] font-semibold font-mono">
-                      {activeMaterial.core_concepts.length} Konsep
+                      {activeMaterial.core_concepts?.length || 0} Konsep
                     </span>
                   </div>
                   <div className="space-y-1">
-                    {activeMaterial.core_concepts.map((c) => {
+                    {(activeMaterial.core_concepts || []).map((c) => {
                       const cleanTitle = (c.title.split(':')[1] || c.title).trim();
                       const isActive = activeVisibleTag === c.tag;
                       return (
@@ -1984,11 +1969,11 @@ export const MaterialsDatabase: React.FC = () => {
                       <span>3. Teladan Soal {isCurrentIgcse ? 'IGCSE Exam' : isCurrentSma ? 'Ujian / UTBK' : 'OSN'}</span>
                     </span>
                     <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-semibold font-mono">
-                      {activeMaterial.worked_examples.length} Soal
+                      {activeMaterial.worked_examples?.length || 0} Soal
                     </span>
                   </div>
                   <div className="space-y-1">
-                    {activeMaterial.worked_examples.map((e) => {
+                    {(activeMaterial.worked_examples || []).map((e) => {
                       const cleanTitle = (e.title.split(':')[1] || e.title).trim();
                       const isActive = activeVisibleTag === e.tag;
                       return (
@@ -2275,27 +2260,25 @@ export const MaterialsDatabase: React.FC = () => {
             </span>
           </button>
 
-          {isAdmin && (
-            <button
-              onClick={() => handleDatabaseSwitch('igcse')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 touch-manipulation ${
-                activeDatabase === 'igcse'
-                  ? 'bg-purple-600 text-white shadow-sm border border-purple-500'
-                  : 'text-purple-300 hover:text-white hover:bg-white/10'
+          <button
+            onClick={() => handleDatabaseSwitch('igcse')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer shrink-0 touch-manipulation ${
+              activeDatabase === 'igcse'
+                ? 'bg-purple-600 text-white shadow-sm border border-purple-500'
+                : 'text-purple-300 hover:text-white hover:bg-white/10'
+            }`}
+            title="Cambridge IGCSE Chemistry (0620)"
+          >
+            <GraduationCap className="w-4 h-4 text-purple-200 shrink-0" />
+            <span>Cambridge IGCSE</span>
+            <span
+              className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                activeDatabase === 'igcse' ? 'bg-purple-800 text-purple-100' : 'bg-slate-800 text-purple-300'
               }`}
-              title="Mode Admin Sandbox: Cambridge IGCSE Chemistry (0620)"
             >
-              <SolarLock className="w-4 h-4 text-purple-200 shrink-0" />
-              <span>IGCSE (Admin Preview)</span>
-              <span
-                className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                  activeDatabase === 'igcse' ? 'bg-purple-800 text-purple-100' : 'bg-slate-800 text-purple-300'
-                }`}
-              >
-                {IGCSE_MATERIALS.length} Topik
-              </span>
-            </button>
-          )}
+              {IGCSE_MATERIALS.length} Topik
+            </span>
+          </button>
         </div>
       </div>
 
@@ -2543,21 +2526,21 @@ export const MaterialsDatabase: React.FC = () => {
                       <Lightbulb className="w-3 h-3" />
                       Prasyarat
                     </span>
-                    <span>{material.prerequisites.length} konsep</span>
+                    <span>{material.prerequisites?.length || 0} konsep</span>
                   </div>
                   <div className="flex items-center justify-between text-slate-600 font-medium">
                     <span className={`flex items-center gap-1 font-semibold ${isIgcseCard ? 'text-purple-700' : isSmaCard ? 'text-teal-700' : 'text-sky-700'}`}>
                       <GraduationCap className="w-3 h-3" />
                       Materi Inti
                     </span>
-                    <span>{material.core_concepts.length} konsep</span>
+                    <span>{material.core_concepts?.length || 0} konsep</span>
                   </div>
                   <div className="flex items-center justify-between text-slate-600 font-medium">
                     <span className="flex items-center gap-1 text-emerald-700 font-semibold">
                       <FileCheck className="w-3 h-3" />
                       Contoh Soal
                     </span>
-                    <span>{material.worked_examples.length} soal</span>
+                    <span>{material.worked_examples?.length || 0} soal</span>
                   </div>
                 </div>
               </div>

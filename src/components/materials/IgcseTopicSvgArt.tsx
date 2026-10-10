@@ -124,6 +124,110 @@ export const IgcseTopicSvgArt: React.FC<IgcseTopicSvgArtProps> = ({ topicNumber,
         </svg>
       );
 
+    // ==========================================
+    // TOPIC 2: ATOMS, ELEMENTS & COMPOUNDS (0620 Atomic Structure & Bonding)
+    // ==========================================
+    case 2:
+    case 202:
+      return (
+        <svg
+          viewBox="0 0 400 144"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className={className}
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <DotGrid id="igcse-t2-grid" />
+          </defs>
+          <rect width="400" height="144" fill="#ffffff" />
+          <rect width="400" height="144" fill="url(#igcse-t2-grid)" />
+
+          {/* Background subtle curve */}
+          <path
+            d="M 10 115 Q 50 90, 90 115 T 170 115 T 250 115 T 330 115 T 400 115"
+            stroke="#f1f5f9"
+            strokeWidth="1.5"
+            fill="none"
+          />
+
+          {/* Panel 1: ATOM (Bohr Shell Model) */}
+          <g transform="translate(35, 20)">
+            <rect x="0" y="0" width="90" height="92" rx="6" fill="#f8fafc" stroke="#1f2937" strokeWidth="1.6" />
+            <rect x="0" y="92" width="90" height="18" rx="3" fill="#e2e8f0" stroke="#1f2937" strokeWidth="1.2" />
+            <text x="45" y="104" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="8.5" fill="#1f2937">BOHR ATOM</text>
+            {/* Shell orbits */}
+            <circle cx="45" cy="46" r="32" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" fill="none" />
+            <circle cx="45" cy="46" r="18" stroke="#94a3b8" strokeWidth="1" strokeDasharray="3 3" fill="none" />
+            {/* Nucleus */}
+            <circle cx="45" cy="46" r="8" fill="#f5a3a3" stroke="#1f2937" strokeWidth="1.2" />
+            <text x="45" y="49" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="7" fill="#1f2937">+</text>
+            {/* Inner electrons */}
+            <circle cx="45" cy="28" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="1" />
+            <circle cx="45" cy="64" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="1" />
+            {/* Outer electrons */}
+            <circle cx="13" cy="46" r="3" fill="#8fd3ef" stroke="#1f2937" strokeWidth="1" />
+            <circle cx="77" cy="46" r="3" fill="#8fd3ef" stroke="#1f2937" strokeWidth="1" />
+            <circle cx="45" cy="14" r="3" fill="#8fd3ef" stroke="#1f2937" strokeWidth="1" />
+            <circle cx="45" cy="78" r="3" fill="#8fd3ef" stroke="#1f2937" strokeWidth="1" />
+          </g>
+
+          {/* Plus Sign */}
+          <text x="140" y="70" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="16" fill="#64748b">+</text>
+
+          {/* Panel 2: IONIC LATTICE (Alternating Na+ / Cl-) */}
+          <g transform="translate(155, 20)">
+            <rect x="0" y="0" width="90" height="92" rx="6" fill="#f8fafc" stroke="#1f2937" strokeWidth="1.6" />
+            <rect x="0" y="92" width="90" height="18" rx="3" fill="#e2e8f0" stroke="#1f2937" strokeWidth="1.2" />
+            <text x="45" y="104" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="8.5" fill="#1f2937">IONIC LATTICE</text>
+            {/* Alternating ions 3x3 */}
+            <g stroke="#1f2937" strokeWidth="1.2">
+              <circle cx="22" cy="24" r="7" fill="#b5efb0" />
+              <circle cx="45" cy="24" r="9" fill="#8fd3ef" />
+              <circle cx="68" cy="24" r="7" fill="#b5efb0" />
+
+              <circle cx="22" cy="46" r="9" fill="#8fd3ef" />
+              <circle cx="45" cy="46" r="7" fill="#b5efb0" />
+              <circle cx="68" cy="46" r="9" fill="#8fd3ef" />
+
+              <circle cx="22" cy="68" r="7" fill="#b5efb0" />
+              <circle cx="45" cy="68" r="9" fill="#8fd3ef" />
+              <circle cx="68" cy="68" r="7" fill="#b5efb0" />
+            </g>
+          </g>
+
+          {/* Arrow */}
+          <g transform="translate(255, 66)">
+            <path d="M 0 0 L 14 0" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+            <path d="M 10 -4 L 16 0 L 10 4" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+
+          {/* Panel 3: METALLIC (Sea of Electrons) */}
+          <g transform="translate(278, 20)">
+            <rect x="0" y="0" width="76" height="92" rx="6" fill="#f8fafc" stroke="#1f2937" strokeWidth="1.6" />
+            <rect x="0" y="92" width="76" height="18" rx="3" fill="#e2e8f0" stroke="#1f2937" strokeWidth="1.2" />
+            <text x="38" y="104" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="8.5" fill="#1f2937">METALLIC</text>
+            {/* Cations and sea of electrons */}
+            <circle cx="22" cy="30" r="9" fill="#cfd4d9" stroke="#1f2937" strokeWidth="1.2" />
+            <circle cx="54" cy="30" r="9" fill="#cfd4d9" stroke="#1f2937" strokeWidth="1.2" />
+            <circle cx="22" cy="62" r="9" fill="#cfd4d9" stroke="#1f2937" strokeWidth="1.2" />
+            <circle cx="54" cy="62" r="9" fill="#cfd4d9" stroke="#1f2937" strokeWidth="1.2" />
+            {/* Delocalised electrons */}
+            <circle cx="38" cy="30" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="0.8" />
+            <circle cx="22" cy="46" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="0.8" />
+            <circle cx="54" cy="46" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="0.8" />
+            <circle cx="38" cy="62" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="0.8" />
+            <circle cx="38" cy="46" r="3" fill="#fde58a" stroke="#1f2937" strokeWidth="0.8" />
+          </g>
+
+          {/* Cambridge Badge / Tag */}
+          <g transform="translate(345, 14)">
+            <rect x="0" y="0" width="46" height="20" rx="4" fill="#f3e8ff" stroke="#7e22ce" strokeWidth="1" />
+            <text x="23" y="14" textAnchor="middle" fontFamily="'Comic Neue', sans-serif" fontWeight="700" fontSize="8.5" fill="#6b21a8">CIE 0620</text>
+          </g>
+        </svg>
+      );
+
     default:
       return (
         <svg

@@ -1568,11 +1568,12 @@ $$\\\\mathbf{\\\\text{pH} = -\\\\log[\\\\ce{H+}] = -\\\\log(1.00 \\\\times 10^{-
 1. **Mol $\\\\ce{NaOH}$ yang masuk:**
    $$n_{\\\\ce{NaOH}} = 40.0\\\\text{ mL} \\\\times 0.100\\\\text{ M} = 4.00\\\\text{ mmol}$$
 2. **Tabel Stoikiometri Reaksi Netralisasi (mmol):**
-   | Spesi | $\\\\ce{HCl(aq)}$ | $\\\\ce{NaOH(aq)}$ | $\\\\ce{NaCl(aq)}$ | $\\\\ce{H2O(l)}$ |
-   | :--- | :---: | :---: | :---: | :---: |
-   | **Mula-mula** | $5.00$ | $4.00$ | $0$ | $-$ |
-   | **Bereaksi** | $-4.00$ | $-4.00$ | $+4.00$ | $+4.00$ |
-   | **Sisa** | $\\\\mathbf{1.00}$ | $\\\\mathbf{0.00}$ | $4.00$ | $-$ |
+
+| Spesi | $\\ce{HCl(aq)}$ | $\\ce{NaOH(aq)}$ | $\\ce{NaCl(aq)}$ | $\\ce{H2O(l)}$ |
+| :--- | :---: | :---: | :---: | :---: |
+| **Mula-mula** | $5.00$ | $4.00$ | $0$ | $-$ |
+| **Bereaksi** | $-4.00$ | $-4.00$ | $+4.00$ | $+4.00$ |
+| **Sisa** | $\\mathbf{1.00}$ | $\\mathbf{0.00}$ | $4.00$ | $-$ |
 3. **Volume Total Campuran Baru:**
    $$V_{\\\\text{total}} = 50.0\\\\text{ mL} + 40.0\\\\text{ mL} = \\\\mathbf{90.0\\\\text{ mL}}$$
 4. **Konsentrasi Sisa Ion $[\\\\ce{H+}]$ dalam Larutan:**
@@ -1798,29 +1799,31 @@ $$\\\\text{pH} = \\\\text{p}K_a + \\\\log\\\\left(\\\\frac{n_{\\\\ce{HCOO-}}}{n_
    Ion format bereaksi menangkap proton $\\\\ce{H+}$:
    $$\\\\ce{HCOO-(aq) + H+(aq) -> HCOOH(aq)}$$
 3. **Tabel Stoikiometri Mol (mmol):**
-   | Komponen | $\\\\ce{HCOO-}$ | $\\\\ce{H+}$ | $\\\\ce{HCOOH}$ |
-   | :--- | :---: | :---: | :---: |
-   | **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
-   | **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
-   | **Sisa** | $\\\\mathbf{45.0}$ | $\\\\mathbf{0.00}$ | $\\\\mathbf{55.0}$ |
+
+| Komponen | $\\ce{HCOO-}$ | $\\ce{H+}$ | $\\ce{HCOOH}$ |
+| :--- | :---: | :---: | :---: |
+| **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
+| **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
+| **Sisa** | $\\mathbf{45.0}$ | $\\mathbf{0.00}$ | $\\mathbf{55.0}$ |
 4. **Perhitungan pH Baru:**
-   $$\\\\text{pH} = 3.745 + \\\\log\\\\left(\\\\frac{45.0}{55.0}\\\\right) = 3.745 + \\\\log(0.8182) = 3.745 - 0.087 = \\\\mathbf{3.658 \\\\approx 3.66}$$
-   *(Perubahan pH hanya $\\\\Delta\\\\text{pH} = 3.66 - 3.74 = -0.08$, membuktikan resistensi buffer yang luar biasa! Bandingkan jika $5\\\\text{ mmol } \\\\ce{HCl}$ ditambahkan ke air murni, pH akan anjlok drastis dari $7.00$ ke $2.00$)*.
+   $$\\text{pH} = 3.745 + \\log\\left(\\frac{45.0}{55.0}\\right) = 3.745 + \\log(0.8182) = 3.745 - 0.087 = \\mathbf{3.658 \\approx 3.66}$$
+   *(Perubahan pH hanya $\\Delta\\text{pH} = 3.66 - 3.74 = -0.08$, membuktikan resistensi buffer yang luar biasa! Bandingkan jika $5\\text{ mmol } \\ce{HCl}$ ditambahkan ke air murni, pH akan anjlok drastis dari $7.00$ ke $2.00$)*.
 
 ---
 
-#### Langkah 3: Pengaruh Penambahan $5.00\\\\text{ mL } \\\\ce{NaOH } 1.00\\\\text{ M}$
-1. **Mol ion $\\\\ce{OH-}$ yang masuk:**
-   $$n_{\\\\ce{OH-}} = 5.00\\\\text{ mL} \\\\times 1.00\\\\text{ mmol/mL} = \\\\mathbf{5.00\\\\text{ mmol}}$$
+#### Langkah 3: Pengaruh Penambahan $5.00\\text{ mL } \\ce{NaOH } 1.00\\text{ M}$
+1. **Mol ion $\\ce{OH-}$ yang masuk:**
+   $$n_{\\ce{OH-}} = 5.00\\text{ mL} \\times 1.00\\text{ mmol/mL} = \\mathbf{5.00\\text{ mmol}}$$
 2. **Reaksi Penetralan oleh Komponen Asam Lemah:**
    Asam format mendonorkan proton untuk menetralkan ion hidroksida:
-   $$\\\\ce{HCOOH(aq) + OH-(aq) -> HCOO-(aq) + H2O(l)}$$
+   $$\\ce{HCOOH(aq) + OH-(aq) -> HCOO-(aq) + H2O(l)}$$
 3. **Tabel Stoikiometri Mol (mmol):**
-   | Komponen | $\\\\ce{HCOOH}$ | $\\\\ce{OH-}$ | $\\\\ce{HCOO-}$ |
-   | :--- | :---: | :---: | :---: |
-   | **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
-   | **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
-   | **Sisa** | $\\\\mathbf{45.0}$ | $\\\\mathbf{0.00}$ | $\\\\mathbf{55.0}$ |
+
+| Komponen | $\\ce{HCOOH}$ | $\\ce{OH-}$ | $\\ce{HCOO-}$ |
+| :--- | :---: | :---: | :---: |
+| **Mula-mula** | $50.0$ | $5.00$ | $50.0$ |
+| **Bereaksi** | $-5.00$ | $-5.00$ | $+5.00$ |
+| **Sisa** | $\\mathbf{45.0}$ | $\\mathbf{0.00}$ | $\\mathbf{55.0}$ |
 4. **Perhitungan pH Baru:**
    $$\\\\text{pH} = 3.745 + \\\\log\\\\left(\\\\frac{55.0}{45.0}\\\\right) = 3.745 + \\\\log(1.222) = 3.745 + 0.087 = \\\\mathbf{3.832 \\\\approx 3.83}$$
    *(Perubahan pH hanya $\\\\Delta\\\\text{pH} = +0.09$, sistem buffer berhasil menjaga kestabilan pH)*.

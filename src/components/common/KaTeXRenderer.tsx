@@ -17,18 +17,16 @@ export const KaTeXRenderer = React.memo<KaTeXRendererProps>(({
   const renderedHtml = useMemo(() => {
     if (!content) return '';
 
-    const normalizedContent = normalizeLatexBackslashes(content);
-
     // If it's a single formula without delimiters (e.g. \ce{H2SO4})
-    if (normalizedContent.startsWith('\\ce{') || normalizedContent.startsWith('\\Delta') || normalizedContent.startsWith('\\rightleftharpoons')) {
-      return renderKaTeX(normalizedContent, !inlineOnly);
+    if (content.startsWith('\\ce{') || content.startsWith('\\Delta') || content.startsWith('\\rightleftharpoons')) {
+      return renderKaTeX(normalizeLatexBackslashes(content), !inlineOnly);
     }
 
     if (inlineOnly) {
-      return renderInlineText(normalizedContent);
+      return renderInlineText(normalizeLatexBackslashes(content));
     }
 
-    return parseAndRenderMixedText(normalizedContent);
+    return parseAndRenderMixedText(content);
   }, [content, inlineOnly]);
 
   if (inlineOnly) {

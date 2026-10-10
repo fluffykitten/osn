@@ -1,6 +1,6 @@
 // KaTeX and mhchem helpers for OSN Kimia Mastery
 import katex from 'katex';
-import 'katex/dist/contrib/mhchem';
+import 'katex/contrib/mhchem';
 
 export interface InsertSnippetOptions {
   prefix?: string;
@@ -241,6 +241,15 @@ export function normalizeLatexBackslashes(text: string): string {
     .replace(/\\pi\^\*_\{([^}]+)\}\^([0-9]+)/g, '{\\pi^*_{$1}}^{$2}')
     .replace(/(?<!\\)\bce\{/g, '\\ce{')
     .replace(/\\text\{([^{}]*?)\\ce\{([^{}]*?)\}([^{}]*?)\}/g, '\\text{$1}\\;\\ce{$2}\\;\\text{$3}')
+    // Normalisasi panah gas lepas (misal: H2(g)^ atau CO2(g)^ -> H2(g) (\uparrow))
+    .replace(/(\b[A-Za-z0-9]+\(g\))\s*\^/g, '$1 (\\uparrow)')
+    .replace(/(\(g\))\^/g, '$1 (\\uparrow)')
+    .replace(/(\b[A-Za-z0-9]+)\s+\^([\}\$,]|\s*$)/g, '$1 (\\uparrow)$2')
+    // Normalisasi alignment tab & di dalam \ce{...} (misal: \ce{A &<=> B} -> \ce{A} &<=> \ce{B})
+    .replace(/\\ce\{([^{}]*?)&([<>=]+)([^{}]*?)\}/g, '\\ce{$1} &$2 \\ce{$3}')
+    .replace(/\\ce\{([^{}]*?)&([^{}]*?)\}/g, '\\ce{$1} & \\ce{$2}')
+    // Normalisasi pemotongan enzimatis # (misal: -Lys # X-)
+    .replace(/\\ce\{([A-Za-z0-9_-]+)\s*#\s*([A-Za-z0-9_-]+)\}/g, '\\text{$1}\\!\\#\\!\\text{$2}')
     .replace(/\\ce\{([A-Za-z0-9_-]+)-([A-Za-z0-9_-]+)#([A-Za-z0-9_-]+)\}/g, '\\ce{$1-$2}\\equiv\\ce{$3}')
     .replace(/\\ce\{([A-Za-z0-9_-]+)#([A-Za-z0-9_-]+)\}/g, '\\ce{$1}\\equiv\\ce{$2}')
     .replace(/#\\ce\{/g, '\\equiv \\ce{');
@@ -308,12 +317,11 @@ export function preprocessFriendlyFormula(rawText: string): {
 } {
   if (!rawText) return { text: '', protectedMath: [], protectedSvg: [] };
 
-  let t = normalizeLatexBackslashes(rawText);
   const protectedMath: ProtectedMathItem[] = [];
   const protectedSvg: string[] = [];
 
   // Protect raw SVG or svg code blocks before chemical/math regexes touch attributes
-  t = t.replace(/(?:```(?:svg|xml|html)?\s*)?(<svg[\s\S]*?<\/svg>)(?:\s*```)?/gi, (_, svg) => {
+  let t = rawText.replace(/(?:```(?:svg|xml|html)?\s*)?(<svg[\s\S]*?<\/svg>)(?:\s*```)?/gi, (_, svg) => {
     const id = protectedSvg.length;
     protectedSvg.push(svg.trim());
     return `\n\n___PROTECTED_SVG_${id}___\n\n`;
@@ -334,6 +342,8 @@ export function preprocessFriendlyFormula(rawText: string): {
     protectedSvg.push(block);
     return `\n\n___PROTECTED_SVG_${id}___\n\n`;
   });
+
+  t = normalizeLatexBackslashes(t);
 
   const stash = (mathContent: string, isDisplay = false): string => {
     const id = protectedMath.length;
@@ -491,8 +501,9 @@ export function parseAndRenderMixedText(rawText: string): string {
 
   const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(rawText);
 
-  // Normalize markdown headings, steps, and tables so they form isolated blocks and do not bleed into lists or paragraphs
+  // Normalize markdown headings, steps, tables, and callouts so they form isolated blocks and do not bleed into lists or paragraphs
   const normalized = text
+    .replace(/([^\n])\n(\s*(?:>\s*)?\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\])/gi, '$1\n\n$2')
     .replace(/([^\n])\n(#{1,5}\s+[^\n]+)/g, (match, p1, p2) => {
       if (p1.trim().startsWith('>') || p2.trim().startsWith('>')) return match;
       if (/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(p1)) return match;
@@ -502,8 +513,8 @@ export function parseAndRenderMixedText(rawText: string): string {
       if (p1.trim().startsWith('>') || p2.trim().startsWith('>')) return match;
       return `${p1}\n\n${p2}`;
     })
-    .replace(/([^\n])\n(\|[^\n]+\|\s*\n\s*\|[-:\s|]+\|)/g, '$1\n\n$2')
-    .replace(/(\|[^\n]+\|)\n([^\n|])/g, '$1\n\n$2')
+    .replace(/([^\n])\n(\s*\|[^\n]+\|\s*\n\s*\|[-:\s|]+\|)/g, '$1\n\n$2')
+    .replace(/(\s*\|[^\n]+\|)\n([^\n|])/g, '$1\n\n$2')
     .replace(/([^\n])\n(\*\*Kesimpulan(?:\s+Evaluator)?\s+Juri:?\*\*)/gi, '$1\n\n$2');
 
   // Markdown inline formatting: bold, italic, inline-code

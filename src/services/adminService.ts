@@ -458,6 +458,22 @@ class AdminService {
     userId: string,
     adminEmail = 'fluffykitten.dev@gmail.com'
   ): Promise<{ success: boolean; error?: string }> {
+    // 1. Konfirmasi email langsung di Supabase Auth (auth.users)
+    const adminClient = getAdminAuthClient();
+    if (adminClient) {
+      try {
+        const { error } = await adminClient.auth.admin.updateUserById(userId, {
+          email_confirm: true,
+        });
+        if (error) {
+          console.warn('[AdminService] Supabase admin updateUserById error:', error.message);
+        }
+      } catch (err: any) {
+        console.warn('[AdminService] Supabase admin activateUser error:', err?.message);
+      }
+    }
+
+    // 2. Perbarui status profil di tabel profiles
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
@@ -470,6 +486,7 @@ class AdminService {
       }
     }
 
+    // 3. Perbarui cache pengguna lokal
     const localUsers = this.getLocalUsers();
     const idx = localUsers.findIndex((u) => u.id === userId);
     let targetEmail = '';
@@ -500,12 +517,35 @@ class AdminService {
   ): Promise<{ success: boolean; tempPassword?: string; error?: string }> {
     const tempPass = newPassword || `OSN${Math.floor(100000 + Math.random() * 900000)}`;
 
-    const supabase = getSupabaseClient();
-    if (supabase) {
+    // 1. Terapkan kata sandi baru langsung di Supabase Auth (auth.users)
+    const adminClient = getAdminAuthClient();
+    let updatedInAuth = false;
+
+    if (adminClient) {
       try {
-        await supabase.auth.resetPasswordForEmail(userEmail);
-      } catch (e) {
-        // Fallback
+        const { error } = await adminClient.auth.admin.updateUserById(userId, {
+          password: tempPass,
+          email_confirm: true,
+        });
+        if (error) {
+          console.warn('[AdminService] admin updateUserById error:', error.message);
+        } else {
+          updatedInAuth = true;
+        }
+      } catch (err: any) {
+        console.warn('[AdminService] admin reset password exception:', err?.message);
+      }
+    }
+
+    // 2. Jika adminClient tidak tersedia atau gagal, fallback kirim email reset password
+    if (!updatedInAuth) {
+      const supabase = getSupabaseClient();
+      if (supabase) {
+        try {
+          await supabase.auth.resetPasswordForEmail(userEmail);
+        } catch (e) {
+          // Fallback
+        }
       }
     }
 
@@ -515,7 +555,7 @@ class AdminService {
       action_type: 'PASSWORD_RESET',
       target_resource: `users/${userId}`,
       description: `Mereset kata sandi akun ${userEmail}`,
-      details: { tempPasswordUsed: tempPass },
+      details: { tempPasswordUsed: tempPass, updatedInAuth },
     });
 
     return { success: true, tempPassword: tempPass };

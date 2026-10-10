@@ -187,3 +187,26 @@
   contain-intrinsic-size: 0 420px;
 }
 
+/* Enhanced Fraction & Formula Readability (Anti-Cramped Fractions) */
+.katex {
+  font-size: 1.05em;
+}
+
+.katex .mfrac {
+  font-size: 1.15em;
+  vertical-align: -0.22em;
+  margin: 0 0.15em;
+}
+
+.katex .mfrac .vlist-t {
+  margin: 0.18em 0;
+}
+
+.katex .mfrac .frac-line {
+  border-bottom-width: 0.055em !important;
+}
+
+.katex .mfrac > span > span {
+  padding: 0.06em 0.12em;
+}
+
