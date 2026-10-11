@@ -16,6 +16,7 @@ import {
   IGCSE_TOPIC_8,
   IGCSE_TOPIC_9,
   IGCSE_TOPIC_10,
+  IGCSE_TOPIC_11,
 } from './materials/igcse/index.ts';
 
 export type { ConceptBlock, MaterialItem, CheckpointQuizItem };
@@ -38,6 +39,7 @@ export {
   IGCSE_TOPIC_8,
   IGCSE_TOPIC_9,
   IGCSE_TOPIC_10,
+  IGCSE_TOPIC_11,
 };
 
 export const IGCSE_MATERIALS: MaterialItem[] = IGCSE_MATERIALS_ALL;

@@ -12,6 +12,7 @@ import { IGCSE_TOPIC_7 } from './igcseTopic07.ts';
 import { IGCSE_TOPIC_8 } from './igcseTopic08.ts';
 import { IGCSE_TOPIC_9 } from './igcseTopic09.ts';
 import { IGCSE_TOPIC_10 } from './igcseTopic10.ts';
+import { IGCSE_TOPIC_11 } from './igcseTopic11.ts';
 import type { MaterialItem } from '../../materialsData';
 
 export {
@@ -25,6 +26,7 @@ export {
   IGCSE_TOPIC_8,
   IGCSE_TOPIC_9,
   IGCSE_TOPIC_10,
+  IGCSE_TOPIC_11,
 };
 
 export const IGCSE_MATERIALS_ALL: MaterialItem[] = [
@@ -38,6 +40,7 @@ export const IGCSE_MATERIALS_ALL: MaterialItem[] = [
   IGCSE_TOPIC_8,
   IGCSE_TOPIC_9,
   IGCSE_TOPIC_10,
+  IGCSE_TOPIC_11,
 ];
 
 
