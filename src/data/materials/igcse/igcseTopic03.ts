@@ -270,7 +270,7 @@ In aqueous reactions, soluble ionic compounds completely dissociate into mobile 
 - **Precipitation of barium sulfate**:
   $$\\ce{BaCl2(aq) + Na2SO4(aq) -> BaSO4(s) + 2NaCl(aq)}$$
   Net ionic:
-  $$\\mathbf{\\ce{Ba^{2+}(aq) + SO4^{2-}(aq) -> BaSO4(s)}}`,
+  $$\\mathbf{\\ce{Ba^{2+}(aq) + SO4^{2-}(aq) -> BaSO4(s)}}$$`,
       checkpointQuizzes: [
         {
           id: 'chk-igcse-03-fe-q1',
@@ -784,7 +784,7 @@ $$\\ce{2NaOH(aq) + H2SO4(aq) -> Na2SO4(aq) + 2H2O(l)}$$
    $$V(\\ce{NaOH}) = \\frac{25.0}{1000} = 0.0250\\text{ dm}^3$$
    $$c(\\ce{NaOH}) = \\frac{2.00 \\times 10^{-3}\\text{ mol}}{0.0250\\text{ dm}^3} = \\mathbf{0.080\\text{ mol/dm}^3}$$
 4. **Extension**: In $\\text{g/dm}^3$:
-   $$\\rho(\\ce{NaOH}) = 0.080\\text{ mol/dm}^3 \\times 40\\text{ g/mol} = \\mathbf{3.2\\text{ g/dm}^3}`,
+   $$\\rho(\\ce{NaOH}) = 0.080\\text{ mol/dm}^3 \\times 40\\text{ g/mol} = \\mathbf{3.2\\text{ g/dm}^3}$$`,
       checkpointQuizzes: [
         {
           id: 'chk-igcse-03-conc-q1',
@@ -913,7 +913,7 @@ Many ionic salts trap a fixed number of water molecules inside their crystalline
 2. Cool and reweigh. **Repeat heating until mass is constant** (ensuring all water has evaporated).
 3. Mass of water lost $= \\text{Hydrated mass} - \\text{Constant anhydrous mass}$.
 4. Calculate:
-   $$x = \\frac{\\text{moles of } \\ce{H2O}}{\\text{moles of anhydrous salt}}`,
+   $$x = \\frac{\\text{moles of } \\ce{H2O}}{\\text{moles of anhydrous salt}}$$`,
       checkpointQuizzes: [
         {
           id: 'chk-igcse-03-ef-q1',
@@ -1040,7 +1040,7 @@ $$\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)}$$
 2. Moles of pure $\\ce{CaCO3} = 0.20\\text{ mol}$.
 3. Pure mass of $\\ce{CaCO3} = 0.20\\text{ mol} \\times 100\\text{ g/mol} = 20.0\\text{ g}$.
 4. Percentage purity of limestone:
-   $$\\text{Purity} = \\frac{20.0\\text{ g}}{25.0\\text{ g}} \\times 100\\% = \\mathbf{80.0\\%}`,
+   $$\\text{Purity} = \\frac{20.0\\text{ g}}{25.0\\text{ g}} \\times 100\\% = \\mathbf{80.0\\%}$$`,
       checkpointQuizzes: [
         {
           id: 'chk-igcse-03-yp-q1',

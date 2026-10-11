@@ -765,10 +765,10 @@ Candidates must be able to draw or deduce dot-and-cross representations showing 
   - Each chlorine atom retains $3$ non-bonding lone pairs ($6$ non-bonding electrons).
 - **Oxygen ($\\ce{O2}$)**:
   - Each $\\ce{O}$ atom ($2, 6$) needs $2$ electrons; shares $2$ pairs of electrons ($4$ shared electrons in total).
-  - Forms a **double covalent bond** ($\ce{O=O}$); each oxygen has $2$ lone pairs.
+  - Forms a **double covalent bond** ($\\ce{O=O}$); each oxygen has $2$ lone pairs.
 - **Nitrogen ($\\ce{N2}$)**:
   - Each $\\ce{N}$ atom ($2, 5$) needs $3$ electrons; shares $3$ pairs of electrons ($6$ shared electrons).
-  - Forms a **triple covalent bond** ($\ce{N#N}$); each nitrogen has $1$ lone pair.
+  - Forms a **triple covalent bond** ($\\ce{N \\equiv N}$); each nitrogen has $1$ lone pair.
 
 #### 2. Inorganic Hydrides & Halides
 - **Hydrogen Chloride ($\\ce{HCl}$)**:

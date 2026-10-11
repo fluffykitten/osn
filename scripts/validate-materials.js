@@ -20,6 +20,7 @@ import { OSN_MATERIALS } from '../src/data/materialsData.ts';
 import { SMA_MATERIALS_FASE_E } from '../src/data/materials/smaFaseE.ts';
 import { SMA_MATERIALS_FASE_F1 } from '../src/data/materials/smaFaseF1.ts';
 import { SMA_MATERIALS_FASE_F2 } from '../src/data/materials/smaFaseF2.ts';
+import { IGCSE_MATERIALS } from '../src/data/igcseMaterialsData.ts';
 
 const ALL_SMA_MATERIALS = [
   ...SMA_MATERIALS_FASE_E,
@@ -214,6 +215,9 @@ OSN_MATERIALS.forEach((m) => validateMaterial(m, 'OSN'));
 
 console.log('📌 Memvalidasi 16 Modul Silabus Kimia SMA (Fase E & F)...');
 ALL_SMA_MATERIALS.forEach((m) => validateMaterial(m, 'SMA'));
+
+console.log('📌 Memvalidasi Modul Cambridge IGCSE Chemistry (0620)...');
+IGCSE_MATERIALS.forEach((m) => validateMaterial(m, 'IGCSE'));
 
 console.log('\n' + '='.repeat(60));
 console.log('📊 HASIL PENGUJIAN JAMINAN MUTU KONTEN (QA REPORT)');
