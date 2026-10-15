@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { SubjectProvider } from './contexts/SubjectContext';
 import { WhiteboardHeaderProvider } from './contexts/WhiteboardHeaderContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LevelUpModal } from './components/gamification/LevelUpModal';
@@ -238,10 +239,13 @@ function AppContent() {
           <Route path="/roadmap" element={<Navigate to="/practice" replace />} />
           <Route path="/syllabus" element={<Navigate to="/practice" replace />} />
 
-          {/* Database Materi OSN Kimia & Materi Dasar SMA (Dapat Diakses Bebas & Pratinjau Admin Langsung) */}
+          {/* Database Materi Sains & Matematika (Legacy & Modular /:subject/materi) */}
           <Route path="/materi" element={<MaterialsDatabase />} />
           <Route path="/materi/sma/:id" element={<MaterialsDatabase />} />
           <Route path="/materi/:id" element={<MaterialsDatabase />} />
+          <Route path="/:subject/materi" element={<MaterialsDatabase />} />
+          <Route path="/:subject/materi/sma/:id" element={<MaterialsDatabase />} />
+          <Route path="/:subject/materi/:id" element={<MaterialsDatabase />} />
 
           {/* Student Experience */}
           {/* Dashboard Utama Siswa (Wajib Siswa & Kelas Aktif) */}
@@ -299,6 +303,16 @@ function AppContent() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/:subject/worksheet"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <StudentWorksheetList />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
           {/* Halaman Detail Kelas Khusus Siswa */}
           <Route
             path="/student/classes/:id"
@@ -327,6 +341,16 @@ function AppContent() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/:subject/worksheet/:type/:id"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <Worksheet />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
 
           {/* Redirect Rute Profil Lama ke Student Progress Report */}
           <Route path="/profile" element={<Navigate to="/student/progress" replace />} />
@@ -335,6 +359,16 @@ function AppContent() {
           {/* Fitur Bank Soal (Dapat Diakses Siswa & Guru) */}
           <Route
             path="/practice"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <PracticeBank />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/:subject/practice"
             element={
               <RequireAuth>
                 <RequireClassroom>
@@ -354,7 +388,18 @@ function AppContent() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/:subject/practice/:database/:topicId"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <PracticeTopicDetail />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
           <Route path="/bank-soal" element={<Navigate to="/practice" replace />} />
+          <Route path="/:subject/bank-soal" element={<Navigate to="/:subject/practice" replace />} />
 
           {/* Teacher Studio & Classroom Management (Khusus Guru & Admin) */}
           <Route
@@ -562,7 +607,9 @@ export function App() {
       <ThemeProvider>
         <AuthProvider>
           <WhiteboardHeaderProvider>
-            <AppContent />
+            <SubjectProvider>
+              <AppContent />
+            </SubjectProvider>
           </WhiteboardHeaderProvider>
         </AuthProvider>
       </ThemeProvider>

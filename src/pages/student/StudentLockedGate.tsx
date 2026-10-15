@@ -98,12 +98,6 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
       return;
     }
 
-    // Aturan 1 Siswa 1 Kelas: Cek apakah sudah ada kelas pending atau aktif
-    if (activeClassroom || pendingClassroom) {
-      setErrorMessage('Anda sudah terdaftar atau memiliki pengajuan di kelas lain. Siswa hanya diperbolehkan bergabung dalam 1 kelas.');
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {

@@ -20,7 +20,8 @@ import {
   Phone,
   GraduationCap,
   Building2,
-  Clock
+  Clock,
+  Plus
 } from 'lucide-react';
 
 export const StudentSettings: React.FC = () => {
@@ -127,12 +128,6 @@ export const StudentSettings: React.FC = () => {
 
     if (!user?.email) {
       setClassError('Sesi login tidak valid.');
-      return;
-    }
-
-    // Single Classroom Enforcement: Cek apakah sudah ada kelas
-    if (classrooms.length > 0) {
-      setClassError('Anda sudah terdaftar di kelas lain. Setiap siswa hanya diperbolehkan mengikuti 1 kelas binaan.');
       return;
     }
 
@@ -417,55 +412,83 @@ export const StudentSettings: React.FC = () => {
             </div>
           )}
 
-          {/* Aturan 1 Siswa 1 Kelas */}
-          {studentClassroom ? (
+          {/* Daftar Seluruh Kelas Binaan Siswa */}
+          {classrooms.length > 0 ? (
             <div className="space-y-4">
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                      Kelas Terdaftar
-                    </span>
-                    <h3 className="text-lg font-bold text-slate-900 mt-0.5">
-                      {studentClassroom.name}
-                    </h3>
-                  </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                      studentClassroom.user_membership_status === 'active'
-                        ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                        : 'bg-amber-100 text-amber-800 border-amber-300'
-                    }`}
-                  >
-                    {studentClassroom.user_membership_status === 'active'
-                      ? '✓ Terverifikasi Aktif'
-                      : '⏳ Menunggu Persetujuan Guru'}
-                  </span>
-                </div>
+              <div className="grid grid-cols-1 gap-3">
+                {classrooms.map((cls) => {
+                  const subjectList = cls.subjects && cls.subjects.length > 0 ? cls.subjects : ['kimia'];
+                  const isActive = cls.user_membership_status === 'active';
+                  return (
+                    <div
+                      key={cls.id}
+                      className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-slate-300 transition-all"
+                    >
+                      <div className="space-y-1">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {subjectList.map((sub) => (
+                            <span
+                              key={sub}
+                              className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-700"
+                            >
+                              {sub}
+                            </span>
+                          ))}
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                              isActive
+                                ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                : 'bg-amber-100 text-amber-800 border-amber-300'
+                            }`}
+                          >
+                            {isActive ? '✓ Aktif' : '⏳ Menunggu Persetujuan Guru'}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-slate-900">{cls.name}</h4>
+                        <p className="text-xs text-slate-500">
+                          Guru Pembina: <span className="font-semibold text-slate-700">{cls.teacher_name || 'Pembina OSN'}</span>
+                        </p>
+                      </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-2">
-                  <div className="bg-white p-3 rounded-xl border border-slate-200/80">
-                    <span className="text-slate-500">Kode Kelas:</span>
-                    <div className="font-mono font-bold text-sky-800 mt-0.5">{studentClassroom.code}</div>
-                  </div>
-                  <div className="bg-white p-3 rounded-xl border border-slate-200/80">
-                    <span className="text-slate-500">Guru Pembina:</span>
-                    <div className="font-semibold text-slate-800 mt-0.5">
-                      {studentClassroom.teacher_name || 'Pembina OSN Kimia'}
+                      <div className="text-right sm:shrink-0">
+                        <span className="text-[11px] text-slate-400 block">Kode Kelas</span>
+                        <span className="font-mono font-bold text-xs text-sky-800 bg-white px-2 py-1 rounded-lg border border-slate-200/80 inline-block mt-0.5">
+                          {cls.code}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
 
-              {/* Single Classroom Policy Notice */}
-              <div className="p-4 bg-sky-50 border border-sky-200 rounded-2xl text-xs text-sky-900 flex items-start gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-700 shrink-0 mt-0.5" />
-                <div className="leading-relaxed">
-                  <strong>Kebijakan 1 Kelas Binaan:</strong> Sistem OSN Kimia Mastery membatasi setiap siswa hanya dapat terdaftar pada 1 kelas pembina aktif agar pelaporan dan pemantauan tugas terfokus. Jika Anda ingin berpindah kelas atau salah memasukkan kode, silakan hubungi Guru Pembina atau Administrator di{' '}
-                  <a href="mailto:fluffykitten.dev@gmail.com" className="font-bold underline text-sky-800">
-                    fluffykitten.dev@gmail.com
-                  </a>.
-                </div>
+              {/* Form Tambah Kelas Baru */}
+              <div className="pt-4 border-t border-slate-100 space-y-3">
+                <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <Plus className="w-4 h-4 text-sky-600" />
+                  <span>Gabung Kelas Binaan Baru / Buka Subjek Lainnya</span>
+                </h4>
+                <form onSubmit={handleJoinClass} className="space-y-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={joinClassCode}
+                      onChange={(e) => setJoinClassCode(e.target.value.toUpperCase())}
+                      placeholder="Masukkan kode kelas (contoh: BIO-2041)"
+                      className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+                      disabled={isJoiningClass}
+                    />
+                    <button
+                      type="submit"
+                      disabled={isJoiningClass || !joinClassCode.trim()}
+                      className="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                    >
+                      {isJoiningClass ? 'Mengirim...' : 'Gabung Kelas'}
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-slate-500">
+                    *Materi subjek terkait akan otomatis terbuka pada akun Anda setelah bergabung ke kelas pembina.
+                  </p>
+                </form>
               </div>
             </div>
           ) : (
@@ -475,20 +498,20 @@ export const StudentSettings: React.FC = () => {
                 <School className="w-8 h-8 text-slate-400 mx-auto" />
                 <h4 className="text-sm font-bold text-slate-800">Belum Terdaftar di Kelas Apapun</h4>
                 <p className="text-xs text-slate-500 max-w-md mx-auto">
-                  Anda belum bergabung ke dalam kelas binaan guru. Masukkan kode kelas yang diberikan oleh guru pembina untuk mengajukan verifikasi.
+                  Anda belum bergabung ke dalam kelas binaan guru. Masukkan kode kelas yang diberikan oleh guru pembina untuk membuka materi & penugasan.
                 </p>
               </div>
 
               <form onSubmit={handleJoinClass} className="space-y-3 pt-2">
                 <label className="block text-xs font-bold text-slate-700">
-                  Masukkan Kode Kelas Baru
+                  Masukkan Kode Kelas Pertama Anda
                 </label>
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={joinClassCode}
                     onChange={(e) => setJoinClassCode(e.target.value.toUpperCase())}
-                    placeholder="Contoh: PELATNAS-26"
+                    placeholder="Contoh: KIM-1029"
                     className="flex-1 px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
                     disabled={isJoiningClass}
                   />

@@ -23,6 +23,7 @@ import { MaterialFlashcardModal, type FlashcardItem } from '../../components/mat
 import { MaterialPdfModal } from '../../components/materials/MaterialPdfModal';
 import { useFeatureFlags } from '../../services/featureFlagsService';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubject } from '../../contexts/SubjectContext';
 import { studentReadingService } from '../../services/studentReadingService';
 import { trackAchievementEvent } from '../../services/achievementService';
 import {
@@ -63,6 +64,7 @@ import {
   PanelRightOpen,
   StickyNote,
   FileDown,
+  Plus,
 } from 'lucide-react';
 
 export const MaterialsDatabase: React.FC = () => {
@@ -73,6 +75,15 @@ export const MaterialsDatabase: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   const { flags: featureFlags } = useFeatureFlags();
+  const {
+    currentSubject,
+    currentConfig,
+    activeCurriculum,
+    setCurriculum,
+    isCurrentSubjectUnlocked,
+    isMultiSubjectAdmin,
+  } = useSubject();
+  const subjectPrefix = `/${currentSubject}`;
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -169,7 +180,7 @@ export const MaterialsDatabase: React.FC = () => {
     } catch {
       // ignore
     }
-    navigate(`/materi?db=${newDb}`);
+    navigate(`${subjectPrefix}/materi?db=${newDb}`);
   };
 
   // Progress Tracking: OSN completed materials
@@ -702,7 +713,7 @@ export const MaterialsDatabase: React.FC = () => {
             (b.tags && b.tags.some((t) => t.toLowerCase() === norm))
         );
         if (block) {
-          navigate(`/materi/sma-${mat.topic_number}?tag=${block.tag}&db=sma`, { replace: true });
+          navigate(`${subjectPrefix}/materi/sma-${mat.topic_number}?tag=${block.tag}&db=sma`, { replace: true });
           return;
         }
       }
@@ -1031,11 +1042,11 @@ export const MaterialsDatabase: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-500 min-w-0">
             <Link
-              to={`/materi?db=${isCurrentIgcse ? 'igcse' : isCurrentSma ? 'sma' : 'osn'}`}
+              to={`${subjectPrefix}/materi?db=${isCurrentIgcse ? 'igcse' : isCurrentSma ? 'sma' : 'osn'}`}
               className="hover:text-slate-800 font-medium transition-colors flex items-center gap-1.5 shrink-0"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
-              <span>{isCurrentIgcse ? 'Cambridge IGCSE Chemistry' : isCurrentSma ? 'Database Materi SMA' : 'Database Materi OSN'}</span>
+              <span>{isCurrentIgcse ? `Cambridge IGCSE ${currentConfig.name}` : isCurrentSma ? `Database Materi ${currentConfig.name} SMA` : `Database Materi OSN ${currentConfig.name}`}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="font-semibold text-slate-700 shrink-0">
@@ -2012,7 +2023,7 @@ export const MaterialsDatabase: React.FC = () => {
                       alert('Bank Soal Cambridge IGCSE sedang dipersiapkan!');
                       return;
                     }
-                    navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+                    navigate(`${subjectPrefix}/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
                   }}
                   className={`w-full py-2.5 px-4 ${
                     isCurrentIgcse ? 'bg-purple-600 hover:bg-purple-700' : 'bg-emerald-600 hover:bg-emerald-700'
@@ -2069,7 +2080,7 @@ export const MaterialsDatabase: React.FC = () => {
               alert('Bank Soal Cambridge IGCSE sedang dipersiapkan!');
               return;
             }
-            navigate(`/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
+            navigate(`${subjectPrefix}/practice/${isCurrentSma ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
           }}
           isCurrentSma={isCurrentSma}
         />
@@ -2161,6 +2172,38 @@ export const MaterialsDatabase: React.FC = () => {
     >
       <ChemistryWatermarkBackground />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      {/* Subject Lock Warning Gate Banner */}
+      {!isCurrentSubjectUnlocked && !isMultiSubjectAdmin && (
+        <div className="p-5 sm:p-6 rounded-2xl bg-amber-50/90 border-2 border-amber-300 text-amber-950 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-amber-200/80 border border-amber-300 flex items-center justify-center text-xl shrink-0">
+              🔒
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h4 className="font-bold text-sm sm:text-base text-amber-950">
+                  Pustaka Materi {currentConfig.name} Terkunci
+                </h4>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-200 text-amber-800 uppercase">
+                  Perlu Kelas Guru
+                </span>
+              </div>
+              <p className="text-xs text-amber-800/90 mt-0.5 max-w-2xl leading-relaxed">
+                Anda belum terdaftar dalam kelas binaan aktif untuk mata pelajaran <b>{currentConfig.name}</b>. Masukkan kode kelas binaan guru pembina Anda untuk membuka akses materi lengkap, alur konsep, dan latihan terpandu.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/student/settings')}
+            className="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition shadow-xs shrink-0 cursor-pointer flex items-center gap-1.5"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ Masuk Kelas {currentConfig.name}</span>
+          </button>
+        </div>
+      )}
+
       {/* Hero Header Section (Matching Papan Tulis Design with Database Switcher) */}
       <div className="theme-hero-banner bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl shadow-slate-900/10 border border-slate-700 relative overflow-hidden space-y-6">
         {/* Subtle ambient lighting */}
@@ -2171,8 +2214,9 @@ export const MaterialsDatabase: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-semibold tracking-wide uppercase text-slate-100 border border-white/20">
               <SolarBookBookmark className="w-3.5 h-3.5 text-slate-300" />
               <span>
+                {currentConfig.symbolGlyph} {currentConfig.name} •{' '}
                 {isIgcseDb
-                  ? 'Cambridge Assessment International Education (0620)'
+                  ? 'Cambridge Assessment International Education'
                   : isSmaDb
                   ? 'Kurikulum Merdeka (Fase E & F) & K13'
                   : 'Puspresnas & IChO Standard'}{' '}
@@ -2182,18 +2226,22 @@ export const MaterialsDatabase: React.FC = () => {
 
             <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight font-display">
               {isIgcseDb
-                ? 'Cambridge IGCSE Chemistry (0620)'
+                ? `Cambridge IGCSE ${currentConfig.name}`
                 : isSmaDb
-                ? 'Database Materi Sains Kimia Dasar SMA'
-                : 'Database Materi OSN Kimia'}
+                ? `Database Materi Sains ${currentConfig.name} Dasar SMA`
+                : `Database Materi OSN ${currentConfig.name}`}
             </h1>
 
             <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl leading-relaxed">
-              {isIgcseDb
-                ? 'Pustaka materi kurikulum internasional Cambridge IGCSE Chemistry (Syllabus 0620). Disusun komprehensif mengikuti standar Save My Exams & Cambridge Mark Schemes, dilengkapi ilustrasi partikel SVG interaktif, tabel perbandingan, dan checkpoint konsep.'
-                : isSmaDb
-                ? 'Pustaka fondasi kurikulum kimia SMA dari Fase E (Kelas 10) hingga Fase F Lanjutan (Kelas 12). Disusun dengan alur konsep prasyarat, teori inti, formula KaTeX, dan contoh soal kontekstual sebagai batu loncatan persiapan ujian sekolah, UTBK-SNBT, hingga kompetisi sains.'
-                : 'Pustaka komprehensif teori sains kimia tingkat lanjut dengan standar Puspresnas & International Chemistry Olympiad (IChO). Dilengkapi konsep prasyarat, pendalaman teori esensial, formula matematis, dan pembahasan teladan soal olimpiade.'}
+              {currentSubject === 'kimia' ? (
+                isIgcseDb
+                  ? 'Pustaka materi kurikulum internasional Cambridge IGCSE Chemistry (Syllabus 0620). Disusun komprehensif mengikuti standar Save My Exams & Cambridge Mark Schemes, dilengkapi ilustrasi partikel SVG interaktif, tabel perbandingan, dan checkpoint konsep.'
+                  : isSmaDb
+                  ? 'Pustaka fondasi kurikulum kimia SMA dari Fase E (Kelas 10) hingga Fase F Lanjutan (Kelas 12). Disusun dengan alur konsep prasyarat, teori inti, formula KaTeX, dan contoh soal kontekstual sebagai batu loncatan persiapan ujian sekolah, UTBK-SNBT, hingga kompetisi sains.'
+                  : 'Pustaka komprehensif teori sains kimia tingkat lanjut dengan standar Puspresnas & International Chemistry Olympiad (IChO). Dilengkapi konsep prasyarat, pendalaman teori esensial, formula matematis, dan pembahasan teladan soal olimpiade.'
+              ) : (
+                `Pustaka modul materi ${currentConfig.name} Axioma Academy. Disusun dengan alur konsep prasyarat, teori inti formula KaTeX, dan contoh soal terstruktur untuk persiapan kurikulum sekolah nasional, Cambridge, hingga kompetisi sains olimpiade.`
+              )}
             </p>
           </div>
 
@@ -2378,10 +2426,10 @@ export const MaterialsDatabase: React.FC = () => {
           const currentPercent = isCompleted ? 100 : savedProgress;
 
           const targetUrl = isIgcseCard
-            ? `/materi/igcse-${material.topic_number}?db=igcse`
+            ? `${subjectPrefix}/materi/igcse-${material.topic_number}?db=igcse`
             : isSmaCard
-            ? `/materi/sma-${material.topic_number}?db=sma`
-            : `/materi/${material.topic_number}?db=osn`;
+            ? `${subjectPrefix}/materi/sma-${material.topic_number}?db=sma`
+            : `${subjectPrefix}/materi/${material.topic_number}?db=osn`;
 
           return (
             <div

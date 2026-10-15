@@ -55,6 +55,12 @@ export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) 
     } else if (!authLoading && !user) {
       setChecking(false);
     }
+
+    const handleUpdate = () => {
+      checkClassroomStatus();
+    };
+    window.addEventListener('osn_classroom_updated', handleUpdate);
+    return () => window.removeEventListener('osn_classroom_updated', handleUpdate);
   }, [user, profile, isTeacher, isAdmin, authLoading]);
 
   // If auth is still loading, show animated spinner

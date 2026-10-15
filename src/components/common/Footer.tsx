@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
     <footer className="bg-[#FFFFF0] border-t border-[#D3D3D3] mt-16 text-[#708090] text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#708090] gap-3">
-          <p>© {new Date().getFullYear()} OSN Kimia Mastery. Dirancang untuk pembinaan olimpiade sains berstandar tinggi.</p>
+          <p>© {new Date().getFullYear()} Axioma Academy. Semua Hak Cipta Dilindungi.</p>
           <div className="flex items-center gap-2">
             <a
               href="https://github.com/fluffykitten"

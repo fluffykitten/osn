@@ -21,6 +21,9 @@ import {
   type SavedSubmissionRecord,
 } from '../../services/submissionService';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubject } from '../../contexts/SubjectContext';
+import { CURRICULUM_LIST, CURRICULUM_CONFIGS } from '../../config/subjectConfig';
+import type { StandardCurriculumId } from '../../types/subject';
 import { QuestionFilters } from '../../components/worksheet/QuestionFilters';
 import { DiagramViewerModal } from '../../components/common/DiagramViewerModal';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
@@ -100,6 +103,14 @@ export const PracticeBank: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { user, isTeacher } = useAuth();
+  const {
+    currentSubject,
+    currentConfig,
+    activeCurriculum,
+    setCurriculum,
+    isCurrentSubjectUnlocked,
+    isMultiSubjectAdmin,
+  } = useSubject();
 
   const dbParam = searchParams.get('db'); // 'osn' | 'sma'
 
@@ -436,7 +447,98 @@ export const PracticeBank: React.FC = () => {
         }}
       />
 
-      {/* 2. Segmented Dual Database Switcher: OSN vs SMA */}
+      {/* 1.1. Subject Lock Warning Gate Banner */}
+      {!isCurrentSubjectUnlocked && !isMultiSubjectAdmin && (
+        <div className="p-5 sm:p-6 rounded-2xl bg-amber-50/90 border-2 border-amber-300 text-amber-950 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-amber-200/80 border border-amber-300 flex items-center justify-center text-xl shrink-0">
+              🔒
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h4 className="font-bold text-sm sm:text-base text-amber-950">
+                  Bank Soal {currentConfig.name} Terkunci
+                </h4>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-200 text-amber-800 uppercase">
+                  Perlu Kelas Guru
+                </span>
+              </div>
+              <p className="text-xs text-amber-800/90 mt-0.5 max-w-2xl leading-relaxed">
+                Anda belum terdaftar dalam kelas binaan aktif untuk mata pelajaran <b>{currentConfig.name}</b>. Masukkan kode kelas binaan guru pembina Anda untuk membuka bank soal lengkap, kunci pembahasan, dan lembar kerja mandiri.
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate('/student/settings')}
+            className="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition shadow-xs shrink-0 cursor-pointer flex items-center gap-1.5"
+          >
+            <Plus className="w-4 h-4" />
+            <span>+ Masuk Kelas {currentConfig.name}</span>
+          </button>
+        </div>
+      )}
+
+      {/* 2. Axioma 5-Curriculum Track Bar */}
+      <div className="space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#708090]">
+              Jalur Kurikulum Pembelajaran:
+            </span>
+            <span
+              className="text-[11px] font-bold px-2 py-0.5 rounded-md border uppercase"
+              style={{
+                backgroundColor: currentConfig.palette.softBadgeBg,
+                borderColor: currentConfig.palette.softBorder,
+                color: currentConfig.palette.contrastText,
+              }}
+            >
+              {currentConfig.symbolGlyph} {currentConfig.name}
+            </span>
+          </div>
+
+          <span className="text-[11px] text-[#708090]">
+            Pilih kurikulum untuk menyesuaikan tingkat kesulitan dan silabus soal
+          </span>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {CURRICULUM_LIST.map((curriculum) => {
+            const isSelected = activeCurriculum === curriculum.id;
+            return (
+              <button
+                key={curriculum.id}
+                type="button"
+                onClick={() => {
+                  setCurriculum(curriculum.id);
+                  if (curriculum.id === 'nasional') {
+                    handleDatabaseSwitch('sma');
+                  } else {
+                    handleDatabaseSwitch('osn');
+                  }
+                }}
+                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border cursor-pointer active:scale-95 ${
+                  isSelected
+                    ? 'bg-[#708090] text-[#FFFFF0] border-[#708090] shadow-xs'
+                    : 'bg-[#FFFFF0] text-[#708090] border-[#D3D3D3] hover:bg-[#F0F8FF] hover:text-[#2D3748]'
+                }`}
+              >
+                <span>{curriculum.name}</span>
+                <span
+                  className={`text-[9px] px-1.5 py-0.2 rounded font-mono uppercase ${
+                    isSelected ? 'bg-white/20 text-white' : curriculum.badgeBgClass + ' ' + curriculum.badgeTextClass
+                  }`}
+                >
+                  {curriculum.shortLabel}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 3. Segmented Sub-Database Switcher (Topik Detail & Mode Tampilan) */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#D3D3D3] pb-5">
         <div className="inline-flex p-1.5 bg-[#B0C4DE]/20 rounded-2xl border border-[#D3D3D3] shadow-inner w-full sm:w-auto">
           {/* Tombol Tab OSN */}

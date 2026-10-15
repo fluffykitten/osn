@@ -45,11 +45,30 @@ import {
   BookMarked,
   GraduationCap,
   Atom,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Plus,
+  Lock,
+  Unlock,
+  FlaskConical,
+  Calculator,
+  Dna
 } from 'lucide-react';
+import { useSubject } from '../../contexts/SubjectContext';
+import { JoinClassroomModal } from '../../components/classroom/JoinClassroomModal';
 
 export const StudentDashboard: React.FC = () => {
   const { user, profile } = useAuth();
+  const {
+    currentSubject,
+    currentConfig,
+    unlockedSubjects,
+    isSubjectUnlocked,
+    setSubject,
+    studentClassrooms: contextClassrooms,
+    refreshSubjectAccess,
+  } = useSubject();
+  const [allClassrooms, setAllClassrooms] = useState<Classroom[]>([]);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -76,42 +95,43 @@ export const StudentDashboard: React.FC = () => {
   // Toggle tampilan pilar (5 terendah vs semua 10 pilar)
   const [showAllPillars, setShowAllPillars] = useState(false);
 
-  useEffect(() => {
-    const loadDashboardData = async () => {
-      if (!user?.email) return;
-      setIsLoading(true);
-      try {
-        // 1. Ambil data kelas siswa (Single Classroom rule)
-        const classrooms = await classroomService.getStudentClassrooms(user.email, user.id);
-        const active = classrooms.find((c) => c.user_membership_status === 'active') || null;
-        setActiveClassroom(active);
+  const loadDashboardData = async () => {
+    if (!user?.email) return;
+    setIsLoading(true);
+    try {
+      // 1. Ambil data kelas siswa (Multi-Classroom rule)
+      const classrooms = await classroomService.getStudentClassrooms(user.email, user.id);
+      setAllClassrooms(classrooms);
+      const active = classrooms.find((c) => c.user_membership_status === 'active') || null;
+      setActiveClassroom(active);
 
-        // 2. Ambil tugas kelas yang diberikan guru
-        const studentAssignments = await classroomService.getStudentAssignments(user.email, user.id);
-        setAssignments(studentAssignments);
+      // 2. Ambil tugas kelas yang diberikan guru
+      const studentAssignments = await classroomService.getStudentAssignments(user.email, user.id);
+      setAssignments(studentAssignments);
 
-        // 3. Ambil riwayat pengerjaan & penguasaan 10 pilar (lokal + cloud sync)
-        const localHist = getSubmissionHistory(user.id);
-        setSubmissions(localHist);
-        setPillarScores(calculatePillarMastery(localHist));
+      // 3. Ambil riwayat pengerjaan & penguasaan 10 pilar (lokal + cloud sync)
+      const localHist = getSubmissionHistory(user.id);
+      setSubmissions(localHist);
+      setPillarScores(calculatePillarMastery(localHist));
 
-        // 4. Sesi aktif pengerjaan lembar kerja & membaca materi
-        setActiveWorksheet(studentWorksheetService.getActiveSession(user.id));
-        setActiveReading(studentReadingService.getActiveReadingSession(user.id));
-        setReadingSummary(studentReadingService.getReadingProgressSummary(user.id));
+      // 4. Sesi aktif pengerjaan lembar kerja & membaca materi
+      setActiveWorksheet(studentWorksheetService.getActiveSession(user.id));
+      setActiveReading(studentReadingService.getActiveReadingSession(user.id));
+      setReadingSummary(studentReadingService.getReadingProgressSummary(user.id));
 
-        const cloudHist = await syncSubmissionsFromCloud(user.id);
-        if (cloudHist && cloudHist.length > 0) {
-          setSubmissions(cloudHist);
-          setPillarScores(calculatePillarMastery(cloudHist));
-        }
-      } catch (err) {
-        console.error('Gagal memuat data student dashboard:', err);
-      } finally {
-        setIsLoading(false);
+      const cloudHist = await syncSubmissionsFromCloud(user.id);
+      if (cloudHist && cloudHist.length > 0) {
+        setSubmissions(cloudHist);
+        setPillarScores(calculatePillarMastery(cloudHist));
       }
-    };
+    } catch (err) {
+      console.error('Gagal memuat data student dashboard:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadDashboardData();
 
     // Event listener untuk pembaruan sesi pengerjaan & membaca secara reaktif
@@ -130,7 +150,7 @@ export const StudentDashboard: React.FC = () => {
       window.removeEventListener('osn_active_worksheet_changed', handleWorksheetChange);
       window.removeEventListener('osn_active_reading_changed', handleReadingChange);
     };
-  }, [user]);
+  }, [user?.id, user?.email]);
 
   // Hitung metrik ringkas
   const averageScore = useMemo(() => {
@@ -596,70 +616,127 @@ export const StudentDashboard: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Kolom Kiri: Kelas Saya, Tugas Guru Aktif, & Pintasan Cepat (7 Kolom) */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Kartu Kelas Binaan Siswa */}
-            {activeClassroom ? (
-              <div className="bg-[#FFFFF0] rounded-3xl p-6 border border-[#D3D3D3] shadow-xs space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/60 flex items-center justify-center text-[#4A5867]">
-                      <School className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h2 className="text-base font-bold text-[#2D3748]">Kelas Binaan Resmi</h2>
-                      <p className="text-xs text-[#708090]">Kelas tempat Anda terdaftar dan dipantau pembina</p>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-0.5 bg-[#E2F0D9] text-[#2E6930] text-[11px] font-bold rounded-full border border-[#C5E0B4] flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3" />
-                    Aktif
-                  </span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#F0F8FF] border border-[#B0C4DE]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-base font-bold text-[#2D3748]">{activeClassroom.name}</h3>
-                    <p className="text-xs text-[#708090] mt-0.5">
-                      {activeClassroom.teacher_name
-                        ? `Guru Pembina: ${activeClassroom.teacher_name}`
-                        : 'Pembina OSN Kimia'}
-                    </p>
-                    <div className="flex items-center gap-3 mt-2 text-xs text-[#4A5867]">
-                      <span className="font-mono bg-[#FFFFF0] px-2 py-0.5 rounded border border-[#B0C4DE]/60 text-[#2D3748] font-bold">
-                        Kode: {activeClassroom.code}
-                      </span>
-                      <span>•</span>
-                      <span>{activeClassroom.member_count || 1} Siswa</span>
-                    </div>
-                  </div>
-
-                  <Link
-                    to={`/student/classes/${activeClassroom.id}`}
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 shrink-0"
-                  >
-                    <span>Buka Ruang Kelas</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-[#FFF2CC]/60 border border-[#FFE599] rounded-3xl p-6 text-[#806000] flex items-center justify-between gap-4">
+            {/* Kartu Kelas Binaan Siswa (Multi-Kelas & Multi-Subjek) */}
+            <div className="bg-[#FFFFF0] rounded-3xl p-6 border border-[#D3D3D3] shadow-xs space-y-4">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <AlertCircle className="w-5 h-5 text-[#806000] shrink-0" />
-                  <div className="text-xs">
-                    <span className="font-bold text-[#2D3748]">Belum Terdaftar di Kelas Binaan.</span>
-                    <p className="text-[#708090] mt-0.5">
-                      Masukkan kode kelas dari guru Anda untuk membuka seluruh materi dan tugas binaan.
+                  <div className="w-10 h-10 rounded-xl bg-[#B0C4DE]/25 border border-[#B0C4DE]/60 flex items-center justify-center text-[#4A5867]">
+                    <School className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-bold text-[#2D3748]">Kelas Binaan Anda</h2>
+                    <p className="text-xs text-[#708090]">
+                      {allClassrooms.length > 0
+                        ? `${allClassrooms.filter((c) => c.user_membership_status === 'active').length} kelas aktif membuka akses materi subjek terkait`
+                        : 'Belum ada kelas aktif yang terdaftar'}
                     </p>
                   </div>
                 </div>
-                <Link
-                  to="/join-class"
-                  className="px-3.5 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shrink-0"
+                <button
+                  type="button"
+                  onClick={() => setIsJoinModalOpen(true)}
+                  className="px-3 py-1.5 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  Gabung Kelas
-                </Link>
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>+ Gabung Kelas</span>
+                </button>
               </div>
-            )}
+
+              {/* Subjek Aktif Banner Check */}
+              {!isSubjectUnlocked(currentSubject) && (
+                <div className="p-4 bg-amber-50/90 border border-amber-300 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-amber-900">
+                  <div className="flex items-start gap-2.5">
+                    <Lock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-bold block">
+                        Subjek {currentConfig.name} Belum Dibuka
+                      </span>
+                      <p className="text-[11px] text-amber-800 leading-relaxed mt-0.5">
+                        Anda saat ini memilih subjek <strong>{currentConfig.name}</strong>, namun belum tergabung dalam kelas pembina {currentConfig.name}.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsJoinModalOpen(true)}
+                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shrink-0 cursor-pointer shadow-xs"
+                  >
+                    Masukkan Kode Kelas {currentConfig.name}
+                  </button>
+                </div>
+              )}
+
+              {/* Grid Daftar Kelas Siswa */}
+              {allClassrooms.length > 0 ? (
+                <div className="grid grid-cols-1 gap-3">
+                  {allClassrooms.map((cls) => {
+                    const subjectList = cls.subjects && cls.subjects.length > 0 ? cls.subjects : ['kimia'];
+                    const isActive = cls.user_membership_status === 'active';
+                    return (
+                      <div
+                        key={cls.id}
+                        className="p-4 rounded-2xl bg-[#F0F8FF] border border-[#B0C4DE]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                      >
+                        <div className="space-y-1">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            {subjectList.map((sub) => (
+                              <span
+                                key={sub}
+                                className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-[#B0C4DE]/40 text-[#2D3748]"
+                              >
+                                {sub}
+                              </span>
+                            ))}
+                            <span
+                              className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                                isActive
+                                  ? 'bg-[#E2F0D9] text-[#2E6930] border-[#C5E0B4]'
+                                  : 'bg-amber-100 text-amber-800 border-amber-300'
+                              }`}
+                            >
+                              {isActive ? '✓ Aktif' : '⏳ Menunggu Persetujuan Guru'}
+                            </span>
+                          </div>
+                          <h3 className="text-sm font-bold text-[#2D3748]">{cls.name}</h3>
+                          <p className="text-xs text-[#708090]">
+                            Guru: <span className="font-semibold text-[#4A5867]">{cls.teacher_name || 'Pembina OSN'}</span>
+                            <span className="mx-2">•</span>
+                            <span className="font-mono text-[#2D3748] font-bold">Kode: {cls.code}</span>
+                          </p>
+                        </div>
+
+                        <Link
+                          to={`/student/classes/${cls.id}`}
+                          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 shrink-0"
+                        >
+                          <span>Buka Ruang Kelas</span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="bg-[#FFF2CC]/60 border border-[#FFE599] rounded-2xl p-5 text-[#806000] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <AlertCircle className="w-5 h-5 text-[#806000] shrink-0" />
+                    <div className="text-xs">
+                      <span className="font-bold text-[#2D3748]">Belum Terdaftar di Kelas Binaan.</span>
+                      <p className="text-[#708090] mt-0.5">
+                        Masukkan kode kelas dari guru Anda untuk membuka seluruh materi dan tugas binaan.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsJoinModalOpen(true)}
+                    className="px-3.5 py-2 bg-[#708090] hover:bg-[#5D6D7D] text-[#FFFFF0] text-xs font-bold rounded-xl shrink-0 cursor-pointer"
+                  >
+                    Gabung Kelas
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Daftar Tugas & Penugasan Guru dengan Pendamping Teori */}
             <div className="bg-[#FFFFF0] rounded-3xl p-6 border border-[#D3D3D3] shadow-xs space-y-4">
@@ -992,6 +1069,16 @@ export const StudentDashboard: React.FC = () => {
         dataPayload={showcaseDataPayload}
         userId={user?.id}
         onSaved={(newCfg) => setShowcaseConfig(newCfg)}
+      />
+
+      {/* Modal Gabung Kelas Baru Siswa */}
+      <JoinClassroomModal
+        isOpen={isJoinModalOpen}
+        onClose={() => setIsJoinModalOpen(false)}
+        onSuccess={() => {
+          refreshSubjectAccess();
+          loadDashboardData();
+        }}
       />
     </div>
   );

@@ -1,5 +1,8 @@
+import type { SubjectId, CurriculumId as UniversalCurriculumId } from './subject';
+export type { SubjectId };
+
 export type UserRole = 'siswa' | 'guru' | 'student' | 'teacher' | 'admin';
-export type CurriculumId = 'sma' | 'osn' | 'igcse' | 'alevel';
+export type CurriculumId = UniversalCurriculumId;
 export type QuestionDifficulty =
   | 'SMA-Mudah'
   | 'SMA-Sedang'
@@ -42,6 +45,10 @@ export interface Profile {
   account_status?: AccountStatus;
   is_suspended?: boolean;
   suspended_reason?: string;
+  teaching_subject?: SubjectId;
+  preferred_subject?: SubjectId;
+  enrolled_subjects?: SubjectId[];
+  target_curriculum?: CurriculumId;
   last_login_at?: string;
   created_at: string;
   updated_at?: string;
@@ -60,6 +67,18 @@ export interface Classroom {
   teacher_name?: string;
   teacher_email?: string;
   user_membership_status?: ClassroomMemberStatus;
+  subjects?: SubjectId[];
+  is_cross_subject?: boolean;
+}
+
+export interface ClassroomTeacher {
+  id: number;
+  classroom_id: number;
+  teacher_id: string;
+  subject: SubjectId;
+  created_at: string;
+  teacher_name?: string;
+  teacher_email?: string;
 }
 
 export type ClassroomMemberStatus = 'invited' | 'active' | 'pending_approval';
@@ -165,8 +184,9 @@ export interface Question {
   is_verified?: boolean;
   created_at?: string;
   tags?: string[];
-  // Metadata Kurikulum SMA (16 Topik Fase E & F) & Dual Mapping
-  curriculum?: 'osn' | 'sma' | 'both' | 'igcse' | 'alevel';
+  // Metadata Multi-Subjek & Kurikulum Axioma Academy
+  subject?: SubjectId;
+  curriculum?: 'osn' | 'sma' | 'both' | 'igcse' | 'alevel' | 'nasional' | 'as_level' | 'a_level';
   sma_topic_number?: number;          // 1 - 16
   sma_topic_id?: number;              // 101 - 116 (sesuai id SMA_MATERIALS)
   igcse_topic_number?: number;        // 1 - 14 (Cambridge IGCSE)
@@ -225,6 +245,8 @@ export interface Worksheet {
   created_at?: string;
   item_count?: number;
   items?: WorksheetItem[];
+  subject?: SubjectId;
+  curriculum?: CurriculumId;
 }
 
 export interface WorksheetLiveSession {

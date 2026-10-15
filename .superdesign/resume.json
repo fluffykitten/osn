@@ -61,29 +61,30 @@
     },
     "navbar": {
       "targetKind": "existing-ui",
-      "projectId": "ac965cc7-3ac0-4253-b08e-79d4ecba8903",
-      "baselineDraftId": "b1147879-91ef-4b80-a2ee-2fe6b2f09c89",
-      "activeDraftId": "b1147879-91ef-4b80-a2ee-2fe6b2f09c89",
+      "projectId": "f638e614-2090-4f0f-898b-e45ff4e1b334",
+      "baselineDraftId": "335b2183-635b-43cd-8990-ce3b711b9100",
+      "activeDraftId": "9b08d36c-3c7c-439b-bf79-6898d2fb5e0a",
       "designSystemPath": ".superdesign/design-system.md",
       "contextFiles": [
         ".superdesign/init/theme.md",
         ".superdesign/design-system.md",
-        "src/components/common/Navbar.tsx:140:435"
+        "src/components/common/Navbar.tsx:160:220",
+        "src/components/common/Navbar.tsx:840:870"
       ],
       "drafts": {
-        "b1147879-91ef-4b80-a2ee-2fe6b2f09c89": {
-          "title": "Floating Glassmorphic Island Navigation",
-          "visualDirection": "floating glass island",
+        "335b2183-635b-43cd-8990-ce3b711b9100": {
+          "title": "Axioma Academy Navbar Redesign",
+          "visualDirection": "floating pill minimalist",
           "currentVersion": 1
         },
-        "4405b2b3-4a14-431d-8a6e-7984beacb69c": {
-          "title": "Modern Dual-Deck Header Redesign",
-          "visualDirection": "dual-deck split navbar",
+        "8385eaef-8714-4b7c-b9fe-b4ff197f09a6": {
+          "title": "Axioma Academy Glassmorphic Nav",
+          "visualDirection": "floating glassmorphic pill island",
           "currentVersion": 1
         },
-        "03d62f41-1268-421a-9dfc-e5c8b03249ae": {
-          "title": "Streamlined Minimalist Navigation Bar",
-          "visualDirection": "grouped categories popovers",
+        "9b08d36c-3c7c-439b-bf79-6898d2fb5e0a": {
+          "title": "Axioma Academy - Premium Edge-to-Edge Navbar",
+          "visualDirection": "edge-to-edge linear minimalist",
           "currentVersion": 1
         }
       }

@@ -13,6 +13,7 @@ import type {
   Worksheet,
   JoinClassroomResult,
   ClassroomMemberStatus,
+  SubjectId,
 } from '../types/database';
 
 const LOCAL_CLASSROOMS_KEY = 'osn_local_classrooms_store';
@@ -72,30 +73,38 @@ class ClassroomService {
     }
   }
 
-  private generateClassCode(name: string): string {
-    const clean = name.replace(/[^a-zA-Z0-9]/g, '').slice(0, 4).toUpperCase() || 'KIM';
+  private generateClassCode(name: string, subject: SubjectId = 'kimia'): string {
+    const subPrefixMap: Record<SubjectId, string> = {
+      kimia: 'KIM',
+      fisika: 'FIS',
+      matematika: 'MAT',
+      biologi: 'BIO',
+    };
+    const prefix = subPrefixMap[subject] || name.replace(/[^a-zA-Z0-9]/g, '').slice(0, 3).toUpperCase() || 'AXM';
     const rand = Math.floor(1000 + Math.random() * 9000);
-    return `${clean}-${rand}`;
+    return `${prefix}-${rand}`;
   }
 
   /**
-   * Guru membuat kelas baru
+   * Guru membuat kelas baru dengan pengikatan subjek
    */
   public async createClassroom(
     teacherId: string,
     name: string,
-    description?: string
+    description?: string,
+    subject: SubjectId = 'kimia'
   ): Promise<Classroom> {
-    const code = this.generateClassCode(name);
+    const code = this.generateClassCode(name, subject);
     const newClass: Classroom = {
       id: Date.now(),
       teacher_id: teacherId,
       name,
       code,
-      description: description || 'Kelas pembinaan olimpiade sains kimia',
+      description: description || `Kelas pembinaan olimpiade sains & materi ${subject}`,
       created_at: new Date().toISOString(),
       member_count: 0,
       assignment_count: 0,
+      subjects: [subject],
     };
 
     // 1. Simpan ke local
@@ -114,19 +123,25 @@ class ClassroomService {
               name,
               code,
               description: newClass.description,
+              subjects: [subject],
             },
           ])
           .select()
           .maybeSingle();
 
         if (data && !error) {
-          const cloudClass = data as Classroom;
+          const cloudClass = {
+            ...(data as Classroom),
+            subjects: Array.isArray(data.subjects) && data.subjects.length > 0 ? data.subjects : [subject],
+            member_count: 0,
+            assignment_count: 0,
+          };
           const idx = this.localClassrooms.findIndex((c) => c.id === newClass.id);
           if (idx !== -1) {
-            this.localClassrooms[idx] = { ...cloudClass, member_count: 0, assignment_count: 0 };
+            this.localClassrooms[idx] = cloudClass;
             this.persistLocalStore();
           }
-          return { ...cloudClass, member_count: 0, assignment_count: 0 };
+          return cloudClass;
         }
       } catch (err) {
         console.warn('Gagal membuat kelas di cloud:', err);
@@ -163,6 +178,7 @@ class ClassroomService {
                 name: localCls.name,
                 code: localCls.code,
                 description: localCls.description,
+                subjects: localCls.subjects || ['kimia'],
               },
             ])
             .select()
@@ -211,6 +227,7 @@ class ClassroomService {
             created_at: c.created_at,
             member_count: c.classroom_members?.[0]?.count ?? 0,
             assignment_count: c.classroom_assignments?.[0]?.count ?? 0,
+            subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
           }));
 
           // Sinkronisasi ke cache lokal
@@ -268,6 +285,7 @@ class ClassroomService {
             created_at: c.created_at,
             member_count: c.classroom_members?.[0]?.count ?? 0,
             assignment_count: c.classroom_assignments?.[0]?.count ?? 0,
+            subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
           }));
 
           const cloudCodes = new Set(formatted.map((c) => c.code.toUpperCase()));
@@ -367,6 +385,7 @@ class ClassroomService {
             created_at: data.created_at,
             member_count: data.classroom_members?.[0]?.count ?? 0,
             assignment_count: data.classroom_assignments?.[0]?.count ?? 0,
+            subjects: (Array.isArray(data.subjects) && data.subjects.length > 0 ? data.subjects : ['kimia']) as SubjectId[],
           };
 
           // Ambil nama profil guru pembina
@@ -794,6 +813,12 @@ class ClassroomService {
         ? `Selamat! Undangan Anda telah diaktifkan, Anda resmi bergabung di "${targetClass.name}".`
         : `Permintaan bergabung ke kelas "${targetClass.name}" berhasil dikirim! Menunggu persetujuan Guru Pembina.`;
 
+    try {
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('osn_classroom_updated'));
+      }
+    } catch {}
+
     return {
       success: true,
       status: nextStatus,
@@ -937,6 +962,7 @@ class ClassroomService {
               if (!cls) return null;
               return {
                 ...cls,
+                subjects: (Array.isArray(cls.subjects) && cls.subjects.length > 0 ? cls.subjects : ['kimia']) as SubjectId[],
                 user_membership_status: r.status as ClassroomMemberStatus,
               };
             })
@@ -973,7 +999,7 @@ class ClassroomService {
           const studentMembers = this.localMembers.filter(
             (m) => m.student_email.toLowerCase() === cleanEmail
           );
-          const localOnlyClasses = this.localClassrooms
+          const localOnlyClasses: Classroom[] = this.localClassrooms
             .filter(
               (c) =>
                 !cloudClassIds.has(c.id) &&
@@ -983,6 +1009,7 @@ class ClassroomService {
               const mem = studentMembers.find((m) => m.classroom_id === c.id);
               return {
                 ...c,
+                subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
                 user_membership_status: mem ? mem.status : ('active' as ClassroomMemberStatus),
               };
             });
@@ -1002,11 +1029,12 @@ class ClassroomService {
 
     return this.localClassrooms
       .filter((c) => matchedClassIds.includes(c.id))
-      .map((c) => {
+      .map((c): Classroom => {
         const mem = studentMembers.find((m) => m.classroom_id === c.id);
         return {
           ...c,
-          user_membership_status: mem ? mem.status : 'active',
+          subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
+          user_membership_status: mem ? mem.status : ('active' as ClassroomMemberStatus),
         };
       });
   }

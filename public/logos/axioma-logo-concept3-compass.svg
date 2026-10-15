@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" width="340" height="70" fill="none" role="img" aria-labelledby="c3-title c3-desc">
+  <title id="c3-title">Axioma Academy — The Golden Ratio Compass Logo</title>
+  <desc id="c3-desc">Academic mathematical caliper forming the letter A with golden vernier arc and delta triangle</desc>
+
+  <g transform="translate(10, 6)">
+    <!-- Outer Academic Ring Subtle -->
+    <circle cx="30" cy="30" r="28" stroke="#E2E8F0" stroke-width="1.2" />
+    <circle cx="30" cy="30" r="25" stroke="#CBD5E1" stroke-width="0.8" stroke-dasharray="2 2" />
+    <!-- Caliper Pivot Head -->
+    <circle cx="30" cy="12" r="5" fill="#0F172A" />
+    <circle cx="30" cy="12" r="2" fill="#FFFFFF" />
+    <!-- Caliper Legs forming A -->
+    <path d="M 28 14 L 14 50" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" />
+    <path d="M 32 14 L 46 50" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" />
+    <!-- Precision Needle Tips -->
+    <circle cx="14" cy="50" r="1.5" fill="#D97706" />
+    <circle cx="46" cy="50" r="1.5" fill="#D97706" />
+    <!-- Golden Curved Vernier Scale Crossbar -->
+    <path d="M 20 36 Q 30 40 40 36" stroke="#D97706" stroke-width="2.8" stroke-linecap="round" fill="none" />
+    <!-- Golden Ratio Triangle inside -->
+    <polygon points="30,22 25,32 35,32" fill="#FEF3C7" stroke="#D97706" stroke-width="1.2" />
+  </g>
+
+  <g transform="translate(75, 43)">
+    <text font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="25" font-weight="800" letter-spacing="-0.01em" fill="#0F172A">
+      AXIOMA
+    </text>
+    <text x="110" y="-1" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" letter-spacing="0.22em" fill="#D97706">
+      ACADEMY
+    </text>
+  </g>
+</svg>

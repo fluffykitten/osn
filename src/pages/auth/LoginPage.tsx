@@ -15,8 +15,14 @@ import {
   Building2,
   Target,
   Phone,
+  School,
+  FlaskConical,
+  Calculator,
+  Dna,
+  BookOpen,
 } from 'lucide-react';
 import { classroomService } from '../../services/classroomService';
+import type { SubjectId } from '../../types/database';
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -122,6 +128,9 @@ export const LoginPage: React.FC = () => {
   const [gradeLevel, setGradeLevel] = useState('10');
   const [targetOlympiad, setTargetOlympiad] = useState('OSK');
   const [phoneWhatsApp, setPhoneWhatsApp] = useState('');
+  const [regRole, setRegRole] = useState<'student' | 'teacher'>('student');
+  const [teachingSubject, setTeachingSubject] = useState<SubjectId>('kimia');
+  const [initialClassCode, setInitialClassCode] = useState('');
 
   // Password reset states
   const [newPassword, setNewPassword] = useState('');
@@ -201,45 +210,73 @@ export const LoginPage: React.FC = () => {
         }
       } else if (mode === 'register') {
         if (!schoolName.trim()) {
-          setErrorMessage('Silakan isi nama asal sekolah atau madrasah Anda.');
+          setErrorMessage(
+            regRole === 'teacher'
+              ? 'Silakan isi nama asal sekolah atau institusi tempat Anda mengajar.'
+              : 'Silakan isi nama asal sekolah atau madrasah Anda.'
+          );
           setIsLoading(false);
           return;
         }
 
-        const res = await register(email, password, fullName, 'student', {
-          schoolName,
-          gradeLevel,
-          targetOlympiad,
-          phoneWhatsApp,
-        });
+        if (regRole === 'teacher') {
+          const res = await register(email, password, fullName, 'teacher', {
+            schoolName,
+            teachingSubject,
+            phoneWhatsApp,
+          });
 
-        if (!res.success) {
-          setErrorMessage(res.error || 'Gagal mendaftarkan akun siswa.');
-        } else if (res.requireConfirmation) {
-          setEmailConfirmationRequired(true);
-          setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}. Mengalihkan Anda ke Aktivasi Kelas...`);
-          setTimeout(() => {
-            navigate('/join-class', {
-              state: {
-                registered: true,
-                requireConfirmation: true,
-                studentName: fullName,
-                registeredEmail: email,
-              },
-            });
-          }, 1500);
+          if (!res.success) {
+            setErrorMessage(res.error || 'Gagal mendaftarkan akun guru.');
+          } else {
+            setSuccessMessage('Akun Guru berhasil didaftarkan! Mengalihkan ke Studio Guru...');
+            setTimeout(() => {
+              navigate('/teacher', { replace: true });
+            }, 1000);
+          }
         } else {
-          setSuccessMessage('Akun Siswa berhasil didaftarkan! Mengalihkan ke Halaman Aktivasi Kelas...');
-          setTimeout(() => {
-            navigate('/join-class', {
-              state: {
-                registered: true,
-                requireConfirmation: false,
-                studentName: fullName,
-                registeredEmail: email,
-              },
-            });
-          }, 1000);
+          const res = await register(email, password, fullName, 'student', {
+            schoolName,
+            gradeLevel,
+            targetOlympiad,
+            phoneWhatsApp,
+            initialClassCode: initialClassCode.trim() || undefined,
+          });
+
+          if (!res.success) {
+            setErrorMessage(res.error || 'Gagal mendaftarkan akun siswa.');
+          } else if (res.requireConfirmation) {
+            setEmailConfirmationRequired(true);
+            setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}.`);
+            setTimeout(() => {
+              navigate('/join-class', {
+                state: {
+                  registered: true,
+                  requireConfirmation: true,
+                  studentName: fullName,
+                  registeredEmail: email,
+                },
+              });
+            }, 1500);
+          } else {
+            const hasJoinedCode = Boolean(initialClassCode.trim());
+            setSuccessMessage(
+              hasJoinedCode
+                ? 'Akun Siswa berhasil didaftarkan dan permintaan masuk kelas telah dikirim! Mengalihkan ke Dashboard...'
+                : 'Akun Siswa berhasil didaftarkan! Mengalihkan ke Halaman Aktivasi Kelas...'
+            );
+            setTimeout(() => {
+              navigate(hasJoinedCode ? '/student/dashboard' : '/join-class', {
+                replace: true,
+                state: {
+                  registered: true,
+                  requireConfirmation: false,
+                  studentName: fullName,
+                  registeredEmail: email,
+                },
+              });
+            }, 1000);
+          }
         }
       } else if (mode === 'forgot') {
         const res = await resetPassword(email);
@@ -403,14 +440,35 @@ export const LoginPage: React.FC = () => {
             </div>
           )}
 
-          {/* Registration Step Indicator & Admin Notice */}
+          {/* Registration Role Switcher & Step Indicator */}
           {mode === 'register' && (
             <div className="space-y-3">
-              <div className="p-3 bg-sky-50 border border-sky-200 rounded-xl text-[11px] text-sky-800 leading-relaxed flex items-start gap-2">
-                <GraduationCap className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
-                <span>
-                  <strong>Khusus Siswa:</strong> Akun Guru Pembimbing dikelola dan ditentukan secara terpusat oleh Administrator (<code className="font-mono font-bold text-sky-900">fluffykitten.dev@gmail.com</code>).
-                </span>
+              {/* Role Toggle */}
+              <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setRegRole('student')}
+                  className={`py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    regRole === 'student'
+                      ? 'bg-white text-slate-900 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  <GraduationCap className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Daftar Siswa</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setRegRole('teacher')}
+                  className={`py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    regRole === 'teacher'
+                      ? 'bg-white text-slate-900 shadow-xs'
+                      : 'text-slate-500 hover:text-slate-800'
+                  }`}
+                >
+                  <School className="w-3.5 h-3.5 text-indigo-600" />
+                  <span>Daftar Guru / Pembina</span>
+                </button>
               </div>
 
               {/* Step indicator pills */}
@@ -420,7 +478,9 @@ export const LoginPage: React.FC = () => {
               </div>
               <div className="flex justify-between text-[10px] text-slate-500 font-semibold px-0.5">
                 <span className={regStep === 1 ? 'text-sky-700' : ''}>1. Akun & Kredensial</span>
-                <span className={regStep === 2 ? 'text-sky-700' : ''}>2. Sekolah & Target OSN</span>
+                <span className={regStep === 2 ? 'text-sky-700' : ''}>
+                  {regRole === 'teacher' ? '2. Institusi & Subjek Ajar' : '2. Sekolah & Kelas Binaan'}
+                </span>
               </div>
             </div>
           )}
@@ -431,7 +491,7 @@ export const LoginPage: React.FC = () => {
               <>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Nama Lengkap Siswa
+                    {regRole === 'teacher' ? 'Nama Lengkap Guru / Gelar' : 'Nama Lengkap Siswa'}
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -440,14 +500,16 @@ export const LoginPage: React.FC = () => {
                       required
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Contoh: Ahmad Fauzan"
+                      placeholder={regRole === 'teacher' ? 'Contoh: Dr. Budi Santoso, M.Si.' : 'Contoh: Ahmad Fauzan'}
                       className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">Alamat Email Siswa</label>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    {regRole === 'teacher' ? 'Alamat Email Guru / Lembaga' : 'Alamat Email Siswa'}
+                  </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
@@ -479,12 +541,12 @@ export const LoginPage: React.FC = () => {
               </>
             )}
 
-            {/* REGISTER STEP 2: PROFIL AKADEMIK & TARGET */}
+            {/* REGISTER STEP 2: SISWA ATAU GURU */}
             {mode === 'register' && regStep === 2 && (
               <>
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Asal Sekolah / Madrasah
+                    {regRole === 'teacher' ? 'Asal Sekolah / Lembaga Bimbingan' : 'Asal Sekolah / Madrasah'}
                   </label>
                   <div className="relative">
                     <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -493,45 +555,107 @@ export const LoginPage: React.FC = () => {
                       required
                       value={schoolName}
                       onChange={(e) => setSchoolName(e.target.value)}
-                      placeholder="Contoh: SMAN 1 Jakarta / MAN 2 Kota Malang"
+                      placeholder={regRole === 'teacher' ? 'Contoh: SMAN 1 Jakarta / Tim Pembina OSN' : 'Contoh: SMAN 1 Jakarta / MAN 2 Kota Malang'}
                       className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                {regRole === 'teacher' ? (
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Tingkat Kelas</label>
-                    <select
-                      value={gradeLevel}
-                      onChange={(e) => setGradeLevel(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
-                    >
-                      <option value="10">Kelas 10 (Fase E)</option>
-                      <option value="11">Kelas 11 (Fase F)</option>
-                      <option value="12">Kelas 12 (Fase F)</option>
-                      <option value="Alumni">Persiapan / Pelatnas</option>
-                    </select>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                      Subjek Spesialisasi yang Diampu (Pilih 1 Subjek Utama)
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { id: 'kimia', label: 'Kimia', icon: FlaskConical, desc: 'OSN, SMA & IGCSE/A-Level' },
+                        { id: 'fisika', label: 'Fisika', icon: Atom, desc: 'OSN, SMA & IGCSE/A-Level' },
+                        { id: 'matematika', label: 'Matematika', icon: Calculator, desc: 'OSN, SMA & IGCSE/A-Level' },
+                        { id: 'biologi', label: 'Biologi', icon: Dna, desc: 'OSN, SMA & IGCSE/A-Level' },
+                      ].map((item) => {
+                        const Icon = item.icon;
+                        const isSelected = teachingSubject === item.id;
+                        return (
+                          <button
+                            type="button"
+                            key={item.id}
+                            onClick={() => setTeachingSubject(item.id as SubjectId)}
+                            className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer flex items-start gap-2 ${
+                              isSelected
+                                ? 'bg-sky-50/80 border-sky-500 ring-2 ring-sky-500/20'
+                                : 'bg-slate-50/60 border-slate-200 hover:bg-slate-100/80'
+                            }`}
+                          >
+                            <div className={`p-1.5 rounded-lg shrink-0 ${isSelected ? 'bg-sky-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
+                              <Icon className="w-3.5 h-3.5" />
+                            </div>
+                            <div className="min-w-0">
+                              <span className={`block text-xs font-bold leading-none mb-1 ${isSelected ? 'text-sky-950' : 'text-slate-800'}`}>
+                                {item.label}
+                              </span>
+                              <span className="text-[10px] text-slate-400 leading-tight block truncate">
+                                {item.desc}
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1">Tingkat Kelas</label>
+                        <select
+                          value={gradeLevel}
+                          onChange={(e) => setGradeLevel(e.target.value)}
+                          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                        >
+                          <option value="10">Kelas 10 (Fase E)</option>
+                          <option value="11">Kelas 11 (Fase F)</option>
+                          <option value="12">Kelas 12 (Fase F)</option>
+                          <option value="Alumni">Persiapan / Pelatnas</option>
+                        </select>
+                      </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-1">Target Kompetisi</label>
-                    <select
-                      value={targetOlympiad}
-                      onChange={(e) => setTargetOlympiad(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
-                    >
-                      <option value="OSK">OSK (Kab/Kota)</option>
-                      <option value="OSP">OSP (Provinsi)</option>
-                      <option value="OSN">OSN (Nasional)</option>
-                      <option value="IChO">IChO (Global)</option>
-                    </select>
-                  </div>
-                </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-700 mb-1">Target Kompetisi</label>
+                        <select
+                          value={targetOlympiad}
+                          onChange={(e) => setTargetOlympiad(e.target.value)}
+                          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                        >
+                          <option value="OSK">OSK (Kab/Kota)</option>
+                          <option value="OSP">OSP (Provinsi)</option>
+                          <option value="OSN">OSN (Nasional)</option>
+                          <option value="IChO">IChO (Global)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="block text-xs font-semibold text-slate-700">Kode Kelas Binaan Guru</label>
+                        <span className="text-[10px] text-slate-400 font-normal">Opsional</span>
+                      </div>
+                      <div className="relative">
+                        <KeyRound className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          value={initialClassCode}
+                          onChange={(e) => setInitialClassCode(e.target.value.toUpperCase())}
+                          placeholder="Contoh: KIM-1029 atau kosongkan"
+                          className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 uppercase font-mono placeholder:normal-case placeholder:font-sans placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="block text-xs font-semibold text-slate-700">Nomor WhatsApp Siswa</label>
+                    <label className="block text-xs font-semibold text-slate-700">Nomor WhatsApp</label>
                     <span className="text-[10px] text-slate-400 font-normal">Opsional</span>
                   </div>
                   <div className="relative">
@@ -685,7 +809,9 @@ export const LoginPage: React.FC = () => {
                         ? 'Masuk ke Platform'
                         : mode === 'register'
                         ? regStep === 1
-                          ? 'Lanjut: Profil Akademik →'
+                          ? 'Lanjut: Profil & Spesialisasi →'
+                          : regRole === 'teacher'
+                          ? 'Selesaikan Pendaftaran Akun Guru Axioma'
                           : 'Selesaikan Pendaftaran Akun Siswa'
                         : mode === 'reset'
                         ? 'Simpan Kata Sandi Baru'
@@ -696,6 +822,44 @@ export const LoginPage: React.FC = () => {
                 )}
               </button>
             </div>
+
+            {mode === 'login' && (
+              <div className="pt-2 flex flex-col items-center gap-2">
+                <span className="text-[11px] text-slate-400 font-medium">— atau Akses Cepat Demo —</span>
+                <div className="flex items-center gap-2 w-full">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('siswa@osnkimia.id');
+                      setPassword('354123');
+                    }}
+                    className="flex-1 py-1.5 px-2 bg-slate-50 hover:bg-sky-50 text-slate-600 hover:text-sky-700 border border-slate-200 hover:border-sky-300 rounded-lg text-[11px] font-semibold transition cursor-pointer"
+                  >
+                    Demo Siswa
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('guru@osnkimia.id');
+                      setPassword('354123');
+                    }}
+                    className="flex-1 py-1.5 px-2 bg-slate-50 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 rounded-lg text-[11px] font-semibold transition cursor-pointer"
+                  >
+                    Demo Guru
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEmail('fluffykitten.dev@gmail.com');
+                      setPassword('354123');
+                    }}
+                    className="flex-1 py-1.5 px-2 bg-slate-50 hover:bg-purple-50 text-slate-600 hover:text-purple-700 border border-slate-200 hover:border-purple-300 rounded-lg text-[11px] font-semibold transition cursor-pointer"
+                  >
+                    Demo Admin
+                  </button>
+                </div>
+              </div>
+            )}
           </form>
 
           {/* Footer switch link */}

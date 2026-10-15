@@ -25,10 +25,15 @@ import {
   Menu,
   X,
   Bug,
+  Check,
+  Plus,
 } from 'lucide-react';
 import { getLocalGamificationState, type UserGamificationState } from '../../lib/gamification';
 import { UserTitleBadge } from '../gamification/UserTitleBadge';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubject } from '../../contexts/SubjectContext';
+import { SUBJECT_CONFIGS, getSubjectConfig } from '../../config/subjectConfig';
+import { isSubjectId, type SubjectId } from '../../types/subject';
 import { useWhiteboardHeader } from '../../contexts/WhiteboardHeaderContext';
 import {
   studentWorksheetService,
@@ -45,11 +50,27 @@ import {
   SolarTrophy,
   SolarLock,
 } from './AppIcons';
+import { AxiomaLogo } from './AxiomaLogo';
 
 export const Navbar: React.FC = React.memo(() => {
   const location = useLocation();
+  const isLandingPage = location.pathname === '/';
   const navigate = useNavigate();
   const { user, profile, isTeacher, isAdmin, logout } = useAuth();
+  const {
+    currentSubject,
+    setCurrentSubject,
+    unlockedSubjects,
+    isSubjectUnlocked,
+    isCurrentSubjectUnlocked,
+    studentClassrooms,
+    teacherSubject,
+    isMultiSubjectAdmin,
+  } = useSubject();
+  const currentSubjectConfig = getSubjectConfig(currentSubject);
+  const [showSubjectDropdown, setShowSubjectDropdown] = useState(false);
+  const subjectDropdownRef = useRef<HTMLDivElement>(null);
+
   const { headerState } = useWhiteboardHeader();
   const [gamification, setGamification] = useState<UserGamificationState>(getLocalGamificationState);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
@@ -124,6 +145,7 @@ export const Navbar: React.FC = React.memo(() => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setShowUserDropdown(false);
+    setShowSubjectDropdown(false);
     setActiveNavDropdown(null);
   }, [location.pathname]);
 
@@ -131,6 +153,9 @@ export const Navbar: React.FC = React.memo(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navDropdownRef.current && !navDropdownRef.current.contains(event.target as Node)) {
         setActiveNavDropdown(null);
+      }
+      if (subjectDropdownRef.current && !subjectDropdownRef.current.contains(event.target as Node)) {
+        setShowSubjectDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -166,23 +191,18 @@ export const Navbar: React.FC = React.memo(() => {
         }}
       >
         <div className={`${isWhiteboardCanvas ? 'w-full px-4 sm:px-6' : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'} h-16 flex items-center justify-between gap-4`}>
-          {/* Logo & Brand */}
+          {/* Logo & Brand: Seamless, Modern, No Clunky Boxes or Pill Badges */}
           <div className="flex items-center gap-3 sm:gap-4">
-            <Link to="/" className="flex items-center gap-2.5 group shrink-0">
-              <div className="w-9 h-9 rounded-xl bg-[#708090] text-[#FFFFF0] flex items-center justify-center font-bold text-lg shadow-xs group-hover:scale-105 transition-transform border border-[#B0C4DE]/50">
-                ⚛
+            <Link to="/" className="flex items-center gap-3 group shrink-0 select-none">
+              <div className="w-8 h-8 sm:w-8.5 sm:h-8.5 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+                <AxiomaLogo variant="icon" className="w-full h-full object-contain" />
               </div>
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-base tracking-tight text-[#2D3748] font-display">
-                    OSN Kimia
-                  </span>
-                  <span className="text-xs font-semibold px-1.5 py-0.2 bg-[#B0C4DE]/30 text-[#708090] rounded-md font-mono border border-[#B0C4DE]/60">
-                    Mastery
-                  </span>
-                </div>
-                <span className="text-[10px] text-[#708090]/80 block -mt-0.5 tracking-wider font-medium">
-                  CHEMISTRY MASTERY PLATFORM
+              <div className="flex flex-col justify-center leading-none">
+                <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#2D3748] font-display uppercase group-hover:text-[#708090] transition-colors">
+                  Axioma
+                </span>
+                <span className="font-mono font-bold text-[8.5px] sm:text-[9px] tracking-[0.25em] text-[#708090] uppercase mt-[1.5px]">
+                  Academy
                 </span>
               </div>
             </Link>
@@ -622,6 +642,137 @@ export const Navbar: React.FC = React.memo(() => {
 
 
 
+            {/* Subject Selector Pill (Axioma Multi-Subject Engine) */}
+            {user && !isWhiteboardCanvas && (
+              <div className="relative" ref={subjectDropdownRef}>
+                <button
+                  type="button"
+                  onClick={() => setShowSubjectDropdown(!showSubjectDropdown)}
+                  className="h-9 flex items-center gap-1.5 px-2.5 rounded-xl bg-[#FFFFF0] hover:bg-[#F0F8FF] border border-[#D3D3D3] transition-colors cursor-pointer active:scale-95 text-xs font-semibold text-[#2D3748]"
+                  title="Ganti atau Lihat Akses Mata Pelajaran (Kimia, Fisika, Matematika, Biologi)"
+                >
+                  <span className="text-sm leading-none">{currentSubjectConfig.symbolGlyph}</span>
+                  <span className="font-bold text-xs">{currentSubjectConfig.name}</span>
+                  {!isTeacher && !isAdmin && !isCurrentSubjectUnlocked && (
+                    <SolarLock className="w-3 h-3 text-amber-500" />
+                  )}
+                  <ChevronDown
+                    className={`w-3 h-3 text-[#708090] transition-transform ${
+                      showSubjectDropdown ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {showSubjectDropdown && (
+                  <div className="absolute right-0 mt-2 w-72 bg-[#FFFFF0] border border-[#D3D3D3] rounded-2xl shadow-xl p-2.5 text-xs z-50 animate-in fade-in space-y-2">
+                    <div className="px-2 py-1 border-b border-[#D3D3D3]/60 flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#708090]">
+                        Pilihan Mata Pelajaran
+                      </span>
+                      <span className="text-[10px] font-medium text-[#708090]">
+                        {isAdmin
+                          ? 'Akses Global Admin'
+                          : isTeacher
+                          ? `Guru ${teacherSubject || profile?.teaching_subject || 'Kimia'}`
+                          : `${unlockedSubjects.length}/4 Terbuka`}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1">
+                      {(['kimia', 'fisika', 'matematika', 'biologi'] as SubjectId[]).map((subId) => {
+                        const conf = SUBJECT_CONFIGS[subId];
+                        const isUnlocked = isSubjectUnlocked(subId);
+                        const isCurrent = currentSubject === subId;
+                        const matchingClassroom = studentClassrooms.find(
+                          (c) => c.subjects?.includes(subId) && c.user_membership_status === 'active'
+                        );
+
+                        return (
+                          <div
+                            key={subId}
+                            onClick={() => {
+                              setCurrentSubject(subId);
+                              setShowSubjectDropdown(false);
+                              const segments = location.pathname.split('/').filter(Boolean);
+                              if (segments.length > 0 && isSubjectId(segments[0])) {
+                                segments[0] = subId;
+                                navigate(`/${segments.join('/')}`);
+                              } else if (location.pathname === '/practice' || location.pathname === '/materi') {
+                                navigate(`/${subId}${location.pathname}`);
+                              }
+                            }}
+                            className={`p-2 rounded-xl transition-all flex items-center justify-between cursor-pointer border ${
+                              isCurrent
+                                ? 'bg-[#F0F8FF] border-[#B0C4DE] shadow-2xs'
+                                : 'hover:bg-[#F0F8FF]/50 border-transparent'
+                            } ${!isUnlocked && !isAdmin ? 'opacity-85' : ''}`}
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div
+                                className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 border"
+                                style={{
+                                  backgroundColor: conf.palette.softBadgeBg,
+                                  borderColor: conf.palette.softBorder,
+                                  color: conf.palette.contrastText,
+                                }}
+                              >
+                                {conf.symbolGlyph}
+                              </div>
+                              <div className="min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="font-bold text-xs text-[#2D3748]">
+                                    {conf.name}
+                                  </span>
+                                  {isCurrent && (
+                                    <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#708090] text-[#FFFFF0]">
+                                      Aktif
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-[10px] text-[#708090] truncate max-w-[150px]">
+                                  {matchingClassroom
+                                    ? matchingClassroom.name
+                                    : conf.nameEn}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div>
+                              {isUnlocked || isAdmin ? (
+                                <Check
+                                  className={`w-4 h-4 ${
+                                    isCurrent ? 'text-[#708090]' : 'text-emerald-500'
+                                  }`}
+                                />
+                              ) : (
+                                <div className="flex items-center gap-1 text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                                  <SolarLock className="w-3 h-3 text-amber-600" />
+                                  <span>+ Buka</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {!isTeacher && !isAdmin && (
+                      <div className="pt-1.5 border-t border-[#D3D3D3]/60 px-1">
+                        <Link
+                          to="/student/settings"
+                          onClick={() => setShowSubjectDropdown(false)}
+                          className="w-full flex items-center justify-center gap-1.5 py-1.5 text-[11px] font-bold text-[#708090] hover:text-[#2D3748] bg-[#F0F8FF] hover:bg-[#B0C4DE]/30 rounded-lg transition-colors border border-[#B0C4DE]/50"
+                        >
+                          <Plus className="w-3 h-3" />
+                          <span>+ Gabung Kelas Subjek Baru</span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Auth Section: Logged In or Guest */}
             {user ? (
               <div className="relative">
@@ -847,22 +998,20 @@ export const Navbar: React.FC = React.memo(() => {
                 )}
               </div>
             ) : (
-              /* Tamu (Guest) Action Buttons: Tanpa Role Switcher, Hanya Akses Pendaftaran Siswa & Masuk */
-              <div className="flex items-center gap-2">
+              /* Tamu (Guest) Action Buttons: Konsisten dengan Palet Platform Axioma (#708090 & #FFFFF0) */
+              <div className="flex items-center gap-2 sm:gap-2.5">
                 <Link
-                  to="/login?mode=register"
-                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#B0C4DE] text-xs font-bold rounded-lg shadow-2xs transition-all active:scale-95"
+                  to="/login"
+                  className="hidden sm:inline-flex items-center justify-center px-3.5 py-1.5 text-xs font-semibold text-[#708090] hover:text-[#2D3748] hover:bg-[#F0F8FF] rounded-lg transition duration-200"
                 >
-                  <GraduationCap className="w-3.5 h-3.5 text-[#708090]" />
-                  <span>Daftar Siswa</span>
+                  Masuk
                 </Link>
 
                 <Link
-                  to="/login"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] text-xs font-bold rounded-lg shadow-xs transition-all active:scale-95 border border-[#708090]"
+                  to="/login?mode=register"
+                  className="inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold text-[#FFFFF0] bg-[#708090] hover:bg-[#5C6D7D] border border-[#708090] rounded-lg shadow-2xs hover:shadow-xs transition duration-200 active:scale-95"
                 >
-                  <LogIn className="w-3.5 h-3.5 text-[#FFFFF0]" />
-                  <span>Masuk</span>
+                  Daftar Akun
                 </Link>
               </div>
             )}
@@ -897,14 +1046,14 @@ export const Navbar: React.FC = React.memo(() => {
             <div className="p-4 border-b border-[#D3D3D3] flex items-center justify-between bg-[#F0F8FF]">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-[#708090] text-[#FFFFF0] flex items-center justify-center font-bold text-sm shadow-xs border border-[#B0C4DE]/50">
-                  ⚛
+                  {currentSubjectConfig.symbolGlyph}
                 </div>
                 <div>
                   <div className="font-extrabold text-sm text-[#2D3748] font-display leading-tight">
-                    OSN Kimia
+                    Axioma Academy
                   </div>
                   <span className="text-[10px] font-semibold text-[#708090] font-mono">
-                    Mastery Mobile
+                    {currentSubjectConfig.name} Mastery
                   </span>
                 </div>
               </div>
@@ -932,11 +1081,60 @@ export const Navbar: React.FC = React.memo(() => {
                     <span className={`inline-block px-1.5 py-0.2 rounded text-[9px] font-bold mt-0.5 ${
                       isAdmin
                         ? 'bg-[#708090] text-[#FFFFF0]'
-                        : 'bg-[#B0C4DE]/30 text-[#708090] border border-[#B0C4DE]/60'
+                        : isTeacher
+                        ? '👨‍🏫 Guru / Pembina'
+                        : '🎓 Siswa'
                     }`}>
                       {isAdmin ? '⚡ Admin' : isTeacher ? '👨‍🏫 Guru / Pembina' : '🎓 Siswa'}
                     </span>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile Subject Switcher */}
+            {user && (
+              <div className="p-3 border-b border-[#D3D3D3] bg-[#FFFFF0]">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-[#708090] mb-2 flex items-center justify-between">
+                  <span>Mata Pelajaran (Subject)</span>
+                  <span className="font-mono text-[9px]">{unlockedSubjects.length}/4 Aktif</span>
+                </div>
+                <div className="grid grid-cols-2 gap-1.5">
+                  {(['kimia', 'fisika', 'matematika', 'biologi'] as SubjectId[]).map((subId) => {
+                    const conf = SUBJECT_CONFIGS[subId];
+                    const isUnlocked = isSubjectUnlocked(subId);
+                    const isCurrent = currentSubject === subId;
+                    return (
+                      <button
+                        key={subId}
+                        type="button"
+                        onClick={() => {
+                          setCurrentSubject(subId);
+                          setMobileMenuOpen(false);
+                          const segments = location.pathname.split('/').filter(Boolean);
+                          if (segments.length > 0 && isSubjectId(segments[0])) {
+                            segments[0] = subId;
+                            navigate(`/${segments.join('/')}`);
+                          } else if (location.pathname === '/practice' || location.pathname === '/materi') {
+                            navigate(`/${subId}${location.pathname}`);
+                          }
+                        }}
+                        className={`flex items-center gap-1.5 p-2 rounded-xl border text-left transition-all ${
+                          isCurrent
+                            ? 'bg-[#B0C4DE]/30 border-[#708090] text-[#2D3748] font-bold shadow-2xs'
+                            : 'bg-[#FFFFF0] border-[#D3D3D3] text-[#708090]'
+                        } ${!isUnlocked && !isAdmin ? 'opacity-70' : ''}`}
+                      >
+                        <span className="text-sm">{conf.symbolGlyph}</span>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-[11px] truncate leading-tight font-bold">{conf.name}</div>
+                          <div className="text-[9px] opacity-75 leading-tight">
+                            {isUnlocked || isAdmin ? 'Terbuka' : 'Terkunci 🔒'}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1194,22 +1392,22 @@ export const Navbar: React.FC = React.memo(() => {
                     <span>Beranda Utama</span>
                   </Link>
 
-                  <div className="p-3 bg-[#F0F8FF] rounded-xl border border-[#D3D3D3] space-y-2 text-[#2D3748]">
-                    <p className="text-[11px] leading-relaxed">
-                      Silakan masuk atau daftar sebagai siswa untuk mulai mengakses 10 topik silabus, modul interaktif, dan penilaian cerdas AI.
+                  <div className="p-3.5 bg-[#FFFFF0] rounded-2xl border border-[#B0C4DE]/60 space-y-2.5 text-[#2D3748]">
+                    <p className="text-[11px] leading-relaxed text-[#708090]">
+                      Silakan masuk atau daftar akun untuk mulai mengakses materi dan bank soal.
                     </p>
                     <Link
                       to="/login?mode=register"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-slate-900 font-bold rounded-xl shadow-xs transition active:scale-95 text-xs border border-[#B0C4DE]"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-semibold rounded-xl shadow-xs transition active:scale-95 text-xs border border-[#708090]"
                     >
                       <GraduationCap className="w-4 h-4" />
-                      <span>Daftar Akun Siswa</span>
+                      <span>Daftar Akun</span>
                     </Link>
                     <Link
                       to="/login"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-bold rounded-xl shadow-xs transition active:scale-95 text-xs border border-[#708090]"
+                      className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] hover:text-[#2D3748] font-semibold rounded-xl border border-[#B0C4DE] transition active:scale-95 text-xs"
                     >
                       <LogIn className="w-4 h-4" />
                       <span>Masuk ke Portal</span>

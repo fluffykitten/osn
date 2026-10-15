@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BENCHMARK_QUESTIONS, PILLARS_DATA } from '../../data/syllabusData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
-import { ChemToolbar } from '../../components/worksheet/ChemToolbar';
+import { SubjectToolbar } from '../../components/worksheet/SubjectToolbar';
 import { PeriodicTableDrawer } from '../../components/common/PeriodicTableDrawer';
 import { MolarMassCalculatorModal } from '../../components/common/MolarMassCalculatorModal';
 import { ScaffoldGuideModal } from '../../components/worksheet/ScaffoldGuideModal';
@@ -2338,8 +2338,8 @@ export const Worksheet: React.FC = () => {
             </div>
           </div>
 
-          {/* ChemToolbar directly attached with Kerangka 4 Langkah OSN sejajar dengan Template Cepat OSN */}
-          <ChemToolbar
+          {/* SubjectToolbar: Multi-STEM Notasi & Formula Tooling (Kimia, Fisika, Matematika, Biologi) */}
+          <SubjectToolbar
             textareaRef={textareaRef}
             onValueChange={handleStepsChange}
             onOpenPeriodicTable={() => setIsPeriodicOpen(true)}

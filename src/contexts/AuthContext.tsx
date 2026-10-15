@@ -1,17 +1,22 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabaseClient';
-import type { Profile, UserRole } from '../types/database';
+import type { Profile, UserRole, SubjectId } from '../types/database';
 import { getLocalGamificationState, saveLocalGamificationState } from '../lib/gamification';
 import { awardXp } from '../services/gamificationService';
 import { sendStudentRegistrationNotification } from '../services/notificationService';
+import { classroomService } from '../services/classroomService';
 
-export interface StudentRegistrationDetails {
+export interface UserRegistrationDetails {
   schoolName?: string;
   gradeLevel?: string;
   targetOlympiad?: 'OSK' | 'OSP' | 'OSN' | 'IChO' | string;
   phoneWhatsApp?: string;
+  teachingSubject?: SubjectId;
+  initialClassCode?: string;
 }
+
+export type StudentRegistrationDetails = UserRegistrationDetails;
 
 interface AuthContextType {
   user: User | null;
@@ -31,7 +36,7 @@ interface AuthContextType {
     password: string,
     fullName: string,
     role?: 'teacher' | 'student',
-    studentDetails?: StudentRegistrationDetails
+    registrationDetails?: UserRegistrationDetails
   ) => Promise<{ success: boolean; error?: string; requireConfirmation?: boolean }>;
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string; message?: string }>;
   updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
@@ -107,11 +112,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ? 'Administrator (FluffyKitten)'
             : cleanEmail.split('@')[0]);
 
+        const defaultTeachingSubject = (userMetadata?.teaching_subject as SubjectId) || (isMasterTeacher ? 'kimia' : undefined);
+
         const newProfile: Partial<Profile> = {
           id: userId,
           email: cleanEmail,
           full_name: defaultName,
           role: defaultRole,
+          teaching_subject: defaultTeachingSubject,
           is_admin: isMasterAdmin,
           xp: 100,
           level: 1,
@@ -344,27 +352,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  // 100% Strict Supabase Registration (Siswa OSN)
+  // 100% Strict Supabase Registration (Siswa & Guru Axioma Academy)
   const register = async (
     email: string,
     password: string,
     fullName: string,
     role: 'teacher' | 'student' = 'student',
-    studentDetails?: StudentRegistrationDetails
+    registrationDetails?: UserRegistrationDetails
   ): Promise<{ success: boolean; error?: string; requireConfirmation?: boolean }> => {
-    // Kebijakan: Pendaftaran publik HANYA untuk Siswa. Akun Guru dikelola Administrator.
-    if (role === 'teacher') {
-      return {
-        success: false,
-        error: 'Pendaftaran publik saat ini hanya dibuka untuk Siswa. Akun Guru dikelola dan diterbitkan secara resmi oleh Administrator (fluffykitten.dev@gmail.com).',
-      };
-    }
-
     const cleanEmail = email.trim().toLowerCase().replace(/['"]/g, '');
-    const schoolName = studentDetails?.schoolName?.trim() || '';
-    const gradeLevel = studentDetails?.gradeLevel?.trim() || '10';
-    const targetOlympiad = studentDetails?.targetOlympiad || 'OSK';
-    const phoneWhatsApp = studentDetails?.phoneWhatsApp?.trim() || '';
+    const schoolName = registrationDetails?.schoolName?.trim() || '';
+    const gradeLevel = registrationDetails?.gradeLevel?.trim() || '10';
+    const targetOlympiad = registrationDetails?.targetOlympiad || 'OSK';
+    const phoneWhatsApp = registrationDetails?.phoneWhatsApp?.trim() || '';
+    const teachingSubject: SubjectId = registrationDetails?.teachingSubject || 'kimia';
 
     const supabase = getSupabaseClient();
     if (!supabase) {
@@ -372,19 +373,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
+      const userMetadata: Record<string, any> = {
+        full_name: fullName,
+        role: role,
+        school_name: schoolName,
+        phone_whatsapp: phoneWhatsApp,
+        membership_tier: role === 'teacher' ? 'pro' : 'free',
+      };
+
+      if (role === 'teacher') {
+        userMetadata.teaching_subject = teachingSubject;
+      } else {
+        userMetadata.grade_level = gradeLevel;
+        userMetadata.target_olympiad = targetOlympiad;
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email: cleanEmail,
         password,
         options: {
-          data: {
-            full_name: fullName,
-            role: 'student',
-            school_name: schoolName,
-            grade_level: gradeLevel,
-            target_olympiad: targetOlympiad,
-            phone_whatsapp: phoneWhatsApp,
-            membership_tier: 'free',
-          },
+          data: userMetadata,
         },
       });
 
@@ -400,17 +408,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setSession(data.session);
         }
 
-        // Simpan profil siswa secara eksplisit ke database public.profiles
+        // Simpan profil pengguna secara eksplisit ke database public.profiles
         const newProfile: Partial<Profile> = {
           id: data.user.id,
           email: cleanEmail,
           full_name: fullName,
-          role: 'student',
+          role: role,
           school_name: schoolName,
-          grade_level: gradeLevel,
-          target_olympiad: targetOlympiad,
           phone_whatsapp: phoneWhatsApp,
-          membership_tier: 'free',
+          membership_tier: role === 'teacher' ? 'pro' : 'free',
+          teaching_subject: role === 'teacher' ? teachingSubject : undefined,
+          grade_level: role === 'student' ? gradeLevel : undefined,
+          target_olympiad: role === 'student' ? targetOlympiad : undefined,
           xp: 100,
           level: 1,
           current_streak: 1,
@@ -429,20 +438,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           setProfile(newProfile as Profile);
         }
 
-        syncGamificationRole('student');
+        syncGamificationRole(role);
         localStorage.setItem('osn_student_id', data.user.id);
         localStorage.setItem('osn_student_email', cleanEmail);
         localStorage.setItem('osn_student_name', fullName);
 
+        // Jika siswa menyertakan kode kelas langsung saat mendaftar, otomatis gabungkan
+        if (role === 'student' && registrationDetails?.initialClassCode?.trim()) {
+          try {
+            await classroomService.joinClassroomByCode(
+              registrationDetails.initialClassCode.trim(),
+              cleanEmail,
+              data.user.id,
+              fullName
+            );
+          } catch (joinErr) {
+            console.warn('[AuthContext] Auto join initial classroom notice:', joinErr);
+          }
+        }
+
         // Kirim notifikasi via Cloudflare Worker di background
-        sendStudentRegistrationNotification({
-          fullName,
-          email: cleanEmail,
-          schoolName,
-          gradeLevel,
-          targetOlympiad,
-          phoneWhatsApp,
-        }).catch(() => {});
+        if (role === 'student') {
+          sendStudentRegistrationNotification({
+            fullName,
+            email: cleanEmail,
+            schoolName,
+            gradeLevel,
+            targetOlympiad,
+            phoneWhatsApp,
+          }).catch(() => {});
+        }
       }
 
       return { success: true, requireConfirmation };

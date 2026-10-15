@@ -3,53 +3,51 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
 import type { Classroom } from '../../types/database';
-import { ChemistrySmaSyllabusSvg } from '../../components/syllabus/ChemistrySmaSyllabusSvg';
-import { ChemistryOsnSyllabusSvg } from '../../components/syllabus/ChemistryOsnSyllabusSvg';
-import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
+import { SUBJECT_LIST } from '../../config/subjectConfig';
+import { SubjectIgcseSvgArt } from '../../components/subject/SubjectIgcseSvgArt';
+import { AxiomaLogo } from '../../components/common/AxiomaLogo';
 import {
   LogIn,
   GraduationCap,
-  KeyRound,
-  Atom,
-  Sparkles,
-  BookOpen,
-  Cpu,
-  Layers,
-  ArrowRight,
-  Eye,
-  CloudCheck,
   Users,
   CheckCircle2,
   X,
-  LayoutDashboard,
-  BarChart3,
-  Settings,
-  School,
+  ArrowRight,
+  FlaskConical,
   Compass,
+  Percent,
+  Dna,
+  School,
+  Sparkles,
+  BookOpen,
+  Layers,
+  ArrowUpRight,
+  ShieldCheck,
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
-  const { user, profile, isTeacher } = useAuth();
+  const { user, profile, isTeacher, isAdmin } = useAuth();
   const location = useLocation();
 
-  const pageState = location.state as {
-    registered?: boolean;
-    requireConfirmation?: boolean;
-    studentName?: string;
-    registeredEmail?: string;
-    passwordResetSuccess?: boolean;
-    email?: string;
-  } | undefined;
+  const pageState = location.state as
+    | {
+        registered?: boolean;
+        requireConfirmation?: boolean;
+        studentName?: string;
+        registeredEmail?: string;
+        passwordResetSuccess?: boolean;
+        email?: string;
+      }
+    | undefined;
 
   const [showRegBanner, setShowRegBanner] = useState(Boolean(pageState?.registered));
-  const [showResetSuccessBanner, setShowResetSuccessBanner] = useState(Boolean(pageState?.passwordResetSuccess));
+  const [showResetSuccessBanner, setShowResetSuccessBanner] = useState(
+    Boolean(pageState?.passwordResetSuccess)
+  );
   const [studentClassroom, setStudentClassroom] = useState<Classroom | null>(null);
-  const [isLoadingClass, setIsLoadingClass] = useState<boolean>(false);
-  const [syllabusView, setSyllabusView] = useState<'osn' | 'sma' | 'both'>('osn');
 
   useEffect(() => {
-    if (user?.email && !isTeacher) {
-      setIsLoadingClass(true);
+    if (user?.email && !isTeacher && !isAdmin) {
       classroomService
         .getStudentClassrooms(user.email, user.id)
         .then((classes) => {
@@ -57,70 +55,45 @@ export const LandingPage: React.FC = () => {
           const pending = classes.find((c) => c.user_membership_status === 'pending_approval');
           setStudentClassroom(active || pending || null);
         })
-        .catch((err) => console.error(err))
-        .finally(() => setIsLoadingClass(false));
+        .catch((err) => console.error(err));
     }
-  }, [user, isTeacher]);
+  }, [user, isTeacher, isAdmin]);
+
+  // Helper untuk icon subjek
+  const renderSubjectIcon = (iconName: string, className: string) => {
+    switch (iconName) {
+      case 'FlaskConical':
+        return <FlaskConical className={className} />;
+      case 'Compass':
+        return <Compass className={className} />;
+      case 'Percent':
+        return <Percent className={className} />;
+      case 'Dna':
+        return <Dna className={className} />;
+      default:
+        return <BookOpen className={className} />;
+    }
+  };
 
   return (
-    <div
-      className="min-h-screen pb-20 transition-colors duration-200 relative overflow-hidden"
-      style={{ backgroundColor: 'var(--theme-canvas)', color: 'var(--theme-text)' }}
-    >
-      {/* Background Abstract Chemistry Watermark Decoration */}
-      <ChemistryWatermarkBackground />
-      {/* Password Reset Success Notification Banner */}
-      {showResetSuccessBanner && pageState?.passwordResetSuccess && (
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-3.5 px-4 shadow-md text-xs sm:text-sm animate-in fade-in slide-in-from-top-2 duration-300">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-5 h-5 text-emerald-200 shrink-0" />
-              <div>
-                <span className="font-bold">🔑 Kata Sandi Berhasil Diperbarui!</span>{' '}
-                <span>
-                  Kata sandi baru untuk akun {pageState.email ? <strong>{pageState.email}</strong> : 'Anda'} telah aktif. Silakan masuk dengan kata sandi baru Anda.
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <Link
-                to="/login"
-                className="px-3.5 py-1.5 bg-white text-emerald-900 hover:bg-emerald-50 rounded-lg font-bold text-xs shadow-xs transition-all"
-              >
-                Masuk Sekarang →
-              </Link>
-              <button
-                onClick={() => setShowResetSuccessBanner(false)}
-                className="p-1 hover:bg-white/20 rounded-lg transition-all text-white/80 hover:text-white"
-                title="Tutup pemberitahuan"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+    <div className="min-h-screen pb-24 transition-colors duration-200 relative overflow-hidden bg-[#F0F8FF] text-[#2D3748]">
+      {/* Background Decorative Ambient Gradients (Minimal & Serene) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-[#B0C4DE]/25 via-transparent to-transparent pointer-events-none -z-10" />
 
-      {/* Registration Success Notification Banner */}
-      {showRegBanner && pageState?.registered && (
-        <div className="bg-emerald-600 text-white py-3 px-4 shadow-md text-xs sm:text-sm animate-in fade-in slide-in-from-top-2 duration-300">
-          <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-5 h-5 text-emerald-200 shrink-0" />
-              <div>
-                <span className="font-bold">🎉 Pendaftaran Siswa Berhasil!</span>{' '}
-                <span>
-                  Selamat datang di OSN Kimia Mastery, <strong>{pageState.studentName || 'Siswa'}</strong>!
-                  {pageState.requireConfirmation
-                    ? ` Tautan aktivasi akun telah dikirim ke ${pageState.registeredEmail}. Silakan periksa inbox atau spam email Anda.`
-                    : ' Akun Anda telah siap. Silakan masuk untuk mulai berlatih di Lembar Kerja Olimpiade.'}
-                </span>
-              </div>
+      {/* Password Reset Notification Banner */}
+      {showResetSuccessBanner && pageState?.passwordResetSuccess && (
+        <div className="bg-emerald-600 text-white py-3 px-4 shadow-sm text-xs sm:text-sm animate-in fade-in duration-200">
+          <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-200 shrink-0" />
+              <span>
+                <strong>Kata Sandi Diperbarui!</strong> Silakan masuk dengan kata sandi baru Anda.
+              </span>
             </div>
             <button
-              onClick={() => setShowRegBanner(false)}
-              className="p-1 hover:bg-white/20 rounded-lg transition-all text-white/80 hover:text-white"
-              title="Tutup pemberitahuan"
+              onClick={() => setShowResetSuccessBanner(false)}
+              className="p-1 hover:bg-white/20 rounded transition text-white/80"
+              title="Tutup"
             >
               <X className="w-4 h-4" />
             </button>
@@ -128,780 +101,294 @@ export const LandingPage: React.FC = () => {
         </div>
       )}
 
-      {/* Hero Section */}
-      <section className="relative z-10 pt-12 sm:pt-16 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          {/* Main Headline (1 Warna Solid Saja Menyesuaikan Tema, Tanpa Mention AI) */}
-          <h1
-            className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight max-w-4xl mx-auto leading-tight font-display transition-colors"
-            style={{ color: 'var(--theme-text)' }}
-          >
-            Kuasai 10 Topik Silabus OSN Kimia dengan Scaffolding Penalaran Presisi
-          </h1>
+      {/* Registration Success Notification Banner */}
+      {showRegBanner && pageState?.registered && (
+        <div className="bg-teal-700 text-white py-3 px-4 shadow-sm text-xs sm:text-sm animate-in fade-in duration-200">
+          <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-teal-200 shrink-0" />
+              <span>
+                <strong>Pendaftaran Berhasil!</strong> Selamat datang,{' '}
+                <strong>{pageState.studentName || 'Siswa'}</strong>. Silakan masuk untuk memulai belajar.
+              </span>
+            </div>
+            <button
+              onClick={() => setShowRegBanner(false)}
+              className="p-1 hover:bg-white/20 rounded transition text-white/80"
+              title="Tutup"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
-          {/* Subheading */}
-          <p
-            className="text-sm sm:text-base max-w-2xl mx-auto leading-relaxed transition-colors"
-            style={{ color: 'var(--theme-text-muted)' }}
-          >
-            Platform pembelajaran terpadu untuk calon medalis Olimpiade Sains Nasional (OSN) dan International Chemistry Olympiad (IChO). Menghubungkan siswa dengan notasi formula KaTeX mhchem, lembar kerja tersimpan online, analisis penalaran bertahap, serta pemantauan live kelas oleh pembina olimpiade.
-          </p>
-
-          {/* Primary Action Button Bar */}
-          {!user ? (
-            /* Tamu (Guest) Action Buttons */
-            <>
-              <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-                {/* Tombol Masuk */}
-                <Link
-                  to="/login"
-                  style={{
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 hover:opacity-95"
-                >
-                  <LogIn className="w-4 h-4" />
-                  <span>Masuk ke Portal</span>
-                  <ArrowRight className="w-4 h-4 ml-0.5" />
-                </Link>
-
-                {/* Tombol Daftar (Hanya untuk Siswa) */}
-                <Link
-                  to="/login?mode=register"
-                  style={{
-                    backgroundColor: 'var(--theme-accent)',
-                    color: 'var(--theme-accent-text)',
-                  }}
-                  className="inline-flex items-center gap-2.5 px-6 py-3 font-bold text-sm rounded-xl transition-all shadow-md hover:shadow-lg active:scale-98 hover:-translate-y-0.5 border border-black/10 dark:border-white/10"
-                >
-                  <GraduationCap className="w-4 h-4 shrink-0" />
-                  <span className="tracking-tight">Daftar Akun Siswa</span>
-                  <span
-                    className="text-[10.5px] font-bold tracking-wider px-2 py-0.5 rounded-full border shadow-2xs font-mono uppercase transition-colors"
-                    style={{
-                      backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                      borderColor: 'rgba(0, 0, 0, 0.14)',
-                      color: 'var(--theme-accent-text)',
-                    }}
-                  >
-                    Khusus Siswa
-                  </span>
-                </Link>
-
-                {/* Tombol Lupa Password */}
-                <Link
-                  to="/login?mode=forgot"
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3 font-semibold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90 hover:-translate-y-0.5"
-                >
-                  <KeyRound className="w-4 h-4" />
-                  <span>Lupa Password?</span>
-                </Link>
+      {/* Quick Jump Bar untuk Pengguna yang Sedang Login */}
+      {user && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6">
+          <div className="p-4 rounded-2xl bg-[#FFFFF0] border border-[#B0C4DE]/60 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#708090] text-[#FFFFF0] flex items-center justify-center font-bold text-sm">
+                {profile?.role === 'admin' ? '🛡️' : isTeacher ? '👨‍🏫' : '🎓'}
               </div>
-
-              {/* Quick Notice about Teacher & Guest Access */}
-              <div className="pt-2">
-                <p
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="text-[11.5px] max-w-lg mx-auto py-2.5 px-4 rounded-xl border shadow-2xs leading-relaxed"
-                >
-                  ℹ️ <strong>Catatan Hak Akses:</strong> Pendaftaran publik dibuka khusus untuk <strong>Siswa</strong>. Akun Guru/Pembina ditentukan & diterbitkan langsung oleh Administrator (
-                  <span className="font-mono font-bold" style={{ color: 'var(--theme-primary)' }}>fluffykitten.dev@gmail.com</span>). Tamu (guest) wajib masuk sebelum mengakses lembar kerja & database materi.
+              <div>
+                <p className="text-xs text-[#708090] font-medium">Sesi Aktif</p>
+                <p className="text-sm font-bold text-[#2D3748]">
+                  {profile?.full_name || user.email}
+                  {profile?.teaching_subject && (
+                    <span className="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                      Guru {profile.teaching_subject.toUpperCase()}
+                    </span>
+                  )}
                 </p>
               </div>
-            </>
-          ) : isTeacher ? (
-            /* Mode Guru / Pembina */
-            <div className="space-y-4 pt-4">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <Link
-                  to="/teacher"
-                  style={{
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 hover:opacity-95"
-                >
-                  <Users className="w-4 h-4" />
-                  <span>Buka Studio Guru & Pemantauan</span>
-                  <ArrowRight className="w-4 h-4 ml-0.5" />
-                </Link>
-                <Link
-                  to="/teacher/classes"
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 font-bold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
-                >
-                  <School className="w-4 h-4" style={{ color: 'var(--theme-accent)' }} />
-                  <span>Manajemen Kelas Binaan</span>
-                </Link>
-                <Link
-                  to="/practice"
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 font-bold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
-                >
-                  <Layers className="w-4 h-4" style={{ color: 'var(--theme-primary)' }} />
-                  <span>Bank Soal & Studio Latihan</span>
-                </Link>
-              </div>
             </div>
-          ) : studentClassroom?.user_membership_status === 'active' ? (
-            /* Siswa Aktif (Sudah Memiliki Kelas) */
-            <div className="space-y-4 pt-4">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <Link
-                  to="/student/dashboard"
-                  style={{
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 hover:opacity-95"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  <span>Buka Dashboard Belajar Siswa</span>
-                  <ArrowRight className="w-4 h-4 ml-0.5" />
-                </Link>
+            <Link
+              to={
+                profile?.role === 'admin'
+                  ? '/admin/analytics'
+                  : isTeacher
+                  ? '/teacher'
+                  : studentClassroom
+                  ? '/student/dashboard'
+                  : '/join-class'
+              }
+              className="px-4 py-2 bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] rounded-xl font-semibold text-xs flex items-center gap-1.5 transition active:scale-98 shadow-xs"
+            >
+              <span>
+                {profile?.role === 'admin'
+                  ? 'Buka Admin Command Center'
+                  : isTeacher
+                  ? 'Buka Studio Guru'
+                  : 'Buka Dashboard Siswa'}
+              </span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      )}
 
-                <Link
-                  to="/worksheet"
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 font-bold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
-                >
-                  <Layers className="w-4 h-4" style={{ color: 'var(--theme-accent)' }} />
-                  <span>Worksheet Saya</span>
-                </Link>
-
-                <Link
-                  to="/student/progress"
-                  style={{
-                    backgroundColor: 'var(--theme-surface)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-text)',
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-3.5 font-bold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
-                >
-                  <BarChart3 className="w-4 h-4" style={{ color: 'var(--theme-primary)' }} />
-                  <span>Progress Belajar</span>
-                </Link>
-              </div>
-
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-surface)',
-                  borderColor: 'var(--theme-border)',
-                  color: 'var(--theme-text)',
-                }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold"
-              >
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>
-                  Terdaftar di Kelas: <strong>{studentClassroom.name}</strong> • Seluruh modul & tugas terpantau aktif
-                </span>
-              </div>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 pt-8 sm:pt-14">
+        {/* HERO SECTION (Minimalist & Focused with Emblem) */}
+        <section className="space-y-6 max-w-4xl mx-auto">
+          {/* Main Title with Logo on the Left */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 text-center sm:text-left">
+            <div className="shrink-0 drop-shadow-sm hover:scale-105 transition-transform duration-300">
+              <AxiomaLogo variant="icon" className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40" />
             </div>
-          ) : (
-            /* Siswa Baru (Belum Memiliki Kelas Aktif / Sedang Pending Approval) */
-            <div className="max-w-2xl mx-auto pt-4 space-y-4">
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-surface)',
-                  borderColor: 'var(--theme-border)',
-                }}
-                className="p-6 border rounded-3xl shadow-sm space-y-4 text-left sm:text-center"
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-tight text-[#2D3748] font-display leading-[1.15] max-w-2xl">
+              Menguasai Sains & Matematika dari Fondasi hingga Puncak
+            </h1>
+          </div>
+
+          {/* Subtitle Ringkas */}
+          <p className="text-sm sm:text-base text-[#708090] leading-relaxed max-w-2xl mx-auto text-center">
+            Satu ekosistem belajar terpadu yang menjangkau <strong>Kurikulum Nasional</strong>,{' '}
+            <strong>Cambridge (IGCSE, AS, A-Level)</strong>, hingga <strong>Olimpiade Sains Nasional (OSN)</strong>.
+          </p>
+
+          {/* Quick CTA untuk Guest */}
+          {!user && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+              <Link
+                to="/login"
+                className="px-6 py-3 rounded-xl bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-semibold text-sm shadow-xs transition active:scale-98 flex items-center gap-2"
               >
+                <LogIn className="w-4 h-4" />
+                <span>Masuk ke Akun</span>
+              </Link>
+              <Link
+                to="/login?mode=register"
+                className="px-6 py-3 rounded-xl bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] font-semibold text-sm border border-[#D3D3D3] shadow-2xs transition active:scale-98 flex items-center gap-2"
+              >
+                <GraduationCap className="w-4 h-4" />
+                <span>Daftar Akun</span>
+              </Link>
+            </div>
+          )}
+        </section>
+
+
+
+        {/* 4 AVAILABLE SUBJECTS GRID */}
+        <section className="space-y-6">
+          <div className="text-center space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#2D3748] font-display">
+              Subjek Pembelajaran
+            </h2>
+            <p className="text-xs sm:text-sm text-[#708090]">
+              Pilih subjek untuk mulai mempelajari bank soal dan silabus konsep materi.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {SUBJECT_LIST.map((subject) => {
+              const isActive = subject.status === 'active';
+              const isBeta = subject.status === 'beta';
+
+              return (
                 <div
-                  style={{ borderColor: 'var(--theme-border)' }}
-                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b pb-3"
+                  key={subject.id}
+                  className="rounded-2xl bg-[#FFFFF0] border border-[#D3D3D3]/80 p-5 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-                    <span
-                      style={{ color: 'var(--theme-text-muted)' }}
-                      className="text-xs font-bold uppercase tracking-wider"
-                    >
-                      Status Akun: Menunggu Aktivasi Kelas Binaan
-                    </span>
-                  </div>
-                  <span className="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[11px] font-bold">
-                    {studentClassroom?.user_membership_status === 'pending_approval' ? '⏳ Menunggu Approval Guru' : 'Belum Ada Kelas'}
-                  </span>
-                </div>
+                  {/* Status Indicator Bar */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1 transition-colors"
+                    style={{ backgroundColor: subject.palette.themeColor }}
+                  />
 
+                  <div className="space-y-3.5">
+                    {/* Icon & Status Badge */}
+                    <div className="flex items-center justify-between">
+                      <div
+                        className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
+                        style={{
+                          backgroundColor: subject.palette.softBadgeBg,
+                          color: subject.palette.contrastText,
+                          borderColor: subject.palette.softBorder,
+                        }}
+                      >
+                        {renderSubjectIcon(subject.iconName, 'w-5 h-5')}
+                      </div>
+
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                          isActive
+                            ? 'bg-teal-50 text-teal-800 border-teal-200'
+                            : isBeta
+                            ? 'bg-blue-50 text-blue-800 border-blue-200'
+                            : 'bg-slate-100 text-slate-700 border-slate-200'
+                        }`}
+                      >
+                        {isActive ? 'Aktif Penuh' : isBeta ? 'Early Access' : 'Preview'}
+                      </span>
+                    </div>
+
+                    {/* Diagram Vektor Representatif Subjek (Cambridge IGCSE Exam Notes Style) */}
+                    <SubjectIgcseSvgArt subjectId={subject.id} className="w-full h-36" />
+
+                    {/* Title & Description */}
+                    <div>
+                      <h3 className="text-base font-bold text-[#2D3748] font-display flex items-center gap-1.5">
+                        <span>{subject.name}</span>
+                        <span className="text-xs text-[#708090] font-normal">({subject.nameEn})</span>
+                      </h3>
+                      <p className="text-xs text-[#708090] mt-1.5 leading-relaxed">
+                        {subject.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* DUAL ROLE GATEWAY (Siswa vs Guru) */}
+        <section className="space-y-6">
+          <div className="text-center space-y-1">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#2D3748] font-display">
+              Akses Portal Pengguna
+            </h2>
+            <p className="text-xs sm:text-sm text-[#708090]">
+              Informasi pendaftaran dan alur masuk untuk Siswa dan Guru Pembina.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* CARD 1: SISWA */}
+            <div className="rounded-2xl bg-[#FFFFF0] border border-[#B0C4DE]/80 p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center">
+                  <GraduationCap className="w-6 h-6" />
+                </div>
                 <div>
-                  <h3
-                    style={{ color: 'var(--theme-text)' }}
-                    className="text-lg font-bold font-display"
-                  >
-                    {studentClassroom?.user_membership_status === 'pending_approval'
-                      ? `Pengajuan Bergabung ke Kelas "${studentClassroom.name}" Sedang Diproses`
-                      : `Halo, ${profile?.full_name || 'Siswa'}! Aktifkan Akses Binaan Anda`}
-                  </h3>
-                  <p
-                    style={{ color: 'var(--theme-text-muted)' }}
-                    className="text-xs sm:text-sm mt-1.5 leading-relaxed"
-                  >
-                    {studentClassroom?.user_membership_status === 'pending_approval'
-                      ? 'Kode kelas Anda telah berhasil diajukan. Silakan hubungi Guru Pembina Anda untuk menyetujui (manual approve) akun Anda di Studio Guru agar seluruh materi dan lembar kerja terbuka.'
-                      : 'Sebagai siswa baru, modul silabus, lembar kerja tersimpan online, dan analisis penalaran bertahap akan terbuka penuh setelah Anda memasukkan Kode Kelas dari Guru Pembina OSN Anda.'}
+                  <h3 className="text-xl font-bold text-[#2D3748] font-display">Untuk Siswa</h3>
+                  <p className="text-xs text-[#708090] mt-1 leading-relaxed">
+                    Akses pendaftaran mandiri untuk berlatih ribuan soal kompetisi, membaca ringkasan materi, dan bergabung ke kelas binaan sekolah.
                   </p>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
-                  <Link
-                    to="/join-class"
-                    style={{
-                      backgroundColor: 'var(--theme-primary)',
-                      color: 'var(--theme-primary-text)',
-                    }}
-                    className="inline-flex items-center gap-2 px-6 py-3 font-bold text-sm rounded-xl transition-all shadow-md active:scale-98 hover:opacity-95"
-                  >
-                    <KeyRound className="w-4 h-4" />
-                    <span>{studentClassroom?.user_membership_status === 'pending_approval' ? 'Lihat Status Persetujuan Kelas' : 'Aktivasi Kode Kelas Sekarang'}</span>
-                    <ArrowRight className="w-4 h-4 ml-0.5" />
-                  </Link>
-
-                  <Link
-                    to="/student/settings"
-                    style={{
-                      backgroundColor: 'var(--theme-surface)',
-                      borderColor: 'var(--theme-border)',
-                      color: 'var(--theme-text)',
-                    }}
-                    className="inline-flex items-center gap-2 px-5 py-3 font-bold text-sm border rounded-xl transition-all shadow-2xs hover:opacity-90"
-                  >
-                    <Settings className="w-4 h-4" style={{ color: 'var(--theme-text-muted)' }} />
-                    <span>Pengaturan Profil Siswa</span>
-                  </Link>
-                </div>
+                <ul className="space-y-2.5 text-xs text-[#2D3748] pt-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
+                    <span>Pilihan 4 Subjek & 5 Jalur Kurikulum</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
+                    <span>Latihan soal interaktif dengan notasi KaTeX</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
+                    <span>Pelacakan capaian XP, level, dan diagnostik radar</span>
+                  </li>
+                </ul>
               </div>
-            </div>
-          )}
-        </div>
-      </section>
 
-      {/* Apa Itu Platform OSN Kimia Mastery? (Overview Section) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
-        <div
-          style={{
-            backgroundColor: 'var(--theme-surface)',
-            borderColor: 'var(--theme-border)',
-          }}
-          className="border rounded-3xl p-8 sm:p-12 shadow-sm space-y-8 transition-colors"
-        >
-          <div className="max-w-3xl space-y-4">
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                borderColor: 'var(--theme-border)',
-                color: 'var(--theme-primary)',
-              }}
-              className="inline-flex items-center gap-2 px-3 py-1 border rounded-full text-xs font-bold"
-            >
-              <Sparkles className="w-3.5 h-3.5" style={{ color: 'var(--theme-accent)' }} />
-              <span>Tentang Platform</span>
-            </div>
-            <h2
-              style={{ color: 'var(--theme-text)' }}
-              className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display transition-colors"
-            >
-              Ekosistem Pembinaan Olimpiade Sains Kimia yang Komprehensif
-            </h2>
-            <p
-              style={{ color: 'var(--theme-text-muted)' }}
-              className="text-sm leading-relaxed transition-colors"
-            >
-              <strong style={{ color: 'var(--theme-text)' }}>OSN Kimia Mastery</strong> dirancang khusus untuk memfasilitasi pembinaan intensif kompetisi sains kimia tingkat Kabupaten/Kota (OSK), Provinsi (OSP), Nasional (OSN), hingga jenjang seleksi International Chemistry Olympiad (IChO). Platform ini menjembatani konsep dasar SMA dengan analisis mendalam penalaran olimpiade.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                borderColor: 'var(--theme-border)',
-              }}
-              className="p-5 rounded-2xl border space-y-3 transition-colors"
-            >
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-primary)',
-                  color: 'var(--theme-primary-text)',
-                }}
-                className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
-              >
-                <BookOpen className="w-4 h-4" />
-              </div>
-              <h3
-                style={{ color: 'var(--theme-text)' }}
-                className="text-base font-bold font-display"
-              >
-                Kurikulum 10 Topik Sains Kimia Terstruktur
-              </h3>
-              <p
-                style={{ color: 'var(--theme-text-muted)' }}
-                className="text-xs leading-relaxed"
-              >
-                Materi terstruktur secara hierarkis mencakup seluruh silabus resmi olimpiade sains, mulai dari Struktur Atom, Ikatan Kimia, Termodinamika, Kinetika, Kesetimbangan, Asam-Basa, Elektrokimia, Kimia Organik, Kimia Anorganik, hingga Analisis Spektroskopi.
-              </p>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                borderColor: 'var(--theme-border)',
-              }}
-              className="p-5 rounded-2xl border space-y-3 transition-colors"
-            >
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-primary)',
-                  color: 'var(--theme-primary-text)',
-                }}
-                className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
-              >
-                <Layers className="w-4 h-4" />
-              </div>
-              <h3
-                style={{ color: 'var(--theme-text)' }}
-                className="text-base font-bold font-display"
-              >
-                Scaffolding 4 Langkah Penalaran Ilmiah
-              </h3>
-              <p
-                style={{ color: 'var(--theme-text-muted)' }}
-                className="text-xs leading-relaxed"
-              >
-                Mengikis kebiasaan menebak formula dengan kerangka kerja sistematis: Dekonstruksi Informasi, Identifikasi Hukum & Rumus, Kalkulasi Bertahap, dan Verifikasi Satuan & Kelogisan Kimiawi.
-              </p>
-            </div>
-
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                borderColor: 'var(--theme-border)',
-              }}
-              className="p-5 rounded-2xl border space-y-3 transition-colors"
-            >
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-primary)',
-                  color: 'var(--theme-primary-text)',
-                }}
-                className="w-9 h-9 rounded-xl flex items-center justify-center font-bold"
-              >
-                <CloudCheck className="w-4 h-4" />
-              </div>
-              <h3
-                style={{ color: 'var(--theme-text)' }}
-                className="text-base font-bold font-display"
-              >
-                Cloud Autosave & Persistensi Online
-              </h3>
-              <p
-                style={{ color: 'var(--theme-text-muted)' }}
-                className="text-xs leading-relaxed"
-              >
-                Setiap goresan solusi dan jawaban pada lembar kerja disimpan secara otomatis dan real-time ke penyimpanan online. Siswa dapat melanjutkan pengerjaan kapan saja tanpa khawatir data hilang saat tab browser ditutup.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3 Fitur & Kapabilitas Utama */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
-        <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div
-            style={{
-              backgroundColor: 'var(--theme-surface)',
-              borderColor: 'var(--theme-border)',
-              color: 'var(--theme-primary)',
-            }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 border rounded-full text-xs font-bold"
-          >
-            <Cpu className="w-3.5 h-3.5" style={{ color: 'var(--theme-accent)' }} />
-            <span>Fitur & Kapabilitas</span>
-          </div>
-          <h2
-            style={{ color: 'var(--theme-text)' }}
-            className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display transition-colors"
-          >
-            Teknologi Terdepan untuk Siswa dan Pembina
-          </h2>
-          <p
-            style={{ color: 'var(--theme-text-muted)' }}
-            className="text-xs sm:text-sm transition-colors"
-          >
-            Dilengkapi perangkat lunak mutakhir yang memfasilitasi drill soal mandiri maupun interaksi tatap muka kelas binaan.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Fitur: Editor Formula KaTeX & mhchem */}
-          <div
-            style={{
-              backgroundColor: 'var(--theme-surface)',
-              borderColor: 'var(--theme-border)',
-            }}
-            className="p-6 rounded-2xl border shadow-xs transition-all space-y-3"
-          >
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                color: 'var(--theme-primary)',
-              }}
-              className="w-10 h-10 rounded-xl flex items-center justify-center font-bold"
-            >
-              <Atom className="w-5 h-5" />
-            </div>
-            <h3
-              style={{ color: 'var(--theme-text)' }}
-              className="text-base font-bold font-display"
-            >
-              Editor Formula KaTeX & mhchem
-            </h3>
-            <p
-              style={{ color: 'var(--theme-text-muted)' }}
-              className="text-xs leading-relaxed"
-            >
-              Mendukung penuh penulisan rumus kimia yang presisi: persamaan reaksi stoikiometri dengan panah reaksi (→, ⇌), wujud zat (aq, s, l, g), pembentukan endapan (↓), pelepasan gas (↑), ionik bermuatan, serta rumus cepat kimia olimpiade tanpa perlu mengetik sintaks manual yang rumit.
-            </p>
-          </div>
-
-          {/* Fitur: Evaluasi Presisi Penalaran & Rubrik Bertingkat */}
-          <div
-            style={{
-              backgroundColor: 'var(--theme-surface)',
-              borderColor: 'var(--theme-border)',
-            }}
-            className="p-6 rounded-2xl border shadow-xs transition-all space-y-3"
-          >
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                color: 'var(--theme-primary)',
-              }}
-              className="w-10 h-10 rounded-xl flex items-center justify-center font-bold"
-            >
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <h3
-              style={{ color: 'var(--theme-text)' }}
-              className="text-base font-bold font-display"
-            >
-              Evaluasi Presisi Penalaran & Rubrik Bertingkat
-            </h3>
-            <p
-              style={{ color: 'var(--theme-text-muted)' }}
-              className="text-xs leading-relaxed"
-            >
-              Sistem mengevaluasi penalaran siswa secara terperinci: memberikan skor rubrik parsial pada tiap langkah, memvalidasi konsistensi logika perhitungan, dan menunjukkan secara spesifik letak kesalahan konsep stoikiometri maupun termokimia.
-            </p>
-          </div>
-
-          {/* Fitur: Live Classroom Monitoring Guru */}
-          <div
-            style={{
-              backgroundColor: 'var(--theme-surface)',
-              borderColor: 'var(--theme-border)',
-            }}
-            className="p-6 rounded-2xl border shadow-xs transition-all space-y-3"
-          >
-            <div
-              style={{
-                backgroundColor: 'var(--theme-canvas)',
-                color: 'var(--theme-primary)',
-              }}
-              className="w-10 h-10 rounded-xl flex items-center justify-center font-bold"
-            >
-              <Eye className="w-5 h-5" />
-            </div>
-            <h3
-              style={{ color: 'var(--theme-text)' }}
-              className="text-base font-bold font-display"
-            >
-              Live Classroom Monitoring Guru
-            </h3>
-            <p
-              style={{ color: 'var(--theme-text-muted)' }}
-              className="text-xs leading-relaxed"
-            >
-              Guru dan pembina dapat memantau pengerjaan siswa secara realtime, melihat live progress lembar kerja, dan menggunakan laser pointer virtual untuk mengarahkan diskusi interaktif di kelas olimpiade.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SVG Sections: Peta Silabus OSN Kimia & Silabus Fondasi SMA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 relative z-10">
-        {/* Tab Switcher */}
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <button
-            onClick={() => setSyllabusView('osn')}
-            style={
-              syllabusView === 'osn'
-                ? {
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                    borderColor: 'var(--theme-primary)',
-                  }
-                : {
-                    backgroundColor: 'var(--theme-surface)',
-                    color: 'var(--theme-text)',
-                    borderColor: 'var(--theme-border)',
-                  }
-            }
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl border transition-all shadow-xs active:scale-98"
-          >
-            <Compass className="w-4 h-4" />
-            <span>🏆 Silabus 10 Pilar OSN Kimia</span>
-          </button>
-
-          <button
-            onClick={() => setSyllabusView('sma')}
-            style={
-              syllabusView === 'sma'
-                ? {
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                    borderColor: 'var(--theme-primary)',
-                  }
-                : {
-                    backgroundColor: 'var(--theme-surface)',
-                    color: 'var(--theme-text)',
-                    borderColor: 'var(--theme-border)',
-                  }
-            }
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl border transition-all shadow-xs active:scale-98"
-          >
-            <BookOpen className="w-4 h-4" />
-            <span>📚 Silabus Fondasi SMA (Fase E & F)</span>
-          </button>
-
-          <button
-            onClick={() => setSyllabusView('both')}
-            style={
-              syllabusView === 'both'
-                ? {
-                    backgroundColor: 'var(--theme-primary)',
-                    color: 'var(--theme-primary-text)',
-                    borderColor: 'var(--theme-primary)',
-                  }
-                : {
-                    backgroundColor: 'var(--theme-surface)',
-                    color: 'var(--theme-text)',
-                    borderColor: 'var(--theme-border)',
-                  }
-            }
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border transition-all shadow-xs active:scale-98"
-          >
-            <span>📑 Tampilkan Keduanya</span>
-          </button>
-        </div>
-
-        {/* View 1: Silabus 10 Pilar OSN Kimia */}
-        {(syllabusView === 'osn' || syllabusView === 'both') && (
-          <div className="space-y-4 pt-2 animate-in fade-in duration-300">
-            <div className="text-center space-y-2 max-w-3xl mx-auto">
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-surface)',
-                  borderColor: 'var(--theme-border)',
-                  color: 'var(--theme-primary)',
-                }}
-                className="inline-flex items-center gap-1.5 px-3 py-1 border rounded-full text-xs font-bold"
-              >
-                <Compass className="w-3.5 h-3.5" style={{ color: 'var(--theme-accent)' }} />
-                <span>Standar Puspresnas & IChO</span>
-              </div>
-              <h2
-                style={{ color: 'var(--theme-text)' }}
-                className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display transition-colors"
-              >
-                Kurikulum Terstruktur 10 Topik Silabus OSN Kimia
-              </h2>
-              <p
-                style={{ color: 'var(--theme-text-muted)' }}
-                className="text-xs sm:text-sm transition-colors"
-              >
-                Piramida kurikulum 10 pilar kompetensi bertingkat: OSK (Kota/Kabupaten), OSP (Provinsi), OSN (Nasional), hingga seleksi International Chemistry Olympiad (IChO).
-              </p>
-            </div>
-
-            <ChemistryOsnSyllabusSvg className="mt-4" />
-          </div>
-        )}
-
-        {/* View 2: Silabus Fondasi SMA */}
-        {(syllabusView === 'sma' || syllabusView === 'both') && (
-          <div className="space-y-4 pt-6 animate-in fade-in duration-300">
-            <div className="text-center space-y-2 max-w-3xl mx-auto">
-              <div
-                style={{
-                  backgroundColor: 'var(--theme-surface)',
-                  borderColor: 'var(--theme-border)',
-                  color: 'var(--theme-primary)',
-                }}
-                className="inline-flex items-center gap-1.5 px-3 py-1 border rounded-full text-xs font-bold"
-              >
-                <BookOpen className="w-3.5 h-3.5" style={{ color: 'var(--theme-accent)' }} />
-                <span>Fondasi Sekolah Menengah</span>
-              </div>
-              <h2
-                style={{ color: 'var(--theme-text)' }}
-                className="text-2xl sm:text-3xl font-extrabold tracking-tight font-display transition-colors"
-              >
-                Silabus Topik Kimia SMA — Fase E & Fase F
-              </h2>
-              <p
-                style={{ color: 'var(--theme-text-muted)' }}
-                className="text-xs sm:text-sm transition-colors"
-              >
-                Diagram alur materi resmi Kurikulum Merdeka (Fase E Kelas 10 dan Fase F Kelas 11–12) yang menjadi prasyarat esensial sebelum melangkah ke level kompetisi olimpiade sains.
-              </p>
-            </div>
-
-            <ChemistrySmaSyllabusSvg className="mt-4" />
-          </div>
-        )}
-      </section>
-
-      {/* Call to Action (CTA) Section: Khusus Tamu (Guest) Belum Login */}
-      {!user && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 relative z-10">
-          <div
-            style={{
-              backgroundColor: 'var(--theme-surface)',
-              borderColor: 'var(--theme-border)',
-            }}
-            className="rounded-3xl p-8 sm:p-12 shadow-sm border space-y-8 transition-colors"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              {/* Student Card */}
-              <div
-                style={{ borderColor: 'var(--theme-border)' }}
-                className="space-y-4 pr-0 md:pr-6 border-b md:border-b-0 md:border-r pb-6 md:pb-0"
-              >
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-full">
-                  <GraduationCap className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Untuk Calon Medalis Siswa</span>
-                </div>
-                <h3
-                  style={{ color: 'var(--theme-text)' }}
-                  className="text-xl sm:text-2xl font-black font-display"
+              <div className="space-y-2 pt-2">
+                <Link
+                  to="/login?mode=register"
+                  className="w-full py-3 px-4 rounded-xl bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] font-semibold text-xs flex items-center justify-center gap-1.5 transition active:scale-98 shadow-xs"
                 >
-                  Siap Melangkah Menjadi Juara OSN Kimia?
-                </h3>
-                <p
-                  style={{ color: 'var(--theme-text-muted)' }}
-                  className="text-xs sm:text-sm leading-relaxed"
+                  <GraduationCap className="w-4 h-4" />
+                  <span>Daftar Akun Siswa Baru</span>
+                </Link>
+                <Link
+                  to="/login"
+                  className="w-full py-2.5 px-4 rounded-xl bg-transparent hover:bg-[#F0F8FF] text-[#708090] font-semibold text-xs flex items-center justify-center transition"
                 >
-                  Daftarkan akun siswa Anda secara gratis sekarang. Akses modul materi silabus, worksheet interaktif dengan penyimpanan online, dan evaluasi penilaian terstruktur.
-                </p>
-                <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <Link
-                    to="/login?mode=register"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all shadow-sm active:scale-98"
-                  >
-                    <GraduationCap className="w-4 h-4" />
-                    <span>Daftar Akun Siswa Sekarang</span>
-                  </Link>
-                  <Link
-                    to="/login"
-                    style={{
-                      backgroundColor: 'var(--theme-canvas)',
-                      borderColor: 'var(--theme-border)',
-                      color: 'var(--theme-text)',
-                    }}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 font-semibold text-xs rounded-xl transition-all border hover:opacity-90"
-                  >
-                    <LogIn className="w-3.5 h-3.5" />
-                    <span>Masuk Akun</span>
-                  </Link>
+                  <span>Sudah punya akun? Masuk</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* CARD 2: GURU / PEMBINA */}
+            <div className="rounded-2xl bg-[#FFFFF0] border border-[#D3D3D3] p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 flex items-center justify-center">
+                  <School className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[#2D3748] font-display">Untuk Guru & Pembina</h3>
+                  <p className="text-xs text-[#708090] mt-1 leading-relaxed">
+                    Studio khusus bagi guru untuk mengelola kelas binaan lintas subjek, merakit paket lembar kerja, dan menyusun bank soal ujian.
+                  </p>
+                </div>
+
+                <ul className="space-y-2.5 text-xs text-[#2D3748] pt-2">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>Manajemen kelas binaan terpadu (Cross-Subject)</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>Pembuat paket worksheet kustom per subjek</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>Penyusunan variasi lembar kerja dan paket latihan ujian</span>
+                  </li>
+                </ul>
+
+                {/* Info Pendaftaran Guru */}
+                <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-[11px] text-blue-900 leading-relaxed">
+                  ℹ️ <strong>Ketentuan Guru:</strong> Akun pengajar diterbitkan dan ditugaskan subjek resminya langsung oleh Administrator. Silakan masuk menggunakan akun guru yang telah terdaftar.
                 </div>
               </div>
 
-              {/* Teacher Card */}
-              <div className="space-y-4 pl-0 md:pl-6">
-                <div
-                  style={{
-                    backgroundColor: 'var(--theme-canvas)',
-                    borderColor: 'var(--theme-border)',
-                    color: 'var(--theme-primary)',
-                  }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 border text-xs font-bold rounded-full"
+              <div className="pt-2">
+                <Link
+                  to="/login"
+                  className="w-full py-3 px-4 rounded-xl bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] border border-[#D3D3D3] font-semibold text-xs flex items-center justify-center gap-1.5 transition active:scale-98 shadow-2xs"
                 >
-                  <Users className="w-3.5 h-3.5" />
-                  <span>Untuk Guru & Pembina Olimpiade</span>
-                </div>
-                <h3
-                  style={{ color: 'var(--theme-text)' }}
-                  className="text-xl sm:text-2xl font-black font-display"
-                >
-                  Pengelolaan Akun Guru & Pembina
-                </h3>
-                <p
-                  style={{ color: 'var(--theme-text-muted)' }}
-                  className="text-xs sm:text-sm leading-relaxed"
-                >
-                  Untuk menjaga kualitas pembinaan, akun Guru/Pembina diterbitkan secara resmi oleh Administrator. Silakan hubungi admin atau masuk menggunakan kredensial resmi.
-                </p>
-                <div
-                  style={{
-                    backgroundColor: 'var(--theme-canvas)',
-                    borderColor: 'var(--theme-border)',
-                  }}
-                  className="p-3 border rounded-xl text-xs space-y-1"
-                >
-                  <div style={{ color: 'var(--theme-text-muted)' }} className="text-[11px]">Kontak Resmi Administrator:</div>
-                  <div style={{ color: 'var(--theme-text)' }} className="font-mono font-bold">fluffykitten.dev@gmail.com</div>
-                </div>
-                <div className="pt-1 flex flex-wrap items-center gap-3">
-                  <Link
-                    to="/login"
-                    style={{
-                      backgroundColor: 'var(--theme-primary)',
-                      color: 'var(--theme-primary-text)',
-                    }}
-                    className="inline-flex items-center gap-2 px-4 py-2 font-bold text-xs rounded-xl transition-all shadow-sm active:scale-98 hover:opacity-95"
-                  >
-                    <LogIn className="w-3.5 h-3.5" />
-                    <span>Masuk sebagai Guru / Admin</span>
-                  </Link>
-                  <Link
-                    to="/login?mode=forgot"
-                    style={{ color: 'var(--theme-text-muted)' }}
-                    className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium transition-colors hover:opacity-80"
-                  >
-                    <KeyRound className="w-3.5 h-3.5" />
-                    <span>Lupa Password?</span>
-                  </Link>
-                </div>
+                  <LogIn className="w-4 h-4" />
+                  <span>Masuk sebagai Guru / Pembina</span>
+                </Link>
               </div>
             </div>
           </div>
         </section>
-      )}
+      </main>
     </div>
   );
 };

@@ -19,15 +19,21 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubject } from '../../contexts/SubjectContext';
 import { classroomService } from '../../services/classroomService';
 import { TeacherNavigation } from '../../components/teacher/TeacherNavigation';
-import type { Classroom } from '../../types/database';
+import { getSubjectConfig } from '../../config/subjectConfig';
+import type { Classroom, SubjectId } from '../../types/database';
 
 export const ClassroomManager: React.FC = () => {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
+  const { currentSubject, teacherSubject, isMultiSubjectAdmin } = useSubject();
   const teacherId = user?.id || 'teacher-demo-uuid';
 
+  const [selectedSubject, setSelectedSubject] = useState<SubjectId>(
+    (profile?.teaching_subject as SubjectId) || teacherSubject || currentSubject || 'kimia'
+  );
   const [classrooms, setClassrooms] = useState<Classroom[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -91,10 +97,19 @@ export const ClassroomManager: React.FC = () => {
 
     setIsSubmitting(true);
     try {
+      const assignedSubject: SubjectId = isMultiSubjectAdmin
+        ? selectedSubject
+        : ((profile?.teaching_subject as SubjectId) || teacherSubject || 'kimia');
+      const subjectConfig = getSubjectConfig(assignedSubject);
       const formattedDesc = newClassDesc.trim()
         ? `[Tingkat: ${targetTier}] ${newClassDesc.trim()}`
-        : `[Tingkat: ${targetTier}] Kelas persiapan dan bimbingan silabus OSN Kimia.`;
-      const created = await classroomService.createClassroom(teacherId, newClassName.trim(), formattedDesc);
+        : `[Tingkat: ${targetTier}] Kelas persiapan dan bimbingan silabus ${subjectConfig.name}.`;
+      const created = await classroomService.createClassroom(
+        teacherId,
+        newClassName.trim(),
+        formattedDesc,
+        assignedSubject
+      );
       setIsCreateModalOpen(false);
       setNewClassName('');
       setNewClassDesc('');
@@ -321,6 +336,8 @@ export const ClassroomManager: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredClassrooms.map((cls) => {
             const pendingCount = pendingCountMap[cls.id] || 0;
+            const clsSubject = ((cls.subjects && cls.subjects[0]) || 'kimia') as SubjectId;
+            const subjectConf = getSubjectConfig(clsSubject);
             return (
               <div
                 key={cls.id}
@@ -342,7 +359,17 @@ export const ClassroomManager: React.FC = () => {
                       </div>
 
                       {/* Chip Kode Kelas Interaktif & Tombol Proyektor */}
-                      <div className="flex items-center gap-1.5 mt-1.5">
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                        <span
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-md border uppercase tracking-wider"
+                          style={{
+                            backgroundColor: subjectConf.palette.softBadgeBg,
+                            borderColor: subjectConf.palette.softBorder,
+                            color: subjectConf.palette.contrastText,
+                          }}
+                        >
+                          {subjectConf.symbolGlyph} {subjectConf.name}
+                        </span>
                         <span className="text-[11px] font-mono px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md font-bold border border-slate-200">
                           Kode: {cls.code}
                         </span>
@@ -485,6 +512,36 @@ export const ClassroomManager: React.FC = () => {
             <form onSubmit={handleCreateClassroom} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Mata Pelajaran (Subject)
+                </label>
+                {isMultiSubjectAdmin ? (
+                  <select
+                    value={selectedSubject}
+                    onChange={(e) => setSelectedSubject(e.target.value as SubjectId)}
+                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
+                  >
+                    <option value="kimia">⚛ Kimia (Chemistry)</option>
+                    <option value="fisika">⚡ Fisika (Physics)</option>
+                    <option value="matematika">📐 Matematika (Mathematics)</option>
+                    <option value="biologi">🧬 Biologi (Biology)</option>
+                  </select>
+                ) : (
+                  <div className="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800">
+                    <span className="px-2 py-0.5 rounded-md font-bold text-white bg-slate-700 uppercase text-[10px]">
+                      {profile?.teaching_subject || teacherSubject || 'kimia'}
+                    </span>
+                    <span>
+                      {getSubjectConfig((profile?.teaching_subject as SubjectId) || teacherSubject || 'kimia').name}
+                    </span>
+                    <span className="text-slate-400 font-normal text-[11px] ml-auto">
+                      (Sesuai penugasan guru)
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Nama Kelas / Kelompok Binaan
                 </label>
                 <input
@@ -492,7 +549,7 @@ export const ClassroomManager: React.FC = () => {
                   required
                   value={newClassName}
                   onChange={(e) => setNewClassName(e.target.value)}
-                  placeholder="Contoh: Pelatnas OSN Kimia 2026 Tahap 1"
+                  placeholder="Contoh: Bimbingan OSN Kimia 2026 Tahap 1"
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>

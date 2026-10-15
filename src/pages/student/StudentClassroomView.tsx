@@ -23,6 +23,8 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { classroomService } from '../../services/classroomService';
 import { ChemistryWatermarkBackground } from '../../components/common/ChemistryWatermarkBackground';
+import { getSubjectConfig, SUBJECT_LIST } from '../../config/subjectConfig';
+import type { SubjectId } from '../../types/subject';
 import type {
   Classroom,
   ClassroomAssignment,
@@ -45,6 +47,7 @@ export const StudentClassroomView: React.FC = () => {
   const [assignments, setAssignments] = useState<ClassroomAssignment[]>([]);
   const [members, setMembers] = useState<ClassroomMember[]>([]);
   const [activeTab, setActiveTab] = useState<'assignments' | 'classmates' | 'info'>('assignments');
+  const [selectedSubjectFilter, setSelectedSubjectFilter] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
   const [copiedCode, setCopiedCode] = useState(false);
 
@@ -283,18 +286,58 @@ export const StudentClassroomView: React.FC = () => {
       {/* TAB 1: ASSIGNMENTS */}
       {activeTab === 'assignments' && (
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h2 className="text-base font-bold text-slate-900 font-display">
                 Worksheet Ditugaskan Guru
               </h2>
               <p className="text-xs text-slate-500">
-                Kerjakan paket latihan ini untuk persiapan bertahap menuju medali OSN Kimia.
+                Kerjakan paket latihan ini untuk persiapan bertahap menuju penguasaan sains & matematika.
               </p>
             </div>
-            <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg">
+            <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg shrink-0 w-fit">
               Total {assignments.length} Tugas
             </span>
+          </div>
+
+          {/* Subject Filter Pills Bar */}
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1">
+            <button
+              type="button"
+              onClick={() => setSelectedSubjectFilter('all')}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                selectedSubjectFilter === 'all'
+                  ? 'bg-slate-800 text-white shadow-2xs'
+                  : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
+              }`}
+            >
+              Semua Subjek ({assignments.length})
+            </button>
+            {SUBJECT_LIST.map((sub) => {
+              const count = assignments.filter((a) => ((a.worksheet as any)?.subject || 'kimia') === sub.id).length;
+              if (count === 0 && classroom?.subjects && !classroom.subjects.includes(sub.id)) return null;
+              const isSelected = selectedSubjectFilter === sub.id;
+              return (
+                <button
+                  key={sub.id}
+                  type="button"
+                  onClick={() => setSelectedSubjectFilter(sub.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    isSelected
+                      ? 'bg-slate-800 text-white shadow-2xs'
+                      : 'bg-white text-slate-600 hover:text-slate-900 border border-slate-200'
+                  }`}
+                >
+                  <span>{sub.symbolGlyph}</span>
+                  <span>{sub.name}</span>
+                  {count > 0 && (
+                    <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                      {count}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           {assignments.length === 0 ? (
@@ -308,13 +351,17 @@ export const StudentClassroomView: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {assignments.map((asg) => {
+              {assignments
+                .filter((asg) => selectedSubjectFilter === 'all' || ((asg.worksheet as any)?.subject || 'kimia') === selectedSubjectFilter)
+                .map((asg) => {
                 const ws = asg.worksheet;
                 const title = ws?.title || `Tugas Penugasan #${asg.worksheet_id}`;
-                const description = ws?.description || 'Lembar kerja penugasan binaan OSN Kimia.';
+                const description = ws?.description || 'Lembar kerja penugasan binaan sains.';
                 const itemCount = ws?.item_count || 10;
                 const timeLimit = ws?.time_limit_minutes || 60;
                 const passScore = ws?.pass_score || 70;
+                const subId = ((ws as any)?.subject || 'kimia') as SubjectId;
+                const conf = getSubjectConfig(subId);
 
                 return (
                   <div
@@ -323,9 +370,23 @@ export const StudentClassroomView: React.FC = () => {
                   >
                     <div className="space-y-2.5">
                       <div className="flex items-start justify-between gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200/60 rounded-md">
-                          Worksheet Mandiri
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border flex items-center gap-1"
+                            style={{
+                              backgroundColor: conf.palette.softBadgeBg,
+                              borderColor: conf.palette.softBorder,
+                              color: conf.palette.contrastText,
+                            }}
+                          >
+                            <span>{conf.symbolGlyph}</span>
+                            <span>{conf.name}</span>
+                          </span>
+
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 bg-indigo-50 text-indigo-700 border border-indigo-200/60 rounded-md">
+                            {(ws as any)?.curriculum || 'Worksheet'}
+                          </span>
+                        </div>
 
                         {asg.is_live_monitored && (
                           <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-md">
