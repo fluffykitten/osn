@@ -99,6 +99,7 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   // Muat daftar kelas siswa secara mandiri untuk menentukan subjek yang terbuka
   const refreshSubjectAccess = useCallback(async () => {
     if (!user?.email || isTeacher || isMultiSubjectAdmin) {
+      setStudentClassrooms([]);
       return;
     }
     try {
@@ -106,10 +107,12 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
       setStudentClassrooms(classes);
     } catch (err) {
       console.warn('[SubjectContext] Gagal menyegarkan kelas siswa:', err);
+      setStudentClassrooms([]);
     }
   }, [user?.email, user?.id, isTeacher, isMultiSubjectAdmin]);
 
   useEffect(() => {
+    setStudentClassrooms([]);
     refreshSubjectAccess();
   }, [refreshSubjectAccess]);
 
@@ -134,25 +137,20 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
       return teacherSubject ? [teacherSubject] : ['kimia'];
     }
 
-    // 3. Siswa yang login: subjek terbuka sesuai kelas aktif yang diikuti & disetujui
+    // 3. Siswa yang login: subjek terbuka HANYA dari kelas yang berstatus 'active' (disetujui Guru Pembina)
     if (user && !isTeacher && !isMultiSubjectAdmin) {
       const activeClasses = studentClassrooms.filter(
-        (c) => !c.user_membership_status || c.user_membership_status === 'active'
+        (c) => c.user_membership_status === 'active'
       );
       const classSubjects = activeClasses.flatMap((c) =>
         Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : (['kimia'] as SubjectId[])
       );
 
-      // Gabungkan dengan enrolled_subjects profil jika ada
-      const profileSubjects = Array.isArray(profile?.enrolled_subjects) ? profile.enrolled_subjects : [];
-      const combined = Array.from(new Set([...classSubjects, ...profileSubjects])).filter(isSubjectId);
-
-      // Jika siswa belum memiliki kelas aktif, tetap sediakan fallback 'kimia' untuk onboarding
-      return combined.length > 0 ? combined : ['kimia'];
+      return Array.from(new Set(classSubjects)).filter(isSubjectId);
     }
 
-    // 4. Tamu (Guest / Demo): Semua subjek dapat dieksplorasi dalam mode preview
-    return ['kimia', 'fisika', 'matematika', 'biologi'];
+    // 4. Tamu (Guest): tidak ada subjek materi internal yang terbuka sebelum masuk kelas
+    return [];
   }, [
     isMultiSubjectAdmin,
     isSingleSubjectTeacher,
@@ -160,7 +158,6 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
     user,
     isTeacher,
     studentClassrooms,
-    profile?.enrolled_subjects,
   ]);
 
   // Cek apakah suatu subjek berstatus terbuka bagi pengguna saat ini
@@ -225,7 +222,7 @@ export const SubjectProvider: React.FC<{ children: React.ReactNode }> = ({
   const activeSubjectClassroom = useMemo(() => {
     return studentClassrooms.find(
       (c) =>
-        (!c.user_membership_status || c.user_membership_status === 'active') &&
+        c.user_membership_status === 'active' &&
         (c.subjects?.includes(currentSubject) || (currentSubject === 'kimia' && (!c.subjects || c.subjects.length === 0)))
     );
   }, [studentClassrooms, currentSubject]);

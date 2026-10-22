@@ -57,10 +57,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState<boolean>(true);
   const isCloudConnected = isSupabaseConfigured();
 
-  const syncGamificationRole = (role: 'teacher' | 'student') => {
+  const syncGamificationRole = (role: 'teacher' | 'student', prof?: Profile | null) => {
     const legacy = getLocalGamificationState();
     saveLocalGamificationState({
       ...legacy,
+      xp: typeof prof?.xp === 'number' ? prof.xp : 0,
+      level: typeof prof?.level === 'number' ? prof.level : 1,
+      streak: typeof prof?.current_streak === 'number' ? prof.current_streak : 0,
       role: role === 'teacher' ? 'guru' : 'siswa',
     });
   };
@@ -78,6 +81,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .maybeSingle();
 
       if (data && !error) {
+        // Sinkronkan metadata pendaftaran terbaru jika kolom profil masih kosong
+        const metaName = (userMetadata?.full_name as string)?.trim();
+        const metaSchool = (userMetadata?.school_name as string)?.trim();
+        const metaGrade = (userMetadata?.grade_level as string)?.trim();
+        const metaTarget = (userMetadata?.target_olympiad as string)?.trim();
+        const metaPhone = (userMetadata?.phone_whatsapp as string)?.trim();
+
+        const needsMetadataSync =
+          (metaSchool && !data.school_name) ||
+          (metaName && (!data.full_name || data.full_name === data.email?.split('@')[0]));
+
+        if (needsMetadataSync) {
+          const patch: Record<string, any> = {
+            full_name: metaName || data.full_name,
+            school_name: metaSchool || data.school_name,
+            grade_level: metaGrade || data.grade_level,
+            target_olympiad: metaTarget || data.target_olympiad,
+            phone_whatsapp: metaPhone || data.phone_whatsapp,
+          };
+          const { data: synced } = await supabase
+            .from('profiles')
+            .update(patch)
+            .eq('id', userId)
+            .select()
+            .maybeSingle();
+          if (synced) {
+            return synced as Profile;
+          }
+        }
+
         return data as Profile;
       }
 
@@ -119,11 +152,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           email: cleanEmail,
           full_name: defaultName,
           role: defaultRole,
+          school_name: (userMetadata?.school_name as string)?.trim() || undefined,
+          grade_level: defaultRole === 'student' ? ((userMetadata?.grade_level as string)?.trim() || '10') : undefined,
+          target_olympiad: defaultRole === 'student' ? ((userMetadata?.target_olympiad as string) || 'OSK') : undefined,
+          phone_whatsapp: (userMetadata?.phone_whatsapp as string)?.trim() || undefined,
           teaching_subject: defaultTeachingSubject,
+          enrolled_subjects: [],
           is_admin: isMasterAdmin,
-          xp: 100,
+          xp: 0,
           level: 1,
-          current_streak: 1,
+          current_streak: 0,
           last_activity_date: new Date().toISOString(),
         };
 
@@ -168,10 +206,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (prof) {
             setProfile(prof);
             const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
-            syncGamificationRole(role);
+            syncGamificationRole(role, prof);
             localStorage.setItem('osn_student_id', prof.id);
             localStorage.setItem('osn_student_name', prof.full_name || 'Pengguna OSN');
           } else {
+            syncGamificationRole('student', null);
             localStorage.setItem('osn_student_id', session.user.id);
             localStorage.setItem('osn_student_name', (session.user.user_metadata?.full_name as string) || 'Pengguna OSN');
           }
@@ -204,10 +243,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (mounted && prof) {
           setProfile(prof);
           const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
-          syncGamificationRole(role);
+          syncGamificationRole(role, prof);
           localStorage.setItem('osn_student_id', prof.id);
           localStorage.setItem('osn_student_name', prof.full_name || 'Pengguna OSN');
         } else if (mounted) {
+          syncGamificationRole('student', null);
           localStorage.setItem('osn_student_id', newSession.user.id);
           localStorage.setItem('osn_student_name', (newSession.user.user_metadata?.full_name as string) || 'Pengguna OSN');
         }
@@ -253,7 +293,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (prof) {
         setProfile(prof);
         const role = prof.role === 'teacher' || prof.role === 'guru' ? 'teacher' : 'student';
-        syncGamificationRole(role);
+        syncGamificationRole(role, prof);
       }
     }
   };
@@ -282,6 +322,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
+      sessionStorage.removeItem('osn_has_active_classroom');
+      localStorage.removeItem('osn_student_classroom_id');
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email: cleanEmail,
         password,
@@ -318,7 +361,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             prof.email?.toLowerCase() === 'ezzarscarlet@gmail.com' ||
             data.user.user_metadata?.is_admin
           );
-          syncGamificationRole(resolvedRole);
+          syncGamificationRole(resolvedRole, prof);
           localStorage.setItem('osn_student_id', prof.id);
           localStorage.setItem('osn_student_name', prof.full_name || 'Pengguna OSN');
         } else {
@@ -335,6 +378,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             cleanEmail === 'ezzarscarlet@gmail.com' ||
             data.user.user_metadata?.is_admin
           );
+          syncGamificationRole(resolvedRole, null);
           localStorage.setItem('osn_student_id', data.user.id);
           localStorage.setItem('osn_student_name', (data.user.user_metadata?.full_name as string) || 'Pengguna OSN');
         }
@@ -366,6 +410,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const targetOlympiad = registrationDetails?.targetOlympiad || 'OSK';
     const phoneWhatsApp = registrationDetails?.phoneWhatsApp?.trim() || '';
     const teachingSubject: SubjectId = registrationDetails?.teachingSubject || 'kimia';
+    const initialClassCode = registrationDetails?.initialClassCode?.trim() || '';
 
     const supabase = getSupabaseClient();
     if (!supabase) {
@@ -373,6 +418,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     try {
+      // Pastikan state kelas & gamifikasi lokal dari sesi sebelumnya di-reset bersih
+      sessionStorage.removeItem('osn_has_active_classroom');
+      localStorage.removeItem('osn_student_classroom_id');
+
       const userMetadata: Record<string, any> = {
         full_name: fullName,
         role: role,
@@ -386,13 +435,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         userMetadata.grade_level = gradeLevel;
         userMetadata.target_olympiad = targetOlympiad;
+        if (initialClassCode) {
+          userMetadata.initial_class_code = initialClassCode;
+        }
       }
+
+      const redirectUrl =
+        role === 'teacher'
+          ? `${window.location.origin}/teacher`
+          : `${window.location.origin}/join-class`;
 
       const { data, error } = await supabase.auth.signUp({
         email: cleanEmail,
         password,
         options: {
           data: userMetadata,
+          emailRedirectTo: redirectUrl,
         },
       });
 
@@ -403,12 +461,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const requireConfirmation = !data.session && Boolean(data.user && !data.user.confirmed_at);
 
       if (data.user) {
-        if (data.session) {
-          setUser(data.user);
-          setSession(data.session);
-        }
-
-        // Simpan profil pengguna secara eksplisit ke database public.profiles
+        // Simpan profil pengguna ke database public.profiles (0 XP, Level 1, 0 Streak, 0 Enrolled Subjects)
         const newProfile: Partial<Profile> = {
           id: data.user.id,
           email: cleanEmail,
@@ -420,9 +473,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           teaching_subject: role === 'teacher' ? teachingSubject : undefined,
           grade_level: role === 'student' ? gradeLevel : undefined,
           target_olympiad: role === 'student' ? targetOlympiad : undefined,
-          xp: 100,
+          enrolled_subjects: [],
+          xp: 0,
           level: 1,
-          current_streak: 1,
+          current_streak: 0,
           last_activity_date: new Date().toISOString(),
         };
 
@@ -432,22 +486,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .select()
           .maybeSingle();
 
-        if (savedProf) {
-          setProfile(savedProf as Profile);
+        // Hanya aktifkan state sesi lokal jika tidak memerlukan konfirmasi email (data.session ada)
+        if (data.session && !requireConfirmation) {
+          setUser(data.user);
+          setSession(data.session);
+          const resolvedProf = (savedProf as Profile) || (newProfile as Profile);
+          setProfile(resolvedProf);
+          syncGamificationRole(role, resolvedProf);
+          localStorage.setItem('osn_student_id', data.user.id);
+          localStorage.setItem('osn_student_email', cleanEmail);
+          localStorage.setItem('osn_student_name', fullName);
         } else {
-          setProfile(newProfile as Profile);
+          // Reset state gamifikasi lokal ke 0 XP selama menunggu konfirmasi email
+          syncGamificationRole(role, null);
         }
 
-        syncGamificationRole(role);
-        localStorage.setItem('osn_student_id', data.user.id);
-        localStorage.setItem('osn_student_email', cleanEmail);
-        localStorage.setItem('osn_student_name', fullName);
-
-        // Jika siswa menyertakan kode kelas langsung saat mendaftar, otomatis gabungkan
-        if (role === 'student' && registrationDetails?.initialClassCode?.trim()) {
+        // Jika siswa menyertakan kode kelas langsung saat mendaftar, kirim permintaan (pending_approval)
+        if (role === 'student' && initialClassCode) {
           try {
             await classroomService.joinClassroomByCode(
-              registrationDetails.initialClassCode.trim(),
+              initialClassCode,
               cleanEmail,
               data.user.id,
               fullName
@@ -457,17 +515,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           }
         }
 
-        // Kirim notifikasi via Cloudflare Worker di background
-        if (role === 'student') {
-          sendStudentRegistrationNotification({
-            fullName,
-            email: cleanEmail,
-            schoolName,
-            gradeLevel,
-            targetOlympiad,
-            phoneWhatsApp,
-          }).catch(() => {});
-        }
+        // Kirim notifikasi pendaftaran (Siswa & Guru) via Cloudflare Worker di background
+        sendStudentRegistrationNotification({
+          userId: data.user.id,
+          fullName,
+          email: cleanEmail,
+          role,
+          schoolName,
+          gradeLevel: role === 'student' ? gradeLevel : undefined,
+          targetOlympiad: role === 'student' ? targetOlympiad : undefined,
+          teachingSubject: role === 'teacher' ? teachingSubject : undefined,
+          initialClassCode: initialClassCode || undefined,
+          phoneWhatsApp,
+          membershipTier: role === 'teacher' ? 'Pro (Guru Pembina)' : 'Free (Siswa)',
+        }).catch(() => {});
       }
 
       return { success: true, requireConfirmation };
@@ -560,9 +621,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem('osn_student_id');
       localStorage.removeItem('osn_student_email');
       localStorage.removeItem('osn_student_name');
+      localStorage.removeItem('osn_student_classroom_id');
+      localStorage.removeItem('osn_gamification_state');
       sessionStorage.removeItem('osn_has_active_classroom');
       sessionStorage.removeItem('osn_login_portal_target');
       sessionStorage.removeItem('osn_is_password_recovery');
+      // Bersihkan seluruh cache akses kelas per-user di sessionStorage
+      Object.keys(sessionStorage).forEach((key) => {
+        if (key.startsWith('osn_has_active_classroom')) {
+          sessionStorage.removeItem(key);
+        }
+      });
     } catch {}
     setUser(null);
     setSession(null);

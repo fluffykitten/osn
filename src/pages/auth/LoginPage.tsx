@@ -247,26 +247,18 @@ export const LoginPage: React.FC = () => {
             setErrorMessage(res.error || 'Gagal mendaftarkan akun siswa.');
           } else if (res.requireConfirmation) {
             setEmailConfirmationRequired(true);
-            setSuccessMessage(`Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}.`);
-            setTimeout(() => {
-              navigate('/join-class', {
-                state: {
-                  registered: true,
-                  requireConfirmation: true,
-                  studentName: fullName,
-                  registeredEmail: email,
-                },
-              });
-            }, 1500);
+            setSuccessMessage(
+              `Pendaftaran berhasil! Tautan konfirmasi aktivasi telah dikirim ke ${email}. Silakan klik tautan di email Anda untuk mengaktifkan akun dan masuk ke kelas.`
+            );
           } else {
             const hasJoinedCode = Boolean(initialClassCode.trim());
             setSuccessMessage(
               hasJoinedCode
-                ? 'Akun Siswa berhasil didaftarkan dan permintaan masuk kelas telah dikirim! Mengalihkan ke Dashboard...'
+                ? 'Akun Siswa berhasil didaftarkan dan permintaan masuk kelas telah dikirim! Mengalihkan ke Status Aktivasi Kelas...'
                 : 'Akun Siswa berhasil didaftarkan! Mengalihkan ke Halaman Aktivasi Kelas...'
             );
             setTimeout(() => {
-              navigate(hasJoinedCode ? '/student/dashboard' : '/join-class', {
+              navigate('/join-class', {
                 replace: true,
                 state: {
                   registered: true,

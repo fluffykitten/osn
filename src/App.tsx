@@ -191,6 +191,16 @@ function AppContent() {
         },
         { replace: true }
       );
+      return;
+    }
+
+    const isSignupConfirmation =
+      window.location.hash.includes('type=signup') ||
+      window.location.search.includes('type=signup');
+
+    if (isSignupConfirmation && location.pathname === '/') {
+      sessionStorage.removeItem('osn_has_active_classroom');
+      navigate('/join-class', { replace: true });
     }
   }, [location, navigate]);
 
@@ -239,13 +249,67 @@ function AppContent() {
           <Route path="/roadmap" element={<Navigate to="/practice" replace />} />
           <Route path="/syllabus" element={<Navigate to="/practice" replace />} />
 
-          {/* Database Materi Sains & Matematika (Legacy & Modular /:subject/materi) */}
-          <Route path="/materi" element={<MaterialsDatabase />} />
-          <Route path="/materi/sma/:id" element={<MaterialsDatabase />} />
-          <Route path="/materi/:id" element={<MaterialsDatabase />} />
-          <Route path="/:subject/materi" element={<MaterialsDatabase />} />
-          <Route path="/:subject/materi/sma/:id" element={<MaterialsDatabase />} />
-          <Route path="/:subject/materi/:id" element={<MaterialsDatabase />} />
+          {/* Database Materi Sains & Matematika (Wajib Login & Kelas Aktif bagi Siswa) */}
+          <Route
+            path="/materi"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/materi/sma/:id"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/materi/:id"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/:subject/materi"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/:subject/materi/sma/:id"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/:subject/materi/:id"
+            element={
+              <RequireAuth>
+                <RequireClassroom>
+                  <MaterialsDatabase />
+                </RequireClassroom>
+              </RequireAuth>
+            }
+          />
 
           {/* Student Experience */}
           {/* Dashboard Utama Siswa (Wajib Siswa & Kelas Aktif) */}

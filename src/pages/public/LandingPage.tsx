@@ -149,7 +149,7 @@ export const LandingPage: React.FC = () => {
                   ? '/admin/analytics'
                   : isTeacher
                   ? '/teacher'
-                  : studentClassroom
+                  : studentClassroom?.user_membership_status === 'active'
                   ? '/student/dashboard'
                   : '/join-class'
               }
@@ -160,7 +160,9 @@ export const LandingPage: React.FC = () => {
                   ? 'Buka Admin Command Center'
                   : isTeacher
                   ? 'Buka Studio Guru'
-                  : 'Buka Dashboard Siswa'}
+                  : studentClassroom?.user_membership_status === 'active'
+                  ? 'Buka Dashboard Siswa'
+                  : 'Aktivasi Kelas Binaan'}
               </span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>

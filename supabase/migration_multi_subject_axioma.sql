@@ -22,7 +22,7 @@ ALTER TABLE public.worksheets
 ALTER TABLE public.profiles 
   ADD COLUMN IF NOT EXISTS teaching_subject TEXT DEFAULT NULL,
   ADD COLUMN IF NOT EXISTS preferred_subject TEXT DEFAULT 'kimia',
-  ADD COLUMN IF NOT EXISTS enrolled_subjects TEXT[] DEFAULT ARRAY['kimia']::TEXT[],
+  ADD COLUMN IF NOT EXISTS enrolled_subjects TEXT[] DEFAULT ARRAY[]::TEXT[],
   ADD COLUMN IF NOT EXISTS target_curriculum TEXT DEFAULT 'osn';
 
 -- 4. Dukungan Cross-Subject pada KELAS BINAAN (public.classrooms)

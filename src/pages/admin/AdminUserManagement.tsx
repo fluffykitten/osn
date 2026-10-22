@@ -360,13 +360,13 @@ export const AdminUserManagement: React.FC = () => {
 
   const handleOpenMailto = (email: string, fullName: string, role: string, link: string) => {
     const roleText = role === 'teacher' || role === 'guru' ? 'Guru / Pembina' : 'Siswa';
-    const subject = encodeURIComponent(`Undangan Aktivasi Akun OSN Kimia Mastery - ${fullName}`);
+    const subject = encodeURIComponent(`Undangan Aktivasi Akun Axioma Academy - ${fullName}`);
     const body = encodeURIComponent(
       `Halo ${fullName},\n\n` +
-      `Selamat! Akun Anda telah didaftarkan oleh Administrator di platform OSN Kimia Mastery sebagai ${roleText}.\n\n` +
-      `Silakan klik tautan berikut untuk mengaktifkan akun dan menentukan kata sandi mandiri Anda:\n${link}\n\n` +
-      `Status Akun: Menunggu Aktivasi (Tautan berlaku 48 Jam).\n\n` +
-      `Salam hangat,\nTim Administrator OSN Kimia Mastery`
+      `Akun Anda telah didaftarkan di Axioma Academy sebagai ${roleText}.\n\n` +
+      `Silakan buka tautan berikut untuk mengaktifkan akun dan mengatur kata sandi Anda:\n${link}\n\n` +
+      `Status Akun: Menunggu Aktivasi.\n\n` +
+      `Salam,\nTim Administrator Axioma Academy`
     );
     window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
   };

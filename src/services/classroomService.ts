@@ -6,6 +6,7 @@
  */
 
 import { getSupabaseClient } from '../lib/supabaseClient';
+import { sendClassroomNotificationEmail } from './notificationService';
 import type {
   Classroom,
   ClassroomMember,
@@ -413,8 +414,6 @@ class ClassroomService {
       if (local) {
         resultClass = {
           ...local,
-          teacher_name: 'Dr. Ir. Hendra Wijaya, M.Si. (Pembina OSN Kimia)',
-          teacher_email: 'pembina.osn@kimia.ac.id',
         };
       }
     }
@@ -546,6 +545,7 @@ class ClassroomService {
     this.persistLocalStore();
 
     // 2. Simpan di Supabase
+    let savedMember: ClassroomMember = newMember;
     if (supabase) {
       try {
         const { data, error } = await supabase
@@ -568,14 +568,29 @@ class ClassroomService {
           .maybeSingle();
 
         if (data && !error) {
-          return data as ClassroomMember;
+          savedMember = data as ClassroomMember;
         }
       } catch (err) {
         console.warn('Gagal invite siswa di cloud:', err);
       }
     }
 
-    return newMember;
+    // 3. Kirim email undangan resmi via Resend (Axioma Academy <axioma@dfw.my.id>)
+    try {
+      const targetClass = await this.getClassroomById(classroomId);
+      await sendClassroomNotificationEmail({
+        type: 'invitation',
+        studentName: resolvedName,
+        studentEmail: cleanEmail,
+        classroomName: targetClass?.name || 'Kelas Binaan Axioma Academy',
+        classroomCode: targetClass?.code || '-',
+        teacherName: targetClass?.teacher_name || 'Guru Pembina',
+      });
+    } catch (mailErr) {
+      console.warn('Gagal mengirim email undangan kelas:', mailErr);
+    }
+
+    return savedMember;
   }
 
   /**
@@ -657,16 +672,43 @@ class ClassroomService {
     this.persistLocalStore();
 
     // 2. Update di Supabase
+    let approvedMember: ClassroomMember | null =
+      memIdx !== -1 ? this.localMembers[memIdx] : null;
     const supabase = getSupabaseClient();
     if (supabase) {
       try {
-        await supabase
+        const { data } = await supabase
           .from('classroom_members')
           .update({ status: 'active', joined_at: now })
           .eq('id', memberId)
-          .eq('classroom_id', classroomId);
+          .eq('classroom_id', classroomId)
+          .select()
+          .maybeSingle();
+        if (data) {
+          approvedMember = data as ClassroomMember;
+        }
       } catch (err) {
         console.warn('Gagal menyetujui siswa di cloud:', err);
+      }
+    }
+
+    // 3. Kirim email pemberitahuan persetujuan kelas via Resend (Axioma Academy <axioma@dfw.my.id>)
+    if (approvedMember?.student_email) {
+      try {
+        const targetClass = await this.getClassroomById(classroomId);
+        await sendClassroomNotificationEmail({
+          type: 'approved',
+          studentName:
+            approvedMember.student_name ||
+            approvedMember.student_email.split('@')[0] ||
+            'Siswa',
+          studentEmail: approvedMember.student_email,
+          classroomName: targetClass?.name || 'Kelas Binaan Axioma Academy',
+          classroomCode: targetClass?.code || '-',
+          teacherName: targetClass?.teacher_name || 'Guru Pembina',
+        });
+      } catch (mailErr) {
+        console.warn('Gagal mengirim email persetujuan kelas:', mailErr);
       }
     }
 
@@ -949,26 +991,68 @@ class ClassroomService {
         if (memberRows && !error) {
           // Update status ke 'active' jika masih 'invited' dan ada studentId valid
           if (studentId && !studentId.includes('demo')) {
-            await supabase
-              .from('classroom_members')
-              .update({ status: 'active', student_id: studentId, joined_at: new Date().toISOString() })
-              .ilike('student_email', cleanEmail)
-              .eq('status', 'invited');
+            const hasInvited = memberRows.some((r: any) => r.status === 'invited');
+            if (hasInvited) {
+              await supabase
+                .from('classroom_members')
+                .update({ status: 'active', student_id: studentId, joined_at: new Date().toISOString() })
+                .ilike('student_email', cleanEmail)
+                .eq('status', 'invited');
+            }
           }
 
           const cloudClassrooms = memberRows
             .map((r: any) => {
               const cls = Array.isArray(r.classrooms) ? r.classrooms[0] : r.classrooms;
               if (!cls) return null;
+              const resolvedStatus: ClassroomMemberStatus =
+                r.status === 'invited' && studentId && !studentId.includes('demo')
+                  ? 'active'
+                  : (r.status as ClassroomMemberStatus);
               return {
                 ...cls,
                 subjects: (Array.isArray(cls.subjects) && cls.subjects.length > 0 ? cls.subjects : ['kimia']) as SubjectId[],
-                user_membership_status: r.status as ClassroomMemberStatus,
+                user_membership_status: resolvedStatus,
               };
             })
             .filter((c): c is Classroom => Boolean(c));
 
-          // Sinkronkan ke cache lokal agar konsisten di semua tab & saat offline
+          // Ambil profil guru pembina secara batch untuk mengisi teacher_name & teacher_email asli
+          const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+          const teacherIds = Array.from(
+            new Set(
+              cloudClassrooms
+                .map((c) => c.teacher_id)
+                .filter((tid): tid is string => Boolean(tid && uuidRegex.test(tid)))
+            )
+          );
+
+          if (teacherIds.length > 0) {
+            try {
+              const { data: teacherProfiles } = await supabase
+                .from('profiles')
+                .select('id, full_name, email')
+                .in('id', teacherIds);
+
+              if (teacherProfiles && teacherProfiles.length > 0) {
+                const teacherMap = new Map(teacherProfiles.map((tp: any) => [tp.id, tp]));
+                cloudClassrooms.forEach((cls) => {
+                  const tp = teacherMap.get(cls.teacher_id);
+                  if (tp) {
+                    cls.teacher_name = tp.full_name;
+                    cls.teacher_email = tp.email;
+                  }
+                });
+              }
+            } catch {}
+          }
+
+          // Jadikan Supabase sebagai satu-satunya sumber kebenaran (hapus sisa cache lokal yang tidak ada di cloud)
+          const cloudClassIds = new Set(cloudClassrooms.map((c) => c.id));
+          this.localMembers = this.localMembers.filter(
+            (m) => m.student_email.toLowerCase() !== cleanEmail || cloudClassIds.has(m.classroom_id)
+          );
+
           cloudClassrooms.forEach((c) => {
             const existIdx = this.localMembers.findIndex(
               (m) => m.classroom_id === c.id && m.student_email.toLowerCase() === cleanEmail
@@ -979,14 +1063,14 @@ class ClassroomService {
               student_email: cleanEmail,
               student_id: studentId || null,
               student_name: cleanEmail.split('@')[0],
-              status: c.user_membership_status || 'active',
+              status: c.user_membership_status || 'pending_approval',
               invited_at: new Date().toISOString(),
-              joined_at: new Date().toISOString(),
+              joined_at: c.user_membership_status === 'active' ? new Date().toISOString() : null,
             };
             if (existIdx !== -1) {
               this.localMembers[existIdx] = {
                 ...this.localMembers[existIdx],
-                status: c.user_membership_status || 'active',
+                status: c.user_membership_status || 'pending_approval',
               };
             } else {
               this.localMembers.push(memRecord);
@@ -994,34 +1078,14 @@ class ClassroomService {
           });
           this.persistLocalStore();
 
-          // Gabungkan kelas lokal jika siswa bergabung pada kelas lokal yang belum di cloud
-          const cloudClassIds = new Set(cloudClassrooms.map((c) => c.id));
-          const studentMembers = this.localMembers.filter(
-            (m) => m.student_email.toLowerCase() === cleanEmail
-          );
-          const localOnlyClasses: Classroom[] = this.localClassrooms
-            .filter(
-              (c) =>
-                !cloudClassIds.has(c.id) &&
-                studentMembers.some((m) => m.classroom_id === c.id)
-            )
-            .map((c) => {
-              const mem = studentMembers.find((m) => m.classroom_id === c.id);
-              return {
-                ...c,
-                subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
-                user_membership_status: mem ? mem.status : ('active' as ClassroomMemberStatus),
-              };
-            });
-
-          return [...cloudClassrooms, ...localOnlyClasses];
+          return cloudClassrooms;
         }
       } catch (err) {
         console.warn('Gagal mengambil kelas siswa dari cloud:', err);
       }
     }
 
-    // Local fallback: jika email siswa terdaftar di localMembers
+    // Local fallback (hanya saat offline / Supabase tidak terhubung)
     const studentMembers = this.localMembers.filter(
       (m) => m.student_email.toLowerCase() === cleanEmail
     );
@@ -1034,7 +1098,7 @@ class ClassroomService {
         return {
           ...c,
           subjects: (Array.isArray(c.subjects) && c.subjects.length > 0 ? c.subjects : ['kimia']) as SubjectId[],
-          user_membership_status: mem ? mem.status : ('active' as ClassroomMemberStatus),
+          user_membership_status: mem ? mem.status : ('pending_approval' as ClassroomMemberStatus),
         };
       });
   }
@@ -1050,7 +1114,7 @@ class ClassroomService {
     const studentClasses = await this.getStudentClassrooms(studentEmail, studentId);
     // Hanya ambil penugasan untuk kelas yang sudah berstatus 'active'
     const activeClasses = studentClasses.filter(
-      (c) => !c.user_membership_status || c.user_membership_status === 'active'
+      (c) => c.user_membership_status === 'active'
     );
     const classIds = activeClasses.map((c) => c.id);
 

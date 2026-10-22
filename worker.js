@@ -1,9 +1,124 @@
 /**
  * worker.js
- * Cloudflare Worker Fullstack Entrypoint
- * Menggabungkan static frontend (dist) dengan backend API (/notify).
- * Berfungsi otomatis pada domain *.workers.dev tanpa memerlukan worker terpisah.
+ * Cloudflare Worker Fullstack Entrypoint — Axioma Academy
+ * Menggabungkan static frontend (dist), backend email relay (/notify via Resend: axioma@dfw.my.id),
+ * serta Cloudflare R2 Storage (/api/storage/*).
  */
+
+async function sendResendEmail(resendApiKey, fromHeader, toList, subject, html) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: fromHeader,
+      to: Array.isArray(toList) ? toList : [toList],
+      subject,
+      html,
+    }),
+  });
+  return res.json().catch(() => ({ status: res.status }));
+}
+
+function buildDossierRows(rows) {
+  return rows
+    .filter((r) => r && r.value !== undefined && r.value !== null && r.value !== '')
+    .map((r, idx, arr) => {
+      const isLast = idx === arr.length - 1;
+      const borderStyle = isLast ? '' : 'border-bottom: 1px solid #e2e8f0;';
+      const valueStyle = r.mono
+        ? "font-family: 'JetBrains Mono', 'Courier New', monospace; font-weight: 700; color: #0f172a; font-size: 13px;"
+        : r.highlight
+        ? 'font-weight: 700; color: #0f766e; font-size: 13px;'
+        : 'font-weight: 600; color: #0f172a; font-size: 13px;';
+      return `
+        <tr>
+          <td style="padding: 11px 16px; ${borderStyle} width: 38%; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; vertical-align: top;">
+            ${r.label}
+          </td>
+          <td style="padding: 11px 16px; ${borderStyle} ${valueStyle} vertical-align: top;">
+            ${r.value}
+          </td>
+        </tr>
+      `;
+    })
+    .join('');
+}
+
+function buildEditorialEmail({ docRef, categoryLabel, title, subtitle, bodyHtml, baseAppUrl }) {
+  const year = new Date().getFullYear();
+  const appUrl = (baseAppUrl || 'https://osn.icmadani.workers.dev').replace(/\/$/, '');
+
+  return `
+    <div style="background-color: #f1f5f9; padding: 36px 16px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; overflow: hidden;">
+        <!-- Top Architectural Accent Bar -->
+        <div style="height: 4px; background-color: #0f766e;"></div>
+
+        <!-- Institutional Masthead -->
+        <div style="background-color: #0f172a; padding: 20px 28px;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="vertical-align: middle;">
+                <div style="font-size: 16px; font-weight: 800; letter-spacing: 0.06em; color: #ffffff; text-transform: uppercase;">
+                  AXIOMA ACADEMY
+                </div>
+                <div style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #99f6e4; text-transform: uppercase; margin-top: 2px;">
+                  SCIENCE &amp; MATHEMATICS ACADEMY
+                </div>
+              </td>
+              <td style="vertical-align: middle; text-align: right;">
+                <span style="display: inline-block; padding: 4px 10px; background-color: #1e293b; border: 1px solid #334155; border-radius: 6px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 600; color: #e2e8f0; letter-spacing: 0.04em;">
+                  ${docRef}
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Title & Lead Header -->
+        <div style="padding: 28px 28px 20px 28px; border-bottom: 1px solid #e2e8f0;">
+          <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #0f766e; margin-bottom: 6px;">
+            ${categoryLabel}
+          </div>
+          <h1 style="margin: 0; font-size: 21px; font-weight: 800; color: #0f172a; line-height: 1.3; letter-spacing: -0.01em;">
+            ${title}
+          </h1>
+          <p style="margin: 6px 0 0 0; font-size: 13px; color: #475569; line-height: 1.5;">
+            ${subtitle}
+          </p>
+        </div>
+
+        <!-- Main Content Body -->
+        <div style="padding: 24px 28px 28px 28px; font-size: 14px; line-height: 1.65; color: #334155;">
+          ${bodyHtml}
+        </div>
+
+        <!-- Academic Editorial Footer -->
+        <div style="background-color: #f8fafc; padding: 20px 28px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #475569; line-height: 1.6;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="vertical-align: top;">
+                <div style="font-weight: 700; color: #0f172a;">Axioma Academy</div>
+                <div style="color: #475569; margin-top: 2px;">
+                  Kurikulum Nasional SMA &middot; Cambridge IGCSE &amp; AS/A Level &middot; Olimpiade Sains Nasional
+                </div>
+                <div style="color: #64748b; margin-top: 6px; font-size: 11px;">
+                  Email sistem resmi dari <strong style="color: #334155;">axioma@dfw.my.id</strong> &middot; &copy; ${year} Axioma Academy
+                </div>
+              </td>
+              <td style="vertical-align: top; text-align: right; white-space: nowrap;">
+                <a href="${appUrl}" style="color: #0f766e; font-weight: 700; text-decoration: none; font-size: 12px;">Portal Utama &rarr;</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 async function handleNotify(request, env) {
   if (request.method !== 'POST') {
@@ -18,225 +133,429 @@ async function handleNotify(request, env) {
 
   try {
     const body = await request.json();
-    const { action, student, adminEmail } = body;
-
-    if (action !== 'student_registered' || !student) {
-      return new Response(JSON.stringify({ error: 'Action not supported or student data missing' }), {
-        status: 400,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-    }
+    const { action, student, recipient, classroom, adminEmail, appUrl } = body;
 
     const recipientAdmin = adminEmail || env.ADMIN_EMAIL || 'fluffykitten.dev@gmail.com';
-    const studentEmail = student.email;
-    const studentName = student.fullName || 'Calon Medalis';
-    const schoolName = student.schoolName || 'Tidak Disebutkan';
-    const gradeLevel = student.gradeLevel || 'Kelas 10/11/12';
-    const targetOlympiad = student.targetOlympiad || 'OSK';
-    const phoneWhatsapp = student.phoneWhatsApp || '-';
-    const registeredAt = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-
     const resendApiKey = env.RESEND_API_KEY;
     const brevoApiKey = env.BREVO_API_KEY;
-    const senderName = env.SENDER_NAME || 'OSN Kimia Mastery';
-    const senderEmail = env.SENDER_EMAIL || 'onboarding@resend.dev';
+    const senderName = env.SENDER_NAME || 'Axioma Academy';
+    const senderEmail = env.SENDER_EMAIL || 'axioma@dfw.my.id';
+    const resendSender =
+      senderEmail && !senderEmail.includes('gmail.com') ? senderEmail : 'axioma@dfw.my.id';
+    const fromHeader = `${senderName} <${resendSender}>`;
+    const baseAppUrl = (appUrl || 'https://osn.icmadani.workers.dev').replace(/\/$/, '');
+    const nowFormatted = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
 
-    // 1. Template Email untuk Admin
-    const adminHtmlContent = `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
-        <div style="padding-bottom: 16px; border-bottom: 2px solid #0284c7;">
-          <h2 style="color: #0f172a; margin: 0; font-size: 20px;">🎓 Pendaftaran Siswa Baru - OSN Kimia Mastery</h2>
-          <p style="color: #64748b; font-size: 13px; margin: 4px 0 0 0;">Notifikasi sistem resmi platform olimpiade sains kimia</p>
-        </div>
-        
-        <div style="margin-top: 20px;">
-          <p style="color: #334155; font-size: 14px;">Halo <strong>Administrator (${recipientAdmin})</strong>,</p>
-          <p style="color: #334155; font-size: 14px;">Seorang siswa baru baru saja menyelesaikan pendaftaran di platform OSN Kimia Mastery:</p>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px;">
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold; width: 35%;">Nama Lengkap</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0f172a;">${studentName}</td>
-            </tr>
+    const dispatchResults = {};
+
+    // =========================================================================
+    // 1. PENDAFTARAN PENGGUNA BARU (student_registered)
+    // =========================================================================
+    if (action === 'student_registered' && student) {
+      const userEmail = student.email;
+      const userName = student.fullName || 'Pendaftar Baru';
+      const userId = student.userId || '-';
+      const isTeacherReg = student.role === 'teacher' || student.role === 'guru';
+      const roleLabel = isTeacherReg ? 'Guru / Pembina' : 'Siswa';
+      const schoolName = student.schoolName || 'Tidak Disebutkan';
+      const gradeLevel = student.gradeLevel ? `Kelas ${student.gradeLevel}` : '-';
+      const targetProgram = isTeacherReg
+        ? `Bidang Ampuan: ${(student.teachingSubject || 'Kimia').toUpperCase()}`
+        : `Olimpiade Sains / Kurikulum: ${student.targetOlympiad || 'OSN'}`;
+      const phoneWhatsapp = student.phoneWhatsApp || '-';
+      const initialClassCode = student.initialClassCode || 'Belum memasukkan kode kelas';
+      const membershipTier =
+        student.membershipTier || (isTeacherReg ? 'Pro (Guru Pembina)' : 'Reguler (Siswa)');
+
+      const adminDossierRows = buildDossierRows([
+        { label: 'Nama Lengkap', value: userName },
+        {
+          label: 'Alamat Email',
+          value: `<a href="mailto:${userEmail}" style="color: #0f766e; text-decoration: none; font-weight: 700;">${userEmail}</a>`,
+        },
+        { label: 'ID Akun (UUID)', value: userId, mono: true },
+        { label: 'Peran Terdaftar', value: roleLabel, highlight: true },
+        { label: 'Institusi / Sekolah', value: schoolName },
+        !isTeacherReg ? { label: 'Tingkat Kelas', value: gradeLevel } : null,
+        { label: 'Program / Fokus', value: targetProgram, highlight: true },
+        !isTeacherReg ? { label: 'Kode Kelas Awal', value: initialClassCode, mono: true } : null,
+        { label: 'Nomor WhatsApp', value: phoneWhatsapp, mono: true },
+        { label: 'Paket Akses', value: membershipTier },
+        { label: 'Waktu Registrasi', value: `${nowFormatted} WIB`, mono: true },
+      ]);
+
+      const adminHtml = buildEditorialEmail({
+        docRef: 'REG // ADMIN-LOG',
+        categoryLabel: 'Notifikasi Pendaftaran Akun',
+        title: `${userName} Mendaftar sebagai ${roleLabel}`,
+        subtitle: `Pendaftaran baru tercatat dari ${schoolName} pada ${nowFormatted} WIB.`,
+        baseAppUrl,
+        bodyHtml: `
+          <p style="margin: 0 0 16px 0;">
+            Halo <strong>Administrator</strong>, sistem baru saja mencatat pendaftaran akun baru di <strong>Axioma Academy</strong> dengan rincian pendaftar lengkap sebagai berikut:
+          </p>
+
+          <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; margin-bottom: 22px;">
+            <div style="background-color: #f1f5f9; padding: 10px 16px; border-bottom: 1px solid #cbd5e1; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.05em;">
+              Lembar Data Pendaftar (Applicant Dossier)
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+              ${adminDossierRows}
+            </table>
+          </div>
+
+          <table style="width: 100%; border-collapse: collapse;">
             <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Email Siswa</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0284c7;"><a href="mailto:${studentEmail}">${studentEmail}</a></td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Asal Sekolah</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${schoolName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Jenjang / Kelas</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">Kelas ${gradeLevel}</td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Target Prestasi</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">Olimpiade Sains ${targetOlympiad}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Nomor Kontak / WA</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${phoneWhatsapp}</td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Waktu Pendaftaran</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${registeredAt} WIB</td>
+              <td>
+                <a href="${baseAppUrl}/admin/users" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; font-size: 13px;">
+                  Periksa di Manajemen Pengguna &rarr;
+                </a>
+              </td>
             </tr>
           </table>
+        `,
+      });
 
-          <div style="margin-top: 24px; padding: 12px; background-color: #eff6ff; border-radius: 8px; border-left: 4px solid #3b82f6; font-size: 12px; color: #1e40af;">
-            Siswa ini telah terdaftar di database Supabase dengan 100 XP awal dan akses ke kurikulum silabus.
+      const studentDossierRows = buildDossierRows([
+        { label: 'Nama Lengkap', value: userName },
+        { label: 'Email Terdaftar', value: userEmail, mono: true },
+        { label: 'Peran Akun', value: roleLabel, highlight: true },
+        { label: 'Asal Sekolah / Institusi', value: schoolName },
+        !isTeacherReg ? { label: 'Jenjang Kelas', value: gradeLevel } : null,
+        { label: 'Fokus Akademik', value: targetProgram },
+        !isTeacherReg && student.initialClassCode
+          ? { label: 'Kode Kelas Terkait', value: student.initialClassCode, mono: true }
+          : null,
+        { label: 'Nomor WhatsApp', value: phoneWhatsapp, mono: true },
+        { label: 'Tanggal Terdaftar', value: `${nowFormatted} WIB`, mono: true },
+      ]);
+
+      const studentHtml = buildEditorialEmail({
+        docRef: 'WELCOME // AXIOMA',
+        categoryLabel: 'Konfirmasi Pendaftaran Akun',
+        title: `Selamat Datang di Axioma Academy, ${userName}`,
+        subtitle: 'Berikut adalah arsip rincian pendaftaran dan panduan langkah awal akun Anda.',
+        baseAppUrl,
+        bodyHtml: `
+          <p style="margin: 0 0 16px 0;">
+            Akun Anda di <strong>Axioma Academy</strong> telah berhasil dibuat. Simpan email ini sebagai bukti rincian profil akademik yang Anda daftarkan:
+          </p>
+
+          <!-- Applicant Dossier Card -->
+          <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; margin-bottom: 24px;">
+            <div style="background-color: #f1f5f9; padding: 10px 16px; border-bottom: 1px solid #cbd5e1; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.05em;">
+              Ringkasan Profil Pendaftar
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+              ${studentDossierRows}
+            </table>
           </div>
-        </div>
-      </div>
-    `;
 
-    // 2. Template Email Sambutan untuk Siswa dengan Rincian Informasi Pendaftaran
-    const studentHtmlContent = `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
-        <div style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9;">
-          <div style="display: inline-block; background-color: #0284c7; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">OSN Kimia Mastery</div>
-          <h1 style="color: #0f172a; margin: 12px 0 4px 0; font-size: 22px;">Selamat Datang, ${studentName}!</h1>
-          <p style="color: #64748b; font-size: 13px; margin: 0;">Langkah Awal Anda Menuju Medali Olimpiade Sains Nasional</p>
-        </div>
-        
-        <div style="margin-top: 20px; font-size: 14px; line-height: 1.6; color: #334155;">
-          <p>Terima kasih telah mendaftar di platform <strong>OSN Kimia Mastery</strong>. Berikut adalah rincian informasi personal yang Anda daftarkan:</p>
-          
-          <table style="width: 100%; border-collapse: collapse; margin-top: 16px; margin-bottom: 20px; font-size: 13px;">
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold; width: 35%;">Nama Lengkap</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0f172a;">${studentName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Email Akun</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #0284c7;"><a href="mailto:${studentEmail}">${studentEmail}</a></td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Asal Sekolah</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${schoolName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Jenjang / Kelas</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">Kelas ${gradeLevel}</td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Target Prestasi</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; color: #16a34a; font-weight: bold;">Olimpiade Sains ${targetOlympiad} Kimia</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Nomor WhatsApp</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${phoneWhatsapp}</td>
-            </tr>
-            <tr style="background-color: #f8fafc;">
-              <td style="padding: 10px; border: 1px solid #e2e8f0; font-weight: bold;">Waktu Pendaftaran</td>
-              <td style="padding: 10px; border: 1px solid #e2e8f0;">${registeredAt} WIB</td>
-            </tr>
-          </table>
-
-          <h3 style="color: #0f172a; font-size: 15px; margin-top: 18px;">Fitur Belajar Unggulan:</h3>
-          <ol style="padding-left: 20px; margin: 8px 0; color: #475569; font-size: 13px;">
-            <li><strong>Peta Silabus Lengkap:</strong> Akses materi dari dasar SMA hingga tingkat lanjut OSN Kimia.</li>
-            <li><strong>Worksheet Interaktif:</strong> Kerjakan soal penalaran ilmiah dengan bimbingan terstruktur 4 langkah.</li>
-            <li><strong>Evaluasi Presisi AI:</strong> Dapatkan analisis miskonsepsi instan untuk memperbaiki pemahaman konsep.</li>
-          </ol>
-
-          <div style="margin-top: 24px; text-align: center;">
-            <a href="https://osn.icmadani.workers.dev/worksheet" style="display: inline-block; background-color: #0284c7; color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: bold; font-size: 14px;">Buka Lembar Kerja & Mulai Belajar →</a>
+          <!-- Editorial Numbered Steps -->
+          <div style="margin-bottom: 24px;">
+            <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin-bottom: 12px;">
+              Langkah Awal Penggunaan Portal
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 8px 12px 8px 0; vertical-align: top; width: 32px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; font-weight: 700; color: #0f766e;">01</td>
+                <td style="padding: 8px 0; vertical-align: top; border-bottom: 1px solid #f1f5f9; font-size: 13px; color: #334155;">
+                  <strong style="color: #0f172a;">Masuk ke Kelas Binaan:</strong> Gunakan Kode Kelas dari guru pembina Anda untuk membuka akses modul dan latihan terarah.
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 12px 8px 0; vertical-align: top; width: 32px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; font-weight: 700; color: #0f766e;">02</td>
+                <td style="padding: 8px 0; vertical-align: top; border-bottom: 1px solid #f1f5f9; font-size: 13px; color: #334155;">
+                  <strong style="color: #0f172a;">Pelajari Modul Terstruktur:</strong> Akses materi konsep dasar hingga analisis olimpiade dilengkapi rumus dan diagram visual.
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 12px 8px 0; vertical-align: top; width: 32px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 13px; font-weight: 700; color: #0f766e;">03</td>
+                <td style="padding: 8px 0; vertical-align: top; font-size: 13px; color: #334155;">
+                  <strong style="color: #0f172a;">Kerjakan Lembar Kerja:</strong> Selesaikan soal latihan bertahap untuk memantau perkembangan penguasaan topik Anda.
+                </td>
+              </tr>
+            </table>
           </div>
-        </div>
-        
-        <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center; color: #94a3b8; font-size: 11px;">
-          © ${new Date().getFullYear()} OSN Kimia Mastery • Notifikasi resmi akun siswa
-        </div>
-      </div>
-    `;
 
-    const dispatchResults = {
-      adminNotification: null,
-      studentNotification: null,
-    };
+          <a href="${baseAppUrl}${isTeacherReg ? '/teacher' : '/dashboard'}" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 14px;">
+            Buka Ruang Belajar Axioma &rarr;
+          </a>
+        `,
+      });
 
-    // Kirim via Resend
-    if (resendApiKey) {
-      const resendSender = senderEmail && !senderEmail.includes('gmail.com')
-        ? senderEmail
-        : 'onboarding@resend.dev';
+      if (resendApiKey) {
+        try {
+          dispatchResults.adminNotification = await sendResendEmail(
+            resendApiKey,
+            fromHeader,
+            [recipientAdmin],
+            `[Axioma Academy] Pendaftar Baru (${roleLabel}): ${userName} - ${schoolName}`,
+            adminHtml
+          );
+        } catch (err) {
+          dispatchResults.adminNotification = { error: err.message };
+        }
 
-      // 1. Kirim notifikasi ke Admin
-      try {
-        const adminRes = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${resendApiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: `${senderName} <${resendSender}>`,
-            to: [recipientAdmin],
-            subject: `[OSN Kimia Mastery] Siswa Baru Terdaftar: ${studentName} (${schoolName})`,
-            html: adminHtmlContent,
-          }),
-        });
-        dispatchResults.adminNotification = await adminRes.json().catch(() => ({ status: adminRes.status }));
-      } catch (err) {
-        dispatchResults.adminNotification = { error: err.message };
+        if (userEmail) {
+          try {
+            dispatchResults.studentNotification = await sendResendEmail(
+              resendApiKey,
+              fromHeader,
+              [userEmail],
+              `Konfirmasi Pendaftaran Axioma Academy - ${userName}`,
+              studentHtml
+            );
+          } catch (err) {
+            dispatchResults.studentNotification = { error: err.message };
+          }
+        }
       }
 
-      // 2. Kirim sambutan ke Siswa (Jika studentEmail sama dengan admin saat testing, atau jika domain verified)
-      try {
-        const studentRes = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${resendApiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: `${senderName} <${resendSender}>`,
-            to: [studentEmail],
-            subject: `Selamat Datang di OSN Kimia Mastery, ${studentName}!`,
-            html: studentHtmlContent,
-          }),
-        });
-        dispatchResults.studentNotification = await studentRes.json().catch(() => ({ status: studentRes.status }));
-      } catch (err) {
-        dispatchResults.studentNotification = { error: err.message };
+      if (brevoApiKey && !dispatchResults.adminNotification?.id) {
+        try {
+          const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+              'api-key': brevoApiKey,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              sender: { email: resendSender, name: senderName },
+              to: [{ email: recipientAdmin, name: 'Administrator' }],
+              subject: `[Axioma Academy] Pendaftar Baru (${roleLabel}): ${userName}`,
+              htmlContent: adminHtml,
+            }),
+          });
+          dispatchResults.brevoAdmin = await brevoRes.json().catch(() => ({ status: brevoRes.status }));
+        } catch (err) {
+          dispatchResults.brevoAdmin = { error: err.message };
+        }
       }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: 'Notifikasi pendaftaran berhasil dikirim.',
+          details: dispatchResults,
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      );
     }
 
-    // Kirim via Brevo (jika ada BREVO_API_KEY)
-    if (brevoApiKey && !dispatchResults.adminNotification?.id) {
-      try {
-        const brevoRes = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'api-key': brevoApiKey,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            sender: { email: recipientAdmin, name: senderName },
-            to: [{ email: recipientAdmin, name: 'Administrator' }],
-            subject: `[OSN Kimia Mastery] Siswa Baru Terdaftar: ${studentName} (${schoolName})`,
-            htmlContent: adminHtmlContent,
-          }),
-        });
-        dispatchResults.brevoAdmin = await brevoRes.json().catch(() => ({ status: brevoRes.status }));
-      } catch (err) {
-        dispatchResults.brevoAdmin = { error: err.message };
+    // =========================================================================
+    // 2. AKTIVASI AKUN & UNDANGAN PENGGUNA BARU (account_activation)
+    // =========================================================================
+    if (action === 'account_activation' && recipient?.email) {
+      const targetEmail = recipient.email;
+      const fullName = recipient.fullName || 'Pengguna';
+      const roleLabel =
+        recipient.role === 'teacher' || recipient.role === 'guru'
+          ? 'Guru / Pembina'
+          : recipient.role === 'admin'
+          ? 'Administrator'
+          : 'Siswa';
+      const activationUrl =
+        recipient.activationUrl ||
+        `${baseAppUrl}/login?mode=reset&email=${encodeURIComponent(targetEmail)}`;
+      const schoolName = recipient.schoolName || 'Axioma Academy';
+
+      const activationRows = buildDossierRows([
+        { label: 'Nama Pengguna', value: fullName },
+        { label: 'Email Terdaftar', value: targetEmail, mono: true },
+        { label: 'Peran Akses', value: roleLabel, highlight: true },
+        { label: 'Institusi / Sekolah', value: schoolName },
+        { label: 'Status Akun', value: 'Menunggu Aktivasi & Pengaturan Kata Sandi' },
+        { label: 'Waktu Penerbitan', value: `${nowFormatted} WIB`, mono: true },
+      ]);
+
+      const activationHtml = buildEditorialEmail({
+        docRef: 'AUTH // ACTIVATE',
+        categoryLabel: 'Undangan & Aktivasi Akun Resmi',
+        title: `Aktifkan Akun Axioma Academy Anda`,
+        subtitle: `Diterbitkan untuk ${fullName} (${roleLabel} - ${schoolName})`,
+        baseAppUrl,
+        bodyHtml: `
+          <p style="margin: 0 0 16px 0;">
+            Halo <strong>${fullName}</strong>, akun Anda telah didaftarkan di portal akademik <strong>Axioma Academy</strong>. Berikut adalah rincian kredensial profil Anda:
+          </p>
+
+          <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; margin-bottom: 22px;">
+            <div style="background-color: #f1f5f9; padding: 10px 16px; border-bottom: 1px solid #cbd5e1; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.05em;">
+              Rincian Pendaftaran Akun
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+              ${activationRows}
+            </table>
+          </div>
+
+          <!-- Primary Callout Box -->
+          <div style="background-color: #f0fdfa; border: 1px solid #99f6e4; border-left: 4px solid #0f766e; border-radius: 8px; padding: 16px 18px; margin-bottom: 22px;">
+            <div style="font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 4px;">
+              Langkah Aktivasi Pertama Kali
+            </div>
+            <div style="font-size: 13px; color: #334155; line-height: 1.55;">
+              Klik tombol di bawah ini untuk mengatur kata sandi pribadi Anda. Setelah kata sandi disimpan, status akun Anda akan langsung aktif sepenuhnya.
+            </div>
+          </div>
+
+          <div style="margin-bottom: 20px;">
+            <a href="${activationUrl}" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 14px;">
+              Aktifkan Akun &amp; Buat Kata Sandi &rarr;
+            </a>
+          </div>
+
+          <div style="padding-top: 14px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; line-height: 1.5;">
+            Jika tombol di atas tidak dapat diklik, salin dan buka tautan berikut di peramban web Anda:<br />
+            <a href="${activationUrl}" style="color: #0f766e; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; word-break: break-all;">${activationUrl}</a>
+          </div>
+        `,
+      });
+
+      if (resendApiKey) {
+        try {
+          dispatchResults.activationEmail = await sendResendEmail(
+            resendApiKey,
+            fromHeader,
+            [targetEmail],
+            `Aktivasi Akun Axioma Academy - ${fullName}`,
+            activationHtml
+          );
+        } catch (err) {
+          dispatchResults.activationEmail = { error: err.message };
+        }
       }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: 'Email aktivasi akun berhasil dikirim.',
+          details: dispatchResults,
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      );
+    }
+
+    // =========================================================================
+    // 3. UNDANGAN & PERSETUJUAN KELAS BINAAN (classroom_invitation / classroom_approved)
+    // =========================================================================
+    if (
+      (action === 'classroom_invitation' || action === 'classroom_approved') &&
+      classroom?.studentEmail
+    ) {
+      const isInvitation = action === 'classroom_invitation';
+      const studentEmail = classroom.studentEmail;
+      const studentName = classroom.studentName || 'Siswa';
+      const classroomName = classroom.classroomName || 'Kelas Binaan Axioma Academy';
+      const classroomCode = classroom.classroomCode || '-';
+      const teacherName = classroom.teacherName || 'Guru Pembina';
+      const classroomUrl = classroom.classroomUrl || `${baseAppUrl}/dashboard`;
+
+      const subjectLine = isInvitation
+        ? `Undangan Kelas Binaan: ${classroomName} (${classroomCode}) - Axioma Academy`
+        : `Keanggotaan Kelas Disetujui: ${classroomName} - Axioma Academy`;
+
+      const classroomRows = buildDossierRows([
+        { label: 'Nama Siswa', value: studentName },
+        { label: 'Email Siswa', value: studentEmail, mono: true },
+        { label: 'Nama Kelas Binaan', value: classroomName, highlight: true },
+        { label: 'Guru Pembina', value: teacherName },
+        {
+          label: 'Status Keanggotaan',
+          value: isInvitation ? 'Diundang oleh Guru Pembina' : 'Aktif / Disetujui',
+          highlight: true,
+        },
+        { label: 'Waktu Pencatatan', value: `${nowFormatted} WIB`, mono: true },
+      ]);
+
+      const classroomHtml = buildEditorialEmail({
+        docRef: isInvitation ? 'CLASS // INVITE' : 'CLASS // APPROVED',
+        categoryLabel: isInvitation ? 'Undangan Kelas Binaan' : 'Persetujuan Anggota Kelas',
+        title: isInvitation
+          ? `Undangan Bergabung ke ${classroomName}`
+          : `Keanggotaan Anda di ${classroomName} Telah Aktif`,
+        subtitle: `Dibina oleh ${teacherName} di Axioma Academy`,
+        baseAppUrl,
+        bodyHtml: `
+          <p style="margin: 0 0 16px 0;">
+            Halo <strong>${studentName}</strong>, ${
+          isInvitation
+            ? `<strong>${teacherName}</strong> telah mengundang Anda untuk bergabung sebagai anggota di kelas binaan <strong>${classroomName}</strong>.`
+            : `permintaan bergabung Anda ke kelas binaan <strong>${classroomName}</strong> telah disetujui oleh <strong>${teacherName}</strong>.`
+        }
+          </p>
+
+          <!-- Focal Point: Classroom Access Code Callout -->
+          <div style="background-color: #f0fdfa; border: 1px solid #99f6e4; border-radius: 10px; padding: 18px 20px; margin-bottom: 22px; text-align: center;">
+            <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #0f766e; margin-bottom: 6px;">
+              Kode Akses Kelas Binaan
+            </div>
+            <div style="font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; color: #0f172a;">
+              ${classroomCode}
+            </div>
+          </div>
+
+          <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; margin-bottom: 22px;">
+            <div style="background-color: #f1f5f9; padding: 10px 16px; border-bottom: 1px solid #cbd5e1; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: 0.05em;">
+              Rincian Keanggotaan Kelas
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+              ${classroomRows}
+            </table>
+          </div>
+
+          <a href="${classroomUrl}" style="display: inline-block; background-color: #0f172a; color: #ffffff; text-decoration: none; padding: 13px 24px; border-radius: 8px; font-weight: 700; font-size: 14px;">
+            Buka Kelas di Axioma Academy &rarr;
+          </a>
+        `,
+      });
+
+      if (resendApiKey) {
+        try {
+          dispatchResults.classroomEmail = await sendResendEmail(
+            resendApiKey,
+            fromHeader,
+            [studentEmail],
+            subjectLine,
+            classroomHtml
+          );
+        } catch (err) {
+          dispatchResults.classroomEmail = { error: err.message };
+        }
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: 'Email notifikasi kelas binaan berhasil dikirim.',
+          details: dispatchResults,
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
+      );
     }
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Notifikasi pendaftaran diproses.',
-        details: dispatchResults,
-      }),
+      JSON.stringify({ error: 'Action not supported or required payload missing' }),
       {
-        status: 200,
+        status: 400,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -541,7 +860,7 @@ async function handleStorageList(request, env) {
       objects,
       truncated: listed.truncated,
       cursor: listed.cursor,
-    });
+    }));
   } catch (err) {
     return jsonResponse({ error: `Gagal membaca daftar berkas dari R2: ${err.message}` }, 500);
   }
@@ -563,13 +882,14 @@ export default {
     if (request.method === 'GET' && (pathname === '/health' || pathname === '/api/health')) {
       return jsonResponse({
         status: 'ok',
-        service: 'OSN Kimia Mastery Fullstack Worker',
+        service: 'Axioma Academy Fullstack Worker',
+        sender: env.SENDER_EMAIL || 'axioma@dfw.my.id',
         hasStorageBucket: Boolean(env.STORAGE_BUCKET),
         timestamp: new Date().toISOString(),
       });
     }
 
-    // 3. Tangani endpoint /notify (Email Pendaftaran Siswa)
+    // 3. Tangani endpoint /notify (Email Pendaftaran, Aktivasi, & Kelas Binaan)
     if (pathname === '/notify' || pathname === '/api/notify') {
       return handleNotify(request, env);
     }
@@ -610,4 +930,3 @@ export default {
     return new Response('Not Found', { status: 404 });
   },
 };
-

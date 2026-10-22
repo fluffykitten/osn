@@ -44,9 +44,9 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'target_olympiad', 'OSK'),
     NEW.raw_user_meta_data->>'phone_whatsapp',
     COALESCE(NEW.raw_user_meta_data->>'membership_tier', 'free'),
-    100,
+    0,
     1,
-    1
+    0
   )
   ON CONFLICT (id) DO UPDATE
   SET email = EXCLUDED.email,

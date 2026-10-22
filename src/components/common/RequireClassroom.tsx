@@ -11,9 +11,11 @@ interface RequireClassroomProps {
 
 export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) => {
   const { user, profile, isTeacher, isAdmin, loading: authLoading } = useAuth();
+  const storageKey = user?.id ? `osn_has_active_classroom_${user.id}` : 'osn_has_active_classroom';
+
   const [hasActiveClassroom, setHasActiveClassroom] = useState<boolean | null>(() => {
-    // Optimistic check from sessionStorage
-    const cached = sessionStorage.getItem('osn_has_active_classroom');
+    if (!user?.id) return null;
+    const cached = sessionStorage.getItem(`osn_has_active_classroom_${user.id}`);
     if (cached !== null) {
       return cached === 'true';
     }
@@ -22,20 +24,22 @@ export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) 
   const [checking, setChecking] = useState<boolean>(true);
 
   const checkClassroomStatus = async () => {
-    if (!user?.email) {
+    if (!user?.email || !user?.id) {
+      setHasActiveClassroom(false);
       setChecking(false);
       return;
     }
 
+    const userStorageKey = `osn_has_active_classroom_${user.id}`;
     try {
       const classrooms = await classroomService.getStudentClassrooms(user.email, user.id);
       const hasActive = classrooms.some((c) => c.user_membership_status === 'active');
       setHasActiveClassroom(hasActive);
+      sessionStorage.setItem(userStorageKey, hasActive ? 'true' : 'false');
       sessionStorage.setItem('osn_has_active_classroom', hasActive ? 'true' : 'false');
     } catch (err) {
       console.error('Gagal memeriksa status kelas siswa:', err);
-      // Fallback: check cached value or assume false if never joined
-      const cached = sessionStorage.getItem('osn_has_active_classroom');
+      const cached = sessionStorage.getItem(userStorageKey);
       setHasActiveClassroom(cached === 'true');
     } finally {
       setChecking(false);
@@ -51,8 +55,12 @@ export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) 
     }
 
     if (!authLoading && user) {
+      const cached = sessionStorage.getItem(storageKey);
+      setHasActiveClassroom(cached !== null ? cached === 'true' : null);
+      setChecking(true);
       checkClassroomStatus();
     } else if (!authLoading && !user) {
+      setHasActiveClassroom(false);
       setChecking(false);
     }
 
@@ -61,7 +69,7 @@ export const RequireClassroom: React.FC<RequireClassroomProps> = ({ children }) 
     };
     window.addEventListener('osn_classroom_updated', handleUpdate);
     return () => window.removeEventListener('osn_classroom_updated', handleUpdate);
-  }, [user, profile, isTeacher, isAdmin, authLoading]);
+  }, [user?.id, user?.email, profile?.role, isTeacher, isAdmin, authLoading, storageKey]);
 
   // If auth is still loading, show animated spinner
   if (authLoading || (checking && hasActiveClassroom === null)) {

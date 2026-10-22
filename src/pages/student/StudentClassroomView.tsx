@@ -40,8 +40,7 @@ export const StudentClassroomView: React.FC = () => {
   const studentEmail =
     user?.email ||
     profile?.email ||
-    localStorage.getItem('osn_student_email') ||
-    'siswa@gmail.com';
+    '';
 
   const [classroom, setClassroom] = useState<Classroom | null>(null);
   const [assignments, setAssignments] = useState<ClassroomAssignment[]>([]);
@@ -131,8 +130,30 @@ export const StudentClassroomView: React.FC = () => {
   }
 
   const isPending = classroom.user_membership_status === 'pending_approval';
-  const isActive = classroom.user_membership_status === 'active' || !classroom.user_membership_status;
+  const isActive = classroom.user_membership_status === 'active';
+  const isNotMember = !isPending && !isActive;
   const activeMembers = members.filter((m) => m.status === 'active');
+
+  if (isNotMember) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-16 text-center space-y-4">
+        <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center mx-auto">
+          <Lock className="w-6 h-6" />
+        </div>
+        <h2 className="text-xl font-bold text-slate-900 font-display">Akses Kelas Terkunci</h2>
+        <p className="text-xs text-slate-600 max-w-md mx-auto">
+          Anda belum terdaftar sebagai anggota di kelas binaan ini. Silakan masukkan kode kelas melalui halaman Aktivasi Kelas terlebih dahulu.
+        </p>
+        <Link
+          to="/join-class"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition-all shadow-xs"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Ke Halaman Aktivasi Kelas</span>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -212,11 +233,13 @@ export const StudentClassroomView: React.FC = () => {
                 Guru Pembina
               </div>
               <div className="text-xs sm:text-sm font-bold text-white">
-                {classroom.teacher_name || 'Guru Pembina OSN'}
+                {classroom.teacher_name || 'Guru Pembina Kelas'}
               </div>
-              <div className="text-[11px] text-indigo-300 font-mono">
-                {classroom.teacher_email || 'pembina@osnkimia.id'}
-              </div>
+              {classroom.teacher_email && (
+                <div className="text-[11px] text-indigo-300 font-mono">
+                  {classroom.teacher_email}
+                </div>
+              )}
             </div>
           </div>
         </div>
