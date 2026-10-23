@@ -860,7 +860,7 @@ async function handleStorageList(request, env) {
       objects,
       truncated: listed.truncated,
       cursor: listed.cursor,
-    }));
+    });
   } catch (err) {
     return jsonResponse({ error: `Gagal membaca daftar berkas dari R2: ${err.message}` }, 500);
   }
