@@ -1,0 +1,136 @@
+{
+  "anthropomorphic_phrases": [
+    "ingin bahagia",
+    "ingin stabil",
+    "memilih jalan malas",
+    "atom suka",
+    "elektron merasa",
+    "ingin mencapai kesempurnaan",
+    "atom berusaha keras"
+  ],
+  "chapter_out_of_scope": {
+    "1": [
+      "hplc",
+      "gc-ms",
+      "deret rydberg",
+      "persamaan schrodinger",
+      "persamaan schrödinger",
+      "partikel kuark",
+      "energi ikat inti",
+      "peluruhan radioaktif",
+      "e-factor",
+      "toksikologi molekuler"
+    ],
+    "2": [
+      "deret lantanida kompleks",
+      "aturan slater",
+      "mulliken",
+      "allred-rochow",
+      "siklus born-haber",
+      "teori pita",
+      "band theory",
+      "muatan formal kompleks",
+      "teori orbital molekul",
+      "diagram mo"
+    ],
+    "3": [
+      "senyawa kompleks ligan",
+      "berthollides",
+      "van der waals gas nyata",
+      "normalitas",
+      "titrasi balik",
+      "back titration"
+    ],
+    "4": [
+      "hukum i termodinamika",
+      "kerja ekspansi",
+      "w = -p",
+      "persamaan kirchhoff",
+      "kalorimeter bom",
+      "energi disosiasi ikatan spesifik bertahap"
+    ],
+    "5": [
+      "laju sesaat berbasis turunan",
+      "-d[a]/dt",
+      "persamaan arrhenius",
+      "k = a e",
+      "michaelis-menten",
+      "hukum laju terintegrasi",
+      "waktu paruh",
+      "keadaan tunak",
+      "steady-state approximation"
+    ],
+    "6": [
+      "energi bebas gibbs",
+      "delta g = 0",
+      "fugasitas",
+      "persamaan polinomial pangkat tiga",
+      "neraca panas"
+    ],
+    "7": [
+      "pearson",
+      "hsab",
+      "pelarut aprotik",
+      "neraca muatan",
+      "henderson-hasselbalch molekul indikator",
+      "titrasi asam lemah dengan basa lemah",
+      "argentometri",
+      "kompleksometri"
+    ],
+    "8": [
+      "amfiprotik poliprotik",
+      "kapasitas penyangga beta",
+      "buffer capacity",
+      "kompensasi metabolik ginjal",
+      "pembentukan ion kompleks ksp",
+      "kekuatan ionik",
+      "pengendapan bertingkat kuantitatif"
+    ],
+    "9": [
+      "biloks pecahan organik",
+      "persamaan nernst",
+      "nernst equation",
+      "diagram pourbaix",
+      "overpotential",
+      "potensial lebih",
+      "efisiensi arus non-ideal"
+    ],
+    "10": [
+      "debye-huckel",
+      "debye-hückel",
+      "azeotrop",
+      "konstanta ebulioskopi termodinamika",
+      "tekanan turgor",
+      "potensial air fisiologi",
+      "potensial zeta",
+      "einstein-smoluchowski"
+    ],
+    "11": [
+      "bisiklo",
+      "spiro",
+      "konformasi kursi sikloheksana",
+      "fluid catalytic cracking",
+      "tatanama polifungsional",
+      "cahn-ingold-prelog",
+      "proyeksi fischer meso",
+      "panah lengkung karbokation",
+      "anti-markovnikov peroksida",
+      "kondensasi aldol"
+    ],
+    "12": [
+      "kompleks sigma arenium",
+      "aturan huckel",
+      "aturan hückel",
+      "polimerisasi radikal bebas",
+      "indeks polidispersitas",
+      "siklus krebs",
+      "glikolisis",
+      "proyeksi haworth",
+      "teori medan kristal",
+      "crystal field splitting",
+      "diagram frost",
+      "diagram latimer"
+    ]
+  }
+}
+

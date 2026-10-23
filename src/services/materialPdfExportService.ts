@@ -1269,7 +1269,19 @@ export class MaterialPdfExportService {
     let borderColor = '#0284c7';
 
     // Deteksi tipe callout berdasarkan kata kunci badge/label
-    if (/PERINGATAN|MISKONSEPSI|BAHAYA|CAUTION|DANGER|WARNING/i.test(htmlBlock)) {
+    if (/SYARAT_BATAS|ASSUMPTION|SYARAT BATAS/i.test(htmlBlock)) {
+      title = 'Syarat Batas & Asumsi Teoretis';
+      iconColor = '#0D6E6E';
+      borderColor = '#0D6E6E';
+    } else if (/TITIK_RAWAN|PITFALL|TITIK RAWAN/i.test(htmlBlock)) {
+      title = 'Titik Rawan & Miskonsepsi Siswa';
+      iconColor = '#A04000';
+      borderColor = '#A04000';
+    } else if (/PEMERIKSAAN_LOGIKA|SANITY|PEMERIKSAAN LOGIKA/i.test(htmlBlock)) {
+      title = 'Pemeriksaan Logika & Sanity Check';
+      iconColor = '#1F4E78';
+      borderColor = '#1F4E78';
+    } else if (/PERINGATAN|MISKONSEPSI|BAHAYA|CAUTION|DANGER|WARNING/i.test(htmlBlock)) {
       title = 'Examiner Warning & Common Misconceptions';
       iconColor = '#dc2626';
       borderColor = '#dc2626';

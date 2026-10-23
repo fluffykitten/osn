@@ -8,10 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "test:materials": "node --experimental-strip-types scripts/validate-materials.js",
+    "test:pedagogy": "node .agents/skills/sma-chemistry-pedagogy/scripts/validate-pedagogy.mjs",
     "test:questions": "npx tsx scripts/validate-questions.ts",
     "test:coverage": "npx tsx scripts/validate-coverage.ts",
     "test:scaffold": "node --experimental-strip-types scripts/validate-scaffold.js",
-    "test:all": "npm run test:materials && npm run test:questions && npm run test:coverage && npm run test:scaffold",
+    "test:all": "npm run test:materials && npm run test:pedagogy && npm run test:questions && npm run test:coverage && npm run test:scaffold",
     "preview": "vite preview"
   },
   "dependencies": {

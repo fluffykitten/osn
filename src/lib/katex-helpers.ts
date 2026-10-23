@@ -502,11 +502,12 @@ export function parseAndRenderMixedText(rawText: string): string {
   const { text, protectedMath, protectedSvg } = preprocessFriendlyFormula(rawText);
 
   // Normalize markdown headings, steps, tables, and callouts so they form isolated blocks and do not bleed into lists or paragraphs
+  const alertTagsRegex = 'NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER|SYARAT_BATAS|ASSUMPTION|TITIK_RAWAN|PITFALL|PEMERIKSAAN_LOGIKA|SANITY';
   const normalized = text
-    .replace(/([^\n])\n(\s*(?:>\s*)?\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\])/gi, '$1\n\n$2')
+    .replace(new RegExp(`([^\\n])\\n(\\s*(?:>\\s*)?\\[!(?:${alertTagsRegex})\\])`, 'gi'), '$1\n\n$2')
     .replace(/([^\n])\n(#{1,5}\s+[^\n]+)/g, (match, p1, p2) => {
       if (p1.trim().startsWith('>') || p2.trim().startsWith('>')) return match;
-      if (/\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(p1)) return match;
+      if (new RegExp(`\\[!(?:${alertTagsRegex})\\]`, 'i').test(p1)) return match;
       return `${p1}\n\n${p2}`;
     })
     .replace(/(#{1,5}\s+[^\n]+)\n([^\n#])/g, (match, p1, p2) => {
@@ -691,13 +692,13 @@ export function parseAndRenderMixedText(rawText: string): string {
 
       // 5. Alert Callouts (> [!WARNING], > [!TIP], etc.) & Blockquotes (> ...)
       const isBlockquote = trimmed.startsWith('>');
-      const isCalloutDirect = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i.test(trimmed);
+      const isCalloutDirect = /^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER|SYARAT_BATAS|ASSUMPTION|TITIK_RAWAN|PITFALL|PEMERIKSAAN_LOGIKA|SANITY)\]/i.test(trimmed);
 
       if (isBlockquote || isCalloutDirect) {
         const rawLines = trimmed.split('\n');
         const quoteLines = isBlockquote ? rawLines.map((l) => l.replace(/^>\s?/, '')) : rawLines;
         const firstLine = (quoteLines[0] || '').trim();
-        const alertMatch = firstLine.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER)\]/i);
+        const alertMatch = firstLine.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION|INFO|DANGER|SYARAT_BATAS|ASSUMPTION|TITIK_RAWAN|PITFALL|PEMERIKSAAN_LOGIKA|SANITY)\]/i);
 
         if (alertMatch) {
           const typeKey = alertMatch[1].toUpperCase();
@@ -807,6 +808,87 @@ export function parseAndRenderMixedText(rawText: string): string {
               bulletBg: 'bg-rose-500',
               icon: '🚨',
               label: 'BAHAYA',
+            },
+            // Kotak 1 Arsitektur Pedagogis: Syarat Batas & Asumsi (Academic Teal #E6F4F1 / #0D6E6E)
+            SYARAT_BATAS: {
+              bg: 'bg-[#E6F4F1]/95',
+              border: 'border-[#0D6E6E]',
+              containerBorder: 'border-teal-300/80',
+              badgeBg: 'bg-[#0D6E6E]/15',
+              badgeText: 'text-[#0D6E6E]',
+              badgeBorder: 'border-[#0D6E6E]/30',
+              titleText: 'text-[#0D6E6E]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#0D6E6E]',
+              icon: '⚖️',
+              label: 'SYARAT BATAS & ASUMSI',
+            },
+            ASSUMPTION: {
+              bg: 'bg-[#E6F4F1]/95',
+              border: 'border-[#0D6E6E]',
+              containerBorder: 'border-teal-300/80',
+              badgeBg: 'bg-[#0D6E6E]/15',
+              badgeText: 'text-[#0D6E6E]',
+              badgeBorder: 'border-[#0D6E6E]/30',
+              titleText: 'text-[#0D6E6E]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#0D6E6E]',
+              icon: '⚖️',
+              label: 'SYARAT BATAS & ASUMSI',
+            },
+            // Kotak 2 Arsitektur Pedagogis: Titik Rawan Kesalahan (Warm Terracotta #FDF2E9 / #A04000)
+            TITIK_RAWAN: {
+              bg: 'bg-[#FDF2E9]/95',
+              border: 'border-[#A04000]',
+              containerBorder: 'border-orange-300/80',
+              badgeBg: 'bg-[#A04000]/15',
+              badgeText: 'text-[#A04000]',
+              badgeBorder: 'border-[#A04000]/30',
+              titleText: 'text-[#A04000]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#A04000]',
+              icon: '⚠️',
+              label: 'TITIK RAWAN KESALAHAN',
+            },
+            PITFALL: {
+              bg: 'bg-[#FDF2E9]/95',
+              border: 'border-[#A04000]',
+              containerBorder: 'border-orange-300/80',
+              badgeBg: 'bg-[#A04000]/15',
+              badgeText: 'text-[#A04000]',
+              badgeBorder: 'border-[#A04000]/30',
+              titleText: 'text-[#A04000]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#A04000]',
+              icon: '⚠️',
+              label: 'TITIK RAWAN KESALAHAN',
+            },
+            // Kotak 3 Arsitektur Pedagogis: Pemeriksaan Logika & Lintas Bab (Steel Blue #EBF3F9 / #1F4E78)
+            PEMERIKSAAN_LOGIKA: {
+              bg: 'bg-[#EBF3F9]/95',
+              border: 'border-[#1F4E78]',
+              containerBorder: 'border-sky-300/80',
+              badgeBg: 'bg-[#1F4E78]/15',
+              badgeText: 'text-[#1F4E78]',
+              badgeBorder: 'border-[#1F4E78]/30',
+              titleText: 'text-[#1F4E78]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#1F4E78]',
+              icon: '🔍',
+              label: 'PEMERIKSAAN LOGIKA & KONEKSI',
+            },
+            SANITY: {
+              bg: 'bg-[#EBF3F9]/95',
+              border: 'border-[#1F4E78]',
+              containerBorder: 'border-sky-300/80',
+              badgeBg: 'bg-[#1F4E78]/15',
+              badgeText: 'text-[#1F4E78]',
+              badgeBorder: 'border-[#1F4E78]/30',
+              titleText: 'text-[#1F4E78]',
+              bodyText: 'text-slate-800',
+              bulletBg: 'bg-[#1F4E78]',
+              icon: '🔍',
+              label: 'PEMERIKSAAN LOGIKA & KONEKSI',
             },
           };
 

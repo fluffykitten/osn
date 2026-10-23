@@ -90,7 +90,7 @@ export async function prepareWhiteboardImage(
   fileOrBlob: File | Blob,
   maxDisplayWidth = 520,
   maxDisplayHeight = 390,
-  maxPixelDimension = 960
+  maxPixelDimension = 1440
 ): Promise<PreparedWhiteboardImage> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -123,7 +123,7 @@ export async function prepareWhiteboardImage(
         displayWidth = Math.max(120, displayWidth);
         displayHeight = Math.max(90, displayHeight);
 
-        // 2. Kompresi resolusi jika foto kamera tablet terlalu besar (> 960px)
+        // 2. Kompresi resolusi jika foto kamera tablet terlalu besar (> 1440px)
         let renderWidth = naturalWidth;
         let renderHeight = naturalHeight;
         if (renderWidth > maxPixelDimension || renderHeight > maxPixelDimension) {
@@ -149,7 +149,7 @@ export async function prepareWhiteboardImage(
         ctx.drawImage(img, 0, 0, renderWidth, renderHeight);
 
         const mimeType = 'image/jpeg';
-        const quality = 0.74;
+        const quality = 0.82;
         const compressedDataUrl = canvas.toDataURL(mimeType, quality);
 
         canvas.toBlob(
@@ -1187,14 +1187,16 @@ export function computeDocumentBoundingBox(doc: WhiteboardDocument): {
   height: number;
 } {
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  const elements = doc.elements || [];
 
-  for (const el of doc.elements) {
+  for (const el of elements) {
     if (el.type === 'stroke' && el.points && el.points.length > 0) {
+      const halfStroke = Math.max(1, (el.strokeWidth || 2) / 2);
       for (const [px, py] of el.points) {
-        minX = Math.min(minX, px);
-        minY = Math.min(minY, py);
-        maxX = Math.max(maxX, px);
-        maxY = Math.max(maxY, py);
+        minX = Math.min(minX, px - halfStroke);
+        minY = Math.min(minY, py - halfStroke);
+        maxX = Math.max(maxX, px + halfStroke);
+        maxY = Math.max(maxY, py + halfStroke);
       }
     } else {
       let w = el.width || 60;
@@ -1204,13 +1206,22 @@ export function computeDocumentBoundingBox(doc: WhiteboardDocument): {
         h = estimateQuestionCardHeight(el);
       } else if (el.type === 'text') {
         const fontSize = el.fontSize || 18;
-        w = el.width || Math.max(60, (el.text?.length || 4) * fontSize * 0.6);
-        h = el.height || fontSize * 1.35;
+        const textLines = (el.text || '').split('\n');
+        const maxLineLen = Math.max(...textLines.map((l) => l.length), 4);
+        w = el.width || Math.max(60, maxLineLen * fontSize * 0.65);
+        h = el.height || Math.max(fontSize * 1.35, textLines.length * fontSize * 1.35);
       }
-      minX = Math.min(minX, el.x);
-      minY = Math.min(minY, el.y);
-      maxX = Math.max(maxX, el.x + w);
-      maxY = Math.max(maxY, el.y + h);
+
+      // Dukung koordinat jika objek digambar dengan arah mundur / negatif (misal garis panah)
+      const x1 = Math.min(el.x, el.x + w);
+      const x2 = Math.max(el.x, el.x + w);
+      const y1 = Math.min(el.y, el.y + h);
+      const y2 = Math.max(el.y, el.y + h);
+
+      minX = Math.min(minX, x1);
+      minY = Math.min(minY, y1);
+      maxX = Math.max(maxX, x2);
+      maxY = Math.max(maxY, y2);
     }
   }
 
@@ -1622,13 +1633,17 @@ export function renderDocumentToOffscreenCanvas(
     const width = Math.ceil(bbox.width + padding * 2);
     const height = Math.ceil(bbox.height + padding * 2);
 
-    canvas.width = Math.round(width * exportScale);
-    canvas.height = Math.round(height * exportScale);
+    // Batasi dimensi maksimum canvas agar tidak melebihi batas alokasi memori browser (8192px)
+    const maxCanvasDim = 8192;
+    const safeScale = Math.min(exportScale, maxCanvasDim / Math.max(width, height, 1));
+
+    canvas.width = Math.round(width * safeScale);
+    canvas.height = Math.round(height * safeScale);
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return canvas;
 
-    ctx.scale(exportScale, exportScale);
+    ctx.scale(safeScale, safeScale);
 
     // Render Latar Belakang Seluruh Kanvas
     renderBackground(ctx, doc.backgroundType, width, height, 0, 0);

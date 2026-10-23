@@ -92,6 +92,27 @@ export async function deleteDocumentLocally(id: string): Promise<void> {
   });
 }
 
+// Duplikasi Dokumen dari IndexedDB
+export async function duplicateDocumentLocally(id: string): Promise<WhiteboardDocument | null> {
+  const original = await getDocumentById(id);
+  if (!original) return null;
+
+  const now = new Date().toISOString();
+  const newId = `doc-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+  const duplicated: WhiteboardDocument = {
+    ...original,
+    id: newId,
+    title: `${original.title} (Salinan)`,
+    createdAt: now,
+    updatedAt: now,
+    r2PublicUrl: undefined,
+    r2StorageKey: undefined,
+  };
+
+  await saveDocumentLocally(duplicated);
+  return duplicated;
+}
+
 // Simpan Snapshot / Dokumen ke Cloudflare R2
 export async function uploadWhiteboardToR2(
   doc: WhiteboardDocument,
