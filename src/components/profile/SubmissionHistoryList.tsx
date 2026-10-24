@@ -1,6 +1,6 @@
 /**
  * SubmissionHistoryList.tsx
- * Daftar Riwayat Pengerjaan & Evaluasi Dewan Juri AI
+ * Daftar Riwayat Pengerjaan & Evaluasi Dewan Penguji
  * Dilengkapi rincian kriteria rubrik langkah, catatan juri, dan diagnosa miskonsepsi
  */
 
@@ -63,7 +63,7 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
         </div>
         <h4 className="text-sm font-bold text-slate-700">Belum Ada Riwayat Pengerjaan</h4>
         <p className="text-xs text-slate-500 max-w-sm mx-auto">
-          Mulai latihan dari Bank Soal atau Roadmap untuk mendapatkan evaluasi mendalam dari Dewan Juri AI.
+          Mulai latihan dari Bank Soal atau Roadmap untuk mendapatkan evaluasi mendalam dari Dewan Penguji.
         </p>
         <button
           onClick={() => navigate('/practice')}
@@ -159,7 +159,7 @@ export const SubmissionHistoryList: React.FC<SubmissionHistoryListProps> = ({ su
               </div>
             </div>
 
-            {/* Accordion Detail Evaluasi Juri AI */}
+            {/* Accordion Detail Evaluasi Dewan Penguji */}
             {isExpanded && (
               <div className="border-t border-slate-200 p-5 bg-slate-50/50 space-y-4 animate-in fade-in duration-200">
                 {/* Meta Model & XP */}

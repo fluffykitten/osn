@@ -222,12 +222,12 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 bg-sky-100 text-sky-800 text-[10px] font-bold rounded uppercase font-mono border border-sky-200">
-              AI Question Studio
+              Question Studio
             </span>
-            <span className="text-xs text-slate-500 font-medium">Gemini 2.5 Flash Multimodal & Scaffolding Engine</span>
+            <span className="text-xs text-slate-500 font-medium">Multimodal & Scaffolding Engine</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-display">
-            AI Ingestion & Question Generator
+            Ingestion & Question Studio
           </h1>
           <p className="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl">
             Ekstrak butir soal naskah PDF resmi OSK/OSP/OSN ke format KaTeX murni, serta sintesis otomatis metadata <strong>Kerangka 4 Langkah OSN</strong> yang dipersonalisasi sesuai jenis soal.
@@ -246,7 +246,7 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
           }`}
         >
           <Sparkles className="w-4 h-4 text-sky-500" />
-          <span>Generate Varian Soal & Scaffolding AI</span>
+          <span>Generate Varian Soal & Scaffolding</span>
         </button>
 
         <button
@@ -301,7 +301,7 @@ $\\Delta H_{\\text{kisi}} = -2521.7\\text{ kJ/mol}$.`,
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-slate-600 block mb-1">Model Varian AI:</label>
+              <label className="text-xs font-semibold text-slate-600 block mb-1">Model Varian Generator:</label>
               <div className="space-y-2 text-xs">
                 <label className="flex items-start gap-2 p-2.5 rounded-lg border border-slate-200 cursor-pointer hover:bg-sky-50/50 transition-colors">
                   <input

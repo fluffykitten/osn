@@ -758,12 +758,16 @@ Sebuah fragmen kayu purbakala ditemukan di situs arkeologi prasejarah. Pengukura
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Tetapan Laju Peluruhan Radioaktif k**  
+
+#### Langkah 1: Menghitung Tetapan Laju Peluruhan Radioaktif k
+
 Karena peluruhan radioaktif mengikuti kinetika orde satu murni:
 $$t_{1/2} = \\frac{\\ln 2}{k} \\implies k = \\frac{\\ln 2}{t_{1/2}}$$
 $$k = \\frac{0.69315}{5730\\text{ tahun}} = \\mathbf{1.2097 \\times 10^{-4}\\text{ tahun}^{-1}}$$
 
-**Langkah 2: Menghitung Umur Sampel Kayu Purbakala**  
+
+#### Langkah 2: Menghitung Umur Sampel Kayu Purbakala
+
 Gunakan persamaan hukum laju terintegrasi orde satu:
 $$\\ln\\left(\\frac{A_0}{A_t}\\right) = k \\cdot t \\implies t = \\frac{1}{k} \\ln\\left(\\frac{A_0}{A_t}\\right)$$
 Rasio aktivitas:
@@ -772,7 +776,9 @@ $$\\ln(3.9740) = 1.3798$$
 Maka umur kayu purbakala ($t$):
 $$t = \\frac{1.3798}{1.2097 \\times 10^{-4}\\text{ tahun}^{-1}} = 11,406\\text{ tahun} \\approx \\mathbf{1.14 \\times 10^4\\text{ tahun}}$$
 
-**Langkah 3: Menghitung Batas Usia Maksimum Deteksi**  
+
+#### Langkah 3: Menghitung Batas Usia Maksimum Deteksi
+
 Dengan aktivitas batas deteksi $A_{\\text{limit}} = 0.10\\text{ dpm/g C}$:
 $$\\frac{A_0}{A_{\\text{limit}}} = \\frac{15.30}{0.10} = 153.0$$
 $$\\ln(153.0) = 5.0304$$
@@ -808,7 +814,9 @@ Tabel data kinetika eksperimen penentuan laju awal ($r_0 = -\\frac{d[\\ce{S2O8^2
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menentukan Orde Parsial Reaksi**  
+
+#### Langkah 1: Menentukan Orde Parsial Reaksi
+
 Bentuk hukum laju: $r = k [\\ce{S2O8^2-}]^m [\\ce{I-}]^n$.
 - Bandingkan Percobaan 1 dan 2 (di mana $[\\ce{S2O8^2-}]_0$ konstan pada $0.080\\text{ M}$):
   $$\\frac{r_{0,1}}{r_{0,2}} = \\left(\\frac{[\\ce{I-}]_{0,1}}{[\\ce{I-}]_{0,2}}\\right)^n \\implies \\frac{2.20 \\times 10^{-4}}{1.10 \\times 10^{-4}} = \\left(\\frac{0.034}{0.017}\\right)^n \\implies 2.0 = (2.0)^n \\implies \\mathbf{n = 1}$$
@@ -817,14 +825,20 @@ Bentuk hukum laju: $r = k [\\ce{S2O8^2-}]^m [\\ce{I-}]^n$.
 Hukum laju reaksi:
 $$\\mathbf{r = k [\\ce{S2O8^2-}] [\\ce{I-}]} \\quad (\\text{Orde total } = 1 + 1 = 2)$$
 
-**Langkah 2: Menghitung Tetapan Laju k**  
+
+#### Langkah 2: Menghitung Tetapan Laju k
+
 Gunakan data Percobaan 1:
 $$k = \\frac{r_{0,1}}{[\\ce{S2O8^2-}]_{0,1} [\\ce{I-}]_{0,1}} = \\frac{2.20 \\times 10^{-4}\\text{ M}\\cdot\\text{s}^{-1}}{(0.080\\text{ M})(0.034\\text{ M})} = \\frac{2.20 \\times 10^{-4}}{2.72 \\times 10^{-3}} = \\mathbf{8.088 \\times 10^{-2}\\text{ M}^{-1}\\cdot\\text{s}^{-1}}$$
 
-**Langkah 3: Menghitung Laju Awal Percobaan 4**  
+
+#### Langkah 3: Menghitung Laju Awal Percobaan 4
+
 $$r_{0,4} = (8.088 \\times 10^{-2}\\text{ M}^{-1}\\cdot\\text{s}^{-1}) \\times (0.040\\text{ M}) \\times (0.068\\text{ M}) = \\mathbf{2.20 \\times 10^{-4}\\text{ M/s}}$$
 
-**Langkah 4: Kinetika Orde Pseudo-Satu**  
+
+#### Langkah 4: Kinetika Orde Pseudo-Satu
+
 Karena $[\\ce{I-}]_0 = 1.50\\text{ M} \\gg [\\ce{S2O8^2-}]_0 = 0.0050\\text{ M}$ (rasio $300:1$):
 $$k' = k [\\ce{I-}]_0 = (8.088 \\times 10^{-2}\\text{ M}^{-1}\\cdot\\text{s}^{-1})(1.50\\text{ M}) = \\mathbf{0.1213\\text{ s}^{-1}}$$
 Waktu paruh persulfat:
@@ -854,7 +868,9 @@ Data tetapan laju reaksi orde dua diukur pada dua temperatur laboratorium yang b
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Energi Aktivasi Ea & Faktor Frekuensi A**  
+
+#### Langkah 1: Menghitung Energi Aktivasi Ea & Faktor Frekuensi A
+
 Gunakan persamaan Arrhenius bentuk dua titik suhu:
 $$\\ln\\left(\\frac{k_2}{k_1}\\right) = \\frac{E_a}{R} \\left(\\frac{T_2 - T_1}{T_1 \\cdot T_2}\\right)$$
 Rasio laju:
@@ -868,11 +884,15 @@ Menghitung faktor frekuensi $A$:
 $$A = k_1 \\cdot e^{E_a / RT_1} = 0.0430 \\cdot e^{57698 / (8.314 \\times 293.15)} = 0.0430 \\cdot e^{23.673}$$
 $$A = 0.0430 \\times (1.910 \\times 10^{10}) = \\mathbf{8.21 \\times 10^8\\text{ M}^{-1}\\cdot\\text{s}^{-1}}$$
 
-**Langkah 2: Menghitung Tetapan Laju pada Suhu Tubuh (37.0°C / 310.15 K)**  
+
+#### Langkah 2: Menghitung Tetapan Laju pada Suhu Tubuh (37.0°C / 310.15 K)
+
 $$\\ln\\left(\\frac{k_{37}}{k_1}\\right) = -\\frac{E_a}{R} \\left(\\frac{1}{310.15} - \\frac{1}{293.15}\\right) = -\\frac{57698}{8.314} (-1.8698 \\times 10^{-4}) = +1.2976$$
 $$k_{37} = k_1 \\cdot e^{1.2976} = 0.0430 \\times 3.6606 = \\mathbf{0.1574\\text{ M}^{-1}\\cdot\\text{s}^{-1}} \\approx \\mathbf{0.157\\text{ M}^{-1}\\cdot\\text{s}^{-1}}$$
 
-**Langkah 3: Menghitung Parameter Termodinamika Aktivasi Eyring pada 298.15 K**  
+
+#### Langkah 3: Menghitung Parameter Termodinamika Aktivasi Eyring pada 298.15 K
+
 1. **Entalpi Aktivasi ($\\Delta H^\\ddagger$):**
    Untuk reaksi fasa larutan cair:
    $$\\Delta H^\\ddagger = E_a - RT = 57698\\text{ J/mol} - (8.314 \\times 298.15)\\text{ J/mol} = 57698 - 2479 = 55,219\\text{ J/mol} = \\mathbf{55.22\\text{ kJ/mol}}$$
@@ -917,20 +937,26 @@ Mekanisme reaksi elementer yang diajukan oleh Chapman melibatkan zat antara atom
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menyusun Persamaan Laju Diferensial Spesi**  
+
+#### Langkah 1: Menyusun Persamaan Laju Diferensial Spesi
+
 Laju konsumsi bersih ozon (muncul pada tahap 1 maju dan tahap 2, terbentuk kembali pada tahap 1 balik):
 $$-\\frac{d[\\ce{O3}]}{dt} = k_1 [\\ce{O3}] - k_{-1} [\\ce{O2}][\\ce{O}] + k_2 [\\ce{O}][\\ce{O3}]$$
 Laju pembentukan bersih zat antara atom radikal oksigen $[\\ce{O}]$:
 $$\\frac{d[\\ce{O}]}{dt} = k_1 [\\ce{O3}] - k_{-1} [\\ce{O2}][\\ce{O}] - k_2 [\\ce{O}][\\ce{O3}]$$
 
-**Langkah 2: Menerapkan Bodenstein SSA pada [O]**  
+
+#### Langkah 2: Menerapkan Bodenstein SSA pada [O]
+
 Karena atom radikal $\\ce{O}$ sangat reaktif dan konsentrasinya stasioner rendah:
 $$\\frac{d[\\ce{O}]}{dt} = 0 \\implies k_1 [\\ce{O3}] - k_{-1} [\\ce{O2}][\\ce{O}] - k_2 [\\ce{O}][\\ce{O3}] = 0$$
 Kumpulkan suku yang mengandung $[\\ce{O}]$:
 $$[\\ce{O}] \\left(k_{-1}[\\ce{O2}] + k_2[\\ce{O3}]\\right) = k_1 [\\ce{O3}]$$
 $$[\\ce{O}] = \\frac{k_1 [\\ce{O3}]}{k_{-1}[\\ce{O2}] + k_2[\\ce{O3}]}$$
 
-**Langkah 3: Penurunan Hukum Laju Konsumsi Ozon**  
+
+#### Langkah 3: Penurunan Hukum Laju Konsumsi Ozon
+
 Dari persamaan neraca SSA di Langkah 2, perhatikan bahwa:
 $$k_1 [\\ce{O3}] - k_{-1} [\\ce{O2}][\\ce{O}] = k_2 [\\ce{O}][\\ce{O3}]$$
 Substitusikan kesetaraan ini ke dalam ekspresi $-\\frac{d[\\ce{O3}]}{dt}$:
@@ -939,14 +965,18 @@ Substitusikan nilai konsentrasi $[\\ce{O}]$ dari Langkah 2:
 $$-\\frac{d[\\ce{O3}]}{dt} = 2 k_2 \\left(\\frac{k_1 [\\ce{O3}]}{k_{-1}[\\ce{O2}] + k_2[\\ce{O3}]}\\right) [\\ce{O3}] = \\mathbf{\\frac{2 k_1 k_2 [\\ce{O3}]^2}{k_{-1}[\\ce{O2}] + k_2[\\ce{O3}]}}$$
 *(Terbukti).*
 
-**Langkah 4: Evaluasi Kondisi Batas k_-1[O2] >> k_2[O3]**  
+
+#### Langkah 4: Evaluasi Kondisi Batas k_-1[O2] >> k_2[O3]
+
 Jika laju penggabungan kembali $\\ce{O + O2}$ mendominasi tahap dekomposisi bimolekular:
 Penyebut dapat didekati sebagai $k_{-1}[\\ce{O2}] + k_2[\\ce{O3}] \\approx k_{-1}[\\ce{O2}]$:
 $$r = \\frac{2 k_1 k_2 [\\ce{O3}]^2}{k_{-1}[\\ce{O2}]} = \\left(\\frac{2 k_1 k_2}{k_{-1}}\\right) \\frac{[\\ce{O3}]^2}{[\\ce{O2}]} = \\mathbf{k_{\\text{obs}} [\\ce{O3}]^2 [\\ce{O2}]^{-1}}$$
 - Orde reaksi terhadap $\\ce{O3}$: $+2$ (Kuadratik)
 - Orde reaksi terhadap $\\ce{O2}$: $-1$ (Orde negatif, menunjukkan bahwa gas oksigen bertindak sebagai **inhibitor / penghambat laju** dekomposisi ozon).
 
-**Langkah 5: Menghitung Energi Aktivasi Teramati Ea,obs**  
+
+#### Langkah 5: Menghitung Energi Aktivasi Teramati Ea,obs
+
 Tetapan laju teramati adalah:
 $$k_{\\text{obs}} = \\frac{2 k_1 k_2}{k_{-1}}$$
 Mengambil logaritma natural: $\\ln k_{\\text{obs}} = \\ln 2 + \\ln k_1 + \\ln k_2 - \\ln k_{-1}$.
@@ -997,7 +1027,9 @@ $$r = \\frac{k_1 k_2 [\\ce{A}]^2}{k_{-1}[\\ce{A}] + k_2}$$
 Karena laju didefinisikan sebagai $r = k_{\\text{eff}} [\\ce{A}]$:
 $$k_{\\text{eff}} = \\frac{r}{[\\ce{A}]} = \\mathbf{\\frac{k_1 k_2 [\\ce{A}]}{k_{-1}[\\ce{A}] + k_2}}$$
 
-**Langkah 2: Linierisasi Plot Lindemann**  
+
+#### Langkah 2: Linierisasi Plot Lindemann
+
 Ambil kebalikan (resiprokal) dari $k_{\\text{eff}}$:
 $$\\frac{1}{k_{\\text{eff}}} = \\frac{k_{-1}[\\ce{A}] + k_2}{k_1 k_2 [\\ce{A}]} = \\frac{k_{-1}[\\ce{A}]}{k_1 k_2 [\\ce{A}]} + \\frac{k_2}{k_1 k_2 [\\ce{A}]} = \\frac{k_{-1}}{k_1 k_2} + \\frac{1}{k_1} \\left(\\frac{1}{[\\ce{A}]}\\right)$$
 Karena $k_\\infty = \\frac{k_1 k_2}{k_{-1}}$, maka:
@@ -1006,7 +1038,9 @@ Kurva $\\frac{1}{k_{\\text{eff}}}$ terhadap $\\frac{1}{[\\ce{A}]}$ berupa garis 
 - Intersep $y = \\frac{1}{k_\\infty}$
 - Kemiringan (*slope*) $m = \\frac{1}{k_1}$
 
-**Langkah 3: Menghitung Rasio k2/k_-1 dan Tetapan k1**  
+
+#### Langkah 3: Menghitung Rasio k2/k_-1 dan Tetapan k1
+
 Kondisi saat $k_{\\text{eff}} = \\frac{1}{2} k_\\infty$:
 $$k_{\\text{eff}} = \\frac{k_1 k_2 [\\ce{A}]}{k_{-1}[\\ce{A}] + k_2} = \\frac{1}{2} \\left(\\frac{k_1 k_2}{k_{-1}}\\right)$$
 $$2 k_{-1} [\\ce{A}] = k_{-1} [\\ce{A}] + k_2 \\implies k_{-1} [\\ce{A}]_{1/2} = k_2$$
@@ -1019,7 +1053,9 @@ $$k_\\infty = \\frac{k_1 k_2}{k_{-1}} = k_1 \\left(\\frac{k_2}{k_{-1}}\\right) =
 $$4.00 \\times 10^{-4}\\text{ s}^{-1} = k_1 \\times (1.00 \\times 10^{-5}\\text{ M})$$
 $$k_1 = \\frac{4.00 \\times 10^{-4}\\text{ s}^{-1}}{1.00 \\times 10^{-5}\\text{ M}} = \\mathbf{40.0\\text{ M}^{-1}\\cdot\\text{s}^{-1}}$$
 
-**Langkah 4: Menghitung k_eff pada Konsentrasi Rendah ([A] = 2.00 x 10^-6 M)**  
+
+#### Langkah 4: Menghitung k_eff pada Konsentrasi Rendah ([A] = 2.00 x 10^-6 M)
+
 Gunakan formula $k_{\\text{eff}}$:
 $$k_{\\text{eff}} = \\frac{k_1 [\\ce{A}]}{1 + \\frac{k_{-1}}{k_2}[\\ce{A}]} = \\frac{(40.0\\text{ M}^{-1}\\text{s}^{-1}) \\times (2.00 \\times 10^{-6}\\text{ M})}{1 + \\frac{2.00 \\times 10^{-6}\\text{ M}}{1.00 \\times 10^{-5}\\text{ M}}}$$
 $$k_{\\text{eff}} = \\frac{8.00 \\times 10^{-5}\\text{ s}^{-1}}{1 + 0.20} = \\frac{8.00 \\times 10^{-5}}{1.20} = \\mathbf{6.667 \\times 10^{-5}\\text{ s}^{-1}} \\approx \\mathbf{6.67 \\times 10^{-5}\\text{ s}^{-1}}$$

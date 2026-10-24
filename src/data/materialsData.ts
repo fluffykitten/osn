@@ -46,6 +46,7 @@ export interface MaterialItem {
   readTimeMinutes: number;
   summary: string;
   allTags: string[];
+  pedagogy_version?: 'classic' | 'revamped';
   // 3 Tahap Alur Pedagogis:
   prerequisites: ConceptBlock[];
   core_concepts: ConceptBlock[];
@@ -53,7 +54,7 @@ export interface MaterialItem {
 }
 
 import {
-  OSN_MATERIALS_ALL,
+  OSN_MATERIALS_ALL as OSN_MATERIALS_CLASSIC,
   OSN_TOPIC_1,
   OSN_TOPIC_2,
   OSN_TOPIC_3,
@@ -66,8 +67,20 @@ import {
   OSN_TOPIC_10,
 } from './materials/osn/index.ts';
 
+import {
+  OSN_MATERIALS_REVAMPED_ALL as OSN_MATERIALS_REVAMPED,
+  OSN_REVAMPED_TOPIC_4,
+} from './materials/osn_revamped/index.ts';
+
+import {
+  materialPedagogyVersionService,
+  type OsnPedagogyVersion,
+} from '../services/materialPedagogyVersionService.ts';
+
 export {
-  OSN_MATERIALS_ALL,
+  OSN_MATERIALS_CLASSIC,
+  OSN_MATERIALS_REVAMPED,
+  OSN_REVAMPED_TOPIC_4,
   OSN_TOPIC_1,
   OSN_TOPIC_2,
   OSN_TOPIC_3,
@@ -80,7 +93,16 @@ export {
   OSN_TOPIC_10,
 };
 
-export const OSN_MATERIALS: MaterialItem[] = OSN_MATERIALS_ALL;
+/**
+ * Mendapatkan daftar materi OSN aktif sesuai konfigurasi pedagogi sistem
+ */
+export function getActiveOsnMaterials(version?: OsnPedagogyVersion): MaterialItem[] {
+  const currentVersion = version || materialPedagogyVersionService.getStoredVersion();
+  return currentVersion === 'revamped' ? OSN_MATERIALS_REVAMPED : OSN_MATERIALS_CLASSIC;
+}
+
+export const OSN_MATERIALS: MaterialItem[] = OSN_MATERIALS_REVAMPED;
+
 
 /**
  * Mencari modul materi dan blok konsep yang cocok berdasarkan tag soal

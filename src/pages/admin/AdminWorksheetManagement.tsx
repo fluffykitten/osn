@@ -410,7 +410,7 @@ export const AdminWorksheetManagement: React.FC = () => {
             {submissions.length}
           </div>
           <span className="text-[10px] text-emerald-700 font-medium block">
-            ● Hasil evaluasi AI tersimpan
+            ● Hasil evaluasi tersimpan
           </span>
         </div>
       </div>
@@ -534,7 +534,7 @@ export const AdminWorksheetManagement: React.FC = () => {
                 Database Lembar Kerja Bersih
               </h3>
               <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                Belum ada paket lembar kerja aktif di sistem. Guru pembina dapat mulai merakit modul soal mandiri atau ujian live melalui menu Worksheet Builder atau AI Studio.
+                Belum ada paket lembar kerja aktif di sistem. Guru pembina dapat mulai merakit modul soal mandiri atau ujian live melalui menu Worksheet Builder atau Question Studio.
               </p>
               <div className="pt-2">
                 <Link

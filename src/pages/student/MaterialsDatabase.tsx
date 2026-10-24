@@ -9,7 +9,8 @@
 
 import React, { useState, useMemo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { OSN_MATERIALS, findConceptByTag, type MaterialItem } from '../../data/materialsData';
+import { OSN_MATERIALS, getActiveOsnMaterials, findConceptByTag, type MaterialItem } from '../../data/materialsData';
+import { useOsnPedagogyVersion } from '../../services/materialPedagogyVersionService';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../../data/smaMaterialsData';
 import { IGCSE_MATERIALS } from '../../data/igcseMaterialsData';
 import { KaTeXRenderer } from '../../components/common/KaTeXRenderer';
@@ -84,6 +85,10 @@ export const MaterialsDatabase: React.FC = () => {
     isMultiSubjectAdmin,
   } = useSubject();
   const subjectPrefix = `/${currentSubject}`;
+
+  // Pedagogy Version (OSN Classic 3-Tahap vs Revamped 4-Pilar)
+  const { version: pedagogyVersion, setVersion: setPedagogyVersion } = useOsnPedagogyVersion();
+  const osnMaterials = useMemo(() => getActiveOsnMaterials(pedagogyVersion), [pedagogyVersion]);
 
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -284,7 +289,7 @@ export const MaterialsDatabase: React.FC = () => {
         if (matchSma) return matchSma;
       }
       return (
-        OSN_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
+        osnMaterials.find((m) => m.topic_number === numericId || m.id === numericId) ||
         SMA_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
         IGCSE_MATERIALS.find((m) => m.topic_number === numericId || m.id === numericId) ||
         null
@@ -293,12 +298,12 @@ export const MaterialsDatabase: React.FC = () => {
 
     const foundIgcse = IGCSE_MATERIALS.find((m) => m.slug === id);
     if (foundIgcse) return foundIgcse;
-    const foundOsn = OSN_MATERIALS.find((m) => m.slug === id);
+    const foundOsn = osnMaterials.find((m) => m.slug === id);
     if (foundOsn) return foundOsn;
     const foundSma = SMA_MATERIALS.find((m) => m.slug === id);
     if (foundSma) return foundSma;
     return null;
-  }, [id, activeDatabase, dbParam]);
+  }, [id, activeDatabase, dbParam, osnMaterials]);
 
   const isCurrentIgcse = Boolean(
     activeMaterial && (
@@ -308,6 +313,14 @@ export const MaterialsDatabase: React.FC = () => {
     )
   );
   const isCurrentSma = Boolean(activeMaterial && !isCurrentIgcse && 'grade' in activeMaterial);
+  const isRevampedOsn = Boolean(
+    !isCurrentSma &&
+    !isCurrentIgcse &&
+    activeMaterial &&
+    ('pedagogy_version' in activeMaterial
+      ? activeMaterial.pedagogy_version === 'revamped'
+      : pedagogyVersion === 'revamped')
+  );
 
   // Toggle complete for a material
   const toggleComplete = (materialId: number) => {
@@ -329,7 +342,7 @@ export const MaterialsDatabase: React.FC = () => {
         trackAchievementEvent(user?.id, 'MODULE_READ_COMPLETED', { moduleId: materialId });
         import('canvas-confetti')
           .then((m) => {
-            const confetti = m.default || m;
+            const confetti = (m.default || m) as (options?: any) => Promise<null> | null;
             confetti({
               particleCount: 50,
               spread: 60,
@@ -366,7 +379,7 @@ export const MaterialsDatabase: React.FC = () => {
   };
 
   // ==========================================
-  // INTERACTIVE LEARNING TOOLS STATE (AI Tutor, Notes, Flashcards)
+  // INTERACTIVE LEARNING TOOLS STATE (Tutor, Notes, Flashcards)
   // ==========================================
   const [aiTutorOpen, setAiTutorOpen] = useState(false);
   const [aiTutorConcept, setAiTutorConcept] = useState<{
@@ -953,10 +966,10 @@ export const MaterialsDatabase: React.FC = () => {
         ? IGCSE_MATERIALS
         : activeDatabase === 'sma'
         ? (selectedGrade === 'Semua' ? SMA_MATERIALS : SMA_MATERIALS.filter((m) => m.grade === selectedGrade))
-        : OSN_MATERIALS;
+        : osnMaterials;
     const set = new Set(list.map((m) => m.category));
     return ['Semua', ...Array.from(set)];
-  }, [activeDatabase, selectedGrade]);
+  }, [activeDatabase, selectedGrade, osnMaterials]);
 
   // Filter materi untuk tampilan katalog
   const filteredMaterials = useMemo(() => {
@@ -985,7 +998,7 @@ export const MaterialsDatabase: React.FC = () => {
       });
     }
 
-    return OSN_MATERIALS.filter((m) => {
+    return osnMaterials.filter((m) => {
       const matchCategory = selectedCategory === 'Semua' || m.category === selectedCategory;
       const matchSearch =
         m.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -993,7 +1006,7 @@ export const MaterialsDatabase: React.FC = () => {
         m.allTags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
       return matchCategory && matchSearch;
     });
-  }, [activeDatabase, searchQuery, selectedCategory, selectedGrade]);
+  }, [activeDatabase, searchQuery, selectedCategory, selectedGrade, osnMaterials]);
 
   // Progress metrics
   const completedCount =
@@ -1001,20 +1014,20 @@ export const MaterialsDatabase: React.FC = () => {
       ? completedIgcse.filter((mid) => IGCSE_MATERIALS.some((m) => m.id === mid)).length
       : activeDatabase === 'sma'
       ? completedSma.filter((mid) => SMA_MATERIALS.some((m) => m.id === mid)).length
-      : completedOsn.filter((mid) => OSN_MATERIALS.some((m) => m.id === mid)).length;
+      : completedOsn.filter((mid) => osnMaterials.some((m) => m.id === mid)).length;
   const totalCount =
     activeDatabase === 'igcse'
       ? IGCSE_MATERIALS.length
       : activeDatabase === 'sma'
       ? SMA_MATERIALS.length
-      : OSN_MATERIALS.length;
+      : osnMaterials.length;
   const progressPercentage = Math.round((completedCount / (totalCount || 1)) * 100);
 
   // ==========================================
   // JIKA DALAM MODE MEMBACA MATERI TERTENTU (/materi/:id)
   // ==========================================
   if (activeMaterial) {
-    const activeList = isCurrentIgcse ? IGCSE_MATERIALS : isCurrentSma ? SMA_MATERIALS : OSN_MATERIALS;
+    const activeList = isCurrentIgcse ? IGCSE_MATERIALS : isCurrentSma ? SMA_MATERIALS : osnMaterials;
     const currentIndex = activeList.findIndex((m) => m.id === activeMaterial.id);
     const prevMaterial = currentIndex > 0 ? activeList[currentIndex - 1] : null;
     const nextMaterial =
@@ -1085,20 +1098,20 @@ export const MaterialsDatabase: React.FC = () => {
               </button>
             )}
 
-            {/* Tanya AI Tutor Button (Dikontrol oleh Feature Flags Admin) */}
+            {/* Tanya Tutor Button (Dikontrol oleh Feature Flags Admin) */}
             {featureFlags.materialAiTutor && (
               <button
                 type="button"
                 onClick={() => handleOpenAiTutor()}
                 className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-purple-200 bg-purple-50/80 hover:bg-purple-100 text-purple-700 shadow-2xs cursor-pointer touch-manipulation"
-                title="Konsultasi ke AI Tutor untuk topik ini"
+                title="Konsultasi ke Tutor Kimia untuk topik ini"
               >
                 <SolarStars className="w-3.5 h-3.5 text-purple-600" />
-                <span>AI Tutor</span>
+                <span>Tutor Kimia</span>
               </button>
             )}
 
-            {/* Unduh Modul PDF Button (Save My Exams Format) */}
+            {/* Unduh Modul PDF Button (Axioma Academy Format) */}
             <button
               type="button"
               onClick={() => {
@@ -1106,7 +1119,7 @@ export const MaterialsDatabase: React.FC = () => {
                 setPdfExportOpen(true);
               }}
               className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-sky-200 bg-sky-50/80 hover:bg-sky-100 text-sky-700 shadow-2xs cursor-pointer touch-manipulation"
-              title="Unduh modul materi ini sebagai naskah PDF format Save My Exams"
+              title="Unduh modul materi ini sebagai naskah PDF resmi Axioma Academy"
             >
               <FileDown className="w-3.5 h-3.5 text-sky-600" />
               <span>Unduh Materi (PDF)</span>
@@ -1119,7 +1132,7 @@ export const MaterialsDatabase: React.FC = () => {
                 navigate(`/practice/${activeDatabase === 'sma' ? 'sma' : 'osn'}/${activeMaterial.topic_number}`);
               }}
               className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all border border-indigo-200 bg-indigo-50/80 hover:bg-indigo-100 text-indigo-700 shadow-2xs cursor-pointer touch-manipulation"
-              title="Buka Bank Soal & Unduh Soal Latihan Topik Ini (PDF Save My Exams)"
+              title="Buka Bank Soal & Unduh Soal Latihan Topik Ini (PDF Naskah Soal)"
             >
               <SolarBookBookmark className="w-3.5 h-3.5 text-indigo-600" />
               <span>Unduh Soal (PDF)</span>
@@ -1228,6 +1241,37 @@ export const MaterialsDatabase: React.FC = () => {
                 </span>
               ) : null}
 
+              {/* Pedagogy Version Switcher Pill for OSN */}
+              {!isCurrentSma && !isCurrentIgcse && (
+                <div className="inline-flex items-center gap-1 p-0.5 bg-slate-100 border border-slate-200 rounded-lg text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setPedagogyVersion('revamped')}
+                    className={`px-2 py-0.5 rounded-md font-semibold transition cursor-pointer flex items-center gap-1 text-[10px] ${
+                      pedagogyVersion === 'revamped'
+                        ? 'bg-indigo-600 text-white shadow-2xs'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                    title="Beralih ke Versi Revamp Pedagogis (4-Pilar)"
+                  >
+                    <Sparkles className="w-2.5 h-2.5 text-amber-300" />
+                    <span>4-Pilar Revamped</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPedagogyVersion('classic')}
+                    className={`px-2 py-0.5 rounded-md font-semibold transition cursor-pointer flex items-center gap-1 text-[10px] ${
+                      pedagogyVersion === 'classic'
+                        ? 'bg-white text-slate-900 shadow-2xs border border-slate-200'
+                        : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                    title="Beralih ke Versi Tradisional (3-Tahap)"
+                  >
+                    <span>Tradisional 3-Tahap</span>
+                  </button>
+                </div>
+              )}
+
               <span className="flex items-center gap-1 text-xs text-slate-400 font-mono ml-auto">
                 <Clock className="w-3.5 h-3.5" />
                 <span>{activeMaterial.readTimeMinutes} menit bacaan</span>
@@ -1238,7 +1282,7 @@ export const MaterialsDatabase: React.FC = () => {
               {activeMaterial.title}
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-4xl text-justify">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-4xl text-left">
               {activeMaterial.summary}
             </p>
           </div>
@@ -1271,7 +1315,7 @@ export const MaterialsDatabase: React.FC = () => {
                   }`}
                   title={`Klik untuk melompat ke pembahasan materi #${tag}`}
                 >
-                  <Tag className="w-2.5 h-2.5" />
+                  <Tag className="w-2.5 h-2.5 text-slate-400" />
                   <span>#{tag}</span>
                 </button>
               );
@@ -1413,6 +1457,8 @@ export const MaterialsDatabase: React.FC = () => {
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
                   {isCurrentIgcse
                     ? 'Tahap 1: Konsep Prasyarat & Prinsip Partikel'
+                    : isRevampedOsn
+                    ? 'Pilar 1: Intuisi dan Formalisasi Konsep'
                     : 'Tahap 1: Konsep Prasyarat yang Dibutuhkan'}
                 </h2>
               </div>
@@ -1421,6 +1467,8 @@ export const MaterialsDatabase: React.FC = () => {
                   ? 'Pondasi prinsip partikel dan fenomena fisik sebelum mendalami detail kurikulum Cambridge.'
                   : isCurrentSma
                   ? 'Pondasi teori dasar kimia SMA sebelum mempelajari materi lanjutan.'
+                  : isRevampedOsn
+                  ? 'Membangun pemahaman mikroskopis fisis sistem reaksi dilanjutkan dengan penurunan matematis eksak & standar IUPAC.'
                   : 'Pondasi teori dasar yang wajib dipahami sebelum melangkah ke konsep olimpiade tingkat lanjut.'}
               </p>
 
@@ -1450,15 +1498,15 @@ export const MaterialsDatabase: React.FC = () => {
                               {(block.tags && block.tags.length > 0 ? block.tags : [block.tag]).map((t) => (
                                 <span
                                   key={t}
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-50 border border-amber-200 text-amber-800 rounded text-[10px] font-mono font-bold"
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100/90 border border-slate-200/80 text-slate-600 rounded text-[10px] font-mono font-medium"
                                 >
-                                  <Tag className="w-2.5 h-2.5" />
+                                  <Tag className="w-2.5 h-2.5 text-slate-400" />
                                   #{t}
                                 </span>
                               ))}
                             </div>
                           </div>
-                          <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 text-justify">{block.summary}</p>
+                          <p className="text-xs sm:text-sm font-normal text-slate-600 mt-1.5 leading-relaxed text-left">{block.summary}</p>
                         </div>
                         <button
                           type="button"
@@ -1476,7 +1524,7 @@ export const MaterialsDatabase: React.FC = () => {
 
                       {!isCollapsed ? (
                         <>
-                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                          <div className="text-[15px] sm:text-base text-slate-800 leading-[1.75] pt-2 text-left space-y-4">
                             <KaTeXRenderer content={block.content} />
                           </div>
 
@@ -1489,10 +1537,10 @@ export const MaterialsDatabase: React.FC = () => {
                                     type="button"
                                     onClick={() => handleOpenAiTutor(block)}
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
-                                    title="Tanya AI Tutor tentang konsep ini"
+                                    title="Tanya Tutor tentang konsep ini"
                                   >
                                     <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
-                                    <span>Tanya AI Tutor</span>
+                                    <span>Tanya Tutor</span>
                                   </button>
                                 )}
 
@@ -1550,7 +1598,13 @@ export const MaterialsDatabase: React.FC = () => {
               <div className="flex items-center gap-2 text-sky-800 border-b border-sky-200 pb-2">
                 <SolarAtom className="w-5 h-5 text-sky-600" />
                 <h2 className="text-lg font-bold font-display tracking-tight text-slate-900">
-                  Tahap 2: Konsep Materi Inti ({isCurrentIgcse ? 'Cambridge IGCSE 0620' : isCurrentSma ? 'Kurikulum Merdeka' : 'Standar OSN / IChO'})
+                  {isCurrentIgcse
+                    ? 'Tahap 2: Konsep Materi Inti (Cambridge IGCSE 0620)'
+                    : isCurrentSma
+                    ? 'Tahap 2: Konsep Materi Inti (Kurikulum Merdeka)'
+                    : isRevampedOsn
+                    ? 'Pilar 3 & 4: Pengayaan Inkuiri Paradoks Sains & Ringkasan Cepat'
+                    : 'Tahap 2: Konsep Materi Inti (Standar OSN / IChO)'}
                 </h2>
               </div>
               <p className="text-xs text-slate-500">
@@ -1558,6 +1612,8 @@ export const MaterialsDatabase: React.FC = () => {
                   ? 'Pembahasan teori esensial, model partikel, dan konsep kunci sesuai syllabus Cambridge IGCSE.'
                   : isCurrentSma
                   ? 'Pembahasan mendalam konsep kimia sekolah menengah atas dan aplikasi praktisnya.'
+                  : isRevampedOsn
+                  ? 'Analisis mendalam paradoks reaktivitas kimia, kestabilan termodinamika disproporsionasi, ketergantungan suhu non-standar, dan matriks parameter inti.'
                   : 'Pembahasan mendalam teori, penurunan formula ilmiah, dan anomali khas kompetisi sains.'}
               </p>
 
@@ -1587,15 +1643,15 @@ export const MaterialsDatabase: React.FC = () => {
                               {(block.tags && block.tags.length > 0 ? block.tags : [block.tag]).map((t) => (
                                 <span
                                   key={t}
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-sky-50 border border-sky-200 text-sky-800 rounded text-[10px] font-mono font-bold"
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100/90 border border-slate-200/80 text-slate-600 rounded text-[10px] font-mono font-medium"
                                 >
-                                  <Tag className="w-2.5 h-2.5" />
+                                  <Tag className="w-2.5 h-2.5 text-slate-400" />
                                   #{t}
                                 </span>
                               ))}
                             </div>
                           </div>
-                          <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 text-justify">{block.summary}</p>
+                          <p className="text-xs sm:text-sm font-normal text-slate-600 mt-1.5 leading-relaxed text-left">{block.summary}</p>
                         </div>
                         <button
                           type="button"
@@ -1613,7 +1669,7 @@ export const MaterialsDatabase: React.FC = () => {
 
                       {!isCollapsed ? (
                         <>
-                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                          <div className="text-[15px] sm:text-base text-slate-800 leading-[1.75] pt-2 text-left space-y-4">
                             <KaTeXRenderer content={block.content} />
                           </div>
 
@@ -1626,10 +1682,10 @@ export const MaterialsDatabase: React.FC = () => {
                                     type="button"
                                     onClick={() => handleOpenAiTutor(block)}
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
-                                    title="Tanya AI Tutor tentang konsep ini"
+                                    title="Tanya Tutor tentang konsep ini"
                                   >
                                     <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
-                                    <span>Tanya AI Tutor</span>
+                                    <span>Tanya Tutor</span>
                                   </button>
                                 )}
 
@@ -1691,6 +1747,8 @@ export const MaterialsDatabase: React.FC = () => {
                     ? 'Tahap 3: Cambridge Exam-Style Questions & Mark Schemes'
                     : activeDatabase === 'sma'
                     ? 'Tahap 3: Pembahasan Contoh Soal Kimia SMA (Sedang & HOTS)'
+                    : isRevampedOsn
+                    ? 'Pilar 2: Taktik Soal & Eliminasi Titik Rawan Kesalahan'
                     : 'Tahap 3: Contoh & Penjelasan Soal OSN Berkaitan'}
                 </h2>
               </div>
@@ -1699,6 +1757,8 @@ export const MaterialsDatabase: React.FC = () => {
                   ? 'Latihan soal model Cambridge IGCSE lengkap dengan alur penilaian (mark schemes) dan tips examiner.'
                   : activeDatabase === 'sma'
                   ? 'Latihan pemecahan masalah bertahap standar Kurikulum SMA dan asesmen/UTBK tingkat sedang & sulit (HOTS) dengan analisis konseptual mendalam.'
+                  : isRevampedOsn
+                  ? 'Bedah karakteristik soal olimpiade, penyorotan titik rawan kesalahan (pitfalls konvensi tanda & fasa), serta alur solusi aljabar bertahap.'
                   : 'Aplikasi langsung konsep pada soal seleksi olimpiade lengkap dengan langkah analitis juri.'}
               </p>
 
@@ -1728,15 +1788,15 @@ export const MaterialsDatabase: React.FC = () => {
                               {(block.tags && block.tags.length > 0 ? block.tags : [block.tag]).map((t) => (
                                 <span
                                   key={t}
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded text-[10px] font-mono font-bold"
+                                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-slate-100/90 border border-slate-200/80 text-slate-600 rounded text-[10px] font-mono font-medium"
                                 >
-                                  <Tag className="w-2.5 h-2.5" />
+                                  <Tag className="w-2.5 h-2.5 text-slate-400" />
                                   #{t}
                                 </span>
                               ))}
                             </div>
                           </div>
-                          <p className="text-xs sm:text-sm font-semibold text-slate-500 mt-1 text-justify">{block.summary}</p>
+                          <p className="text-xs sm:text-sm font-normal text-slate-600 mt-1.5 leading-relaxed text-left">{block.summary}</p>
                         </div>
                         <button
                           type="button"
@@ -1754,7 +1814,7 @@ export const MaterialsDatabase: React.FC = () => {
 
                       {!isCollapsed ? (
                         <>
-                          <div className="text-sm sm:text-base text-slate-700 leading-relaxed pt-1 text-justify">
+                          <div className="text-[15px] sm:text-base text-slate-800 leading-[1.75] pt-2 text-left space-y-4">
                             <KaTeXRenderer content={block.content} />
                           </div>
 
@@ -1767,10 +1827,10 @@ export const MaterialsDatabase: React.FC = () => {
                                     type="button"
                                     onClick={() => handleOpenAiTutor(block)}
                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 text-purple-700 border border-purple-200/80 transition-all shadow-2xs cursor-pointer group"
-                                    title="Tanya AI Tutor tentang tipe soal ini"
+                                    title="Tanya Tutor tentang tipe soal ini"
                                   >
                                     <SolarStars className="w-3.5 h-3.5 text-purple-500 group-hover:scale-110 transition-transform" />
-                                    <span>Tanya AI Tutor</span>
+                                    <span>Tanya Tutor</span>
                                   </button>
                                 )}
 
@@ -2110,7 +2170,7 @@ export const MaterialsDatabase: React.FC = () => {
           </button>
         )}
 
-        {/* AI Tutor Modal */}
+        {/* Tutor Modal */}
         {aiTutorConcept && (
           <MaterialAiTutorModal
             isOpen={aiTutorOpen}
@@ -2143,7 +2203,7 @@ export const MaterialsDatabase: React.FC = () => {
           cards={flashcardDeck}
         />
 
-        {/* Save My Exams PDF Export Modal */}
+        {/* Axioma Academy PDF Export Modal */}
         {pdfExportOpen && modalExportMaterial && (
           <MaterialPdfModal
             isOpen={pdfExportOpen}
@@ -2235,7 +2295,7 @@ export const MaterialsDatabase: React.FC = () => {
             <p className="text-slate-200 text-xs sm:text-sm md:text-base max-w-3xl leading-relaxed">
               {currentSubject === 'kimia' ? (
                 isIgcseDb
-                  ? 'Pustaka materi kurikulum internasional Cambridge IGCSE Chemistry (Syllabus 0620). Disusun komprehensif mengikuti standar Save My Exams & Cambridge Mark Schemes, dilengkapi ilustrasi partikel SVG interaktif, tabel perbandingan, dan checkpoint konsep.'
+                  ? 'Pustaka materi kurikulum internasional Cambridge IGCSE Chemistry (Syllabus 0620). Disusun komprehensif berstandar kurikulum Cambridge International & Cambridge Mark Schemes, dilengkapi ilustrasi partikel SVG interaktif, tabel perbandingan, dan checkpoint konsep.'
                   : isSmaDb
                   ? 'Pustaka fondasi kurikulum kimia SMA dari Fase E (Kelas 10) hingga Fase F Lanjutan (Kelas 12). Disusun dengan alur konsep prasyarat, teori inti, formula KaTeX, dan contoh soal kontekstual sebagai batu loncatan persiapan ujian sekolah, UTBK-SNBT, hingga kompetisi sains.'
                   : 'Pustaka komprehensif teori sains kimia tingkat lanjut dengan standar Puspresnas & International Chemistry Olympiad (IChO). Dilengkapi konsep prasyarat, pendalaman teori esensial, formula matematis, dan pembahasan teladan soal olimpiade.'
@@ -2508,7 +2568,7 @@ export const MaterialsDatabase: React.FC = () => {
                 </div>
 
                 {/* Summary with fixed line-clamp & min-height for uniform start of progress bar */}
-                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed text-justify min-h-[3.75rem]">
+                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed text-left min-h-[3.75rem]">
                   {material.summary}
                 </p>
 
@@ -2613,7 +2673,7 @@ export const MaterialsDatabase: React.FC = () => {
                     setPdfExportOpen(true);
                   }}
                   className="p-2.5 text-slate-500 hover:text-sky-600 bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-sky-200 rounded-xl transition-colors cursor-pointer shrink-0"
-                  title="Unduh PDF (Format Save My Exams)"
+                  title="Unduh PDF (Format Axioma Academy)"
                 >
                   <FileDown className="w-4 h-4" />
                 </button>
@@ -2623,7 +2683,7 @@ export const MaterialsDatabase: React.FC = () => {
         })}
       </div>
 
-      {/* Save My Exams PDF Export Modal for Catalog View */}
+      {/* Axioma Academy PDF Export Modal for Catalog View */}
       {pdfExportOpen && modalExportMaterial && (
         <MaterialPdfModal
           isOpen={pdfExportOpen}

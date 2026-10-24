@@ -515,11 +515,11 @@ export const StudentProfileDrawer: React.FC<Props> = ({ student, onClose }) => {
                               onClick={() => setExpandedSubmissionId(isExpanded ? null : sub.id)}
                               className="w-full pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer"
                             >
-                              <span>{isExpanded ? 'Tutup Rincian Jawaban Siswa' : 'Lihat Uraian Jawaban & Feedback AI'}</span>
+                              <span>{isExpanded ? 'Tutup Rincian Jawaban Siswa' : 'Lihat Uraian Jawaban & Feedback Evaluasi'}</span>
                               {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                             </button>
 
-                            {/* Detail Jawaban & AI Feedback */}
+                            {/* Detail Jawaban & Feedback Evaluasi */}
                             {isExpanded && (
                               <div className="pt-3 border-t border-slate-100 space-y-3 text-xs">
                                 <div>

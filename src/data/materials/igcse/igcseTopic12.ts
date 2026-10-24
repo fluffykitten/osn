@@ -1083,7 +1083,7 @@ When two liquids are **immiscible** (do not mix, forming distinct layers based o
         'Official Cambridge IGCSE 0620 qualitative analysis scheme: tests for aqueous cations with NaOH and NH3, flame tests, tests for anions (halides, sulfate, sulfite, carbonate, nitrate), and identification tests for 6 gases.',
       content: `### 1. Qualitative Analysis of Aqueous Cations
 
-In Cambridge chemistry, metal cations are identified by adding **aqueous sodium hydroxide ($\\ce{NaOH}$)** and **aqueous ammonia ($\\ce{NH3}$)**, first dropwise and then in excess.
+In Cambridge chemistry, metal cations are identified by adding aqueous sodium hydroxide ($\\ce{NaOH}$) and aqueous ammonia ($\\ce{NH3}$), first dropwise and then in excess.
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px" role="img" aria-labelledby="igcse-t12-qualitative-cation-tests-title" data-diagram="igcse-t12-qualitative-cation-tests">
   <title id="igcse-t12-qualitative-cation-tests-title">QUALITATIVE ANALYSIS TESTS FOR CATIONS</title>

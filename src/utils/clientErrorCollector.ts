@@ -136,7 +136,7 @@ export function getClientEnvironment() {
 
 /**
  * Pemetaan cerdas rute URL ke berkas sumber kode yang dicurigai.
- * Memberikan petunjuk instan kepada AI (Antigravity) saat membaca laporan bug.
+ * Memberikan petunjuk instan kepada Antigravity saat membaca laporan bug.
  */
 export function getSuspectedSourceFiles(pathname: string): string[] {
   const routesMap: Array<{ pattern: RegExp; files: string[] }> = [

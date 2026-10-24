@@ -672,7 +672,7 @@ export const QuestBoard: React.FC<QuestBoardProps> = ({
             <p className="text-xs md:text-sm text-[#708090] leading-relaxed">
               {questTrack === 'sma'
                 ? 'Siklus berjenjang per modul: selesaikan membaca materi fondasi, lalu uji pemahaman lewat 3 soal mudah (apabila ada), 3 soal sedang, dan 3 soal sulit untuk klaim reward XP!'
-                : 'Siklus berjenjang 3 tahap: prasyarat kimia SMA, bedah materi kimia olimpiade, dan validasi penguasaan soal melalui evaluasi AI di Bank Soal untuk mengumpulkan XP dan gelar kimiawan!'}
+                : 'Siklus berjenjang 3 tahap: prasyarat kimia SMA, bedah materi kimia olimpiade, dan validasi penguasaan soal melalui evaluasi latihan di Bank Soal untuk mengumpulkan XP dan gelar kimiawan!'}
             </p>
           </div>
 

@@ -2,7 +2,7 @@
  * bugReportService.ts
  * Layanan terpadu pelaporan bug kontekstual untuk OSN Kimia.
  * Mendukung penyimpanan ke Supabase, sinkronisasi cadangan lokal (LocalStorage),
- * manajemen status pelaporan untuk Admin, serta ekspor Prompt AI (Antigravity ready),
+ * manajemen status pelaporan untuk Admin, serta ekspor instruksi perbaikan (Antigravity ready),
  * Markdown, JSON, dan CSV.
  */
 
@@ -179,8 +179,8 @@ export const bugReportService = {
   },
 
   /**
-   * Menghasilkan teks instruksi terstruktur untuk AI (Antigravity Prompt).
-   * Didesain agar pengguna cukup 1-klik salin dan langsung menempelkannya ke chat AI.
+   * Menghasilkan teks instruksi terstruktur untuk Antigravity Prompt.
+   * Didesain agar pengguna cukup 1-klik salin dan langsung menempelkannya ke chat Antigravity.
    */
   generateAiFixPrompt(reportOrList: BugReport | BugReport[]): string {
     const reports = Array.isArray(reportOrList) ? reportOrList : [reportOrList];
@@ -277,7 +277,7 @@ ${
   },
 
   /**
-   * Mengunduh berkas Markdown (.md) yang berisi prompt AI.
+   * Mengunduh berkas Markdown (.md) yang berisi instruksi perbaikan Antigravity.
    */
   exportAsMarkdown(reports: BugReport[], filename = 'osn_bug_reports_for_ai.md'): void {
     const content = this.generateAiFixPrompt(reports);

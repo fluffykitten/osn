@@ -71,7 +71,7 @@ Every chemical reaction takes place between chemical substances (the **system**)
 
 ### 🔥 Exothermic Reactions
 
-An **exothermic reaction** is a chemical process that **transfers thermal energy to the surroundings**:
+An **exothermic reaction** is a chemical process that transfers thermal energy to the surroundings:
 - Chemical potential energy stored in chemical bonds is converted into thermal (heat) energy.
 - **Temperature change**: The temperature of the surroundings **increases** (thermometer reading rises, $\\Delta T > 0$).
 - **Sign of Enthalpy Change**: Because the system loses thermal energy to the surroundings, $\\mathbf{\\Delta H}$ **is always negative** ($\\Delta H < 0$, e.g. $-890\\text{ kJ/mol}$).
@@ -86,7 +86,7 @@ An **exothermic reaction** is a chemical process that **transfers thermal energy
 
 ### ❄️ Endothermic Reactions
 
-An **endothermic reaction** is a chemical process that **takes in (absorbs) thermal energy from the surroundings**:
+An **endothermic reaction** is a chemical process that takes in (absorbs) thermal energy from the surroundings:
 - Thermal energy from the surroundings is converted into chemical potential energy stored in the products.
 - **Temperature change**: The temperature of the surroundings **decreases** (thermometer reading falls, $\\Delta T < 0$).
 - **Sign of Enthalpy Change**: Because the system gains thermal energy from the surroundings, $\\mathbf{\\Delta H}$ **is always positive** ($\\Delta H > 0$, e.g. $+178\\text{ kJ/mol}$).
@@ -202,10 +202,10 @@ A **reaction pathway diagram** (also known as an **energy profile diagram**) sho
 
 ### ⚡ Activation Energy ($E_a$)
 
-**Activation energy ($E_a$)** is the **minimum energy that colliding particles must possess in order to react successfully**:
+**Activation energy ($E_a$)** is the minimum energy that colliding particles must possess in order to react successfully:
 - If colliding particles have less kinetic energy than $E_a$, they merely bounce off each other without reacting.
 - **Arrow Rule in Cambridge Exams**:
-  - The activation energy arrow **ALWAYS points UPWARDS** from the **reactants energy level** to the **highest peak** of the curve.
+  - The activation energy arrow always points upwards from the **reactants energy level** to the highest peak of the curve.
   - An arrow starting from the products or from the bottom axis is awarded $0$ marks by Cambridge examiners!
 
 ---
@@ -891,11 +891,15 @@ What is the enthalpy change, $\\Delta H$, for this reaction?
 Hydrazine, $\\ce{N2H4}$, is used as a rocket propellant. It burns in oxygen according to the equation:
 $$\\ce{N2H4(g) + O2(g) -> N2(g) + 2H2O(g)}$$
 
-**(a) Draw the displayed structural formula of hydrazine, $\\ce{N2H4}$, showing all single covalent bonds. [1]**
+
+**Part (a)**: Draw the displayed structural formula of hydrazine, $\\ce{N2H4}$, showing all single covalent bonds. [1]
+
 > **Mark Scheme**:
 > - Two $\\ce{N}$ atoms single-bonded to each other ($\\ce{N-N}$), with each $\\ce{N}$ bonded to two $\\ce{H}$ atoms (four $\\ce{N-H}$ single bonds in total). [1]
 
-**(b) Use the bond energies in the table below to calculate the enthalpy change ($\\Delta H$) for the combustion of hydrazine. [3]**
+
+**Part (b)**: Use the bond energies in the table below to calculate the enthalpy change ($\\Delta H$) for the combustion of hydrazine. [3]
+
 
 | Bond | Bond Energy (kJ/mol) |
 | :--- | :--- |
@@ -913,7 +917,9 @@ $$\\ce{N2H4(g) + O2(g) -> N2(g) + 2H2O(g)}$$
 > - **Mark 3 (Final $\\Delta H$)**:
 >   $$\\Delta H = 2220 - 2801 = \\mathbf{-581\\text{ kJ/mol}}$$ (award full 3 marks for correct final answer with negative sign). [1]
 
-**(c) Explain, in terms of bond breaking and bond making, why this reaction is exothermic. [2]**
+
+**Part (c)**: Explain, in terms of bond breaking and bond making, why this reaction is exothermic. [2]
+
 > **Mark Scheme**:
 > - Bond breaking absorbs energy / is endothermic AND bond making releases energy / is exothermic. [1]
 > - More energy is released when making bonds in the products than is absorbed breaking bonds in the reactants. [1]
@@ -925,22 +931,30 @@ A student investigated the displacement reaction between zinc powder and aqueous
 $$\\ce{Zn(s) + CuSO4(aq) -> ZnSO4(aq) + Cu(s)}$$
 $50.0\\text{ cm}^3$ of $0.50\\text{ mol/dm}^3$ copper(II) sulfate solution was placed in a polystyrene cup. Excess zinc powder was added and the mixture was stirred continuously.
 
-**(a) State why a polystyrene cup was used instead of a glass beaker. [1]**
+
+**Part (a)**: State why a polystyrene cup was used instead of a glass beaker. [1]
+
 > **Mark Scheme**:
 > - Polystyrene is a good thermal insulator / reduces heat loss to the surroundings. [1]
 
-**(b) State why excess zinc powder was used. [1]**
+
+**Part (b)**: State why excess zinc powder was used. [1]
+
 > **Mark Scheme**:
 > - To ensure all the copper(II) sulfate reacted completely. [1]
 
-**(c) State two visual observations the student would make during this reaction. [2]**
+
+**Part (c)**: State two visual observations the student would make during this reaction. [2]
+
 > **Mark Scheme** (any two from):
 > 1. The blue colour of the solution fades / turns colourless. [1]
 > 2. Red-brown / pink-brown solid (copper) forms. [1]
 > 3. The grey zinc powder dissolves / disappears. [1]
 > 4. Temperature reading on thermometer increases. [1]
 
-**(d) Suggest one modification to the apparatus that would give a more accurate temperature rise. [1]**
+
+**Part (d)**: Suggest one modification to the apparatus that would give a more accurate temperature rise. [1]
+
 > **Mark Scheme**:
 > - Put a lid on the cup / use a vacuum flask / use a digital temperature sensor with higher resolution. [1]`,
     },

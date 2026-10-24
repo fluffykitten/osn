@@ -93,7 +93,7 @@ export const OSN_TOPIC_8: MaterialItem = {
 
 Bayangkan kation logam transisi sebagai bola magnet di pusat ruangan. Ligan monodentat seperti molekul air ($\\ce{H2O}$) atau amonia ($\\ce{NH3}$) bertindak seperti bola tenis magnetik tunggal: masing-masing menempel secara individual, dan jika satu bola terlepas akibat agitasi termal, ia langsung hanyut bebas ke larutan. Sebaliknya, ligan pengkelat polidentat (seperti etilendiamin atau $\\ce{EDTA^4-}$) bertindak seperti **sarung tangan gurita berlengan banyak**: meskipun salah satu atom donornya terlepas sesaat, lengan-lengan lainnya masih mencengkeram erat kation pusat sehingga atom donor yang lepas tadi segera terikat kembali sebelum sempat hanyut!
 
-Fenomena pengikatan multidentat ini menghasilkan peningkatan kestabilan termodinamika yang spektakuler yang dikenal sebagai **Efek Kelat (*The Chelate Effect*)**.
+Fenomena pengikatan multidentat ini menghasilkan peningkatan kestabilan termodinamika yang spektakuler yang dikenal sebagai **Efek Kelat** (*The Chelate Effect*).
 
 ---
 
@@ -167,12 +167,12 @@ Di dalam kompetisi OSN dan IChO internasional, kesalahan penulisan satu huruf pa
 ### 🧭 Algoritma 4 Langkah Nomenklatur IUPAC:
 
 1. **Langkah 1: Pisahkan Kation dan Anion Lawan**
-   - Seperti garam biner dapur ($\\ce{NaCl} = \\text{natrium klorida}$), spesi **kation selalu dinamai lebih dahulu**, baru kemudian spesi **anion**.
+   - Seperti garam biner dapur ($\\ce{NaCl} = \\text{natrium klorida}$), spesi **kation** selalu dinamai lebih dahulu, baru kemudian spesi **anion**.
    - Contoh pada $\\ce{K4[Fe(CN)6]}$: kation adalah kalium, anion kompleks adalah $[\\ce{Fe(CN)6}]^{4-}$.
    - Contoh pada $[\\ce{Co(NH3)5Cl}]\\ce{Cl2}$: kation kompleks adalah $[\\ce{Co(NH3)5Cl}]^{2+}$, anion lawan adalah klorida.
 
 2. **Langkah 2: Susun Urutan Ligan Secara Alfabetis Murni**
-   - Di dalam entitas kompleks, **ligan ditulis terlebih dahulu mendahului nama logam**.
+   - Di dalam entitas kompleks, nama **ligan** ditulis mendahului nama **logam**.
    - Urutan penulisan ligan didasarkan pada **abjad nama ligan**, mengabaikan awalan jumlah (di-, tri-, tetra-, penta-, heksa-).
    - *Ligan Anionik berakhiran -o:* $\\ce{Cl-}$ (kloro), $\\ce{F-}$ (fluoro), $\\ce{CN-}$ (siano), $\\ce{OH-}$ (hidrokso), $\\ce{ox^2-}$ (oksalato), $\\ce{SO4^2-}$ (sulfato).
    - *Ligan Netral berakhiran nama molekul:* $\\ce{H2O}$ (aqua), $\\ce{NH3}$ (ammina, 'm' ganda), $\\ce{CO}$ (karbonil), $\\ce{NO}$ (nitrosil).
@@ -275,7 +275,7 @@ Meskipun model VBT Pauling sangat intuitif secara geometri, teori ini gagal tota
 2. **Kegagalan Eksplanasi Warna & Spektra:** Senyawa kompleks terkenal dengan warnanya yang menyala dan memukau (ungu ti(III), biru tembaga(II), hijau nikel(II)). VBT sama sekali tidak dapat memprediksi warna atau menghitung panjang gelombang serapan foton.
 3. **Ketergantungan Magnetik terhadap Suhu:** Pengukuran suseptibilitas Curie-Weiss menunjukkan momen magnetik berubah terhadap temperatur, sesuatu yang mustahil dijelaskan oleh model ikatan kovalen statis VBT.
 
-Kegagalan inilah yang melahirkan teori revolusioner berikutnya: **Teori Medan Kristal (*Crystal Field Theory* / CFT)**.
+Kegagalan inilah yang melahirkan teori revolusioner berikutnya: **Teori Medan Kristal** (*Crystal Field Theory* / CFT).
 
 ---
 
@@ -415,7 +415,7 @@ di mana:
 
 ### 🧭 2. Persaingan $\\Delta_o$ vs $P$: Kapan Terjadi Ambiguitas Spin?
 
-Perhatikan tabel konfigurasi elektron berikut. Pilihan antara spin tinggi (*high-spin*) dan spin rendah (*low-spin*) **hanya eksis pada ion $d^4, d^5, d^6,$ dan $d^7$**:
+Perhatikan tabel konfigurasi elektron berikut. Pilihan antara spin tinggi (*high-spin*) dan spin rendah (*low-spin*) hanya eksis pada ion **$d^4, d^5, d^6,$ dan $d^7$**:
 
 | Konfigurasi $d^n$ | High-Spin (Medan Lemah: $\\Delta_o < P$) | CFSE (HS) | Low-Spin (Medan Kuat: $\\Delta_o > P$) | CFSE (LS) |
 | :---: | :---: | :---: | :---: | :---: |
@@ -588,25 +588,25 @@ Mata manusia melihat **warna komplementer** dari panjang gelombang yang diserap:
 ### 🧭 4. Pita Transfer Muatan (*Charge Transfer* / CT Bands): Warna Paling Menyala
 
 Jika Anda melihat senyawa kompleks yang warnanya luar biasa pekat, gelap, dan menyala seperti ion permanganat ($\\ce{MnO4-}$ ungu pekat) atau ion dikromat ($\\ce{Cr2O7^2-}$ jingga terang), warna tersebut **BUKAN transisi $d-d$** (karena $\\ce{Mn(VII)}$ dan $\\ce{Cr(VI)}$ adalah ion $d^0$ tanpa elektron $d$!).
-- Warna menyala ini disebabkan oleh **Transfer Muatan Ligan-ke-Logam (*Ligand-to-Metal Charge Transfer* / LMCT)**: foton mengeksitasi elektron dari orbital molekul berbasis ligan oksigen ke orbital kosong kation logam.
-- Transisi CT diizinkan penuh oleh Laporte dan Spin, menghasilkan intensitas raksasa ($\\varepsilon > 10,000\\text{ M}^{-1}\\text{cm}^{-1}$).
+- Warna menyala ini disebabkan oleh **Transfer Muatan Ligan-ke-Logam** (*Ligand-to-Metal Charge Transfer* / LMCT): foton mengeksitasi elektron dari orbital molekul berbasis ligan oksigen ke orbital kosong kation logam.
+- Transisi CT diizinkan penuh oleh Laporte dan Spin, menghasilkan intensitas raksasa ($\varepsilon > 10,000\text{ M}^{-1}\text{cm}^{-1}$).
 
 ---
 
 > [!WARNING]
 > ### ⚠️ Jebakan Konseptual OSN: Mengapa $KMnO_4$ Berwarna Walaupun $d^0$?
 > - **Miskonsepsi Umum**: Siswa menulis bahwa warna ungu kalium permanganat dihasilkan oleh eksitasi elektron $d-d$ kation mangan.
-> - **Kaidah yang Benar**: Mangan pada $\\ce{MnO4-}$ memiliki bilangan oksidasi $+7$ dengan konfigurasi elektron $[\\ce{Ar}] 3d^0$. Karena tidak memiliki satu pun elektron pada subkulit $d$, transisi $d-d$ mutlak mustahil terjadi. Warna ungu tua dihasilkan oleh **pita transfer muatan LMCT** dari orbital molekul terisi ligan $\\ce{O^2-}$ ke orbital kosong logam $\\ce{Mn^7+}$.
+> - **Kaidah yang Benar**: Mangan pada $\ce{MnO4-}$ memiliki bilangan oksidasi $+7$ dengan konfigurasi elektron $[\ce{Ar}] 3d^0$. Karena tidak memiliki satu pun elektron pada subkulit $d$, transisi $d-d$ mutlak mustahil terjadi. Warna ungu tua dihasilkan oleh **pita transfer muatan LMCT** dari orbital molekul terisi ligan $\ce{O^2-}$ ke orbital kosong logam $\ce{Mn^7+}$.
 
 ---
 
 > [!TIP]
 > ### 💡 Strategi Juara OSN / IChO: Lingkaran Warna Komplementer Newton
 > Ingat roda warna berseberangan:
-> - Merah $\\leftrightarrow$ Hijau
-> - Jingga $\\leftrightarrow$ Biru
-> - Kuning $\\leftrightarrow$ Ungu (Violet)
-> Jika kompleks menyerap panjang gelombang $500\\text{ nm}$ (wilayah hijau), larutan akan meneruskan warna berseberangannya yaitu **merah-ungu (violet)**!`,
+> - Merah $\leftrightarrow$ Hijau
+> - Jingga $\leftrightarrow$ Biru
+> - Kuning $\leftrightarrow$ Ungu (Violet)
+> Jika kompleks menyerap panjang gelombang $500\text{ nm}$ (wilayah hijau), larutan akan meneruskan warna berseberangannya yaitu **merah-ungu (violet)**!`,
       keyFormulas: [
         { name: 'Momen Magnetik Spin Murni', formula: '\\mu_{\\text{eff}} = \\sqrt{n(n+2)}\\ \\mu_B' },
         { name: 'Energi Absorbsi Transisi d-d', formula: '\\Delta_o = \\frac{hc}{\\lambda_{\\text{serap}}} = h c \\tilde{\\nu}' },
@@ -627,20 +627,20 @@ Struktur senyawa koordinasi kaya akan variasi tata ruang tiga dimensi. Pemahaman
 ### 🧭 1. Klasifikasi Stereoisomerisme Senyawa Koordinasi:
 
 1. **Isomerisme Geometris (*Cis-Trans* & *Fac-Mer*):**
-   - **Bujur Sangkar $[\\ce{MA2B2}]$:**
-     - *cis*: Dua ligan identik bersebelahan (sudut $\\angle \\ce{A-M-A} = 90^\\circ$). Contoh: **Cisplatin** (*cis*-$[\\ce{Pt(NH3)2Cl2}]$), obat kemoterapi kanker aktif dengan momen dipol polar ($\\mu > 0$).
-     - *trans*: Dua ligan identik berseberangan (sudut $\\angle \\ce{A-M-A} = 180^\\circ$). Contoh: **Transplatin**, non-polar ($\\mu = 0$) dan tidak aktif sebagai antikanker.
-   - **Oktahedral $[\\ce{MA4B2}]$:** Memiliki isomer *cis* ($90^\\circ$) dan *trans* ($180^\\circ$).
-   - **Oktahedral $[\\ce{MA3B3}]$:**
-     - *Facial* (*fac*): Tiga ligan identik menempati tiga sudut dari satu muka bidang segitiga oktahedron yang sama (seluruh sudut $\\angle \\ce{A-M-A} = 90^\\circ$).
-     - *Meridional* (*mer*): Tiga ligan identik berada pada satu bidang meridian keliling yang membelah pusat oktahedron (dua sudut $90^\\circ$ dan satu sudut $180^\\circ$).
+   - **Bujur Sangkar $[\ce{MA2B2}]$:**
+     - *cis*: Dua ligan identik bersebelahan (sudut $\angle \ce{A-M-A} = 90^\circ$). Contoh: **Cisplatin** (*cis*-$[\ce{Pt(NH3)2Cl2}]$), obat kemoterapi kanker aktif dengan momen dipol polar ($\mu > 0$).
+     - *trans*: Dua ligan identik berseberangan (sudut $\angle \ce{A-M-A} = 180^\circ$). Contoh: **Transplatin**, non-polar ($\mu = 0$) dan tidak aktif sebagai antikanker.
+   - **Oktahedral $[\ce{MA4B2}]$:** Memiliki isomer *cis* ($90^\circ$) dan *trans* ($180^\circ$).
+   - **Oktahedral $[\ce{MA3B3}]$:**
+     - *Facial* (*fac*): Tiga ligan identik menempati tiga sudut dari satu muka bidang segitiga oktahedron yang sama (seluruh sudut $\angle \ce{A-M-A} = 90^\circ$).
+     - *Meridional* (*mer*): Tiga ligan identik berada pada satu bidang meridian keliling yang membelah pusat oktahedron (dua sudut $90^\circ$ dan satu sudut $180^\circ$).
 
 2. **Isomerisme Optis (Kiralitas & Enantiomer):**
-   Kompleks bersifat **kiral (aktif optis)** jika tidak memiliki bidang simetri internal ($\\sigma$) maupun pusat inversi ($i$):
-   - Kompleks tris-kelat $[\\ce{M(AA)3}]^{n+}$ (seperti $[\\ce{Co(en)3}]^{3+}$): Memiliki struktur menyerupai baling-baling tiga bilah kiral dengan sepasang enantiomer non-superimposabel, dilabeli **$\\Delta$ (delta, putar kanan)** dan **$\\Lambda$ (lambda, putar kiri)**.
-   - Kompleks bis-kelat $[\\ce{M(AA)2B2}]$:
-     - Isomer *trans*: Memiliki pusat inversi ($i$) dan bidang cermin $\\sigma_h \\implies$ **Akiral (optis tidak aktif)**.
-     - Isomer *cis*: Tidak memiliki bidang cermin maupun pusat inversi $\\implies$ **Kiral (aktif optis)**, eksis sebagai sepasang enantiomer $\\Delta$ dan $\\Lambda$.
+   Kompleks bersifat **kiral (aktif optis)** jika tidak memiliki bidang simetri internal ($\sigma$) maupun pusat inversi ($i$):
+   - Kompleks tris-kelat $[\ce{M(AA)3}]^{n+}$ (seperti $[\ce{Co(en)3}]^{3+}$): Memiliki struktur menyerupai baling-baling tiga bilah kiral dengan sepasang enantiomer non-superimposabel, dilabeli $\Delta$ (delta, putar kanan) dan $\Lambda$ (lambda, putar kiri).
+   - Kompleks bis-kelat $[\ce{M(AA)2B2}]$:
+     - Isomer *trans*: Memiliki pusat inversi ($i$) dan bidang cermin $\sigma_h \implies$ bersifat akiral (optis tidak aktif).
+     - Isomer *cis*: Tidak memiliki bidang cermin maupun pusat inversi $\implies$ **Kiral (aktif optis)**, eksis sebagai sepasang enantiomer $\Delta$ dan $\Lambda$.
 
 ---
 
@@ -718,7 +718,7 @@ Pada tingkat kompetisi nasional dan internasional (OSN/IChO), kimia anorganik me
 
 ### 🧭 1. Aturan Wade-Mingos (Polyhedral Skeletal Electron Pair Theory / PSEPT):
 
-Senyawa kluster borana bersifat **kekurangan elektron (*electron-deficient*)**, di mana atom-atom boron diikat oleh ikatan terdelokalisasi multisentris (seperti ikatan 3-pusat 2-elektron, 3c-2e). Geometri sangkarnya dikendalikan oleh jumlah **Pasangan Elektron Kerangka (*Skeletal Electron Pairs*, SEP)**.
+Senyawa kluster borana bersifat kekurangan elektron (*electron-deficient*), di mana atom-atom boron diikat oleh ikatan terdelokalisasi multisentris (seperti ikatan 3-pusat 2-elektron, 3c-2e). Geometri sangkarnya dikendalikan oleh jumlah **Pasangan Elektron Kerangka** (*Skeletal Electron Pairs* / SEP).
 
 **Metode Menghitung Elektron Kerangka (Skeletal Electrons):**
 - Setiap unit verteks $\\ce{B-H}$ menyumbangkan **2 elektron kerangka** (dari 3 elektron valensi boron, 1 dipakai untuk ikatan terminal $\\ce{B-H}$, menyisakan 2 untuk kerangka sangkar).
@@ -749,7 +749,7 @@ Repulsi antar-elektron dalam subkulit $d$ kation logam transisi dirumuskan secar
 - Ketika ligan membentuk ikatan kovalen koordinasi dengan logam, tumpang tindih orbital menyebabkan awan elektron $d$ berekspansi ke arah ligan. Fenomena pemekaran awan elektron ini disebut **Efek Nefelauxetik (*cloud-expanding effect*)**.
 - **Rasio Nefelauxetik ($\\beta$):**
   $$\\beta = \\frac{B_{\\text{kompleks}}}{B_0} < 1$$
-Semakin kecil nilai $\\beta$, semakin masif ekspansi awan elektron, menandakan **derajat kovalensi ikatan yang semakin tinggi**!
+Semakin kecil nilai $\\beta$, semakin masif ekspansi awan elektron, menandakan derajat kovalensi ikatan yang semakin tinggi!
 
 $$\\text{Deret Nefelauxetik Ligan (Kovalensi Meningkat):}$$
 $$\\ce{F- < H2O < NH3 < en < ox^2- < NCS- < Cl- < CN- < Br- < I-}$$

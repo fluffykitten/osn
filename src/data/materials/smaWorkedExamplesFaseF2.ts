@@ -79,6 +79,7 @@ b. **Besar Tekanan Uap Jenuh Larutan ($P$):**
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Klasik Soal Hukum Raoult di UTBK-SNBT & Ujian Sekolah:**
@@ -166,6 +167,7 @@ $$K_b = \\frac{R (T_b^\\circ)^2 M_p}{\\Delta H_{\\text{vap}}} \\qquad K_f = \\fr
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Mengingat Tanda Operasi Titik Didih vs Titik Beku:**
@@ -248,6 +250,7 @@ c. **Jika Diinfus Larutan Garam Pekat $5.0\\%$ (Larutan Hipertonik, $\\Pi_{\\tex
    Tekanan eksternal raksasa memaksa molekul air murni menembus pori-pori membran semipermeabel polimer nano (ukuran pori $< 1\\text{ nm}$) dari sisi air laut pekat menuju sisi penampungan air tawar murni, sementara ion garam ($\\ce{Na+, Cl-, Mg^2+, SO4^2-}$) tertahan di sisi limbah pekat (*brine*).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -350,6 +353,7 @@ b. **Penyebab Mikroskopis Teori Debye-Hückel:**
    Pada larutan nyata dengan konsentrasi tertentu, ion $\\ce{Na+}$ dan $\\ce{Cl-}$ tidak benar-benar terisolasi secara sempurna. Gaya tarik elektrostatik antar ion berlawanan muatan menyebabkan terbentuknya **pasangan ion sesaat (*ion pairs*, $[\\ce{Na+ \\cdot\\cdot\\cdot Cl-}]$)** yang bergerak bersama sebagai satu unit kinetik tunggal. Pembentukan pasangan ion ini mengurangi jumlah partikel bebas independen di dalam larutan, sehingga efek koligatif efektif sedikit lebih rendah daripada prediksi ideal $100\\%$ ion bebas ($i = 1.87 < 2.00$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -458,6 +462,7 @@ Osmometri membran menjadi **metode standar emas** penentuan massa molar makromol
 2. **Kondisi Pengukuran Fisiologis yang Aman:** Pengukuran dilakukan pada temperatur kamar ($25^\\circ\\text{C}$) atau temperatur tubuh ($37^\\circ\\text{C}$), sehingga struktur biomolekul protein, antibodi, dan DNA tetap utuh dan stabil tanpa mengalami denaturasi.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -589,6 +594,7 @@ $$\\begin{aligned}
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Kilat Suasana Basa pada Soal Ujian (Metode PBO):**
@@ -675,6 +681,7 @@ $$\\mathbf{\\ce{Zn(s) | Zn^2+(aq, 1.0 M) || Cu^2+(aq, 1.0 M) | Cu(s)}}$$
    Terjadi akumulasi muatan listrik pada kedua larutan (polarisasi muatan). Akumulasi muatan positif di anoda akan menahan elektron agar tidak keluar, dan akumulasi muatan negatif di katoda akan menolak elektron yang datang. Akibatnya, **beda potensial seketika drop menjadi nol dan arus listrik langsung terputus!**
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -768,6 +775,7 @@ b. **Alasan & Aplikasi Industri:**
    2. **Pemurnian Tembaga Industri (*Electrorefining*):** Mengubah tembaga kotor (*blister*) menjadi tembaga murni $99.99\\%$.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -889,6 +897,7 @@ c. **Mengapa Makanan Menggunakan Timah ($\\ce{Sn}$)?**
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Klasik Soal Korosi di UTBK-SNBT:**
@@ -988,6 +997,7 @@ Karena Sel 1 dan Sel 2 disusun secara seri, muatan listrik yang mengalir pada ke
    $$\\mathbf{\\text{pH} = 2 - 0.978 = 1.022} \\quad (\\approx \\mathbf{1.02})$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1096,6 +1106,7 @@ Berdasarkan kaidah kelarutan periodik Golongan IIA:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Mnemonic Emas Tren Kelarutan Golongan IIA di Ujian:**
@@ -1181,7 +1192,7 @@ a. **Anomali Titik Didih $\\ce{HF}$:**
    Molekul $\\ce{HCl, HBr, HI}$ hanya memiliki gaya tarik dipol-dipol dan gaya dispersi London. Sebaliknya, atom fluorin pada $\\ce{HF}$ memiliki elektronegativitas sangat tinggi dan ukuran atom sangat kecil, memungkinkan terbentuknya **ikatan hidrogen antarmolekul** yang sangat kokoh. Akibatnya, titik didih $\\ce{HF}$ ($20^\\circ\\text{C}$) melonjak jauh melampaui asam halida lainnya.
 
 b. **Penyebab $\\ce{HF}$ Asam Lemah dan $\\ce{HI}$ Asam Terkuat:**
-   Kekuatan asam di dalam air ditentukan oleh **kemudahan pelepasan proton $\\ce{H+}$** (energi disosiasi ikatan $\\ce{H-X}$):
+   Kekuatan asam di dalam air ditentukan oleh kemudahan pelepasan proton $\\ce{H+}$ (energi disosiasi ikatan $\\ce{H-X}$):
    - Jari-jari atom fluorin sangat mungil, menyebabkan tumpang tindih orbital ikatan $\\ce{H-F}$ sangat rapat dan energi ikatannya teramat kuat ($565\\text{ kJ/mol}$). Ikatan ini sangat sukar putus di air $\\implies$ $\\ce{HF}$ terionisasi sebagian kecil saja (**asam lemah**, $K_a \\approx 6.8 \\times 10^{-4}$).
    - Dari $\\ce{Cl}$ ke $\\ce{I}$, jari-jari halogen membesar drastis, panjang ikatan bertambah, dan energi ikatan $\\ce{H-I}$ melemah ($295\\text{ kJ/mol}$). Ikatan $\\ce{H-I}$ sangat rapuh dan putus $100\\%$ di air $\\implies$ $\\ce{HI}$ adalah **asam terkuat**.
 
@@ -1194,6 +1205,7 @@ $$\\mathbf{\\ce{HClO < HClO2 < HClO3 < HClO4}}$$
   Semakin banyak atom oksigen yang sangat elektronegatif terikat pada atom pusat $\\ce{Cl}$, tarikan kerapatan elektron dari ikatan $\\ce{O-H}$ ke arah atom pusat semakin kuat. Polarisasi ini melemahkan ikatan $\\ce{O-H}$ sehingga proton $\\ce{H+}$ terlepas dengan sangat mudah. Oleh sebab itu, **asam perklorat ($\\ce{HClO4}$) adalah asam terkuat**.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1292,6 +1304,7 @@ Bijih bauksit mentah mengandung $\\ce{Al2O3}$ bersama pengotor utama oksida besi
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Rasio Mol Kunci Amfoterisme Aluminium:**
@@ -1386,7 +1399,7 @@ a. **Mekanisme Transisi $d-d$ pada $\\ce{Cr^3+}$ dan $\\ce{Fe^2+}$:**
 b. **Penyebab $\\ce{Zn^2+}$ dan $\\ce{Sc^3+}$ Tidak Berwarna:**
    - **Ion $\\ce{Zn^2+}$ ($3d^{10}$):** Seluruh orbital $d$ penuh sesak ($t_{2g}^6 e_g^4$), sehingga tidak ada orbital kosong yang dapat menjadi tujuan eksitasi elektron.
    - **Ion $\\ce{Sc^3+}$ ($3d^0$):** Subkulit $d$ kosong total, tidak ada elektron yang dapat bertransisi.
-   *Kesimpulan Baku:* **Warna HANYA muncul jika subkulit $d$ terisi sebagian ($d^1$ sampai $d^9$)!**
+   *Kesimpulan Baku:* Warna hanya muncul jika subkulit $d$ terisi sebagian ($d^1$ sampai $d^9$).
 
 ---
 
@@ -1395,6 +1408,7 @@ Meskipun atom $\\ce{Mn(VII)}$ dalam $\\ce{MnO4-}$ berkonfigurasi $3d^0$ (tanpa e
 Foton cahaya tampak mengeksitasi elektron dari orbital molekul ligan oksigen ($\\ce{O^2-}$) langsung menuju ke orbital kosong atom pusat mangan. Transisi transfer muatan ini diizinkan penuh oleh hukum kuantum Laporte (*Laporte allowed*), menghasilkan absorbsi cahaya yang jutaan kali lebih intensif daripada transisi $d-d$ biasa!
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1519,6 +1533,7 @@ d. **Dua Peran Utama Kriolit Cair ($\ce{Na3AlF6}$):**
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Kaidah Metalurgi Industri di UTBK-SNBT:**
@@ -1638,6 +1653,7 @@ b. **Senyawa X (2-butanol) dan Senyawa Z (dietil eter):**
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Cepat Ujian Identifikasi Isomer $\\ce{C_n H_{2n+2} O}$:**
@@ -1751,6 +1767,7 @@ c. **2,4,6-Trinitrotoluena / TNT ($\\ce{C6H2(CH3)(NO2)3}$):**
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Tabel Pengarah Substitusi Benzena (Wajib Dihafal di UTBK):**
@@ -1852,6 +1869,7 @@ $$M_n = 113.160 + 18.015 = \\mathbf{113.178\\text{ g/mol}} \\approx 1.13 \\times
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Mengingat Penamaan Nilon-6,6:**
@@ -1912,7 +1930,7 @@ Dalam praktikum biokimia makanan, seorang siswa menganalisis 4 sampel bahan pang
    - Iodin ($-$) $\\implies$ Bukan amilum/polisakarida.
    - Benedict ($+$ endapan merah bata) $\\implies$ Merupakan **Gula Pereduksi**.
    - Uji Barfoed membedakan monosakarida vs disakarida: Monosakarida mereduksi Barfoed dalam waktu singkat ($< 2 - 3\\text{ menit}$), sedangkan disakarida baru mereduksi setelah hidrolisis pemanasan lama ($> 5 - 10\\text{ menit}$).
-   - Karena Sampel B baru mengendap setelah 10 menit $\\implies$ Sampel B adalah **Disakarida Pereduksi (seperti Maltosa atau Laktosa)**.
+   - Karena Sampel B baru mengendap setelah 10 menit $\\implies$ Sampel B merupakan disakarida pereduksi (seperti maltosa atau laktosa).
 
 3. **Sampel C:**
    - Molisch ($-$) $\\implies$ Bukan karbohidrat.
@@ -1969,6 +1987,7 @@ $$\\ce{C3H5(OOC-C15H31)3 + 3NaOH ->[\\Delta] C3H5(OH)3 + 3C15H31-COONa}$$
   2. $\\ce{C15H31-COONa}$: Natrium palmitat (sabun padat pembuih).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2052,7 +2071,7 @@ b. **Penentuan Prioritas CIP Berdasarkan Nomor Atom:**
 
 c. **Penentuan Konfigurasi Absolut:**
    Dengan gugus prioritas terendah ($4$, yaitu $-\\ce{H}$) berada di belakang menjauhi pengamat:
-   - Arah putaran dari Prioritas $1 \\rightarrow 2 \\rightarrow 3$ ($-\\ce{OH} \\rightarrow -\\ce{COOH} \\rightarrow -\\ce{CH3}$) adalah **searah jarum jam (*clockwise*)**.
+   - Arah putaran dari Prioritas $1 \\rightarrow 2 \\rightarrow 3$ ($-\\ce{OH} \\rightarrow -\\ce{COOH} \\rightarrow -\\ce{CH3}$) searah jarum jam (*clockwise*).
    - Berdasarkan konvensi CIP, putaran searah jarum jam dinamakan konfigurasi **$R$ (*Rectus*)**.
    - Jadi, isomer tersebut memiliki konfigurasi absolut **$(R)$-asam laktat**.
 
@@ -2106,6 +2125,7 @@ Kelima ikatan peptida tersebut adalah:
 5. $\\ce{Phe-CO-NH-Gly}$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)

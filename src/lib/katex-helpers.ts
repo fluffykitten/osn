@@ -519,8 +519,8 @@ export function parseAndRenderMixedText(rawText: string): string {
 
   // Markdown inline formatting: bold, italic, inline-code
   let processed = normalized
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
-    .replace(/\*([^*\n]+)\*/g, '<em class="italic text-slate-700">$1</em>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>')
+    .replace(/\*([^*\n]+)\*/g, '<em class="italic">$1</em>')
     .replace(/`([^`\n]+)`/g, '<code class="px-1.5 py-0.5 bg-slate-100 border border-slate-200 text-slate-800 rounded font-mono text-[11px]">$1</code>');
 
   // Split into paragraphs by double newlines
@@ -636,7 +636,7 @@ export function parseAndRenderMixedText(rawText: string): string {
           if (stepMatch) {
             return `<div class="mt-4 mb-2 flex items-center gap-2 flex-wrap"><span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-xs font-bold rounded font-mono uppercase tracking-wide">${stepMatch[1].replace(':', '')}</span><span class="text-sm font-bold text-slate-900">${stepMatch[2]}</span></div>`;
           }
-          return `<h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-3.5 mb-1.5 font-display">${title}</h5>`;
+          return `<h5 class="text-sm sm:text-base font-bold text-slate-900 mt-5 mb-2 font-display">${title}</h5>`;
         }
       }
 
@@ -673,7 +673,7 @@ export function parseAndRenderMixedText(rawText: string): string {
       if (/^###\s+(.+)$/m.test(trimmed)) {
         const headingMatch = trimmed.match(/^###\s+(.+)$/);
         if (headingMatch) {
-          return `<h4 class="text-sm font-bold text-slate-900 mt-4 mb-2 pb-1 border-b border-slate-100 font-display">${headingMatch[1]}</h4>`;
+          return `<h4 class="text-base sm:text-lg font-bold text-slate-900 mt-6 mb-3 pb-1.5 border-b border-slate-200 font-display tracking-tight">${headingMatch[1]}</h4>`;
         }
       }
       if (/^##\s+(.+)$/m.test(trimmed)) {
@@ -876,13 +876,13 @@ export function parseAndRenderMixedText(rawText: string): string {
             }
           }
 
-          return `<div class="my-4 p-4 rounded-2xl border border-l-4 ${theme.bg} ${theme.border} ${theme.containerBorder} shadow-2xs">
+          return `<div class="my-4.5 p-4 sm:p-5 rounded-xl border border-slate-200/80 border-l-[3.5px] ${theme.border} ${theme.bg} shadow-2xs">
             <div class="flex items-center gap-2 mb-2 font-display flex-wrap">
               <span class="text-sm select-none">${theme.icon}</span>
               <span class="text-[10px] font-bold uppercase tracking-wider ${theme.badgeText} px-2 py-0.5 rounded-md ${theme.badgeBg} border ${theme.badgeBorder}">${theme.label}</span>
-              ${title ? `<span class="text-xs sm:text-sm font-bold ${theme.titleText}">${title}</span>` : ''}
+              ${title ? `<span class="text-sm sm:text-[15px] font-bold ${theme.titleText}">${title}</span>` : ''}
             </div>
-            <div class="text-xs sm:text-sm ${theme.bodyText} space-y-1.5 font-sans">${bodyItems.join('')}</div>
+            <div class="text-[14px] sm:text-[15px] ${theme.bodyText} space-y-2 font-sans leading-relaxed">${bodyItems.join('')}</div>
           </div>`;
         }
 
@@ -900,23 +900,84 @@ export function parseAndRenderMixedText(rawText: string): string {
         return `<blockquote class="p-3.5 my-3.5 bg-amber-50/70 border-l-4 border-amber-400 rounded-r-xl text-xs sm:text-sm text-amber-950 font-medium leading-relaxed shadow-2xs">${quoteContent}</blockquote>`;
       }
 
-      // 6. Unordered List (- item or * item)
-      if (lines.length > 0 && lines.every((l) => /^\s*[-*•]\s+/.test(l))) {
-        const listItems = lines
-          .map((l) => `<li class="leading-relaxed">${l.replace(/^\s*[-*•]\s+/, '')}</li>`)
+      // 6. Intelligent Markdown List Parsing (ordered, unordered, nested, and continuation lines)
+      const parseListBlock = (rawLines: string[]): string | null => {
+        const firstListIdx = rawLines.findIndex((l) => /^\s*[-*•]\s+/.test(l) || /^\s*\d+\.\s+/.test(l));
+        if (firstListIdx === -1) return null;
+
+        const isOrdered = /^\s*\d+\.\s+/.test(rawLines[firstListIdx]);
+        const leadLines = rawLines.slice(0, firstListIdx).map((l) => l.trim()).filter(Boolean);
+        const remaining = rawLines.slice(firstListIdx);
+
+        interface ListItem {
+          text: string;
+          subLines: string[];
+          subBullets: string[];
+        }
+        const items: ListItem[] = [];
+
+        for (let i = 0; i < remaining.length; i++) {
+          const rawLine = remaining[i];
+          const isSubBullet = /^\s{2,}[-*•]\s+(.*)$/.exec(rawLine);
+          const isMainBullet = !isSubBullet && /^\s*[-*•]\s+(.*)$/.exec(rawLine);
+          const isMainNumber = /^\s*\d+\.\s+(.*)$/.exec(rawLine);
+
+          if (isOrdered ? isMainNumber : isMainBullet) {
+            const match = isOrdered ? isMainNumber : isMainBullet;
+            if (match) {
+              items.push({
+                text: match[1].trim(),
+                subLines: [],
+                subBullets: [],
+              });
+            }
+          } else if (isSubBullet && items.length > 0) {
+            items[items.length - 1].subBullets.push(isSubBullet[1].trim());
+          } else if (items.length > 0) {
+            const trimmedLine = rawLine.trim();
+            if (trimmedLine) {
+              items[items.length - 1].subLines.push(trimmedLine);
+            }
+          } else {
+            leadLines.push(rawLine.trim());
+          }
+        }
+
+        if (items.length === 0) return null;
+
+        let out = '';
+        if (leadLines.length > 0) {
+          out += `<p class="mb-3 leading-[1.75] text-slate-800 text-[15px] sm:text-base text-left">${leadLines.join('<br />')}</p>`;
+        }
+
+        const listTag = isOrdered ? 'ol' : 'ul';
+        const listClass = isOrdered
+          ? 'list-decimal list-outside pl-6 space-y-3.5 my-3 text-slate-800 text-[15px] sm:text-base leading-relaxed marker:font-semibold marker:text-slate-700'
+          : 'list-disc list-outside pl-6 space-y-2.5 my-3 text-slate-800 text-[15px] sm:text-base leading-relaxed marker:text-slate-400';
+
+        const itemsHtml = items
+          .map((it) => {
+            let inner = `<div class="leading-relaxed text-slate-800">${it.text}</div>`;
+            if (it.subLines.length > 0) {
+              inner += `<div class="mt-1 text-slate-600 text-[14px] sm:text-[14.5px] leading-relaxed pl-1">${it.subLines.join('<br />')}</div>`;
+            }
+            if (it.subBullets.length > 0) {
+              inner += `<ul class="list-[circle] list-outside pl-5 mt-1.5 space-y-1 text-slate-700 text-[14px] sm:text-[14.5px] leading-relaxed">${it.subBullets.map((sb) => `<li class="pl-1">${sb}</li>`).join('')}</ul>`;
+            }
+            return `<li class="leading-relaxed pl-1.5">${inner}</li>`;
+          })
           .join('');
-        return `<ul class="list-disc list-inside space-y-1.5 my-2.5 text-xs sm:text-sm text-slate-700 pl-1">${listItems}</ul>`;
+
+        out += `<${listTag} class="${listClass}">${itemsHtml}</${listTag}>`;
+        return out;
+      };
+
+      const parsedList = parseListBlock(lines);
+      if (parsedList) {
+        return parsedList;
       }
 
-      // 7. Ordered List (1. item, 2. item)
-      if (lines.length > 0 && lines.every((l) => /^\s*\d+\.\s+/.test(l))) {
-        const listItems = lines
-          .map((l) => `<li class="leading-relaxed pl-1">${l.replace(/^\s*\d+\.\s+/, '')}</li>`)
-          .join('');
-        return `<ol class="list-decimal list-inside space-y-1.5 my-2.5 text-xs sm:text-sm text-slate-700 pl-1">${listItems}</ol>`;
-      }
-
-      // 8. General paragraphs: convert any inline headings if present
+      // 7. General paragraphs: convert any inline headings if present
       const linesProcessed = lines.map((l) => {
         if (/^####\s+(.+)$/.test(l)) {
           const title = l.replace(/^####\s+/, '').trim();
@@ -924,18 +985,18 @@ export function parseAndRenderMixedText(rawText: string): string {
           if (stepMatch) {
             return `<div class="mt-4 mb-2 flex items-center gap-2 flex-wrap"><span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-xs font-bold rounded font-mono uppercase tracking-wide">${stepMatch[1].replace(':', '')}</span><span class="text-sm font-bold text-slate-900">${stepMatch[2]}</span></div>`;
           }
-          return `<h5 class="text-xs sm:text-sm font-bold text-slate-900 mt-3.5 mb-1.5 font-display">${title}</h5>`;
+          return `<h5 class="text-sm sm:text-base font-bold text-slate-900 mt-4 mb-2 font-display">${title}</h5>`;
         }
         if (/^###\s+(.+)$/.test(l)) {
-          return `<h4 class="text-sm font-bold text-slate-900 mt-3 mb-1.5 font-display">${l.replace(/^###\s+/, '')}</h4>`;
+          return `<h4 class="text-base sm:text-lg font-bold text-slate-900 mt-5 mb-2 font-display tracking-tight">${l.replace(/^###\s+/, '')}</h4>`;
         }
         if (/^##\s+(.+)$/.test(l)) {
-          return `<h3 class="text-base font-bold text-slate-900 mt-4 mb-2 font-display">${l.replace(/^##\s+/, '')}</h3>`;
+          return `<h3 class="text-lg font-bold text-slate-900 mt-6 mb-2 font-display">${l.replace(/^##\s+/, '')}</h3>`;
         }
         return l;
       });
 
-      return `<p class="my-2 leading-relaxed text-slate-800">${linesProcessed.join('<br />')}</p>`;
+      return `<p class="my-3 leading-[1.75] text-slate-800 text-[15px] sm:text-base text-left">${linesProcessed.join('<br />')}</p>`;
       };
 
       const html = renderBlock();

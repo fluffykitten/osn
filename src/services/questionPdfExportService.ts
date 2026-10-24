@@ -1,7 +1,7 @@
 /**
  * questionPdfExportService.ts
  * Layanan Ekspor PDF Naskah Soal & Kunci Jawaban Kimia
- * Standar Layout Save My Exams (Compact, Zero Wasted Space, High-Density A4 Print)
+ * Standar Layout Naskah Ujian Resmi Axioma Academy (Compact, Zero Wasted Space, High-Density A4 Print)
  * 
  * Perbaikan Layout & Tipografi:
  * 1. Halaman Cover A4:
@@ -12,7 +12,7 @@
  *    - Kotak Petunjuk Pengerjaan & Ketentuan Ujian Resmi (mengisi ruang cover secara proporsional)
  * 2. Halaman Butir Soal:
  *    - Layout aliran kontinu (continuous flow) tanpa flex min-height 297mm yang memboroskan ruang
- *    - Memuat 2 - 3 soal per halaman (tingkat kepadatan optimal seperti Save My Exams asli)
+ *    - Memuat 2 - 3 soal per halaman (tingkat kepadatan optimal cetak A4)
  *    - Break-inside: avoid pada setiap soal agar tidak terbelah di jeda halaman
  *    - Heading seksi dilengkapi break-after: avoid agar tidak menjadi heading yatim (orphaned)
  *    - Opsi pilihan ganda rapat, elegan, berindentasi rapi (A., B., C., D., E.)
@@ -172,7 +172,7 @@ interface ParsedQuestionItem {
 
 export class QuestionPdfExportService {
   /**
-   * Menghasilkan dokumen HTML lengkap bergaya Save My Exams Question Paper
+   * Menghasilkan dokumen HTML lengkap bergaya Naskah Ujian Resmi Axioma Academy
    */
   public generateQuestionPaperHtml(
     questions: Question[],
@@ -986,7 +986,7 @@ export class QuestionPdfExportService {
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* FOOTER SAVE MY EXAMS */
+    /* FOOTER NASKAH UJIAN */
     .sme-footer-row {
       display: flex;
       align-items: center;
@@ -1081,7 +1081,7 @@ export class QuestionPdfExportService {
   <!-- BAR NAVIGASI CETAK (HANYA DITAMPILKAN DI MONITOR) -->
   <div class="sme-action-bar">
     <div class="sme-action-bar-left">
-      <span>📄 Pratinjau Naskah Soal & Kunci (Save My Exams Edition)</span>
+      <span>📄 Pratinjau Naskah Soal & Kunci (Axioma Academy Edition)</span>
       <span style="color: #64748b;">•</span>
       <span style="color: #cbd5e1;">${totalQuestions} Butir Soal (${totalMarks} Marks)</span>
     </div>
@@ -1521,7 +1521,7 @@ export class QuestionPdfExportService {
     // Render KaTeX dan markdown pada stem
     let stemHtml = parseAndRenderMixedText(stem);
 
-    // Transform tabel di stem agar menggunakan border solid khas Save My Exams
+    // Transform tabel di stem agar menggunakan border solid
     stemHtml = stemHtml.replace(/<table([^>]*)>/gi, '<table class="sme-exam-table"$1>');
 
     return {

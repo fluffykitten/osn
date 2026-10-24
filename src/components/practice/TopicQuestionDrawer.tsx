@@ -443,7 +443,7 @@ export const TopicQuestionDrawer: React.FC<TopicQuestionDrawerProps> = ({
                 <span>{selectedIds.length} Butir Soal Terpilih</span>
               </div>
               <p className="text-[10px] text-slate-400">
-                Siap dikerjakan bersamaan dalam lembar kerja interaktif bertenaga AI.
+                Siap dikerjakan bersamaan dalam lembar kerja interaktif.
               </p>
             </div>
 

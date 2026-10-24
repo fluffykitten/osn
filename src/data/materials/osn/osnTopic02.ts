@@ -108,13 +108,20 @@ Inilah hakikat **Ikatan Kovalen**: atom-atom non-logam saling meminjamkan dan me
 
 ### 🧭 4 Langkah Baku Menyusun Struktur Lewis Bebas Galat:
 
-1. **Langkah 1 (Hitung Elektron Valensi Total, $N_{\\text{val}}$):**  
+#### Langkah 1: Hitung Elektron Valensi Total, $N_{\\text{val}}$
+
    Jumlahkan elektron valensi seluruh atom penyusun. Tambahkan muatan untuk anion (misal $+1$ untuk $\\ce{NO3-}$), dan kurangkan untuk kation (misal $-1$ untuk $\\ce{NH4+}$).
-2. **Langkah 2 (Tentukan Kerangka Atom Pusat & Ikatan Tunggal):**  
+
+#### Langkah 2: Tentukan Kerangka Atom Pusat & Ikatan Tunggal
+
    Pilih atom dengan keelektronegatifan paling rendah sebagai atom pusat (kecuali atom Hidrogen yang selalu menjadi ligan terminal). Hubungkan atom pusat dengan ligan melalui ikatan kovalen tunggal ($2\\,e^-$ per ikatan).
-3. **Langkah 3 (Lengkapi Oktet Atom Terminal Terlebih Dahulu):**  
+
+#### Langkah 3: Lengkapi Oktet Atom Terminal Terlebih Dahulu
+
    Distribusikan sisa elektron sebagai pasangan elektron bebas (PEB) pada atom-atom terminal (luar) hingga memenuhi oktet (atau duplet untuk $\\ce{H}$).
-4. **Langkah 4 (Alokasikan Sisa Elektron ke Atom Pusat & Bentuk Ikatan Rangkap):**  
+
+#### Langkah 4: Alokasikan Sisa Elektron ke Atom Pusat & Bentuk Ikatan Rangkap
+
    Jika masih ada sisa elektron, tempatkan pada atom pusat. Jika atom pusat belum memenuhi oktet, ubah pasangan elektron bebas dari atom ligan menjadi ikatan kovalen rangkap dua atau rangkap tiga.
 
 ---
@@ -320,11 +327,11 @@ Linus Pauling (1931) memecahkan paradoks ini dengan konsep **Hibridisasi**: fung
       summary: 'Interferensi LCAO fungsi gelombang atomik, diagram energi diatomik periode 2, pencampuran s-p, dan spektroskopi foton.',
       content: `### 🌊 Interferensi Gelombang LCAO: Misteri Magnetisme Oksigen Terbongkar
 
-Ketika Anda menuangkan oksigen cair ($\\ce{O2}$) di antara kutub magnet superkonduktor laboratorium, cairan biru pucat tersebut **tertahan melayang di udara dan menempel kuat pada kutub magnet** (bersifat paramagnetik)!
+Ketika Anda menuangkan oksigen cair ($\\ce{O2}$) di antara kutub magnet superkonduktor laboratorium, cairan biru pucat tersebut tertahan melayang di udara dan menempel kuat pada kutub magnet (bersifat **paramagnetik**)!
 
-Struktur Lewis klasik ($\\,\\ce{:\\ddot{O}=\\ddot{O}:}\,$) meramalkan seluruh elektron berpasangan (diamagnetik) dan gagal total menerangkan fenomena ini. Jawabannya hanya bisa diungkap melalui **Teori Orbital Molekul (Molecular Orbital Theory / MOT)** karya Robert Mulliken dan Friedrich Hund.
+Struktur Lewis klasik ($\\,\\ce{:\\ddot{O}=\\ddot{O}:}\,$) meramalkan seluruh elektron berpasangan (diamagnetik) dan gagal total menerangkan fenomena ini. Jawabannya hanya bisa diungkap melalui **Teori Orbital Molekul** (*Molecular Orbital Theory* / MOT) karya Robert Mulliken dan Friedrich Hund.
 
-Dalam MOT, elektron tidak lagi menjadi milik atom individual, melainkan terdelokalisasi di seluruh molekul melalui **Kombinasi Linear Orbital-Orbital Atom (LCAO / Linear Combination of Atomic Orbitals)**:
+Dalam MOT, elektron tidak lagi menjadi milik atom individual, melainkan terdelokalisasi di seluruh molekul melalui **Kombinasi Linear Orbital Atom** (*Linear Combination of Atomic Orbitals* / LCAO):
 $$\\psi_{\\text{MO}} = c_A \\phi_A \\pm c_B \\phi_B$$
 
 ---
@@ -389,7 +396,7 @@ Faktor gaib yang menahan molekul-molekul air dalam fasa cair hingga $100^\\circ\
 2. **Gaya Tarik Dipol-Dipol (Keesom):**
    - Bekerja antar-molekul polar permanen melalui interaksi elektrostatik kutub positif ($\\delta^+$) dengan kutub negatif ($\\delta^-$).
 3. **Ikatan Hidrogen Konvensional ($10 - 40\\text{ kJ/mol}$):**
-   - Terjadi ketika atom Hidrogen terikat secara kovalen pada atom yang sangat kecil dan sangat elektronegatif: **Fluorin ($\\ce{F}$), Oksigen ($\\ce{O}$), atau Nitrogen ($\\ce{N}$)**.
+   - Terjadi ketika atom Hidrogen terikat secara kovalen pada atom yang sangat kecil dan sangat elektronegatif: **Fluorin** ($\\ce{F}$), **Oksigen** ($\\ce{O}$), atau **Nitrogen** ($\\ce{N}$).
    - Atom $\\ce{F, O, N}$ menarik elektron sangat kuat sehingga proton hidrogen hampir telanjang tanpa awan pelindung, memungkinkan proton mendekati pasangan elektron bebas atom tetangga pada jarak yang sangat intim.
 4. **Ikatan Hidrogen Kuat Simetris (Ikatan 3-Pusat 4-Elektron / 3c-4e, $> 100\\text{ kJ/mol}$):**
    - Contoh legendaris pada ion bifluorida $(\\ce{[F-H-F]-})$: jarak proton tepat di tengah kedua inti fluorin ($d = 1.14\\text{ \\AA}$) dengan energi ikatan mencapai $163\\text{ kJ/mol}$, mendekati kekuatan ikatan kovalen sejati!
@@ -416,7 +423,7 @@ $$\\ce{Na(g) -> Na+(g) + e-} \\quad (IE_1 = +496\\text{ kJ/mol endotermik})$$
 $$\\ce{Cl(g) + e- -> Cl-(g)} \\quad (EA_1 = -349\\text{ kJ/mol eksotermik})$$
 Perpindahan satu elektron dari atom natrium ke atom klorin dalam fasa gas justru membutuhkan biaya energi sebesar $+147\\text{ kJ/mol}$! Mengapa senyawa ionik $\\ce{NaCl}$ justru terbentuk begitu spontan dan sangat stabil di alam?
 
-Jawabannya adalah **Energi Kisi (*Lattice Energy*, $U_L$)**: ketika miliaran kation $\\ce{Na+}$ dan anion $\\ce{Cl-}$ gas saling mendekat dan memadat menyusun kisi kristal kubus tiga dimensi, tarikan elektrostatik coulombik raksasa melepaskan energi masif sebesar **$-787\\text{ kJ/mol}$** ke lingkungan!
+Jawabannya adalah **Energi Kisi** (*Lattice Energy*, $U_L$): ketika miliaran kation $\\ce{Na+}$ dan anion $\\ce{Cl-}$ gas saling mendekat dan memadat menyusun kisi kristal kubus tiga dimensi, tarikan elektrostatik coulombik raksasa melepaskan energi masif sebesar $-787\\text{ kJ/mol}$ ke lingkungan!
 
 ---
 
@@ -430,7 +437,7 @@ di mana:
 - $z_+, z_-$: Muatan kation dan anion.
 - $r_+, r_-$: Jari-jari ion kation dan anion dalam satuan pikometer (pm).
 
-**Faktor Penentu Utama:** Energi kisi sebanding langsung dengan **hasil kali muatan kation-anion ($|z_+ z_-|$)** dan berbanding terbalik dengan jarak antar-inti ion ($r_+ + r_-$).
+**Faktor Penentu Utama:** Energi kisi sebanding langsung dengan hasil kali muatan kation-anion ($|z_+ z_-|$) dan berbanding terbalik dengan jarak antar-inti ion ($r_+ + r_-$).
 
 ---
 
@@ -469,12 +476,12 @@ $$\\Delta H_f^\\circ = \\Delta H_{\\text{sub}} + \\sum IE + \\frac{1}{2} D(\\ce{
 
 Sebuah rantai polimer satu-dimensi (1D) dengan sistem elektron $\\pi$ terkonjugasi ideal seperti *trans*-poliasetilena berjarak kisi seragam $[\\ce{-CH=}]_n$ memiliki satu elektron valensi per atom karbon. Menurut teori pita Bloch sederhana, pita energinya terisi tepat setengah (*half-filled band*), sehingga rantai poliasetilena seharusnya bersifat sebagai **kawat logam konduktor super**!
 
-Namun, eksperimen menunjukkan poliasetilena murni justru merupakan **semikonduktor dengan celah pita terlarang sebesar $E_g \\approx 1.5 - 1.8\\text{ eV}$**. Mengapa logam satu dimensi tidak pernah bisa bertahan di alam?
+Namun, eksperimen menunjukkan poliasetilena murni justru merupakan **semikonduktor** dengan celah pita terlarang sebesar $E_g \\approx 1.5 - 1.8\\text{ eV}$. Mengapa logam satu dimensi tidak pernah bisa bertahan di alam?
 
 ---
 
 ### 🧭 Teorema Distorsi Peierls (1955):
-Menurut Rudolf Peierls: **Sistem elektronik satu dimensi periodik dengan kisi berjarak seragam $a_0$ selalu tidak stabil secara termodinamika terhadap distorsi dimerisasi kisi spontan pada suhu rendah.**
+Menurut Rudolf Peierls, sistem elektronik 1D periodik dengan kisi berjarak seragam selalu tidak stabil secara termodinamika terhadap **distorsi dimerisasi kisi spontan** pada suhu rendah.
 1. Dimerisasi mengubah jarak ikatan seragam $a_0$ menjadi ikatan berselang-seling: ikatan tunggal yang lebih panjang ($r_1 = a_0 + \\delta$) dan ikatan rangkap yang lebih pendek ($r_2 = a_0 - \\delta$).
 2. Periode sel satuan berlipat ganda menjadi $a = 2a_0$.
 3. Penggandaan konstanta kisi memotong Zona Brillouin pertama menjadi separuhnya: $\\left[-\\frac{\\pi}{a}, \\frac{\\pi}{a}\\right]$.

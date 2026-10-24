@@ -426,14 +426,26 @@ Di mana:
 
 ### 3. Algoritma 4 Langkah Penentuan $\\Delta H$ Reaksi dari Data Kalorimeter
 Untuk menyelesaikan soal kalorimeter sederhana di ujian SMA, gunakan urutan baku berikut:
-1. **Langkah 1 (Massa Total Larutan):**
+
+#### Langkah 1: Massa Total Larutan
+
+
    $$m_{\\text{total}} = \\rho \\times V_{\\text{total}} \\quad (\\text{asumsi } \\rho_{\\text{larutan}} \\approx 1.0\\text{ g/mL})$$
-2. **Langkah 2 (Menghitung Kalor yang Terlibat):**
+
+#### Langkah 2: Menghitung Kalor yang Terlibat
+
+
    $$q_{\\text{larutan}} = m_{\\text{total}} \\cdot c \\cdot (T_{\\text{akhir}} - T_{\\text{awal}})$$
    $$q_{\\text{reaksi}} = -q_{\\text{larutan}}$$
-3. **Langkah 3 (Menghitung Mol Pereaksi Pembatas):**
+
+#### Langkah 3: Menghitung Mol Pereaksi Pembatas
+
+
    $$n = M \\times V(\\text{Liter})$$
-4. **Langkah 4 (Menghitung Entalpi Reaksi Molar):**
+
+#### Langkah 4: Menghitung Entalpi Reaksi Molar
+
+
    $$\\mathbf{\\Delta H = \\frac{q_{\\text{reaksi}}}{n}} \\quad (\\text{dalam satuan kJ/mol})$$`,
       keyFormulas: [
         { name: 'Kalor Larutan', formula: 'q_{\\text{larutan}} = m \\cdot c \\cdot \\Delta T' },
@@ -614,7 +626,7 @@ Aturan manipulasi aljabar persamaan reaksi:
       tags: ['energi-ikatan-rata-rata', 'pemutusan-ikatan-endoterm', 'pembentukan-ikatan-eksoterm', 'struktur-lewis-termokimia'],
       title: 'Konsep Inti 5: Energi Ikatan Rata-Rata & Penentuan ΔH Reaksi',
       summary: 'Kajian pemutusan ikatan kovalen endotermik vs pembentukan ikatan eksotermik di fasa gas serta cara cepat perhitungan ΔH berbasis struktur Lewis.',
-      content: `Reaksi kimia pada skala molekuler pada dasarnya adalah proses reorganisasi elektron: **pemutusan ikatan-ikatan kimia lama** pada molekul reaktan, diikuti dengan **pembentukan ikatan-ikatan kimia baru** yang menyusun molekul produk.
+      content: `Reaksi kimia pada skala molekuler pada dasarnya adalah proses reorganisasi ikatan: pemutusan ikatan kimia lama pada molekul reaktan membutuhkan energi, diikuti dengan **pembentukan ikatan kimia baru** yang membebaskan energi.
 
 ### 1. Definisi & Konvensi Energi Ikatan Rata-Rata ($D$)
 Energi ikatan ($D$ / *Bond Energy*) adalah energi yang dibutuhkan untuk **memutuskan 1 mol ikatan kovalen tertentu** dalam fasa gas menjadi atom-atom netral pada kondisi standar.
@@ -900,8 +912,8 @@ $$S = k_B \\ln \\Omega$$
 Laju reaksi menyatakan **kecepatan berkurangnya konsentrasi molar reaktan** atau **kecepatan bertambahnya konsentrasi molar produk** per satu satuan waktu:
 $$v = -\\frac{\\Delta[\\text{Reaktan}]}{\\Delta t} = +\\frac{\\Delta[\\text{Produk}]}{\\Delta t}$$
 
-- Tanda negatif ($-$) menunjukkan konsentrasi reaktan selalu **berkurang seiring berjalannya waktu**.
-- Tanda positif ($+$) menunjukkan konsentrasi produk selalu **bertambah seiring berjalannya waktu**.
+- Tanda negatif ($-$) menandakan konsentrasi reaktan selalu berkurang seiring waktu.
+- Tanda positif ($+$) menandakan konsentrasi produk selalu bertambah seiring waktu.
 - Satuan standar internasional laju reaksi: $\\text{M/detik}$ (atau $\\text{mol}\\cdot\\text{L}^{-1}\\cdot\\text{s}^{-1}$).
 
 ---
@@ -913,7 +925,7 @@ $$a\\ce{A} + b\\ce{B} \\longrightarrow c\\ce{C} + d\\ce{D}$$
 Hubungan kesetaraan laju diferensial dinyatakan:
 $$\\mathbf{v = -\\frac{1}{a}\\frac{\\Delta[\\ce{A}]}{\\Delta t} = -\\frac{1}{b}\\frac{\\Delta[\\ce{B}]}{\\Delta t} = +\\frac{1}{c}\\frac{\\Delta[\\ce{C}]}{\\Delta t} = +\\frac{1}{d}\\frac{\\Delta[\\ce{D}]}{\\Delta t}}$$
 
-Artinya: **Perbandingan laju reaksi zat-zat yang terlibat selalu sebanding dengan perbandingan koefisien reaksinya**:
+Artinya, perbandingan laju reaksi antarzat yang terlibat selalu sebanding dengan rasio koefisien reaksinya:
 $$v_{\\ce{A}} : v_{\\ce{B}} : v_{\\ce{C}} : v_{\\ce{D}} = a : b : c : d$$
 
 *Contoh Aplikasi:*
@@ -935,7 +947,7 @@ Pada reaksi sintesis amonia: $\\ce{N2(g) + 3 H2(g) -> 2 NH3(g)}$:
 
 2. **Pengaruh Kenaikan Temperatur terhadap Sebaran Energi:**
    - Ketika temperatur dinaikkan dari $T_1$ ke $T_2$ ($T_2 > T_1$), kurva distribusi melebar ke arah kanan dan puncaknya mendatar.
-   - Meskipun energi kinetik rata-rata hanya naik sedikit, **jumlah molekul yang memiliki energi sangat tinggi (melampaui energi aktivasi $E_a$) meningkat secara eksponensial**.
+   - Meskipun energi kinetik rata-rata hanya naik sedikit, fraksi molekul berenergi tinggi yang melampaui energi aktivasi ($E_a$) **meningkat secara eksponensial**.
    - Inilah alasan mendasar mengapa laju reaksi kimia melonjak drastis saat dipanaskan.`,
     },
   ],
@@ -1173,6 +1185,7 @@ Pada puncak bukit energi aktivasi, terdapat suatu struktur intermediat yang sang
 - Ikatan kovalen produk baru sedang mulai terbentuk (*partially formed*).
 - Kompleks ini memiliki energi potensial tertinggi sepanjang lintasan reaksi dan dapat terurai maju membentuk produk atau terurai mundur kembali menjadi reaktan.
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Puncak Energi vs Kestabilan
 > Banyak siswa beranggapan salah bahwa partikel di keadaan transisi (kompleks teraktivasi) merupakan senyawa perantara stabil yang dapat disimpan di botol laboratorium. Faktanya, **kompleks teraktivasi berada pada puncak energi potensial tertinggi**, memiliki waktu hidup ultrasingkat (kurang dari $10^{-13}$ detik), dan merupakan konfigurasi ikatan yang sangat rapuh (*unstable*).`,
@@ -1311,6 +1324,7 @@ $$\\mathbf{t_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\De
 2. **Katalis Heterogen:** Katalis yang berada dalam **fasa berbeda** dengan reaktan, umumnya padatan logam transisi yang menyediakan situs aktif permukaan untuk mengadsorpsi gas pereaksi (contoh: serbuk logam besi $\\ce{Fe(s)}$ pada sintesis amonia Haber-Bosch, atau logam $\\ce{Pt/Ni}$ pada hidrogenasi minyak goreng).
 3. **Inhibitor:** Zat yang memperlambat laju reaksi kimia (kebalikan dari katalis), misalnya zat pengawet makanan untuk mencegah oksidasi ketengikan lemak.
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Katalis vs Entalpi Reaksi (ΔH)
 > Jebakan paling sering di ujian: menganggap katalis dapat mengubah entalpi reaksi ($\Delta H$) atau memperbanyak produk reaksi! Ingat prinsip mutlak ini: **katalis HANYA menurunkan energi aktivasi ($E_a$)** sehingga reaksi mencapai keadaan akhir lebih cepat. Katalis **SAMA SEKALI TIDAK MENGUBAH tingkat energi reaktan awal maupun produk akhir**, sehingga $\Delta H$, $\Delta G$, dan kuantitas produk akhir tetap persis sama!`,
@@ -1324,7 +1338,7 @@ $$\\mathbf{t_2 = t_1 \\times \\left(\\frac{1}{n}\\right)^{\\frac{T_2 - T_1}{\\De
       tags: ['hukum-laju-reaksi', 'orde-nol-satu-dua', 'tetapan-laju-k', 'satuan-tetapan-laju'],
       title: 'Konsep Inti 4: Persamaan Hukum Laju Reaksi & Makna Fisis Orde Reaksi',
       summary: 'Bentuk matematis persamaan laju reaksi v = k [A]^m [B]^n, interpretasi grafik kinetika orde 0, 1, dan 2, serta satuan tetapan laju k.',
-      content: `Secara kuantitatif, hubungan antara konsentrasi zat-zat pereaksi dengan laju reaksi kimia dirumuskan dalam suatu persamaan matematis yang disebut **Persamaan Hukum Laju Reaksi (*Rate Law Equation*)**.
+      content: `Secara kuantitatif, hubungan antara konsentrasi zat pereaksi dengan laju reaksi kimia dirumuskan dalam **persamaan hukum laju** (*rate law equation*):
 
 ### 1. Bentuk Umum Persamaan Laju Reaksi
 Untuk reaksi umum: $a\\ce{A} + b\\ce{B} \\longrightarrow c\\ce{C} + d\\ce{D}$
@@ -1333,14 +1347,14 @@ $$\\mathbf{v = k [\\ce{A}]^m [\\ce{B}]^n}$$
 
 Di mana:
 - $v$: Laju reaksi (satuan $\\text{M/s}$ atau $\\text{mol}\\cdot\\text{L}^{-1}\\cdot\\text{s}^{-1}$).
-- $k$: **Tetapan laju reaksi (*rate constant*)**, nilainya bergantung pada sifat pereaksi, katalis, dan **temperatur** (tidak bergantung pada konsentrasi zat).
+- $k$: **Tetapan laju reaksi** (*rate constant*), nilainya bergantung pada sifat pereaksi, katalis, dan temperatur (tidak bergantung pada konsentrasi zat).
 - $[\\ce{A}], [\\ce{B}]$: Konsentrasi molar masing-masing pereaksi (Molaritas, $\\text{mol/L}$).
 - $m$: **Orde reaksi terhadap pereaksi $\\ce{A}$**.
 - $n$: **Orde reaksi terhadap pereaksi $\\ce{B}$**.
 - Orde total reaksi $= m + n$.
 
 > **Peringatan Keras Konseptual:**
-> Pangkat $m$ dan $n$ **TIDAK SELALU SAMA** dengan koefisien stoikiometri $a$ dan $b$. Nilai orde reaksi **HANYA DAPAT DITENTUKAN MELALUI DATA EKSPERIMEN LABORATORIUM**, bukan dilihat dari persamaan setara!
+> Pangkat $m$ dan $n$ tidak selalu sama dengan koefisien stoikiometri $a$ dan $b$. Nilai orde reaksi hanya dapat ditentukan melalui **data eksperimen laboratorium**, bukan ditebak dari persamaan setara!
 
 ---
 
@@ -1427,6 +1441,7 @@ $$\\text{Satuan } k = \\frac{\\text{Satuan } v}{(\\text{Satuan Konsentrasi})^{\\
 | **2** | $v = k [\\ce{A}]^2$ atau $v = k [\\ce{A}][\\ce{B}]$ | $\\text{M}^{-1}\\cdot\\text{s}^{-1}$ atau $\\text{L}\\cdot\\text{mol}^{-1}\\cdot\\text{s}^{-1}$ |
 | **3** | $v = k [\\ce{A}]^2 [\\ce{B}]$ | $\\text{M}^{-2}\\cdot\\text{s}^{-1}$ atau $\\text{L}^2\\cdot\\text{mol}^{-2}\\cdot\\text{s}^{-1}$ |
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Koefisien Stoikiometri vs Pangkat Orde
 > Jangan sekali-kali mengambil pangkat orde reaksi ($m$ dan $n$) langsung dari angka koefisien reaksi setara! Orde reaksi **HANYA DAPAT DITENTUKAN MELALUI DATA EKSPERIMEN LABORATORIUM**. Pangkat orde hanya kebetulan sama dengan koefisien jika reaksi berlangsung secara *elementer satu tahap*. Selain itu, reaksi berorde nol ($v = k [\\ce{A}]^0$) BUKAN berarti laju reaksinya nol, melainkan reaksinya berlangsung konstan tanpa terpengaruh oleh konsentrasi reaktan!`,
@@ -1461,6 +1476,7 @@ Reaksi kimia makroskopis jarang sekali terjadi dalam satu kali benturan serempak
 2. **Tahap Penentu Laju (*Rate-Determining Step* / RDS):** Langkah reaksi elementer yang berjalan **paling lambat**.
    > **Aturan Emas:** Persamaan hukum laju reaksi total ditentukan oleh koefisien pada **Tahap Paling Lambat (RDS)**!
 3. **Zat Intermediat (*Intermediates*):** Senyawa yang terbentuk di langkah awal dan langsung terkonsumsi habis pada langkah berikutnya. Zat intermediat **tidak boleh muncul** dalam persamaan reaksi akhir maupun persamaan hukum laju reaksi final.
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Waktu Reaksi Berbanding Terbalik dengan Laju
@@ -1614,7 +1630,7 @@ Suatu sistem reaksi bolak-balik hanya dapat mencapai kesetimbangan sejati apabil
         tag: 'prasyarat-hukum-aksi-massa-dan-aturan-fasa',
         title: 'Prasyarat 2: Hukum Aksi Massa (Guldberg & Waage) & Aturan Fasa Zat',
         summary: 'Formulasi rasio konsentrasi produk terhadap reaktan serta aturan peniadaan fasa padat murni (s) dan cairan murni (l) dari ekspresi kesetimbangan.',
-        content: `Pada tahun 1864, dua ilmuwan Norwegia, **Cato Guldberg** dan **Peter Waage**, merumuskan hukum fundamental kinetika dan termodinamika yang dikenal sebagai **Hukum Aksi Massa (*Law of Mass Action*)**.
+        content: `Pada tahun 1864, dua ilmuwan Norwegia, Cato Guldberg dan Peter Waage, merumuskan hukum fundamental kinetika dan termodinamika yang dikenal sebagai **Hukum Aksi Massa** (*Law of Mass Action*).
 
 ### 1. Bunyi Hukum Aksi Massa
 *Pada temperatur konstan, untuk reaksi bolak-balik yang berada dalam keadaan setimbang, perbandingan hasil kali konsentrasi molar zat-zat hasil reaksi (produk) dipangkatkan koefisien reaksinya terhadap hasil kali konsentrasi molar zat-zat pereaksi (reaktan) dipangkatkan koefisien reaksinya selalu bernilai konstan (tetap).*
@@ -1751,7 +1767,7 @@ $\\mathbf{K_c = \\frac{[\\ce{C}]^c [\\ce{D}]^d}{[\\ce{A}]^a [\\ce{B}]^b}}$
 Khusus untuk reaksi yang melibatkan **fasa gas ($g$)**, konsentrasi dapat diwakili oleh tekanan parsial masing-masing gas (dalam satuan atmosfer, $\\text{atm}$):
 $\\mathbf{K_p = \\frac{(P_{\\ce{C}})^c (P_{\\ce{D}})^d}{(P_{\\ce{A}})^a (P_{\\ce{B}})^b}}$
 
-Di mana tekanan parsial gas $i$ ($P_i$) dihitung menggunakan **Hukum Tekanan Parsial Dalton**:
+Di mana tekanan parsial gas $i$ ($P_i$) dihitung berdasarkan hukum tekanan parsial Dalton:
 $P_i = X_i \\times P_{\\text{total}} = \\left(\\frac{n_i}{n_{\\text{total gas}}}\\right) \\times P_{\\text{total}}$
 
 ---
@@ -1770,6 +1786,7 @@ Di mana:
 > **Kaidah Khusus $\\Delta n = 0$:** Jika jumlah koefisien gas di ruas kanan tepat sama dengan ruas kiri ($\\Delta n = 0$), maka $(RT)^0 = 1$, sehingga secara otomatis:
 > $\\mathbf{K_p = K_c}$
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Laju Sama vs Konsentrasi Sama
 > Jangan pernah mengira bahwa saat kesetimbangan tercapai, konsentrasi reaktan dan produk harus bernilai sama! Yang bernilai **tepat sama besar adalah laju reaksi maju dan laju reaksi balik ($v_{\\text{maju}} = v_{\\text{balik}}$)**. Konsentrasi masing-masing zat konstan tak berubah, tetapi nilainya bisa sangat berbeda tergantung nilai $K_c$ reaksi.`,
@@ -1787,7 +1804,7 @@ Di mana:
         summary: 'Aturan transformasi nilai K saat persamaan reaksi dibalik, dikalikan koefisien n, dibagi n, atau dijumlahkan dalam reaksi bertahap.',
         content: `Seringkali di ujian SMA dan OSN Kimia, kita diminta menentukan nilai tetapan kesetimbangan untuk suatu reaksi target dari beberapa reaksi kesetimbangan perantara yang telah diketahui nilai $K$-nya.
 
-Sangat penting dipahami bahwa **manipulasi aljabar nilai $K$ sangat berbeda dengan manipulasi termokimia ($\\Delta H$)!** Termokimia bersifat linier-aditif (penjumlahan aljabar), sedangkan kesetimbangan bersifat eksponensial-multiplikatif (perkalian dan pemangkatan).
+Manipulasi aljabar nilai $K$ berbeda mendasar dari manipulasi termokimia ($\Delta H$): termokimia bersifat linier-aditif (penjumlahan aljabar), sedangkan kesetimbangan bersifat **eksponensial-multiplikatif** (perkalian dan pemangkatan).
 
 ---
 
@@ -1853,6 +1870,7 @@ Sangat penting dipahami bahwa **manipulasi aljabar nilai $K$ sangat berbeda deng
 | **Dikalikan Faktor $n$** | Dikalikan: $\\Delta H' = n \\cdot \\Delta H$ | Dipangkatkan: $K' = K^n$ | Jika reaksi dikalikan 2, $K' = K^2$. |
 | **Dibagi Faktor $n$ (dikali $1/n$)** | Dibagi: $\\Delta H' = \\frac{\\Delta H}{n}$ | Diakarkan: $K' = K^{1/n} = \\sqrt[n]{K}$ | Jika reaksi dibagi 2, $K' = \\sqrt{K}$. |
 | **Penjumlahan Reaksi Bertahap** | Dijumlahkan: $\\Delta H_{\\text{total}} = \\sum \\Delta H_i$ | Dikalikan: $K_{\\text{total}} = K_1 \\times K_2 \\times \\dots$ | Jika tahap 1 $K_1 = 10$ dan tahap 2 $K_2 = 5$, maka $K_{\\text{total}} = 50$. |
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tertukar Rumus Hess vs Aljabar K
@@ -1986,6 +2004,7 @@ Prinsip universal ini dirumuskan oleh kimiawan Prancis **Henri Louis Le Chatelie
    - Jika gas inert (seperti Helium atau Argon) ditambahkan pada **volume tetap**, tekanan parsial gas-gas reaktan dan produk tidak berubah $\\implies$ **kesetimbangan tidak bergeser**.
    - Jika gas inert ditambahkan pada **tekanan tetap** (sehingga volume wadah mengembang membesar), sistem bergeser ke arah koefisien gas terbesar.
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Katalis vs Posisi Kesetimbangan
 > Jangan pernah menjawab bahwa katalis dapat menggeser posisi kesetimbangan atau menambah persentase rendemen produk! Katalis mempercepat laju reaksi maju dan balik sama besar, sehingga sistem **hanya mencapai keadaan setimbang lebih cepat tanpa pergeseran posisi kesetimbangan**, dan **nilai $K$ tetap tidak berubah**!`,
@@ -2052,7 +2071,7 @@ $Q_c = \\frac{[\\ce{C}]_{\\text{sesaat}}^c [\\ce{D}]_{\\text{sesaat}}^d}{[\\ce{A
 1. **Jika $Q < K$:**
    - Konsentrasi produk saat ini lebih kecil daripada konsentrasi produk pada kesetimbangan ideal.
    - Untuk mencapai kesetimbangan, reaktan harus terus bereaksi membentuk produk tambahan.
-   - **Arah Pergeseran:** Reaksi bergeser **ke arah kanan (arah pembentukan produk / reaksi maju)** sampai $Q = K$.
+   - **Arah Pergeseran:** Reaksi bergeser ke arah kanan (reaksi maju membentuk produk) sampai $Q = K$.
 
 2. **Jika $Q = K$:**
    - Campuran zat telah tepat berada dalam **keadaan kesetimbangan kimia dinamis**.
@@ -2062,7 +2081,8 @@ $Q_c = \\frac{[\\ce{C}]_{\\text{sesaat}}^c [\\ce{D}]_{\\text{sesaat}}^d}{[\\ce{A
 3. **Jika $Q > K$:**
    - Konsentrasi produk saat ini terlalu besar melebihi proporsi kesetimbangannya.
    - Untuk mengembalikan kesetimbangan, sebagian produk harus terurai kembali menjadi reaktan.
-   - **Arah Pergeseran:** Reaksi bergeser **ke arah kiri (arah pembentukan reaktan / reaksi balik)** sampai nilai $Q$ turun setara dengan $K$.
+   - **Arah Pergeseran:** Reaksi bergeser ke arah kiri (reaksi balik membentuk reaktan) sampai nilai $Q$ setara dengan $K$.
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tafsir Arah Q vs K
@@ -2385,6 +2405,7 @@ $\\mathbf{\\text{pH} + \\text{pOH} = 14.00}$
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
 > **Mitos Angka Keramat "pH 7 Netral":**  
@@ -2527,6 +2548,7 @@ Spesi kimia yang dapat bertindak sebagai asam (mendonorkan proton) sekaligus dap
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
 > **Mitos Pasangan Asam-Basa Konjugasi & Kekuatan Konjugat:**  
@@ -2620,6 +2642,7 @@ Asam poliprotik (seperti $\\ce{H3PO4}$ atau $\\ce{H2CO3}$) melepaskan proton sec
 - **Prinsip Evaluator:** Karena $K_{a1}$ bernilai ribuan hingga jutaan kali lebih besar daripada $K_{a2}$, maka konsentrasi $[\\ce{H+}]$ dan nilai pH larutan asam poliprotik **ditentukan secara dominan hanya oleh ionisasi tahap pertama ($K_{a1}$)**.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
@@ -2886,6 +2909,7 @@ Di soal ujian, sering disajikan hasil uji sampel air/larutan dengan beberapa ind
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
 > **Mitos Titik Ekuivalen vs Titik Akhir Titrasi:**  
@@ -3013,7 +3037,7 @@ Ralph Pearson (1963) mengklasifikasikan asam Lewis (akseptor elektron) dan basa 
   *Contoh:* Asam keras: $\\ce{H+, Li+, Na+, Mg^2+, Al^3+, Fe^3+}$; Basa keras: $\\ce{F-, OH-, H2O, NH3, CO3^2-}$.
 - **Spesies Lunak (*Soft*):** Berukuran besar, muatan rendah, dan polarisabilitas tinggi (mudah dideformasi awan elektronnya).  
   *Contoh:* Asam lunak: $\\ce{Ag+, Cu+, Hg^2+, Pt^2+, Au+}$; Basa lunak: $\\ce{I-, S^2-, CN-, SCN-, R3P}$.
-- **Prinsip Fundamental HSAB:** **"Asam keras lebih menyukai berikatan dengan basa keras (interaksi didominasi elektrostatik ionik), sedangkan asam lunak lebih menyukai berikatan dengan basa lunak (interaksi didominasi kovalen overlap)."**  
+- **Prinsip Fundamental HSAB:** *"Asam keras lebih menyukai berikatan dengan basa keras (didominasi interaksi elektrostatik ionik), sedangkan asam lunak lebih menyukai berikatan dengan basa lunak (didominasi tumpang-tindih kovalen)."*  
   *Penerapan:* $\\ce{Ag+}$ (asam lunak) membentuk endapan paling stabil dan sukar larut dengan $\\ce{I-}$ (basa lunak, $K_{sp} \\approx 10^{-16}$) dibandingkan $\\ce{Cl-}$ (basa relatif lebih keras, $K_{sp} \\approx 10^{-10}$).
 
 ---
@@ -3169,7 +3193,7 @@ $\\mathbf{\\text{p}K_a + \\text{p}K_b = 14.00}$
         tag: 'prasyarat-stoikiometri-reaksi-asam-basa-sisa',
         title: 'Prasyarat 2: Stoikiometri Pembentukan Campuran: Habis Reaksi vs Pereaksi Sisa',
         summary: 'Pemetaan hasil pencampuran asam dan basa: pembentukan garam netral, pembentukan garam terhidrolisis, atau pembentukan sistem penyangga.',
-        content: `Seringkali dalam soal ujian SMA dan OSN, kita dihadapkan pada pencampuran larutan asam dan basa. Karakteristik larutan akhir yang terbentuk ditentukan sepenuhnya oleh **stoikiometri mol zat yang bersisa atau habis bereaksi**.
+        content: `Dalam evaluasi soal kimia, pencampuran larutan asam dan basa menghasilkan karakteristik akhir yang ditentukan oleh **stoikiometri mol zat pereaksi**, apakah terdapat spesi yang bersisa atau tepat bereaksi habis.
 
 ### 1. Peta Logika Pencampuran Asam dan Basa
 
@@ -3194,6 +3218,7 @@ $\\mathbf{\\text{p}K_a + \\text{p}K_b = 14.00}$
    - Jika pereaksi **tepat habis dan hanya tersisa garam** $\\implies$ Gunakan rumus **Hidrolisis Garam**.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
@@ -3303,6 +3328,7 @@ Untuk larutan penyangga basa ($\\ce{B} + \\ce{BH+}$):
 $\\mathbf{[\\ce{OH-}] = K_b \\times \\frac{n_{\\text{basa lemah}}}{n_{\\text{asam konjugasi}}}} \\implies \\mathbf{\\text{pOH} = \\text{p}K_b + \\log\\left(\\frac{n_{\\text{asam konjugasi}}}{n_{\\text{basa lemah}}}\\right)}$
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
@@ -3536,6 +3562,7 @@ Perhatikan rumus kimia garam! Simbol $[\\ce{G}]$ menyatakan molaritas garam terl
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
 > **Jebakan Valensi Garam Polivalen & Mitos Konsentrasi pada Hidrolisis Total:**  
@@ -3555,7 +3582,7 @@ Perhatikan rumus kimia garam! Simbol $[\\ce{G}]$ menyatakan molaritas garam terl
         tags: ['efek-ion-senama', 'common-ion-effect', 'wilayah-buffer', 'kurva-titrasi-lemah'],
         title: 'Konsep Inti 5: Efek Ion Senama (Common-Ion Effect) & Wilayah Buffer pada Kurva Titrasi',
         summary: 'Penekanan derajat ionisasi elektrolit lemah akibat kehadiran ion senama dari garam serta visualisasi matematis zona buffer di kurva titrasi.',
-        content: `Pengaruh penambahan zat yang mengandung ion yang sudah ada di dalam larutan kesetimbangan disebut **Efek Ion Senama (*Common-Ion Effect*)**.
+        content: `Fenomena penambahan zat yang mengandung ion sejenis ke dalam kesetimbangan larutan dikenal sebagai **efek ion senama** (*common-ion effect*).
 
 ### 1. Prinsip Efek Ion Senama Berbasis Asas Le Chatelier
 Tinjau larutan asam asetat murni yang mengalami ionisasi lemah:
@@ -3564,7 +3591,7 @@ Jika ke dalam larutan tersebut ditambahkan garam natrium asetat ($\\ce{CH3COONa}
 $\\ce{CH3COONa(aq) -> Na+(aq) + CH3COO-(aq)}$
 
 Berdasarkan Asas Le Chatelier:
-- Peningkatan drastis konsentrasi $[\\ce{CH3COO-}]$ memaksa sistem bergeser **ke arah Kiri (arah reaktan)**.
+- Lonjakan konsentrasi ion $[\\ce{CH3COO-}]$ memaksa sistem bergeser ke arah kiri membentuk kembali molekul reaktan.
 - Akibatnya:
   1. Derajat ionisasi asam asetat ($\\alpha$) **anjlok secara dramatis**.
   2. Konsentrasi ion $[\\ce{H+}]$ berkurang.
@@ -3792,12 +3819,13 @@ $K = \\frac{[\\ce{A^{y+}}]^x [\\ce{B^{x-}}]^y}{[\\ce{A_x B_y(s)}]}$
 
 Dalam termodinamika kimia:
 - Konsentrasi atau kerapatan padatan kristal murni ($\\ce{A_x B_y(s)}$) adalah konstan dan aktivitas kimianya didefinisikan tepat bernilai $1$ ($a_{\\text{padatan}} = 1$).
-- Oleh karena itu, konsentrasi padatan digabungkan bersama tetapan kesetimbangan $K$ menghasilkan tetapan baru yang disebut **Tetapan Hasil Kali Kelarutan ($K_{sp}$ / *Solubility Product Constant*)**:
+- Oleh karena itu, konsentrasi padatan digabungkan ke dalam tetapan kesetimbangan menghasilkan **tetapan hasil kali kelarutan** ($K_{sp}$ / *solubility product constant*):
 $\\mathbf{K_{sp} = [\\ce{A^{y+}}]^x [\\ce{B^{x-}}]^y}$
 
 > **Makna Fisis Nilai $K_{sp}$:** Nilai $K_{sp}$ merupakan batas perkalian konsentrasi ion-ion dalam larutan jenuh pada suhu tertentu. Seperti tetapan kesetimbangan lainnya, nilai $K_{sp}$ **hanya dipengaruhi oleh temperatur**, dan tidak dipengaruhi oleh banyaknya padatan yang ada di dasar wadah.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
@@ -3923,6 +3951,7 @@ $\\mathbf{s (\\text{mol/L}) = \\frac{S (\\text{g/L})}{M_r (\\text{g/mol})}}$
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
 > **Jebakan Membandingkan Kelarutan Hanya dari Nilai Ksp:**  
@@ -3951,7 +3980,7 @@ $\\ce{AgCl(s) <=> Ag+(aq) + Cl-(aq)} \\quad K_{sp} = 1.8 \\times 10^{-10}$
 
 Jika $\\ce{AgCl}$ dilarutkan ke dalam larutan $\\ce{NaCl } 0.10\\text{ M}$:
 - Larutan $\\ce{NaCl}$ terionisasi sempurna memasok ion $\\ce{Cl-}$ dalam konsentrasi yang sangat pekat ($0.10\\text{ M}$).
-- Lonjakan konsentrasi ion $[\\ce{Cl-}]$ di ruas kanan memaksa sistem kesetimbangan bergeser **ke arah Kiri (arah pembentukan endapan padat $\\ce{AgCl}$)**.
+- Lonjakan konsentrasi ion $[\\ce{Cl-}]$ di ruas kanan memaksa sistem bergeser ke arah kiri membentuk endapan padat $\\ce{AgCl}$.
 - Akibatnya, jumlah ion $\\ce{Ag+}$ yang dapat larut menjadi jauh lebih sedikit dibandingkan dalam air murni.
 
 ---
@@ -4025,11 +4054,11 @@ $\\ce{Mg(OH)2(s) <=> Mg^2+(aq) + 2 OH-(aq)} \\quad K_{sp} = 1.8 \\times 10^{-11}
 
 - **Jika Lingkungan Asam ($\\text{pH}$ Diturunkan / Ditambah $\\ce{H+}$):**
   Ion $\\ce{H+}$ dari asam akan bereaksi mengikat ion $\\ce{OH-}$ membentuk air ($\\ce{H+ + OH- -> H2O}$).
-  Pengurangan drastis konsentrasi ion $[\\ce{OH-}]$ memaksa kesetimbangan bergeser **ke arah Kanan (arah pelarutan)**.
-  **Dampak:** Padatan $\\ce{Mg(OH)2}$ **melarut sempurna** dalam larutan asam.
+  Pengurangan drastis konsentrasi ion $[\\ce{OH-}]$ memaksa kesetimbangan bergeser ke arah kanan menuju pelarutan.
+  **Dampak:** Padatan $\\ce{Mg(OH)2}$ melarut sempurna dalam larutan asam.
 - **Jika Lingkungan Basa ($\\text{pH}$ Dinaikkan / Ditambah $\\ce{OH-}$):**
-  Penambahan ion hidroksida bertindak sebagai ion senama yang mendesak kesetimbangan bergeser **ke arah Kiri (arah pengendapan)**.
-  **Dampak:** Kelarutan $\\ce{Mg(OH)2}$ **anjlok** dan membentuk endapan putih pekat.
+  Penambahan ion hidroksida bertindak sebagai ion senama yang mendesak kesetimbangan bergeser ke arah kiri menuju pengendapan.
+  **Dampak:** Kelarutan $\\ce{Mg(OH)2}$ menurun drastis dan membentuk endapan putih pekat.
 
 ---
 
@@ -4152,6 +4181,7 @@ $[\\ce{A^{y+}}]_{\\text{campuran}} = \\frac{M_1 \\times V_1}{V_1 + V_2}$
    - **Status:** Larutan lewat jenuh $\\implies$ **Terbentuk endapan kristal padatan** yang memisahkan diri dari fasa larutan sampai konsentrasi ion yang tersisa di cairan memenuhi kembali $Q_{sp} = K_{sp}$.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA
@@ -4394,6 +4424,7 @@ Dimensi $1 - 100\\text{ nm}$ merupakan batas kritis dalam fisika-kimia materi. P
 - Partikel telah tersusun atas ribuan hingga jutaan atom/molekul yang berkumpul (agregat), sehingga tidak lagi berperilaku sebagai ion bebas terisolasi.
 - Namun ukuran tersebut masih cukup kecil sehingga partikel terus-menerus terlempar dan melayang akibat benturan termal molekul pelarut, mencegah sedimentasi instan oleh medan gravitasi bumi.
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Homogenitas Koloid (Makro vs Mikro)
 > Banyak siswa SMA mengira sistem koloid (seperti air susu atau cat tembok) adalah larutan sejati karena tampak homogen dan tidak memisah saat dilihat kasat mata. Secara **makroskopis** koloid memang tampak seragam, namun secara **mikroskopis** koloid adalah sistem **heterogen dua fasa**. Partikel koloid ($1 - 100\\text{ nm}$) terpisah nyata dari molekul medium pendispersinya, dan dapat dibuktikan melalui hamburan cahaya Efek Tyndall serta pemisahan menggunakan membran semipermeabel.`,
@@ -4423,6 +4454,7 @@ Bila suatu kubus padatan bermassa $1\\text{ gram}$ dengan rusuk $L_0 = 1\\text{ 
 Atom-atom di bagian dalam kristal (*bulk*) dikelilingi secara simetris oleh tetangganya, sehingga resultan gaya tarik antarmolekul bernilai nol. Sebaliknya, atom-atom di permukaan antarmuka mengalami ketidakseimbangan gaya tarik (gaya kohesi ke dalam pelarut lebih kecil daripada ke fasa padat), menghasilkan **tegangan permukaan (*surface tension*)** dan energi bebas antarmuka ($\\Delta G_{\\text{surface}} = \\gamma \\Delta A$).
 
 Karena $\\Delta A$ sangat besar, koloid secara termodinamika cenderung tidak stabil dan berupaya menurunkan energinya dengan cara saling bergabung (koagulasi/agregasi). Oleh sebab itu, suatu sistem koloid membutuhkan **mekanisme stabilisasi kinetik**, baik melalui muatan elektrostatik sejenis maupun penyelubungan molekular oleh surfaktan pelindung.
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Kestabilan Koloid (Termodinamika vs Kinetik)
@@ -4588,6 +4620,7 @@ Agar emulsi dapat bertahan stabil dalam waktu yang lama, diperlukan penambahan z
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Gas dalam Gas Bukan Koloid?
 > Sering kali dalam soal ujian siswa terkecoh memilih 'gas dalam gas' sebagai jenis koloid aerosol. **Gas dalam gas TIDAK PERNAH membentuk koloid!** Molekul-molekul gas berukuran angstrom ($< 1\\text{ nm}$), memiliki gaya tarik antarmolekul yang teramat lemah, dan berdifusi bebas ke segala arah dengan kenaikan entropi pencampuran yang sangat besar. Akibatnya, dua gas apa pun selalu saling melarutkan secara sempurna pada skala molekular membentuk **larutan sejati homogen satu fasa** (seperti udara bersih). Di alam semesta, **hanya ada 8 sistem koloid**, bukan 9!`,
@@ -4609,8 +4642,8 @@ Agar emulsi dapat bertahan stabil dalam waktu yang lama, diperlukan penambahan z
 Bila seberkas sinar cahaya tampak dilewatkan melalui larutan sejati (seperti larutan garam dapur), berkas sinar akan melintas lurus tanpa terlihat jalurnya dari samping karena partikel ion berukuran $< 1\\text{ nm}$, jauh lebih kecil daripada panjang gelombang cahaya tampak ($\\lambda = 400 - 700\\text{ nm}$).
 
 Namun, bila berkas sinar tersebut diarahkan ke dalam sistem koloid (seperti air susu atau kanji encer):
-- Partikel-partikel koloid berukuran $1 - 100\\text{ nm}$ yang sebanding dengan panjang gelombang cahaya akan **menghamburkan (*scatter*) foton cahaya ke segala arah**.
-- Hamburan cahaya ke samping ini membuat **jalur berkas sinar tampak berpendar terang** di dalam cairan koloid. Fenomena ini dinamakan **Efek Tyndall** (ditemukan oleh fisikawan John Tyndall pada tahun 1869).
+- Partikel koloid berukuran $1 - 100\text{ nm}$ yang sebanding dengan panjang gelombang cahaya akan menghamburkan (*scatter*) foton cahaya ke segala arah.
+- Hamburan ke samping ini membuat jalur berkas sinar tampak berpendar di dalam cairan koloid, fenomena yang dinamakan **Efek Tyndall** (ditemukan oleh fisikawan John Tyndall pada tahun 1869).
 
 > **Aplikasi & Fenomena Sehari-hari Efek Tyndall:**
 > 1. **Sorot Lampu Mobil di Malam Berkabut:** Berkas sinar lampu tampak jelas membentuk kerucut cahaya yang pekat karena dihamburkan oleh butiran air koloidal di udara kabut.
@@ -4624,7 +4657,7 @@ Namun, bila berkas sinar tersebut diarahkan ke dalam sistem koloid (seperti air 
 ### 2. Sifat Kinetik: Gerak Brown (*Brownian Motion*)
 Bila sistem koloid diamati di bawah mikroskop ultra (*ultramicroscope*), partikel koloid terlihat bergerak secara terus-menerus mengikuti lintasan patah-patah tak beraturan (zig-zag). Fenomena ini pertama kali diamati oleh ahli botani Robert Brown (1827) pada butir serbuk sari di air.
 
-- **Mekanisme Benturan Termal:** Gerak zig-zag tak beraturan ini terjadi akibat **tumbukan kinetik molekul-molekul medium pendispersi yang tidak seimbang** dari berbagai arah pada waktu yang bersamaan terhadap partikel koloid.
+- **Mekanisme Benturan Termal:** Gerak zig-zag acak ini terjadi akibat tumbukan kinetik molekul medium pendispersi yang tidak seimbang dari berbagai arah secara serempak.
 - **Rasional Fisika Einstein (1905):** Albert Einstein merumuskan hubungan kuantitatif pergeseran kuadrat rata-rata partikel Brown ($\\overline{x^2}$) dalam waktu $t$ melalui **Persamaan Einstein-Smoluchowski**:
   $$\\overline{x^2} = \\frac{2 k_B T}{6 \\pi \\eta r} t$$
   di mana $k_B$ adalah tetapan Boltzmann, $T$ temperatur absolut, $\\eta$ viskositas medium, dan $r$ jari-jari partikel koloid.
@@ -4711,6 +4744,7 @@ Bila sistem koloid diamati di bawah mikroskop ultra (*ultramicroscope*), partike
     <text x="137" y="246" fill="#64748b" font-size="8" text-anchor="middle">Menangkal gaya gravitasi: partikel koloid tidak mengendap!</text>
   </g>
 </svg>
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Pengamatan Gerak Brown
@@ -4853,6 +4887,7 @@ Berdasarkan model modern Stern-Gouy-Chapman, muatan permukaan partikel koloid di
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Perbedaan Adsorpsi vs Absorpsi
 > Jangan tertukar antara huruf 'D' dan 'B'!
@@ -4987,6 +5022,7 @@ Untuk melindungi koloid liofob yang rentan dari koagulasi elektrolit, sering dit
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Aturan Muatan Lawan Schulze-Hardy
 > Kesalahan paling fatal pada soal koagulasi adalah fokus pada ion yang salah!
@@ -5040,7 +5076,7 @@ Koloid yang baru dibuat sering kali masih mengandung ion-ion elektrolit pengotor
 ### 3. Koloid Asosiasi & Konsentrasi Misil Kritis (*CMC*)
 Surfaktan (seperti sabun natrium stearat atau detergen natrium dodesil sulfat / SDS) pada konsentrasi sangat encer berada dalam bentuk molekul/monomer bebas yang larut sempurna (larutan sejati).
 
-Namun, bila konsentrasi surfaktan dinaikkan hingga melampaui ambang batas tertentu yang disebut **Konsentrasi Misil Kritis (*Critical Micelle Concentration* / CMC)**:
+Namun, bila konsentrasi surfaktan dinaikkan melampaui ambang batas **konsentrasi misil kritis** (*critical micelle concentration* / CMC):
 - Ekor hidrofobik surfaktan saling merapat ke bagian dalam untuk menghindari kontak dengan air, sementara kepala polar menghadap ke arah pelarut air.
 - Terbentuklah agregat bola nano yang terdiri atas $50 - 100$ molekul surfaktan yang dinamakan **misil (*micelle*)**. Misil ini berukuran sekitar $2 - 5\\text{ nm}$, sehingga sistem berubah menjadi **koloid asosiasi**!
 - **Mekanisme Pembersihan Kotoran:** Minyak/lemak yang tidak larut air akan terperangkap dan dilarutkan di dalam inti hidrofobik misil sabun, memungkinkan kotoran terangkat dan terbilas bersih bersama air.
@@ -5112,6 +5148,7 @@ Namun, bila konsentrasi surfaktan dinaikkan hingga melampaui ambang batas terten
     <text x="170" y="252" fill="#2563eb" font-size="8.5" font-weight="bold" text-anchor="middle">Permukaan Hidrofilik berikatan dengan pelarut air.</text>
   </g>
 </svg>
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mitos Sabun Selalu Berbentuk Koloid

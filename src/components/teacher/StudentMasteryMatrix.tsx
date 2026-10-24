@@ -621,7 +621,7 @@ export const StudentMasteryMatrix: React.FC<StudentMasteryMatrixProps> = ({
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-[10px] font-bold rounded uppercase font-mono">
-                    Diagnostik Silabus AI
+                    Diagnostik Silabus
                   </span>
                   <span className="text-xs text-slate-500">
                     Pilar {selectedCell.pillarNumber}

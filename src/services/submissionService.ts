@@ -164,7 +164,7 @@ export async function saveWorksheetSubmission(
 }
 
 /**
- * Menyimpan pengerjaan lembar kerja siswa tanpa evaluasi AI (Menunggu Penilaian Manual Guru)
+ * Menyimpan pengerjaan lembar kerja siswa tanpa evaluasi otomatis (Menunggu Penilaian Manual Guru)
  */
 export async function savePendingWorksheetSubmission(
   payload: SavePendingSubmissionPayload

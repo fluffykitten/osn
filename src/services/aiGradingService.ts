@@ -1,6 +1,6 @@
 /**
  * aiGradingService.ts
- * Mesin Penilaian AI Standar Olimpiade Sains Nasional (OSN) Kimia Puspresnas / IChO
+ * Mesin Penilaian Otomatis Standar Olimpiade Sains Nasional (OSN) Kimia Puspresnas / IChO
  * Menghubungkan Gemini 2.5 Flash, Sanitasi LaTeX KaTeX, Rubrik Kriteria Multi-Tahap, dan Toleransi Numerik
  */
 
@@ -50,7 +50,7 @@ Pedoman Penilaian Keras (Grading Rules):
 }`;
 
 /**
- * Layanan utama untuk mengevaluasi jawaban siswa menggunakan AI
+ * Layanan utama untuk mengevaluasi jawaban siswa secara otomatis
  */
 export async function evaluateStudentWorksheet(
   request: GradingRequest
@@ -130,7 +130,7 @@ Bandingkan langkah siswa dengan rubrik resmi. Evaluasi apakah siswa memahami kon
 }
 
 /**
- * Menormalkan batas nilai dan konsistensi respon dari AI
+ * Menormalkan batas nilai dan konsistensi respon dari evaluator
  */
 function normalizeGradingResponse(
   resp: GradingResponse,

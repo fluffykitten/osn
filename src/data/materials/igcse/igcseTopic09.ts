@@ -228,7 +228,7 @@ Metals make up the majority of known chemical elements in the Periodic Table. In
 
 ### ✈️ Commercial Uses of Aluminium and Copper
 
-Cambridge mark schemes require candidates to specify **both the practical application and the exact physical property** that explains that choice:
+Cambridge mark schemes require candidates to specify both the practical application and the exact physical property that explains that choice:
 
 #### Aluminium ($\\ce{Al}$)
 1. **Manufacture of aircraft bodies**:
@@ -318,10 +318,10 @@ Cambridge mark schemes require candidates to specify **both the practical applic
         'Definition of an alloy as a mixture of a metal with other elements, structural explanation for why alloys are harder than pure metals (lattice distortion), and compositions of brass and stainless steel.',
       content: `### 🧪 What is an Alloy?
 
-An **alloy** is a **mixture of a metal with other elements** (which may be other metals or non-metals such as carbon).
+An **alloy** is a mixture of a metal with other elements (which may be other metals or non-metals such as carbon).
 
 - Alloys are physical mixtures, not chemical compounds; the components are not chemically bonded in fixed stoichiometric ratios.
-- Pure metals are often too soft for demanding architectural, structural, and mechanical applications. Alloying enhances **hardness**, **tensile strength**, and **resistance to corrosion**.
+- Pure metals are often too soft for demanding architectural, structural, and mechanical applications. Alloying enhances hardness, tensile strength, and resistance to corrosion.
 
 ---
 
@@ -332,12 +332,12 @@ This is one of the most frequently examined explanations in Cambridge IGCSE Chem
 1. **In pure metals**:
    - All atoms/ions are of the **same size**.
    - They form neat, regular rows and layers in a lattice.
-   - When a force is applied, these regular layers **slide easily over one another**, making pure metals relatively soft.
+   - When a force is applied, these regular layers slide easily over one another, making pure metals relatively soft.
 
 2. **In an alloy**:
    - Atoms of **different sizes** are introduced into the lattice.
    - These different-sized atoms **distort the regular arrangement** of the layers.
-   - The distorted structure **prevents the layers from sliding easily** past one another when a force is applied.
+   - The distorted structure prevents the layers from sliding easily past one another when a force is applied.
    - Consequently, the alloy is **harder and stronger** than the parent metal.
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px" role="img" aria-labelledby="igcse-t09-alloy-structure-hardness-title" data-diagram="igcse-t09-alloy-structure-hardness">
@@ -510,7 +510,7 @@ This is one of the most frequently examined explanations in Cambridge IGCSE Chem
 
 The **reactivity series** is an arrangement of metals in order of their chemical reactivity, from most reactive at the top to least reactive at the bottom. 
 
-A metal's reactivity corresponds to its **tendency to lose electrons to form positive ions (cations)**:
+A metal's reactivity corresponds to its tendency to lose electrons to form positive ions (cations):
 $$\\ce{M -> M^{n+} + ne^-}$$
 
 Metals at the top of the series lose electrons with great ease (readily oxidised, powerful reducing agents). Metals at the bottom hold onto their valence electrons tightly.
@@ -860,9 +860,9 @@ $$\\text{Metal} + \\text{Steam (g)} \\longrightarrow \\text{Metal Oxide (s)} + \
         'Solution displacement reactions (zinc in copper sulfate), solid state competition (thermite reaction), net ionic equations, and tracking redox roles.',
       content: `### 🔁 Displacement in Solution and Solid State
 
-A **displacement reaction** occurs when a **more reactive element displaces a less reactive element** from its compound:
-- The **more reactive metal** oxidises (loses electrons) $\\implies$ acts as the **reducing agent**.
-- The **less reactive metal cation** reduces (gains electrons) $\\implies$ acts as the **oxidising agent**.
+A **displacement reaction** occurs when a more reactive element displaces a less reactive element from its compound:
+- The more reactive metal oxidises (loses electrons) $\\implies$ acts as the **reducing agent**.
+- The less reactive metal cation reduces (gains electrons) $\\implies$ acts as the **oxidising agent**.
 
 ---
 
@@ -951,7 +951,7 @@ $$\\ce{Zn(s) + CuSO4(aq) -> ZnSO4(aq) + Cu(s)}$$
 $$\\ce{2Al(s) + Fe2O3(s) -> Al2O3(s) + 2Fe(l)}$$
 
 - Aluminium has a higher affinity for oxygen than iron does.
-- Highly exothermic ($> 2500^\\circ\\text{C}$), generating white-hot molten iron used to **weld railway tracks *in situ***.
+- Highly exothermic ($> 2500^\\circ\\text{C}$), generating white-hot molten iron used to weld railway tracks *in situ*.
 `,
       checkpointQuizzes: [
         {

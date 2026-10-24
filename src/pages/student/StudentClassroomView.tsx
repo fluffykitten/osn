@@ -572,7 +572,7 @@ export const StudentClassroomView: React.FC = () => {
             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
               <div className="flex items-center gap-2 text-indigo-900 font-bold text-xs">
                 <Sparkles className="w-4 h-4 text-indigo-600" />
-                <span>Monitoring Live & Evaluasi AI</span>
+                <span>Monitoring Live & Evaluasi Otomatis</span>
               </div>
               <p className="text-xs text-slate-600 leading-relaxed">
                 Jawaban Anda akan dinilai otomatis berdasarkan rubrik olimpiade Puspresnas/IChO, dan Guru

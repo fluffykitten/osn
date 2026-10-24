@@ -4,7 +4,7 @@
  * Mengadopsi tata letak visual bertema sains kimia (serupa MaterialsDatabase)
  * dengan Segmented Dual Switcher (10 Pilar OSN vs 16 Modul SMA),
  * Kartu Topik Interaktif dengan TopicSvgArt, Progress Mastery,
- * Stacked Difficulty Bar ala LeetCode, Latihan Kilat AI, dan Drawer Butir Soal.
+ * Stacked Difficulty Bar ala LeetCode, Latihan Kilat, dan Drawer Butir Soal.
  */
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
@@ -309,7 +309,7 @@ export const PracticeBank: React.FC = () => {
     });
   }, [activeDatabase, searchQuery, selectedCategory, selectedGrade]);
 
-  // Handler Latihan Kilat (AI Mode) dari Kartu Topik
+  // Handler Latihan Kilat dari Kartu Topik
   const handleQuickDrill = (topicNumber: number) => {
     const topicQuestions = getQuestionsForTopic(allQuestions, topicNumber, activeDatabase);
     const drillIds = getQuickDrillQuestionIds(topicQuestions, submissions, 3);

@@ -52,7 +52,7 @@ export function cleanAndParseJson<T = any>(rawText: string, fallback?: T): T {
       console.warn('cleanAndParseJson: Gagal parse JSON, mengembalikan fallback default.', errFinal);
       return fallback;
     }
-    throw new Error(`cleanAndParseJson: Gagal mengurai JSON respon AI (${(errFinal as Error).message}). Output mentah: ${rawText.slice(0, 200)}...`);
+    throw new Error(`cleanAndParseJson: Gagal mengurai JSON respon evaluator (${(errFinal as Error).message}). Output mentah: ${rawText.slice(0, 200)}...`);
   }
 }
 

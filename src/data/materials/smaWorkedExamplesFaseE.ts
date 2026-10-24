@@ -64,6 +64,7 @@ Ketika konsentrasi katalis dinaikkan 2 kali lipat (dari $0.1\\text{ M}$ ke $0.2\
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Pembeda Utama Variabel Kontrol vs Kelompok Kontrol:** Variabel kontrol adalah *parameter fisik* yang sengaja disamakan (suhu, volume, wadah), sedangkan kelompok kontrol adalah *sampel eksperimen pembanding* tanpa perlakuan (misal: tabung tanpa katalis). Di soal Asesmen Kompetensi Minimum (AKM) dan UTBK, kelompok kontrol negatif selalu berfungsi sebagai tolok ukur validitas data.`,
@@ -114,6 +115,7 @@ $$\\rho = \\mathbf{0.7871\\text{ g/mL}}$$
 $$\\% \\text{ Galat} = \\left| \\frac{\\rho_{\\text{hitung}} - \\rho_{\\text{lit}}}{\\rho_{\\text{lit}}} \\right| \\times 100\\% = \\left| \\frac{0.7871 - 0.789}{0.789} \\right| \\times 100\\% = \\frac{0.0019}{0.789} \\times 100\\% = \\mathbf{0.24\\%}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -184,6 +186,7 @@ Metode B jauh lebih ramah lingkungan karena:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Beda Persen Hasil vs Persen Ekonomi Atom:**  
@@ -240,6 +243,7 @@ $$\\ce{H2SO4(aq) + 2 NaHCO3(s) -> Na2SO4(aq) + 2 CO2(g)^ + 2 H2O(l)}$$
    $$m_{\\ce{NaHCO3}} = 0.9192\\text{ mol} \\times 84.01\\text{ g/mol} = \\mathbf{77.22\\text{ gram}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -300,6 +304,7 @@ Proses ini tergolong **perubahan fisika murni** karena:
 - Komponen dapat dipisahkan kembali ke bentuk aslinya murni melalui metode fisika (magnet, filtrasi, dan evaporasi).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -366,6 +371,7 @@ x &= \\frac{-0.20}{-1.00} = 0.20
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Cepat Ujian Menghitung Kelimpahan 2 Isotop:**  
@@ -415,6 +421,7 @@ Kombinasi kuantum: $\\mathbf{(4, 1, 0, +\\frac{1}{2})}$
 - **Golongan:** Elektron valensi pada kulit terluar ($n=4$) adalah $4s^2 4p^2$. Karena elektron terakhir berada di blok $p$, nomor golongan ditentukan oleh jumlah elektron $(s + p) = 2 + 2 = 4 \\implies \\mathbf{\\text{Golongan 14 (IVA)}}$. Subkulit $3d^{10}$ yang sudah penuh tidak dihitung sebagai elektron valensi golongan utama.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -468,6 +475,7 @@ Saat membentuk kation, elektron yang dilepas pertama kali WAJIB berasal dari kul
 - **Sifat Kemagnetan:** Karena $\\ce{Fe^3+}$ memiliki lebih banyak elektron tak berpasangan ($5$ buah) dibanding $\\ce{Fe^2+}$ ($4$ buah), maka **ion $\\ce{Fe^3+}$ bersifat paramagnetik lebih kuat** (momen magnetik $\\mu = \\sqrt{n(n+2)}$ lebih besar).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -524,6 +532,7 @@ Hitung rasio kenaikan energi ionisasi:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Kaidah Lonjakan Energi Ionisasi:**  
@@ -574,6 +583,7 @@ Karena jumlah elektron ($10$) dan jumlah kulit ($n=2$) pada semua spesi identik,
 - **Pada anion $\\ce{N^3-}$ ($Z = 7$):** Hanya ada $7$ proton yang harus menahan $10$ elektron. Rasio muatan inti terhadap elektron hanya $\\frac{7}{10} = 0.70$. Tarikan inti relatif lemah sementara gaya tolak-menolak antar-elektron (*electron-electron repulsion*) pada kulit $2p$ dominan, menyebabkan awan elektron mengembang maksimal sehingga jari-jarinya paling raksasa ($146\\text{ pm}$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -632,6 +642,7 @@ Karena terjadi resonansi sempurna, ikatan nyata ion karbonat adalah **hibrida re
 - Akibatnya, ketiga ikatan $\\ce{C-O}$ memiliki panjang ikatan yang identik ($128\\text{ pm}$), berada di antara ikatan tunggal murni $\\ce{C-O}$ ($143\\text{ pm}$) dan ikatan rangkap murni $\\ce{C=O}$ ($120\\text{ pm}$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -692,6 +703,7 @@ $$\\mathbf{\\text{Tolakan PEB - PEB} > \\text{Tolakan PEB - PEI} > \\text{Tolaka
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Rumus Praktis Penurunan Sudut Ikatan:**  
@@ -751,6 +763,7 @@ Suatu molekul bersifat **nonpolar** jika memenuhi salah satu kriteria:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Super Cepat Cek Kepolaran di UTBK:**  
@@ -807,6 +820,7 @@ $n$-Pentana dan neopentana memiliki rumus molekul sama ($\\ce{C5H12}$, $M_r = 72
 - **Neopentana:** Berbentuk bola sferis bercabang rapat, luas bidang kontak sangat kecil, sehingga gaya London lemah dan titik didih rendah ($9.5^\\circ\\text{C}$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -871,6 +885,7 @@ Di laboratorium sekolah dilakukan pengujian sifat fisik terhadap empat sampel za
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Tabel Kunci Identifikasi Zat pada Soal Ujian:**  
@@ -929,6 +944,7 @@ Senyawa antar-nonlogam menggunakan awalan bilangan Yunani (*mono, di, tri, tetra
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Aturan Emas Awalan Yunani:**  
@@ -985,6 +1001,7 @@ Kedua senyawa berisomer molekul $\\ce{C8H18}$ ($M_r = 114\\text{ g/mol}$) dan be
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Hierarki Prioritas Tata Nama Alkana:**  
@@ -1039,6 +1056,7 @@ $$\\mathbf{\\ce{Ca3(PO4)2(s) + 2 H2SO4(aq) -> Ca(H2PO4)2(s) + 2 CaSO4(s)}}$$
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Aljabar Grup Poliatomik:**  
@@ -1086,6 +1104,7 @@ Coret/eliminasi seluruh ion penonton dari kedua ruas:
 $$\\mathbf{\\ce{Ba^2+(aq) + SO4^2-(aq) -> BaSO4(s)}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1155,6 +1174,7 @@ Sebuah tabung gas Elpiji berisi campuran $4.40\\text{ kg}$ gas propana ($\\ce{C3
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Mengapa Lilin Terbakar Massanya Tampak Berkurang?**  
@@ -1212,6 +1232,7 @@ Fakta ini membuktikan kebenaran Hukum Perbandingan Berganda Dalton: *"Jika dua u
 - **Hukum Dalton (Perbandingan Berganda):** Berlaku saat dua unsur membentuk **DUA ATAU LEBIH senyawa berbeda** (misal: $\\ce{SO2}$ dan $\\ce{SO3}$, atau $\\ce{CO}$ dan $\\ce{CO2}$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1277,6 +1298,7 @@ Maka Rumus Molekulnya adalah $(\\ce{CH2O})_6 = \\mathbf{\\ce{C6H12O6}}$ (senyawa
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Fatal Menghitung Oksigen:**  
@@ -1333,6 +1355,7 @@ Gunakan hukum gas ideal $PV = nRT$:
 $$V = \\frac{nRT}{P} = \\frac{0.250\\text{ mol} \\times 0.08206 \\times 300\\text{ K}}{2.0\\text{ atm}} = \\frac{6.1545}{2.0} = \\mathbf{3.08\\text{ Liter}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1398,6 +1421,7 @@ $$V_{\\ce{H2}} = n \\times 22.4\\text{ L/mol} = 0.100 \\times 22.4 = \\mathbf{2.
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Miskonsepsi Fatal Pereaksi Pembatas:**  
@@ -1454,6 +1478,7 @@ Produk aktual yang diperoleh di laboratorium adalah $10.08\\text{ gram}$:
 $$\\% \\text{ Hasil} = \\frac{m_{\\text{aktual}}}{m_{\\text{teoretis}}} \\times 100\\% = \\frac{10.08\\text{ g}}{11.20\\text{ g}} \\times 100\\% = \\mathbf{90.00\\%}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)

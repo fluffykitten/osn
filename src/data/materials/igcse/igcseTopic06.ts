@@ -106,7 +106,7 @@ In chemistry, changes in matter are strictly categorised into two broad classes:
         'Quantitative definition of rate of reaction and three principal Cambridge laboratory methods: collection of gas via syringe, loss of mass on balance, and turbidity timing with the disappearing cross.',
       content: `### ⏱️ Quantitative Definition of Reaction Rate
 
-The **rate of a chemical reaction** is the speed at which reactants are converted into products:
+The rate of a chemical reaction is the speed at which reactants are converted into products:
 $$\\text{Rate} = \\frac{\\text{Change in amount of reactant or product}}{\\text{Time taken}}$$
 
 Common units include:
@@ -374,7 +374,7 @@ When graphing reaction progress:
 
 According to **collision theory**, particles can only react when:
 1. They **collide with each other**.
-2. They collide with **sufficient kinetic energy**, greater than or equal to the **activation energy** ($E_k \\ge E_a$).
+2. They collide with sufficient kinetic energy, greater than or equal to the **activation energy** ($E_k \\ge E_a$).
 3. They collide with the **correct orientation**.
 
 Collisions that fulfill these criteria are called **successful (or fruitful) collisions**.
@@ -589,9 +589,9 @@ $$\\text{Reactants} \\rightleftharpoons \\text{Products}$$
       content: `### ⚖️ The Characteristics of Dynamic Equilibrium
 
 In a **closed system** (where no matter can enter or escape):
-1. The **rate of the forward reaction equals the rate of the reverse reaction**:
+1. Forward and reverse reaction rates are equal:
    $$\\text{Rate}_\\text{forward} = \\text{Rate}_\\text{reverse}$$
-2. The **concentrations of reactants and products remain constant** over time.
+2. Concentrations of reactants and products remain constant over time.
 3. Both reactions continue to occur simultaneously at molecular scale (hence **dynamic**).
 
 ---
@@ -712,9 +712,10 @@ $$\\ce{N2(g) + 3H2(g) <=> 2NH3(g)} \\quad \\Delta H = -92\\text{ kJ/mol}$$
 | **In terms of Electrons** | **Loss** of electrons (**OIL**) | **Gain** of electrons (**RIG**) |
 | **In terms of Oxidation Number** | **Increase** in oxidation state | **Decrease** in oxidation state |
 
-Mnemonic: **OIL RIG**
-> **O**xidation **I**s **L**oss of electrons  
-> **R**eduction **I**s **G**ain of electrons
+> [!TIP]
+> ### 💡 Mnemonic: OIL RIG
+> - **OIL**: Oxidation Is Loss of electrons
+> - **RIG**: Reduction Is Gain of electrons
 
 <svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t06-redox-oil-rig-electron-transfer-title igcse-t06-redox-oil-rig-electron-transfer-desc" data-diagram="igcse-t06-redox-oil-rig-electron-transfer" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
   <title id="igcse-t06-redox-oil-rig-electron-transfer-title">Electron transfer in redox reactions (OIL RIG)</title>

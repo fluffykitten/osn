@@ -33,7 +33,7 @@ export const RemedialRecommendationsCard: React.FC<RemedialRecommendationsCardPr
               Rekomendasi Remedial & Penguatan Konsep
             </h3>
             <p className="text-xs text-slate-500">
-              Disusun otomatis oleh AI berdasarkan analisis kelemahan dan miskonsepsi pengerjaan Anda.
+              Disusun otomatis oleh sistem berdasarkan analisis kelemahan dan miskonsepsi pengerjaan Anda.
             </p>
           </div>
         </div>

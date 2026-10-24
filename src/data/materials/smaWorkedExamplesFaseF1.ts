@@ -75,6 +75,7 @@ Tanda $\\Delta H$ bernilai negatif ($\\Delta H < 0$) dan suhu campuran naik, mem
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Satuan & Tanda Aljabar pada Kalorimetri:**  
@@ -147,6 +148,7 @@ $$V(\\ce{O2}) = n \\times 22.4\\text{ L/mol} = 1.00\\text{ mol} \\times 22.4\\te
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Kaidah Definisi 1 Mol Standar:**  
@@ -199,17 +201,17 @@ $$\\mathbf{\\ce{2 C(s, grafit) + H2(g) -> C2H2(g)}}$$
 Mari kita cocokkan setiap komponen target dengan reaksi yang tersedia:
 - **Atom Karbon ($\\ce{2 C(s)}$ di ruas kiri):**  
   Tersedia di Reaksi (1) di ruas kiri dengan koefisien 1.  
-  $\\implies$ **Kalikan Reaksi (1) dengan faktor 2**:
+  $\\implies$ Kalikan Reaksi (1) dengan **faktor 2**:
   $$\\ce{2 C(s) + 2 O2(g) -> 2 CO2(g)} \\quad \\Delta H_A = 2 \\times (-393.5) = \\mathbf{-787.0\\text{ kJ}}$$
 
 - **Gas Hidrogen ($\\ce{1 H2(g)}$ di ruas kiri):**  
   Tersedia di Reaksi (2) di ruas kiri dengan koefisien 1 (sudah pas!).  
-  $\\implies$ **Pertahankan Reaksi (2) apa adanya**:
+  $\\implies$ Pertahankan Reaksi (2) tanpa perubahan:
   $$\\ce{H2(g) + 1/2 O2(g) -> H2O(l)} \\quad \\Delta H_B = \\mathbf{-285.8\\text{ kJ}}$$
 
 - **Gas Asetilena ($\\ce{1 C2H2(g)}$ di ruas kanan):**  
   Tersedia di Reaksi (3) di ruas kiri dengan koefisien 2.  
-  $\\implies$ **Balik Reaksi (3) dan bagi dengan faktor 2** (tanda $\\Delta H$ berubah menjadi positif):
+  $\\implies$ Balik Reaksi (3) dan **bagi dengan faktor 2** (tanda $\\Delta H$ berubah menjadi positif):
   $$\\ce{2 CO2(g) + H2O(l) -> C2H2(g) + 5/2 O2(g)} \\quad \\Delta H_C = \\frac{+2598.8\\text{ kJ}}{2} = \\mathbf{+1299.4\\text{ kJ}}$$
 
 #### Langkah 2: Eliminasi Zat Perantara (Auditing Neraca Reaksi)
@@ -238,6 +240,7 @@ $$\\begin{aligned}
 **Interpretasi Nilai:** $\\Delta H_f^\\circ$ bernilai positif ($+226.6\\text{ kJ/mol}$) menunjukkan bahwa gas asetilena adalah senyawa **endotermik**. Senyawa ini menyimpan energi kimia laten yang sangat tinggi, yang menjelaskan mengapa pembakarannya menghasilkan suhu luar biasa panas ($> 3000^\\circ\\text{C}$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -325,6 +328,7 @@ $$\\Delta H_{\\text{reaksi}}^\\circ = \\sum (n \\times \\Delta H_f^\\circ)_{{\\t
    $$\\text{Massa Etanol} = n \\times M_r = 0.6554\\text{ mol} \\times 46.0\\text{ g/mol} = \\mathbf{30.15\\text{ gram}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -422,6 +426,7 @@ Energi ikatan didefinisikan secara termodinamika murni sebagai energi yang dibut
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Hati-Hati Arah Pengurangan (Reaktan vs Produk):**  
@@ -512,6 +517,7 @@ v_4 &= k [\\\\ce{NO}]^2 [\\\\ce{O2}] \\\\\\\\
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Mitos Koefisien Reaksi:** Kebetulan pada soal ini orde reaksi $\\\\ce{NO}$ bernilai $2$ dan $\\\\ce{O2}$ bernilai $1$, persis sama dengan koefisien stoikiometri reaksinya ($\\\\ce{2 NO + 1 O2 -> 2 NO2}$). Namun, **ini hanyalah kebetulan kinetik**!  
@@ -585,6 +591,7 @@ $$t_{80} = \\\\frac{2}{3} \\\\times 60\\\\text{ detik} = \\\\mathbf{40\\\\text{ 
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Menghindari Kesalahan Satuan:**  
@@ -656,6 +663,7 @@ Agar terjadi reaksi, ikatan lama $\\\\ce{A-A}$ dan $\\\\ce{B-B}$ harus putus ber
 Jika molekul $\\\\ce{A2}$ menabrak molekul $\\\\ce{B2}$ dari ujung yang salah (misalnya hanya satu atom A yang menyentuh satu atom B sementara atom A kedua berada terlalu jauh dari atom B kedua), kompleks teraktivasi empat pusat $[\\\\ce{A...B...B...A}]^\\\\ddagger$ tidak dapat terstabilkan. Akibatnya, meskipun energi kinetik kedua molekul sangat tinggi ($E_k \\\\ge E_a$), kedua molekul hanya akan terpental kembali secara elastis tanpa terjadi pertukaran atom.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -737,6 +745,7 @@ Volume gas total pada STP ($V_m = 22.4\\\\text{ L/mol}$):
 $$V_{\\\\text{total (STP)}} = n_{\\\\text{total}} \\\\times 22.4\\\\text{ L/mol} = 1.200\\\\text{ mol} \\\\times 22.4\\\\text{ L/mol} = \\\\mathbf{26.88\\\\text{ Liter}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -824,6 +833,7 @@ $$M_2 = \\\\frac{M_1 \\\\times V_1}{V_2} = \\\\frac{2.0\\\\text{ M} \\\\times 50
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Mengendalikan Variabel Eksperimen:**  
@@ -909,6 +919,7 @@ $$K_{\\\\text{salah}} = \\\\frac{(0.400)^2}{(0.200)^2 \\\\times 0.200} = 20.0 \\
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Hemat Waktu Ujian (Kapan Volume Boleh Diabaikan?):**  
@@ -977,6 +988,7 @@ $$K_c = \\\\frac{0.160}{598.59} = \\\\mathbf{2.67 \\\\times 10^{-4}}$$
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Fasa Zat Heterogen:**  
@@ -1023,14 +1035,14 @@ Mari kita analisis posisi dan koefisien zat target dari kedua reaksi perantara y
    - Berasal dari **Reaksi 1**.  
    - Pada Reaksi 1, $\\\\ce{H2O}$ sudah berada di ruas kiri dan $\\\\ce{H2}$ di ruas kanan (arah sudah tepat).  
    - Namun koefisien pada Reaksi 1 adalah $2$, sedangkan pada reaksi target koefisiennya adalah $1$.  
-   - Maka Reaksi 1 harus **dikalikan faktor $\\\\frac{1}{2}$ (dibagi 2)**:
+   - Maka Reaksi 1 perlu dikalikan faktor $\\\\frac{1}{2}$ (dibagi 2):
      $$\\\\ce{H2O(g) <=> H2(g) + 1/2 O2(g)} \\\\quad K'_1 = (K_1)^{1/2} = \\\\sqrt{K_1}$$
      $$K'_1 = \\\\sqrt{4.0 \\\\times 10^{-10}} = \\\\mathbf{2.0 \\\\times 10^{-5}}$$
 
 2. **Spesi $\\\\ce{CO(g)}$ dan $\\\\ce{CO2(g)}$:**  
    - Berasal dari **Reaksi 2**.  
    - Pada reaksi target, $\\\\ce{CO}$ berada di ruas kiri dan $\\\\ce{CO2}$ di ruas kanan (berlawanan dengan Reaksi 2).  
-   - Maka Reaksi 2 harus **dibalik arahnya** dan **dikalikan faktor $\\\\frac{1}{2}$**:
+   - Maka Reaksi 2 perlu dibalik arahnya dan dikalikan faktor $\\\\frac{1}{2}$:
      $$\\\\ce{CO(g) + 1/2 O2(g) <=> CO2(g)} \\\\quad K'_2 = \\\\left(\\\\frac{1}{K_2}\\\\right)^{1/2} = \\\\frac{1}{\\\\sqrt{K_2}}$$
      $$K'_2 = \\\\frac{1}{\\\\sqrt{1.6 \\\\times 10^{-11}}} = \\\\frac{1}{\\\\sqrt{16 \\\\times 10^{-12}}} = \\\\frac{1}{4.0 \\\\times 10^{-6}} = \\\\mathbf{2.5 \\\\times 10^5}$$
 
@@ -1058,6 +1070,7 @@ Terbukti bahwa nilai $K_p = K_c = 5.0$.
 - **Kesetimbangan Kimia (Tetapan $K$):** Bersifat **multiplikatif-eksponensial**. Reaksi dibalik $\\\\implies$ nilai diinverskan ($1/K$). Reaksi dikali $n$ $\\\\implies$ nilai dipangkatkan ($K^n$). Reaksi dijumlahkan $\\\\implies$ nilai dikalikan ($K_1 \\\\times K_2$).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1135,13 +1148,14 @@ $$Q_c = 200 \\\\quad \\\\text{dan} \\\\quad K_c = 0.500 \\\\implies \\\\mathbf{Q
 
 3. **Penambahan Gas Helium pada Volume Tetap:**
    - Karena volume wadah konstan dan Helium tidak bereaksi, konsentrasi molar ($n/V$) maupun tekanan parsial dari gas $\\\\ce{N2}, \\\\ce{H2},$ dan $\\\\ce{NH3}$ sama sekali tidak berubah.
-   - Dampak: **TIDAK MENGGESER KESETIMBANGAN SAMA SEKALI** dan **nilai $K_c$ TETAP**.
+   - Dampak: Tidak menggeser kesetimbangan dan nilai $K_c$ tetap konstan.
 
 4. **Penambahan Serbuk Katalis Besi ($\\\\ce{Fe}$):**
    - Katalis menurunkan energi aktivasi reaksi maju dan balik sama besar.
-   - Dampak: **TIDAK MENGGESER KESETIMBANGAN** dan **nilai $K_c$ TETAP**; katalis hanya mempercepat durasi waktu yang dibutuhkan untuk mencapai keadaan setimbang.
+   - Dampak: Tidak menggeser kesetimbangan dan nilai $K_c$ tetap konstan; katalis hanya mempercepat durasi waktu untuk mencapai keadaan setimbang.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1232,6 +1246,7 @@ $$K_p = \\\\frac{4 \\\\times (0.40)^2}{1 - (0.40)^2} \\\\times 1.50 = \\\\frac{4
    Karena suhu konstan, nilai $K_p$ adalah bilangan tetap. Jika volume wadah diperbesar, $P_{\\\\text{total}}$ turun. Agar perkalian menghasilkan nilai $K_p$ yang tetap sama, maka faktor $\\\\frac{4 \\\\alpha^2}{1 - \\\\alpha^2}$ harus membesar, yang berarti nilai $\\\\alpha$ wajib meningkat!
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1337,6 +1352,7 @@ Menurut Gilbert N. Lewis:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Hierarki 3 Teori Asam-Basa:**  
@@ -1418,6 +1434,7 @@ Pada temperatur standar $25^{\\circ}\\text{C}$, titik netral berada tepat pada $
 - Indikator Alizarin Kuning akan menunjukkan warna **KUNING**.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1516,6 +1533,7 @@ $$\\\\% = \\\\frac{M \\\\times M_r}{10 \\\\times \\\\rho} = \\\\frac{1.20 \\\\ti
 - Sebaliknya, **Metil Jingga (MO)** berubah warna pada $\\\\text{pH } 3.1 - 4.4$ (suasana asam). Jika digunakan, MO akan berubah warna jauh sebelum titik ekuivalen tercapai, menimbulkan galat titrasi negatif yang fatal.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1625,6 +1643,7 @@ Bandingkan perubahan nilai pH pada setiap tahapan:
 Skala pH adalah fungsi logaritmik ($-\\\\log[\\\\ce{H+}]$). Ketika mendekati titik ekuivalen, konsentrasi sisa ion hidrogen anjlok dari orde $10^{-2}\\\\text{ M}$ menuju $10^{-7}\\\\text{ M}$ (penurunan 5 orde magnitudo / 100.000 kali lipat) hanya karena penambahan beberapa tetes basa penitrasi. Penurunan konsentrasi eksponensial inilah yang menghasilkan lonjakan kurva vertikal sigmoid yang sangat terjal!
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -1740,6 +1759,7 @@ Ralph Pearson mengklasifikasikan spesies asam dan basa Lewis berdasarkan ukuran 
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Kapan Aturan 5% Gagal pada Soal Ujian Kimia?**  
@@ -1842,6 +1862,7 @@ Terbukti secara matematis bahwa pengenceran tidak mengubah rasio stoikiometri ko
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Trik Operasi Mol Henderson-Hasselbalch:**  
@@ -1931,6 +1952,7 @@ $$\\\\mathbf{\\\\text{pH} = 14.000 - \\\\text{pOH} = 14.000 - 4.444 = \\\\mathbf
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Pohon Keputusan Ujian: Buffer vs Hidrolisis Garam:**  
@@ -2019,6 +2041,7 @@ $$\\\\mathbf{\\\\text{pH} = 14.000 - 5.350 = \\\\mathbf{8.650 \\\\approx 8.65}}$
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Jebakan Maut Valensi Garam Polivalen:**  
@@ -2103,6 +2126,7 @@ Penambahan $\\\\ce{CH3COONa } 0.100\\\\text{ M}$ memasukkan ion asetat senama ($
    - Pada titik ini, resistensi larutan terhadap penambahan asam maupun penambahan basa berada pada puncaknya. Secara matematis pada kurva titrasi, gradien perubahan kurva $d\\\\text{pH}/dV$ mencapai nilai minimum lokal (kurva tampak paling mendatar).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2192,6 +2216,7 @@ Dalam tubuh manusia sehat pada temperatur fisiologis $37^\\\\circ\\\\text{C}$, n
    - **Kompensasi Ginjal (Renal Bertahap):** Nefron ginjal meningkatkan sekresi ion $\\\\ce{H+}$ ke dalam urine dan mereabsorpsi ion $\\\\ce{HCO3-}$ kembali ke sirkulasi darah dalam rentang beberapa jam hingga hari untuk memulihkan cadangan buffer bikarbonat.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2293,6 +2318,7 @@ Di laboratorium kimia analitik sekolah, siswa melakukan investigasi kuantitatif 
      $$\\text{massa}_{\\text{maks}} = 6.20 \\times 10^{-4}\\text{ gram} = \\mathbf{0.620\\text{ mg}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2397,6 +2423,7 @@ c) Larutan timbal(II) nitrat ($\\ce{Pb(NO3)2}$) $0.10\\text{ M}$ (ion senama kat
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Aturan Aproksimasi Cepat Ion Senama:**  
@@ -2456,8 +2483,7 @@ Diketahui $K_{sp}(\\ce{Ag2CrO4}) = 8.80 \\times 10^{-12}$.
 
 3. **Perbandingan $Q_{sp}$ dengan $K_{sp}$:**
    $$Q_{sp} = 5.76 \\times 10^{-10} \\quad \\text{vs} \\quad K_{sp} = 1.10 \\times 10^{-10}$$
-   Karena $\\mathbf{Q_{sp} > K_{sp}}$, larutan berada dalam kondisi **lewat jenuh (*supersaturated*)**.
-   **Kesimpulan Percobaan A:** **TERBENTUK ENDAPAN PUTIH $\\ce{BaSO4}$**.
+   Karena $Q_{sp} > K_{sp}$, larutan berada dalam kondisi lewat jenuh (*supersaturated*), sehingga terbentuk endapan putih $\\ce{BaSO4}$.
 
 ---
 
@@ -2478,10 +2504,10 @@ Diketahui $K_{sp}(\\ce{Ag2CrO4}) = 8.80 \\times 10^{-12}$.
 
 3. **Perbandingan $Q_{sp}$ dengan $K_{sp}$:**
    $$Q_{sp} = 1.28 \\times 10^{-13} \\quad \\text{vs} \\quad K_{sp} = 8.80 \\times 10^{-12}$$
-   Karena $\\mathbf{Q_{sp} < K_{sp}}$, larutan berada dalam kondisi **belum jenuh (*unsaturated*)**.
-   **Kesimpulan Percobaan B:** **TIDAK TERBENTUK ENDAPAN** (larutan tetap homogen jernih berwarna kuning kromat).
+   Karena $Q_{sp} < K_{sp}$, larutan berada dalam kondisi belum jenuh (*unsaturated*), sehingga tidak terbentuk endapan (larutan tetap homogen jernih).
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2580,6 +2606,7 @@ $$\\text{pOH} = 14.00 - 8.00 = 6.00 \\implies [\\ce{OH-}] = 1.00 \\times 10^{-6}
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Strategi Pemisahan Kation Logam Berdasarkan Regulasi pH:**  
@@ -2634,8 +2661,7 @@ Garam akan mengendap jika $Q_{sp} \\ge K_{sp}$.
 
 **Analisis Urutan:**
 $$[\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgI}) = 4.25 \\times 10^{-15}\\text{ M} \\ll [\\ce{Ag+}]_{\\text{kritis}}(\\ce{AgCl}) = 9.00 \\times 10^{-9}\\text{ M}$$
-Karena ion iodida membutuhkan konsentrasi ion perak yang jauh lebih kecil (sekitar $2$ juta kali lebih sedikit!), maka:
-**Endapan kuning pucat $\\ce{AgI}$ akan MENGENDAP TERLEBIH DAHULU**.
+Karena ion iodida membutuhkan konsentrasi ion perak yang jauh lebih kecil (sekitar $2$ juta kali lebih sedikit), garam $\\ce{AgI}$ (endapan kuning pucat) akan mengendap terlebih dahulu.
 
 ---
 
@@ -2671,6 +2697,7 @@ Untuk mengendapkan seluruh ion $\\ce{I-}$ dalam $500.0\\text{ mL}$ larutan:
   $$V(\\ce{AgNO3}) = \\frac{n}{M} = \\frac{10.0\\text{ mmol}}{0.0500\\text{ mmol/mL}} = \\mathbf{200.0\\text{ mL}}$$
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2727,11 +2754,11 @@ Berdasarkan wujud fasa terdispersi (zat yang terbagi halus) dan medium pendisper
    - **Medium Pendispersi:** Cair (air cuka pada mayones / air pada santan).
    - **Nama Koloid:** **Emulsi (Emulsi Cair / Minyak dalam Air, O/W)**.
 3. **Busa Sabun & Batu Apung:**
-   - *Busa Sabun:* Fase terdispersi **Gas** di dalam medium pendispersi **Cair** $\\implies$ **Buih / Busa Cair**.
-   - *Batu Apung:* Fase terdispersi **Gas** di dalam medium pendispersi **Padat** (batuan silikat lava) $\\implies$ **Busa Padat**.
+   - *Busa Sabun:* Fase terdispersi Gas di dalam medium pendispersi Cair $\\implies$ **Buih / Busa Cair**.
+   - *Batu Apung:* Fase terdispersi Gas di dalam medium pendispersi Padat (batuan silikat lava) $\\implies$ **Busa Padat**.
 4. **Kabut & Asap Knalpot:**
-   - *Kabut:* Fase terdispersi **Cair** (butiran air) di dalam medium pendispersi **Gas** (udara) $\\implies$ **Aerosol Cair**.
-   - *Asap Knalpot:* Fase terdispersi **Padat** (partikel jelaga karbon) di dalam medium pendispersi **Gas** (udara pembakaran) $\\implies$ **Aerosol Padat**.
+   - *Kabut:* Fase terdispersi Cair (butiran air) di dalam medium pendispersi Gas (udara) $\\implies$ **Aerosol Cair**.
+   - *Asap Knalpot:* Fase terdispersi Padat (partikel jelaga karbon) di dalam medium pendispersi Gas (udara pembakaran) $\\implies$ **Aerosol Padat**.
 5. **Keju Olahan & Gel Agar-agar:**
    - **Fase Terdispersi:** Cair (air/minyak terperangkap).
    - **Medium Pendispersi:** Padat (jejaring protein kasein pada keju / rantai polisakarida pada agar-agar).
@@ -2761,6 +2788,7 @@ Minyak bersifat non-polar (hidrofobik/lipofilik), sedangkan air bersifat polar (
    Lapisan kepala polar yang mengelilingi seluruh permukaan tetesan minyak menciptakan rintangan sterik (*steric hindrance*) dan tolakan elektrostatik. Ketika dua tetesan minyak saling mendekat, gaya tolak ini mencegah tetesan saling bersentuhan dan bergabung, sehingga emulsi mayones tetap homogen dan stabil.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2826,7 +2854,7 @@ Syarat terjadinya hamburan cahaya optik yang efektif bergantung pada dimensi uku
 #### Langkah 3: Analisis Sifat Kinetik Gerak Brown
 a. Fenomena kinetik lintasan patah-patah zig-zag tak beraturan tersebut dinamakan **Gerak Brown (*Brownian Motion*)**.  
 b. **Penyebab Mikroskopis:**  
-   Partikel koloid berukuran sangat kecil ($1 - 100\\text{ nm}$) sehingga pada setiap saat, jumlah molekul pelarut air ($\\ce{H2O}$) yang menumbuk sisi kiri, kanan, atas, dan bawah partikel tidaklah persis sama. Adanya **ketidakseimbangan impuls tumbukan kinetik termal molekul pelarut dari berbagai arah** menghasilkan resultan gaya sesaat yang melempar partikel koloid ke arah acak secara terus-menerus.  
+   Partikel koloid berukuran sangat kecil ($1 - 100\\text{ nm}$) sehingga pada setiap saat, jumlah molekul pelarut air ($\\ce{H2O}$) yang menumbuk sisi kiri, kanan, atas, dan bawah partikel tidaklah persis sama. Ketidakseimbangan impuls tumbukan kinetik molekul pelarut dari berbagai arah menghasilkan resultan gaya sesaat yang melempar partikel koloid secara acak.  
 c. **Peran terhadap Kestabilan Koloid:**  
    Gaya gravitasi bumi ($F_g = m \\cdot g$) terus-menerus menarik partikel ke bawah. Namun, energi kinetik tumbukan termal yang memicu Gerak Brown memiliki magnitudo yang cukup untuk melawan gaya berat partikel koloid yang sangat ringan tersebut. Selama partikel terus bergerak acak tak beraturan, partikel **tidak akan pernah mengendap ke dasar wadah (*menangkal sedimentasi*)**, sehingga koloid tetap stabil secara kinetik.
 
@@ -2844,6 +2872,7 @@ Intensitas hamburan berbanding terbalik dengan pangkat empat panjang gelombang s
    Partikel tetesan air pada kabut (aerosol cair) menghamburkan cahaya dengan kuat. Jika menggunakan lampu putih atau biru ($\\lambda$ pendek), cahaya akan dihamburkan hebat ke segala arah menghasilkan silau (*glare*) yang membutakan pengemudi. Lampu kuning memiliki $\\lambda$ yang lebih panjang ($\\sim 580\\text{ nm}$) sehingga intensitas hamburannya jauh lebih kecil, memungkinkan berkas sinar **menembus kabut lebih jauh tanpa dihamburkan balik ke mata pengemudi**.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -2940,6 +2969,7 @@ Asap pabrik dan jelaga pembakaran merupakan sistem koloid jenis **Aerosol Padat*
 4. Gas yang keluar dari cerobong ke atmosfer menjadi bersih dan bebas dari polutan partikulat padat berbahaya.
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
@@ -3054,6 +3084,7 @@ Tawas ($\\ce{Al2(SO4)3}$) bekerja melalui dua mekanisme sinergis sekaligus:
 
 ---
 
+
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)
 > **Kaidah Emas Menghadapi Soal Koagulasi Schulze-Hardy di UTBK-SNBT:**
@@ -3157,6 +3188,7 @@ c. **Mekanisme Pengangkatan Noda Lemak oleh Misil:**
    3. Karena bagian luar bola misil dipenuhi muatan negatif kepala polar, bola-bola misil saling tolak-menolak dan terdispersi stabil di dalam air. Ketika dibilas dengan air mengalir, noda minyak yang telah terkurung di dalam misil akan hanyut terbawa bersama air cucian!
 
 ---
+
 
 > [!TIP]
 > ### 💡 Bedah Konsep & Trik Ujian SMA (HOTS)

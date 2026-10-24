@@ -187,8 +187,8 @@ $$\\text{Solid} \\underset{\\text{Freezing}}{\\overset{\\text{Melting}}{\\rightl
 - **Melting**: Solid $\\rightarrow$ Liquid. Thermal energy increases particle kinetic energy until vibrations overcome the lattice forces. Occurs at the **melting point (m.p.)**.
 - **Freezing**: Liquid $\\rightarrow$ Solid. Reverse of melting. Occurs at the **exact same temperature** as melting (pure water melts and freezes at $0^\\circ\\text{C}$).
 - **Boiling vs Evaporation**:
-  - **Boiling**: Takes place **throughout the liquid** at a single, fixed temperature called the **boiling point (b.p.)**. Gas bubbles form below the surface.
-  - **Evaporation**: Takes place **only at the surface** of the liquid over a **wide range of temperatures** below the boiling point. Fast-moving particles at the surface escape into the vapor phase.
+  - **Boiling**: Takes place throughout the liquid at a single, fixed temperature called the **boiling point (b.p.)**. Gas bubbles form below the surface.
+  - **Evaporation**: Takes place only at the surface of the liquid over a wide range of temperatures below the boiling point. Fast-moving particles at the surface escape into the vapor phase.
 - **Condensation**: Gas $\\rightarrow$ Liquid upon cooling. Particles lose kinetic energy and cluster together.
 - **Sublimation**: Solid $\\rightarrow$ Gas directly without passing through the liquid state (e.g., dry ice $\\ce{CO2(s)}$, iodine $\\ce{I2(s)}$).
 - **Desublimation (Deposition)**: Gas $\\rightarrow$ Solid directly (e.g., formation of frost).
@@ -283,7 +283,7 @@ When a pure substance is heated at a steady rate, its temperature changes can be
 ### ❓ Why Does Temperature Remain Constant During Melting & Boiling?
 
 This is a classic **2-mark question** in Cambridge Paper 4:
-1. **Mark 1**: **Temperature is a measure of the average kinetic energy of the particles.**
+1. **Mark 1**: Temperature is a measure of the average kinetic energy of the particles.
 2. **Mark 2**: During a state change, the thermal energy absorbed is **not** used to increase kinetic energy. Instead, it is used to **overcome the attractive intermolecular forces** between particles.
 3. Therefore, because kinetic energy does not increase, the **temperature stays constant** until the entire sample has completed the phase transition.
 
@@ -318,7 +318,7 @@ This is a classic **2-mark question** in Cambridge Paper 4:
       content: `### 💨 How Is Gas Pressure Created?
 
 Gaseous particles are in continuous, rapid, random motion.
-- Gas pressure is produced when **gas particles collide with the interior walls of their container**.
+- Gas pressure is produced when gas particles collide with the interior walls of their container.
 - Each collision exerts a small force against the wall. The total force divided by the area of the wall equals the **pressure** ($P = \\frac{F}{A}$).
 
 ---
@@ -327,7 +327,7 @@ Gaseous particles are in continuous, rapid, random motion.
 
 1. **Increasing Temperature**:
    - Thermal energy transforms into **kinetic energy**. Particles move faster.
-   - Particles collide with container walls **more frequently** and with **greater force**.
+   - Particles collide with container walls more frequently and with greater force.
    - If the container is flexible (e.g. a hot air balloon or piston), the walls expand, meaning **volume increases**.
    - If the container is rigid (fixed volume), **pressure increases**.
 
@@ -336,8 +336,8 @@ Gaseous particles are in continuous, rapid, random motion.
 ### 🗜️ Effect of Pressure on Gas Volume (Compression)
 
 When a gas is squeezed inside a cylinder using a piston:
-- Decreasing volume packs the **same number of particles** into a **smaller space**.
-- Particles collide with container walls **more frequently**, leading to **higher pressure**.
+- Decreasing volume packs the same number of particles into a **smaller space**.
+- Particles collide with container walls more frequently, leading to **higher pressure**.
 
 <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t01-gas-pressure-title igcse-t01-gas-pressure-desc" data-diagram="igcse-t01-gas-pressure" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
   <title id="igcse-t01-gas-pressure-title">Increasing the pressure of a gas</title>
@@ -442,7 +442,7 @@ When a gas is squeezed inside a cylinder using a piston:
 **Diffusion** is the net movement of particles from an area of **high concentration** to an area of **low concentration** down a concentration gradient, as a result of their random motion.
 - Occurs in **gases and liquids** (fluids where particles can move freely).
 - Requires **no energy input** (passive physical process).
-- Occurs **faster at higher temperatures** because particles have higher kinetic energy.
+- Occurs faster at higher temperatures because particles have higher kinetic energy.
 
 ---
 
@@ -451,7 +451,7 @@ When a gas is squeezed inside a cylinder using a piston:
 When a small crystal of deep-purple potassium manganate(VII) ($\\ce{KMnO4}$) is placed at the bottom of a beaker of water:
 1. Initially, water around the crystal turns intensely purple (high concentration).
 2. Random collisions between moving water molecules and manganate ions gradually disperse the color.
-3. After several hours, the entire solution becomes an **evenly colored pale purple solution** (equilibrium reached).
+3. After several hours, the entire solution becomes an evenly colored pale purple solution (equilibrium reached).
 
 ---
 
@@ -460,7 +460,7 @@ When a small crystal of deep-purple potassium manganate(VII) ($\\ce{KMnO4}$) is 
 A gas jar of orange-brown bromine gas is inverted under a jar of air separated by a glass cover:
 - When the cover is removed, the brown gas spreads upwards into the air jar, while colorless air diffuses downward.
 - After about 5 minutes, both jars are an even orange-brown color throughout.
-- Diffusion is **much faster in gases than in liquids** because gas particles have far greater speeds (approx. $500\\text{ m/s}$) and plenty of empty space to move through.
+- Diffusion is much faster in gases than in liquids because gas particles have far greater speeds (approx. $500\\text{ m/s}$) and plenty of empty space to move through.
 
 ---
 
@@ -470,8 +470,8 @@ At the same temperature, different gas particles have the same average kinetic e
 $$E_k = \\frac{1}{2}m v^2$$
 
 Consequently:
-- Gases with a **lower relative molecular mass ($M_r$)** are lighter and **travel faster** (higher diffusion rate).
-- Gases with a **higher relative molecular mass ($M_r$)** are heavier and **travel slower** (lower diffusion rate).
+- Gases with a lower relative molecular mass ($M_r$) are lighter and **travel faster** (higher diffusion rate).
+- Gases with a higher relative molecular mass ($M_r$) are heavier and **travel slower** (lower diffusion rate).
 
 ---
 
@@ -585,10 +585,14 @@ A student placed a porous pot containing hydrogen gas ($\\ce{H2}$, $M_r = 2$) in
 ### 📝 Question 2 (Paper 4 Structured Theory — 4 Marks)
 A sealed glass tube is set up with cotton wool soaked in concentrated aqueous ammonia at one end and concentrated hydrochloric acid at the other end.
 
-**(a) State the name of the white solid that forms in the tube. [1]**
+
+**Part (a)**: State the name of the white solid that forms in the tube. [1]
+
 > **Mark Scheme**: Ammonium chloride (allow $\\ce{NH4Cl}$).
 
-**(b) Explain why the white solid forms closer to the hydrochloric acid end of the tube. [3]**
+
+**Part (b)**: Explain why the white solid forms closer to the hydrochloric acid end of the tube. [3]
+
 > **Mark Scheme**:
 > - **Mark 1**: Ammonia has a lower relative molecular mass ($M_r = 17$) than hydrogen chloride ($M_r = 36.5$).
 > - **Mark 2**: Ammonia molecules diffuse / move **faster** than hydrogen chloride molecules.

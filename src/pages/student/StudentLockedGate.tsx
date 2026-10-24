@@ -492,7 +492,7 @@ export const StudentLockedGate: React.FC<StudentLockedGateProps> = ({ onClassSta
                   <GraduationCap className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white">Radar 10 Pilar & Rekomendasi Remedial AI</div>
+                  <div className="text-xs font-bold text-white">Radar 10 Pilar & Rekomendasi Remedial Terarah</div>
                   <div className="text-[11px] text-slate-400 mt-0.5">
                     Diagnosa kelemahan konsep otomatis untuk akselerasi belajar mandiri.
                   </div>

@@ -97,7 +97,7 @@ export const PracticeTopicDetail: React.FC = () => {
   // Modal / Drawer Pratinjau Cepat Soal yang Diklik di Quest Map
   const [inspectedQuestion, setInspectedQuestion] = useState<Question | null>(null);
 
-  // Modal Ekspor PDF Naskah Soal (Save My Exams Style)
+  // Modal Ekspor PDF Naskah Soal (Axioma Academy Style)
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
 
   // Ambil metadata Topik dari silabus
@@ -591,12 +591,12 @@ export const PracticeTopicDetail: React.FC = () => {
               </button>
             )}
 
-            {/* Tombol Unduh PDF Soal (Save My Exams Format) */}
+            {/* Tombol Unduh PDF Soal (Axioma Academy Format) */}
             <button
               type="button"
               onClick={() => setPdfModalOpen(true)}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
-              title="Unduh Naskah Soal PDF Format Save My Exams"
+              title="Unduh Naskah Soal PDF Format Axioma Academy"
             >
               <FileDown className="w-4 h-4 text-sky-400 group-hover:-translate-y-0.5 transition-transform" />
               <span>Unduh Soal (PDF)</span>
@@ -1236,7 +1236,7 @@ export const PracticeTopicDetail: React.FC = () => {
           </div>
         </div>
       )}
-      {/* Save My Exams Question Paper PDF Export Modal */}
+      {/* Axioma Academy Question Paper PDF Export Modal */}
       <QuestionPdfExportModal
         isOpen={pdfModalOpen}
         onClose={() => setPdfModalOpen(false)}

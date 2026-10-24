@@ -5,11 +5,12 @@
  * dan fallback aman ke dataset baku.
  */
 
-import { OSN_MATERIALS, type MaterialItem, type ConceptBlock } from '../data/materialsData';
+import { getActiveOsnMaterials, OSN_MATERIALS, type MaterialItem, type ConceptBlock } from '../data/materialsData';
 import { SMA_MATERIALS, type SmaMaterialItem } from '../data/smaMaterialsData';
 import { getSupabaseClient } from '../lib/supabaseClient';
 import { adminService } from './adminService';
 import type { MaterialOverride } from '../types/database';
+import { materialPedagogyVersionService, type OsnPedagogyVersion } from './materialPedagogyVersionService';
 
 const LOCAL_OVERRIDES_KEY = 'osn_material_overrides_v1';
 
@@ -29,9 +30,10 @@ class MaterialService {
     } catch {}
   }
 
-  public async getOsnMaterials(): Promise<MaterialItem[]> {
+  public async getOsnMaterials(version?: OsnPedagogyVersion): Promise<MaterialItem[]> {
     const overrides = await this.getAllOverrides();
-    return OSN_MATERIALS.map((base) => {
+    const sourceMaterials = getActiveOsnMaterials(version);
+    return sourceMaterials.map((base) => {
       const key = `osn_${base.id}`;
       const over = overrides[key];
       if (!over) return base;

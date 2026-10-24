@@ -230,7 +230,7 @@ di mana $k_B = 1.38065 \\times 10^{-23}\\text{ J/K}$ adalah tetapan Boltzmann. S
   $$\\Delta S_{\\text{lingkungan}} = -\\frac{\\Delta H_{\\text{sistem}}}{T}$$
 - **Hukum III Termodinamika:** Entropi suatu kristal zat murni yang teratur sempurna pada temperatur nol mutlak ($0\\text{ K} = -273.15^\\circ\\text{C}$) bernilai tepat nol ($S = 0$, karena hanya ada 1 konfigurasi unik $\\Omega = 1 \\implies \\ln 1 = 0$).
 
-Hal ini memungkinkan penentuan **Entropi Mutlak Standar ($S^\\circ$)** dari integrasi kapasitas kalor dari $0\\text{ K}$:
+Hal ini memungkinkan penentuan nilai **entropi mutlak standar** ($S^\\circ$) dari integrasi kapasitas kalor dari $0\\text{ K}$:
 $$S_T^\\circ = \\int_0^T \\frac{C_p}{T}\\, dT + \\sum \\frac{\\Delta H_{\\text{trans}}}{T_{\\text{trans}}}$$
 
 Perubahan entropi reaksi standar:
@@ -381,7 +381,7 @@ $$\\ln K = -\\frac{\\Delta G^\\circ}{RT} = -\\frac{\\Delta H^\\circ - T\\Delta S
 Diferensialkan persamaan terhadap temperatur $T$ pada tekanan tetap:
 $$\\frac{d(\\ln K)}{dT} = \\frac{d}{dT}\\left(-\\frac{\\Delta H^\\circ}{RT} + \\frac{\\Delta S^\\circ}{R}\\right)$$
 
-Dengan menerapkan hubungan termodinamika Gibbs-Helmholtz, diperoleh **Bentuk Diferensial Persamaan Van 't Hoff**:
+Dengan menerapkan hubungan termodinamika Gibbs-Helmholtz, diperoleh bentuk diferensial persamaan Van 't Hoff:
 $$\\frac{d(\\ln K)}{dT} = \\frac{\\Delta H^\\circ}{R T^2}$$
 
 Ubah variabel diferensial ke bentuk invers temperatur ($d(1/T) = -\\frac{1}{T^2} dT$):
@@ -562,21 +562,27 @@ Tabel termodinamika standar menyajikan data termokimia pada temperatur $298.15\\
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Entalpi Reaksi Standar ($\\Delta H^\\circ_{\\text{rxn}}$)**  
+
+#### Langkah 1: Menghitung Entalpi Reaksi Standar ($\\Delta H^\\circ_{\\text{rxn}}$)
+
 Gunakan Hukum Hess berdasarkan entalpi pembentukan standar ($\\Delta H_f^\\circ$):
 $$\\Delta H^\\circ_{\\text{rxn}} = \\sum n \\Delta H_f^\\circ(\\text{produk}) - \\sum m \\Delta H_f^\\circ(\\text{reaktan})$$
 $$\\Delta H^\\circ_{\\text{rxn}} = 2 \\times \\Delta H_f^\\circ(\\ce{NO2}) - 1 \\times \\Delta H_f^\\circ(\\ce{N2O4})$$
 $$\\Delta H^\\circ_{\\text{rxn}} = 2(33.18\\text{ kJ/mol}) - 9.16\\text{ kJ/mol} = 66.36 - 9.16 = +57.20\\text{ kJ/mol} = \\mathbf{+57200\\text{ J/mol}}$$
 *(Nilai positif menandakan bahwa pemutusan ikatan $\\ce{N-N}$ bersifat endotermik)*.
 
-**Langkah 2: Menghitung Entropi Reaksi Standar ($\\Delta S^\\circ_{\\text{rxn}}$)**  
+
+#### Langkah 2: Menghitung Entropi Reaksi Standar ($\\Delta S^\\circ_{\\text{rxn}}$)
+
 Gunakan data entropi mutlak standar ($S^\\circ$):
 $$\\Delta S^\\circ_{\\text{rxn}} = \\sum n S^\\circ(\\text{produk}) - \\sum m S^\\circ(\\text{reaktan})$$
 $$\\Delta S^\\circ_{\\text{rxn}} = 2 \\times S^\\circ(\\ce{NO2}) - 1 \\times S^\\circ(\\ce{N2O4})$$
 $$\\Delta S^\\circ_{\\text{rxn}} = 2(240.1\\text{ J}/(\\text{mol}\\cdot\\text{K})) - 304.4\\text{ J}/(\\text{mol}\\cdot\\text{K}) = 480.2 - 304.4 = \\mathbf{+175.8\\text{ J}/(\\text{mol}\\cdot\\text{K})}$$
 *(Entropi sistem meningkat signifikan karena $1\\text{ mol}$ gas terdisosiasi menghasilkan $2\\text{ mol}$ partikel gas yang lebih bebas bergerak)*.
 
-**Langkah 3: Menghitung Energi Bebas Gibbs Standar ($\\Delta G^\\circ_{\\text{rxn}}$) & Evaluasi Kespontanan**  
+
+#### Langkah 3: Menghitung Energi Bebas Gibbs Standar ($\\Delta G^\\circ_{\\text{rxn}}$) & Evaluasi Kespontanan
+
 Gunakan persamaan fundamental Gibbs-Helmholtz pada $T = 298.15\\text{ K}$:
 $$\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ$$
 $$\\Delta G^\\circ = 57200\\text{ J/mol} - (298.15\\text{ K} \\times 175.8\\text{ J}/(\\text{mol}\\cdot\\text{K}))$$
@@ -632,14 +638,18 @@ Data kapasitas kalor molar pada tekanan tetap ($C_{p,\\text{m}}$) diasumsikan ko
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Perubahan Kapasitas Kalor Reaksi ($\\Delta C_p$)**  
+
+#### Langkah 1: Menghitung Perubahan Kapasitas Kalor Reaksi ($\\Delta C_p$)
+
 Berdasarkan koefisien stoikiometri reaksi:
 $$\\Delta C_p = \\sum n C_{p,\\text{m}}(\\text{produk}) - \\sum m C_{p,\\text{m}}(\\text{reaktan})$$
 $$\\Delta C_p = 2 \\times C_{p,\\text{m}}(\\ce{NH3}) - \\left[ 1 \\times C_{p,\\text{m}}(\\ce{N2}) + 3 \\times C_{p,\\text{m}}(\\ce{H2}) \\right]$$
 $$\\Delta C_p = 2(35.06) - \\left[ 29.12 + 3(28.82) \\right]$$
 $$\\Delta C_p = 70.12 - \\left[ 29.12 + 86.46 \\right] = 70.12 - 115.58 = \\mathbf{-45.46\\text{ J}/(\\text{mol}\\cdot\\text{K})}$$
 
-**Langkah 2: Menghitung Entalpi Reaksi pada Suhu $723.15\\text{ K}$ via Hukum Kirchhoff**  
+
+#### Langkah 2: Menghitung Entalpi Reaksi pada Suhu $723.15\\text{ K}$ via Hukum Kirchhoff
+
 Persamaan Kirchhoff bentuk integral:
 $$\\Delta H_{T_2}^\\circ = \\Delta H_{T_1}^\\circ + \\int_{T_1}^{T_2} \\Delta C_p \\, dT$$
 Karena $\\Delta C_p$ bernilai konstan:
@@ -655,14 +665,18 @@ Substitusikan nilai-nilai ke dalam persamaan:
 $$\\Delta H_{723}^\\circ = -92220\\text{ J/mol} + \\left[ -45.46\\text{ J}/(\\text{mol}\\cdot\\text{K}) \\times 425.0\\text{ K} \\right]$$
 $$\\Delta H_{723}^\\circ = -92220\\text{ J/mol} - 19320.5\\text{ J/mol} = -111540.5\\text{ J/mol} = \\mathbf{-111.54\\text{ kJ/mol}}$$
 
-**Langkah 3: Analisis Perubahan Sifat Eksotermik Reaksi**  
+
+#### Langkah 3: Analisis Perubahan Sifat Eksotermik Reaksi
+
 Bandingkan nilai entalpi kedua temperatur:
 - Pada $298.15\\text{ K}$: $\\Delta H^\\circ = -92.22\\text{ kJ/mol}$
 - Pada $723.15\\text{ K}$: $\\Delta H^\\circ = -111.54\\text{ kJ/mol}$
 
 Karena nilai $\\Delta H^\circ$ menjadi **lebih negatif** (pelepasan kalor meningkat sebesar $19.32\\text{ kJ/mol}$), reaksi sintesis amonia menjadi **semakin eksotermik** pada temperatur tinggi. Hal ini terjadi secara fisis karena kapasitas kalor reaktan ($115.58\\text{ J/K}$) lebih besar dibanding produk ($70.12\\text{ J/K}$), sehingga reaktan menyimpan lebih banyak energi termal yang kemudian dilepaskan saat bereaksi.
 
-**Langkah 4: Kompromi Termodinamika vs Kinetika Reaksi dalam Industri Kimia**  
+
+#### Langkah 4: Kompromi Termodinamika vs Kinetika Reaksi dalam Industri Kimia
+
 1. **Dilema Termodinamika (Le Chatelier):** Reaksi sintesis amonia bersifat eksotermik ($\\Delta H < 0$). Menurut Asas Le Chatelier dan Persamaan Van 't Hoff, kenaikan temperatur akan menggeser kesetimbangan ke arah reaktan (nilai $K_p$ turun drastis), sehingga persen perolehan amonia teoritis pada kesetimbangan justru menurun.
 2. **Kebutuhan Kinetika Kimia (Persamaan Arrhenius):** Molekul $\\ce{N2}$ memiliki ikatan kovalen rangkap tiga ($\\ce{N#N}$) yang luar biasa kuat ($D = 945\\text{ kJ/mol}$), menghasilkan energi aktivasi ($E_a$) yang sangat tinggi. Pada suhu rendah, laju pemutusan ikatan $\\ce{N2}$ praktis mendekati nol meskipun dibantu katalis besi.
 3. **Solusi Rekayasa:** Temperatur $400-450^\\circ\\text{C}$ dipilih sebagai kompromi optimal (*compromise temperature*): temperatur cukup tinggi agar laju reaksi berjalan cepat mencapai kesetimbangan dalam hitungan detik, sementara penurunan perolehan amonia dikompensasi dengan menerapkan **tekanan sangat tinggi ($150-250\\text{ atm}$)** yang secara termodinamika menggeser kesetimbangan ke arah koefisien gas lebih kecil ($4\\text{ mol gas} \\to 2\\text{ mol gas}$).
@@ -698,14 +712,18 @@ Pengukuran tekanan disosiasi kesetimbangan gas karbon dioksida ($P_{\\ce{CO2}}$)
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menentukan Ekspresi Tetapan Kesetimbangan $K_p$**  
+
+#### Langkah 1: Menentukan Ekspresi Tetapan Kesetimbangan $K_p$
+
 Pada kesetimbangan heterogen, fasa padat murni ($\\ce{CaCO3(s)}$ dan $\\ce{CaO(s)}$) memiliki aktivitas termodinamika bernilai tepat $1$ ($a_{\\text{padat}} = 1$). Maka tetapan kesetimbangan gas ideal dinyatakan secara murni oleh tekanan parsial $\\ce{CO2}$:
 $$K_p = \\frac{a_{\\ce{CaO}} \\cdot P_{\\ce{CO2}}}{a_{\\ce{CaCO3}}} = \\frac{1 \\cdot P_{\\ce{CO2}}}{1} = P_{\\ce{CO2}}$$
 Sehingga:
 - Pada $T_1 = 1000.0\\text{ K} \\implies K_{p,1} = 0.0500$
 - Pada $T_2 = 1100.0\\text{ K} \\implies K_{p,2} = 0.3500$
 
-**Langkah 2: Menghitung Entalpi Reaksi Standar ($\\Delta H^\\circ_{\\text{rxn}}$) via Persamaan Van 't Hoff**  
+
+#### Langkah 2: Menghitung Entalpi Reaksi Standar ($\\Delta H^\\circ_{\\text{rxn}}$) via Persamaan Van 't Hoff
+
 Bentuk integral Persamaan Van 't Hoff dua titik:
 $$\\ln\\left(\\frac{K_{p,2}}{K_{p,1}}\\right) = -\\frac{\\Delta H^\\circ}{R} \\left( \\frac{1}{T_2} - \\frac{1}{T_1} \\right)$$
 
@@ -720,7 +738,9 @@ $$1.94591 = -\\frac{\\Delta H^\\circ}{8.3145} \\times (-9.0909 \\times 10^{-5})$
 $$\\Delta H^\\circ = \\frac{1.94591 \\times 8.3145}{9.0909 \\times 10^{-5}} = \\frac{16.1793}{9.0909 \\times 10^{-5}} = 177972\\text{ J/mol} = \\mathbf{+177.97\\text{ kJ/mol}} \\approx +178.0\\text{ kJ/mol}$$
 *(Nilai positif menegaskan bahwa kalsinasi kapur merupakan proses endotermik kuat yang memerlukan pasokan kalor intensif).*
 
-**Langkah 3: Menghitung Perubahan Entropi Standar Reaksi ($\\Delta S^\\circ_{\\text{rxn}}$)**  
+
+#### Langkah 3: Menghitung Perubahan Entropi Standar Reaksi ($\\Delta S^\\circ_{\\text{rxn}}$)
+
 Gunakan data pada kondisi $T_1 = 1000.0\\text{ K}$:
 $$\\Delta G_{1000}^\\circ = -R T_1 \\ln K_{p,1}$$
 $$\\Delta G_{1000}^\\circ = -8.3145\\text{ J}/(\\text{mol}\\cdot\\text{K}) \\times 1000.0\\text{ K} \\times \\ln(0.0500)$$
@@ -730,7 +750,9 @@ Dari relasi $\\Delta G^\\circ = \\Delta H^\\circ - T \\Delta S^\\circ$:
 $$\\Delta S^\\circ = \\frac{\\Delta H^\\circ - \\Delta G_{1000}^\\circ}{T_1} = \\frac{177972\\text{ J/mol} - 24908\\text{ J/mol}}{1000.0\\text{ K}} = \\frac{153064}{1000.0} = \\mathbf{+153.06\\text{ J}/(\\text{mol}\\cdot\\text{K})}$$
 *(Peningkatan entropi sebesar $+153\\text{ J/(mol}\\cdot\\text{K)}$ selaras dengan terlepasnya $1\\text{ mol}$ gas $\\ce{CO2}$ dari kisi kristal padat).*
 
-**Langkah 4: Menghitung Temperatur Dekomposisi Normal ($T_{\\text{decomp}}$)**  
+
+#### Langkah 4: Menghitung Temperatur Dekomposisi Normal ($T_{\\text{decomp}}$)
+
 Dekomposisi berlangsung spontan ke atmosfer terbuka ketika tekanan uap $\\ce{CO2}$ mencapai $1.000\\text{ atm}$ ($K_p = 1.000$).
 Karena $\\ln(1.000) = 0$, maka $\\Delta G^\\circ = -RT \\ln(1) = 0$:
 $$\\Delta H^\\circ - T_{\\text{decomp}} \\Delta S^\\circ = 0$$
@@ -766,7 +788,9 @@ Sebanyak $2.00\\text{ mol}$ gas ideal monoatomik ($C_{v,\\text{m}} = \\frac{3}{2
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Kerja dan Kalor pada Jalur A (Isotermal Reversibel)**  
+
+#### Langkah 1: Menghitung Kerja dan Kalor pada Jalur A (Isotermal Reversibel)
+
 Karena gas ideal mengalami proses isotermal ($T = \\text{konstan} \\implies \\Delta T = 0$):
 $$\\Delta U = n C_{v,\\text{m}} \\Delta T = 0$$
 Berdasarkan Hukum I Termodinamika ($\\Delta U = q + w = 0 \\implies q = -w$).
@@ -780,7 +804,9 @@ $$w_{\\text{rev}} = -4988.7 \\times \\ln(4.000) = -4988.7 \\times 1.38629 = \\ma
 Kalor yang diserap dari reservoir lingkungan:
 $$q_{\\text{rev}} = -w_{\\text{rev}} = \\mathbf{+6915.8\\text{ J}} \\quad (+6.92\\text{ kJ})$$
 
-**Langkah 2: Menghitung Kerja dan Kalor pada Jalur B (Isotermal Ireversibel 1 Tahap)**  
+
+#### Langkah 2: Menghitung Kerja dan Kalor pada Jalur B (Isotermal Ireversibel 1 Tahap)
+
 Pada ekspansi ireversibel melawan tekanan luar konstan $P_{\\text{ext}} = 1.00\\text{ atm}$:
 $$w_{\\text{irrev}} = -P_{\\text{ext}} (V_2 - V_1)$$
 $$\\Delta V = 20.0\\text{ L} - 5.00\\text{ L} = 15.0\\text{ L}$$
@@ -795,12 +821,16 @@ $$q_{\\text{irrev}} = -w_{\\text{irrev}} = \\mathbf{+1519.9\\text{ J}} \\quad (+
 $$|w_{\\text{rev}}| = 6915.8\\text{ J} \\gg |w_{\\text{irrev}}| = 1519.9\\text{ J}$$
 Kerja yang berhasil diekstrak pada ekspansi reversibel bernilai lebih dari $4.5$ kali lebih besar dibanding ekspansi spontan ireversibel!
 
-**Langkah 3: Menghitung Perubahan Entropi Sistem ($\\Delta S_{\\text{sistem}}$)**  
+
+#### Langkah 3: Menghitung Perubahan Entropi Sistem ($\\Delta S_{\\text{sistem}}$)
+
 Entropi ($S$) merupakan **fungsi keadaan** (*state function*). Karena keadaan awal ($T = 300\\text{ K}, V_1 = 5\\text{ L}$) dan keadaan akhir ($T = 300\\text{ K}, V_2 = 20\\text{ L}$) pada Jalur A dan Jalur B identik, maka nilai $\\Delta S_{\\text{sistem}}$ **harus sama persis** untuk kedua jalur!
 Perhitungan $\\Delta S_{\\text{sistem}}$ wajib dievaluasi melalui lintasan reversibel:
 $$\\Delta S_{\\text{sistem}} = \\frac{q_{\\text{rev}}}{T} = \\frac{+6915.8\\text{ J}}{300.0\\text{ K}} = \\mathbf{+23.05\\text{ J/K}}$$
 
-**Langkah 4: Evaluasi Entropi Lingkungan dan Entropi Semesta**  
+
+#### Langkah 4: Evaluasi Entropi Lingkungan dan Entropi Semesta
+
 Lingkungan dianggap sebagai tandon kalor (*thermal reservoir*) raksasa yang menyerap/melepas kalor secara reversibel pada temperatur konstan $T_{\\text{lingk}} = 300.0\\text{ K}$:
 $$\\Delta S_{\\text{lingkungan}} = -\\frac{q_{\\text{aktual}}}{T_{\\text{lingk}}}$$
 
@@ -853,7 +883,9 @@ Tabel termodinamika pada temperatur tinggi $T = 1000.0\\text{ K}$ menyajikan dat
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung $\\Delta G^\\circ$ Reduksi Langsung Karbotermal & Suhu Ambang Batas**  
+
+#### Langkah 1: Menghitung $\\Delta G^\\circ$ Reduksi Langsung Karbotermal & Suhu Ambang Batas
+
 Gunakan persamaan Gibbs-Helmholtz pada $T = 1000.0\\text{ K}$:
 $$\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ$$
 $$\\Delta G^\\circ = 534500\\text{ J/mol} - (1000.0\\text{ K} \\times 178.2\\text{ J}/(\\text{mol}\\cdot\\text{K}))$$
@@ -864,12 +896,16 @@ Agar reaksi menjadi spontan ($\\Delta G^\\circ < 0$):
 $$T^* = \\frac{\\Delta H^\\circ}{\\Delta S^\\circ} = \\frac{534500\\text{ J/mol}}{178.2\\text{ J}/(\\text{mol}\\cdot\\text{K})} = \\mathbf{2999.4\\text{ K}} \\approx 3000\\text{ K} \\quad (2726^\\circ\\text{C})$$
 Temperatur $3000\\text{ K}$ sangat mustahil dicapai secara ekonomis pada tungku industri dan melampaui jauh titik leleh titanium murni ($1668^\\circ\\text{C}$ / $1941\\text{ K}$).
 
-**Langkah 2: Bahaya Metalurgi Reduksi Karbotermal Bersuhu Tinggi**  
+
+#### Langkah 2: Bahaya Metalurgi Reduksi Karbotermal Bersuhu Tinggi
+
 Bila campuran $\\ce{TiO2}$ dan kokas dipaksa dipanaskan pada suhu sangat tinggi ($> 1500^\\circ\\text{C}$), atom titanium yang terbentuk langsung bereaksi dengan karbon membentuk senyawa interstisial refraktori:
 $$\\ce{TiO2(s) + 3 C(s) -> TiC(s) + 2 CO(g)}$$
 Titanium karbida ($\\ce{TiC}$) membentuk larutan padat interstisial dalam kisi titanium yang menyebabkan logam menjadi sangat getas, rapuh, dan kehilangan sifat elastisitas mekaniknya, sehingga tidak dapat ditempa menjadi material kedirgantaraan.
 
-**Langkah 3: Menghitung $\\Delta G^\circ$ dan $K_p$ Karboklorinasi (Tahap 1 Proses Kroll)**  
+
+#### Langkah 3: Menghitung $\\Delta G^\circ$ dan $K_p$ Karboklorinasi (Tahap 1 Proses Kroll)
+
 Pada $T = 1000.0\\text{ K}$:
 $$\\Delta G^\\circ_{\\text{tahap 1}} = \\Delta H^\\circ - T\\Delta S^\\circ = -80400\\text{ J/mol} - (1000.0\\text{ K} \\times 142.5\\text{ J}/(\\text{mol}\\cdot\\text{K}))$$
 $$\\Delta G^\\circ_{\\text{tahap 1}} = -80400 - 142500 = \\mathbf{-222900\\text{ J/mol}} = \\mathbf{-222.9\\text{ kJ/mol}} < 0$$
@@ -880,7 +916,9 @@ $$\\Delta G^\\circ = -RT \\ln K_p \\implies \\ln K_p = -\\frac{-222900}{8.3145 \
 $$K_p = e^{+26.8086} = \\mathbf{4.39 \\times 10^{11}}$$
 Nilai $K_p$ yang spektakuler membuktikan bahwa klorinasi dengan bantuan karbon mengonversi bijih $\\ce{TiO2}$ secara kuantitatif sempurna menjadi gas $\\ce{TiCl4}$ yang mudah dimurnikan melalui distilasi fraksional.
 
-**Langkah 4: Menghitung $\\Delta G^\circ$ Reduksi Magnesiometrik (Tahap 2 Proses Kroll)**  
+
+#### Langkah 4: Menghitung $\\Delta G^\circ$ Reduksi Magnesiometrik (Tahap 2 Proses Kroll)
+
 Pada $T = 1000.0\\text{ K}$:
 $$\\Delta G^\\circ_{\\text{tahap 2}} = \\Delta H^\\circ - T\\Delta S^\\circ = -483200\\text{ J/mol} - (1000.0\\text{ K} \\times (-135.8\\text{ J}/(\\text{mol}\\cdot\\text{K})))$$
 $$\\Delta G^\\circ_{\\text{tahap 2}} = -483200 - (-135800) = -483200 + 135800 = \\mathbf{-347400\\text{ J/mol}} = \\mathbf{-347.4\\text{ kJ/mol}} < 0$$

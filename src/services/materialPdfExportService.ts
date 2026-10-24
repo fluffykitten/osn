@@ -1,7 +1,7 @@
 /**
  * materialPdfExportService.ts
  * Layanan Ekspor PDF Materi Sains Kimia SMA & OSN
- * Mengadopsi 1:1 Layout & Format Save My Exams:
+ * Standar Layout & Format Modul Axioma Academy:
  * 1. Halaman Cover: Subjek & Badge, Banner Highlight Biru, Daftar Isi (Contents) dengan Bullet Bintang
  * 2. Kolom Catatan Siswa: "Your notes" dengan ikon pensil biru & garis batas putus-putus vertikal di sisi kanan
  * 3. Halaman Konten: Capsule pill subtopik, heading tebal, square bullets (▪), bold keywords
@@ -29,7 +29,7 @@ export interface MaterialPdfExportOptions {
 
 export class MaterialPdfExportService {
   /**
-   * Menghasilkan HTML lengkap dengan styling Save My Exams siap cetak A4
+   * Menghasilkan HTML lengkap dengan styling Axioma Academy siap cetak A4
    */
   public generateMaterialHtml(
     material: MaterialItem | SmaMaterialItem,
@@ -193,7 +193,7 @@ export class MaterialPdfExportService {
     ${KATEX_EMBEDDED_CSS}
 
     /* ============================================================
-       SAVE MY EXAMS OFFICIAL PDF LAYOUT & PAGED MEDIA SYSTEM
+       AXIOMA ACADEMY OFFICIAL PDF LAYOUT & PAGED MEDIA SYSTEM
        ============================================================ */
     @page {
       size: A4 portrait;
@@ -991,7 +991,7 @@ export class MaterialPdfExportService {
     includeNotes: boolean,
     settings: MaterialPdfSettings
   ): string {
-    const renderedBody = this.transformMarkdownToSaveMyExams(block.content);
+    const renderedBody = this.transformMarkdownForPdf(block.content);
 
     let keyFormulasHtml = '';
     if (block.keyFormulas && block.keyFormulas.length > 0) {
@@ -1077,7 +1077,7 @@ export class MaterialPdfExportService {
     includeNotes: boolean,
     settings: MaterialPdfSettings
   ): string {
-    const renderedBody = this.transformMarkdownToSaveMyExams(block.content);
+    const renderedBody = this.transformMarkdownForPdf(block.content);
 
     const notesHtml = includeNotes
       ? `
@@ -1213,19 +1213,19 @@ export class MaterialPdfExportService {
   }
 
   /**
-   * Mengonversi Markdown mentah ke HTML bergaya Save My Exams:
+   * Mengonversi Markdown mentah ke HTML naskah cetak PDF resmi Axioma Academy:
    * - Menemukan Callouts (> [!WARNING], > [!TIP], dll) dan merubahnya menjadi "Examiner Tips and Tricks"
    * - Menata square bullet points
    * - Menata tabel grid
    * - KaTeX rendering
    */
-  private transformMarkdownToSaveMyExams(content: string): string {
+  private transformMarkdownForPdf(content: string): string {
     if (!content) return '';
 
     // Gunakan parser inti untuk KaTeX dan struktur Markdown
     let html = parseAndRenderMixedText(content);
 
-    // 1. Transform Callout boxes menjadi Save My Exams "Examiner Tips and Tricks"
+    // 1. Transform Callout boxes menjadi "Examiner Tips and Tricks"
     // Tangkap box callout yang dibungkus oleh laser-anchor-block
     html = html.replace(
       /<div data-laser-block="\d+" class="laser-anchor-block">\s*(<div class="my-4 p-4(?:\.5)? (?:rounded-2xl border|bg-emerald-50)[\s\S]*?)<\/div>(?=\s*<div data-laser-block=|\s*$)/gi,
@@ -1243,7 +1243,7 @@ export class MaterialPdfExportService {
       (match) => this.convertToExaminerTip(match)
     );
 
-    // 2. Transform table wrappers agar menggunakan border solid khas Save My Exams
+    // 2. Transform table wrappers agar menggunakan border solid
     html = html.replace(/<div class="my-4 overflow-x-auto rounded-xl border border-slate-200[\s\S]*?<table class="min-w-full divide-y divide-slate-200">([\s\S]*?)<\/table><\/div>/gi, (_match, innerTable) => {
       return `
         <div class="sme-table-container">
@@ -1261,7 +1261,7 @@ export class MaterialPdfExportService {
   }
 
   /**
-   * Mengubah Callout menjadi Save My Exams Examiner Tips and Tricks box
+   * Mengubah Callout menjadi Examiner Tips and Tricks box
    */
   private convertToExaminerTip(htmlBlock: string, defaultTitle = 'Examiner Tips and Tricks'): string {
     let title = defaultTitle;
@@ -1327,7 +1327,7 @@ export class MaterialPdfExportService {
   }
 
   /**
-   * Membuka dokumen Save My Exams di jendela baru dan langsung memicu print preview
+   * Membuka dokumen cetak di jendela baru dan langsung memicu print preview
    */
   public exportMaterialToPrint(
     material: MaterialItem | SmaMaterialItem,

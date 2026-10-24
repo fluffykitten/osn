@@ -245,7 +245,7 @@ export const Worksheet: React.FC = () => {
   const [isScaffoldGuideOpen, setIsScaffoldGuideOpen] = useState(false);
   const [isDiagramModalOpen, setIsDiagramModalOpen] = useState(false);
 
-  // AI Evaluation Engine States (Multi-Question Evaluation Map)
+  // Automated Evaluation Engine States (Multi-Question Evaluation Map)
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [evaluationStage, setEvaluationStage] = useState<
     'idle' | 'analyzing' | 'validating_math' | 'synthesizing_feedback'
@@ -283,7 +283,7 @@ export const Worksheet: React.FC = () => {
       });
       setSubmissionRecords((prev) => ({ ...prev, ...subMap }));
 
-      // 1. Pulihkan evaluasi penilaian AI
+      // 1. Pulihkan evaluasi penilaian otomatis
       setEvaluations((prev) => {
         const updated = { ...prev };
         let changed = false;
@@ -1611,7 +1611,7 @@ export const Worksheet: React.FC = () => {
     }, 0);
   };
 
-  // Real Multi-Stage AI Evaluation
+  // Real Multi-Stage Automated Evaluation
   const handleEvaluate = async () => {
     const hasSteps = Boolean(currentStepValue.trim());
     const hasFinal = Boolean(currentFinalAnswer.trim());
@@ -1631,7 +1631,7 @@ export const Worksheet: React.FC = () => {
     }
 
     if (!hasAiGradingAccess) {
-      // MODE PENILAIAN MANUAL GURU (AI Grading Nonaktif secara Default)
+      // MODE PENILAIAN MANUAL GURU (Evaluasi Otomatis Nonaktif secara Default)
       setIsEvaluating(true);
       setEvaluationError(null);
       setPendingSuccessMessage(null);
@@ -1686,7 +1686,7 @@ export const Worksheet: React.FC = () => {
     const t2 = setTimeout(() => setEvaluationStage('synthesizing_feedback'), 1400);
 
     try {
-      // Sertakan teks sub-soal ke dalam naskah yang dikirim ke AI agar evaluasi komprehensif
+      // Sertakan teks sub-soal ke dalam naskah yang dikirim ke evaluator agar evaluasi komprehensif
       const comprehensiveQuestionText =
         currentQuestion.sub_questions && currentQuestion.sub_questions.length > 0
           ? `${currentQuestion.question_text}\n\n` +
@@ -1808,7 +1808,7 @@ export const Worksheet: React.FC = () => {
       clearTimeout(t2);
       setEvaluationStage('idle');
       setIsEvaluating(false);
-      setEvaluationError(err.message || 'Terjadi kesalahan saat memproses penilaian AI.');
+      setEvaluationError(err.message || 'Terjadi kesalahan saat memproses evaluasi penilaian.');
     }
   };
 
@@ -2061,7 +2061,7 @@ export const Worksheet: React.FC = () => {
             <div className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold">✓</div>
             <div>
               <span className="font-bold text-emerald-900">Worksheet Selesai:</span>{' '}
-              Seluruh {questionsList.length} butir soal telah berhasil dinilai guru / evaluasi AI. Status lembar kerja ini telah tersimpan sebagai <strong>Selesai</strong>.
+              Seluruh {questionsList.length} butir soal telah berhasil dinilai guru / evaluasi otomatis. Status lembar kerja ini telah tersimpan sebagai <strong>Selesai</strong>.
             </div>
           </div>
           <button
@@ -2553,7 +2553,7 @@ export const Worksheet: React.FC = () => {
               </div>
             </div>
 
-            {/* Action Bar: Prev / Next & Save Progress & AI Evaluation Trigger */}
+            {/* Action Bar: Prev / Next & Save Progress & Evaluation Trigger */}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
@@ -2588,7 +2588,7 @@ export const Worksheet: React.FC = () => {
                 </button>
               </div>
 
-              {/* Progress Stage Text, Manual Save Button, and AI Evaluate Button */}
+              {/* Progress Stage Text, Manual Save Button, and Evaluate Button */}
               <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                 {isEvaluating && (
                   <div className="flex items-center gap-2 px-3 py-1.5 bg-[#B0C4DE]/20 border border-[#B0C4DE]/50 rounded-xl text-xs text-[#708090] font-medium animate-pulse w-full sm:w-auto">
@@ -2627,7 +2627,7 @@ export const Worksheet: React.FC = () => {
                 {hasAiGradingAccess ? (
                   <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-indigo-700 font-semibold bg-indigo-50 px-2.5 py-1 rounded-lg border border-indigo-200 shrink-0">
                     <Sparkles size={12} className="text-indigo-600" />
-                    <span>Akses AI</span>
+                    <span>Evaluasi Otomatis</span>
                   </span>
                 ) : (
                   <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#708090] font-medium bg-[#FFFFF0] px-2.5 py-1 rounded-lg border border-[#D3D3D3] shrink-0">
@@ -2647,19 +2647,19 @@ export const Worksheet: React.FC = () => {
                   }`}
                   title={
                     hasAiGradingAccess
-                      ? 'Evaluasi instan dengan kecerdasan buatan'
+                      ? 'Evaluasi instan otomatis'
                       : 'Kirim lembar kerja Anda ke Guru Pembina untuk dinilai secara manual'
                   }
                 >
                   {isEvaluating ? (
                     <>
                       <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      <span>{hasAiGradingAccess ? 'Mengevaluasi AI...' : 'Mengirim...'}</span>
+                      <span>{hasAiGradingAccess ? 'Mengevaluasi...' : 'Mengirim...'}</span>
                     </>
                   ) : hasAiGradingAccess ? (
                     <>
                       <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-                      <span>Evaluasi Jawaban (AI)</span>
+                      <span>Evaluasi Jawaban</span>
                     </>
                   ) : (
                     <>
@@ -2787,7 +2787,7 @@ export const Worksheet: React.FC = () => {
               </div>
             )}
 
-            {/* Rich AI Evaluation Diagnostic Result Panel */}
+            {/* Rich Evaluation Diagnostic Result Panel */}
             {evaluationResult && (
               <div className="bg-white border border-[#B0C4DE] rounded-2xl p-5 sm:p-6 shadow-sm space-y-5 animate-in fade-in">
                 {/* Result Header */}
@@ -2814,10 +2814,10 @@ export const Worksheet: React.FC = () => {
                       <div className="flex flex-wrap items-center gap-2">
                         <h3 className="text-base font-bold text-[#2D3748] font-display">
                           {evaluationResult.status === 'perfect'
-                            ? 'Hasil Evaluasi AI: Sempurna! 🏆'
+                            ? 'Hasil Evaluasi: Sempurna! 🏆'
                             : evaluationResult.status === 'partial_correct'
-                            ? 'Hasil Evaluasi AI: Benar Sebagian 🎯'
-                            : 'Hasil Evaluasi AI: Perlu Peningkatan 🔄'}
+                            ? 'Hasil Evaluasi: Benar Sebagian 🎯'
+                            : 'Hasil Evaluasi: Perlu Peningkatan 🔄'}
                         </h3>
                         <span className="px-2.5 py-0.5 bg-[#FFF2CC] text-[#806000] border border-[#FFE599] text-xs font-bold rounded-lg font-mono">
                           {evaluationResult.totalScore} / {evaluationResult.maxScore} Poin (
@@ -2827,7 +2827,7 @@ export const Worksheet: React.FC = () => {
                       <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-[#708090]">
                         <span className="inline-flex items-center gap-1 font-semibold text-[#2D3748] bg-[#F0F8FF] px-2 py-0.5 rounded border border-[#B0C4DE]">
                           {evaluationResult.modelUsed
-                            ? `✨ ${evaluationResult.modelUsed} (Live AI)`
+                            ? `✨ ${evaluationResult.modelUsed} (Evaluator)`
                             : '🔬 Mesin Evaluasi Saintifik OSN'}
                         </span>
                         <span>•</span>

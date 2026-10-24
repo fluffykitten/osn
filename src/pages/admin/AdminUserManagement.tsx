@@ -223,7 +223,7 @@ export const AdminUserManagement: React.FC = () => {
     }
   };
 
-  // 5. Toggle Hak Akses AI Grading untuk Siswa
+  // 5. Toggle Hak Akses Evaluasi Otomatis untuk Siswa
   const handleToggleAiGrading = async (u: Profile) => {
     const nextState = !u.ai_grading_access;
     try {
@@ -231,20 +231,20 @@ export const AdminUserManagement: React.FC = () => {
       if (res.success) {
         showNotification(
           'success',
-          `Hak akses AI Grading untuk ${u.full_name || u.email} berhasil ${
-            nextState ? 'DIBERIKAN (AI Aktif)' : 'DICABUT (Manual Guru)'
+          `Hak akses evaluasi otomatis untuk ${u.full_name || u.email} berhasil ${
+            nextState ? 'DIBERIKAN (Otomatis Aktif)' : 'DICABUT (Manual Guru)'
           }.`
         );
         await loadUsers();
       } else {
-        showNotification('error', res.error || 'Gagal mengubah hak akses AI Grading.');
+        showNotification('error', res.error || 'Gagal mengubah hak akses evaluasi otomatis.');
       }
     } catch {
       showNotification('error', 'Terjadi kesalahan sistem.');
     }
   };
 
-  // 6. Hibah Massal AI Grading untuk Siswa yang Terfilter
+  // 6. Hibah Massal Evaluasi Otomatis untuk Siswa yang Terfilter
   const handleBatchGrantAi = async (enable: boolean) => {
     const targetStudents = filteredUsers.filter((u) => u.role === 'student' || u.role === 'siswa');
     if (targetStudents.length === 0) {
@@ -254,7 +254,7 @@ export const AdminUserManagement: React.FC = () => {
 
     if (
       !window.confirm(
-        `${enable ? 'Aktifkan' : 'Nonaktifkan'} akses AI Grading untuk ${targetStudents.length} siswa dalam daftar ini?`
+        `${enable ? 'Aktifkan' : 'Nonaktifkan'} akses evaluasi otomatis untuk ${targetStudents.length} siswa dalam daftar ini?`
       )
     ) {
       return;
@@ -266,7 +266,7 @@ export const AdminUserManagement: React.FC = () => {
       if (res.success) {
         showNotification(
           'success',
-          `Berhasil ${enable ? 'mengaktifkan' : 'menonaktifkan'} akses AI Grading untuk ${res.updatedCount} siswa.`
+          `Berhasil ${enable ? 'mengaktifkan' : 'menonaktifkan'} akses evaluasi otomatis untuk ${res.updatedCount} siswa.`
         );
         await loadUsers();
       } else {
@@ -571,15 +571,15 @@ export const AdminUserManagement: React.FC = () => {
             <option value="suspended">Status: Ditangguhkan ({countSuspended})</option>
           </select>
 
-          {/* Tombol Hibah AI Siswa Massal */}
+          {/* Tombol Hibah Evaluasi Otomatis Siswa Massal */}
           <button
             type="button"
             onClick={() => handleBatchGrantAi(true)}
             className="px-3 py-2 bg-[#FFFFF0] hover:bg-[#F0F8FF] text-[#708090] hover:text-[#2D3748] border border-[#D3D3D3] rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
-            title="Beri akses AI Grading sekaligus untuk seluruh siswa di filter ini"
+            title="Beri akses evaluasi otomatis sekaligus untuk seluruh siswa di filter ini"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span className="hidden sm:inline">Beri AI Siswa</span>
+            <span className="hidden sm:inline">Beri Akses Evaluasi</span>
           </button>
         </div>
       </div>
@@ -594,7 +594,7 @@ export const AdminUserManagement: React.FC = () => {
                 <th className="py-3.5 px-4 font-semibold">Peranan (Role)</th>
                 <th className="py-3.5 px-4 font-semibold">Asal Sekolah & Kelas</th>
                 <th className="py-3.5 px-4 font-semibold">Status Akun</th>
-                <th className="py-3.5 px-4 font-semibold">Hak AI Grading</th>
+                <th className="py-3.5 px-4 font-semibold">Hak Evaluasi Otomatis</th>
                 <th className="py-3.5 px-4 font-semibold">XP & Level</th>
                 <th className="py-3.5 px-4 text-right font-semibold">Tindakan Admin</th>
               </tr>
@@ -684,7 +684,7 @@ export const AdminUserManagement: React.FC = () => {
                         )}
                       </td>
 
-                      {/* Hak AI Grading */}
+                      {/* Hak Evaluasi Otomatis */}
                       <td className="py-3.5 px-4">
                         <button
                           type="button"
@@ -694,12 +694,12 @@ export const AdminUserManagement: React.FC = () => {
                               ? 'bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 shadow-xs'
                               : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
                           }`}
-                          title={u.ai_grading_access ? 'AI Aktif: Klik untuk mencabut akses' : 'Manual (Off): Klik untuk memberi izin AI'}
+                          title={u.ai_grading_access ? 'Otomatis Aktif: Klik untuk mencabut akses' : 'Manual (Off): Klik untuk memberi izin evaluasi otomatis'}
                         >
                           {u.ai_grading_access ? (
                             <>
                               <Sparkles size={11} className="text-indigo-600 animate-pulse" />
-                              <span>AI Aktif</span>
+                              <span>Otomatis Aktif</span>
                             </>
                           ) : (
                             <>

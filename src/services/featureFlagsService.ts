@@ -1,7 +1,7 @@
 /**
  * featureFlagsService.ts
  * Layanan terpusat untuk Manajemen Fitur (Feature Flags) di seluruh aplikasi OSN Kimia.
- * Memungkinkan Administrator mengaktifkan / menonaktifkan modul tertentu (seperti Tutor AI, Flashcard, dll).
+ * Memungkinkan Administrator mengaktifkan / menonaktifkan modul tertentu (seperti Tutor Kimia, Flashcard, dll).
  */
 
 import { useState, useEffect } from 'react';
@@ -35,11 +35,11 @@ export interface FeatureMetadata {
 export const FEATURE_CATALOG: FeatureMetadata[] = [
   {
     key: 'materialAiTutor',
-    name: 'Tanya AI Tutor Kimia (Halaman Materi)',
+    name: 'Tanya Tutor Kimia (Halaman Materi)',
     category: 'materi',
-    description: 'Menampilkan tombol asisten AI Tutor di bilah pembaca materi dan di setiap sub-blok konsep untuk tanya jawab interaktif dengan KaTeX & guardrail keselamatan.',
+    description: 'Menampilkan tombol asisten Tutor di bilah pembaca materi dan di setiap sub-blok konsep untuk tanya jawab interaktif dengan KaTeX & guardrail keselamatan.',
     impactArea: 'Portal Siswa (Halaman Materi /materi)',
-    badge: 'AI Assistant',
+    badge: 'Interactive Tutor',
     defaultValue: false, // Default NONAKTIF sesuai instruksi user
   },
   {
@@ -71,11 +71,11 @@ export const FEATURE_CATALOG: FeatureMetadata[] = [
   },
   {
     key: 'aiQuestionStudio',
-    name: 'AI Question Studio untuk Guru',
+    name: 'Question Studio untuk Guru',
     category: 'teacher',
-    description: 'Studio pembuatan bank soal otomatis berstandar Puspresnas/IChO menggunakan AI bagi guru pembimbing.',
+    description: 'Studio pembuatan bank soal otomatis berstandar Puspresnas/IChO bagi guru pembimbing.',
     impactArea: 'Portal Guru (/teacher/ai-studio)',
-    badge: 'AI Generator',
+    badge: 'Studio Generator',
     defaultValue: true,
   },
   {

@@ -496,7 +496,7 @@ $$\\delta = \\frac{\\nu_{\\text{sampel}} - \\nu_{\\text{TMS}}}{\\nu_{\\text{spek
 - $\\delta\\ 2.0 - 3.0\\text{ ppm}$: Alkuna terminal ($\\ce{-C#C-H}$, anisotropi magnetik silinder terlindungi)
 - $\\delta\\ 3.2 - 4.5\\text{ ppm}$: Proton terikat heteroatom elektronegatif ($\\ce{-CH2-O-}, \\ce{-CH2-Cl}, \\ce{-CH2-N-}$), termasuk gugus metoksi ester $\\ce{-COOCH3}$
 - $\\delta\\ 4.5 - 6.5\\text{ ppm}$: Alkena vinylic ($\\ce{R-CH=CH2}$)
-- $\\delta\\ 6.5 - 8.5\\text{ ppm}$: Proton cincin aromatik benzena (**anisotropi arus cincin $\\pi$ mendeshielding masif**)
+- $\\delta\\ 6.5 - 8.5\\text{ ppm}$: Proton cincin aromatik benzena (anisotropi arus cincin $\\pi$ mendeshielding masif)
 - $\\delta\\ 9.0 - 10.0\\text{ ppm}$: Aldehid ($\\ce{R-CHO}$, singlet tajam)
 - $\\delta\\ 10.5 - 13.0\\text{ ppm}$: Asam karboksilat ($\\ce{R-COOH}$, puncak lebar akibat ikatan hidrogen dimerik)
 
@@ -530,9 +530,9 @@ Karena kelimpahan alami isotop $^{13}\\ce{C}$ hanya $1.1\\%$, spektra direkam se
 - $\\delta\\ 190 - 220\\text{ ppm}$: Karbonil aldehid dan keton
 
 **Filter Cerdas DEPT-135 (*Distortionless Enhancement by Polarization Transfer*):**
-- Puncak mengarah ke atas (**+ / positif**): Gugus **$\\ce{CH3}$** dan **$\\ce{CH}$**.
-- Puncak terbalik mengarah ke bawah (**- / negatif**): Gugus **$\\ce{CH2}$**.
-- Puncak hilang total dari spektrum: Karbon kuaterner **$C_q$** (tanpa atom hidrogen langsung).
+- Puncak mengarah ke atas ($+$ / positif): Gugus $\\ce{CH3}$ dan $\\ce{CH}$.
+- Puncak terbalik mengarah ke bawah ($-$ / negatif): Gugus $\\ce{CH2}$.
+- Puncak hilang total dari spektrum: Karbon kuaterner $C_q$ (tanpa atom hidrogen langsung).
 
 ---
 
@@ -569,8 +569,8 @@ Sumbu horizontal mengukur rasio massa terhadap muatan ($m/z$), dan sumbu vertika
 
 ### 🧭 1. Aturan Nitrogen (*The Nitrogen Rule*)
 
-- Molekul organik yang hanya tersusun atas $\\ce{C, H, O, S, P, X}$ dengan massa molekul nominal **GENAP** pasti mengandung **nol atau sejumlah genap atom nitrogen** (0, 2, 4, dst.).
-- Molekul organik dengan massa molekul nominal **GANJIL** pasti mengandung **sejumlah ganjil atom nitrogen** (1, 3, 5, dst.).
+- Molekul organik yang hanya tersusun atas $\\ce{C, H, O, S, P, X}$ dengan massa molekul nominal genap pasti mengandung **nol atau sejumlah genap** atom nitrogen (0, 2, 4, dst.).
+- Molekul organik dengan massa molekul nominal ganjil pasti mengandung **sejumlah ganjil** atom nitrogen (1, 3, 5, dst.).
 
 ---
 
@@ -583,7 +583,7 @@ Sumbu horizontal mengukur rasio massa terhadap muatan ($m/z$), dan sumbu vertika
    Kelimpahan alami adalah $3 : 1$. Satu atom klorin menghasilkan sepasang puncak $[M]$ dan $[M+2]$ dengan rasio tinggi **$3 : 1$** (terpisah sejauh $2\\text{ m/z}$).
    Dua atom klorin menghasilkan triplet $[M] : [M+2] : [M+4] = 9 : 6 : 1$.
 3. **Bromin ($^{79}\\ce{Br}$ dan $^{81}\\ce{Br}$):**
-   Kelimpahan alami adalah $1 : 1$. Satu atom bromin menghasilkan sepasang **puncak kembar identik $[M]$ dan $[M+2]$ setinggi $1 : 1$**!
+   Kelimpahan alami adalah $1 : 1$. Satu atom bromin menghasilkan sepasang puncak kembar identik $[M]$ dan $[M+2]$ dengan rasio tinggi $1 : 1$.
    Dua atom bromin menghasilkan rasio $[M] : [M+2] : [M+4] = 1 : 2 : 1$.
 
 ---
@@ -1055,7 +1055,7 @@ Uji pergeseran kimia proton alifatik pada $^1\\ce{H-NMR}$:
 2. Pada Isomer B (Benzil asetat):
    - Proton metil karbonil $\\ce{CH3-C(=O)-O-}$ adalah metil keton/asetat sederhana: harus muncul pada $\\delta \\approx 2.05 - 2.10\\text{ ppm}$ (singlet tajam).
    - Proton metilen benzylic $\\ce{Ph-CH2-O-C(=O)-}$ terikat langsung pada oksigen ester yang sangat elektronegatif: mengalami *deshielding* masif hingga $\\delta \\approx 5.10\\text{ ppm}$!
-3. Data eksperimen: **Hanya ada puncak pada $\\delta\\ 3.68\\text{ ppm}$ ($3\\ce{H}$) dan $\\delta\\ 3.63\\text{ ppm}$ ($2\\ce{H}$)**, serta sama sekali **tidak ada sinyal pada $\\delta\\ 2.05\\text{ ppm}$ maupun $\\delta\\ 5.10\\text{ ppm}$**.
+3. Data eksperimen: Hanya ada puncak pada $\\delta\\ 3.68\\text{ ppm}$ ($3\\ce{H}$) dan $\\delta\\ 3.63\\text{ ppm}$ ($2\\ce{H}$), serta tidak ada sinyal pada $\\delta\\ 2.05\\text{ ppm}$ maupun $\\delta\\ 5.10\\text{ ppm}$.
 Fakta spektroskopi ini secara mutlak menyingkirkan Benzil asetat dan membuktikan bahwa senyawa $Z$ adalah **Metil 2-fenilasetat**.
 
 #### Langkah 5: Penugasan Sinyal Lengkap ($^1\\ce{H}$ & $^{13}\\ce{C}$ DEPT-NMR)

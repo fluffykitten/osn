@@ -122,7 +122,7 @@ export const AdminFeatureManagement: React.FC = () => {
               Manajemen Fitur Aplikasi
             </h1>
             <p className="text-xs sm:text-sm text-[#B0C4DE] max-w-2xl leading-relaxed">
-              Kendalikan status aktivasi setiap fitur di portal Siswa dan Guru secara fleksibel dan real-time. Anda dapat menonaktifkan fitur eksperimental seperti AI Tutor kapan saja tanpa perlu redeploy.
+              Kendalikan status aktivasi setiap fitur di portal Siswa dan Guru secara fleksibel dan real-time. Anda dapat menonaktifkan fitur interaktif seperti Tutor Kimia kapan saja tanpa perlu redeploy.
             </p>
           </div>
 
@@ -153,7 +153,7 @@ export const AdminFeatureManagement: React.FC = () => {
         </div>
       </div>
 
-      {/* Special Notice for AI Tutor */}
+      {/* Special Notice for Tutor Kimia */}
       <div className="bg-amber-50/80 border border-amber-200 rounded-2xl p-4 sm:p-5 flex items-start sm:items-center justify-between gap-4 shadow-2xs">
         <div className="flex items-start sm:items-center gap-3.5">
           <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-700 border border-amber-500/20 shrink-0 mt-0.5 sm:mt-0">
@@ -162,7 +162,7 @@ export const AdminFeatureManagement: React.FC = () => {
           <div className="space-y-0.5">
             <div className="flex items-center gap-2">
               <h4 className="text-sm font-bold text-slate-900">
-                Fitur Tanya AI Tutor Kimia
+                Fitur Tanya Tutor Kimia
               </h4>
               <span
                 className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
@@ -176,8 +176,8 @@ export const AdminFeatureManagement: React.FC = () => {
             </div>
             <p className="text-xs text-slate-600">
               {flags.materialAiTutor
-                ? 'Tombol AI Tutor saat ini dapat diakses oleh siswa di halaman membaca materi.'
-                : 'Tombol AI Tutor di halaman membaca materi disembunyikan secara menyeluruh dari siswa sesuai instruksi Administrator.'}
+                ? 'Tombol Tutor Kimia saat ini dapat diakses oleh siswa di halaman membaca materi.'
+                : 'Tombol Tutor Kimia di halaman membaca materi disembunyikan secara menyeluruh dari siswa sesuai instruksi Administrator.'}
             </p>
           </div>
         </div>
@@ -191,7 +191,7 @@ export const AdminFeatureManagement: React.FC = () => {
               : 'bg-emerald-600 hover:bg-emerald-700 text-white'
           }`}
         >
-          {flags.materialAiTutor ? 'Nonaktifkan Sekarang' : 'Aktifkan AI Tutor'}
+          {flags.materialAiTutor ? 'Nonaktifkan Sekarang' : 'Aktifkan Tutor Kimia'}
         </button>
       </div>
 

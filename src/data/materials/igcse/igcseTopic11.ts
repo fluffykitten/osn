@@ -163,7 +163,7 @@ The IUPAC name of an unbranched organic molecule is constructed from:
 
 ### 4. Structural Isomerism
 
-**Structural isomers** are compounds that have the **same molecular formula** but **different structural formulae** (the atoms are connected in a different order).
+**Structural isomers** are compounds that have the same molecular formula but different structural formulae (the atoms are connected in a different order).
 
 Consider butane (molecular formula $\\ce{C4H10}$):
 - **Isomer 1 (Butane):** A straight four-carbon chain $\\ce{CH3CH2CH2CH3}$. Boiling point: $-0.5^\\circ\\text{C}$.
@@ -368,7 +368,7 @@ Fossil fuels (coal, natural gas, and petroleum) formed over millions of years fr
 
 ### 2. Fractional Distillation of Petroleum
 
-Petroleum is separated industrially in a tall **fractionating column** using continuous **fractional distillation**:
+Petroleum is separated industrially in a tall fractionating column using continuous fractional distillation:
 
 1. **Heating:** Crude oil is vaporised in a furnace at approximately $350^\\circ\\text{C}$ and pumped into the bottom of the column.
 2. **Temperature Gradient:** The column is hot at the bottom (~$350^\\circ\\text{C}$) and cool at the top (~$25^\\circ\\text{C}$).
@@ -616,7 +616,7 @@ A chlorine atom replaces a hydrogen atom on the methane molecule:
 $$\\ce{CH4 + Cl2 ->[UV light] CH3Cl + HCl}$$
 
 - **Word Equation:** $\\text{Methane} + \\text{Chlorine} \\xrightarrow{\\text{UV light}} \\text{Chloromethane} + \\text{Hydrogen chloride}$
-- **Important Marking Point:** Notice that **hydrogen chloride ($\\ce{HCl}$)** is produced, **NOT hydrogen gas ($\\ce{H2}$)**! Stating that $\\ce{H2}$ is formed is one of the most frequent errors in Cambridge chemistry exams.
+- **Important Marking Point:** Notice that hydrogen chloride ($\\ce{HCl}$) is produced, **not hydrogen gas ($\\ce{H2}$)**! Stating that $\\ce{H2}$ is formed is one of the most frequent errors in Cambridge chemistry exams.
 
 If chlorine is in excess, substitution continues progressively:
 $$\\ce{CH3Cl + Cl2 -> CH2Cl2} \\quad \\text{(Dichloromethane)} + \\ce{HCl}$$
@@ -779,7 +779,7 @@ First three alkenes:
 2. **Propene:** $\\ce{C3H6}$ (structural: $\\ce{CH3CH=CH2}$)
 3. **But-1-ene:** $\\ce{C4H8}$ (structural: $\\ce{CH2=CHCH2CH3}$) and **But-2-ene:** $\\ce{CH3CH=CHCH3}$ (positional isomers!)
 
-Because of the high electron density in the $\\ce{C=C}$ double bond, alkenes are **far more reactive than alkanes**. They readily undergo **addition reactions**.
+Because of the high electron density in the $\\ce{C=C}$ double bond, alkenes are far more reactive than alkanes. They readily undergo **addition reactions**.
 
 ---
 
@@ -811,7 +811,7 @@ $$\\text{or} \\quad \\text{Long-chain alkane} \\xrightarrow{\\text{Cracking}} \\
 ### 3. The Chemical Test for Unsaturation (Bromine Water Test)
 
 How do you distinguish an alkane from an alkene in the laboratory?
-You add **aqueous bromine (bromine water, $\\ce{Br2(aq)}$)**, which is an **orange / reddish-brown liquid**:
+You add **aqueous bromine (bromine water, $\\ce{Br2(aq)}$)**, which is an orange / reddish-brown liquid:
 
 - **With an Alkane:**
   - No reaction at room temperature in the dark.
@@ -965,12 +965,12 @@ You add **aqueous bromine (bromine water, $\\ce{Br2(aq)}$)**, which is an **oran
         'An addition reaction occurs when a double bond breaks to form single bonds, yielding exactly one product. Mastery of alkene bromination, hydrogenation (margarine manufacture), and hydration (industrial ethanol synthesis).',
       content: `### 1. The Principles of Addition Reactions
 
-An **addition reaction** is a reaction in which two or more reactant molecules combine to form **exactly one single product**.
+An **addition reaction** is a reaction in which two or more reactant molecules combine to form exactly one single product.
 - The carbon-carbon double bond ($\\ce{C=C}$) contains one strong $\\sigma$-bond and one weaker $\\pi$-bond.
 - During an addition reaction, the double bond "breaks open" into a single bond ($\\ce{C-C}$), allowing new atoms to attach to both carbon atoms.
 - **Atom economy:** Because all reactant atoms end up in the single product, addition reactions have $100\\%$ theoretical atom economy!
 
-Cambridge IGCSE 0620 requires detailed knowledge of **three major addition reactions of alkenes**:
+Cambridge IGCSE 0620 requires detailed knowledge of three major addition reactions of alkenes:
 
 ---
 
@@ -1116,7 +1116,7 @@ $$\\ce{CH2=CH2(g) + H2O(g) <=>[\\text{conc. } \\ce{H3PO4}][300^\\circ\\text{C}, 
         'Alcohols contain the -OH functional group. Industrial comparison between continuous catalytic hydration of ethene and batch biological fermentation of glucose. Combustion and chemical oxidation of ethanol.',
       content: `### 1. Functional Group and Naming of Alcohols
 
-Alcohols are an organic homologous series containing the **hydroxyl functional group ($\\ce{-OH}$)**:
+Alcohols are an organic homologous series containing the **hydroxyl group** ($\\ce{-OH}$):
 - **General Formula:** $\\ce{C_n H_{2n+1}OH}$
 - The first four alcohols are:
   1. **Methanol:** $\\ce{CH3OH}$
@@ -1517,7 +1517,7 @@ A **polymer** is a large macromolecule built up from many small, repeating chemi
 
 ### 2. Addition Polymerisation
 
-In **addition polymerisation**, unsaturated monomers containing a **$\\ce{C=C}$ double bond** join together:
+In **addition polymerisation**, unsaturated monomers containing a $\\ce{C=C}$ double bond join together:
 - The double bond in each monomer breaks open into a single bond.
 - The monomer units link together to form a very long saturated carbon chain.
 - **Key feature:** The polymer is the **only product** formed (no atoms are lost or eliminated).
@@ -1542,7 +1542,7 @@ $$n \\ce{CH2=CH2} \\xrightarrow{\\text{High } P, T, \\text{catalyst}} \\ce{[-CH2
 
 ### 3. Condensation Polymerisation
 
-In **condensation polymerisation**, monomers join together with the **elimination of a small molecule** (typically **water, $\\ce{H2O}$**, or hydrogen chloride, $\\ce{HCl}$):
+In **condensation polymerisation**, monomers join together with the elimination of a small molecule (typically water, $\\ce{H2O}$, or hydrogen chloride, $\\ce{HCl}$):
 - Monomers must possess **two functional groups** (one at each end of the molecule, i.e., bifunctional).
 - Cambridge requires two major classes of condensation polymers: **polyesters** and **polyamides**.
 
@@ -1584,7 +1584,7 @@ Synthetic polymers (plastics) are immensely durable, cheap, and versatile, but t
    - **Landfill:** Takes up valuable land space; visually polluting.
    - **Incineration (Burning):**
      - Releases greenhouse gases ($\\ce{CO2}$), accelerating global climate change.
-     - Releases **toxic gases** (e.g. burning PVC releases poisonous, acidic **hydrogen chloride gas ($\\ce{HCl}$)** and deadly dioxins; incomplete combustion releases toxic $\\ce{CO}$).
+     - Releases toxic gases (e.g. burning PVC releases poisonous, acidic **hydrogen chloride gas ($\\ce{HCl}$)** and deadly dioxins; incomplete combustion releases toxic $\\ce{CO}$).
 4. **Recycling Solutions:**
    - Sorting, melting, and remoulding plastics saves finite petroleum crude oil reserves and reduces landfill volume, but requires intensive sorting and cleaning.
 

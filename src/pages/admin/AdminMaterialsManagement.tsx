@@ -7,8 +7,13 @@ import {
   Clock,
   Atom,
   Flame,
+  Sparkles,
+  BookOpen,
+  CheckCircle2,
+  ArrowRight,
 } from 'lucide-react';
 import { materialService } from '../../services/materialService';
+import { useOsnPedagogyVersion, type OsnPedagogyVersion } from '../../services/materialPedagogyVersionService';
 
 export const AdminMaterialsManagement: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'osn' | 'sma'>('osn');
@@ -16,12 +21,15 @@ export const AdminMaterialsManagement: React.FC = () => {
   const [smaMaterials, setSmaMaterials] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const { version: pedagogyVersion, setVersion: setPedagogyVersion } = useOsnPedagogyVersion();
+  const [versionFeedback, setVersionFeedback] = useState<string | null>(null);
 
-  const loadMaterials = async () => {
+  const loadMaterials = async (targetVersion?: OsnPedagogyVersion) => {
     setIsLoading(true);
     try {
+      const v = targetVersion || pedagogyVersion;
       const [osn, sma] = await Promise.all([
-        materialService.getOsnMaterials(),
+        materialService.getOsnMaterials(v),
         materialService.getSmaMaterials(),
       ]);
       setOsnMaterials(osn);
@@ -34,8 +42,18 @@ export const AdminMaterialsManagement: React.FC = () => {
   };
 
   useEffect(() => {
-    loadMaterials();
-  }, []);
+    loadMaterials(pedagogyVersion);
+  }, [pedagogyVersion]);
+
+  const handleSwitchVersion = (v: OsnPedagogyVersion) => {
+    setPedagogyVersion(v);
+    setVersionFeedback(
+      v === 'revamped'
+        ? 'Beralih ke Versi Revamp Pedagogis (4-Pilar: Intuisi & Formalisasi, Taktik Soal, Inkuiri, Ringkasan Cepat).'
+        : 'Beralih ke Versi Tradisional (3-Tahap: Prasyarat, Konsep Inti, Contoh Soal).'
+    );
+    setTimeout(() => setVersionFeedback(null), 4000);
+  };
 
   const currentList = activeTab === 'osn' ? osnMaterials : smaMaterials;
   const filteredList = currentList.filter(
@@ -91,6 +109,101 @@ export const AdminMaterialsManagement: React.FC = () => {
         </div>
       </div>
 
+      {/* PEDAGOGY VERSION SWITCHER PANEL (HANYA MUNCUL DI TAB OSN) */}
+      {activeTab === 'osn' && (
+        <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 border border-indigo-900/60 shadow-md space-y-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 rounded text-[10px] font-bold tracking-wider uppercase font-mono">
+                  DUAL-PEDAGOGY ENGINE
+                </span>
+                <span className="text-xs text-indigo-200/80 font-medium">Pengaturan Versi Kurikulum OSN</span>
+              </div>
+              <h2 className="text-base font-bold text-white mt-1">
+                Pilih Tipe & Alur Pedagogis Materi yang Digunakan
+              </h2>
+              <p className="text-xs text-indigo-200/80 mt-0.5">
+                Pilih model pembelajaran yang ingin Anda bandingkan atau aktifkan untuk seluruh pengguna portal.
+              </p>
+            </div>
+
+            {versionFeedback && (
+              <div className="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 text-xs font-medium animate-fadeIn">
+                ✓ {versionFeedback}
+              </div>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            {/* Opsi 1: Revamped 4-Pilar */}
+            <div
+              onClick={() => handleSwitchVersion('revamped')}
+              className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
+                pedagogyVersion === 'revamped'
+                  ? 'bg-indigo-600/25 border-indigo-400 ring-2 ring-indigo-400/50 shadow-inner'
+                  : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
+              }`}
+            >
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-indigo-300" />
+                  <span className="text-sm font-bold text-white">Versi Revamp Pedagogis (4-Pilar)</span>
+                </div>
+                {pedagogyVersion === 'revamped' ? (
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-400/30">
+                    <CheckCircle2 size={12} /> Aktif Sekarang
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-slate-400 hover:text-white">Klik untuk Pilih</span>
+                )}
+              </div>
+              <p className="text-xs text-indigo-100/90 leading-relaxed mb-3">
+                Alur ketat olimpiade modern: <strong>Intuisi fisis mikroskopis</strong> disusul <strong>formalisasi matematis IUPAC</strong>, bedah <strong>Taktik Soal & Titik Rawan Kesalahan</strong>, <strong>Pengayaan Inkuiri Paradoks Kimia</strong> (Born-Haber & Kirchhoff), dan <strong>Ringkasan Cepat</strong>.
+              </p>
+              <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-indigo-300">
+                <span className="px-1.5 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/20">1. Intuisi & Formalisasi</span>
+                <span className="px-1.5 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/20">2. Taktik Soal</span>
+                <span className="px-1.5 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/20">3. Inkuiri Paradoks</span>
+                <span className="px-1.5 py-0.5 rounded bg-indigo-500/20 border border-indigo-400/20">4. Ringkasan Cepat</span>
+              </div>
+            </div>
+
+            {/* Opsi 2: Classic 3-Tahap */}
+            <div
+              onClick={() => handleSwitchVersion('classic')}
+              className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
+                pedagogyVersion === 'classic'
+                  ? 'bg-indigo-600/25 border-indigo-400 ring-2 ring-indigo-400/50 shadow-inner'
+                  : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
+              }`}
+            >
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-slate-300" />
+                  <span className="text-sm font-bold text-white">Versi Tradisional (3-Tahap)</span>
+                </div>
+                {pedagogyVersion === 'classic' ? (
+                  <span className="flex items-center gap-1 text-[11px] font-bold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-400/30">
+                    <CheckCircle2 size={12} /> Aktif Sekarang
+                  </span>
+                ) : (
+                  <span className="text-[11px] text-slate-400 hover:text-white">Klik untuk Pilih</span>
+                )}
+              </div>
+              <p className="text-xs text-indigo-100/90 leading-relaxed mb-3">
+                Alur modular konvensional: Membagi materi ke dalam <strong>Tahap 1: Prasyarat Fondasi</strong>, <strong>Tahap 2: Konsep Materi Inti</strong>, dan <strong>Tahap 3: Pembahasan Soal Standar Kompetisi</strong>.
+              </p>
+              <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-slate-300">
+                <span className="px-1.5 py-0.5 rounded bg-white/10 border border-white/15">Tahap 1: Prasyarat</span>
+                <span className="px-1.5 py-0.5 rounded bg-white/10 border border-white/15">Tahap 2: Konsep Inti</span>
+                <span className="px-1.5 py-0.5 rounded bg-white/10 border border-white/15">Tahap 3: Contoh Soal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Search Input */}
       <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
         <div className="relative">
@@ -126,9 +239,16 @@ export const AdminMaterialsManagement: React.FC = () => {
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-mono text-[10px] font-semibold">
-                      {activeTab === 'osn' ? `Pilar ${topicNum}` : `Modul ${topicNum}`}
-                    </span>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-700 font-mono text-[10px] font-semibold">
+                        {activeTab === 'osn' ? `Pilar ${topicNum}` : `Modul ${topicNum}`}
+                      </span>
+                      {m.pedagogy_version === 'revamped' && (
+                        <span className="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 text-[9px] font-bold font-mono flex items-center gap-1">
+                          <Sparkles size={10} /> 4-Pilar Revamped
+                        </span>
+                      )}
+                    </div>
                     {m.isEdited && (
                       <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-bold font-mono">
                         Sudah Diedit

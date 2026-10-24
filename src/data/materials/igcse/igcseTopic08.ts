@@ -75,10 +75,10 @@ export const IGCSE_TOPIC_8: MaterialItem = {
         'Understanding how elements are arranged in order of proton number, defining groups and periods, identifying the metallic-to-non-metallic transition, and examining Period 3 property trends.',
       content: `### 🧭 Architecture of the Modern Periodic Table
 
-The **Periodic Table** is a tabular arrangement of all known chemical elements organized by **increasing proton (atomic) number**:
+The **Periodic Table** is a tabular arrangement of all known chemical elements organized by increasing proton (atomic) number:
 
 1. **Groups (Vertical Columns)**:
-   - Numbered from **Group I to Group VII**, and **Group VIII (or Group 0)** for noble gases.
+   - Numbered from Group I to Group VII, and Group VIII (or Group 0) for noble gases.
    - Elements in the same group possess the **same number of outer-shell (valence) electrons** (e.g. Group I elements have $1$ valence electron, Group VII elements have $7$).
    - Because chemical reactions involve the exchange or sharing of valence electrons, elements in the same group share **similar chemical properties**.
 
@@ -333,7 +333,7 @@ When moving **down Group I** from Lithium to Caesium:
         'Observations for reactions of Li, Na, and K with water, general chemical equations, and atomic structural explanation of increasing reactivity down Group I.',
       content: `### 🌊 Reactions of Group I Metals with Cold Water
 
-All Group I metals react vigorously with cold water to produce a **soluble metal hydroxide (alkali)** and **hydrogen gas**:
+All Group I metals react vigorously with cold water to produce a soluble metal hydroxide (alkali) and hydrogen gas:
 $$2\\ce{M(s)} + 2\\ce{H2O(l)} \\to 2\\ce{MOH(aq)} + \\ce{H2(g)}$$
 
 #### Cambridge Experimental Observations:
@@ -363,7 +363,7 @@ $$2\\ce{M(s)} + 2\\ce{H2O(l)} \\to 2\\ce{MOH(aq)} + \\ce{H2(g)}$$
 
 ### ⚛️ Why Does Reactivity Increase Down Group I?
 
-Group I metals react by **losing their single outer valence electron** to form a singly charged positive cation ($\\ce{M} \\to \\ce{M+} + e^-$).
+Group I metals react by losing their single outer valence electron to form a singly charged positive cation ($\\ce{M} \\to \\ce{M+} + e^-$).
 
 <svg viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t08-group-1-reactivity-reason-title igcse-t08-group-1-reactivity-reason-desc" data-diagram="igcse-t08-group-1-reactivity-reason" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
   <title id="igcse-t08-group-1-reactivity-reason-title">Atomic Basis of Increasing Reactivity Down Group I</title>
@@ -673,7 +673,7 @@ Halogen atoms have $7$ valence electrons and react by **gaining one electron** t
 
 ### 🔄 Halogen Displacement Reactions
 
-A **more reactive halogen will displace a less reactive halide ion** from an aqueous solution of its salt:
+A more reactive halogen will displace a less reactive halide ion from an aqueous solution of its salt:
 
 <svg viewBox="0 0 800 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t08-halogen-displacement-reactions-title igcse-t08-halogen-displacement-reactions-desc" data-diagram="igcse-t08-halogen-displacement-reactions" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
   <title id="igcse-t08-halogen-displacement-reactions-title">Halogen Displacement Reactions and Redox Net Ionic Equations</title>
@@ -921,7 +921,7 @@ Cambridge examinations test **three mandatory chemical properties** that set tra
         'Electronic explanation for the inertness of Group VIII noble gases, full outer shells (duet/octet), and practical applications of He, Ne, Ar, Kr, and Xe.',
       content: `### 🎈 Group VIII / 0: The Noble Gases
 
-The elements in **Group VIII** (often referred to as **Group 0**) are known as the **noble gases**:
+The elements in Group VIII (often referred to as Group 0) are known as the **noble gases**:
 - **Helium** ($\\ce{He}$, $Z=2$, configuration: $2$)
 - **Neon** ($\\ce{Ne}$, $Z=10$, configuration: $2,8$)
 - **Argon** ($\\ce{Ar}$, $Z=18$, configuration: $2,8,8$)
@@ -995,7 +995,7 @@ The elements in **Group VIII** (often referred to as **Group 0**) are known as t
 
 ### 💡 Industrial & Everyday Applications
 
-Cambridge syllabuses explicitly require candidates to relate the applications of noble gases to their **specific physical and chemical properties**:
+Cambridge syllabuses explicitly require candidates to relate the applications of noble gases to their specific physical and chemical properties:
 
 1. **Helium ($\\ce{He}$)**:
    - **Use**: Filling weather balloons, party balloons, and airships (blimps).
@@ -1073,12 +1073,14 @@ A student investigated the displacement reactions of halogens using aqueous solu
 >   [1 mark for correct formulas and balancing; 1 mark for state symbols].
 
 **(b) (2 marks)** In terms of electron transfer, explain why this reaction is classified as a redox reaction. Identify the oxidising agent.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Bromide ions ($\\ce{Br-}$) **lose electrons** to form $\\ce{Br2}$ (oxidation), while chlorine molecules ($\\ce{Cl2}$) **gain electrons** to form $\\ce{Cl-}$ (reduction) [1 mark].
 > 2. **Oxidising Agent**: $\\ce{Cl2}$ (because it oxidises $\\ce{Br-}$ and is itself reduced) [1 mark].
 
 **(c) (1 mark)** Predict what is observed when aqueous iodine is added to sodium chloride solution. Explain your answer.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - **Observation**: No reaction / solution remains brown [1 mark].
@@ -1089,6 +1091,7 @@ A student investigated the displacement reactions of halogens using aqueous solu
 ### 📝 Question 3 (Paper 4 Theory — 6 Marks)
 Explain, in terms of atomic structure, why:
 **(a) (3 marks)** The reactivity of Group I alkali metals increases down the group from lithium to potassium.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Group I metals react by **losing their single outer valence electron** [1 mark].
@@ -1096,6 +1099,7 @@ Explain, in terms of atomic structure, why:
 > 3. There is **increased shielding** from inner electron shells, so the **electrostatic attraction between the positive nucleus and the outer electron is weaker**; therefore, the outer electron is lost more easily [1 mark].
 
 **(b) (3 marks)** The reactivity of Group VII halogens decreases down the group from fluorine to iodine.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Halogens react by **gaining one electron** to achieve a full outer shell [1 mark].
@@ -1108,6 +1112,7 @@ Explain, in terms of atomic structure, why:
 Transition elements and Group I metals are both metals, but they exhibit distinct physical and chemical differences.
 
 **(a) (2 marks)** State two physical properties in which transition elements differ from Group I metals.
+
 > [!TIP]
 > ### 💡 Mark Scheme (Any two):
 > - Transition elements have **higher densities** [1 mark].
@@ -1115,6 +1120,7 @@ Transition elements and Group I metals are both metals, but they exhibit distinc
 > - Transition elements are **harder / stronger** [1 mark].
 
 **(b) (2 marks)** Name a transition metal (or its compound) used as a catalyst in an industrial process, and name the chemical product manufactured in that process.
+
 > [!TIP]
 > ### 💡 Mark Scheme (Either pair):
 > - **Catalyst**: Iron ($\\ce{Fe}$) [1 mark] $\\to$ **Product**: Ammonia ($\\ce{NH3}$) in the Haber process [1 mark].

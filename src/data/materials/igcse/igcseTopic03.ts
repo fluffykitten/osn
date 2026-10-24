@@ -156,7 +156,7 @@ Every chemical compound is represented by a **chemical formula** that shows the 
 
 ### ⚖️ Balancing Chemical Equations & Conservation of Mass
 
-The **Law of Conservation of Mass** states that matter cannot be created or destroyed in a chemical reaction. Therefore:
+The Law of Conservation of Mass states that matter cannot be created or destroyed in a chemical reaction. Therefore:
 - The total number of atoms of each element on the **reactants** side must exactly equal the total number of atoms on the **products** side.
 - Never alter chemical subscripts (e.g. changing $\\ce{CO2}$ to $\\ce{CO3}$ is prohibited); only change **stoichiometric coefficients** placed in front of chemical formulas.
 
@@ -302,7 +302,7 @@ In aqueous reactions, soluble ionic compounds completely dissociate into mobile 
 
 Atoms are far too tiny to weigh individually on everyday balances (a single hydrogen atom weighs only $\\approx 1.67 \\times 10^{-24}\\text{ g}$). Scientists therefore express atomic masses by comparing them against an internationally accepted standard: the **carbon-12 isotope** ($^{12}\\text{C}$).
 
-- One atom of carbon-12 is assigned a relative mass of **exactly 12 unified atomic mass units (u)**.
+- One atom of carbon-12 is assigned a relative mass of exactly $12$ unified atomic mass units (u).
 - **One atomic mass unit (1 u)** is defined as exactly $\\frac{1}{12}\\text{th}$ of the mass of a single $^{12}\\text{C}$ atom.
 
 <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t03-carbon12-standard-scale-title igcse-t03-carbon12-standard-scale-desc" data-diagram="igcse-t03-carbon12-standard-scale" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
@@ -517,11 +517,19 @@ Calculate the mass of iron produced when $320\\text{ g}$ of iron(III) oxide is r
 $$\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(s) + 3CO2(g)}$$
 *(Given $A_r$: $\\ce{Fe} = 56$, $\\ce{O} = 16$, $\\ce{C} = 12$)*
 
-1. **Step 1**: $M_r(\\ce{Fe2O3}) = (2 \\times 56) + (3 \\times 16) = 112 + 48 = 160\\text{ g/mol}$.
+#### Step 1: $M_r(\\ce{Fe2O3}) = (2 \\times 56) + (3 \\times 16) = 112 + 48 = 160\\text{ g/mol}$.
+
+
    $$n(\\ce{Fe2O3}) = \\frac{320\\text{ g}}{160\\text{ g/mol}} = 2.00\\text{ mol}$$
-2. **Step 2**: From the balanced equation:
+
+#### Step 2: From the balanced equation:
+
+
    $$\\frac{n(\\ce{Fe})}{n(\\ce{Fe2O3})} = \\frac{2}{1} \\implies n(\\ce{Fe}) = 2.00 \\times 2 = 4.00\\text{ mol}$$
-3. **Step 3**: Mass of $\\ce{Fe} = \\text{moles} \\times A_r = 4.00\\text{ mol} \\times 56\\text{ g/mol} = \\mathbf{224\\text{ g}}$.
+
+#### Step 3: Mass of $\\ce{Fe} = \\text{moles} \\times A_r = 4.00\\text{ mol} \\times 56\\text{ g/mol} = \\mathbf{224\\text{ g}}$.
+
+
 
 ---
 
@@ -576,7 +584,7 @@ Regardless of whether a gas is light (like helium or hydrogen) or heavy (like ch
 
 Under standard room conditions:
 - **r.t.p.** = Room Temperature and Pressure ($20^\\circ\\text{C}$ or $293\\text{ K}$ and $1\\text{ atmosphere}$ / $101.3\\text{ kPa}$).
-- At r.t.p., **1 mole of any gas occupies a volume of $24\\text{ dm}^3$** (which equals $24\\text{ litres}$ or $24\,000\\text{ cm}^3$).
+- At r.t.p., 1 mole of any gas occupies a volume of $24\\text{ dm}^3$** (which equals $24\\text{ litres}$ or $24\,000\\text{ cm}^3$).
 
 $$\\mathbf{\\text{Gas Volume in dm}^3 = \\text{Moles } (n) \\times 24}$$
 $$\\mathbf{\\text{Gas Volume in cm}^3 = \\text{Moles } (n) \\times 24\,000}$$
@@ -644,7 +652,7 @@ $$\\ce{CaCO3(s) + 2HCl(aq) -> CaCl2(aq) + H2O(l) + CO2(g)}$$
 
 ### 💨 Gas Volume-Volume Stoichiometric Shortcut
 
-When **all reactants and products involved are gases** at the same temperature and pressure, the mole ratio from the balanced equation equals the **direct volume ratio**:
+When all reactants and products involved are gases at the same temperature and pressure, the mole ratio from the balanced equation equals the **direct volume ratio**:
 
 $$\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(l)}$$
 
@@ -775,12 +783,20 @@ A **titration** is an experimental method used to determine the exact concentrat
 In a titration, $25.0\\text{ cm}^3$ of sodium hydroxide solution (\\ce{NaOH}) of unknown concentration requires $20.0\\text{ cm}^3$ of $0.050\\text{ mol/dm}^3$ sulfuric acid (\\ce{H2SO4}) for complete neutralisation:
 $$\\ce{2NaOH(aq) + H2SO4(aq) -> Na2SO4(aq) + 2H2O(l)}$$
 
-1. **Step 1**: Moles of $\\ce{H2SO4}$:
+#### Step 1: Moles of $\\ce{H2SO4}$:
+
+
    $$V(\\ce{H2SO4}) = \\frac{20.0}{1000} = 0.0200\\text{ dm}^3$$
    $$n(\\ce{H2SO4}) = 0.050\\text{ mol/dm}^3 \\times 0.0200\\text{ dm}^3 = 1.00 \\times 10^{-3}\\text{ mol}$$
-2. **Step 2**: Mole ratio $\\frac{\\ce{NaOH}}{\\ce{H2SO4}} = \\frac{2}{1}$:
+
+#### Step 2: Mole ratio $\\frac{\\ce{NaOH}}{\\ce{H2SO4}} = \\frac{2}{1}$:
+
+
    $$n(\\ce{NaOH}) = 2 \\times (1.00 \\times 10^{-3}\\text{ mol}) = 2.00 \\times 10^{-3}\\text{ mol}$$
-3. **Step 3**: Concentration of $\\ce{NaOH}$:
+
+#### Step 3: Concentration of $\\ce{NaOH}$:
+
+
    $$V(\\ce{NaOH}) = \\frac{25.0}{1000} = 0.0250\\text{ dm}^3$$
    $$c(\\ce{NaOH}) = \\frac{2.00 \\times 10^{-3}\\text{ mol}}{0.0250\\text{ dm}^3} = \\mathbf{0.080\\text{ mol/dm}^3}$$
 4. **Extension**: In $\\text{g/dm}^3$:
@@ -1018,7 +1034,7 @@ $$\\mathbf{\\text{Percentage Yield} = \\frac{\\text{Actual Yield}}{\\text{Theore
 
 ### 🔍 Why Reaction Yield is Never 100% (Cambridge Mark Scheme Points):
 
-In Paper 4, Cambridge frequently awards marks for citing **practical reasons why actual yield is less than theoretical yield**:
+In Paper 4, Cambridge frequently awards marks for citing practical reasons why actual yield is less than theoretical yield:
 1. **Reversible reaction**: The reaction reaches dynamic equilibrium before reaching completion.
 2. **Side reactions**: Competing side reactions occur, forming unexpected by-products.
 3. **Physical transfer losses**: Liquid clings to beakers, flasks, and stirring rods; solid adheres to filter paper.
@@ -1107,18 +1123,24 @@ What volume of oxygen gas at r.t.p. is required to react completely with $30\\te
 Iron is extracted from iron(III) oxide by reaction with carbon monoxide in the blast furnace:
 $$\\ce{Fe2O3(s) + 3CO(g) -> 2Fe(s) + 3CO2(g)}$$
 
-**(a) Calculate the relative formula mass ($M_r$) of iron(III) oxide, $\\ce{Fe2O3}$. [1]**
+
+**Part (a)**: Calculate the relative formula mass ($M_r$) of iron(III) oxide, $\\ce{Fe2O3}$. [1]
+
 *(Given $A_r$: $\\ce{Fe} = 56, \\ce{O} = 16$)*
 > **Mark Scheme**:
 > - $M_r = (2 \\times 56) + (3 \\times 16) = 112 + 48 = \\mathbf{160}$ [1]
 
-**(b) Calculate the maximum mass of iron that can be extracted from $80.0\\text{ tonnes}$ of iron(III) oxide. [3]**
+
+**Part (b)**: Calculate the maximum mass of iron that can be extracted from $80.0\\text{ tonnes}$ of iron(III) oxide. [3]
+
 > **Mark Scheme**:
 > - **Mark 1**: Moles of $\\ce{Fe2O3} = \\frac{80.0 \\times 10^6\\text{ g}}{160} = 500\,000\\text{ mol}$ (or $0.50\\text{ megamoles}$). [1]
 > - **Mark 2**: Mole ratio $\\frac{\\ce{Fe}}{\\ce{Fe2O3}} = \\frac{2}{1} \\implies \\text{Moles of } \\ce{Fe} = 2 \\times 500\,000 = 1\,000\,000\\text{ mol}$. [1]
 > - **Mark 3**: $\\text{Mass of } \\ce{Fe} = 1\,000\,000\\text{ mol} \\times 56\\text{ g/mol} = 56 \\times 10^6\\text{ g} = \\mathbf{56.0\\text{ tonnes}}$. [1]
 
-**(c) What volume of carbon monoxide gas, measured at r.t.p., is needed to react completely with $0.050\\text{ moles}$ of $\\ce{Fe2O3}$? [2]**
+
+**Part (c)**: What volume of carbon monoxide gas, measured at r.t.p., is needed to react completely with $0.050\\text{ moles}$ of $\\ce{Fe2O3}$? [2]
+
 > **Mark Scheme**:
 > - **Mark 1**: Moles of $\\ce{CO} = 3 \\times 0.050 = 0.150\\text{ mol}$. [1]
 > - **Mark 2**: $\\text{Volume} = 0.150\\text{ mol} \\times 24\\text{ dm}^3 = \\mathbf{3.6\\text{ dm}^3}$ (or $3600\\text{ cm}^3$). [1]
@@ -1131,20 +1153,28 @@ $25.0\\text{ cm}^3$ of $0.120\\text{ mol/dm}^3$ aqueous sodium hydroxide is plac
 $$\\ce{NaOH(aq) + HCl(aq) -> NaCl(aq) + H2O(l)}$$
 The average titre of hydrochloric acid required is $20.0\\text{ cm}^3$.
 
-**(a) Calculate the number of moles of $\\ce{NaOH}$ in $25.0\\text{ cm}^3$ of the solution. [1]**
+
+**Part (a)**: Calculate the number of moles of $\\ce{NaOH}$ in $25.0\\text{ cm}^3$ of the solution. [1]
+
 > **Mark Scheme**:
 > - $\\text{Moles} = c \\times V = 0.120 \\times \\left(\\frac{25.0}{1000}\\right) = \\mathbf{0.00300\\text{ mol}}$ ($3.00 \\times 10^{-3}\\text{ mol}$). [1]
 
-**(b) State the number of moles of $\\ce{HCl}$ that reacted. [1]**
+
+**Part (b)**: State the number of moles of $\\ce{HCl}$ that reacted. [1]
+
 > **Mark Scheme**:
 > - Mole ratio is $1 : 1$, so $\\text{Moles of } \\ce{HCl} = \\mathbf{0.00300\\text{ mol}}$. [1]
 
-**(c) Calculate the concentration of the hydrochloric acid in $\\text{mol/dm}^3$. [2]**
+
+**Part (c)**: Calculate the concentration of the hydrochloric acid in $\\text{mol/dm}^3$. [2]
+
 > **Mark Scheme**:
 > - **Mark 1**: $V = \\frac{20.0}{1000} = 0.0200\\text{ dm}^3$. [1]
 > - **Mark 2**: $c = \\frac{0.00300\\text{ mol}}{0.0200\\text{ dm}^3} = \\mathbf{0.150\\text{ mol/dm}^3}$. [1]
 
-**(d) Calculate the concentration of this hydrochloric acid in $\\text{g/dm}^3$. [2]**
+
+**Part (d)**: Calculate the concentration of this hydrochloric acid in $\\text{g/dm}^3$. [2]
+
 *(Given $A_r$: $\\ce{H} = 1, \\ce{Cl} = 35.5$)*
 > **Mark Scheme**:
 > - **Mark 1**: $M_r(\\ce{HCl}) = 1 + 35.5 = 36.5\\text{ g/mol}$. [1]

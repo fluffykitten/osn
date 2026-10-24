@@ -81,14 +81,14 @@ export const MaterialAiTutorModal: React.FC<MaterialAiTutorModalProps> = ({
     },
   ];
 
-  // Inisialisasi sapaan AI saat pertama kali dibuka
+  // Inisialisasi sapaan tutor saat pertama kali dibuka
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
           id: 'welcome',
           sender: 'ai',
-          text: `Halo, Calon Juara OSN! Saya **AI Chemistry Tutor** untuk materi **${materialTitle}**.\n\nSaat ini kita sedang mendalami konsep **${conceptTitle}**:\n> *${conceptSummary}*\n\nAda aspek yang ingin Anda perdalam? Gunakan opsi saran cepat di atas atau tanyakan apapun seputar konsep ini! 🧪✨`,
+          text: `Halo, Calon Juara OSN! Saya **Tutor Kimia** untuk materi **${materialTitle}**.\n\nSaat ini kita sedang mendalami konsep **${conceptTitle}**:\n> *${conceptSummary}*\n\nAda aspek yang ingin Anda perdalam? Gunakan opsi saran cepat di atas atau tanyakan apapun seputar konsep ini! 🧪✨`,
           timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -192,7 +192,7 @@ Instruksi Tambahan:
         {
           id: `ai-err-${Date.now()}`,
           sender: 'ai',
-          text: `Maaf, terjadi kendala saat menghubungkan ke AI Tutor (${err?.message || 'Koneksi terputus'}).\n\nSebagai panduan cepat, ingat prinsip kunci konsep ini:\n> **${conceptSummary}**`,
+          text: `Maaf, terjadi kendala saat menghubungkan ke Tutor Kimia (${err?.message || 'Koneksi terputus'}).\n\nSebagai panduan cepat, ingat prinsip kunci konsep ini:\n> **${conceptSummary}**`,
           timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -232,7 +232,7 @@ Instruksi Tambahan:
             </div>
             <div>
               <h3 className="text-sm sm:text-base font-extrabold tracking-tight font-display text-[#FFFFF0]">
-                Tanya AI Tutor Kimia
+                Tanya Tutor Kimia
               </h3>
               <p className="text-[11px] text-[#FFFFF0]/80 truncate max-w-xs sm:max-w-md">
                 Fokus Konsep: <b className="text-[#FFFFF0]">{conceptTitle}</b>

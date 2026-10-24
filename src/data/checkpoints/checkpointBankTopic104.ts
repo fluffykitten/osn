@@ -86,7 +86,7 @@ export const CHECKPOINTS_TOPIC_104: Record<string, CheckpointQuizItem[]> = {
     {
       id: 'chk-104-core1-q1',
       type: 'multiple_choice',
-      question: 'Berdasarkan aturan baku IUPAC, mengapa senyawa $\\ce{FeCl3}$ dinamakan sebagai **besi(III) klorida** dan BUKAN **besi triklorida**?',
+      question: 'Berdasarkan aturan baku IUPAC, mengapa senyawa $\\ce{FeCl3}$ dinamakan sebagai "besi(III) klorida" dan bukan "besi triklorida"?',
       options: [
         'Karena besi merupakan unsur gas mulia sintetis',
         'Karena awalan bilangan Yunani (mono-, di-, tri-) hanya digunakan untuk senyawa kovalen antar-nonlogam; untuk senyawa ionik logam polivalen, tingkat oksidasi kation dinyatakan dengan angka Romawi (sistem Stock)',
@@ -108,7 +108,7 @@ export const CHECKPOINTS_TOPIC_104: Record<string, CheckpointQuizItem[]> = {
     {
       id: 'chk-104-core1-q3',
       type: 'multiple_choice',
-      question: 'Mengapa senyawa $\\ce{Al2O3}$ dinamakan cukup sebagai **aluminium oksida**, tanpa perlu menyertakan angka Romawi seperti "aluminium(III) oksida"?',
+      question: 'Mengapa senyawa $\\ce{Al2O3}$ dinamakan cukup sebagai "aluminium oksida", tanpa perlu menyertakan angka Romawi seperti "aluminium(III) oksida"?',
       options: [
         'Karena senyawa $\\ce{Al2O3}$ bukan senyawa ionik',
         'Karena aluminium adalah logam golongan utama (golongan 13) yang bersifat monovalen dan hanya memiliki satu kemungkinan bilangan oksidasi tunggal yaitu $+3$',

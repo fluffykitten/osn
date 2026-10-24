@@ -192,7 +192,7 @@ export interface Question {
   igcse_topic_number?: number;        // 1 - 14 (Cambridge IGCSE)
   grade?: 'Kelas 10' | 'Kelas 11' | 'Kelas 12' | 'Year 10' | 'Year 11';
   curriculum_phase?: 'Fase E' | 'Fase F' | 'Core' | 'Extended';
-  // Protected fields (only in teacher / AI context)
+  // Protected fields (only in teacher / evaluator context)
   solution_rubric?: string;
   expected_final_answer?: string;
   solution_framework_template?: string; // Metadata kerangka 4 langkah pengerjaan terpersonalisasi (scaffold)
@@ -409,7 +409,7 @@ export interface Badge {
   earned_at?: string;
 }
 
-// AI Grading Engine Contracts
+// Automated Grading Engine Contracts
 export interface GradingRequest {
   questionId: number;
   questionTitle: string;

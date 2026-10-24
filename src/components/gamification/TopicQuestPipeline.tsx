@@ -114,7 +114,7 @@ export const TopicQuestPipeline: React.FC<TopicQuestPipelineProps> = ({
           <p className="text-xs text-[#708090] leading-relaxed">
             {misconceptionDiagnosis ? (
               <span>
-                <strong className="text-[#806000]">Temuan AI:</strong> {misconceptionDiagnosis}. Selesaikan Misi 1 terlebih dahulu untuk memantapkan konsep prasyarat sebelum menguji soal tingkat lanjut.
+                <strong className="text-[#806000]">Temuan Diagnostik:</strong> {misconceptionDiagnosis}. Selesaikan Misi 1 terlebih dahulu untuk memantapkan konsep prasyarat sebelum menguji soal tingkat lanjut.
               </span>
             ) : (
               'Ikuti rangkaian misi terstruktur: tuntaskan materi dasar kurikulum SMA, bedah teori kimia olimpiade, lalu validasi penguasaan Anda di Bank Soal.'

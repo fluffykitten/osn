@@ -741,7 +741,9 @@ Kombinasi kedua tahap kesetimbangan dinyatakan dengan $pK_a' = 6.10$. Konsentras
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Rasio Fisiologis & Konsentrasi CO2 Terlarut Awal**  
+
+#### Langkah 1: Menghitung Rasio Fisiologis & Konsentrasi CO2 Terlarut Awal
+
 Gunakan persamaan Henderson-Hasselbalch:
 $$\\text{pH} = pK_a' + \\log\\left(\\frac{[\\ce{HCO3-}]}{[\\ce{CO2(aq)}]}\\right)$$
 $$7.40 = 6.10 + \\log\\left(\\frac{[\\ce{HCO3-}]}{[\\ce{CO2(aq)}]}\\right) \\implies \\log\\left(\\frac{[\\ce{HCO3-}]}{[\\ce{CO2(aq)}]}\\right) = 1.30$$
@@ -749,7 +751,9 @@ $$\\frac{[\\ce{HCO3-}]}{[\\ce{CO2(aq)}]} = 10^{1.30} \\approx 19.95 \\approx \\m
 Maka konsentrasi $\\ce{CO2(aq)}$ awal:
 $$[\\ce{CO2(aq)}]_0 = \\frac{24.0\\text{ mmol/L}}{19.95} = \\mathbf{1.203\\text{ mmol/L}}$$
 
-**Langkah 2: Perhitungan pH pada Sistem Tertutup**  
+
+#### Langkah 2: Perhitungan pH pada Sistem Tertutup
+
 Reaksi netralisasi penambahan $5.0\\text{ mmol/L}$ ion $\\ce{H+}$:
 $$\\ce{H+ + HCO3- -> CO2(aq) + H2O}$$
 - Konsentrasi $[\\ce{HCO3-}]$ berkurang: $24.0 - 5.0 = 19.0\\text{ mmol/L}$.
@@ -758,7 +762,9 @@ Hitung pH baru:
 $$\\text{pH} = 6.10 + \\log\\left(\\frac{19.0}{6.203}\\right) = 6.10 + \\log(3.063) = 6.10 + 0.486 = \\mathbf{6.59}$$
 *(Catatan Medis: Penurunan pH dari 7.40 ke 6.59 akan memicu koma dan kematian akibat asidosis metabolik berat).*
 
-**Langkah 3: Perhitungan pH pada Sistem Terbuka (Homeostasis Pulmonal)**  
+
+#### Langkah 3: Perhitungan pH pada Sistem Terbuka (Homeostasis Pulmonal)
+
 Pada sistem fisiologis tubuh manusia, pernapasan hiperventilasi menghembuskan kelebihan $\\ce{CO2}$ ke atmosfer melalui paru-paru, sehingga konsentrasi $[\\ce{CO2(aq)}]$ dipertahankan konstan pada nilai awal $1.203\\text{ mmol/L}$:
 - $[\\ce{HCO3-}] = 19.0\\text{ mmol/L}$
 - $[\\ce{CO2(aq)}] = 1.203\\text{ mmol/L}$ (tetap konstan via hukum Henry gas alveolar)
@@ -786,19 +792,25 @@ Asam amino paling sederhana, glisin ($\\ce{H2N-CH2-COOH}$), dalam larutan berair
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menentukan Posisi Ion Amfiprotik HPO4^2-**  
+
+#### Langkah 1: Menentukan Posisi Ion Amfiprotik HPO4^2-
+
 Garam $\\ce{Na2HPO4}$ terdisosiasi sempurna menghasilkan ion amfiprotik $\\ce{HPO4^2-}$. Ion ini berada di antara tahap disosiasi kedua dan ketiga:
 $$\\ce{H2PO4- <=> H+ + HPO4^2-} \\quad (K_{a2} = 10^{-7.20} = 6.31 \\times 10^{-8})$$
 $$\\ce{HPO4^2- <=> H+ + PO4^3-} \\quad (K_{a3} = 10^{-12.35} = 4.47 \\times 10^{-13})$$
 
-**Langkah 2: Menghitung pH Ion Amfiprotik HPO4^2-**  
+
+#### Langkah 2: Menghitung pH Ion Amfiprotik HPO4^2-
+
 Gunakan rumus eksak ion amfiprotik:
 $$[\\ce{H+}] = \\sqrt{\\frac{K_{a2}K_{a3}C + K_{a2}K_w}{K_{a2} + C}}$$
 Karena $C = 0.10\\text{ M} \\gg K_{a2}$ ($6.31 \\times 10^{-8}$) dan $K_{a3} C = 4.47 \\times 10^{-14} > K_w = 1.00 \\times 10^{-14}$, aproksimasi standar berlaku:
 $$[\\ce{H+}] \\approx \\sqrt{K_{a2} \\cdot K_{a3}} \\implies \\text{pH} = \\frac{\\text{p}K_{a2} + \\text{p}K_{a3}}{2}$$
 $$\\text{pH} = \\frac{7.20 + 12.35}{2} = \\frac{19.55}{2} = \\mathbf{9.78}$$
 
-**Langkah 3: Penurunan Titik Isoelektrik (pI) Asam Amino Glisin**  
+
+#### Langkah 3: Penurunan Titik Isoelektrik (pI) Asam Amino Glisin
+
 Tiga wujud protonasi asam amino glisin:
 $$\\ce{\\underset{\\text{Kation (+1)}}{^+H3N-CH2-COOH} <=> H+ + \\underset{\\text{Zwitterion (0)}}{^+H3N-CH2-COO-} <=> H+ + \\underset{\\text{Anion (-1)}}{H2N-CH2-COO-}}$$
 - Tahap 1: $K_{a1} = \\frac{[\\ce{H+}][\\ce{Gly^0}]}{[\\ce{Gly+}]}$
@@ -833,12 +845,16 @@ Sebanyak $25.00\\text{ mL}$ larutan asam asetat ($\\ce{CH3COOH}$, $K_a = 1.80 \\
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: pH Awal Sebelum Titrasi ($V_b = 0.00\\text{ mL}$)**  
+
+#### Langkah 1: pH Awal Sebelum Titrasi ($V_b = 0.00\\text{ mL}$)
+
 Larutan asam lemah murni monoprotik:
 $$[\\ce{H+}] = \\sqrt{K_a \\cdot C_a} = \\sqrt{(1.80 \\times 10^{-5})(0.100)} = \\sqrt{1.80 \\times 10^{-6}} = 1.342 \\times 10^{-3}\\text{ M}$$
 $$\\text{pH} = -\\log(1.342 \\times 10^{-3}) = 3 - \\log(1.342) = \\mathbf{2.87}$$
 
-**Langkah 2: Titik Setengah Ekuivalen ($V_b = 12.50\\text{ mL}$)**  
+
+#### Langkah 2: Titik Setengah Ekuivalen ($V_b = 12.50\\text{ mL}$)
+
 - $\\text{Mol } \\ce{CH3COOH} \\text{ awal} = 25.00\\text{ mL} \\times 0.100\\text{ M} = 2.500\\text{ mmol}$
 - $\\text{Mol } \\ce{NaOH} \\text{ masuk} = 12.50\\text{ mL} \\times 0.100\\text{ M} = 1.250\\text{ mmol}$
 - $\\text{Sisa } \\ce{CH3COOH} = 2.500 - 1.250 = 1.250\\text{ mmol}$
@@ -847,7 +863,9 @@ Karena $[\\ce{CH3COOH}] = [\\ce{CH3COO-}]$:
 $$\\text{pH} = \\text{p}K_a + \\log\\left(\\frac{1.250}{1.250}\\right) = \\text{p}K_a + 0 = \\mathbf{4.74}$$
 *(Pada titik ini, indeks kapasitas dapar Van Slyke mencapai nilai maksimum $\\beta_{\\text{max}}$).*
 
-**Langkah 3: Titik Ekuivalensi Stoikiometri ($V_b = V_{eq} = 25.00\\text{ mL}$)**  
+
+#### Langkah 3: Titik Ekuivalensi Stoikiometri ($V_b = V_{eq} = 25.00\\text{ mL}$)
+
 Pada titik ini, seluruh $\\ce{CH3COOH}$ terkonversi menjadi garam natrium asetat $\\ce{CH3COONa}$ sebanyak $2.500\\text{ mmol}$.
 Volume total larutan $= 25.00 + 25.00 = 50.00\\text{ mL}$.
 Konsentrasi garam asetat:
@@ -857,7 +875,9 @@ $$K_b = \\frac{K_w}{K_a} = \\frac{1.00 \\times 10^{-14}}{1.80 \\times 10^{-5}} =
 $$[\\ce{OH-}] = \\sqrt{K_b \\cdot C_{\\text{garam}}} = \\sqrt{(5.556 \\times 10^{-10})(0.0500)} = \\sqrt{2.778 \\times 10^{-11}} = 5.271 \\times 10^{-6}\\text{ M}$$
 $$\\text{pOH} = -\\log(5.271 \\times 10^{-6}) = 5.28 \\implies \\text{pH} = 14.00 - 5.28 = \\mathbf{8.72}$$
 
-**Langkah 4: Pasca-Ekuivalen ($V_b = 30.00\\text{ mL}$)**  
+
+#### Langkah 4: Pasca-Ekuivalen ($V_b = 30.00\\text{ mL}$)
+
 - $\\text{Mol } \\ce{NaOH} \\text{ total} = 30.00 \\times 0.100 = 3.000\\text{ mmol}$
 - $\\text{Kelebihan mol } \\ce{OH-} = 3.000 - 2.500 = 0.500\\text{ mmol}$
 - Volume total $= 25.00 + 30.00 = 55.00\\text{ mL}$
@@ -887,19 +907,25 @@ Diketahui data tetapan hasil kali kelarutan pada $25^\\circ\\text{C}$:
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menentukan Endapan Pertama & [Ag+] Inisiasi**  
+
+#### Langkah 1: Menentukan Endapan Pertama & [Ag+] Inisiasi
+
 Konsentrasi $[\\ce{Ag+}]$ yang dibutuhkan untuk memulai presipitasi ($Q_{sp} = K_{sp}$):
 - Untuk $\\ce{AgI}$:
   $$[\\ce{Ag+}]_{\\ce{AgI}} = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{I-}]} = \\frac{8.50 \\times 10^{-17}}{0.050} = \\mathbf{1.70 \\times 10^{-15}\\text{ M}}$$
 - Untuk $\\ce{AgCl}$:
   $$[\\ce{Ag+}]_{\\ce{AgCl}} = \\frac{K_{sp}(\\ce{AgCl})}{[\\ce{Cl-}]} = \\frac{1.80 \\times 10^{-10}}{0.050} = \\mathbf{3.60 \\times 10^{-9}\\text{ M}}$$
-Karena $1.70 \\times 10^{-15}\\text{ M} \\ll 3.60 \\times 10^{-9}\\text{ M}$, endapan kuning $\\mathbf{\\ce{AgI}}$ **mengendap jauh lebih dahulu**.
+Karena $1.70 \\times 10^{-15}\\text{ M} \\ll 3.60 \\times 10^{-9}\\text{ M}$, endapan kuning $\\ce{AgI}$ mengendap lebih dahulu.
 
-**Langkah 2: Konsentrasi [Ag+] Saat Endapan Kedua (AgCl) Mulai Terbentuk**  
+
+#### Langkah 2: Konsentrasi [Ag+] Saat Endapan Kedua (AgCl) Mulai Terbentuk
+
 Endapan $\\ce{AgCl}$ mulai terbentuk tepat saat konsentrasi ion perak mencapai:
 $$[\\ce{Ag+}] = \\mathbf{3.60 \\times 10^{-9}\\text{ M}}$$
 
-**Langkah 3: Menghitung Sisa Konsentrasi Ion Iodida & Persentase Pemisahan**  
+
+#### Langkah 3: Menghitung Sisa Konsentrasi Ion Iodida & Persentase Pemisahan
+
 Pada kondisi $[\\ce{Ag+}] = 3.60 \\times 10^{-9}\\text{ M}$, kesetimbangan $\\ce{AgI}$ tetap berlaku di larutan jenuh:
 $$[\\ce{I-}]_{\\text{sisa}} = \\frac{K_{sp}(\\ce{AgI})}{[\\ce{Ag+}]} = \\frac{8.50 \\times 10^{-17}}{3.60 \\times 10^{-9}} = \\mathbf{2.361 \\times 10^{-8}\\text{ M}}$$
 Persentase ion $\\ce{I-}$ yang masih tertinggal dalam larutan:
@@ -930,7 +956,9 @@ Diketahui data pada $25^\\circ\\text{C}$:
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menuliskan Reaksi Keseluruhan & Tetapan Kesetimbangan Gabungan K**  
+
+#### Langkah 1: Menuliskan Reaksi Keseluruhan & Tetapan Kesetimbangan Gabungan K
+
 - Tahap 1 (Disosiasi Endapan): $\\ce{AgBr(s) <=> Ag+(aq) + Br-(aq)} \\quad K_{sp} = 5.00 \\times 10^{-13}$
 - Tahap 2 (Kompleksasi Koordinasi): $\\ce{Ag+(aq) + 2S2O3^2-(aq) <=> [Ag(S2O3)2]^3-(aq)} \\quad K_f = 2.00 \\times 10^{13}$
 
@@ -939,12 +967,16 @@ $$\\ce{AgBr(s) + 2S2O3^2-(aq) <=> [Ag(S2O3)2]^3-(aq) + Br-(aq)}$$
 Tetapan kesetimbangan keseluruhan ($K$):
 $$K = K_{sp} \\times K_f = (5.00 \\times 10^{-13}) \\times (2.00 \\times 10^{13}) = \\mathbf{10.0}$$
 
-**Langkah 2: Menghitung Kelarutan Molar AgBr dalam Air Murni**  
+
+#### Langkah 2: Menghitung Kelarutan Molar AgBr dalam Air Murni
+
 Dalam air murni:
 $$s_{\\text{air}} = \\sqrt{K_{sp}} = \\sqrt{5.00 \\times 10^{-13}} = \\mathbf{7.071 \\times 10^{-7}\\text{ M}}$$
 *(Hanya sekitar $0.133\\text{ mg}$ $\\ce{AgBr}$ yang sanggup larut per liter air murni).*
 
-**Langkah 3: Menghitung Kelarutan Molar AgBr dalam Na2S2O3 0.500 M**  
+
+#### Langkah 3: Menghitung Kelarutan Molar AgBr dalam Na2S2O3 0.500 M
+
 Misalkan kelarutan molar $\\ce{AgBr}$ dalam medium tiosulfat adalah $s\\text{ mol/L}$:
 - Mula-mula: $[\\ce{S2O3^2-}] = 0.500\\text{ M}$, $[\\ce{[Ag(S2O3)2]^3-}] = 0$, $[\\ce{Br-}] = 0$
 - Bereaksi: $-2s$, $+s$, $+s$

@@ -1,7 +1,7 @@
 /**
  * remedialService.ts
  * Mesin Rekomendasi Remedial Adaptif Berbasis Miskonsepsi & Analisis Kelemahan
- * Menghubungkan diagnosa Dewan Juri AI dengan paket soal penguatan terfokus
+ * Menghubungkan diagnosa Dewan Penguji dengan paket soal penguatan terfokus
  */
 
 import type { SavedSubmissionRecord, RemedialRecommendation } from '../types/database';

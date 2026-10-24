@@ -352,7 +352,7 @@ export const LoginPage: React.FC = () => {
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
             {mode === 'register'
-              ? 'Daftar untuk mengakses 10 pilar kurikulum OSN, modul pengerjaan, dan evaluasi AI'
+              ? 'Daftar untuk mengakses 10 pilar kurikulum OSN, modul pengerjaan, dan evaluasi otomatis'
               : mode === 'forgot'
               ? 'Masukkan alamat email terdaftar untuk menerima tautan pemulihan kata sandi'
               : mode === 'reset'

@@ -945,7 +945,7 @@ export const ClassroomDetail: React.FC = () => {
                             Daftar Siswa Kelas ({activeMembers.length})
                           </h4>
                           <p className="text-[11px] text-slate-500">
-                            Pilih siswa untuk memeriksa jawaban dan rubrik penilaian AI
+                            Pilih siswa untuk memeriksa jawaban dan rubrik penilaian otomatis
                           </p>
                         </div>
                       </div>
@@ -1076,14 +1076,14 @@ export const ClassroomDetail: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Right Column: SpeedGrader Work & AI Rubric Inspection (8 cols) */}
+                    {/* Right Column: SpeedGrader Work & Rubric Inspection (8 cols) */}
                     <div className="lg:col-span-8 space-y-4">
                       {!currentStudent ? (
                         <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-3 shadow-xs">
                           <Users className="w-10 h-10 text-slate-300 mx-auto" />
                           <h4 className="text-sm font-bold text-slate-900">Pilih Siswa</h4>
                           <p className="text-xs text-slate-500 max-w-sm mx-auto">
-                            Klik nama siswa di daftar sebelah kiri untuk meninjau langkah pengerjaan dan hasil evaluasi rubrik AI.
+                            Klik nama siswa di daftar sebelah kiri untuk meninjau langkah pengerjaan dan hasil evaluasi rubrik.
                           </p>
                         </div>
                       ) : (
@@ -1167,7 +1167,7 @@ export const ClassroomDetail: React.FC = () => {
                                           </span>
                                         ) : (
                                           <span className="px-2.5 py-1 bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-xs font-bold font-mono">
-                                            Skor AI: {sub.total_score ?? sub.totalScore ?? 0}/{sub.max_score ?? sub.maxScore ?? 10}
+                                            Skor Otomatis: {sub.total_score ?? sub.totalScore ?? 0}/{sub.max_score ?? sub.maxScore ?? 10}
                                           </span>
                                         )
                                       ) : (
@@ -1218,7 +1218,7 @@ export const ClassroomDetail: React.FC = () => {
                                     </div>
                                   )}
 
-                                  {/* Student Work & AI Evaluation */}
+                                  {/* Student Work & Evaluation */}
                                   {sub ? (
                                     <div className="space-y-4 pt-1">
                                       {/* Student Steps */}
@@ -1249,15 +1249,15 @@ export const ClassroomDetail: React.FC = () => {
                                         </div>
                                       )}
 
-                                      {/* AI Rubric & Criteria Breakdown */}
+                                      {/* Rubric & Criteria Breakdown */}
                                       <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
                                         <div className="flex items-center justify-between">
                                           <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                                             <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                                            <span>Hasil Pemeriksaan Rubrik Penilaian AI:</span>
+                                            <span>Hasil Pemeriksaan Rubrik Penilaian:</span>
                                           </span>
                                           <span className="text-[10px] font-mono text-slate-500">
-                                            Model: {sub.model_used || sub.modelUsed || 'AI Examiner'}
+                                            Model: {sub.model_used || sub.modelUsed || 'Sistem Penilai'}
                                           </span>
                                         </div>
 
@@ -1297,7 +1297,7 @@ export const ClassroomDetail: React.FC = () => {
                                         {/* Feedback & Misconception */}
                                         {(sub.overall_feedback || sub.overallFeedback) && (
                                           <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs text-slate-700 leading-relaxed">
-                                            <p className="font-bold text-slate-900 mb-0.5">Catatan Evaluasi AI:</p>
+                                            <p className="font-bold text-slate-900 mb-0.5">Catatan Evaluasi:</p>
                                             <p>{sub.overall_feedback || sub.overallFeedback}</p>
                                           </div>
                                         )}
@@ -1491,7 +1491,7 @@ export const ClassroomDetail: React.FC = () => {
                     Daftar Worksheet yang Ditugaskan ke Kelas Ini
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Buka SpeedGrader untuk meninjau rubrik penilaian AI per siswa atau pantau sesi pengerjaan secara real-time.
+                    Buka SpeedGrader untuk meninjau rubrik penilaian per siswa atau pantau sesi pengerjaan secara real-time.
                   </p>
                 </div>
                 <button
@@ -2078,7 +2078,7 @@ export const ClassroomDetail: React.FC = () => {
                   Peta Penguasaan 10 Topik Silabus OSN Kimia
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mt-0.5">
-                  Visualisasi performa kumulatif seluruh siswa di kelas ini berdasarkan hasil evaluasi AI pada naskah soal resmi olimpiade kimia.
+                  Visualisasi performa kumulatif seluruh siswa di kelas ini berdasarkan hasil evaluasi pada naskah soal resmi olimpiade kimia.
                 </p>
               </div>
 
@@ -2134,7 +2134,7 @@ export const ClassroomDetail: React.FC = () => {
                     <div className="text-2xl font-extrabold font-mono text-slate-900">
                       {totalEvaluatedSubs > 0 ? totalEvaluatedSubs : 24} Butir
                     </div>
-                    <span className="text-[10px] text-slate-500">Dinilai oleh AI Examiner</span>
+                    <span className="text-[10px] text-slate-500">Dinilai oleh Sistem Penilai</span>
                   </div>
                 </div>
               );
@@ -2241,7 +2241,7 @@ export const ClassroomDetail: React.FC = () => {
               </div>
               <div>
                 <h4 className="text-base font-bold text-slate-900 font-display">
-                  Top Miskonsepsi Siswa Terdeteksi AI di Kelas Ini
+                  Top Miskonsepsi Siswa Terdeteksi Sistem di Kelas Ini
                 </h4>
                 <p className="text-xs text-slate-500">
                   Kekeliruan konseptual yang paling sering muncul dalam langkah pengerjaan siswa kelas ini.

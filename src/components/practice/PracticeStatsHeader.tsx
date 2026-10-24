@@ -43,7 +43,7 @@ export const PracticeStatsHeader: React.FC<PracticeStatsHeaderProps> = ({
           </h1>
           <p className="text-xs sm:text-sm md:text-base text-[#F0F8FF]/90 leading-relaxed">
             Taklukkan butir soal berbobot bertaraf nasional & kurikulum sekolah. Pilih topik favorit, uji pemahaman
-            dengan latihan kilat bertenaga AI, atau telaah butir soal spesifik sesuai target belajarmu.
+            dengan latihan kilat terfokus, atau telaah butir soal spesifik sesuai target belajarmu.
           </p>
         </div>
 

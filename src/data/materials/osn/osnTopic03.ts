@@ -290,7 +290,7 @@ $$P_i = X_i \\cdot P_{\\text{tot}} = \\left(\\frac{n_i}{n_{\\text{tot}}}\\right)
 Teori kinetik gas menghubungkan sifat makroskopis termodinamika dengan dinamika mikroskopis impuls gerak partikel:
 $$P = \\frac{1}{3} \\frac{N m_p}{V} \\overline{v^2}$$
 
-Energi kinetik translasi rata-rata per molekul gas **hanya bergantung pada temperatur mutlak ($T$)**:
+Energi kinetik translasi rata-rata per molekul gas hanya bergantung pada **temperatur mutlak** ($T$):
 $$\\overline{E}_k = \\frac{1}{2} m_p \\overline{v^2} = \\frac{3}{2} k_B T$$
 di mana $k_B = \\frac{R}{N_A} = 1.38065 \\times 10^{-23}\\text{ J/K}$ adalah tetapan Boltzmann.
 
@@ -674,7 +674,9 @@ Campuran gas tersebut kemudian dibakar sempurna dengan gas oksigen ($\\ce{O2}$) 
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menuliskan Persamaan Reaksi Setara dan Rasio Stoikiometri**  
+
+#### Langkah 1: Menuliskan Persamaan Reaksi Setara dan Rasio Stoikiometri
+
 Persamaan reaksi pembakaran sempurna hidrokarbon:
 $$\\ce{CH4(g) + 2 O2(g) -> CO2(g) + 2 H2O(l)}$$
 $$\\ce{C3H8(g) + 5 O2(g) -> 3 CO2(g) + 4 H2O(l)}$$
@@ -684,18 +686,24 @@ $$\\ce{CO2(g) + Ba(OH)2(aq) -> BaCO3(s) + H2O(l)}$$
 Dari koefisien reaksi pengendapan, rasio mol $\\ce{CO2}$ terhadap endapan $\\ce{BaCO3}$ adalah $1 : 1$:
 $$n_{\\ce{CO2}} = n_{\\ce{BaCO3}}$$
 
-**Langkah 2: Menghitung Mol Campuran Gas Awal Menggunakan Hukum Gas Ideal**  
+
+#### Langkah 2: Menghitung Mol Campuran Gas Awal Menggunakan Hukum Gas Ideal
+
 Gunakan persamaan keadaan gas ideal pada wadah mula-mula sebelum pembakaran:
 $$P_{\\text{tot}} V = n_{\\text{tot}} R T$$
 $$n_{\\text{tot}} = \\frac{P_{\\text{tot}} V}{R T} = \\frac{2.45\\text{ atm} \\times 10.0\\text{ L}}{0.08206\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) \\times 298.15\\text{ K}} = \\frac{24.5}{24.466} = 1.0014\\text{ mol} \\approx 1.00\\text{ mol}$$
 
-**Langkah 3: Menghitung Mol Gas $\\ce{CO2}$ dari Analisis Gravimetri Endapan $\\ce{BaCO3}$**  
+
+#### Langkah 3: Menghitung Mol Gas $\\ce{CO2}$ dari Analisis Gravimetri Endapan $\\ce{BaCO3}$
+
 Kuantitas mol endapan $\\ce{BaCO3}$ yang tertimbang:
 $$n_{\\ce{BaCO3}} = \\frac{m_{\\ce{BaCO3}}}{M_r(\\ce{BaCO3})} = \\frac{394.7\\text{ g}}{197.34\\text{ g/mol}} = 2.000\\text{ mol}$$
 Karena $n_{\\ce{CO2}} = n_{\\ce{BaCO3}}$, maka jumlah mol total gas $\\ce{CO2}$ yang dihasilkan dari pembakaran campuran adalah:
 $$n_{\\ce{CO2}} = 2.00\\text{ mol}$$
 
-**Langkah 4: Penyusunan SPLDV Stoikiometri & Penentuan Fraksi Mol Metana**  
+
+#### Langkah 4: Penyusunan SPLDV Stoikiometri & Penentuan Fraksi Mol Metana
+
 Misalkan:
 - $x$ = jumlah mol gas metana ($\\ce{CH4}$) dalam campuran awal.
 - $y$ = jumlah mol gas propana ($\\ce{C3H8}$) dalam campuran awal.
@@ -749,7 +757,9 @@ Analisis pembakaran terhadap $1.000\\text{ g}$ sampel hidrokarbon $X$ menghasilk
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Massa Molar Senyawa $X$ dari Rasio Waktu Efusi Graham**  
+
+#### Langkah 1: Menghitung Massa Molar Senyawa $X$ dari Rasio Waktu Efusi Graham
+
 Laju efusi ($r$) berbanding terbalik dengan waktu efusi ($t$) untuk volume gas yang sama ($r = \\frac{V}{t}$). Berdasarkan Hukum Efusi Graham:
 $$\\frac{r_1}{r_2} = \\frac{V/t_1}{V/t_2} = \\frac{t_2}{t_1} = \\sqrt{\\frac{M_2}{M_1}}$$
 
@@ -761,7 +771,9 @@ Kuadratkan kedua ruas persamaan:
 $$(1.3476)^2 = 1.8160 = \\frac{M_X}{32.00}$$
 $$M_X = 1.8160 \\times 32.00\\text{ g/mol} = 58.11\\text{ g/mol} \\approx 58.1\\text{ g/mol}$$
 
-**Langkah 2: Menentukan Rumus Empiris dan Rumus Molekul Senyawa $X$**  
+
+#### Langkah 2: Menentukan Rumus Empiris dan Rumus Molekul Senyawa $X$
+
 Hitung mol atom $\\ce{C}$ dan atom $\\ce{H}$ dalam $1.000\\text{ g}$ sampel:
 - Mol atom $\\ce{C}$:
   $$n_{\\ce{C}} = n_{\\ce{CO2}} = \\frac{3.029\\text{ g}}{44.01\\text{ g/mol}} = 0.06882\\text{ mol}$$
@@ -784,7 +796,9 @@ $$k = \\frac{M_r(\\text{senyawa})}{M_r(\\text{RE})} = \\frac{58.11\\text{ g/mol}
 Maka rumus molekul gas $X$ adalah:
 $$(\\ce{C2H5})_2 = \\ce{C4H10} \\quad (\\text{Butana / Isobutana})$$
 
-**Langkah 3: Menghitung Kecepatan RMS ($v_{\\text{rms}}$) pada Suhu $300.15\\text{ K}$**  
+
+#### Langkah 3: Menghitung Kecepatan RMS ($v_{\\text{rms}}$) pada Suhu $300.15\\text{ K}$
+
 Gunakan persamaan Teori Kinetik Gas untuk kecepatan akar kuadrat rata-rata:
 $$v_{\\text{rms}} = \\sqrt{\\frac{3RT}{M}}$$
 *Catatan Penting Satuan SI:* Massa molar $M$ wajib dinyatakan dalam $\\text{kg/mol}$ agar konsisten dengan satuan tetapan gas $R = 8.314\\text{ J}/(\\text{mol}\\cdot\\text{K}) = 8.314\\text{ kg}\\cdot\\text{m}^2\\cdot\\text{s}^{-2}/(\\text{mol}\\cdot\\text{K})$:
@@ -792,7 +806,9 @@ $$M = 58.11\\text{ g/mol} = 0.05811\\text{ kg/mol}$$
 
 $$v_{\\text{rms}} = \\sqrt{\\frac{3 \\times 8.314 \\times 300.15}{0.05811}} = \\sqrt{\\frac{7486.34}{0.05811}} = \\sqrt{128830.5} = 358.9\\text{ m/s}$$
 
-**Langkah 4: Rasionalisasi Fisis Hubungan Laju dan Waktu Efusi**  
+
+#### Langkah 4: Rasionalisasi Fisis Hubungan Laju dan Waktu Efusi
+
 Laju efusi didefinisikan sebagai jumlah molekul yang meloloskan diri per satuan waktu ($r = \\frac{dN}{dt}$). Karena partikel dengan massa molar lebih besar bergerak dengan kecepatan rata-rata yang lebih lambat ($v \\propto 1/\\sqrt{M}$), frekuensi tumbukan molekul pada lubang mikro menjadi lebih jarang, sehingga laju efusi lebih kecil ($r \\propto 1/\\sqrt{M}$). Akibatnya, waktu ($t$) yang dibutuhkan untuk mengosongkan sejumlah volume gas yang sama menjadi berbanding terbalik dengan laju efusi ($t = \\frac{V}{r} \\propto \\frac{1}{1/\\sqrt{M}} = \\sqrt{M}$).
 
 **Kesimpulan Evaluator Juri:**  
@@ -826,12 +842,16 @@ Parameter Van der Waals untuk gas $\\ce{CO2}$:
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Tekanan Berdasarkan Model Gas Ideal**  
+
+#### Langkah 1: Menghitung Tekanan Berdasarkan Model Gas Ideal
+
 Dari persamaan keadaan gas ideal:
 $$P_{\\text{ideal}} = \\frac{n R T}{V} = \\frac{10.0\\text{ mol} \\times 0.082057\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) \\times 320.15\\text{ K}}{2.00\\text{ L}}$$
 $$P_{\\text{ideal}} = \\frac{262.706\\text{ L}\\cdot\\text{atm}}{2.00\\text{ L}} = 131.35\\text{ atm}$$
 
-**Langkah 2: Menghitung Tekanan Nyata Menggunakan Persamaan Van der Waals**  
+
+#### Langkah 2: Menghitung Tekanan Nyata Menggunakan Persamaan Van der Waals
+
 Bentuk eksplisit tekanan dalam persamaan Van der Waals:
 $$P_{\\text{vdW}} = \\frac{n R T}{V - n b} - \\frac{a n^2}{V^2}$$
 
@@ -851,15 +871,19 @@ Tekanan nyata ($77.21\\text{ atm}$) ternyata jauh lebih rendah dibandingkan pred
 - Deviasi relatif terhadap tekanan nyata: $\\frac{131.35 - 77.21}{77.21} \\times 100\\% = 70.1\\%$ (model ideal memperkirakan tekanan $70.1\\%$ lebih tinggi dari tekanan nyata).
 - Reduksi tekanan dari perkiraan ideal: $\\frac{131.35 - 77.21}{131.35} \\times 100\\% = 41.2\\%$ (tekanan aktual tereduksi $41.2\\%$ akibat tarikan intermolekul).
 
-**Langkah 3: Menghitung Faktor Kompresibilitas ($Z$) & Dominasi Gaya Antarmolekul**  
+
+#### Langkah 3: Menghitung Faktor Kompresibilitas ($Z$) & Dominasi Gaya Antarmolekul
+
 Faktor kompresibilitas $Z$ didefinisikan sebagai:
 $$Z = \\frac{P_{\\text{vdW}} V}{n R T} = \\frac{77.21\\text{ atm} \\times 2.00\\text{ L}}{10.0\\text{ mol} \\times 0.082057 \\times 320.15\\text{ K}} = \\frac{154.42}{262.706} = 0.588$$
 
 *Interpretasi Fisis Nilai $Z = 0.588 < 1$:*  
-- Nilai $Z$ yang jauh lebih kecil dari $1$ mengindikasikan bahwa **gaya tarik-menarik intermolekuler (kohesi $a$) sangat mendominasi** dibandingkan efek volume eksklusi molekul ($b$).
+- Nilai $Z$ yang jauh lebih kecil dari $1$ mengindikasikan bahwa gaya tarik-menarik intermolekuler (kohesi $a$) **sangat mendominasi** dibandingkan efek volume eksklusi molekul ($b$).
 - Molekul-molekul $\\ce{CO2}$ saling menarik saat berdekatan, memperlambat partikel saat mendekati dinding bejana sehingga impuls tumbukan dinding berkurang drastis ($89.80\\text{ atm}$ reduksi tekanan).
 
-**Langkah 4: Menghitung Temperatur Boyle ($T_B$) Gas $\\ce{CO2}$**  
+
+#### Langkah 4: Menghitung Temperatur Boyle ($T_B$) Gas $\\ce{CO2}$
+
 Temperatur Boyle adalah suhu di mana suku tarikan intermolekul dan tolakan volume eksklusi saling mengeliminasi pada kerapatan rendah:
 $$T_B = \\frac{a}{R \\cdot b} = \\frac{3.592\\text{ L}^2\\cdot\\text{atm}\\cdot\\text{mol}^{-2}}{0.082057\\text{ L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K}) \\times 0.0427\\text{ L}\\cdot\\text{mol}^{-1}}$$
 $$T_B = \\frac{3.592}{0.0035038} = 1025.2\\text{ K} \\quad (752.0^\\circ\\text{C})$$
@@ -902,7 +926,9 @@ Logam emas murni ($\\ce{Au}$, $M = 196.97\\text{ g/mol}$) mengkristal dalam kisi
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menentukan Jumlah Atom Netto ($n$) dalam Sel Satuan FCC**  
+
+#### Langkah 1: Menentukan Jumlah Atom Netto ($n$) dalam Sel Satuan FCC
+
 Pada sel satuan kubus berpusat muka (FCC):
 - **8 atom di sudut kubus:** Masing-masing sudut dibagi bersama oleh 8 sel satuan tetangga:
   $$8 \\times \\frac{1}{8} = 1\\text{ atom}$$
@@ -911,7 +937,9 @@ Pada sel satuan kubus berpusat muka (FCC):
 Maka jumlah total atom emas netto dalam satu sel satuan adalah:
 $$n = 1 + 3 = 4\\text{ atom/sel}$$
 
-**Langkah 2: Menghitung Jari-Jari Atom Emas ($r$) dari Geometri Diagonal Muka**  
+
+#### Langkah 2: Menghitung Jari-Jari Atom Emas ($r$) dari Geometri Diagonal Muka
+
 Pada kisi FCC, atom-atom berbentuk bola keras saling bersentuhan rapat di sepanjang diagonal muka kubus:
 $$d_{\\text{muka}} = a\\sqrt{2} = 4r$$
 Maka hubungan panjang rusuk sel satuan ($a$) dan jari-jari atom ($r$) adalah:
@@ -920,7 +948,9 @@ $$r = \\frac{a\\sqrt{2}}{4} = \\frac{a}{2\\sqrt{2}}$$
 Substitusikan nilai rusuk $a = 407.8\\text{ pm}$:
 $$r = \\frac{407.8\\text{ pm} \\times \\sqrt{2}}{4} = \\frac{407.8 \\times 1.41421}{4} = 144.18\\text{ pm} \\approx 144.2\\text{ pm}$$
 
-**Langkah 3: Pembuktian Analitis Faktor Penumpukan Atom (APF) Kristal FCC**  
+
+#### Langkah 3: Pembuktian Analitis Faktor Penumpukan Atom (APF) Kristal FCC
+
 Faktor Penumpukan Atom didefinisikan sebagai rasio volume yang diisi oleh atom bola keras terhadap volume total sel satuan:
 $$\\text{APF} = \\frac{V_{\\text{atom}}}{V_{\\text{cell}}} = \\frac{n \\times V_{\\text{bola}}}{a^3}$$
 
@@ -936,7 +966,9 @@ Hitung nilai numeriknya:
 $$\\text{APF} = \\frac{3.14159 \\times 1.41421}{6} = \\frac{4.44288}{6} = 0.7405 = \\mathbf{74.05\\%}$$
 *(Terbukti secara matematis bahwa susunan FCC merupakan penumpukan terpadat maksimum/close-packed bersama dengan struktur HCP).*
 
-**Langkah 4: Menghitung Nilai Eksperimental Tetapan Avogadro ($N_A$)**  
+
+#### Langkah 4: Menghitung Nilai Eksperimental Tetapan Avogadro ($N_A$)
+
 Hubungan kerapatan kristalografi:
 $$\\rho = \\frac{m_{\\text{sel}}}{V_{\\text{cell}}} = \\frac{n \\cdot M}{N_A \\cdot a^3}$$
 
@@ -979,7 +1011,9 @@ Tekanan uap jenuh etanol murni ($\\ce{C2H5OH}$) terukur di laboratorium sebesar 
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Menghitung Entalpi Penguapan Molar ($\\Delta H_{\\text{vap}}$) Etanol**  
+
+#### Langkah 1: Menghitung Entalpi Penguapan Molar ($\\Delta H_{\\text{vap}}$) Etanol
+
 Gunakan Persamaan Clausius-Clapeyron bentuk integral dua titik:
 $$\\ln\\left(\\frac{P_2}{P_1}\\right) = -\\frac{\\Delta H_{\\text{vap}}}{R} \\left(\\frac{1}{T_2} - \\frac{1}{T_1}\\right)$$
 
@@ -997,7 +1031,9 @@ Selesaikan untuk mencari $\\Delta H_{\\text{vap}}$:
 $$1.38629 = -\\frac{\\Delta H_{\\text{vap}}}{8.3145} \\times (-2.7579 \\times 10^{-4})$$
 $$\\Delta H_{\\text{vap}} = \\frac{1.38629 \\times 8.3145}{2.7579 \\times 10^{-4}} = \\frac{11.5263}{2.7579 \\times 10^{-4}} = 41794\\text{ J/mol} = \\mathbf{41.79\\text{ kJ/mol}}$$
 
-**Langkah 2: Menghitung Titik Didih Normal Etanol pada Tekanan $760.0\\text{ mmHg}$**  
+
+#### Langkah 2: Menghitung Titik Didih Normal Etanol pada Tekanan $760.0\\text{ mmHg}$
+
 Titik didih normal adalah suhu ketika tekanan uap jenuh zat cair tepat mencapai $1\\text{ atm} = 760.0\\text{ mmHg}$ ($P_3 = 760.0\\text{ mmHg}$).
 Gunakan titik referensi kedua ($P_2 = 400.0\\text{ mmHg}, T_2 = 336.65\\text{ K}$):
 $$\\ln\\left(\\frac{P_3}{P_2}\\right) = -\\frac{\\Delta H_{\\text{vap}}}{R} \\left(\\frac{1}{T_b} - \\frac{1}{T_2}\\right)$$
@@ -1011,7 +1047,9 @@ $$T_b = \\frac{1}{0.00284274} = 351.77\\text{ K}$$
 $$t_b = 351.77 - 273.15 = \\mathbf{78.62^\\circ\\text{C}} \\approx 78.6^\\circ\\text{C}$$
 *(Sangat konsisten dengan nilai eksperimen literatur kimia analitik: $78.37^\\circ\\text{C}$)*.
 
-**Langkah 3: Menghitung Titik Didih Etanol di Dataran Tinggi ($P = 570.0\\text{ mmHg}$)**  
+
+#### Langkah 3: Menghitung Titik Didih Etanol di Dataran Tinggi ($P = 570.0\\text{ mmHg}$)
+
 Pada dataran tinggi berketinggian $2500\\text{ m}$, tekanan barometer adalah $P_4 = 570.0\\text{ mmHg}$. Gunakan titik didih normal sebagai acuan ($P_3 = 760.0\\text{ mmHg}, T_3 = 351.77\\text{ K}$):
 $$\\ln\\left(\\frac{P_4}{P_3}\\right) = -\\frac{\\Delta H_{\\text{vap}}}{R} \\left(\\frac{1}{T_{\\text{alt}}} - \\frac{1}{T_b}\\right)$$
 $$\\ln\\left(\\frac{570.0}{760.0}\\right) = \\ln(0.750) = -0.28768$$
@@ -1024,7 +1062,9 @@ $$T_{\\text{alt}} = \\frac{1}{0.00289997} = 344.83\\text{ K}$$
 $$t_{\\text{alt}} = 344.83 - 273.15 = \\mathbf{71.68^\\circ\\text{C}} \\approx 71.7^\\circ\\text{C}$$
 *Analisis:* Penurunan tekanan sebesar $25\\%$ di dataran tinggi menyebabkan penurunan titik didih etanol sebesar $6.9^\\circ\\text{C}$!
 
-**Langkah 4: Analisis Kinetika Kimia Memasak di Dataran Tinggi**  
+
+#### Langkah 4: Analisis Kinetika Kimia Memasak di Dataran Tinggi
+
 1. **Definisi Titik Didih:** Cairan mendidih ketika tekanan uap jenuhnya menyamai tekanan atmosfer eksternal ($P_{\\text{uap}} = P_{\\text{eksternal}}$). Selama mendidih, kalor yang diserap digunakan untuk transisi fasa laten tanpa menaikkan suhu cairan.
 2. **Keterkaitan Kinetika Arrhenius:** Suhu air mendidih di dataran tinggi lebih rendah (misal air mendidih hanya pada $\\sim 91.5^\\circ\\text{C}$ di ketinggian $2500\\text{ m}$). Berdasarkan persamaan Arrhenius ($k = A e^{-E_a/RT}$), laju reaksi pematangan makanan (seperti pemutusan ikatan peptida, hidrolisis amilosa, dan denaturasi protein) menurun secara eksponensial dengan turunnya suhu. Akibatnya, waktu memasak yang diperlukan menjadi jauh lebih lama jika tidak menggunakan panci bertekanan (*autoclave/pressure cooker*).
 
@@ -1069,7 +1109,9 @@ Diketahui jari-jari ionik Shannon untuk bilangan koordinasi yang relevan:
 
 ### Pembahasan & Langkah Kunci:
 
-**Langkah 1: Analisis Posisi Spasial dan Bilangan Koordinasi Kisi Perovskite**  
+
+#### Langkah 1: Analisis Posisi Spasial dan Bilangan Koordinasi Kisi Perovskite
+
 Pada sel satuan kubus perovskite ideal $\\ce{ABO3}$ (dengan $\\ce{Ba}$ sebagai kation A dan $\\ce{Ti}$ sebagai kation B):
 - **Kation $\\ce{Ba^2+}$ (Sudut Kubus):**
   Menempati 8 posisi sudut kubus: $8 \\times \\frac{1}{8} = 1\\text{ ion Ba}^{2+}$.
@@ -1082,7 +1124,9 @@ Pada sel satuan kubus perovskite ideal $\\ce{ABO3}$ (dengan $\\ce{Ba}$ sebagai k
   Setiap anion $\\ce{O^2-}$ dijepit secara linear oleh 2 kation $\\ce{Ti^4+}$ dan 4 kation $\\ce{Ba^2+}$, sehingga koordinasi terhadap kation pembentuk kerangka adalah linear **$\\text{BK}(\\ce{O-Ti}) = 2$** (atau total koordinasi kation $= 6$).
 - **Jumlah Stoikiometri Netto per Sel Satuan:** $1\\ce{Ba} : 1\\ce{Ti} : 3\\ce{O} \\implies Z = 1$ formula unit $\\ce{BaTiO3}$ per sel satuan.
 
-**Langkah 2: Menghitung Faktor Toleransi Goldschmidt ($t$)**  
+
+#### Langkah 2: Menghitung Faktor Toleransi Goldschmidt ($t$)
+
 Rumus faktor toleransi Goldschmidt:
 $$t = \\frac{r_A + r_O}{\\sqrt{2}(r_B + r_O)}$$
 
@@ -1102,7 +1146,9 @@ $$t = \\frac{301}{283.55} = 1.0615 \\approx \\mathbf{1.06}$$
 *Analisis Stabilitas Geometri:*  
 Karena $t = 1.06 > 1.00$, kation $\\ce{Ba^2+}$ sedikit terlalu besar untuk rongga kubus ideal. Akibatnya, pada penurunan temperatur di bawah $120^\\circ\\text{C}$ (suhu Curie), kisi kubus mengalami pergeseran kation $\\ce{Ti^4+}$ dari pusat simetri menuju salah satu sumbu oktahedral, memicu distorsi fasa tetragonal feroelektrik non-sentrosimetris yang menghasilkan momen dipol spontan.
 
-**Langkah 3: Menghitung Densitas Teoritis Kristalografi ($\\rho$)**  
+
+#### Langkah 3: Menghitung Densitas Teoritis Kristalografi ($\\rho$)
+
 Volume sel satuan kubus ($a = 400.0\\text{ pm} = 4.000 \\times 10^{-8}\\text{ cm}$):
 $$V_{\\text{cell}} = a^3 = (4.000 \\times 10^{-8}\\text{ cm})^3 = 6.400 \\times 10^{-23}\\text{ cm}^3$$
 
@@ -1112,7 +1158,9 @@ $$m_{\\text{cell}} = \\frac{Z \\cdot M}{N_A} = \\frac{1 \\times 233.19\\text{ g/
 Kerapatan kristalografi:
 $$\\rho = \\frac{m_{\\text{cell}}}{V_{\\text{cell}}} = \\frac{3.8722 \\times 10^{-22}\\text{ g}}{6.400 \\times 10^{-23}\\text{ cm}^3} = \\mathbf{6.050\\text{ g/cm}^3}$$
 
-**Langkah 4: Analisis Difraksi Sinar-X (XRD) Bragg & Indeks Miller**  
+
+#### Langkah 4: Analisis Difraksi Sinar-X (XRD) Bragg & Indeks Miller
+
 Rumus jarak antar-bidang $(hkl)$ pada kisi kubus:
 $$d_{hkl} = \\frac{a}{\\sqrt{h^2 + k^2 + l^2}}$$
 
@@ -1137,7 +1185,9 @@ Sudut difraksi pada difraktometer dicatat sebagai $2\\theta$.
 
 *Catatan Aturan Seleksi:* Karena $\\ce{BaTiO3}$ memiliki atom-atom berbeda pada sudut, rusuk, dan pusat sel, faktor struktur $F_{hkl}$ tidak lenyap untuk bidang-bidang kubus primitif sehingga ketiga puncak di atas muncul secara terukur pada pola difraktogram XRD.
 
-**Langkah 5: Mekanisme Cacat Titik Non-Stoikiometri & Kenetralan Muatan**  
+
+#### Langkah 5: Mekanisme Cacat Titik Non-Stoikiometri & Kenetralan Muatan
+
 Ketika $\\ce{BaTiO3}$ dipanaskan dalam atmosfer reduktif $\\ce{H2}$, atom oksigen lepas sebagai molekul uap air, meninggalkan **vakansi oksigen** dalam kisi kristal (notasi Kröger-Vink: $V_{\\ce{O}}^{\\bullet\\bullet}$):
 $$\\ce{O_{O}^{\\times} -> V_{O}^{\\bullet\\bullet} + 2 e^- + \\frac{1}{2} O2(g)}$$
 

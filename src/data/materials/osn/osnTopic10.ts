@@ -619,20 +619,26 @@ Senyawa enantiomer murni $(2R)\\text{-2-bromobutana}$ direaksikan dengan larutan
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Analisis Faktor Penentu Mekanisme Reaksi]**
+
+#### Langkah 1: [Analisis Faktor Penentu Mekanisme Reaksi]
+
 - Substrat: $2$-bromobutana adalah alkil halida sekunder ($2^\\circ$). Substrat sekunder memiliki persaingan terbuka antara $S_N1, S_N2, E1,$ dan $E2$.
 - Nukleofil: Ion metoksida ($\\ce{CH3O-}$) adalah nukleofil bermuatan kuat (*strong nucleophile*).
 - Pelarut: Dimetilformamida ($\text{DMF}$) adalah pelarut **polar aprotik**. Pelarut aprotik tidak membentuk ikatan hidrogen dengan ion $\\ce{CH3O-}$, sehingga anion metoksida berada dalam kondisi "telanjang" (*naked anion*) dengan energi bebas dan reaktivitas nukleofilik maksimal.
 - Karena nukleofil kuat berada dalam pelarut polar aprotik pada suhu kamar, laju penyerangan bimolekular langsung jauh melampaui laju ionisasi termal substrat. Reaksi berlangsung dominan melalui mekanisme **$S_N2$**!
 
-**Langkah 2: [Geometri Keadaan Transisi & Penyerangan Backside]**
+
+#### Langkah 2: [Geometri Keadaan Transisi & Penyerangan Backside]
+
 1. Nukleofil $\\ce{CH3O-}$ mendekati atom karbon kiral C2 dari arah belakang (*backside attack*), tepat pada sudut dihedral $180^\\circ$ berlawanan dengan gugus pergi bromida ($\\ce{Br-}$).
 2. Penyerangan ini mengalirkan densitas elektron ke dalam orbital antibonding $\\sigma^*_{\\ce{C-Br}}$.
 3. Keadaan transisi pentakoordinasi yang terbentuk bergeometri trigonal bipiramidal:
 $$\\ce{[CH3O^{\\delta-} \\cdots C(CH3)(H)(CH2CH3) \\cdots Br^{\\delta-}]^\\ddagger}$$
 Tiga gugus non-bereaksi ($-\\ce{H}, -\\ce{CH3}, -\\ce{CH2CH3}$) berada pada bidang ekuatorial datar planar, sementara nukleofil $\\ce{CH3O-}$ dan gugus pergi $\\ce{Br-}$ menempati posisi aksial di kedua sisi yang berlawanan.
 
-**Langkah 3: [Penentuan Urutan Prioritas CIP]**
+
+#### Langkah 3: [Penentuan Urutan Prioritas CIP]
+
 1. **Pada Reaktan ($2$-bromobutana):**
    - Prioritas 1: $-\\ce{Br}$ (nomor atom $Z = 35$)
    - Prioritas 2: $-\\ce{CH2CH3}$ (karbon mengikat $\\ce{C, H, H}$)
@@ -646,7 +652,9 @@ Tiga gugus non-bereaksi ($-\\ce{H}, -\\ce{CH3}, -\\ce{CH2CH3}$) berada pada bida
    - Prioritas 3: $-\\ce{CH3}$ (karbon metil, $Z = 6$, mengikat $\\ce{H, H, H}$)
    - Prioritas 4: $-\\ce{H}$ (hidrogen, $Z = 1$)
 
-**Langkah 4: [Konfigurasi Absolut Produk & Inversi Walden]**
+
+#### Langkah 4: [Konfigurasi Absolut Produk & Inversi Walden]
+
 - Perhatikan bahwa gugus pergi ($\\ce{-Br}$) berprioritas 1 digantikan oleh nukleofil baru ($\\ce{-OCH3}$) yang juga berprioritas 1. Prioritas relatif ketiga gugus lainnya ($-\\ce{Et} > -\\ce{Me} > -\\ce{H}$) tidak mengalami perubahan urutan.
 - Karena nukleofil masuk dari arah $180^\\circ$ berlawanan dari posisi asal $\\ce{-Br}$, terjadi pembalikan spasial susunan tetrahedral tiga dimensi secara stereospesifik $100\\%$ (**Inversi Walden**).
 - Akibat inversi geometris murni ini, konfigurasi absolut stereopusat C2 terbalik dari $(R)$ menjadi **$(S)$**:
@@ -680,11 +688,15 @@ Kedua senyawa direaksikan secara terpisah dengan basa kuat natrium etoksida dala
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Persyaratan Stereoelektronik E2 pada Sikloheksana]**
+
+#### Langkah 1: [Persyaratan Stereoelektronik E2 pada Sikloheksana]
+
 Reaksi eliminasi bimolekular $E2$ membutuhkan penataan orbital **anti-periplanar** (sudut dihedral $\\theta = 180^\\circ$) antara ikatan $\\ce{C_\\alpha-Cl}$ dan $\\ce{C_\\beta-H}$.
 Pada cincin sikloheksana berbentuk kursi, syarat geometri anti-periplanar ini hanya dapat tercapai jika **atom klorin ($\\ce{-Cl}$) dan atom hidrogen-$\\beta$ ($\\ce{-H}$) berada pada posisi trans-diaksial ($a, a$)**. Gugus klorin pada posisi ekuatorial sama sekali tidak memiliki pasangan $\\ce{H_\\beta}$ yang anti-periplanar ($180^\\circ$) dan tidak dapat mengalami eliminasi $E2$.
 
-**Langkah 2: [Analisis Eliminasi pada Neomentil Klorida]**
+
+#### Langkah 2: [Analisis Eliminasi pada Neomentil Klorida]
+
 1. Pada Neomentil klorida, konformer kursi paling stabil telah menempatkan atom klorin C2 pada posisi **aksial** (karena gugus meruap isopropil C1 dan metil C5 berada pada posisi ekuatorial yang sangat disukai).
 2. Terdapat dua atom hidrogen-$\\beta$ bertetangga yang berada pada posisi aksial (trans-diaksial terhadap klorin):
    - Atom $\\ce{H}$ aksial pada C1 (mengikat gugus isopropil).
@@ -692,7 +704,9 @@ Pada cincin sikloheksana berbentuk kursi, syarat geometri anti-periplanar ini ha
 3. Eliminasi atom $\\ce{H}$ aksial dari C1 menghasilkan alkena trisubstitusi (ikatan rangkap antara C1 dan C2, yaitu **$2$-mentena**). Menurut **Aturan Zaitsev**, alkena trisubstitusi ini jauh lebih stabil secara termodinamika daripada alkena disubstitusi (antara C2 dan C3, yaitu $3$-mentena).
 4. Produk mayoritas Neomentil klorida adalah **$2$-mentena ($91\\%$, produk Zaitsev)** dan produk minoritas adalah $3$-mentena ($9\\%$).
 
-**Langkah 3: [Analisis Eliminasi pada Mentil Klorida]**
+
+#### Langkah 3: [Analisis Eliminasi pada Mentil Klorida]
+
 1. Pada konformer paling stabil Mentil klorida, atom klorin C2 berada pada posisi **ekuatorial**. Konformer ini **tidak dapat bereaksi**!
 2. Agar dapat bereaksi, molekul harus melakukan pembalikan cincin (*chair flip*) ke konformer berenergi tinggi di mana atom klorin menjadi **aksial**. Konsekuensinya, gugus isopropil C1 dan metil C5 keduanya terpaksa terdorong ke posisi aksial yang mengalami tolakan sterik $1,3$-diaksial sangat hebat.
 3. Pada konformer aktif berenergi tinggi ini, periksa posisi hidrogen-$\\beta$ aksial:
@@ -700,10 +714,12 @@ Pada cincin sikloheksana berbentuk kursi, syarat geometri anti-periplanar ini ha
    - Pada C3: hanya terdapat satu hidrogen aksial yang tersedia (posisi C3 memiliki satu $\\ce{H}$ aksial dan satu $\\ce{H}$ ekuatorial).
 4. Karena hanya proton aksial pada C3 yang anti-periplanar terhadap klorin C2, eliminasi hanya dapat berlangsung ke arah C3, menghasilkan secara eksklusif **$3$-mentena ($100\\%$, produk anti-Zaitsev / Hofmann)**! Produk Zaitsev $2$-mentena sama sekali tidak dapat terbentuk karena ketiadaan geometri trans-diaksial pada C1.
 
-**Langkah 4: [Rasionalisasi Perbedaan Laju Kinetika ($200\\times$)]**
+
+#### Langkah 4: [Rasionalisasi Perbedaan Laju Kinetika ($200\\times$)]
+
 - Pada Neomentil klorida, konformer kursi mayoritas yang stabil ($> 99.9\\%$) sudah memiliki klorin pada posisi aksial siap bereaksi $\\implies$ populasi molekul aktif sangat tinggi dan energi aktivasi total rendah.
 - Pada Mentil klorida, populasi molekul yang berada dalam konformer aktif aksial sangat kecil ($< 0.1\\%$) karena penalti energi tolakan sterik yang besar saat membalik cincin. Sesuai prinsip Curtin-Hammett, energi aktivasi keseluruhan menjadi jauh lebih tinggi.
-- Oleh karena itu, Neomentil klorida bereaksi sekitar **$200$ kali lebih cepat** daripada Mentil klorida.
+- Oleh karena itu, Neomentil klorida bereaksi sekitar $200$ kali lebih cepat daripada Mentil klorida.
 
 ---
 
@@ -735,12 +751,16 @@ Masing-masing tabung direaksikan dengan larutan bromin tetes demi tetes hingga w
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Mekanisme Reaksi & Pembukaan Ion Bromonium]**
+
+#### Langkah 1: [Mekanisme Reaksi & Pembukaan Ion Bromonium]
+
 1. Awan elektron $\\pi$ alkena menyerang molekul $\\ce{Br-Br}$, melepaskan ion $\\ce{Br-}$. Pasangan elektron bebas pada atom bromin terikat kembali secara serentak ke atom karbon kedua membentuk **ion bromonium siklik tiga-anggota** ($[\\ce{C2Br}]^+$).
 2. Ion bromonium memiliki cincin bertegangan tinggi dengan muatan parsial positif pada atom C2 dan C3.
 3. Nukleofil $\\ce{Br-}$ yang lepas kemudian menyerang salah satu atom karbon (C2 atau C3) dari arah belakang (*backside attack*, berlawanan $180^\\circ$ terhadap jembatan cincin bromonium).
 
-**Langkah 2: [Analisis Stereokimia Tabung A: (E)-2-Butena]**
+
+#### Langkah 2: [Analisis Stereokimia Tabung A: (E)-2-Butena]
+
 Pada $(E)\\text{-2-butena}$, kedua gugus metil berada pada sisi yang berseberangan (*trans*):
 1. Pembentukan ion bromonium dapat terjadi dari muka atas atau muka bawah dengan geometri simetris.
 2. Serangan anti oleh $\\ce{Br-}$ pada C2 menghasilkan konfigurasi $(2R, 3S)\\text{-2,3-dibromobutana}$; sedangkan serangan pada C3 menghasilkan konfigurasi $(2S, 3R)\\text{-2,3-dibromobutana}$.
@@ -751,18 +771,22 @@ Pada $(E)\\text{-2-butena}$, kedua gugus metil berada pada sisi yang berseberang
 4. Perhatikan bahwa molekul memiliki **bidang cermin simetri horizontal ($\\sigma$)** yang membelah ikatan C2-C3 menjadi dua paruh yang identik sempurna!
 5. Molekul $(2R, 3S)$ identik dengan $(2S, 3R)$ melalui rotasi $180^\\circ$ pada bidang. Oleh karena itu, produk reaksi Tabung A adalah **senyawa meso murni (*meso*-2,3-dibromobutana)** yang bersifat **optis inaktif** ($[\\alpha] = 0^\\circ$).
 
-**Langkah 3: [Analisis Stereokimia Tabung B: (Z)-2-Butena]**
+
+#### Langkah 3: [Analisis Stereokimia Tabung B: (Z)-2-Butena]
+
 Pada $(Z)\\text{-2-butena}$, kedua gugus metil berada pada sisi yang sama (*cis*):
 1. Serangan ion $\\ce{Br-}$ dari arah belakang pada ion bromonium yang terbentuk dari $(Z)\\text{-2-butena}$ memiliki probabilitas $50\\% : 50\\%$ pada C2 dan C3:
    - Serangan pada C2 menghasilkan enantiomer $(2R, 3R)\\text{-2,3-dibromobutana}$.
    - Serangan pada C3 menghasilkan enantiomer $(2S, 3S)\\text{-2,3-dibromobutana}$.
 2. Kedua molekul ini adalah sepasang bayangan cermin non-superimposabel (enantiomer) tanpa elemen simetri bidang cermin $\\sigma$ maupun titik pusat inversi $i$.
-3. Karena probabilitas serangan pada C2 dan C3 identik secara statistik, terbentuk campuran ekuimolar $1 : 1$ dari sepasang enantiomer tersebut, yaitu **campuran rasemat $(\\pm)\\text{-2,3-dibromobutana}$** yang bersifat **optis inaktif melalui kompensasi eksternal**.
+3. Karena probabilitas serangan pada C2 dan C3 identik secara statistik, terbentuk campuran ekuimolar $1 : 1$ dari sepasang enantiomer tersebut, yaitu **campuran rasemat $(\\pm)\\text{-2,3-dibromobutana}$** yang bersifat optis inaktif melalui kompensasi eksternal.
 
-**Langkah 4: [Matriks Aturan Stereospesifisitas Adisi Alkena]**
+
+#### Langkah 4: [Matriks Aturan Stereospesifisitas Adisi Alkena]
+
 Hubungan keteraturan stereospesifik adisi elektrofilik:
-- Alkena **trans ($E$)** $+$ Adisi **Anti** (seperti $\\ce{Br2}$) $\\implies$ Produk **MESO** (Aturan **TAM**)
-- Alkena **cis ($Z$)** $+$ Adisi **Anti** (seperti $\\ce{Br2}$) $\\implies$ Produk **RASEMAT $(\\pm)$** (Aturan **CAR**)
+- Alkena trans ($E$) $+$ adisi anti (seperti $\\ce{Br2}$) $\\implies$ produk **meso** (Aturan TAM)
+- Alkena cis ($Z$) $+$ adisi anti (seperti $\\ce{Br2}$) $\\implies$ produk **rasemat $(\\pm)$** (Aturan CAR)
 *(Sebaliknya pada adisi Sin seperti dihidroksilasi $\\ce{OsO4}$: cis $\\to$ meso, trans $\\to$ rasemat).*
 
 ---
@@ -791,14 +815,18 @@ Senyawa $\\alpha,\\beta$-tak jenuh terkonjugasi $4$-fenil-$3$-buten-$2$-on (**Be
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Rasionalisasi Selektivitas Kondensasi Aldol Silang]**
+
+#### Langkah 1: [Rasionalisasi Selektivitas Kondensasi Aldol Silang]
+
 Pada kondensasi aldol silang acak antara dua senyawa karbonil berbeda, umumnya terbentuk campuran kompleks dari 4 produk aldol. Namun pasangan benzaldehida dan aseton sangat selektif karena:
 1. **Benzaldehida tidak memiliki atom hidrogen-$\\alpha$ ($\\ce{H_\\alpha}$):** Benzaldehida tidak dapat dideprotonasi oleh basa untuk membentuk anion enolat, sehingga berperan murni sebagai **akseptor elektrofilik**.
 2. **Aseton memiliki hidrogen-$\\alpha$:** Aseton bertindak sebagai **donor nukleofilik** (enolat).
 3. Gugus karbonil aldehid pada benzaldehida jauh lebih elektrofilik dan kurang terhalang sterik dibandingkan gugus karbonil keton pada aseton. Akibatnya, anion enolat aseton bereaksi jauh lebih cepat menyerang benzaldehida daripada menyerang molekul aseton lain (swakondensasi aseton tertekan).
 4. Penambahan aseton dalam jumlah sedikit berlebih menjamin konversi benzaldehida berlangsung kuantitatif menjadi benzalaseton.
 
-**Langkah 2: [Mekanisme Reaksi Bertahap]**
+
+#### Langkah 2: [Mekanisme Reaksi Bertahap]
+
 1. **Pembentukan Anion Enolat Aseton:**
    Ion hidroksida mengambil proton-$\\alpha$ dari aseton:
 $$\\ce{CH3-CO-CH3 + OH- <=> [CH3-CO-\\bar{C}H2 <-> CH3-C(O^-)=CH2] + H2O}$$
@@ -812,11 +840,15 @@ $$\\ce{C6H5-CH(O^-)-CH2-CO-CH3 + H2O <=> C6H5-CH(OH)-CH2-CO-CH3 + OH-}$$
 $$\\ce{C6H5-CH(OH)-\\bar{C}H-CO-CH3 -> C6H5-CH=CH-CO-CH3 + OH-}$$
 Eliminasi mudah terjadi pada suhu kamar karena produk alkena membentuk sistem konjugasi $\\pi$ yang sangat ekstensif antara cincin aromatik fenil, ikatan rangkap $\\ce{C=C}$, dan gugus karbonil $\\ce{C=O}$.
 
-**Langkah 3: [Stereokimia Isomer (E) vs (Z)]**
+
+#### Langkah 3: [Stereokimia Isomer (E) vs (Z)]
+
 Produk yang terbentuk adalah **$(E)\\text{-4-fenil-3-buten-2-on}$ ($trans$-benzalaseton)** secara stereoselektif $> 99\\%$.
 - Alasan Kestabilan: Pada isomer $(E)$, cincin fenil besar dan gugus asetil $-\\ce{COCH3}$ berada pada sisi yang berlawanan dari ikatan rangkap, meminimalkan tolakan sterik antar-gugus dan memaksimalkan koplanaritas sistem terkonjugasi untuk delokalisasi resonansi optimal.
 
-**Langkah 4: [Reaksi Lanjut: Adisi Konjugat Michael]**
+
+#### Langkah 4: [Reaksi Lanjut: Adisi Konjugat Michael]
+
 Ketika benzalaseton (akseptor Michael $\\alpha,\\beta$-tak jenuh) direaksikan dengan dimetil malonat (donor Michael):
 1. Basa metoksida mendekarboksilasi dimetil malonat menghasilkan anion karbanion malonat terstabilkan resonansi: $[\\ce{\\bar{C}H(COOCH3)2}]^-$.
 2. Anion enolat lunak ini menyerang secara selektif pada **karbon-$\\beta$** benzalaseton (adisi konjugat $1,4$), bukan pada karbon karbonil langsung (adisi $1,2$):
@@ -853,7 +885,9 @@ Sebanyak $50.0\\text{ mL}$ larutan asam L-glutamat $0.100\\text{ M}$ dititrasi d
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Struktur Spesies Ionik & Urutan Deprotonasi]**
+
+#### Langkah 1: [Struktur Spesies Ionik & Urutan Deprotonasi]
+
 Urutan keasaman gugus fungsional ditentukan oleh nilai $pK_a$ (makin kecil $pK_a$, makin mudah terdeprotonasi):
 $$\\alpha\\ce{-COOH} (pK_{a1} = 2.19) > \\gamma\\ce{-COOH} (pK_{aR} = 4.25) > \\alpha\\ce{-NH3+} (pK_{a2} = 9.67)$$
 Keempat spesies kesetimbangan ionik:
@@ -869,7 +903,9 @@ Keempat spesies kesetimbangan ionik:
    Pelepasan proton ketiga dari gugus amonium $\\alpha\\ce{-NH3+}$:
    $$\\ce{^-OOC-CH2-CH2-CH(NH2)-COO-}$$
 
-**Langkah 2: [Derivasi Rumus & Perhitungan Titik Isoelektrik (pI)]**
+
+#### Langkah 2: [Derivasi Rumus & Perhitungan Titik Isoelektrik (pI)]
+
 Spesies zwitterion bermuatan netto nol adalah $\\ce{H2A}$.
 Kesetimbangan disosiasi yang melibatkan $\\ce{H2A}$:
 $$K_{a1} = \\frac{[\\ce{H+}][\\ce{H2A}]}{[\\ce{H3A+}]} \\implies [\\ce{H3A+}] = \\frac{[\\ce{H+}][\\ce{H2A}]}{K_{a1}}$$
@@ -887,12 +923,16 @@ $$pI = \\frac{pK_{a1} + pK_{aR}}{2}$$
 Substitusi nilai eksperimen:
 $$pI = \\frac{2.19 + 4.25}{2} = \\frac{6.44}{2} = 3.22$$
 
-**Langkah 3: [Volume Titran NaOH untuk Mencapai pI]**
+
+#### Langkah 3: [Volume Titran NaOH untuk Mencapai pI]
+
 - Mol awal $\\ce{H3A+} = 50.0\\text{ mL} \\times 0.100\\text{ M} = 5.00\\text{ mmol}$.
 - Titik ekuivalen pertama ($V_1 = 50.0\\text{ mL}$) tercapai saat seluruh gugus pertama $\\alpha\\ce{-COOH}$ ternetralkan menjadi zwitterion netral $\\ce{H2A}$.
 - Pada titrasi asam amino dikarboksilat, titik isoelektrik ($pI = 3.22$) berimpit dengan titik ekuivalen pertama, di mana spesies $\\ce{H2A}$ terbentuk kuantitatif sebesar $> 98\\%$. Jadi volume titran $\\ce{NaOH}$ yang ditambahkan adalah **$50.0\\text{ mL}$**.
 
-**Langkah 4: [Spesiasi pada pH Fisiologis Darah (pH = 7.40)]**
+
+#### Langkah 4: [Spesiasi pada pH Fisiologis Darah (pH = 7.40)]
+
 Pada $\\text{pH} = 7.40$:
 - Rasio $\\frac{[\\ce{HA-}]}{[\\ce{H2A}]}$:
 $$\\text{pH} = pK_{aR} + \\log\\left(\\frac{[\\ce{HA-}]}{[\\ce{H2A}]}\\right) \\implies 7.40 = 4.25 + \\log\\left(\\frac{[\\ce{HA-}]}{[\\ce{H2A}]}\\right) \\implies \\log = 3.15 \\implies \\frac{[\\ce{HA-}]}{[\\ce{H2A}]} = 10^{3.15} = 1413$$
@@ -938,7 +978,9 @@ $$\\frac{1}{v_0} = 0.1500 \\left(\\frac{1}{[S]}\\right) + 0.0250$$
 
 ### Solusi Sistematis:
 
-**Langkah 1: [Penentuan Parameter Kinetika Tanpa Inhibitor ($V_{\\max}$ dan $K_m$)]**
+
+#### Langkah 1: [Penentuan Parameter Kinetika Tanpa Inhibitor ($V_{\\max}$ dan $K_m$)]
+
 Persamaan umum plot Lineweaver-Burk adalah:
 $$\\frac{1}{v_0} = \\left(\\frac{K_m}{V_{\\max}}\\right) \\frac{1}{[S]} + \\frac{1}{V_{\\max}}$$
 Bandingkan dengan persamaan eksperimen tanpa inhibitor:
@@ -952,7 +994,9 @@ $$K_m = \\text{Slope} \\times V_{\\max} = 0.0500 \\times 40.0 = 2.00\\text{ mM} 
 3. **Titik Potong Sumbu-x (*x-intercept*):**
 $$-\\frac{1}{K_m} = -\\frac{0.0250}{0.0500} = -0.500\\text{ mM}^{-1} \\implies K_m = 2.00\\text{ mM}$$
 
-**Langkah 2: [Perhitungan Turnover Number kcat & Efisiensi Katalitik]**
+
+#### Langkah 2: [Perhitungan Turnover Number kcat & Efisiensi Katalitik]
+
 1. **Angka Pergantian (*Turnover Number*, $k_{cat}$):**
 $$k_{cat} = \\frac{V_{\\max}}{[E]_0} = \\frac{4.00\\times 10^{-5}\\text{ M}\\cdot\\text{s}^{-1}}{2.00\\times 10^{-8}\\text{ M}} = 2000\\text{ s}^{-1}$$
 Artinya, setiap satu molekul enzim kimotripsin mampu menghidrolisis $2000$ molekul substrat menjadi produk per detik dalam kondisi jenuh!
@@ -961,12 +1005,14 @@ $$\\text{Efisiensi} = \\frac{k_{cat}}{K_m} = \\frac{2000\\text{ s}^{-1}}{2.00\\t
 3. **Evaluasi Batas Difusi Smoluchowski:**
 Batas difusi fluida teoritis untuk tumbukan molekuler dalam larutan berair berkisar antara $10^8 - 10^9\\text{ M}^{-1}\\text{s}^{-1}$. Karena nilai efisiensi katalitik kimotripsin adalah $1.00\\times 10^6\\text{ M}^{-1}\\text{s}^{-1}$, enzim ini sangat efisien namun belum mencapai batas kinetik sempurna (*diffusion-controlled limit*), menunjukkan bahwa tahap pemutusan ikatan kimia kovalen masih memberikan kontribusi penghalang aktivasi.
 
-**Langkah 3: [Diagnosis Mekanisme Inhibisi Senyawa X]**
+
+#### Langkah 3: [Diagnosis Mekanisme Inhibisi Senyawa X]
+
 Bandingkan parameter kedua garis:
 - **Titik Potong Sumbu-y:**
   - Tanpa inhibitor: $\\frac{1}{V_{\\max}} = 0.0250 \\implies V_{\\max} = 40.0\\ \\mu\\text{M}\\cdot\\text{s}^{-1}$
   - Dengan inhibitor: $\\frac{1}{V_{\\max}^{\\text{app}}} = 0.0250 \\implies V_{\\max}^{\\text{app}} = 40.0\\ \\mu\\text{M}\\cdot\\text{s}^{-1}$
-  Kedua garis berpotongan **tepat di satu titik pada sumbu-y** ($V_{\\max}$ tidak berubah sama sekali)!
+  Kedua garis berpotongan tepat di satu titik pada sumbu-y ($V_{\\max}$ tidak berubah sama sekali)!
 - **Kemiringan Kurva (*Slope*):**
   - Tanpa inhibitor: $\\text{Slope}_1 = 0.0500$
   - Dengan inhibitor: $\\text{Slope}_2 = 0.1500$ (meningkat sebesar $3.00\\times$)
@@ -976,7 +1022,9 @@ Nilai $K_m$ meningkat dari $2.00\\text{ mM}$ menjadi $6.00\\text{ mM}$.
 - **Kesimpulan Mekanisme:**
 Karena nilai $V_{\\max}$ tetap konstan sementara nilai $K_m$ meningkat ($K_m^{\\text{app}} > K_m$), Senyawa X bertindak murni sebagai **Inhibitor Kompetitif Reversibel**! Molekul inhibitor bersaing secara langsung dengan molekul substrat untuk menduduki sisi aktif enzim bebas ($\\ce{E + I <=> EI}$).
 
-**Langkah 4: [Derivasi Rumus & Perhitungan Konstanta Inhibisi Ki]**
+
+#### Langkah 4: [Derivasi Rumus & Perhitungan Konstanta Inhibisi Ki]
+
 Pada inhibisi kompetitif:
 $$K_m^{\\text{app}} = \\alpha K_m \\quad \\text{di mana} \\quad \\alpha = 1 + \\frac{[I]}{K_i}$$
 Faktor perbesaran $\\alpha$:

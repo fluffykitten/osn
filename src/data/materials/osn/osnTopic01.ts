@@ -82,23 +82,27 @@ Ketika elektron melompat turun dari anak tangga tinggi ke rendah, selisih energi
 
 ### 🧭 Alur Matematis Model Atom Bohr untuk Spesies Hidrogenik:
 
-1. **Langkah 1 (Kuantisasi Momentum Sudut Orbital):**  
+#### Langkah 1: Kuantisasi Momentum Sudut Orbital
+
    Momentum sudut elektron ($L$) diwajibkan merupakan kelipatan bilangan bulat dari tetapan Planck tereduksi $\\hbar = \\frac{h}{2\\pi}$:
    $$L = m_e v r = n \\hbar = n \\frac{h}{2\\pi} \\quad (n = 1, 2, 3, \\dots)$$
 
-2. **Langkah 2 (Keseimbangan Gaya Sentripetal & Tarikan Coulomb):**  
+#### Langkah 2: Keseimbangan Gaya Sentripetal & Tarikan Coulomb
+
    Menyetarakan gaya sentripetal mekanika gerak melingkar dengan gaya tarik coulomb antara inti bermuatan $+Ze$ dan elektron bermuatan $-e$:
    $$\\frac{m_e v^2}{r} = \\frac{1}{4\\pi \\epsilon_0} \\frac{Z e^2}{r^2}$$
    Substitusi kecepatan $v$ dari Langkah 1 menghasilkan radius orbit stasioner ke-$n$ (Jari-jari Bohr):
    $$r_n = \\frac{4\\pi \\epsilon_0 \\hbar^2}{m_e e^2} \\left(\\frac{n^2}{Z}\\right) = a_0 \\frac{n^2}{Z} \\quad (a_0 = 0.529\\text{ \\AA} = 52.9\\text{ pm})$$
 
-3. **Langkah 3 (Energi Kuantum Total Elektron):**  
+#### Langkah 3: Energi Kuantum Total Elektron
+
    Energi total merupakan jumlahan energi kinetik ($E_k$) dan energi potensial elektrostatik ($E_p$):
    $$E_n = E_k + E_p = \\frac{1}{2} m_e v^2 - \\frac{1}{4\\pi \\epsilon_0} \\frac{Z e^2}{r} = -\\frac{1}{8\\pi \\epsilon_0} \\frac{Z e^2}{r_n}$$
    Substitusi radius $r_n$ menghasilkan energi kuantum diskret:
    $$E_n = -R_H \\left(\\frac{Z^2}{n^2}\\right) = -13.6\\text{ eV} \\times \\frac{Z^2}{n^2} = -\\frac{2.179 \\times 10^{-18}\\text{ J} \\cdot Z^2}{n^2}$$
 
-4. **Langkah 4 (Formulasi Persamaan Spektroskopi Rydberg):**  
+#### Langkah 4: Formulasi Persamaan Spektroskopi Rydberg
+
    Ketika elektron bertransisi dari tingkat energi $n_2$ menuju $n_1$ ($n_2 > n_1$), foton dipancarkan dengan energi $\\Delta E = h\\nu = hc/\\lambda$:
    $$\\frac{1}{\\lambda} = R_\\infty Z^2 \\left(\\frac{1}{n_1^2} - \\frac{1}{n_2^2}\\right)$$
    dengan tetapan Rydberg $R_\\infty = 1.09737 \\times 10^7\\text{ m}^{-1}$.
@@ -249,7 +253,7 @@ Jika senar gitar yang dipetik menghasilkan nada bergetar satu dimensi, dan kulit
 Persamaan Diferensial Parsial Erwin Schrödinger (1926) mendeskripsikan osilasi gelombang ini di bawah medan potensial Coulomb inti:
 $$\\hat{H}\\psi = E\\psi \\iff \\left( -\\frac{\\hbar^2}{2m_e} \\nabla^2 + V(r) \\right)\\psi = E\\psi$$
 
-Agar fungsi gelombang $\\psi$ bernilai tunggal, kontinu, dan ternormalisasi di seluruh alam semesta, kondisi batas matematis menuntut munculnya **tiga bilangan kuantum spasial ($n, l, m_l$)**, yang kemudian disempurnakan oleh Dirac dengan **satu bilangan kuantum spin intrinsik ($m_s$)**.
+Agar fungsi gelombang $\\psi$ bernilai tunggal, kontinu, dan ternormalisasi di seluruh alam semesta, kondisi batas matematis menuntut munculnya tiga **bilangan kuantum spasial** ($n, l, m_l$), yang kemudian disempurnakan oleh Dirac dengan satu **bilangan kuantum spin** intrinsik ($m_s$).
 
 ---
 
@@ -361,11 +365,13 @@ dengan $Z$ adalah nomor atom dan $S$ adalah tetapan perisai (*shielding constant
 
 ### 🧭 Algoritma Perhitungan Aturan Slater (Slater\'s Rules):
 
-1. **Langkah 1 (Pengelompokan Formal Kurung Kulit):**  
+#### Langkah 1: Pengelompokan Formal Kurung Kulit
+
    Tuliskan konfigurasi elektron dan kelompokkan dalam urutan berikut:
    $$(1s) \\quad (2s, 2p) \\quad (3s, 3p) \\quad (3d) \\quad (4s, 4p) \\quad (4d) \\quad (4f) \\quad (5s, 5p) \\dots$$
 
-2. **Langkah 2 (Nilai Kontribusi Perisai Elektron Penguji):**
+#### Langkah 2: Nilai Kontribusi Perisai Elektron Penguji
+
 
 | Posisi Elektron yang Diuji | Posisi Elektron Penyumbang Perisai | Kontribusi Per Elektron ($S_i$) |
 | :--- | :--- | :---: |
@@ -375,7 +381,8 @@ dengan $Z$ adalah nomor atom dan $S$ adalah tetapan perisai (*shielding constant
 | **Elektron dalam Kelompok $(nd)$ atau $(nf)$** | Elektron lain dalam kelompok $(nd)$ atau $(nf)$ yang sama | **$0.35$** |
 | | Seluruh elektron dalam semua kelompok di sebelah kirinya | **$1.00$** |
 
-3. **Langkah 3 (Kaidah Nol untuk Sisi Kanan):**  
+#### Langkah 3: Kaidah Nol untuk Sisi Kanan
+
    Elektron pada kelompok di sebelah **kanan** elektron penguji sama sekali tidak menyumbang perisai ($S = 0.00$).
 
 ---
@@ -402,7 +409,7 @@ Nilai $Z_{\\text{eff}}(3d) = +8.85$ lebih dari dua kali lipat lebih besar diband
 > ### ⚠️ Perbedaan Perlakuan Kelompok $(ns, np)$ vs $(nd, nf)$
 > Hati-hati saat menguji elektron pada subkulit $d$ atau $f$!
 > - **Miskonsepsi Umum**: Mengalikan elektron kulit $(n-1)$ dengan faktor $0.85$ saat menguji elektron $3d$.
-> - **Kaidah Ilmiah yang Benar**: Untuk elektron penguji $(nd)$ atau $(nf)$, **seluruh elektron di sebelah kirinya (baik kulit $n-1, n-2$, maupun $ns, np$ sesama kulit $n$) SEMUANYA dikalikan dengan bobot $1.00$!** Faktor $0.85$ hanya berlaku jika elektron yang diuji berada pada kelompok $(ns, np)$.`,
+> - **Kaidah Ilmiah yang Benar**: Untuk elektron penguji $(nd)$ atau $(nf)$, seluruh elektron di sebelah kirinya (baik kulit $n-1, n-2$, maupun $ns, np$ sesama kulit $n$) dikalikan dengan bobot **$1.00$**. Faktor $0.85$ hanya berlaku jika elektron yang diuji berada pada kelompok $(ns, np)$.`,
       keyFormulas: [
         { name: 'Rumus Muatan Inti Efektif', formula: 'Z_{\\text{eff}} = Z - S' },
         { name: 'Kontribusi Sesama ns/np', formula: 'S_i = 0.35 \\quad (1s: 0.30)' },

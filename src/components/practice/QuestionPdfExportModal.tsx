@@ -1,6 +1,6 @@
 /**
  * QuestionPdfExportModal.tsx
- * Dialog Konfigurasi Ekspor PDF Naskah Soal Kimia (Save My Exams Style)
+ * Dialog Konfigurasi Ekspor PDF Naskah Soal Kimia (Axioma Academy Format)
  * 
  * Fitur:
  * - Pilihan Cakupan: Seluruh Soal Topik Ini ATAU Soal-Soal Pilihan (Centang) ATAU Filter Kesulitan
@@ -8,7 +8,7 @@
  *   1. Hanya Naskah Soal (Question Paper)
  *   2. Naskah Soal + Kunci & Pembahasan Lengkap (With Mark Scheme)
  *   3. Hanya Kunci Jawaban & Pembahasan (Mark Scheme Only)
- * - Pilihan Penomoran Soal (Reset per Kesulitan ala Save My Exams vs Urut 1..N)
+ * - Pilihan Penomoran Soal (Reset per Kesulitan vs Urut 1..N)
  * - Live Metrics: Jumlah butir, estimasi durasi waktu, total marks
  */
 

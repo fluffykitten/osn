@@ -737,7 +737,9 @@ Setelah oksidasi etanol berlangsung sempurna, kelebihan ion dikromat yang tidak 
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Penyetaraan Reaksi Redoks Oksidasi Etanol oleh Dikromat**  
+
+#### Langkah 1: Penyetaraan Reaksi Redoks Oksidasi Etanol oleh Dikromat
+
 - Setengah reaksi oksidasi etanol menjadi asam asetat:
   $$\\ce{CH3CH2OH + H2O -> CH3COOH + 4H+ + 4e-}$$
 - Setengah reaksi reduksi dikromat:
@@ -748,7 +750,9 @@ $$2\\ce{Cr2O7^2-} + 28\\ce{H+} + 12e^- -> 4\\ce{Cr^3+} + 14\\ce{H2O}$$
 Jumlahkan dan eliminasi $\\ce{H2O}$, $\\ce{H+}$, dan $e^-$:
 $$\\mathbf{\\ce{2Cr2O7^2- + 3CH3CH2OH + 16H+ -> 4Cr^3+ + 3CH3COOH + 11H2O}}$$
 
-**Langkah 2: Menghitung Stoikiometri Mol Dikromat yang Bereaksi**  
+
+#### Langkah 2: Menghitung Stoikiometri Mol Dikromat yang Bereaksi
+
 1. Mol $\\ce{Cr2O7^2-}$ awal ditambahkan:
    $$n_{\\text{awal}} = 25.00\\text{ mL} \\times 0.0500\\text{ mmol/mL} = \\mathbf{1.250\\text{ mmol}}$$
 2. Reaksi titrasi balik dengan ion $\\ce{Fe^2+}$:
@@ -758,7 +762,9 @@ $$\\mathbf{\\ce{2Cr2O7^2- + 3CH3CH2OH + 16H+ -> 4Cr^3+ + 3CH3COOH + 11H2O}}$$
 3. Mol $\\ce{Cr2O7^2-}$ yang bereaksi dengan etanol:
    $$n_{\\text{bereaksi}} = n_{\\text{awal}} - n_{\\text{sisa}} = 1.250\\text{ mmol} - 0.2750\\text{ mmol} = \\mathbf{0.9750\\text{ mmol}}$$
 
-**Langkah 3: Menghitung Kadar Etanol dalam Sampel Asli**  
+
+#### Langkah 3: Menghitung Kadar Etanol dalam Sampel Asli
+
 Berdasarkan rasio stoikiometri reaksi setara ($2\\ce{Cr2O7^2-} : 3\\ce{CH3CH2OH}$):
 $$n_{\\text{etanol (20.0 mL)}} = \\frac{3}{2} \\times n_{\\text{bereaksi}} = \\frac{3}{2} \\times 0.9750\\text{ mmol} = \\mathbf{1.4625\\text{ mmol}}$$
 Jumlah mol etanol dalam seluruh labu takar ($500.0\\text{ mL}$):
@@ -794,7 +800,9 @@ Proses elektrolisis dijalankan dengan arus listrik konstan $I = 2.50\\text{ A}$ 
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Muatan Listrik Total & Efektif**  
+
+#### Langkah 1: Menghitung Muatan Listrik Total & Efektif
+
 Konversi waktu ke dalam detik:
 $$t = 35.0\\text{ menit} \\times 60\\text{ s/menit} = 2100\\text{ detik}$$
 Muatan listrik total:
@@ -802,7 +810,9 @@ $$Q_{\\text{total}} = I \\cdot t = 2.50\\text{ A} \\times 2100\\text{ s} = \\mat
 Muatan listrik efektif dengan efisiensi $\\eta = 92.0\\%$:
 $$Q_{\\text{efektif}} = Q_{\\text{total}} \\times 0.920 = 5250\\text{ C} \\times 0.920 = \\mathbf{4830\\text{ Coulomb}}$$
 
-**Langkah 2: Menghitung Massa Emas yang Terdeposisi**  
+
+#### Langkah 2: Menghitung Massa Emas yang Terdeposisi
+
 Jumlah mol elektron efektif:
 $$n_{e^-} = \\frac{Q_{\\text{efektif}}}{F} = \\frac{4830\\text{ C}}{96,485\\text{ C/mol}} = 0.05006\\text{ mol}$$
 Karena valensi reduksi emas(I) adalah $z = 1$ ($\\ce{Au+ + e- -> Au}$):
@@ -810,7 +820,9 @@ $$n_{\\ce{Au}} = n_{e^-} = 0.05006\\text{ mol}$$
 Massa emas terdeposisi:
 $$m_{\\ce{Au}} = 0.05006\\text{ mol} \\times 196.97\\text{ g/mol} = \\mathbf{9.860\\text{ gram}}$$
 
-**Langkah 3: Menghitung Ketebalan Lapisan Emas (d)**  
+
+#### Langkah 3: Menghitung Ketebalan Lapisan Emas (d)
+
 Volume total lapisan emas:
 $$V = \\frac{m_{\\ce{Au}}}{\\rho_{\\ce{Au}}} = \\frac{9.860\\text{ g}}{19.30\\text{ g/cm}^3} = 0.5109\\text{ cm}^3$$
 Hubungan volume dengan luas permukaan dan ketebalan ($V = A \\cdot d$):
@@ -845,19 +857,25 @@ $$\\left(\\frac{\\partial E}{\\partial T}\\right)_P = -4.30 \\times 10^{-4}\\tex
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Energi Bebas Gibbs Standar ΔG°**  
+
+#### Langkah 1: Menghitung Energi Bebas Gibbs Standar ΔG°
+
 Jumlah elektron yang ditransfer dalam reaksi setara: $n = 2$.
 Tetapan Faraday: $F = 96,485\\text{ C/mol}$.
 $$\\Delta G^\\circ = -n F E^\\circ_{\\text{sel}} = -(2) \\times (96,485\\text{ C/mol}) \\times (1.1000\\text{ J/C})$$
 $$\\Delta G^\\circ = -212,267\\text{ J/mol} = \\mathbf{-212.27\\text{ kJ/mol}}$$
 
-**Langkah 2: Menghitung Entropi Reaksi Standar ΔS°**  
+
+#### Langkah 2: Menghitung Entropi Reaksi Standar ΔS°
+
 Gunakan relasi termodinamika Maxwell:
 $$\\Delta S^\\circ = n F \\left(\\frac{\\partial E}{\\partial T}\\right)_P$$
 $$\\Delta S^\\circ = (2) \\times (96,485\\text{ C/mol}) \\times (-4.30 \\times 10^{-4}\\text{ V/K})$$
 $$\\Delta S^\\circ = \\mathbf{-82.98\\text{ J}/(\\text{mol}\\cdot\\text{K})}$$
 
-**Langkah 3: Menghitung Entalpi Reaksi Standar ΔH°**  
+
+#### Langkah 3: Menghitung Entalpi Reaksi Standar ΔH°
+
 Gunakan persamaan $\\Delta G^\\circ = \\Delta H^\\circ - T\\Delta S^\\circ$:
 $$\\Delta H^\\circ = \\Delta G^\\circ + T \\Delta S^\\circ$$
 $$T \\Delta S^\\circ = 298.15\\text{ K} \\times (-82.98\\text{ J}/(\\text{mol}\\cdot\\text{K})) = -24,740.5\\text{ J/mol} = -24.74\\text{ kJ/mol}$$
@@ -867,7 +885,9 @@ $$\\Delta H^\\circ = -212.27\\text{ kJ/mol} + (-24.74\\text{ kJ/mol}) = \\mathbf
 $$\\Delta H^\\circ = -nF \\left[ E^\\circ - T \\left(\\frac{\\partial E}{\\partial T}\\right)_P \\right] = -192,970 \\left[ 1.1000 - (298.15 \\times (-4.30 \\times 10^{-4})) \\right]$$
 $$\\Delta H^\\circ = -192,970 \\left[ 1.1000 + 0.1282 \\right] = -192,970 \\times 1.2282 = -237,006\\text{ J/mol} = -237.01\\text{ kJ/mol} \\quad (\\text{Identik}).$$
 
-**Langkah 4: Evaluasi Pertukaran Kalor Reversibel q_rev**  
+
+#### Langkah 4: Evaluasi Pertukaran Kalor Reversibel q_rev
+
 Berdasarkan hukum kedua termodinamika:
 $$q_{\\text{rev}} = T \\Delta S^\\circ = \\mathbf{-24.74\\text{ kJ/mol}}$$
 Karena nilai $q_{\\text{rev}} < 0$ (bertanda negatif), sel **melepaskan kalor sebesar $24.74\\text{ kJ}$ ke lingkungan** untuk setiap mol seng yang larut secara reversibel guna mempertahankan temperaturnya konstan pada $298.15\\text{ K}$.
@@ -896,7 +916,9 @@ Voltase sel terukur pada potensiometer bernilai $E_{\\text{sel}} = 0.4420\\text{
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menuliskan Reaksi Sel**  
+
+#### Langkah 1: Menuliskan Reaksi Sel
+
 Karena elektroda kiri bertindak sebagai katoda:
 - Katoda (Kiri, Reduksi): $\\ce{Ag+(aq, 0.0500 M) + e- -> Ag(s)}$
 - Anoda (Kanan, Oksidasi): $\\ce{Ag(s) -> Ag+(aq, kanan) + e-}$
@@ -904,7 +926,9 @@ Reaksi Bersih Sel Konsentrasi:
 $$\\ce{Ag+(aq, 0.0500 M) -> Ag+(aq, kanan)}$$
 Karena elektroda dan ion identik: $E^\\circ_{\\text{sel}} = 0.000\\text{ V}$.
 
-**Langkah 2: Menghitung Konsentrasi [Ag+] dalam Kompartemen Anoda (AgCl)**  
+
+#### Langkah 2: Menghitung Konsentrasi [Ag+] dalam Kompartemen Anoda (AgCl)
+
 Gunakan Persamaan Nernst ($n = 1$):
 $$E_{\\text{sel}} = E^\\circ_{\\text{sel}} - \\frac{0.05916}{1} \\log\\left(\\frac{[\\ce{Ag+}]_{\\text{kanan}}}{[\\ce{Ag+}]_{\\text{kiri}}}\\right)$$
 $$0.4420 = 0 - 0.05916 \\log\\left(\\frac{[\\ce{Ag+}]_{\\text{kanan}}}{0.0500}\\right)$$
@@ -913,11 +937,15 @@ Ambil antilogaritma:
 $$\\frac{[\\ce{Ag+}]_{\\text{kanan}}}{0.0500} = 10^{-7.4713} = 3.378 \\times 10^{-8}$$
 $$[\\ce{Ag+}]_{\\text{kanan}} = 0.0500 \\times (3.378 \\times 10^{-8}) = \\mathbf{1.689 \\times 10^{-9}\\text{ M}}$$
 
-**Langkah 3: Menghitung Nilai Ksp AgCl**  
+
+#### Langkah 3: Menghitung Nilai Ksp AgCl
+
 Konsentrasi ion klorida dalam kompartemen kanan berasal dari garam terdisosiasi sempurna $\\ce{KCl}$ ($0.100\\text{ M}$), sehingga $[\\ce{Cl-}] = 0.100\\text{ M}$:
 $$K_{sp}(\\ce{AgCl}) = [\\ce{Ag+}][\\ce{Cl-}] = (1.689 \\times 10^{-9}\\text{ M}) \\times (0.100\\text{ M}) = \\mathbf{1.689 \\times 10^{-10}} \\approx \\mathbf{1.69 \\times 10^{-10}}$$
 
-**Langkah 4: Menghitung Ksp AgBr**  
+
+#### Langkah 4: Menghitung Ksp AgBr
+
 Untuk sistem $\\ce{AgBr}$ dengan $E_{\\text{sel}} = 0.5890\\text{ V}$:
 $$\\log\\left(\\frac{[\\ce{Ag+}]_{\\text{Br}}}{0.0500}\\right) = -\\frac{0.5890}{0.05916} = -9.9560$$
 $$\\frac{[\\ce{Ag+}]_{\\text{Br}}}{0.0500} = 10^{-9.9560} = 1.1066 \\times 10^{-10}$$
@@ -946,7 +974,9 @@ $$\\ce{\\underset{(+7)}{MnO4-} ->[+0.564\\text{ V}] \\underset{(+6)}{MnO4^2-} ->
 
 ### Rincian Langkah Penyelesaian:
 
-**Langkah 1: Menghitung Potensial Reduksi Langsung E°(MnO4- / Mn2+)**  
+
+#### Langkah 1: Menghitung Potensial Reduksi Langsung E°(MnO4- / Mn2+)
+
 Transformasi dari $\\ce{MnO4-}$ ($+7$) ke $\\ce{Mn^2+}$ ($+2$) melibatkan selisih elektron:
 $$n = 7 - 2 = 5\\text{ elektron}$$
 Gunakan hukum aditivitas energi bebas Gibbs ($\\Delta G^\\circ_{\\text{total}} = \\sum \\Delta G^\\circ_i$):
@@ -960,12 +990,14 @@ Jumlah total $\\sum n_i E_i$:
 $$\\sum n_i E_i = 0.564 + 4.522 + 0.951 + 1.509 = 7.546\\text{ V}$$
 $$E^\\circ(\\ce{MnO4- / Mn^2+}) = \\frac{7.546\\text{ V}}{5} = \\mathbf{1.5092\\text{ V}} \\approx \\mathbf{+1.51\\text{ V}}$$
 
-**Langkah 2: Evaluasi Kestabilan Disproporsionasi**  
+
+#### Langkah 2: Evaluasi Kestabilan Disproporsionasi
+
 Spesi intermediet mengalami disproporsionasi jika $E^\\circ_{\\text{kanan}} > E^\\circ_{\\text{kiri}}$:
 1. **Spesi $\\ce{MnO4^2-}$ ($+6$):**
    - $E^\\circ_{\\text{kiri}} = +0.564\\text{ V}$
    - $E^\\circ_{\\text{kanan}} = +2.261\\text{ V}$
-   Karena $E^\\circ_{\\text{kanan}} (2.261) > E^\\circ_{\\text{kiri}} (0.564)$, ion manganat(VI) **TIDAK STABIL dan mengalami disproporsionasi spontan**:
+   Karena $E^\\circ_{\\text{kanan}} (2.261) > E^\\circ_{\\text{kiri}} (0.564)$, ion manganat(VI) tidak stabil dan mengalami **disproporsionasi spontan**:
    $$E^\\circ_{\\text{disprop}} = 2.261\\text{ V} - 0.564\\text{ V} = \\mathbf{+1.697\\text{ V} > 0}$$
    Reaksi setara:
    $$\\mathbf{\\ce{3MnO4^2-(aq) + 4H+(aq) -> 2MnO4-(aq) + MnO2(s) + 2H2O(l)}}$$
@@ -973,17 +1005,19 @@ Spesi intermediet mengalami disproporsionasi jika $E^\\circ_{\\text{kanan}} > E^
 2. **Spesi $\\ce{MnO2}$ ($+4$):**
    - $E^\\circ_{\\text{kiri}} = +2.261\\text{ V}$
    - $E^\\circ_{\\text{kanan}} = +0.951\\text{ V}$
-   Karena $E^\\circ_{\\text{kanan}} (0.951) < E^\\circ_{\\text{kiri}} (2.261)$, $\\ce{MnO2}$ **STABIL** terhadap disproporsionasi.
+   Karena $E^\\circ_{\\text{kanan}} (0.951) < E^\\circ_{\\text{kiri}} (2.261)$, $\\ce{MnO2}$ **stabil** terhadap disproporsionasi.
 
 3. **Spesi $\\ce{Mn^3+}$ ($+3$):**
    - $E^\\circ_{\\text{kiri}} = +0.951\\text{ V}$
    - $E^\\circ_{\\text{kanan}} = +1.509\\text{ V}$
-   Karena $E^\\circ_{\\text{kanan}} (1.509) > E^\\circ_{\\text{kiri}} (0.951)$, ion $\\ce{Mn^3+}$ **TIDAK STABIL dan mengalami disproporsionasi spontan**:
+   Karena $E^\\circ_{\\text{kanan}} (1.509) > E^\\circ_{\\text{kiri}} (0.951)$, ion $\\ce{Mn^3+}$ tidak stabil dan mengalami **disproporsionasi spontan**:
    $$E^\\circ_{\\text{disprop}} = 1.509\\text{ V} - 0.951\\text{ V} = \\mathbf{+0.558\\text{ V} > 0}$$
    Reaksi setara:
    $$\\mathbf{\\ce{2Mn^3+(aq) + 2H2O(l) -> Mn^2+(aq) + MnO2(s) + 4H+(aq)}}$$
 
-**Langkah 3: Menyusun Koordinat Diagram Frost**  
+
+#### Langkah 3: Menyusun Koordinat Diagram Frost
+
 Sumbu horizontal adalah bilangan oksidasi ($N$), sumbu vertikal adalah $nE^\\circ(\\ce{X(N) / Mn(0)})$:
 - $N = 0$ (Logam $\\ce{Mn}$): $nE^\\circ = 0.000\\text{ V}$ (Titik acuan).
 - $N = +2$ ($\\ce{Mn^2+}$): $\\ce{Mn^2+ + 2e- -> Mn} \\implies nE^\\circ = 2 \\times (-1.185) = -2.370\\text{ V}$.

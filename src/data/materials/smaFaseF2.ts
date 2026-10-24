@@ -136,6 +136,7 @@ $$m = \\frac{\\%}{100 - \\%} \\times \\frac{1000}{M_r}$$
 Sedangkan konversi antara Molaritas ($M$) dan Molalitas ($m$) membutuhkan data massa jenis larutan ($\\rho$ dalam $\\text{g/mL}$):
 $m = \\frac{1000 \\times M}{(1000 \\times \\rho) - (M \\times M_r)}$
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Molaritas (M) Gagal pada Suhu Berubah?
 > Banyak siswa SMA terbiasa menghitung konsentrasi dengan rumus molaritas ($M = n/V$). **Ingat: Volume cairan ($V$) memuai saat dipanaskan dan menyusut saat didinginkan!** Akibatnya, nilai molaritas larutan akan berubah-ubah seiring perubahan suhu meskipun jumlah partikel terlarutnya tetap. Oleh sebab itu, perhitungan ebulioskopi dan krioskopi **WAJIB** menggunakan **molalitas ($m$)** atau **fraksi mol ($X$)** yang berbasis massa pelarut (karena massa bersifat kekal dan tidak terpengaruh pemuaian suhu).`,
@@ -144,7 +145,7 @@ $m = \\frac{1000 \\times M}{(1000 \\times \\rho) - (M \\times M_r)}$
         tag: 'potensial-kimia-dan-dasar-termodinamika-koligatif',
         title: 'Prasyarat 2: Dasar Termodinamika: Potensial Kimia (μ), Entropi Pencampuran, dan Esensi Sifat Koligatif',
         summary: 'Mengapa sifat koligatif hanya bergantung pada jumlah partikel dan bukan jenis zat, serta tinjauan penurunan potensial kimia cairan.',
-        content: `Kata *koligatif* berakar dari bahasa Latin *colligatus*, yang bermakna "terikat bersama" atau "bergantung pada kolektivitas". **Sifat koligatif larutan** didefinisikan sebagai sifat-sifat fisik larutan yang **hanya bergantung pada kuantitas (jumlah partikel atau konsentrasi) zat terlarut**, dan sama sekali **tidak bergantung pada identitas kimiawi atau jenis zat terlarut tersebut** (apakah berupa glukosa, urea, sukrosa, ataupun garam).
+        content: `Kata *koligatif* berakar dari bahasa Latin *colligatus*, yang bermakna "terikat bersama" atau "bergantung pada kolektivitas". **Sifat koligatif larutan** didefinisikan sebagai sifat fisik larutan yang hanya bergantung pada kuantitas atau jumlah partikel zat terlarut, dan tidak bergantung pada jenis atau identitas kimiawi zat tersebut (apakah berupa glukosa, urea, sukrosa, ataupun garam).
 
 ### 1. Empat Fondasi Fenomena Sifat Koligatif Larutan
 Empat fenomena fisik yang tergolong sifat koligatif adalah:
@@ -171,6 +172,7 @@ Mengapa keberadaan zat terlarut yang tidak mudah menguap (*non-volatile solute*)
    - **Penguapan (Cair $\\to$ Gas):** Karena fasa cair menjadi lebih stabil (potensial kimianya turun), kecenderungan molekul pelarut untuk lepas ke fasa gas berkurang $\\implies$ **Tekanan uap turun ($\\Delta P$)**.
    - **Pendidihan (Cair $\\to$ Gas):** Diperlukan temperatur yang lebih tinggi agar potensial kimia cairan menyamai potensial fasa uap $\\implies$ **Titik didih naik ($\\Delta T_b$)**.
    - **Pembekuan (Cair $\\to$ Padat):** Diperlukan temperatur yang lebih rendah agar fasa padat murni (es) dapat berada dalam kesetimbangan dengan cairan yang terstabilkan secara entropik tersebut $\\implies$ **Titik beku turun ($\\Delta T_f$)**.
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jenis Zat vs Jumlah Partikel
@@ -305,6 +307,7 @@ Secara mikroskopis pada antarmuka cairan-gas:
     <text x="155" y="258" fill="#1e40af" font-size="9" font-weight="bold" text-anchor="middle">P = X_p · P°   |   ΔP = X_t · P°</text>
   </g>
 </svg>
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tekanan Uap Larutan (P) vs Penurunan Tekanan Uap (ΔP)
@@ -448,6 +451,7 @@ di mana:
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tanda Operasi Titik Didih vs Titik Beku
 > Jangan sampai terbalik dalam mengoperasikan selisih koligatif pada pelarut air:
@@ -582,6 +586,7 @@ Bila pada fasa larutan pekat (seperti air laut) diberikan tekanan mekanis ekster
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Arah Aliran Osmosis Alami vs Osmosis Balik (RO)
 > Pada **osmosis alami**, pelarut murni bergerak spontan dari larutan **encer menuju pekat** untuk menyamakan konsentrasi (tanpa energi luar).
@@ -618,7 +623,7 @@ Berdasarkan tabel Mula-mula, Bereaksi (Terurai), Sisa:
   $$\\text{Ion terbentuk} = n \\alpha m$$
   $$\\text{Jumlah partikel total} = m(1 - \\alpha) + n \\alpha m = m [1 + (n - 1)\\alpha]$$
 
-Maka rasio pertambahan partikel, yang didefinisikan sebagai **faktor van 't Hoff ($i$)**, adalah:
+Rasio pertambahan kuantitas total partikel setelah disosiasi elektrolit dirumuskan sebagai **faktor van 't Hoff** ($i$):
 $$\\mathbf{i = \\frac{\\text{Partikel Total}}{\\text{Partikel Mula-mula}} = 1 + (n - 1)\\alpha}$$
 
 di mana:
@@ -750,6 +755,7 @@ Pada larutan elektrolit nyata dengan konsentrasi moderat, nilai $i$ yang terukur
   </g>
 </svg>
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jangan Lupa Faktor van 't Hoff (i) pada Elektrolit!
 > Setiap kali membaca soal sifat koligatif, langkah pertama adalah **CEK SIFAT ELEKTROLITNYA**:
@@ -769,7 +775,7 @@ Pada larutan elektrolit nyata dengan konsentrasi moderat, nilai $i$ yang terukur
         tags: ['osmometri-membran', 'penentuan-massa-molar-mr', 'makromolekul-protein-polimer', 'persamaan-virial'],
         title: 'Konsep Inti 5: Penentuan Massa Molar Makromolekul & Analisis Osmometri Membran',
         summary: 'Komparasi kepekaan 4 sifat koligatif untuk determinasi Mr, keunggulan mutlak osmometri membran untuk polimer/protein, dan regresi persamaan virial.',
-        content: `Salah satu aplikasi analitik paling penting dari sifat koligatif adalah penentuan **massa molar / massa molekul relatif ($M_r$)** dari senyawa yang baru diisolasi atau disintesis.
+        content: `Aplikasi analitik penting dari sifat koligatif adalah penentuan **massa molar** ($M_r$) dari senyawa yang baru diisolasi atau disintesis.
 
 ### 1. Komparasi Kepekaan 4 Sifat Koligatif untuk Makromolekul
 Misalkan kita melarutkan $1.0\\text{ gram}$ suatu protein atau polimer sintetik dengan massa molar tinggi ($M_r = 50.000\\text{ g/mol}$) ke dalam $100\\text{ mL}$ ($0.10\\text{ kg}$) air pada suhu $25^\\circ\\text{C}$:
@@ -791,7 +797,7 @@ Mari kita hitung respon dari masing-masing sifat koligatif:
    $$h = 3.72\\text{ mmHg} \\times 13.6 \\approx \\mathbf{50.6\\text{ mm} = 5.06\\text{ cm H}_2\\text{O}!}$$
 
 > **Kesimpulan Krusial:**
-> Ketinggian $5\\text{ cm}$ cairan sangat mudah dan akurat dibaca menggunakan tabung kapiler! Oleh karena itu, **tekanan osmotik adalah satu-satunya sifat koligatif yang dapat digunakan untuk menentukan massa molar makromolekul, polimer, enzim, dan DNA**.
+> Ketinggian $5\\text{ cm}$ cairan mudah dan akurat dibaca menggunakan tabung kapiler. Oleh karena itu, tekanan osmotik menjadi metode koligatif utama untuk menentukan **massa molar makromolekul** seperti protein, polimer, enzim, dan DNA.
 
 ---
 
@@ -888,6 +894,7 @@ Dengan mengukur nilai $\\Pi$ pada berbagai variasi konsentrasi encer ($C$), lalu
     <text x="192" y="255" fill="#1d4ed8" font-size="8.5" text-anchor="middle">Mn = (R · T) / Intercept   (Bebas Bias Interaksi Polimer)</text>
   </g>
 </svg>
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengapa Titik Didih/Beku Tidak Bisa untuk Protein?
@@ -1068,6 +1075,7 @@ Bilangan oksidasi menyatakan muatan formal suatu atom jika seluruh pasangan elek
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Bilangan Oksidasi Bukan Hafalan Statis!
 > **Jebakan Klasik Soal Biloks di Ujian SMA:**
@@ -1112,6 +1120,7 @@ Metode ini sangat dianjurkan untuk reaksi dalam fasa larutan elektrolit berair k
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Kesetaraan Atom vs Kesetaraan Muatan Listrik
 > **Jebakan Fatal Penyetaraan Redoks:**
@@ -1126,7 +1135,7 @@ Metode ini sangat dianjurkan untuk reaksi dalam fasa larutan elektrolit berair k
         tags: ['sel-volta', 'sel-galvani', 'anoda-katoda', 'jembatan-garam', 'notasi-sel-iupac', 'deret-volta'],
         title: 'Konsep Inti 1: Sel Volta / Galvani: Arsitektur Elektroda, Jembatan Garam, Notasi Sel, dan Deret Volta',
         summary: 'Konversi spontan energi kimia redoks menjadi energi listrik, prinsip kerja anoda oksidasi kutub negatif dan katoda reduksi kutub positif, serta urutan reaktivitas Deret Volta.',
-        content: `**Sel Volta (atau Sel Galvani)** adalah perangkat elektrokimia yang mengubah energi kimia dari **reaksi redoks spontan** menjadi **energi listrik searah (DC)** yang dapat mengalir melalui rangkaian kawat eksternal.
+        content: `**Sel Volta** (atau Sel Galvani) adalah perangkat elektrokimia yang mengubah energi kimia dari reaksi redoks spontan menjadi energi listrik searah (DC) melalui rangkaian kawat eksternal.
 
 ### 1. Arsitektur Komponen Sel Volta Daniell ($\\ce{Zn - Cu}$)
 Sel Volta klasik terdiri atas dua kompartemen setengah sel yang saling terhubung:
@@ -1240,6 +1249,7 @@ $$\\mathbf{\\ce{Li - K - Ba - Ca - Na - Mg - Al - Mn - (H2O) - Zn - Cr - Fe - Cd
 </svg>
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Trik Hafalan Kutub Elektroda & Mitos Jembatan Garam
@@ -1384,6 +1394,7 @@ Prinsip ini menjadi dasar kerja alat **pH meter laboratorium** (mengukur beda po
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengalikan Nilai $E^\circ$ dengan Koefisien Reaksi
 > **Jebakan Maut Soal Potensial Sel di UTBK-SNBT:**
@@ -1518,6 +1529,7 @@ Korosi besi pada dasarnya adalah proses elektrokimia di mana permukaan besi bert
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Pelapisan Seng ($\ce{Zn}$) vs Timah ($\ce{Sn}$) Bila Tergores
 > **Pembedaan Krusial dalam Ujian Kimia:**
@@ -1536,7 +1548,7 @@ Korosi besi pada dasarnya adalah proses elektrokimia di mana permukaan besi bert
         tags: ['sel-elektrolisis', 'kaidah-reaksi-katoda', 'kaidah-reaksi-anoda', 'elektroda-inert-aktif', 'lelehan-vs-larutan'],
         title: 'Konsep Inti 4: Sel Elektrolisis: Reaksi di Anoda & Katoda (Lelehan vs Larutan Berair)',
         summary: 'Pembalikan polaritas elektroda PANIC, persaingan termodinamika reduksi kation vs air di katoda, dan oksidasi anion vs elektroda aktif di anoda.',
-        content: `**Sel Elektrolisis** adalah perangkat elektrokimia yang menggunakan energi listrik searah (DC) dari sumber luar untuk memaksakan berlangsungnya **reaksi redoks yang tidak spontan ($E^\\circ_{\\text{sel}} < 0$)**.
+        content: `**Sel Elektrolisis** adalah perangkat elektrokimia yang menggunakan energi listrik searah (DC) dari sumber luar untuk menggerakkan reaksi redoks non-spontan ($E^\\circ_{\\text{sel}} < 0$).
 
 ### 1. Perbedaan Polaritas Elektroda: Kaidah PANIC
 - Pada Sel Volta: Anoda ($-$) dan Katoda ($+$).
@@ -1552,7 +1564,7 @@ Di katoda terjadi perebutan penangkapan elektron antara kation terlarut dengan m
 
 1. **Kation Logam Aktif (Golongan IA, IIA, $\\ce{Al^3+}$, $\\ce{Mn^2+}$):**
    - Memiliki potensial reduksi standar yang sangat negatif ($E^\\circ < -0.83\\text{ V}$, jauh lebih negatif daripada air).
-   - **Bila Berupa Larutan Berair:** Kation tidak dapat tereduksi. **Air yang tereduksi menghasilkan gas hidrogen ($\\ce{H2}$) dan ion hidroksida ($\\ce{OH-}$)**:
+   - **Bila Berupa Larutan Berair:** Kation tidak dapat tereduksi; pelarut air yang tereduksi menghasilkan gas hidrogen ($\\ce{H2}$) dan ion $\\ce{OH-}$:
      $$\\mathbf{\\ce{2H2O(l) + 2e- -> H2(g) + 2OH-(aq)}} \\qquad (E^\\circ = -0.83\\text{ V})$$
    - **Bila Berupa Lelehan / Leburan Murni (*Molten* tanpa air):** Kation logam itu sendiri yang tereduksi menjadi cairan/padatan logam murni:
      $$\\mathbf{\\ce{M^{n+} + n e- -> M(s/l)}}$$
@@ -1712,6 +1724,7 @@ Elektroda inert tidak ikut bereaksi. Reaksi ditentukan oleh jenis anion terlarut
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Larutan vs Lelehan & Elektroda Aktif di Anoda
 > **Dua Jebakan Terbesar Sel Elektrolisis:**
@@ -1848,6 +1861,7 @@ Gas yang dihasilkan pada elektroda (seperti $\\ce{H2, O2, Cl2}$) dihitung menggu
 </svg>
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Massa Sama pada Sel Seri & Valensi Logam ($n$)
@@ -2042,6 +2056,7 @@ $$\\mathbf{Z_{\\text{eff}} = Z - S}$$
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Mengira Banyak Elektron = Atom Selalu Lebih Besar
 > **Jebakan Fatal Tren Periodik:**
@@ -2083,6 +2098,7 @@ Ketika atom logam transisi terionisasi membentuk kation:
   - $\\ce{Fe^3+}$: $[\\ce{Ar}] 3d^5$ *(satu elektron $3d$ dilepas lebih lanjut, membentuk konfigurasi $d^5$ yang sangat stabil)*.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Urutan Pelepasan Elektron Kation Transisi
@@ -2238,6 +2254,7 @@ Bila kristal garam logam dibakar pada nyala api bunsen bebas warna:
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tren Kelarutan Terbalik Basa vs Garam Sulfat IIA
 > **Dua Miskonsepsi Paling Sering Terjadi di Golongan Alkali Tanah:**
@@ -2273,7 +2290,7 @@ Afinitas elektron dan potensial reduksi standar halogen menurun secara konsisten
 $$\\mathbf{\\ce{F2} (+2.87\\text{ V}) > \\ce{Cl2} (+1.36\\text{ V}) > \\ce{Br2} (+1.07\\text{ V}) > \\ce{I2} (+0.54\\text{ V})}$$
 
 > **Kaidah Reaksi Pendesakan Halogen:**
-> "Halogen yang berada di posisi **lebih atas** pada golongan VIIA memiliki daya pengoksidasi lebih kuat, sehingga **mampu mendesak (mengoksidasi) ion halida yang berada di bawahnya** dari larutannya."
+> *"Halogen pada posisi lebih atas di golongan VIIA memiliki daya pengoksidasi lebih kuat, sehingga mampu mendesak (mengoksidasi) ion halida di bawahnya dari larutan."*
 
 1. **Reaksi Berlangsung Spontan:**
    - $\\ce{Cl2(g) + 2NaBr(aq) -> 2NaCl(aq) + Br2(l)}$ *(Klorin mendesak bromida, larutan berubah cokelat)*.
@@ -2401,6 +2418,7 @@ Hingga tahun 1962, seluruh buku teks kimia menyatakan bahwa gas mulia sama sekal
 </svg>
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Kekuatan Asam Halida Bukan Berdasarkan Elektronegativitas!
@@ -2564,6 +2582,7 @@ Aluminium berada pada posisi transisi kritis di mana elektronegativitasnya seimb
 </svg>
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Titik Leleh Silikon & Karakter Ganda Amfoter Al(OH)3
@@ -2750,6 +2769,7 @@ Berdasarkan interaksinya dengan medan magnet eksternal:
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tidak Semua Senyawa Logam Transisi Berwarna!
 > **Kaidah Spektral Transisi d-d:**
@@ -2886,6 +2906,7 @@ Tanur tiup merupakan reaktor raksasa setinggi puluhan meter yang bekerja secara 
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Peran Sejati Batu Kapur di Tanur Tiup & Kriolit di Hall-Héroult
 > **Miskonsepsi Rekayasa Metalurgi:**
@@ -2916,7 +2937,7 @@ Tanur tiup merupakan reaktor raksasa setinggi puluhan meter yang bekerja secara 
 ### 1. Teorema Jahn-Teller
 
 Dirumuskan oleh Hermann Jahn dan Edward Teller (1937):  
-**"Setiap sistem molekul nonlinear yang berada dalam keadaan elektronik dasar terdegenerasi (memiliki energi setara pada orbital yang terisi asimetris) secara termodinamika tidak stabil dan akan mengalami distorsi geometris untuk menurunkan simetrinya dan memecah degenerasi energi tersebut."**
+> *"Setiap sistem molekul nonlinear yang berada dalam keadaan elektronik dasar terdegenerasi (memiliki energi setara pada orbital yang terisi asimetris) secara termodinamika tidak stabil dan akan mengalami distorsi geometris untuk menurunkan simetrinya dan memecah degenerasi energi tersebut."*
 
 ---
 
@@ -2938,6 +2959,7 @@ Untuk menurunkan energi total sistem, kompleks mengalami pemanjangan ikatan pada
 - **Manifestasi Eksperimental:** Pada ion heksaaquotembaga(II) $[\\ce{Cu(H2O)6}]^2+$, empat ikatan $\\ce{Cu-O}$ bidang ekuator berjarak $\\approx 197\\text{ pm}$, sedangkan dua ikatan aksial memanjang secara signifikan menjadi $\\approx 230\\text{ pm}$.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Distorsi Jahn-Teller Bukan Cacat Kristal Acak
@@ -3116,6 +3138,7 @@ Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Konformasi vs Hibridisasi & Klasifikasi Karbon
 > 1. **Miskonsepsi Rantai Alkana "Lurus":** Rantai karbon alkana yang sering digambar sebagai garis mendatar pada kertas sebenarnya berkonformasi **zigzag tetrahedral $109.5^\circ$**, bukan garis lurus $180^\circ$! Sudut $180^\circ$ hanya dimiliki oleh atom karbon berhibridisasi $sp$ pada alkuna ($\ce{-C\equiv C-}$).
@@ -3152,6 +3175,7 @@ Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai
      dengan $n$ adalah jumlah atom karbon kiral ($C^*$) yang tidak ekuivalen.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Jebakan Isomer Geometri Cis-Trans & Kiralitas
@@ -3309,6 +3333,7 @@ Kerangka dasar hidrokarbon ini menjadi fondasi utama tempat menempelnya berbagai
    - Ester memiliki gugus karbonil teresterifikasi tanpa atom H asam, memiliki aroma buah yang khas dan wangi (*fruity odor*), serta digunakan secara luas sebagai esens aroma buatan dan pelarut organik non-polar.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Tata Nama Ester & Titik Didih Isomer
@@ -3485,6 +3510,7 @@ Reaksi reversibel antara asam karboksilat dengan alkohol dengan katalis asam sul
 $$\\ce{R-COOH + R'-OH <=>[H2SO4\\text{ pekat}][\\Delta] R-COO-R' + H2O}$$
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Oksidasi Alkohol Tersier & Uji Fehling/Tollens
@@ -3671,6 +3697,7 @@ Jika cincin benzena telah mengikat suatu gugus fungsi, gugus tersebut akan menge
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Reaksi Benzena & Efek Pengarah Halogen
 > 1. **Benzena vs Alkena (Adisi vs Substitusi):** Walaupun struktur Kekulé benzena digambar memiliki 3 ikatan rangkap dua, benzena **TIDAK MENGALAMI reaksi adisi** pada kondisi normal seperti alkena! Reaksi adisi akan merusak sistem resonansi aromatik ($4n+2$ elektron $\pi$) yang sangat stabil. Reaksi khas benzena adalah **Substitusi Elektrofilik Aromatik (SEAr)** di mana atom $\ce{H}$ digantikan oleh elektrofil tanpa merusak aromatisitas cincin.
@@ -3826,6 +3853,7 @@ Jika cincin benzena telah mengikat suatu gugus fungsi, gugus tersebut akan menge
    - Bila dipanaskan, termoset tidak melunak melainkan langsung mengalami dekomposisi / terurai hangus terbakar. Oleh karena itu, termoset **tidak dapat dicetak ulang** (contoh: Bakelit, resin epoksi, melamin).
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Polimerisasi Adisi vs Kondensasi & Daur Ulang
@@ -3986,6 +4014,7 @@ Lemak dan minyak alami merupakan senyawa triester dari gliserol (1,2,3-propanatr
 
 ---
 
+
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Uji Biuret & Lemak vs Minyak
 > 1. **Uji Biuret Bukan untuk Asam Amino Tunggal:** Larutan Biuret ($\ce{CuSO4 + NaOH}$) menghasilkan warna ungu karena mendeteksi **ikatan peptida ($\ce{-CO-NH-}$) minimal dua ikatan**! Asam amino bebas (seperti glisin atau alanin tunggal) **TIDAK memberikan warna ungu** pada uji Biuret.
@@ -4041,11 +4070,12 @@ Untuk membedakan enantiomer secara absolut tanpa ambigu, digunakan sistem deskri
 Penentuan urutan asam amino pada fragmen peptida melibatkan kombinasi pemotongan spesifik:
 1. **Degradasi Edman:** Pereaksi fenilisosianat (PITC) bereaksi selektif dengan gugus amino bebas pada ujung rantai (**N-terminus**) untuk melepaskan asam amino pertama sebagai derivat PTH-asam amino tanpa merusak sisa rantai peptida lainnya.
 2. **Pemotongan Enzimatik Selektif:**
-   - **Enzim Tripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu asam amino basa bermuatan positif: **Lisin ($\\ce{Lys}$) dan Arginin ($\\ce{Arg}$)** (asalkan tidak diikuti oleh Prolin).
-   - **Enzim Kimotripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu asam amino yang memiliki rantai samping aromatik hidrofobik besar: **Fenilalanin ($\\ce{Phe}$), Tirosin ($\\ce{Tyr}$), dan Triptofan ($\\ce{Trp}$)**.
+   - **Enzim Tripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu asam amino basa: Lisin ($\\ce{Lys}$) dan Arginin ($\\ce{Arg}$), asalkan tidak diikuti oleh Prolin.
+   - **Enzim Kimotripsin:** Memotong ikatan peptida secara spesifik pada sisi C-terminal dari residu aromatik: Fenilalanin ($\\ce{Phe}$), Tirosin ($\\ce{Tyr}$), dan Triptofan ($\\ce{Trp}$).
 3. **Rekonstruksi Fragmen Tumpang-Tindih (*Overlap Reconstruction*):** Urutan lengkap protein disusun kembali dengan mencari tumpang-tindih urutan fragmen hasil pemotongan tripsin dan kimotripsin.
 
 ---
+
 
 > [!WARNING]
 > ### ⚠️ Peringatan Miskonsepsi Siswa SMA: Penentuan Prioritas CIP & Gugus Prioritas Terendah

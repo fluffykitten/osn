@@ -60,7 +60,7 @@ export const IGCSE_TOPIC_2: MaterialItem = {
 All matter can be classified into elements, compounds, or mixtures depending on atomic composition and chemical bonding:
 
 1. **Element**: A pure substance composed of only **one type of atom**. Elements cannot be broken down into simpler chemical substances by any chemical reaction (e.g. Iron, $\\ce{Fe}$; Oxygen gas, $\\ce{O2}$; Copper, $\\ce{Cu}$).
-2. **Compound**: A pure substance formed when **two or more different elements chemically combine** in a **fixed, definite ratio** held together by chemical bonds (e.g. Water, $\\ce{H2O}$; Sodium chloride, $\\ce{NaCl}$; Carbon dioxide, $\\ce{CO2}$).
+2. **Compound**: A pure substance formed when two or more different elements chemically combine in a **fixed, definite ratio** held together by chemical bonds (e.g. Water, $\\ce{H2O}$; Sodium chloride, $\\ce{NaCl}$; Carbon dioxide, $\\ce{CO2}$).
 3. **Mixture**: A physical combination of **two or more substances** (elements or compounds) that are **not chemically joined**. The components can be present in **any proportion** and retain their individual physical and chemical properties (e.g. Air, crude oil, brass, sea water).
 
 ### 🔍 Particle Models: Elements, Compounds & Mixtures
@@ -291,7 +291,7 @@ Electrons occupy concentric electron shells around the nucleus according to spec
 
 ### 🗺️ Relationship with the Periodic Table
 
-1. **Group Number**: Corresponds to the **number of electrons in the outer shell** (valence electrons).
+1. **Group Number**: Corresponds to the number of electrons in the outer shell (valence electrons).
    - Group $\\text{I}$ elements have $1$ outer electron.
    - Group $\\text{VII}$ elements have $7$ outer electrons.
    - Elements in the same group have similar chemical properties because they have the same number of outer-shell electrons.
@@ -974,7 +974,7 @@ These substances are called **giant covalent substances** or **macromolecules**.
 
 Silicon(IV) oxide is the primary component of quartz and sand.
 - **Structure**:
-  - Each **silicon atom** is covalently bonded to **$4$ oxygen atoms** in a tetrahedral arrangement.
+  - Each silicon atom is covalently bonded to **$4$ oxygen atoms** in a tetrahedral arrangement.
   - Each **oxygen atom** is covalently bonded to **$2$ silicon atoms**.
   - The empirical formula is $\\ce{SiO2}$ (ratio of $1$ silicon atom to $2$ oxygen atoms).
 - **Comparison to Diamond**:
@@ -1157,7 +1157,7 @@ Silicon(IV) oxide is the primary component of quartz and sand.
 > **Metallic bonding** is the **strong electrostatic attraction between a regular lattice of positive metal ions (cations) and a "sea" of mobile, delocalised electrons**.
 
 In pure metals:
-- Metal atoms lose their outer valence electrons to form a **regular, closely packed lattice of positive cations**.
+- Metal atoms lose their outer valence electrons to form a regular, closely packed **lattice of positive cations**.
 - The released valence electrons no longer belong to any single atom; they form a mobile **sea of delocalised electrons** that move freely throughout the entire structure.
 
 <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="igcse-t02-metallic-lattice-title igcse-t02-metallic-lattice-desc" data-diagram="igcse-t02-metallic-lattice" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px">
@@ -1265,7 +1265,7 @@ In pure metals:
 
 ### 🔩 What is an Alloy?
 
-An **alloy** is a **mixture of a metal with one or more other elements** (which may be other metals or non-metals like carbon).
+An **alloy** is a mixture of a metal with one or more other elements (which may be other metals or non-metals like carbon).
 
 #### Common Examples of Alloys:
 - **Brass**: Copper ($\\sim 70\\%$) and Zinc ($\\sim 30\\%$). More corrosion resistant and acoustically resonant than pure copper (used in musical instruments, plumbing fittings).
@@ -1451,13 +1451,17 @@ Which substance has a giant covalent structure and conducts electricity?
 ### 📝 Question 3 (Paper 4 Structured Theory — 5 Marks)
 Lithium reacts with fluorine to form lithium fluoride, $\\ce{LiF}$.
 
-**(a) Describe, in terms of electrons, what happens when a lithium atom reacts with a fluorine atom. [3]**
+
+**Part (a)**: Describe, in terms of electrons, what happens when a lithium atom reacts with a fluorine atom. [3]
+
 > **Mark Scheme**:
 > - **Mark 1**: Lithium loses one electron (to form $\\ce{Li+}$).
 > - **Mark 2**: Fluorine gains one electron (to form $\\ce{F-}$).
 > - **Mark 3**: Both atoms achieve a full outer electron shell (noble gas configuration / duplet for $\\ce{Li+}$, octet for $\\ce{F-}$).
 
-**(b) Explain why solid lithium fluoride has a very high melting point. [2]**
+
+**Part (b)**: Explain why solid lithium fluoride has a very high melting point. [2]
+
 > **Mark Scheme**:
 > - **Mark 1**: Giant ionic lattice with **strong electrostatic attractions** between oppositely charged ions ($\\ce{Li+}$ and $\\ce{F-}$).
 > - **Mark 2**: Requires a **large amount of energy** to overcome/break these strong bonds.
@@ -1467,15 +1471,19 @@ Lithium reacts with fluorine to form lithium fluoride, $\\ce{LiF}$.
 ### 📝 Question 4 (Paper 4 Structured Theory — 4 Marks)
 Pure copper is ductile and can be drawn into electrical wires. Brass is an alloy of copper and zinc.
 
-**(a) Explain why pure copper is ductile. [2]**
-> **Mark Scheme**:
-> - **Mark 1**: Copper cations are arranged in **regular layers / rows**.
-> - **Mark 2**: Layers of ions can **slide past each other** when a force is applied.
 
-**(b) Explain why brass is harder and less ductile than pure copper. [2]**
+**Part (a)**: Explain why pure copper is ductile. [2]
+
 > **Mark Scheme**:
-> - **Mark 1**: Zinc atoms are of a **different size** to copper atoms.
-> - **Mark 2**: This **disrupts the regular layers**, making it harder for the layers to slide over each other.`,
+> - **Mark 1**: Copper cations are arranged in regular layers or rows.
+> - **Mark 2**: Layers of ions can slide past each other when a force is applied.
+
+
+**Part (b)**: Explain why brass is harder and less ductile than pure copper. [2]
+
+> **Mark Scheme**:
+> - **Mark 1**: Zinc atoms are of a different size to copper atoms.
+> - **Mark 2**: This disrupts the regular layers, making it harder for the layers to slide over each other.`,
     },
   ],
 };

@@ -1174,7 +1174,7 @@ export function resolveScaffoldKey(question: Partial<Question>): ScaffoldDomainK
 
 /**
  * Returns a personalized OSN/SMA 4-step framework scaffold for a given question.
- * Prioritizes the question's AI/teacher-generated metadata `solution_framework_template`,
+ * Prioritizes the question's generated/teacher metadata `solution_framework_template`,
  * falling back to intelligent topic-based scaffold detection.
  */
 export function getQuestionScaffold(question: Partial<Question>): string {

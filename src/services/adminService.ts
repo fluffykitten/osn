@@ -673,7 +673,7 @@ class AdminService {
       actor_email: adminEmail,
       action_type: hasAccess ? 'GRANT_AI_GRADING' : 'REVOKE_AI_GRADING',
       target_resource: `users/${userId}`,
-      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses AI Grading untuk ${targetEmail || userId}`,
+      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses evaluasi otomatis untuk ${targetEmail || userId}`,
       details: { ai_grading_access: hasAccess },
     });
 
@@ -709,7 +709,7 @@ class AdminService {
       actor_email: adminEmail,
       action_type: hasAccess ? 'BATCH_GRANT_AI_GRADING' : 'BATCH_REVOKE_AI_GRADING',
       target_resource: `users/batch`,
-      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses AI Grading massal untuk ${count} pengguna`,
+      description: `${hasAccess ? 'Memberikan' : 'Mencabut'} hak akses evaluasi otomatis massal untuk ${count} pengguna`,
       details: { count, hasAccess },
     });
 

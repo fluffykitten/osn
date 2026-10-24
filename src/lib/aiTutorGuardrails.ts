@@ -1,9 +1,9 @@
 /**
  * aiTutorGuardrails.ts
- * Sistem Guardrail Komprehensif untuk AI Tutor Kimia OSN:
+ * Sistem Guardrail Komprehensif untuk Tutor Kimia OSN:
  * 1. Chemical Safety Guardrail (mencegah sintesis bahan peledak, senjata kimia, racun berbahaya, dan narkotika).
  * 2. Scope & Relevance Guardrail (menjaga fokus eksklusif pada ilmu kimia, sains, dan olimpiade).
- * 3. System Prompt Guardrail (instruksi ketat bagi model AI termasuk format KaTeX non-JSON).
+ * 3. System Prompt Guardrail (instruksi ketat bagi model tutor termasuk format KaTeX non-JSON).
  * 4. Resilient Response Formatter (auto-parse jika model tidak sengaja merespons dalam format JSON).
  */
 
@@ -58,7 +58,7 @@ export function evaluateQueryGuardrails(
       return {
         passed: false,
         type: 'safety_violation',
-        refusalMessage: `### ⚠️ Peringatan Keselamatan Kimia (K3 & Etika Sains)\n\nSebagai **AI Tutor Kimia OSN**, saya berpegang teguh pada protokol keamanan sains dan etika akademik Puspresnas & IChO.\n\nSaya **tidak dapat** memberikan panduan langkah demi langkah, instruksi teknis, atau resep sintesis untuk **${item.label}**, zat berbahaya terlarang, maupun zat psikotropika ilegal.\n\n💡 **Alternatif Pembelajaran yang Aman & Legal:**\n- Anda dapat mempelajari teori kestabilan termal ikatan kimia dan termodinamika peruraian zat secara umum.\n- Menelaah prinsip dasar **Keselamatan Kerja Laboratorium (K3)** dan simbol bahaya bahan kimia (*GHS pictograms*).\n- Mempelajari stoikiometri dan kinetika reaksi dalam konteks reaksi kimia standar yang aman.`,
+        refusalMessage: `### ⚠️ Peringatan Keselamatan Kimia (K3 & Etika Sains)\n\nSebagai **Tutor Kimia OSN**, saya berpegang teguh pada protokol keamanan sains dan etika akademik Puspresnas & IChO.\n\nSaya **tidak dapat** memberikan panduan langkah demi langkah, instruksi teknis, atau resep sintesis untuk **${item.label}**, zat berbahaya terlarang, maupun zat psikotropika ilegal.\n\n💡 **Alternatif Pembelajaran yang Aman & Legal:**\n- Anda dapat mempelajari teori kestabilan termal ikatan kimia dan termodinamika peruraian zat secara umum.\n- Menelaah prinsip dasar **Keselamatan Kerja Laboratorium (K3)** dan simbol bahaya bahan kimia (*GHS pictograms*).\n- Mempelajari stoikiometri dan kinetika reaksi dalam konteks reaksi kimia standar yang aman.`,
       };
     }
   }
@@ -69,7 +69,7 @@ export function evaluateQueryGuardrails(
       return {
         passed: false,
         type: 'off_topic',
-        refusalMessage: `### 🔬 Fokus Pembelajaran Sains Kimia\n\nPertanyaan Anda terdeteksi berkaitan dengan **${item.label}**, yang berada di luar cakupan ilmu kimia dan persiapan Olimpiade Sains Nasional (OSN).\n\nSebagai **AI Tutor Kimia OSN**, saya dirancang khusus untuk memandu Anda menguasai:\n- Konsep fundamental dan materi tingkat lanjut kimia (${conceptTitle})\n- Penurunan rumus matematis dan notasi KaTeX ilmiah\n- Pembahasan strategi analitis soal olimpiade Puspresnas & IChO\n\nYuk, kembali ke fokus materi **${materialTitle}**! Ada bagian konsep yang ingin Anda diskusikan? 🧪✨`,
+        refusalMessage: `### 🔬 Fokus Pembelajaran Sains Kimia\n\nPertanyaan Anda terdeteksi berkaitan dengan **${item.label}**, yang berada di luar cakupan ilmu kimia dan persiapan Olimpiade Sains Nasional (OSN).\n\nSebagai **Tutor Kimia OSN**, saya dirancang khusus untuk memandu Anda menguasai:\n- Konsep fundamental dan materi tingkat lanjut kimia (${conceptTitle})\n- Penurunan rumus matematis dan notasi KaTeX ilmiah\n- Pembahasan strategi analitis soal olimpiade Puspresnas & IChO\n\nYuk, kembali ke fokus materi **${materialTitle}**! Ada bagian konsep yang ingin Anda diskusikan? 🧪✨`,
       };
     }
   }
@@ -78,9 +78,9 @@ export function evaluateQueryGuardrails(
 }
 
 /**
- * System Instruction Guardrail untuk Gemini AI
+ * System Instruction Guardrail untuk Gemini
  */
-export const TUTOR_SYSTEM_INSTRUCTION = `Anda adalah "AI Tutor & Mentor Resmi Olimpiade Sains Nasional (OSN) Kimia Indonesia".
+export const TUTOR_SYSTEM_INSTRUCTION = `Anda adalah "Tutor & Mentor Resmi Olimpiade Sains Nasional (OSN) Kimia Indonesia".
 Karakter Anda: Ramah, suportif, berwawasan mendalam, sangat teliti, dan mengutamakan pemahaman konsep fundamental.
 
 PROTOKOL GUARDRAIL & ATURAN KETAT:
@@ -101,7 +101,7 @@ PROTOKOL GUARDRAIL & ATURAN KETAT:
 
 /**
  * Format & Bersihkan Response:
- * Jika AI tetap mengembalikan format JSON (karena perilaku model), otomatis konversikan menjadi teks Markdown terstruktur dengan KaTeX!
+ * Jika model tetap mengembalikan format JSON (karena perilaku model), otomatis konversikan menjadi teks Markdown terstruktur dengan KaTeX!
  */
 export function cleanAndFormatTutorResponse(raw: string): string {
   if (!raw) return '';

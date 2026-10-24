@@ -78,7 +78,7 @@ export const IGCSE_TOPIC_10: MaterialItem = {
         'Distinguishing chemical tests for water presence (cobalt(II) chloride paper and anhydrous copper(II) sulfate) from physical tests for purity (sharp m.p. at 0 °C and b.p. at 100 °C), substances found in natural water, and the four essential stages of municipal water purification.',
       content: `### 💧 1. Chemical Tests for the Presence of Water
 
-In Cambridge IGCSE examinations, examiners draw a sharp distinction between **identifying the chemical presence of water** and **proving that a sample of water is pure**:
+In Cambridge IGCSE examinations, examiners draw a sharp distinction between identifying the chemical presence of water and proving that a sample of water is pure:
 
 > [!IMPORTANT]
 > **Crucial Exam Rule**: Chemical tests only detect whether water molecules are present in a sample. A positive result with cobalt(II) chloride paper or anhydrous copper(II) sulfate does **not** prove purity, because an impure solution of salt water will produce the exact same colour change!
@@ -194,7 +194,7 @@ Domestic water treatment involves four main sequential stages:
 1. **Screening:** Water passes through metal grilles/screens to physically trap large floating debris (twigs, leaves, plastics).
 2. **Sedimentation & Coagulation:** Coagulants such as alum (aluminium sulfate, $\\ce{Al2(SO4)3}$) or iron salts are added. Tiny suspended clay and dirt particles clump together into larger, heavier particles (**flocs**) and sink to the bottom of large settling tanks as sludge.
 3. **Filtration:** The clear upper water passes through deep filter beds of **sand and gravel**, which trap fine insoluble particles that did not settle out. Some modern plants also use **activated charcoal (carbon) filters** to absorb trace organic compounds, unpalatable tastes, and unpleasant odours.
-4. **Chlorination:** A carefully controlled concentration of **chlorine gas ($\\ce{Cl2}$)** is bubbled through the water. Chlorine is a powerful oxidising disinfectant that **kills bacteria and pathogenic microorganisms**, sterilising the supply.
+4. **Chlorination:** A carefully controlled concentration of chlorine gas ($\\ce{Cl2}$) is bubbled through the water. Chlorine is a powerful oxidising disinfectant that **kills bacteria and pathogens**, sterilising the supply.
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" class="w-full h-auto my-6 rounded-xl border border-slate-200 bg-white" style="min-width:560px" role="img" aria-labelledby="igcse-t10-water-treatment-steps-title" data-diagram="igcse-t10-water-treatment-steps">
   <title id="igcse-t10-water-treatment-steps-title">STAGES OF DOMESTIC WATER TREATMENT</title>
@@ -713,11 +713,11 @@ Modern vehicles with petrol engines are fitted with **catalytic converters** in 
 
 Fossil-fuel-burning power stations release enormous volumes of $\\ce{SO2}$. To prevent acid rain, chimney emissions are scrubbed through **Flue-Gas Desulfurisation**:
 
-- Waste exhaust gases are sprayed with a slurry of basic calcium compounds: **calcium oxide ($\\ce{CaO}$, quicklime)** or **calcium carbonate ($\\ce{CaCO3}$, powdered limestone)**.
+- Waste exhaust gases are sprayed with a slurry of basic calcium compounds: calcium oxide ($\\ce{CaO}$, quicklime) or calcium carbonate ($\\ce{CaCO3}$, powdered limestone).
 - **Neutralisation Reactions:**
   $$\\ce{CaO(s) + SO2(g) -> CaSO3(s)} \\quad \\text{(calcium sulfite)}$$
   $$\\ce{CaCO3(s) + SO2(g) -> CaSO3(s) + CO2(g)}$$
-- The calcium sulfite is further oxidised with air and hydrated to produce **calcium sulfate dihydrate (gypsum, $\\ce{CaSO4 . 2H2O}$)**:
+- The calcium sulfite is further oxidised with air and hydrated to produce calcium sulfate dihydrate (gypsum, $\\ce{CaSO4 . 2H2O}$):
   $$\\ce{2CaSO3(s) + O2(g) + 4H2O(l) -> 2CaSO4 . 2H2O(s)}$$
 - This synthetic gypsum is commercially sold to manufacture **plasterboard and drywall** for the construction industry, turning an industrial waste into a profitable product!`,
       checkpointQuizzes: [
@@ -1268,6 +1268,7 @@ Which liquids will turn the anhydrous copper(II) sulfate blue?
 - **D:** All four liquids
 
 **Correct Answer:** **C**
+
 > [!NOTE]
 > **Examiner Insight:** Anhydrous copper(II) sulfate turns blue whenever water molecules are present, whether in pure water (1), salt water (2), or an aqueous mixture of ethanol (4). Only pure anhydrous ethanol (Liquid 3) lacks water and gives a negative result.
 
@@ -1287,6 +1288,7 @@ Which statements are correct?
 - **D:** 1, 3, and 4
 
 **Correct Answer:** **A**
+
 > [!NOTE]
 > **Examiner Insight:** Statement 1 is correct (Pt, Pd, Rh are transition metal catalysts). Statement 2 is incorrect because $\\ce{CO}$ is **oxidised** (gains oxygen) to $\\ce{CO2}$. Statement 3 is correct ($\\ce{NO}$ is **reduced** to $\\ce{N2}$). Statement 4 is incorrect because the ceramic structure is a **honeycomb** designed to **maximise** surface area.
 

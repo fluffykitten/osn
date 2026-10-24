@@ -146,11 +146,11 @@ export const AdminBugReports: React.FC = () => {
     }
   };
 
-  // Ekspor & Salin Prompt untuk AI
+  // Ekspor & Salin Instruksi Laporan
   const handleCopySinglePrompt = (report: BugReport) => {
     const prompt = bugReportService.generateAiFixPrompt(report);
     navigator.clipboard.writeText(prompt);
-    showToast(`Prompt AI untuk ${report.id} disalin ke clipboard! Siap ditempel ke Antigravity.`);
+    showToast(`Instruksi perbaikan untuk ${report.id} disalin ke clipboard! Siap ditempel ke Antigravity.`);
   };
 
   const handleCopyAllFilteredPrompts = () => {
@@ -160,7 +160,7 @@ export const AdminBugReports: React.FC = () => {
     }
     const prompt = bugReportService.generateAiFixPrompt(filteredReports);
     navigator.clipboard.writeText(prompt);
-    showToast(`${filteredReports.length} laporan disalin sebagai prompt AI siap pakai!`);
+    showToast(`${filteredReports.length} laporan disalin sebagai instruksi perbaikan siap pakai!`);
   };
 
   const handleExportMarkdown = () => {
@@ -232,7 +232,7 @@ export const AdminBugReports: React.FC = () => {
             <span>Pusat Kendali Laporan Bug & Masalah</span>
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Kelola temuan kendala pengguna, telusuri log teknis, dan ekspor instruksi langsung untuk diperbaiki oleh Antigravity (AI).
+            Kelola temuan kendala pengguna, telusuri log teknis, dan ekspor instruksi langsung untuk diperbaiki oleh Antigravity.
           </p>
         </div>
 
@@ -247,15 +247,15 @@ export const AdminBugReports: React.FC = () => {
             <span>Segarkan</span>
           </button>
 
-          {/* 1-Click Copy AI Prompt */}
+          {/* 1-Click Copy Fix Prompt */}
           <button
             onClick={handleCopyAllFilteredPrompts}
             disabled={filteredReports.length === 0}
             className="px-3.5 py-2.5 rounded-lg bg-[#708090] hover:bg-[#5C6D7D] text-[#FFFFF0] border border-[#708090] shadow-xs transition cursor-pointer flex items-center gap-2 text-xs font-bold active:scale-95 disabled:opacity-50"
-            title="Salin seluruh laporan yang terfilter menjadi prompt terstruktur untuk Antigravity"
+            title="Salin seluruh laporan yang terfilter menjadi instruksi terstruktur untuk Antigravity"
           >
             <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>Salin Prompt untuk AI ({filteredReports.length})</span>
+            <span>Salin Instruksi Perbaikan ({filteredReports.length})</span>
           </button>
 
           {/* Dropdown / Export Buttons */}
@@ -263,7 +263,7 @@ export const AdminBugReports: React.FC = () => {
             <button
               onClick={handleExportMarkdown}
               className="px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 border-r border-slate-200 flex items-center gap-1.5 transition"
-              title="Unduh file .md prompt AI"
+              title="Unduh file .md instruksi perbaikan"
             >
               <Download className="w-3.5 h-3.5 text-slate-500" />
               <span>.MD</span>
@@ -496,10 +496,10 @@ export const AdminBugReports: React.FC = () => {
                     <button
                       onClick={() => handleCopySinglePrompt(report)}
                       className="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-lg text-xs font-bold flex items-center gap-1 transition cursor-pointer shadow-2xs"
-                      title="Salin Prompt untuk Antigravity (1-Click)"
+                      title="Salin Instruksi untuk Antigravity (1-Click)"
                     >
                       <Copy className="w-3 h-3 text-amber-700" />
-                      <span>Salin Prompt AI</span>
+                      <span>Salin Instruksi</span>
                     </button>
 
                     {/* Lihat Detail */}

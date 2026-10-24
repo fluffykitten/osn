@@ -74,7 +74,7 @@ In aqueous solution:
    - Commonly written as: $\\ce{HCl(aq) -> H+(aq) + Cl^-(aq)}$.
    - Have a sour taste, conduct electricity in aqueous solution, and have $\\text{pH} < 7$.
 2. **Bases**: Substances that react with acids to form a salt and water only (neutralisation):
-   - Bases include **metal oxides** (e.g. $\\ce{CuO}$, $\\ce{MgO}$), **metal hydroxides** (e.g. $\\ce{Cu(OH)2}$, $\\ce{Fe(OH)3}$), and **ammonia** ($\\ce{NH3}$).
+   - Bases include metal oxides (e.g. $\\ce{CuO}$, $\\ce{MgO}$), metal hydroxides (e.g. $\\ce{Cu(OH)2}$, $\\ce{Fe(OH)3}$), and ammonia ($\\ce{NH3}$).
 3. **Alkalis**: A **soluble base** that dissolves in water to produce hydroxide ions ($\\ce{OH-(aq)}$):
    $$\\ce{NaOH(s) -> Na+(aq) + OH^-(aq)}$$
    $$\\ce{NH3(aq) + H2O(l) <=> NH4+(aq) + OH^-(aq)}$$
@@ -319,7 +319,7 @@ A hydrogen atom consists of $1\\text{ proton}$ and $1\\text{ electron}$. When it
         'Understanding complete ionisation of strong acids versus partial, reversible dissociation of weak acids, and distinguishing between concentration (mol/dm3) and acid strength.',
       content: `### ⚡ Strong Acids vs Weak Acids
 
-The **strength** of an acid refers strictly to the **extent to which it dissociates (ionises) in aqueous solution**:
+The **strength** of an acid refers strictly to the extent to which it dissociates (ionises) in aqueous solution:
 
 1. **Strong Acids**:
    - Ionise **completely (100%)** in water to produce hydrogen ions.
@@ -327,7 +327,7 @@ The **strength** of an acid refers strictly to the **extent to which it dissocia
      $$\\ce{HCl(aq) -> H+(aq) + Cl^-(aq)}$$
      $$\\ce{HNO3(aq) -> H+(aq) + NO3^-(aq)}$$
      $$\\ce{H2SO4(aq) -> 2H+(aq) + SO4^{2-}(aq)}$$
-   - Solutions of strong acids contain **no un-ionised acid molecules**, only free hydrated ions.
+   - Solutions of strong acids contain no un-ionised acid molecules, only free hydrated ions.
    - High $[\\ce{H+}]$ gives low $\\text{pH}$ ($0 - 2$), high electrical conductivity, and rapid effervescence with magnesium or carbonates.
 
 2. **Weak Acids**:
@@ -1083,12 +1083,14 @@ Hydrated copper(II) sulfate has the formula $\\ce{CuSO4 \\cdot xH2O}$.
 A student heated a crucible containing $4.99\\text{ g}$ of hydrated copper(II) sulfate crystals until all the water of crystallisation was driven off. The mass of the anhydrous white copper(II) sulfate residue was $3.19\\text{ g}$.
 
 **(a) (2 marks)** Calculate the mass of water lost during heating.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - $\\text{Mass of } \\ce{H2O} = 4.99\\text{ g} - 3.19\\text{ g} = 1.80\\text{ g}$ [1 mark].
 > - Calculation completed with correct units [1 mark].
 
 **(b) (3 marks)** Given that $M_r(\\ce{CuSO4}) = 159.5$ and $M_r(\\ce{H2O}) = 18.0$, determine the value of the integer $x$ in $\\ce{CuSO4 \\cdot xH2O}$. Show all your working.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Moles of anhydrous $\\ce{CuSO4} = \\frac{3.19}{159.5} = 0.0200\\text{ mol}$ [1 mark].
@@ -1097,6 +1099,7 @@ A student heated a crucible containing $4.99\\text{ g}$ of hydrated copper(II) s
 > - **Value of $x = 5$** (Formula is $\\ce{CuSO4 \\cdot 5H2O}$).
 
 **(c) (1 mark)** Describe how the student could verify that all the water of crystallisation had been removed.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - Re-heat the crucible, cool, and re-weigh until a **constant mass** is achieved [1 mark].
@@ -1107,16 +1110,19 @@ A student heated a crucible containing $4.99\\text{ g}$ of hydrated copper(II) s
 Aluminium oxide ($\\ce{Al2O3}$) is an amphoteric oxide.
 
 **(a) (1 mark)** Define the term *amphoteric oxide*.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - An oxide that reacts with **both acids and bases/alkalis** to form salts [1 mark].
 
 **(b) (2 marks)** Write a balanced chemical equation for the reaction of aluminium oxide with dilute hydrochloric acid.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - Correct formulas: $\\ce{Al2O3 + 6HCl -> 2AlCl3 + 3H2O}$ [1 mark for formulas, 1 mark for balancing].
 
 **(c) (2 marks)** When aluminium oxide reacts with hot aqueous sodium hydroxide, sodium aluminate ($\\ce{NaAl(OH)4}$ or $\\ce{NaAlO2}$) is formed. Explain why copper(II) oxide does NOT react with sodium hydroxide.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Copper(II) oxide is a **basic oxide** [1 mark].
@@ -1130,12 +1136,14 @@ A student investigated the conductivity and rate of reaction of two acids:
 - Acid B: $0.1\\text{ mol/dm}^3$ ethanoic acid
 
 **(a) (2 marks)** Explain why Acid A is a better electrical conductor than Acid B.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > 1. Acid A ($\\ce{HCl}$) is a **strong acid** and is **completely ionised** in water [1 mark].
 > 2. Acid B ($\\ce{CH3COOH}$) is a **weak acid** and is only **partially ionised**; Acid A has a much higher concentration of free mobile ions to carry electric charge [1 mark].
 
 **(b) (2 marks)** Equal masses of calcium carbonate lumps are added to $50\\text{ cm}^3$ of each acid. Compare the initial rates and final total volumes of carbon dioxide produced.
+
 > [!TIP]
 > ### 💡 Mark Scheme:
 > - **Initial rate**: Faster with Acid A than Acid B because $[\\ce{H+}]$ is higher, leading to a higher frequency of collisions [1 mark].

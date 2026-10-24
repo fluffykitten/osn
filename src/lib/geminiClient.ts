@@ -1,6 +1,6 @@
 /**
  * geminiClient.ts
- * Klien AI Gemini terintegrasi dengan arsitektur pool multi-key dan env.local (seperti pada testmaker)
+ * Klien Gemini terintegrasi dengan arsitektur pool multi-key dan env.local (seperti pada testmaker)
  * Mendukung:
  * - VITE_GEMINI_API_KEY (kunci primer dari .env.local)
  * - VITE_GEMINI_API_KEY_2, VITE_GEMINI_API_KEY_3... (kunci sekunder/rotasi)
@@ -234,7 +234,7 @@ export async function callGemini(
         return { text: data.text || data.result, mode: 'proxy' };
       }
     } catch (_proxyErr) {
-      console.warn('Proxy AI tidak merespon, beralih ke scientific fallback mode.');
+      console.warn('Proxy API tidak merespon, beralih ke scientific fallback mode.');
     }
   }
 
